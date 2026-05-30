@@ -88,14 +88,14 @@ When starting from existing IMathAS code rather than a source brief:
   Reading priority: `questions/qt-{id}/static/static_question_latex.txt` if present; otherwise
   `questions/qt-{id}/static/static_question.txt`; otherwise `questions/qt-{id}/static/static_question_no_answerboxes.txt`.
 
-- `context/active_qt.md` — provides `Book`, `Chapter`, `Unit/Section` for
+- `questions/qt-{id}/meta.xml` — provides `book_slug`, `chapter_title`, `unit_title` for
   book navigation
 
   > **If missing — stop and report:**
   > ```
-  > active_qt.md not found or empty.
-  > This skill needs Book / Chapter / Unit to locate the relevant section in books/.
-  > Populate context/active_qt.md and retry.
+  > questions/qt-{id}/meta.xml not found or empty.
+  > This skill needs book_slug / chapter_title / unit_title to locate the relevant section in books/.
+  > Populate questions/qt-{id}/meta.xml and retry.
   > ```
 
 **Optional — read if present:**
@@ -121,7 +121,7 @@ Read the static question file (reading priority above). Parse:
 
 #### Step B — Derive scope from books
 
-Read `context/active_qt.md` → extract `Book`, `Chapter`, `Unit` (section code).
+Read `questions/qt-{id}/meta.xml` → extract `book_slug`, `chapter_title`, `unit_title`.
 
 Navigate `shared/books/{book_slug}/INDEX.md` to locate the section file, then read
 `shared/books/{book_slug}/ch{N}_sect_{N.M}.xml`. Extract:
@@ -317,12 +317,12 @@ Chat status after write:
 | Method source | Book section procedure (primary); source_brief.method.primary overrides if present |
 | Notation source | Book section examples (primary); source_brief.notation_conventions overrides if present |
 | source_brief.xml | Optional — enriches scope when present; not required |
-| active_qt.md | Required — entry point for book navigation |
+| meta.xml | Required — entry point for book navigation (`book_slug`, `chapter_title`, `unit_title`) |
 | Python verification | Required for every numerical result |
 | Bullets | Never — no `- * +` in solution body |
 | Patch Mode trigger | `static_solution_latex.txt` + audit reports both present |
 | Patch scope | Only steps flagged in audit — everything else frozen |
-| active_qt.md absent | Stop — cannot navigate books without Book/Chapter/Section |
+| meta.xml absent | Stop — cannot navigate books without book_slug/chapter_title/unit_title |
 | Question reading priority | `static_question_latex.txt` → `static_question.txt` → `static_question_no_answerboxes.txt` |
 | File writes | Each phase writes to its own file — no confirm gate |
 | Internal logs | [PYTHON], [SCOPE_CHECK], [CERTIFICATION: PASS] suppressed from chat |

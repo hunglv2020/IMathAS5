@@ -83,8 +83,8 @@ Evaluate at the very start, before any file reads.
 1. **Primary path:** `questions/qt-{id}/static/source_brief.xml` exists → proceed normally (full scope contract).
 
 2. **Books fallback** (when source_brief.xml is absent):
-   a. Read `context/active_qt.md` → extract `Book`, `Chapter`, `Unit/Section`,
-      `Learning Objective`.
+   a. Read `questions/qt-{id}/meta.xml` → extract `book_slug`, `chapter_title`, `unit_title`,
+      `learning_objective_title`.
    b. Navigate `shared/books/{book_slug}/INDEX.md` → locate the chapter/section file(s).
    c. Read the relevant XML section file(s) from `shared/books/{book_slug}/`.
    d. Extract from book content:
@@ -102,14 +102,14 @@ Evaluate at the very start, before any file reads.
 
 3. **Hard stop** only when BOTH are missing:
    ```
-   source_brief.xml not found AND active_qt.md missing or empty.
+   source_brief.xml not found AND questions/qt-{id}/meta.xml missing or empty.
    Cannot proceed without a scope source.
 
    Needed:
-     context/active_qt.md  — Book, Chapter, Unit must be filled
+     questions/qt-{id}/meta.xml  — book_slug, chapter_title, unit_title must be filled
      (then optionally) questions/qt-{id}/static/target_exercises.xml → run generate-source-brief
 
-   Run generate-source-brief or populate active_qt.md first.
+   Run generate-source-brief or populate meta.xml first.
    ```
 
 **Optional — read if present:**
