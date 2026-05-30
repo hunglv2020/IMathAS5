@@ -1,0 +1,559 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="4.5" title="The Chain Rule">
+  <learning_objectives>
+    <objective number="4.5.1">State the chain rules for one or two independent variables.</objective>
+    <objective number="4.5.2">Use tree diagrams as an aid to understanding the chain rule for several independent and intermediate variables.</objective>
+    <objective number="4.5.3">Perform implicit differentiation of a function of two or more variables.</objective>
+  </learning_objectives>
+  <p>In single-variable calculus, we found that one of the most useful differentiation rules is the chain rule, which allows us to find the derivative of the composition of two functions. The same thing is true for multivariable calculus, but this time we have to deal with more than one form of the chain rule. In this section, we study extensions of the chain rule and learn how to take derivatives of compositions of functions of more than one variable.</p>
+  <subsection title="Chain Rules for One or Two Independent Variables">
+    <p>Recall that the chain rule for the derivative of a composite of two functions can be written in the form</p>
+    <equation>$$\frac{d}{dx}\left( {f\left( {g(x)} \right)} \right) = f\prime\left( {g(x)} \right)g\prime(x).$$</equation>
+    <p>In this equation, both $$f(x)$$ and $$g(x)$$ are functions of one variable. Now suppose that $$f$$ is a function of two variables and $$g$$ is a function of one variable. Or perhaps they are both functions of two variables, or even more. How would we calculate the derivative in these cases? The following theorem gives us the answer for the case of one independent variable.</p>
+    <theorem number="4.8" title="Chain Rule for One Independent Variable">
+      <p>Suppose that $$x = g(t)$$ and $$y = h(t)$$ are differentiable functions of $$t$$ and $$z = f\left( {x,y} \right)$$ is a differentiable function of $$x\ \text{and}\ y.$$ Then $$z = f\left( {x(t),y(t)} \right)$$ is a differentiable function of $$t$$ and</p>
+      <equation>$$\frac{dz}{dt} = \frac{\partial z}{\partial x} \cdot \frac{dx}{dt} + \frac{\partial z}{\partial y} \cdot \frac{dy}{dt},$$</equation>
+      <p>where the ordinary derivatives are evaluated at $$t$$ and the partial derivatives are evaluated at $$\left( {x,y} \right).$$</p>
+    </theorem>
+    <subsection title="Proof">
+      <p>The proof of this theorem uses the definition of differentiability of a function of two variables. Suppose that f is differentiable at the point $$P\left( {x_{0},y_{0}} \right),$$ where $$x_{0} = g\left( t_{0} \right)$$ and $$y_{0} = h\left( t_{0} \right)$$ for a fixed value of $$t_{0}.$$ We wish to prove that $$z = f\left( {x(t),y(t)} \right)$$ is differentiable at $$t = t_{0}$$ and that Equation 4.29 holds at that point as well.</p>
+      <p>Since $$f$$ is differentiable at $$P,$$ we know that</p>
+      <equation>$$z(t) = f\left( {x,y} \right) = f\left( {x_{0},y_{0}} \right) + f_{x}\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y - y_{0}} \right) + E\left( {x,y} \right),$$</equation>
+      <p>where $$\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\frac{E\left( {x,y} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}} = 0.$$ We then subtract $$z_{0} = f\left( {x_{0},y_{0}} \right)$$ from both sides of this equation:</p>
+      <equation>$$\begin{array}{cl} {z(t) - z\left( t_{0} \right)} &amp; {= f\left( {x(t),y(t)} \right) - f\left( {x\left( t_{0} \right),y\left( t_{0} \right)} \right)} \\ &amp; {= f_{x}\left( {x_{0},y_{0}} \right)\left( {x(t) - x\left( t_{0} \right)} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y(t) - y\left( t_{0} \right)} \right) + E\left( {x(t),y(t)} \right).} \end{array}$$</equation>
+      <p>Next, we divide both sides by $$t - t_{0}\text{:}$$</p>
+      <equation>$$\frac{z(t) - z\left( t_{0} \right)}{t - t_{0}} = f_{x}\left( {x_{0},y_{0}} \right)\left( \frac{x(t) - x\left( t_{0} \right)}{t - t_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( \frac{y(t) - y\left( t_{0} \right)}{t - t_{0}} \right) + \frac{E\left( {x(t),y(t)} \right)}{t - t_{0}}.$$</equation>
+      <p>Then we take the limit as $$t$$ approaches $$t_{0}\text{:}$$</p>
+      <equation>$$\begin{array}{cl} {\underset{t\rightarrow t_{0}}{\text{lim}}\frac{z(t) - z\left( t_{0} \right)}{t - t_{0}}} &amp; {= f_{x}\left( {x_{0},y_{0}} \right)\underset{t\rightarrow t_{0}}{\text{lim}}\left( \frac{x(t) - x\left( t_{0} \right)}{t - t_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\underset{t\rightarrow t_{0}}{\text{lim}}\left( \frac{y(t) - y\left( t_{0} \right)}{t - t_{0}} \right)} \\ &amp; {\mspace{9mu} + \underset{t\rightarrow t_{0}}{\text{lim}}\frac{E\left( {x(t),y(t)} \right)}{t - t_{0}}.} \end{array}$$</equation>
+      <p>The left-hand side of this equation is equal to $${{dz}\text{/}{dt}},$$ which leads to</p>
+      <equation>$$\frac{dz}{dt} = f_{x}\left( {x_{0},y_{0}} \right)\frac{dx}{dt} + f_{y}\left( {x_{0},y_{0}} \right)\frac{dy}{dt} + \underset{t\rightarrow t_{0}}{\text{lim}}\frac{E\left( {x(t),y(t)} \right)}{t - t_{0}}.$$</equation>
+      <p>The last term can be rewritten as</p>
+      <equation>$$\begin{array}{cl} {\underset{t\rightarrow t_{0}}{\text{lim}}\frac{E\left( {x(t),y(t)} \right)}{t - t_{0}}} &amp; {= \underset{t\rightarrow t_{0}}{\text{lim}}\left( {\frac{E\left( {x,y} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}}\ \frac{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}}{t - t_{0}}} \right)} \\ &amp; {= \underset{t\rightarrow t_{0}}{\text{lim}}\left( \frac{E\left( {x,y} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}} \right)\underset{t\rightarrow t_{0}}{\text{lim}}\left( \frac{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}}{t - t_{0}} \right).} \end{array}$$</equation>
+      <p>As $$t$$ approaches $$t_{0},$$ $$\left( {x(t),y(t)} \right)$$ approaches $$\left( {x\left( t_{0} \right),y\left( t_{0} \right)} \right),$$ so we can rewrite the last product as</p>
+      <equation>$$\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\left( \frac{E\left( {x,y} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}} \right)\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\left( \frac{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}}{t - t_{0}} \right).$$</equation>
+      <p>Since the first limit is equal to zero, we need only show that the second limit is finite:</p>
+      <equation>$$\begin{array}{cl} {\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\left( \frac{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}}{t - t_{0}} \right)} &amp; {= \underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\left( \sqrt{\frac{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}{\left( {t - t_{0}} \right)^{2}}} \right)} \\ &amp; {= \underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\left( \sqrt{\left( \frac{x - x_{0}}{t - t_{0}} \right)^{2} + \left( \frac{y - y_{0}}{t - t_{0}} \right)^{2}} \right)} \\ &amp; {= \sqrt{\left( {\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\left( \frac{x - x_{0}}{t - t_{0}} \right)} \right)^{2} + \left( {\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\left( \frac{y - y_{0}}{t - t_{0}} \right)} \right)^{2}}.} \end{array}$$</equation>
+      <p>Since $$x(t)$$ and $$y(t)$$ are both differentiable functions of $$t,$$ both limits inside the last radical exist. Therefore, this value is finite. This proves the chain rule at $$t = t_{0};$$ the rest of the theorem follows from the assumption that all functions are differentiable over their entire domains.</p>
+      <p>□</p>
+      <p>Closer examination of Equation 4.29 reveals an interesting pattern. The first term in the equation is $$\frac{\partial f}{\partial x} \cdot \frac{dx}{dt}$$ and the second term is $$\frac{\partial f}{\partial y} \cdot \frac{dy}{dt}.$$ Recall that when multiplying fractions, cancelation can be used. If we treat these derivatives as fractions, then each product “simplifies” to something resembling $${{\partial f}\text{/}{dt}}.$$ The variables $$x\ \text{and}\ y$$ that disappear in this simplification are often called intermediate variables: they are independent variables for the function $$f,$$ but are dependent variables for the variable $$t.$$ Two terms appear on the right-hand side of the formula, and $$f$$ is a function of two variables. This pattern works with functions of more than two variables as well, as we see later in this section.</p>
+      <example number="4.26">
+        <problem>
+          <title>Using the Chain Rule</title>
+          <p>Calculate $${dz}\text{/}{dt}$$ for each of the following functions:</p>
+          <list type="ol" style="a">
+            <item>$$z = f\left( {x,y} \right) = 4x^{2} + 3y^{2},x = x(t) = \text{sin}\ t,y = y(t) = \text{cos}\ t$$</item>
+            <item>$$z = f\left( {x,y} \right) = \sqrt{x^{2} - y^{2}},x = x(t) = e^{2t},y = y(t) = e^{\text{−}t}$$</item>
+          </list>
+        </problem>
+        <solution>
+          <list type="ol" style="a">
+            <item>To use the chain rule, we need four quantities—andNow, we substitute each of these into:This answer has three variables in it. To reduce it to one variable, use the fact thatWe obtainThis derivative can also be calculated by first substitutingandintothen differentiating with respect toThenwhich is the same solution. However, it may not always be this easy to differentiate in this form.<equation>$${{\partial z}\text{/}{\partial x}},{{\partial z}\text{/}{\partial y}},{{dx}\text{/}{dt}},$$</equation>
+              <equation>$${{dy}\text{/}{dt}}\text{:}$$</equation>
+              <equation>$$\begin{array}{lccl} {\frac{\partial z}{\partial x} = 8x} &amp; &amp; &amp; {\frac{\partial z}{\partial y} = 6y} \\ {\frac{dx}{dt} = \text{cos}\ t} &amp; &amp; &amp; {\frac{dy}{dt} = \text{−}\text{sin}\ t} \end{array}$$</equation>
+              <equation>$$\begin{array}{cl} \frac{dz}{dt} &amp; {= \frac{\partial z}{\partial x} \cdot \frac{dx}{dt} + \frac{\partial z}{\partial y} \cdot \frac{dy}{dt}} \\ &amp; {= \left( {8x} \right)\left( {\text{cos}\ t} \right) + \left( {6y} \right)\left( {\text{−}\text{sin}\ t} \right)} \\ &amp; {= 8x\ \text{cos}\ t - 6y\ \text{sin}\ t.} \end{array}$$</equation>
+              <equation>$$x(t) = \text{sin}\ t\ \text{and}\ y(t) = \text{cos}\ t.$$</equation>
+              <equation>$$\begin{array}{cl} \frac{dz}{dt} &amp; {= 8x\ \text{cos}\ t - 6y\ \text{sin}\ t} \\ &amp; {= 8\left( {\text{sin}\ t} \right)\text{cos}\ t - 6\left( {\text{cos}\ t} \right)\text{sin}\ t} \\ &amp; {= 2\ \text{sin}\ t\ \text{cos}\ t.} \end{array}$$</equation>
+              <equation>$$x(t)$$</equation>
+              <equation>$$y(t)$$</equation>
+              <equation>$$f\left( {x,y} \right),$$</equation>
+              <equation>$$t\text{:}$$</equation>
+              <equation>$$\begin{array}{cl} z &amp; {= f\left( {x,y} \right)} \\ &amp; {= f\left( {x(t),y(t)} \right)} \\ &amp; {= 4\left( {x(t)} \right)^{2} + 3\left( {y(t)} \right)^{2}} \\ &amp; {= 4\text{sin}^{2}t + 3\text{cos}^{2}t.} \end{array}$$</equation>
+              <equation>$$\begin{array}{cl} \frac{dz}{dt} &amp; {= 2(4\ \text{sin}\ t)(\text{cos}\ t) + 2(3\ \text{cos}\ t)(\text{−}\text{sin}\ t)} \\ &amp; {= 8\ \text{sin}\ t\ \text{cos}\ t - 6\ \text{sin}\ t\ \text{cos}\ t} \\ &amp; {= 2\ \text{sin}\ t\ \text{cos}\ t,} \end{array}$$</equation>
+            </item>
+            <item>To use the chain rule, we again need four quantities—andWe substitute each of these into:To reduce this to one variable, we use the fact thatandTherefore,To eliminate negative exponents, we multiply the top byand the bottom byAgain, this derivative can also be calculated by first substitutingandintothen differentiating with respect toThenThis is the same solution.<equation>$${{\partial z}\text{/}{\partial x}},{{\partial z}\text{/}{dy}},{{dx}\text{/}{dt}},$$</equation>
+              <equation>$${{dy}\text{/}{dt}}\text{:}$$</equation>
+              <equation>$$\begin{matrix} {\frac{\partial z}{\partial x} = \frac{x}{\sqrt{x^{2} - y^{2}}}} &amp; &amp; &amp; {\frac{\partial z}{\partial y} = \frac{\text{−}y}{\sqrt{x^{2} - y^{2}}}} \\ {\frac{dx}{dt} = 2e^{2t}} &amp; &amp; &amp; {\frac{dy}{dt} = \text{−}e^{\text{−}t}.} \end{matrix}$$</equation>
+              <equation>$$\begin{array}{cl} \frac{dz}{dt} &amp; {= \frac{\partial z}{\partial x} \cdot \frac{dx}{dt} + \frac{\partial z}{\partial y} \cdot \frac{dy}{dt}} \\ &amp; {= \left( \frac{x}{\sqrt{x^{2} - y^{2}}} \right)\left( {2e^{2t}} \right) + \left( \frac{\text{−}y}{\sqrt{x^{2} - y^{2}}} \right)\left( {\text{−}e^{\text{−}t}} \right)} \\ &amp; {= \frac{2xe^{2t} + ye^{\text{−}t}}{\sqrt{x^{2} - y^{2}}}.} \end{array}$$</equation>
+              <equation>$$x(t) = e^{2t}$$</equation>
+              <equation>$$y(t) = e^{\text{−}t}.$$</equation>
+              <equation>$$\begin{array}{cl} \frac{dz}{dt} &amp; {= \frac{2xe^{2t} + ye^{\text{−}t}}{\sqrt{x^{2} - y^{2}}}} \\ &amp; {= \frac{2\left( e^{2t} \right)e^{2t} + \left( e^{\text{−}t} \right)e^{\text{−}t}}{\sqrt{e^{4t} - e^{-2t}}}} \\ &amp; {= \frac{2e^{4t} + e^{-2t}}{\sqrt{e^{4t} - e^{-2t}}}.} \end{array}$$</equation>
+              <equation>$$e^{2t}$$</equation>
+              <equation>$$\sqrt{e^{4t}}\text{:}$$</equation>
+              <equation>$$\begin{array}{cl} \frac{dz}{dt} &amp; {= \frac{2e^{4t} + e^{-2t}}{\sqrt{e^{4t} - e^{-2t}}} \cdot \frac{e^{2t}}{\sqrt{e^{4t}}}} \\ &amp; {= \frac{2e^{6t} + 1}{\sqrt{e^{8t} - e^{2t}}}} \\ &amp; {= \frac{2e^{6t} + 1}{\sqrt{e^{2t}\left( {e^{6t} - 1} \right)}}} \\ &amp; {= \frac{2e^{6t} + 1}{e^{t}\sqrt{e^{6t} - 1}}.} \end{array}$$</equation>
+              <equation>$$x(t)$$</equation>
+              <equation>$$y(t)$$</equation>
+              <equation>$$f\left( {x,y} \right),$$</equation>
+              <equation>$$t\text{:}$$</equation>
+              <equation>$$\begin{array}{cl} z &amp; {= f\left( {x,y} \right)} \\ &amp; {= f\left( {x(t),y(t)} \right)} \\ &amp; {= \sqrt{\left( {x(t)} \right)^{2} - \left( {y(t)} \right)^{2}}} \\ &amp; {= \sqrt{e^{4t} - e^{-2t}}} \\ &amp; {= \left( {e^{4t} - e^{-2t}} \right)^{1\text{/}2}.} \end{array}$$</equation>
+              <equation>$$\begin{array}{cl} \frac{dz}{dt} &amp; {= \frac{1}{2}\left( {e^{4t} - e^{-2t}} \right)^{\text{−}{1\text{/}2}}\left( {4e^{4t} + 2e^{-2t}} \right)} \\ &amp; {= \frac{2e^{4t} + e^{-2t}}{\sqrt{e^{4t} - e^{-2t}}}.} \end{array}$$</equation>
+            </item>
+          </list>
+        </solution>
+      </example>
+      <checkpoint number="4.23">
+        <problem>
+          <p>Calculate $${dz}\text{/}{dt}$$ given the following functions. Express the final answer in terms of $$t.$$</p>
+          <equation>$$z = f\left( {x,y} \right) = x^{2} - 3xy + 2y^{2},x = x(t) = 3\ \text{sin}\ 2t,y = y(t) = 4\ \text{cos}\ 2t$$</equation>
+        </problem>
+        <solution>
+          <p>$$\begin{array}{cl} \frac{dz}{dt} &amp; {= \frac{\partial f}{\partial x}\ \frac{dx}{dt} + \frac{\partial f}{\partial y}\ \frac{dy}{dt}} \\ &amp; {= \left( {2x - 3y} \right)\left( {6\ \text{cos}\ 2t} \right) + \left( {-3x + 4y} \right)\left( {-8\ \text{sin}\ 2t} \right)} \\ &amp; {= -92\ \text{sin}\ 2t\ \text{cos}\ 2t - 72\left( {\text{cos}^{2}2t - \text{sin}^{2}2t} \right)} \\ &amp; {= -46\ \text{sin}\ 4t - 72\ \text{cos}\ 4t.} \end{array}$$</p>
+        </solution>
+      </checkpoint>
+      <p>It is often useful to create a visual representation of Equation 4.29 for the chain rule. This is called a tree diagram for the chain rule for functions of one variable and it provides a way to remember the formula (Figure 4.34). This diagram can be expanded for functions of more than one variable, as we shall see very shortly.</p>
+      <image alt="A diagram that starts with z = f(x, y). Along the first branch, it is written ∂z/∂x, then x = x(t), then dx/dt, then t, and finally it says ∂z/∂x dx/dt. Along the other branch, it is written ∂z/∂y, then y = y(t), then dy/dt, then t, and finally it says ∂z/∂y dy/dt." number="4.34" caption="Tree diagram for the case $$\frac{dz}{dt} = \frac{\partial z}{\partial x} \cdot \frac{dx}{dt} + \frac{\partial z}{\partial y} \cdot \frac{dy}{dt}.$$" />
+      <p>In this diagram, the leftmost corner corresponds to $$z = f\left( {x,y} \right).$$ Since $$f$$ has two independent variables, there are two lines coming from this corner. The upper branch corresponds to the variable $$x$$ and the lower branch corresponds to the variable $$y.$$ Since each of these variables is then dependent on one variable $$t,$$ one branch then comes from $$x$$ and one branch comes from $$y.$$ Last, each of the branches on the far right has a label that represents the path traveled to reach that branch. The top branch is reached by following the $$x$$ branch, then the $$t$$ branch; therefore, it is labeled $$\left( {{\partial z}\text{/}{\partial x}} \right)\ \times \ \left( {{dx}\text{/}{dt}} \right).$$ The bottom branch is similar: first the $$y$$ branch, then the $$t$$ branch. This branch is labeled $$\left( {{\partial z}\text{/}{\partial y}} \right)\ \times \ \left( {{dy}\text{/}{dt}} \right).$$ To get the formula for $${{dz}\text{/}{dt}},$$ add all the terms that appear on the rightmost side of the diagram. This gives us Equation 4.29.</p>
+      <p>In Chain Rule for Two Independent Variables, $$z = f\left( {x,y} \right)$$ is a function of $$x\ \text{and}\ y,$$ and both $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right)$$ are functions of the independent variables $$u\ \text{and}\ v.$$</p>
+      <theorem number="4.9" title="Chain Rule for Two Independent Variables">
+        <p>Suppose $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right)$$ are differentiable functions of $$u$$ and $$v,$$ and $$z = f\left( {x,y} \right)$$ is a differentiable function of $$x\ \text{and}\ y.$$ Then, $$z = f\left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right)$$ is a differentiable function of $$u\ \text{and}\ v,$$ and</p>
+        <equation>$$\frac{\partial z}{\partial u} = \frac{\partial z}{\partial x}\ \frac{\partial x}{\partial u} + \frac{\partial z}{\partial y}\ \frac{\partial y}{\partial u}$$</equation>
+        <p>and</p>
+        <equation>$$\frac{\partial z}{\partial v} = \frac{\partial z}{\partial x}\ \frac{\partial x}{\partial v} + \frac{\partial z}{\partial y}\ \frac{\partial y}{\partial v}.$$</equation>
+      </theorem>
+      <p>We can draw a tree diagram for each of these formulas as well as follows.</p>
+      <image alt="A diagram that starts with z = f(x, y). Along the first branch, it is written ∂z/∂x, then x = g(u, v), at which point it breaks into another two branches: the first subbranch says ∂x/∂u, then u, and finally it says ∂z/∂x ∂x/∂u; the second subbranch says ∂x/∂v, then v, and finally it says ∂z/∂x ∂x/∂v. Along the other branch, it is written ∂z/∂y, then y = h(u, v), at which point it breaks into another two branches: the first subbranch says ∂y/∂u, then u, and finally it says ∂z/∂y ∂y/∂u; the second subbranch says ∂y/∂v, then v, and finally it says ∂z/∂y ∂y/∂v." number="4.35" caption="Tree diagram for $$\frac{\partial z}{\partial u} = \frac{\partial z}{\partial x} \cdot \frac{\partial x}{\partial u} + \frac{\partial z}{\partial y} \cdot \frac{\partial y}{\partial u}$$ and $$\frac{\partial z}{\partial v} = \frac{\partial z}{\partial x} \cdot \frac{\partial x}{\partial v} + \frac{\partial z}{\partial y} \cdot \frac{\partial y}{\partial v}.$$" />
+      <p>To derive the formula for $${{\partial z}\text{/}{\partial u}},$$ start from the left side of the diagram, then follow only the branches that end with $$u$$ and add the terms that appear at the end of those branches. For the formula for $${{\partial z}\text{/}{\partial v}},$$ follow only the branches that end with $$v$$ and add the terms that appear at the end of those branches.</p>
+      <p>There is an important difference between these two chain rule theorems. In Chain Rule for One Independent Variable, the left-hand side of the formula for the derivative is not a partial derivative, but in Chain Rule for Two Independent Variables it is. The reason is that, in Chain Rule for One Independent Variable, $$z$$ is ultimately a function of $$t$$ alone, whereas in Chain Rule for Two Independent Variables, $$z$$ is a function of both $$u\ \text{and}\ v.$$</p>
+      <example number="4.27">
+        <problem>
+          <title>Using the Chain Rule for Two Variables</title>
+          <p>Calculate $${\partial z}\text{/}{\partial u}$$ and $${\partial z}\text{/}{\partial v}$$ using the following functions:</p>
+          <equation>$$z = f\left( {x,y} \right) = 3x^{2} - 2xy + y^{2},x = x\left( {u,v} \right) = 3u + 2v,y = y\left( {u,v} \right) = 4u - v.$$</equation>
+        </problem>
+        <solution>
+          <p>To implement the chain rule for two variables, we need six partial derivatives—$${{\partial z}\text{/}{\partial x}},{{\partial z}\text{/}{\partial y,{{\partial x}\text{/}{\partial u,{{\partial x}\text{/}{\partial v,{{\partial y}\text{/}{\partial u}}}}}}}},$$ and $${{\partial y}\text{/}{\partial v}}\text{:}$$</p>
+          <equation>$$\begin{array}{lccl} {\frac{\partial z}{\partial x} = 6x - 2y} &amp; &amp; &amp; {\frac{\partial z}{\partial y} = -2x + 2y} \\ {\frac{\partial x}{\partial u} = 3} &amp; &amp; &amp; {\frac{\partial x}{\partial v} = 2} \\ {\frac{\partial y}{\partial u} = 4} &amp; &amp; &amp; {\frac{\partial y}{\partial v} = -1.} \end{array}$$</equation>
+          <p>To find $${{\partial z}\text{/}{\partial u}},$$ we use Equation 4.31:</p>
+          <equation>$$\begin{array}{cl} \frac{\partial z}{\partial u} &amp; {= \frac{\partial z}{\partial x}\frac{\partial x}{\partial u} + \frac{\partial z}{\partial y}\frac{\partial y}{\partial u}} \\ &amp; {= 3\left( {6x - 2y} \right) + 4\left( {-2x + 2y} \right)} \\ &amp; {= 10x + 2y.} \end{array}$$</equation>
+          <p>Next, we substitute $$x\left( {u,v} \right) = 3u + 2v$$ and $$y\left( {u,v} \right) = 4u - v\text{:}$$</p>
+          <equation>$$\begin{array}{cl} \frac{\partial z}{\partial u} &amp; {= 10x + 2y} \\ &amp; {= 10\left( {3u + 2v} \right) + 2\left( {4u - v} \right)} \\ &amp; {= 38u + 18v.} \end{array}$$</equation>
+          <p>To find $${{\partial z}\text{/}{\partial v}},$$ we use Equation 4.32:</p>
+          <equation>$$\begin{array}{cl} \frac{\partial z}{\partial v} &amp; {= \frac{\partial z}{\partial x}\ \frac{\partial x}{\partial v} + \frac{\partial z}{\partial y}\ \frac{\partial y}{\partial v}} \\ &amp; {= 2\left( {6x - 2y} \right) + (-1)\left( {-2x + 2y} \right)} \\ &amp; {= 14x - 6y.} \end{array}$$</equation>
+          <p>Then we substitute $$x\left( {u,v} \right) = 3u + 2v$$ and $$y\left( {u,v} \right) = 4u - v\text{:}$$</p>
+          <equation>$$\begin{array}{cl} \frac{\partial z}{\partial v} &amp; {= 14x - 6y} \\ &amp; {= 14\left( {3u + 2v} \right) - 6\left( {4u - v} \right)} \\ &amp; {= 18u + 34v.} \end{array}$$</equation>
+        </solution>
+      </example>
+      <checkpoint number="4.24">
+        <problem>
+          <p>Calculate $${\partial z}\text{/}{\partial u}$$ and $${\partial z}\text{/}{\partial v}$$ given the following functions:</p>
+          <equation>$$z = f\left( {x,y} \right) = \frac{2x - y}{x + 3y},x\left( {u,v} \right) = e^{2u}\text{cos}\ 3v,y\left( {u,v} \right) = e^{2u}\text{sin}\ 3v.$$</equation>
+        </problem>
+        <solution>
+          <p>$$\frac{\partial z}{\partial u} = 0,\quad\frac{\partial z}{\partial v} = \frac{-21}{{(3\ \text{sin}\ 3v + \text{cos}\ 3v)}^{2}}$$</p>
+        </solution>
+      </checkpoint>
+    </subsection>
+  </subsection>
+  <subsection title="The Generalized Chain Rule">
+    <p>Now that we’ve see how to extend the original chain rule to functions of two variables, it is natural to ask: Can we extend the rule to more than two variables? The answer is yes, as the generalized chain rule states.</p>
+    <theorem number="4.10" title="Generalized Chain Rule">
+      <p>Let $$w = f\left( {x_{1},x_{2}\text{,…,}\ x_{m}} \right)$$ be a differentiable function of $$m$$ independent variables, and for each $$i \in \left\{ 1\text{,…,}\ m \right\},$$ let $$x_{i} = x_{i}(t_{1},t_{2}\text{,…,}\ t_{n})$$ be a differentiable function of $$n$$ independent variables. Then</p>
+      <equation>$$\frac{\partial w}{\partial t_{j}} = \frac{\partial w}{\partial x_{1}}\ \frac{\partial x_{1}}{\partial t_{j}} + \frac{\partial w}{\partial x_{2}}\ \frac{\partial x_{2}}{\partial t_{j}} + \text{⋯} + \frac{\partial w}{\partial x_{m}}\ \frac{\partial x_{m}}{\partial t_{j}}$$</equation>
+      <p>for any $$j \in \left\{ 1,2\text{,…,}\ n \right\}.$$</p>
+    </theorem>
+    <p>In the next example we calculate the derivative of a function of three independent variables in which each of the three variables is dependent on two other variables.</p>
+    <example number="4.28">
+      <problem>
+        <title>Using the Generalized Chain Rule</title>
+        <p>Calculate $${\partial w}\text{/}{\partial u}$$ and $${\partial w}\text{/}{\partial v}$$ using the following functions:</p>
+        <equation>$$\begin{array}{rll} &amp; &amp; \\ w &amp; = &amp; {f\left( {x,y,z} \right) = 3x^{2} - 2xy + 4z^{2}} \\ x &amp; = &amp; {x\left( {u,v} \right) = e^{u}\text{sin}\ v} \\ y &amp; = &amp; {y\left( {u,v} \right) = e^{u}\text{cos}\ v} \\ z &amp; = &amp; {z\left( {u,v} \right) = e^{u}.} \end{array}$$</equation>
+      </problem>
+      <solution>
+        <p>The formulas for $${\partial w}\text{/}{\partial u}$$ and $${\partial w}\text{/}{\partial v}$$ are</p>
+        <equation>$$\begin{array}{l} {\frac{\partial w}{\partial u} = \frac{\partial w}{\partial x} \cdot \frac{\partial x}{\partial u} + \frac{\partial w}{\partial y} \cdot \frac{\partial y}{\partial u} + \frac{\partial w}{\partial z} \cdot \frac{\partial z}{\partial u}} \\ {\frac{\partial w}{\partial v} = \frac{\partial w}{\partial x} \cdot \frac{\partial x}{\partial v} + \frac{\partial w}{\partial y} \cdot \frac{\partial y}{\partial v} + \frac{\partial w}{\partial z} \cdot \frac{\partial z}{\partial v}.} \end{array}$$</equation>
+        <p>Therefore, there are nine different partial derivatives that need to be calculated and substituted. We need to calculate each of them:</p>
+        <equation>$$\begin{array}{rllccrllccrll} \frac{\partial w}{\partial x} &amp; = &amp; {6x - 2y} &amp; &amp; &amp; \frac{\partial w}{\partial y} &amp; = &amp; {-2x} &amp; &amp; &amp; \frac{\partial w}{\partial z} &amp; = &amp; {8z} \\ \frac{\partial x}{\partial u} &amp; = &amp; {e^{u}\text{sin}\ v} &amp; &amp; &amp; \frac{\partial y}{\partial u} &amp; = &amp; {e^{u}\text{cos}\ v} &amp; &amp; &amp; \frac{\partial z}{\partial u} &amp; = &amp; e^{u} \\ \frac{\partial x}{\partial v} &amp; = &amp; {e^{u}\text{cos}\ v} &amp; &amp; &amp; \frac{\partial y}{\partial v} &amp; = &amp; {\text{−}e^{u}\text{sin}\ v} &amp; &amp; &amp; \frac{\partial z}{\partial v} &amp; = &amp; {0.} \end{array}$$</equation>
+        <p>Now, we substitute each of them into the first formula to calculate $$\partial w\text{/}\partial u\text{:}$$</p>
+        <equation>$$\begin{array}{cl} \frac{\partial w}{\partial u} &amp; {= \frac{\partial w}{\partial x} \cdot \frac{\partial x}{\partial u} + \frac{\partial w}{\partial y} \cdot \frac{\partial y}{\partial u} + \frac{\partial w}{\partial z} \cdot \frac{\partial z}{\partial u}} \\ &amp; {= \left( {6x - 2y} \right)e^{u}\text{sin}\ v - 2xe^{u}\text{cos}\ v + 8ze^{u},} \end{array}$$</equation>
+        <p>then substitute $$x(u,v) = e^{u}\text{sin}\ v,y(u,v) = e^{u}\text{cos}\ v,$$ and $$z(u,v) = e^{u}$$ into this equation:</p>
+        <equation>$$\begin{array}{cl} \frac{\partial w}{\partial u} &amp; {= \left( {6x - 2y} \right)e^{u}\text{sin}\ v - 2xe^{u}\text{cos}\ v + 8ze^{u}} \\ &amp; {= \left( {6e^{u}\text{sin}\ v - 2e^{u}\text{cos}\ v} \right)e^{u}\text{sin}\ v - 2\left( {e^{u}\text{sin}\ v} \right)e^{u}\text{cos}\ v + 8e^{2u}} \\ &amp; {= 6e^{2u}\text{sin}^{2}v - 4e^{2u}\text{sin}\ v\ \text{cos}\ v + 8e^{2u}} \\ &amp; {= 2e^{2u}\left( {3\ \text{sin}^{2}v - 2\ \text{sin}\ v\ \text{cos}\ v + 4} \right).} \end{array}$$</equation>
+        <p>Next, we calculate $${{\partial w}\text{/}{\partial v}}\text{:}$$</p>
+        <equation>$$\begin{array}{cl} \frac{\partial w}{\partial v} &amp; {= \frac{\partial w}{\partial x} \cdot \frac{\partial x}{\partial v} + \frac{\partial w}{\partial y} \cdot \frac{\partial y}{\partial v} + \frac{\partial w}{\partial z} \cdot \frac{\partial z}{\partial v}} \\ &amp; {= \left( {6x - 2y} \right)e^{u}\text{cos}\ v - 2x\left( {\text{−}e^{u}\text{sin}\ v} \right) + 8z(0),} \end{array}$$</equation>
+        <p>then we substitute $$x(u,v) = e^{u}\text{sin}\ v,y(u,v) = e^{u}\text{cos}\ v,$$ and $$z(u,v) = e^{u}$$ into this equation:</p>
+        <equation>$$\begin{matrix} \frac{\partial w}{\partial v} &amp; {= (6x - 2y)e^{u}\text{cos}\ v - 2x\left( \text{−}e^{u}\text{sin}\ v \right)} \\ &amp; {= \left( 6e^{u}\text{sin}\ v - 2e^{u}\text{cos}\ v \right)e^{u}\text{cos}\ v + 2\left( e^{u}\text{sin}\ v \right)\left( e^{u}\text{sin}\ v \right)} \\ &amp; {= 2e^{2u}\text{sin}^{2}v + 6e^{2u}\text{sin}\ v\ \text{cos}\ v - 2e^{2u}\text{cos}^{2}v} \\ &amp; {= 2e^{2u}\left( v + 3\text{sin}~\text{sin~}v~\text{cos}~\text{cos~}v - v \right).} \end{matrix}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="4.25">
+      <problem>
+        <p>Calculate $${\partial w}\text{/}{\partial u}$$ and $${\partial w}\text{/}{\partial v}$$ given the following functions:</p>
+        <equation>$$\begin{array}{rll} &amp; &amp; \\ &amp; &amp; \\ w &amp; = &amp; {f\left( {x,y,z} \right) = \frac{x + 2y - 4z}{2x - y + 3z}} \\ x &amp; = &amp; {x\left( {u,v} \right) = e^{2u}\text{cos}\ 3v} \\ y &amp; = &amp; {y\left( {u,v} \right) = e^{2u}\text{sin}\ 3v} \\ z &amp; = &amp; {z\left( {u,v} \right) = e^{2u}.} \end{array}$$</equation>
+      </problem>
+      <solution>
+        <p>$$\begin{array}{l} {\frac{\partial w}{\partial u} = 0} \\ {\frac{\partial w}{\partial v} = \frac{15 - 33\ \text{sin}\ 3v + 6\ \text{cos}\ 3v}{\left( {3 + 2\ \text{cos}\ 3v - \text{sin}\ 3v} \right)^{2}}} \end{array}$$</p>
+      </solution>
+    </checkpoint>
+    <example number="4.29">
+      <problem>
+        <title>Drawing a Tree Diagram</title>
+        <p>Create a tree diagram for the case when</p>
+        <equation>$$w = f\left( {x,y,z} \right),x = x\left( {t,u,v} \right),y = y\left( {t,u,v} \right),z = z\left( {t,u,v} \right)$$</equation>
+        <p>and write out the formulas for the three partial derivatives of $$w.$$</p>
+      </problem>
+      <solution>
+        <p>Starting from the left, the function $$f$$ has three independent variables: $$x,y,\text{and}\ z.$$ Therefore, three branches must be emanating from the first node. Each of these three branches also has three branches, for each of the variables $$t,u,\ \text{and}\ v.$$</p>
+        <image alt="A diagram that starts with w = f(x, y, z). Along the first branch, it is written ∂w/∂x, then x = x(t, u, v), at which point it breaks into another three subbranches: the first subbranch says t and then ∂w/∂x ∂x/∂t; the second subbranch says u and then ∂w/∂x ∂x/∂u; and the third subbranch says v and then ∂w/∂x ∂x/∂v. Along the second branch, it is written ∂w/∂y, then y = y(t, u, v), at which point it breaks into another three subbranches: the first subbranch says t and then ∂w/∂y ∂y/∂t; the second subbranch says u and then ∂w/∂y ∂y/∂u; and the third subbranch says v and then ∂w/∂y ∂y/∂v. Along the third branch, it is written ∂w/∂z, then z = z(t, u, v), at which point it breaks into another three subbranches: the first subbranch says t and then ∂w/∂z ∂z/∂t; the second subbranch says u and then ∂w/∂z ∂z/∂u; and the third subbranch says v and then ∂w/∂z ∂z/∂v." number="4.36" caption="Tree diagram for a function of three variables, each of which is a function of three independent variables." />
+        <p>The three formulas are</p>
+        <equation>$$\begin{array}{l} {\frac{\partial w}{\partial t} = \frac{\partial w}{\partial x}\ \frac{\partial x}{\partial t} + \frac{\partial w}{\partial y}\ \frac{\partial y}{\partial t} + \frac{\partial w}{\partial z}\ \frac{\partial z}{\partial t}} \\ {\frac{\partial w}{\partial u} = \frac{\partial w}{\partial x}\ \frac{\partial x}{\partial u} + \frac{\partial w}{\partial y}\ \frac{\partial y}{\partial u} + \frac{\partial w}{\partial z}\ \frac{\partial z}{\partial u}} \\ {\frac{\partial w}{\partial v} = \frac{\partial w}{\partial x}\ \frac{\partial x}{\partial v} + \frac{\partial w}{\partial y}\ \frac{\partial y}{\partial v} + \frac{\partial w}{\partial z}\ \frac{\partial z}{\partial v}.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="4.26">
+      <problem>
+        <p>Create a tree diagram for the case when</p>
+        <equation>$$w = f\left( {x,y} \right),x = x\left( {t,u,v} \right),y = y\left( {t,u,v} \right)$$</equation>
+        <p>and write out the formulas for the three partial derivatives of $$w.$$</p>
+      </problem>
+      <solution>
+        <p>$$\begin{array}{l} {\frac{\partial w}{\partial t} = \frac{\partial w}{\partial x}\ \frac{\partial x}{\partial t} + \frac{\partial w}{\partial y}\ \frac{\partial y}{\partial t}} \\ {\frac{\partial w}{\partial u} = \frac{\partial w}{\partial x}\ \frac{\partial x}{\partial u} + \frac{\partial w}{\partial y}\ \frac{\partial y}{\partial u}} \\ {\frac{\partial w}{\partial v} = \frac{\partial w}{\partial x}\ \frac{\partial x}{\partial v} + \frac{\partial w}{\partial y}\ \frac{\partial y}{\partial v}} \end{array}$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="Implicit Differentiation">
+    <p>Recall from Implicit Differentiation that implicit differentiation provides a method for finding $${dy}\text{/}{dx}$$ when $$y$$ is defined implicitly as a function of $$x.$$ The method involves differentiating both sides of the equation defining the function with respect to $$x,$$ then solving for $${{dy}\text{/}{dx}}.$$ Partial derivatives provide an alternative to this method.</p>
+    <p>Consider the ellipse defined by the equation $$x^{2} + 3y^{2} + 4y - 4 = 0$$ as follows.</p>
+    <image alt="An ellipse with center near (0, –0.7), major axis horizontal and of length roughly 4.5, and minor axis of length roughly 3." number="4.37" caption="Graph of the ellipse defined by $$x^{2} + 3y^{2} + 4y - 4 = 0.$$" />
+    <p>This equation implicitly defines $$y$$ as a function of $$x.$$ As such, we can find the derivative $${dy}\text{/}{dx}$$ using the method of implicit differentiation:</p>
+    <equation>$$\begin{array}{rll} {\frac{d}{dx}\left( {x^{2} + 3y^{2} + 4y - 4} \right)} &amp; = &amp; {\frac{d}{dx}(0)} \\ {2x + 6y\frac{dy}{dx} + 4\frac{dy}{dx}} &amp; = &amp; 0 \\ {\left( {6y + 4} \right)\frac{dy}{dx}} &amp; = &amp; {-2x} \\ \frac{dy}{dx} &amp; = &amp; {- \frac{x}{3y + 2}.} \end{array}$$</equation>
+    <p>We can also define a function $$z = f\left( {x,y} \right)$$ by using the left-hand side of the equation defining the ellipse. Then $$f\left( {x,y} \right) = x^{2} + 3y^{2} + 4y - 4.$$ The ellipse $$x^{2} + 3y^{2} + 4y - 4 = 0$$ can then be described by the equation $$f\left( {x,y} \right) = 0.$$ Using this function and the following theorem gives us an alternative approach to calculating $${{dy}\text{/}{dx}}.$$</p>
+    <theorem number="4.11" title="Implicit Differentiation of a Function of Two or More Variables">
+      <p>Suppose the function $$z = f\left( {x,y} \right)$$ defines $$y$$ implicitly as a function $$y = g(x)$$ of $$x$$ via the equation $$f\left( {x,y} \right) = 0.$$ Then</p>
+      <equation>$$\frac{dy}{dx} = - \frac{{\partial f}\text{/}{\partial x}}{{\partial f}\text{/}{\partial y}}$$</equation>
+      <p>provided $$f_{y}\left( {x,y} \right) \neq 0.$$</p>
+      <p>If the equation $$f\left( {x,y,z} \right) = 0$$ defines $$z$$ implicitly as a differentiable function of $$x\ \text{and}\ y,$$ then</p>
+      <equation>$$\frac{\partial z}{\partial x} = - \frac{{\partial f}\text{/}{\partial x}}{{\partial f}\text{/}{\partial z}}\quad\text{and}\quad\frac{\partial z}{\partial y} = - \frac{{\partial f}\text{/}{\partial y}}{{\partial f}\text{/}{\partial z}}$$</equation>
+      <p>as long as $$f_{z}\left( {x,y,z} \right) \neq 0.$$</p>
+    </theorem>
+    <p>Equation 4.34 is a direct consequence of Equation 4.31. In particular, if we assume that $$y$$ is defined implicitly as a function of $$x$$ via the equation $$f\left( {x,y} \right) = 0,$$ we can apply the chain rule to find $${{dy}\text{/}{dx}}\text{:}$$</p>
+    <equation>$$\begin{array}{rll} {\frac{d}{dx}f\left( {x,y} \right)} &amp; = &amp; {\frac{d}{dx}(0)} \\ {\frac{\partial f}{\partial x} \cdot \frac{dx}{dx} + \frac{\partial f}{\partial y} \cdot \frac{dy}{dx}} &amp; = &amp; 0 \\ {\frac{\partial f}{\partial x} + \frac{\partial f}{\partial y} \cdot \frac{dy}{dx}} &amp; = &amp; 0. \end{array}$$</equation>
+    <p>Solving this equation for $${dy}\text{/}{dx}$$ gives Equation 4.34. Equation 4.35 can be derived in a similar fashion.</p>
+    <p>Let’s now return to the problem that we started before the previous theorem. Using Implicit Differentiation of a Function of Two or More Variables and the function $$f\left( {x,y} \right) = x^{2} + 3y^{2} + 4y - 4,$$ we obtain</p>
+    <equation>$$\begin{array}{l} {\frac{\partial f}{\partial x} = 2x} \\ {\frac{\partial f}{\partial y} = 6y + 4.} \end{array}$$</equation>
+    <p>Then Equation 4.34 gives</p>
+    <equation>$$\frac{dy}{dx} = - \frac{{\partial f}\text{/}{\partial x}}{{\partial f}\text{/}{\partial y}} = - \frac{2x}{6y + 4} = - \frac{x}{3y + 2},$$</equation>
+    <p>which is the same result obtained by the earlier use of implicit differentiation.</p>
+    <example number="4.30">
+      <problem>
+        <title>Implicit Differentiation by Partial Derivatives</title>
+        <list type="ol" style="a">
+          <item>Calculate $${dy}\text{/}{dx}$$ if $$y$$ is defined implicitly as a function of $$x$$ via the equation $$3x^{2} - 2xy + y^{2} + 4x - 6y - 11 = 0.$$ What is the equation of the tangent line to the graph of this curve at point $$\left( {2,1} \right)?$$</item>
+          <item>Calculate $${\partial z}\text{/}{\partial x}$$ and $${{\partial z}\text{/}{\partial y}},$$ given $$x^{2}e^{y} - yze^{x} = 0.$$</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="a">
+          <item>Setthen calculateandThe derivative is given byThe slope of the tangent line at pointis given byTo find an equation of the tangent line, we use the point-slope form ():<equation>$$f(x,y) = 3x^{2} - 2xy + y^{2} + 4x - 6y - 11 = 0,$$</equation>
+            <equation>$$f_{x}$$</equation>
+            <equation>$$f_{y}\text{:}$$</equation>
+            <equation>$$\begin{array}{l} {f_{x} = 6x - 2y + 4} \\ {f_{y} = -2x + 2y - 6.} \end{array}$$</equation>
+            <equation>$$\frac{dy}{dx} = - \frac{{\partial f}\text{/}{\partial x}}{{\partial f}\text{/}{\partial y}} = - \frac{6x - 2y + 4}{-2x + 2y - 6} = \frac{3x - y + 2}{x - y + 3}.$$</equation>
+            <equation>$$\left( {2,1} \right)$$</equation>
+            <equation>$$\left. \frac{dy}{dx} \right|_{{({x,y})} = {({2,1})}} = \frac{3(2) - 1 + 2}{2 - 1 + 3} = \frac{7}{4}.$$</equation>
+            <equation>$$\begin{array}{rll} {y - y_{0}} &amp; = &amp; {m\left( {x - x_{0}} \right)} \\ {y - 1} &amp; = &amp; {\frac{7}{4}\left( {x - 2} \right)} \\ y &amp; = &amp; {\frac{7}{4}x - \frac{7}{2} + 1} \\ y &amp; = &amp; {\frac{7}{4}x - \frac{5}{2}.} \end{array}$$</equation>
+            <image alt="A rotated ellipse with equation 3x2 – 2xy + y2 + 4x – 6y – 11 = 0 and with tangent at (2, 1). The equation for the tangent is given by y = 7/4 x – 5/2. The ellipse’s major axis is parallel to the tangent line." number="4.38" caption="Graph of the rotated ellipse defined by $$3x^{2} - 2xy + y^{2} + 4x - 6y - 11 = 0.$$" />
+          </item>
+          <item>We haveTherefore,Using,<equation>$$f\left( {x,y,z} \right) = x^{2}e^{y} - yze^{x}.$$</equation>
+            <equation>$$\begin{array}{l} {\frac{\partial f}{\partial x} = 2xe^{y} - yze^{x}} \\ {\frac{\partial f}{\partial y} = x^{2}e^{y} - ze^{x}} \\ {\frac{\partial f}{\partial z} = \text{−}ye^{x}.} \end{array}$$</equation>
+            <equation>$$\begin{matrix} \begin{matrix} \frac{\partial z}{\partial x} &amp; {= - \frac{\partial f\text{/}\partial x}{\partial f\text{/}\partial z}} \\ &amp; {= - \frac{2xe^{y} - yze^{x}}{\text{−}ye^{x}}} \\ &amp; {= \frac{2xe^{y} - yze^{x}}{ye^{x}}} \end{matrix} &amp; &amp; &amp; \text{and} &amp; &amp; &amp; \begin{matrix} \frac{\partial z}{\partial y} &amp; {= - \frac{\partial f\text{/}\partial y}{\partial f\text{/}\partial z}} \\ &amp; {= - \frac{x^{2}e^{y} - ze^{x}}{\text{−}ye^{x}}} \\ &amp; {= \frac{x^{2}e^{y} - ze^{x}}{ye^{x}}.} \end{matrix} \end{matrix}$$</equation>
+          </item>
+        </list>
+      </solution>
+    </example>
+    <checkpoint number="4.27">
+      <problem>
+        <p>Find $${dy}\text{/}{dx}$$ if $$y$$ is defined implicitly as a function of $$x$$ by the equation $$x^{2} + xy - y^{2} + 7x - 3y - 26 = 0.$$ What is the equation of the tangent line to the graph of this curve at point $$\left( {3,-2} \right)?$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{dy}{dx} = \left. \frac{2x + y + 7}{2y - x + 3} \right|_{({3,-2})} = \frac{2(3) + (-2) + 7}{2(-2) - (3) + 3} = - \frac{11}{4}$$
+Equation of the tangent line: $$y = - \frac{11}{4}x + \frac{25}{4}$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <exercises title="Section 4.5 Exercises">
+    <instruction>For the following exercises, use the information provided to solve the problem.</instruction>
+    <exercise number="215" has_solution="true">
+      <problem>
+        <p>Let $$w\left( {x,y,z} \right) = xy\ \text{cos}\ z,$$ where $$x = t,y = t^{2},$$ and $$z = \text{arcsin}\ t.$$ Find $$\frac{dw}{dt}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{dw}{dt} = \frac{3t^{2} - 4t^{2}}{\sqrt{1 - t^{2}}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="216" has_solution="false">
+      <problem>
+        <p>Let $$w\left( {t,v} \right) = e^{tv}$$ where $$t = r + s$$ and $$v = rs.$$ Find $$\frac{\partial w}{\partial r}$$ and $$\frac{\partial w}{\partial s}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="217" has_solution="true">
+      <problem>
+        <p>If $$w = 5x^{2} + 2y^{2},x = -3s + t,$$ and $$y = s - 4t,$$ find $$\frac{\partial w}{\partial s}$$ and $$\frac{\partial w}{\partial t}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{\partial w}{\partial s} = 94s–46t,$$ $$\frac{\partial w}{\partial t} = –46s + 74t$$</p>
+      </solution>
+    </exercise>
+    <exercise number="218" has_solution="false">
+      <problem>
+        <p>If $$w = xy^{2},x = 5\ \text{cos}(2t),$$ and $$y = 5\ \text{sin}(2t),$$ find $$\frac{dw}{dt}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="219" has_solution="true">
+      <problem>
+        <p>If $$f(x,y) = xy,x = r\ \text{cos}\ \theta,$$ and $$y = r\ \text{sin}\ \theta,$$ find $$\frac{\partial f}{\partial r}$$ and express the answer in terms of $$r$$ and $$\theta.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{\partial f}{\partial r} = r\ \text{sin}\left( {2\theta} \right)$$</p>
+      </solution>
+    </exercise>
+    <exercise number="220" has_solution="false">
+      <problem>
+        <p>Suppose $$f(x,y) = x + y,$$ where $$x = r\ \text{cos}\ \theta$$ and $$y = r\ \text{sin}\ \theta.$$ Find $$\frac{\partial f}{\partial\theta}.$$</p>
+      </problem>
+    </exercise>
+    <instruction>For the following exercises, find $$\frac{df}{dt}$$ using the chain rule and direct substitution.</instruction>
+    <exercise number="221" has_solution="true">
+      <problem>
+        <p>$$f\left( {x,y} \right) = x^{2} + y^{2},$$ $$x = t,y = t^{2}$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{df}{dt} = 2t + 4t^{3}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="222" has_solution="false">
+      <problem>
+        <p>$$f\left( {x,y} \right) = \sqrt{x^{2} + y^{2}},y = t^{2},x = t$$</p>
+      </problem>
+    </exercise>
+    <exercise number="223" has_solution="true">
+      <problem>
+        <p>$$f\left( {x,y} \right) = xy,x = 1 - \sqrt{t},y = 1 + \sqrt{t}$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{df}{dt} = -1$$</p>
+      </solution>
+    </exercise>
+    <exercise number="224" has_solution="false">
+      <problem>
+        <p>$$f\left( {x,y} \right) = \frac{x}{y},x = e^{t},y = 2e^{t}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="225" has_solution="true">
+      <problem>
+        <p>$$f\left( {x,y} \right) = \text{ln}\left( {x + y} \right),$$ $$x = e^{t},y = e^{t}$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{df}{dt} = 1$$</p>
+      </solution>
+    </exercise>
+    <exercise number="226" has_solution="false">
+      <problem>
+        <p>$$f\left( {x,y} \right) = x^{4},$$ $$x = t,y = t$$</p>
+      </problem>
+    </exercise>
+    <exercise number="227" has_solution="true">
+      <problem>
+        <p>Let $$w\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2},$$ $$x = \text{cos}\ t,y = \text{sin}\ t,$$ and $$z = e^{t}.$$ Express $$w$$ as a function of $$t$$ and find $$\frac{dw}{dt}$$ directly. Then, find $$\frac{dw}{dt}$$ using the chain rule.</p>
+      </problem>
+      <solution>
+        <p>$$\frac{dw}{dt} = 2e^{2t}$$ in both cases</p>
+      </solution>
+    </exercise>
+    <exercise number="228" has_solution="false">
+      <problem>
+        <p>Let $$z = x^{2}y,$$ where $$x = t^{2}$$ and $$y = t^{3}.$$ Find $$\frac{dz}{dt}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="229" has_solution="true">
+      <problem>
+        <p>Let $$u = e^{x}\text{sin}\ y,$$ where $$x = \operatorname{-ln}2t$$ and $$y = \pi t.$$ Find $$\frac{du}{dt}$$ when $$x = \text{ln}\ 2$$ and $$y = \frac{\pi}{4}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{du}{dt} = \sqrt{2}(\pi-4)$$</p>
+      </solution>
+    </exercise>
+    <instruction>For the following exercises, find $$\frac{dy}{dx}$$ using partial derivatives.</instruction>
+    <exercise number="230" has_solution="false">
+      <problem>
+        <p>$$\text{sin}\left( {6x} \right) + \text{tan}\left( {8y} \right) + 5 = 0$$</p>
+      </problem>
+    </exercise>
+    <exercise number="231" has_solution="true">
+      <problem>
+        <p>$$x^{3} + y^{2}x - 3 = 0$$</p>
+      </problem>
+      <solution>
+        <p>$$z = 3 + y^{3},$$ a curve in the $$zy\text{-plane}$$ with rulings parallel to the $$x\text{-axis}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="232" has_solution="false">
+      <problem>
+        <p>$$\text{sin}\left( {x + y} \right) + \text{cos}\left( {x - y} \right) = 4$$</p>
+      </problem>
+    </exercise>
+    <exercise number="233" has_solution="true">
+      <problem>
+        <p>$$x^{2} - 2xy + y^{4} = 4$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{dy}{dx} = \frac{y - x}{\text{−}x + 2y^{3}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="234" has_solution="false">
+      <problem>
+        <p>$$xe^{y} + ye^{x} - 2x^{2}y = 0$$</p>
+      </problem>
+    </exercise>
+    <exercise number="235" has_solution="true">
+      <problem>
+        <p>$$x^{2\text{/}3} + y^{2\text{/}3} = a^{2\text{/}3}$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{dy}{dx} = \text{−}\sqrt[3]{\frac{y}{x}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="236" has_solution="false">
+      <problem>
+        <p>$$x\ \text{cos}(xy) + y\ \text{cos}\ x = 2$$</p>
+      </problem>
+    </exercise>
+    <exercise number="237" has_solution="true">
+      <problem>
+        <p>$$e^{xy} + ye^{y} = 1$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{dy}{dx} = - \frac{ye^{xy}}{xe^{xy} + e^{y}(1 + y)}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="238" has_solution="false">
+      <problem>
+        <p>$$x^{2}y^{3} + \text{cos}\ y = 0$$</p>
+      </problem>
+    </exercise>
+    <exercise number="239" has_solution="true">
+      <problem>
+        <p>Find $$\frac{dz}{dt}$$ using the chain rule where $$z = 3x^{2}y^{3},x = t^{4},$$ and $$y = t^{2}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{dz}{dt} = 42t^{13}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="240" has_solution="false">
+      <problem>
+        <p>Let $$z = 3\ \text{cos}\ x - \text{sin}(xy),x = \frac{1}{t},$$ and $$y = 3t.$$ Find $$\frac{dz}{dt}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="241" has_solution="true">
+      <problem>
+        <p>Let $$z = e^{1 - xy},x = t^{1\text{/}3},$$ and $$y = t^{3}.$$ Find $$\frac{dz}{dt}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{dz}{dt} = - \frac{10}{3}t^{7\text{/}3}\ \times \ e^{1 - t^{10\text{/}3}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="242" has_solution="false">
+      <problem>
+        <p>Find $$\frac{dz}{dt}$$ by the chain rule where $$z = \text{cosh}^{2}(xy),x = \frac{1}{2}t,$$ and $$y = e^{t}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="243" has_solution="true">
+      <problem>
+        <p>Let $$z = \frac{x}{y},x = 2\ \text{cos}\ u,$$ and $$y = 3\ \text{sin}\ v.$$ Find $$\frac{\partial z}{\partial u}$$ and $$\frac{\partial z}{\partial v}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{\partial z}{\partial u} = \frac{-2\ \text{sin}\ u}{3\ \text{sin}\ v}$$ and $$\frac{\partial z}{\partial v} = \frac{-2\ \text{cos}\ u\ \text{cos}\ v}{3\ \text{sin}^{2}v}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="244" has_solution="false">
+      <problem>
+        <p>Let $$z = e^{x^{2}y},$$ where $$x = \sqrt{uv}$$ and $$y = \frac{1}{v}.$$ Find $$\frac{\partial z}{\partial u}$$ and $$\frac{\partial z}{\partial v}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="245" has_solution="true">
+      <problem>
+        <p>If $$z = xye^{x\text{/}y},$$ $$x = r\ \text{cos}\ \theta,$$ and $$y = r\ \text{sin}\ \theta,$$ find $$\frac{\partial z}{\partial r}$$ and $$\frac{\partial z}{\partial\theta}$$ when $$r = 2$$ and $$\theta = \frac{\pi}{6}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{\partial z}{\partial r} = \sqrt{3}e^{\sqrt{3}},$$ $$\frac{\partial z}{\partial\theta} = \left( {2 - 4\sqrt{3}} \right)e^{\sqrt{3}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="246" has_solution="false">
+      <problem>
+        <p>Find $$\frac{\partial w}{\partial s}$$ if $$w = 4x + y^{2} + z^{3},x = e^{rs^{2}},y = \text{ln}\left( \frac{r + s}{t} \right),$$ and $$z = rst^{2}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="247" has_solution="true">
+      <problem>
+        <p>If $$w = \text{sin}(xyz),x = 1 - 3t,y = e^{1 - t},$$ and $$z = 4t,$$ find $$\frac{\partial w}{\partial t}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\begin{array}{rll} {f\left( {\frac{\sqrt{3}}{3},\frac{\sqrt{3}}{3},\frac{\sqrt{3}}{3}} \right)} &amp; = &amp; {\frac{\sqrt{3}}{3} + \frac{\sqrt{3}}{3} + \frac{\sqrt{3}}{3} = \sqrt{3}} \\ {f\left( {- \frac{\sqrt{3}}{3}, - \frac{\sqrt{3}}{3}, - \frac{\sqrt{3}}{3}} \right)} &amp; = &amp; {- \frac{\sqrt{3}}{3} - \frac{\sqrt{3}}{3} - \frac{\sqrt{3}}{3} = \text{−}\sqrt{3}.} \end{array}$$</p>
+      </solution>
+    </exercise>
+    <instruction>For the following exercises, use this information: A function $$f(x,y)$$ is said to be homogeneous of degree $$n$$ if $$f(tx,ty) = t^{n}f(x,y).$$ For all homogeneous functions of degree $$n,$$ the following equation is true: $$x\frac{\partial f}{\partial x} + y\frac{\partial f}{\partial y} = nf(x,y).$$ Show that the given function is homogeneous and verify that $$x\frac{\partial f}{\partial x} + y\frac{\partial f}{\partial y} = nf(x,y).$$</instruction>
+    <exercise number="248" has_solution="false">
+      <problem>
+        <p>$$f(x,y) = 3x^{2} + y^{2}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="249" has_solution="true">
+      <problem>
+        <p>$$f(x,y) = \sqrt{x^{2} + y^{2}}$$</p>
+      </problem>
+      <solution>
+        <p>$$f(tx,ty) = \sqrt{t^{2}x^{2} + t^{2}y^{2}} = t^{1}f(x,y),$$ $$\frac{\partial f}{\partial y} = x\frac{1}{2}\left( {x^{2} + y^{2}} \right)^{\text{−}{1\text{/}2}}\ \times \ 2x + y\frac{1}{2}\left( {x^{2} + y^{2}} \right)^{\text{−}{1\text{/}2}}\ \times \ 2y = 1f(x,y)$$</p>
+      </solution>
+    </exercise>
+    <exercise number="250" has_solution="false">
+      <problem>
+        <p>$$f(x,y) = x^{2}y - 2y^{3}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="251" has_solution="true">
+      <problem>
+        <p>The volume of a right circular cylinder is given by $$V(x,y) = \pi x^{2}y,$$ where $$x$$ is the radius of the cylinder and y is the cylinder height. Suppose $$x$$ and $$y$$ are functions of $$t$$ given by $$x = \frac{1}{2}t$$ and $$y = \frac{1}{3}t$$ so that $$x\ \text{and}\ y$$ are both increasing with time. How fast is the volume increasing when $$x = 2$$ and $$y = \frac{4}{3}?$$</p>
+      </problem>
+      <solution>
+        <p>$$V' = 4\pi$$</p>
+      </solution>
+    </exercise>
+    <exercise number="252" has_solution="false">
+      <problem>
+        <p>The pressure $$P$$ of a gas is related to the volume and temperature by the formula $$PV = kT,$$ where temperature is expressed in kelvins. Express the pressure of the gas as a function of both $$V$$ and $$T.$$ Find $$\frac{dP}{dt}$$ when $$k = 1,$$ $$\frac{dV}{dt} = 2$$ cm3/min, $$\frac{dT}{dt} = \frac{1}{2}$$ K/min, $$V = 20$$ cm3, and $$T = 20\text{°}\text{F}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="253" has_solution="true">
+      <problem>
+        <p>The radius of a right circular cone is increasing at $$3$$ cm/min whereas the height of the cone is decreasing at $$2$$ cm/min. Find the rate of change of the volume of the cone when the radius is $$13$$ cm and the height is $$18$$ cm.</p>
+      </problem>
+      <solution>
+        <p>$$\frac{dV}{dt} = \frac{1066\pi}{3}\text{cm}^{3}\text{/}\text{min}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="254" has_solution="false">
+      <problem>
+        <p>The volume of a frustum of a cone is given by the formula $$V = \frac{1}{3}\pi z\left( {x^{2} + y^{2} + xy} \right),$$ where $$x$$ is the radius of the smaller circle, $$y$$ is the radius of the larger circle, and $$z$$ is the height of the frustum (see figure). Find the rate of change of the volume of this frustum when $$x = 10\ \text{in}\text{.,}\ y = 12\ \text{in.,}\ \text{and}\ z = 18\ \text{in}.$$ if $$\frac{dz}{dt} = - 5,\frac{dx}{dt} = 1,\frac{dy}{dt} = 1$$ (all in/min).</p>
+      </problem>
+    </exercise>
+    <exercise number="255" has_solution="true">
+      <problem>
+        <p>A closed box is in the shape of a rectangular solid with dimensions $$x,y,\ \text{and}\ z.$$ (Dimensions are in inches.) Suppose each dimension is changing at the rate of $$0.5$$ in./min. Find the rate of change of the total surface area of the box when $$x = 2\ \text{in}\text{.,}\ y = 3\ \text{in.,}\ \text{and}\ z = 1\ \text{in}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{dA}{dt} = 12\ \text{in}.^{2}\text{/}\text{min}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="256" has_solution="false">
+      <problem>
+        <p>The total resistance in a circuit that has three individual resistances represented by $$x,y,$$ and $$z$$ is given by the formula $$R(x,y,z) = \frac{xyz}{yz + xz + xy}.$$ Suppose at a given time the $$x$$ resistance is $$100\text{Ω},$$ the y resistance is $$200\text{Ω},$$ and the $$z$$ resistance is $$300\text{Ω}.$$ Also, suppose the $$x$$ resistance is changing at a rate of $$2\text{Ω}\text{/}\text{min},$$ the $$y$$ resistance is changing at the rate of $$1\text{Ω}\text{/}\text{min},$$ and the $$z$$ resistance has no change. Find the rate of change of the total resistance in this circuit at this time.</p>
+      </problem>
+    </exercise>
+    <exercise number="257" has_solution="true">
+      <problem>
+        <p>The temperature $$T$$ at a point $$(x,y)$$ is $$T(x,y)$$ and is measured using the Celsius scale. A fly crawls so that its position after $$t$$ seconds is given by $$x = \sqrt{1 + t}$$ and $$y = 2 + \frac{1}{3}t,$$ where $$x\ \text{and}\ y$$ are measured in centimeters. The temperature function satisfies $$T_{x}\left( {2,3} \right) = 4$$ and $$T_{y}\left( {2,3} \right) = 3.$$ How fast is the temperature increasing on the fly’s path after $$3$$ sec?</p>
+      </problem>
+      <solution>
+        <p>$$2\text{°}\text{C/sec}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="258" has_solution="false">
+      <problem>
+        <p>The $$x\ \text{and}\ y$$ components of a fluid moving in two dimensions are given by the following functions: $$u(x,y) = 2y$$ and $$v(x,y) = -2x;$$ $$x \geq 0;y \geq 0.$$ The speed of the fluid at the point $$(x,y)$$ is $$s(x,y) = \sqrt{u{(x,y)}^{2} + v{(x,y)}^{2}}.$$ Find $$\frac{\partial s}{\partial x}$$ and $$\frac{\partial s}{\partial y}$$ using the chain rule.</p>
+      </problem>
+    </exercise>
+    <exercise number="259" has_solution="true">
+      <problem>
+        <p>Let $$u = u\left( {x,y,z} \right),$$ where $$x = x(w,t),y = y(w,t),z = z(w,t),w = w(r,s),\text{and}\ t = t(r,s).$$ Use a tree diagram and the chain rule to find an expression for $$\frac{\partial u}{\partial r}.$$</p>
+      </problem>
+      <solution>
+        <p>The differential of the function $$z(x,y) = dz = f_{x}dx + f_{y}dy$$</p>
+      </solution>
+    </exercise>
+  </exercises>
+</section>

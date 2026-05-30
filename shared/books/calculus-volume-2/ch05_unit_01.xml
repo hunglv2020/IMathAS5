@@ -1,0 +1,916 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="5.1" title="Sequences">
+  <learning_objectives>
+    <objective number="5.1.1">Find the formula for the general term of a sequence.</objective>
+    <objective number="5.1.2">Calculate the limit of a sequence if it exists.</objective>
+    <objective number="5.1.3">Determine the convergence or divergence of a given sequence.</objective>
+  </learning_objectives>
+  <p>In this section, we introduce sequences and define what it means for a sequence to converge or diverge. We show how to find limits of sequences that converge, often by using the properties of limits for functions discussed earlier. We close this section with the Monotone Convergence Theorem, a tool we can use to prove that certain types of sequences converge.</p>
+  <subsection title="Terminology of Sequences">
+    <p>To work with this new topic, we need some new terms and definitions. First, an infinite sequence is an ordered list of numbers of the form</p>
+    <equation>$$a_{1},a_{2},a_{3}\text{,…},a_{n}\text{,…}\ \text{.}$$</equation>
+    <p>Each of the numbers in the sequence is called a term. The symbol $$n$$ is called the index variable for the sequence. We use the notation</p>
+    <equation>$$\left\{ a_{n} \right\}_{n = 1}^{\infty},\ \text{or simply}\ \left\{ a_{n} \right\},$$</equation>
+    <p>to denote this sequence. A similar notation is used for sets, but a sequence is an ordered list, whereas a set is not ordered. Because a particular number $$a_{n}$$ exists for each positive integer $$n,$$ we can also define a sequence as a function whose domain is the set of positive integers.</p>
+    <p>Let’s consider the infinite, ordered list</p>
+    <equation>$$2,4,8,16,32\text{,…}\ .$$</equation>
+    <p>This is a sequence in which the first, second, and third terms are given by $$a_{1} = 2,$$ $$a_{2} = 4,$$ and $$a_{3} = 8.$$ You can probably see that the terms in this sequence have the following pattern:</p>
+    <equation>$$a_{1} = 2^{1},\ a_{2} = 2^{2},\ a_{3} = 2^{3},\ a_{4} = 2^{4},\ \text{and}\ a_{5} = 2^{5}.$$</equation>
+    <p>Assuming this pattern continues, we can write the $$n\text{th}$$ term in the sequence by the explicit formula $$a_{n} = 2^{n}.$$ Using this notation, we can write this sequence as</p>
+    <equation>$$\left\{ 2^{n} \right\}_{n = 1}^{\infty}\ \text{or}\ \left\{ 2^{n} \right\}.$$</equation>
+    <p>Alternatively, we can describe this sequence in a different way. Since each term is twice the previous term, this sequence can be defined recursively by expressing the $$n\text{th}$$ term $$a_{n}$$ in terms of the previous term $$a_{n - 1}.$$ In particular, we can define this sequence as the sequence $$\left\{ a_{n} \right\}$$ where $$a_{1} = 2$$ and for all $$n \geq 2,$$ each term $$a_{n}$$ is defined by the recurrence relation$$a_{n} = 2a_{n - 1}.$$</p>
+    <note type="Definition">
+      <p>An infinite sequence$$\left\{ a_{n} \right\}$$ is an ordered list of numbers of the form</p>
+      <equation>$$a_{1},a_{2}\text{,…},a_{n}\text{,…}\ \text{.}$$</equation>
+      <p>The subscript $$n$$ is called the index variable of the sequence. Each number $$a_{n}$$ is a term of the sequence. Sometimes sequences are defined by explicit formulas, in which case $$a_{n} = f(n)$$ for some function $$f(n)$$ defined over the positive integers. In other cases, sequences are defined by using a recurrence relation. In a recurrence relation, one term (or more) of the sequence is given explicitly, and subsequent terms are defined in terms of earlier terms in the sequence.</p>
+    </note>
+    <p>Note that the index does not have to start at $$n = 1$$ but could start with other integers. For example, a sequence given by the explicit formula $$a_{n} = f(n)$$ could start at $$n = 0,$$ in which case the sequence would be</p>
+    <equation>$$a_{0},a_{1},a_{2}\text{,…}\ \text{.}$$</equation>
+    <p>Similarly, for a sequence defined by a recurrence relation, the term $$a_{0}$$ may be given explicitly, and the terms $$a_{n}$$ for $$n \geq 1$$ may be defined in terms of $$a_{n - 1}.$$ Since a sequence $$\left\{ a_{n} \right\}$$ has exactly one value for each positive integer $$n,$$ it can be described as a function whose domain is the set of positive integers. As a result, it makes sense to discuss the graph of a sequence. The graph of a sequence $$\left\{ a_{n} \right\}$$ consists of all points $$(n,a_{n})$$ for all positive integers $$n.$$ Figure 5.2 shows the graph of $$\left\{ 2^{n} \right\}.$$</p>
+    <image alt="A graph in quadrant one containing the following points: (1, 2), (2, 4), (3, 8), (4, 16)." number="5.2" caption="The plotted points are a graph of the sequence $$\left\{ 2^{n} \right\}.$$" />
+    <p>Two types of sequences occur often and are given special names: arithmetic sequences and geometric sequences. In an arithmetic sequence, the difference between every pair of consecutive terms is the same. For example, consider the sequence</p>
+    <equation>$$3,7,11,15,19\text{,…}\ \text{.}$$</equation>
+    <p>You can see that the difference between every consecutive pair of terms is $$4.$$ Assuming that this pattern continues, this sequence is an arithmetic sequence. It can be described by using the recurrence relation</p>
+    <equation>$$\left\{ \begin{matrix} {a_{1} = 3} \\ {a_{n} = a_{n - 1} + 4\ \text{for}\ n \geq 2.} \end{matrix} \right.$$</equation>
+    <p>Note that</p>
+    <equation>$$\begin{array}{l} {a_{2} = 3 + 4} \\ {a_{3} = 3 + 4 + 4 = 3 + 2 \cdot 4} \\ {a_{4} = 3 + 4 + 4 + 4 = 3 + 3 \cdot 4.} \end{array}$$</equation>
+    <p>Thus the sequence can also be described using the explicit formula</p>
+    <equation>$$\begin{array}{cl} a_{n} &amp; {= 3 + 4\left( {n - 1} \right)} \\ &amp; {= 4n - 1.} \end{array}$$</equation>
+    <p>In general, an arithmetic sequence is any sequence of the form $$a_{n} = cn + b.$$</p>
+    <p>In a geometric sequence, the ratio of every pair of consecutive terms is the same. For example, consider the sequence</p>
+    <equation>$$2, - \frac{2}{3},\frac{2}{9}, - \frac{2}{27},\frac{2}{81}\text{,…}\ \text{.}$$</equation>
+    <p>We see that the ratio of any term to the preceding term is $$- \frac{1}{3}.$$ Assuming this pattern continues, this sequence is a geometric sequence. It can be defined recursively as</p>
+    <equation>$$\begin{array}{l} \\ {a_{1} = 2} \\ {a_{n} = - \frac{1}{3} \cdot a_{n - 1}\ \text{for}\ n \geq 2.} \end{array}$$</equation>
+    <p>Alternatively, since</p>
+    <equation>$$\begin{array}{l} \\ \\ {a_{2} = - \frac{1}{3} \cdot 2} \\ {a_{3} = \left( {- \frac{1}{3}} \right)\left( {- \frac{1}{3}} \right)(2) = \left( {- \frac{1}{3}} \right)^{2} \cdot 2} \\ {a_{4} = \left( {- \frac{1}{3}} \right)\left( {- \frac{1}{3}} \right)\left( {- \frac{1}{3}} \right)(2) = \left( {- \frac{1}{3}} \right)^{3} \cdot 2,} \end{array}$$</equation>
+    <p>we see that the sequence can be described by using the explicit formula</p>
+    <equation>$$a_{n} = 2\left( {- \frac{1}{3}} \right)^{n - 1}.$$</equation>
+    <p>The sequence $$\left\{ 2^{n} \right\}$$ that we discussed earlier is a geometric sequence, where the ratio of any term to the previous term is $$2.$$ In general, a geometric sequence is any sequence of the form $$a_{n} = cr^{n}.$$</p>
+    <example number="5.1">
+      <problem>
+        <title>Finding Explicit Formulas</title>
+        <p>For each of the following sequences, find an explicit formula for the $$n\text{th}$$ term of the sequence.</p>
+        <list type="ol" style="a">
+          <item>$$- \frac{1}{2},\frac{2}{3}, - \frac{3}{4},\frac{4}{5}, - \frac{5}{6}\text{,…}$$</item>
+          <item>$$\frac{3}{4},\frac{9}{7},\frac{27}{10},\frac{81}{13},\frac{243}{16}\text{,…}$$</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="a">
+          <item>First, note that the sequence is alternating from negative to positive. The odd terms in the sequence are negative, and the even terms are positive. Therefore, theterm includes a factor ofNext, consider the sequence of numeratorsand the sequence of denominatorsWe can see that both of these sequences are arithmetic sequences. Theterm in the sequence of numerators isand theterm in the sequence of denominators isTherefore, the sequence can be described by the explicit formula<equation>$$n\text{th}$$</equation>
+            <equation>$$(-1)^{n}.$$</equation>
+            <equation>$$\left\{ 1,2,3\text{,…} \right\}$$</equation>
+            <equation>$$\left\{ 2,3,4\text{,…} \right\}.$$</equation>
+            <equation>$$n\text{th}$$</equation>
+            <equation>$$n,$$</equation>
+            <equation>$$n\text{th}$$</equation>
+            <equation>$$n + 1.$$</equation>
+            <equation>$$a_{n} = \frac{(-1)^{n}n}{n + 1}.$$</equation>
+          </item>
+          <item>The sequence of numerators $$3,9,27,81,243\text{,…}$$ is a geometric sequence. The numerator of the $$n\text{th}$$ term is $$3^{n}$$ The sequence of denominators $$4,7,10,13,16\text{,…}$$ is an arithmetic sequence. The denominator of the $$n\text{th}$$ term is $$4 + 3\left( {n - 1} \right) = 3n + 1.$$ Therefore, we can describe the sequence by the explicit formula $$a_{n} = \frac{3^{n}}{3n + 1}.$$</item>
+        </list>
+      </solution>
+    </example>
+    <checkpoint number="5.1">
+      <problem>
+        <p>Find an explicit formula for the $$n\text{th}$$ term of the sequence $$\left\{ \frac{1}{5}, - \frac{1}{7},\frac{1}{9}, - \frac{1}{11}\text{,…} \right\}.$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = \frac{(-1)^{n + 1}}{3 + 2n}$$</p>
+      </solution>
+    </checkpoint>
+    <example number="5.2">
+      <problem>
+        <title>Defined by Recurrence Relations</title>
+        <p>For each of the following recursively defined sequences, find an explicit formula for the sequence.</p>
+        <list type="ol" style="a">
+          <item>$$a_{1} = 2,$$ $$a_{n} = -3a_{n - 1}$$ for $$n \geq 2$$</item>
+          <item>$$a_{1} = \frac{1}{2},$$ $$a_{n} = a_{n - 1} + \left( \frac{1}{2} \right)^{n}$$ for $$n \geq 2$$</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="a">
+          <item>Writing out the first few terms, we haveIn general,<equation>$$\begin{array}{l} {a_{1} = 2} \\ {a_{2} = -3a_{1} = -3(2)} \\ {a_{3} = -3a_{2} = (-3)^{2}2} \\ {a_{4} = -3a_{3} = (-3)^{3}2.} \end{array}$$</equation>
+            <equation>$$a_{n} = 2(-3)^{n - 1}.$$</equation>
+          </item>
+          <item>Write out the first few terms:From this pattern, we derive the explicit formula<equation>$$\begin{array}{l} \\ \\ {a_{1} = \frac{1}{2}} \\ {a_{2} = a_{1} + \left( \frac{1}{2} \right)^{2} = \frac{1}{2} + \frac{1}{4} = \frac{3}{4}} \\ {a_{3} = a_{2} + \left( \frac{1}{2} \right)^{3} = \frac{3}{4} + \frac{1}{8} = \frac{7}{8}} \\ {a_{4} = a_{3} + \left( \frac{1}{2} \right)^{4} = \frac{7}{8} + \frac{1}{16} = \frac{15}{16}.} \end{array}$$</equation>
+            <equation>$$a_{n} = \frac{2^{n} - 1}{2^{n}} = 1 - \frac{1}{2^{n}}.$$</equation>
+          </item>
+        </list>
+      </solution>
+    </example>
+    <checkpoint number="5.2">
+      <problem>
+        <p>Find an explicit formula for the sequence defined recursively such that $$a_{1} = -4$$ and $$a_{n} = a_{n - 1} + 6.$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = 6n - 10$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="Limit of a Sequence">
+    <p>A fundamental question that arises regarding infinite sequences is the behavior of the terms as $$n$$ gets larger. Since a sequence is a function defined on the positive integers, it makes sense to discuss the limit of the terms as $$n\rightarrow\infty.$$ For example, consider the following four sequences and their different behaviors as $$n\rightarrow\infty$$ (see Figure 5.3):</p>
+    <list type="ol" style="a">
+      <item>$$\left\{ {1 + 3n} \right\} = \left\{ 4,7,10,13\text{,…} \right\}.$$ The terms $$1 + 3n$$ become arbitrarily large as $$n\rightarrow\infty.$$ In this case, we say that $$1 + 3n\rightarrow\infty$$ as $$n\rightarrow\infty.$$</item>
+      <item>$$\left\{ {1 - \left( \frac{1}{2} \right)^{n}} \right\} = \left\{ {\frac{1}{2},\frac{3}{4},\frac{7}{8},\frac{15}{16}\text{,…}} \right\}.$$ The terms $$1 - \left( \frac{1}{2} \right)^{n}\rightarrow 1$$ as $$n\rightarrow\infty.$$</item>
+      <item>$$\left\{ (-1)^{n} \right\} = \left\{ \text{−}1,1,-1,1\text{,…} \right\}.$$ The terms alternate but do not approach one single value as $$n\rightarrow\infty.$$</item>
+      <item>$$\left\{ \frac{(-1)^{n}}{n} \right\} = \left\{ {-1,\frac{1}{2}, - \frac{1}{3},\frac{1}{4}\text{,…}} \right\}.$$ The terms alternate for this sequence as well, but $$\frac{(-1)^{n}}{n}\rightarrow 0$$ as $$n\rightarrow\infty.$$</item>
+    </list>
+    <image alt="Four graphs in quadrants 1 and 4, labeled a through d. The horizontal axis is for the value of n and the vertical axis is for the value of the term a _n. Graph a has points (1, 4), (2, 7), (3, 10), (4, 13), and (5, 16). Graph b has points (1, 1/2), (2, 3/4), (3, 7/8), and (4, 15/16). Graph c has points (1, -1), (2, 1), (3, -1), (4, 1), and (5, -1). Graph d has points (1, -1), (2, 1/2), (3, -1/3), (4, 1/4), and (5, -1/5)." number="5.3" caption="(a) The terms in the sequence become arbitrarily large as $$n\rightarrow\infty.$$ (b) The terms in the sequence approach $$1$$ as $$n\rightarrow\infty.$$ (c) The terms in the sequence alternate between $$1$$ and $$-1$$ as $$n\rightarrow\infty.$$ (d) The terms in the sequence alternate between positive and negative values but approach $$0$$ as $$n\rightarrow\infty.$$" />
+    <p>From these examples, we see several possibilities for the behavior of the terms of a sequence as $$n\rightarrow\infty.$$ In two of the sequences, the terms approach a finite number as $$n\rightarrow\infty.$$ In the other two sequences, the terms do not. If the terms of a sequence approach a finite number $$L$$ as $$n\rightarrow\infty,$$ we say that the sequence is a convergent sequence and the real number $$L$$ is the limit of the sequence. We can give an informal definition here.</p>
+    <note type="Definition">
+      <p>Given a sequence $$\left\{ a_{n} \right\},$$ if the terms $$a_{n}$$ become arbitrarily close to a finite number $$L$$ as $$n$$ becomes sufficiently large, we say $$\left\{ a_{n} \right\}$$ is a convergent sequence and $$L$$ is the limit of the sequence. In this case, we write</p>
+      <equation>$$\underset{n\rightarrow\infty}{\text{lim}}a_{n} = L.$$</equation>
+      <p>If a sequence $$\left\{ a_{n} \right\}$$ is not convergent, we say it is a divergent sequence.</p>
+    </note>
+    <p>From Figure 5.3, we see that the terms in the sequence $$\left\{ {1 - \left( \frac{1}{2} \right)^{n}} \right\}$$ are becoming arbitrarily close to $$1$$ as $$n$$ becomes very large. We conclude that $$\left\{ {1 - \left( \frac{1}{2} \right)^{n}} \right\}$$ is a convergent sequence and its limit is $$1.$$ In contrast, from Figure 5.3, we see that the terms in the sequence $$1 + 3n$$ are not approaching a finite number as $$n$$ becomes larger. We say that $$\left\{ 1 + 3n \right\}$$ is a divergent sequence.</p>
+    <p>In the informal definition for the limit of a sequence, we used the terms “arbitrarily close” and “sufficiently large.” Although these phrases help illustrate the meaning of a converging sequence, they are somewhat vague. To be more precise, we now present the more formal definition of limit for a sequence and show these ideas graphically in Figure 5.4.</p>
+    <note type="Definition">
+      <p>A sequence $$\left\{ a_{n} \right\}$$ converges to a real number $$L$$ if for all $$\varepsilon &gt; 0,$$ there exists an integer $$N$$ such that $$\left| {a_{n} - L} \right| &lt; \varepsilon$$ if $$n \geq N.$$ The number $$L$$ is the limit of the sequence and we write</p>
+      <equation>$$\underset{n\rightarrow\infty}{\text{lim}}a_{n} = L\ or\ a_{n}\rightarrow L.$$</equation>
+      <p>In this case, we say the sequence $$\left\{ a_{n} \right\}$$ is a convergent sequence. If a sequence does not converge, it is a divergent sequence, and we say the limit does not exist.</p>
+    </note>
+    <p>We remark that the convergence or divergence of a sequence $$\left\{ a_{n} \right\}$$ depends only on what happens to the terms $$a_{n}$$ as $$n\rightarrow\infty.$$ Therefore, if a finite number of terms $$b_{1},b_{2}\text{,…},b_{N}$$ are placed before $$a_{1}$$ to create a new sequence</p>
+    <equation>$$b_{1},b_{2}\text{,…},b_{N},a_{1},a_{2}\text{,…},$$</equation>
+    <p>this new sequence will converge if $$\left\{ a_{n} \right\}$$ converges and diverge if $$\left\{ a_{n} \right\}$$ diverges. Further, if the sequence $$\left\{ a_{n} \right\}$$ converges to $$L,$$ this new sequence will also converge to $$L.$$</p>
+    <image alt="A graph in quadrant 1 with axes labeled n and a_n instead of x and y, respectively. A positive point N is marked on the n axis. From smallest to largest, points L – epsilon, L, and L + epsilon are marked on the a_n axis, with the same interval epsilon between L and the other two. A blue line y = L is drawn, as are red dotted ones for y = L + epsilon and L – epsilon. Points in quadrant 1 are plotted above and below these lines for x &lt; N. However, past N, the points remain inside the lines y = L + epsilon and L – epsilon, converging on L." number="5.4" caption="As $$n$$ increases, the terms $$a_{n}$$ become closer to $$L.$$ For values of $$n \geq N,$$ the distance between each point $$\left( {n,a_{n}} \right)$$ and the line $$y = L$$ is less than $$\varepsilon.$$" />
+    <p>As defined above, if a sequence does not converge, it is said to be a divergent sequence. For example, the sequences $$\left\{ 1 + 3n \right\}$$ and $$\left\{ (-1)^{n} \right\}$$ shown in Figure 5.4 diverge. However, different sequences can diverge in different ways. The sequence $$\left\{ (-1)^{n} \right\}$$ diverges because the terms alternate between $$1$$ and $$-1,$$ but do not approach one value as $$n\rightarrow\infty.$$ On the other hand, the sequence $$\left\{ 1 + 3n \right\}$$ diverges because the terms $$1 + 3n\rightarrow\infty$$ as $$n\rightarrow\infty.$$ We say the sequence $$\left\{ 1 + 3n \right\}$$ diverges to infinity and write $$\underset{n\rightarrow\infty}{\text{lim}}(1 + 3n) = \infty.$$ It is important to recognize that this notation does not imply the limit of the sequence $$\left\{ 1 + 3n \right\}$$ exists. The sequence is, in fact, divergent. Writing that the limit is infinity is intended only to provide more information about why the sequence is divergent. A sequence can also diverge to negative infinity. For example, the sequence $$\left\{ \text{−}5n + 2 \right\}$$ diverges to negative infinity because $$-5n + 2\rightarrow\text{−}\infty$$ as $$n\rightarrow\infty.$$ We write this as $$\underset{n\rightarrow\infty}{\text{lim}}\left( {-5n + 2} \right) = \rightarrow\text{−}\infty.$$</p>
+    <p>Because a sequence is a function whose domain is the set of positive integers, we can use properties of limits of functions to determine whether a sequence converges. For example, consider a sequence $$\left\{ a_{n} \right\}$$ and a related function $$f$$ defined on all positive real numbers such that $$f(n) = a_{n}$$ for all integers $$n \geq 1.$$ Since the domain of the sequence is a subset of the domain of $$f,$$ if $$\underset{x\rightarrow\infty}{\text{lim}}f(x)$$ exists, then the sequence converges and has the same limit. For example, consider the sequence $$\left\{ \frac{1}{n} \right\}$$ and the related function $$f(x) = \frac{1}{x}.$$ Since the function $$f$$ defined on all real numbers $$x &gt; 0$$ satisfies $$f(x) = \frac{1}{x}\rightarrow 0$$ as $$x\rightarrow\infty,$$ the sequence $$\left\{ \frac{1}{n} \right\}$$ must satisfy $$\frac{1}{n}\rightarrow 0$$ as $$n\rightarrow\infty.$$</p>
+    <theorem number="5.1" title="Limit of a Sequence Defined by a Function">
+      <p>Consider a sequence $$\left\{ a_{n} \right\}$$ such that $$a_{n} = f(n)$$ for all $$n \geq 1.$$ If there exists a real number $$L$$ such that</p>
+      <equation>$$\underset{x\rightarrow\infty}{\text{lim}}f(x) = L,$$</equation>
+      <p>then $$\left\{ a_{n} \right\}$$ converges and</p>
+      <equation>$$\underset{n\rightarrow\infty}{\text{lim}}a_{n} = L.$$</equation>
+    </theorem>
+    <p>We can use this theorem to evaluate $$\underset{n\rightarrow\infty}{\text{lim}}r^{n}$$ for $$0 \leq r \leq 1.$$ For example, consider the sequence $$\left\{ \left( {1\text{/}2} \right)^{n} \right\}$$ and the related exponential function $$f(x) = \left( {1\text{/}2} \right)^{x}.$$ Since $$\underset{x\rightarrow\infty}{\text{lim}}\left( {1\text{/}2} \right)^{x} = 0,$$ we conclude that the sequence $$\left\{ \left( {1\text{/}2} \right)^{n} \right\}$$ converges and its limit is $$0.$$ Similarly, for any real number $$r$$ such that $$0 \leq r &lt; 1,$$ $$\underset{x\rightarrow\infty}{\text{lim}}r^{x} = 0,$$ and therefore the sequence $$\left\{ r^{n} \right\}$$ converges. On the other hand, if $$r = 1,$$ then $$\underset{x\rightarrow\infty}{\text{lim}}r^{x} = 1,$$ and therefore the limit of the sequence $$\left\{ 1^{n} \right\}$$ is $$1.$$ If $$r &gt; 1,$$ $$\underset{x\rightarrow\infty}{\text{lim}}r^{x} = \infty,$$ and therefore we cannot apply this theorem. However, in this case, just as the function $$r^{x}$$ grows without bound as $$n\rightarrow\infty,$$ the terms $$r^{n}$$ in the sequence become arbitrarily large as $$n\rightarrow\infty,$$ and we conclude that the sequence $$\left\{ r^{n} \right\}$$ diverges to infinity if $$r &gt; 1.$$</p>
+    <p>We summarize these results regarding the geometric sequence $$\left\{ r^{n} \right\}\text{:}$$</p>
+    <equation>$$\begin{array}{l} {r^{n}\rightarrow 0\ \textit{if}\ 0 &lt; r &lt; 1} \\ {r^{n}\rightarrow 1\ \textit{if}\ r = 1} \\ {r^{n}\rightarrow\infty\ \textit{if}\ r &gt; 1.} \end{array}$$</equation>
+    <p>Later in this section we consider the case when $$r &lt; 0.$$</p>
+    <p>We now consider slightly more complicated sequences. For example, consider the sequence $$\left\{ {(2\text{/}3)}^{n} + {(1\text{/}4)}^{n} \right\}.$$ The terms in this sequence are more complicated than other sequences we have discussed, but luckily the limit of this sequence is determined by the limits of the two sequences $$\left\{ {(2\text{/}3)}^{n} \right\}$$ and $$\left\{ {(1\text{/}4)}^{n} \right\}.$$ As we describe in the following algebraic limit laws, since $$\left\{ {(2\text{/}3)}^{n} \right\}$$ and $$\left. \left\{ 1\text{/}4) \right.^{n} \right\}$$ both converge to $$0,$$ the sequence $$\left\{ {(2\text{/}3)}^{n} + {(1\text{/}4)}^{n} \right\}$$ converges to $$0 + 0 = 0.$$ Just as we were able to evaluate a limit involving an algebraic combination of functions $$f$$ and $$g$$ by looking at the limits of $$f$$ and $$g$$ (see Introduction to Limits), we are able to evaluate the limit of a sequence whose terms are algebraic combinations of $$a_{n}$$ and $$b_{n}$$ by evaluating the limits of $$\left\{ a_{n} \right\}$$ and $$\left\{ b_{n} \right\}.$$</p>
+    <theorem number="5.2" title="Algebraic Limit Laws">
+      <p>Given sequences $$\left\{ a_{n} \right\}$$ and $$\left\{ b_{n} \right\}$$ and any real number $$c,$$ if there exist constants $$A$$ and $$B$$ such that $$\underset{n\rightarrow\infty}{\text{lim}}a_{n} = A$$ and $$\underset{n\rightarrow\infty}{\text{lim}}b_{n} = B,$$ then</p>
+      <list type="ol" style="i">
+        <item>$$\underset{n\rightarrow\infty}{\text{lim}}c = c$$</item>
+        <item>$$\underset{n\rightarrow\infty}{\text{lim}}ca_{n} = c\underset{n\rightarrow\infty}{\text{lim}}a_{n} = cA$$</item>
+        <item>$$\underset{n\rightarrow\infty}{\text{lim}}\left( {a_{n} \pm b_{n}} \right) = \underset{n\rightarrow\infty}{\text{lim}}a_{n} \pm \underset{n\rightarrow\infty}{\text{lim}}b_{n} = A \pm B$$</item>
+        <item>$$\underset{\text{n}\rightarrow\infty}{\text{lim}}\left( {a_{n} \cdot b_{n}} \right) = \left( \underset{n\rightarrow\infty}{\text{lim}}a_{n} \right) \cdot \left( \underset{n\rightarrow\infty}{\text{lim}}b_{n} \right) = A \cdot B$$</item>
+        <item>$$\underset{n\rightarrow\infty}{\text{lim}}\left( \frac{a_{n}}{b_{n}} \right) = \frac{\underset{n\rightarrow\infty}{\text{lim}}a_{n}}{\underset{n\rightarrow\infty}{\text{lim}}b_{n}} = \frac{A}{B},$$ provided $$B \neq 0$$ and each $$b_{n} \neq 0.$$</item>
+      </list>
+    </theorem>
+    <subsection title="Proof">
+      <p>We prove part iii.</p>
+      <p>Let $$\epsilon &gt; 0.$$ Since $$\underset{n\rightarrow\infty}{\text{lim}}a_{n} = A,$$ there exists a constant positive integer $$N_{1}$$ such that
+$$\left| a_{n} - A \middle| &lt; \frac{\varepsilon}{2} \right.$$
+ for all $$n \geq N_{1}.$$ Since $$\underset{n\rightarrow\infty}{\text{lim}}b_{n} = B,$$ there exists a constant $$N_{2}$$ such that $$\left| b_{n} - B \middle| &lt; \varepsilon\text{/}2 \right.$$ for all $$n \geq N_{2}.$$ Let $$N$$ be the larger of $$N_{1}$$ and $$N_{2}.$$ Therefore, for all $$n \geq N,$$</p>
+      <p>$$|(a_{n} + b_{n})\text{−}(A + B)| \leq |a_{n} - A| + |b_{n} - B| &lt; \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.$$</p>
+      <p>□</p>
+      <p>The algebraic limit laws allow us to evaluate limits for many sequences. For example, consider the sequence $$\left\{ \frac{1}{n^{2}} \right\}.$$ As shown earlier, $$\underset{n\rightarrow\infty}{\text{lim}}1\text{/}n = 0.$$ Similarly, for any positive integer $$k,$$ we can conclude that</p>
+      <equation>$$\underset{n\rightarrow\infty}{\text{lim}}\frac{1}{n^{k}} = 0.$$</equation>
+      <p>In the next example, we make use of this fact along with the limit laws to evaluate limits for other sequences.</p>
+      <example number="5.3">
+        <problem>
+          <title>Determining Convergence and Finding Limits</title>
+          <p>For each of the following sequences, determine whether or not the sequence converges. If it converges, find its limit.</p>
+          <list type="ol" style="a">
+            <item>$$\left\{ {5 - \frac{3}{n^{2}}} \right\}$$</item>
+            <item>$$\left\{ \frac{3n^{4} - 7n^{2} + 5}{6 - 4n^{4}} \right\}$$</item>
+            <item>$$\left\{ \frac{2^{n}}{n^{2}} \right\}$$</item>
+            <item>$$\left\{ \left( {1 + \frac{4}{n}} \right)^{n} \right\}$$</item>
+          </list>
+        </problem>
+        <solution>
+          <list type="ol" style="a">
+            <item>We know thatUsing this fact, we conclude thatTherefore,The sequence converges and its limit is<equation>$$1\text{/}n\rightarrow 0.$$</equation>
+              <equation>$$\underset{n\rightarrow\infty}{\text{lim}}\frac{1}{n^{2}} = \underset{n\rightarrow\infty}{\text{lim}}\left( \frac{1}{n} \right).\underset{n\rightarrow\infty}{\text{lim}}\left( \frac{1}{n} \right) = 0.$$</equation>
+              <equation>$$\underset{n\rightarrow\infty}{\text{lim}}\left( {5 - \frac{3}{n^{2}}} \right) = \underset{n\rightarrow\infty}{\text{lim}}5 - 3\underset{n\rightarrow\infty}{\text{lim}}\frac{1}{n^{2}} = 5 - 3 \cdot 0 = 5.$$</equation>
+              <equation>$$5.$$</equation>
+            </item>
+            <item>By factoringout of the numerator and denominator and using the limit laws above, we haveThe sequence converges and its limit is<equation>$$n^{4}$$</equation>
+              <equation>$$\begin{array}{cl} {\underset{n\rightarrow\infty}{\text{lim}}\frac{3n^{4} - 7n^{2} + 5}{6 - 4n^{4}}} &amp; {= \underset{n\rightarrow\infty}{\text{lim}}\frac{3 - \frac{7}{n^{2}} + \frac{5}{n^{4}}}{\frac{6}{n^{4}} - 4}} \\ &amp; {= \frac{\underset{n\rightarrow\infty}{\text{lim}}\left( {3 - \frac{7}{n^{2}} + \frac{5}{n^{4}}} \right)}{\underset{n\rightarrow\infty}{\text{lim}}\left( {\frac{6}{n^{4}} - 4} \right)}} \\ &amp; {= \frac{\left( {\underset{n\rightarrow\infty}{\text{lim}}(3)\text{−}\underset{n\rightarrow\infty}{\text{lim}}\frac{7}{n^{2}} + \underset{n\rightarrow\infty}{\text{lim}}\frac{5}{n^{4}}} \right)}{\left( {\underset{n\rightarrow\infty}{\text{lim}}\frac{6}{n^{4}} - \underset{n\rightarrow\infty}{\text{lim}}(4)} \right)}} \\ &amp; {= \frac{\left( {\underset{n\rightarrow\infty}{\text{lim}}(3)\text{−}7 \cdot \underset{n\rightarrow\infty}{\text{lim}}\frac{1}{n^{2}} + 5 \cdot \underset{n\rightarrow\infty}{\text{lim}}\frac{1}{n^{4}}} \right)}{\left( {6 \cdot \underset{n\rightarrow\infty}{\text{lim}}\frac{1}{n^{4}} - \underset{n\rightarrow\infty}{\text{lim}}(4)} \right)}} \\ &amp; {= \frac{3 - 7 \cdot 0 + 5 \cdot 0}{6 \cdot 0 - 4} = - \frac{3}{4}.} \end{array}$$</equation>
+              <equation>$$-3\text{/}4.$$</equation>
+            </item>
+            <item>Consider the related functiondefined on all real numbersSinceandasapply L’Hôpital’s rule and writeWe conclude that the sequence diverges.<equation>$$f(x) = 2^{x}\text{/}x^{2}$$</equation>
+              <equation>$$x &gt; 0.$$</equation>
+              <equation>$$2^{x}\rightarrow\infty$$</equation>
+              <equation>$$x^{2}\rightarrow\infty$$</equation>
+              <equation>$$x\rightarrow\infty,$$</equation>
+              <equation>$$\begin{array}{clccc} {\underset{x\rightarrow\infty}{\text{lim}}\frac{2^{x}}{x^{2}}} &amp; {= \underset{x\rightarrow\infty}{\text{lim}}\frac{2^{x}\text{ln}\mspace{2mu} 2}{2x}} &amp; &amp; &amp; \text{Take the derivatives of the numerator and denominator.} \\ &amp; {= \underset{x\rightarrow\infty}{\text{lim}}\frac{2^{x}\left( {\text{ln}\mspace{2mu} 2} \right)^{2}}{2}} &amp; &amp; &amp; \text{Take the derivatives again.} \\ &amp; {= \infty.} &amp; &amp; &amp; \end{array}$$</equation>
+            </item>
+            <item>Consider the functiondefined on all real numbersThis function has the indeterminate formasLetNow taking the natural logarithm of both sides of the equation, we obtainSince the functionis continuous on its domain, we can interchange the limit and the natural logarithm. Therefore,Using properties of logarithms, we writeSince the right-hand side of this equation has the indeterminate formrewrite it as a fraction to apply L’Hôpital’s rule. WriteSince the right-hand side is now in the indeterminate formwe are able to apply L’Hôpital’s rule. We conclude thatTherefore,andTherefore, sincewe can conclude that the sequenceconverges to<equation>$$f(x) = \left( {1 + \frac{4}{x}} \right)^{x}$$</equation>
+              <equation>$$x &gt; 0.$$</equation>
+              <equation>$$1^{\infty}$$</equation>
+              <equation>$$x\rightarrow\infty.$$</equation>
+              <equation>$$y = \underset{x\rightarrow\infty}{\text{lim}}\left( {1 + \frac{4}{x}} \right)^{x}.$$</equation>
+              <equation>$$\text{ln}(y) = \text{ln}\left\lbrack {\underset{x\rightarrow\infty}{\text{lim}}\left( {1 + \frac{4}{x}} \right)^{x}} \right\rbrack.$$</equation>
+              <equation>$$f(x) = \text{ln}\mspace{2mu} x$$</equation>
+              <equation>$$\text{ln}(y) = \underset{x\rightarrow\infty}{\text{lim}}\left\lbrack {\text{ln}\left( {1 + \frac{4}{x}} \right)^{x}} \right\rbrack.$$</equation>
+              <equation>$$\underset{x\rightarrow\infty}{\text{lim}}\left\lbrack {\text{ln}\left( {1 + \frac{4}{x}} \right)^{x}} \right\rbrack = \underset{x\rightarrow\infty}{\text{lim}}x\mspace{2mu}\text{ln}\left( {1 + \frac{4}{x}} \right).$$</equation>
+              <equation>$$\infty \cdot 0,$$</equation>
+              <equation>$$\underset{x\rightarrow\infty}{\text{lim}}x\mspace{2mu}\text{ln}\left( {1 + \frac{4}{x}} \right) = \underset{x\rightarrow\infty}{\text{lim}}\frac{\text{ln}\left( {1 + 4\text{/}x} \right)}{1\text{/}x}.$$</equation>
+              <equation>$$0\text{/}0,$$</equation>
+              <equation>$$\underset{x\rightarrow\infty}{\text{lim}}\frac{\text{ln}\left( {1 + 4\text{/}x} \right)}{1\text{/}x} = \underset{x\rightarrow\infty}{\text{lim}}\frac{4}{1 + 4\text{/}x} = 4.$$</equation>
+              <equation>$$\text{ln}(y) = 4$$</equation>
+              <equation>$$y = e^{4}.$$</equation>
+              <equation>$$\underset{x\rightarrow\infty}{\text{lim}}\left( {1 + \frac{4}{x}} \right)^{x} = e^{4},$$</equation>
+              <equation>$$\left\{ \left( {1 + \frac{4}{n}} \right)^{n} \right\}$$</equation>
+              <equation>$$e^{4}.$$</equation>
+            </item>
+          </list>
+        </solution>
+      </example>
+      <checkpoint number="5.3">
+        <problem>
+          <p>Consider the sequence $$\left\{ \left( {5n^{2} + 1} \right)\text{/}e^{n} \right\}.$$ Determine whether or not the sequence converges. If it converges, find its limit.</p>
+        </problem>
+        <solution>
+          <p>The sequence converges, and its limit is $$0.$$</p>
+        </solution>
+      </checkpoint>
+      <p>Recall that if $$f$$ is a continuous function at a value $$L,$$ then $$f(x)\rightarrow f(L)$$ as $$x\rightarrow L.$$ This idea applies to sequences as well. Suppose a sequence $$a_{n}\rightarrow L,$$ and a function $$f$$ is continuous at $$L.$$ Then $$f\left( a_{n} \right)\rightarrow f(L).$$ This property often enables us to find limits for complicated sequences. For example, consider the sequence $$\sqrt{5 - \frac{3}{n^{2}}}.$$ From Example 5.3a. we know the sequence $$5 - \frac{3}{n^{2}}\rightarrow 5.$$ Since $$\sqrt{x}$$ is a continuous function at $$x = 5,$$</p>
+      <equation>$$\underset{n\rightarrow\infty}{\text{lim}}\sqrt{5 - \frac{3}{n^{2}}} = \sqrt{\underset{n\rightarrow\infty}{\text{lim}}\left( {5 - \frac{3}{n^{2}}} \right)} = \sqrt{5}.$$</equation>
+      <theorem number="5.3" title="Continuous Functions Defined on Convergent Sequences">
+        <p>Consider a sequence $$\left\{ a_{n} \right\}$$ and suppose there exists a real number $$L$$ such that the sequence $$\left\{ a_{n} \right\}$$ converges to $$L.$$ Suppose $$f$$ is a continuous function at $$L.$$ Then there exists an integer $$N$$ such that $$f$$ is defined at all values $$a_{n}$$ for $$n \geq N,$$ and the sequence $$\left\{ {f\left( a_{n} \right)} \right\}$$ converges to $$f(L)$$ (Figure 5.5).</p>
+      </theorem>
+    </subsection>
+    <subsection title="Proof">
+      <p>Let $$\epsilon &gt; 0.$$ Since $$f$$ is continuous at $$L,$$ there exists $$\delta &gt; 0$$ such that $$\left| {f(x) - f(L)} \right| &lt; \varepsilon$$ if $$\left| {x - L} \right| &lt; \delta.$$ Since the sequence $$\left\{ a_{n} \right\}$$ converges to $$L,$$ there exists $$N$$ such that $$\left| {a_{n} - L} \right| &lt; \delta$$ for all $$n \geq N.$$ Therefore, for all $$n \geq N,$$ $$\left| {a_{n} - L} \right| &lt; \delta,$$ which implies $$\left| {f(a_{n})\text{−}f(L)} \right| &lt; \varepsilon.$$ We conclude that the sequence $$\left\{ {f\left( a_{n} \right)} \right\}$$ converges to $$f(L).$$</p>
+      <p>□</p>
+      <image alt="A graph in quadrant 1 with points (a_1, f(a_1)), (a_3, f(a_3)), (L, f(L)), (a_4, f(a_4)), and (a_2, f(a_2)) connected by smooth curves." number="5.5" caption="Because $$f$$ is a continuous function as the inputs $$a_{1},a_{2},a_{3}\text{,…}$$ approach $$L,$$ the outputs $$f\left( a_{1} \right),f\left( a_{2} \right),f\left( a_{3} \right)\text{,…}$$ approach $$f(L).$$" />
+      <example number="5.4">
+        <problem>
+          <title>Limits Involving Continuous Functions Defined on Convergent Sequences</title>
+          <p>Determine whether the sequence $$\left\{ \text{cos}\left( {3\text{/}n^{2}} \right) \right\}$$ converges. If it converges, find its limit.</p>
+        </problem>
+        <solution>
+          <p>Since the sequence $$\left\{ 3\text{/}n^{2} \right\}$$ converges to $$0$$ and $$\text{cos}\mspace{2mu} x$$ is continuous at $$x = 0,$$ we can conclude that the sequence $$\left\{ \text{cos}\left( {3\text{/}n^{2}} \right) \right\}$$ converges and</p>
+          <equation>$$\underset{n\rightarrow\infty}{\text{lim}}\text{cos}\left( \frac{3}{n^{2}} \right) = \text{cos}(0) = 1.$$</equation>
+        </solution>
+      </example>
+      <checkpoint number="5.4">
+        <problem>
+          <p>Determine if the sequence $$\left\{ \sqrt{\frac{2n + 1}{3n + 5}} \right\}$$ converges. If it converges, find its limit.</p>
+        </problem>
+        <solution>
+          <p>The sequence converges, and its limit is $$\sqrt{2\text{/}3}.$$</p>
+        </solution>
+      </checkpoint>
+      <p>Another theorem involving limits of sequences is an extension of the Squeeze Theorem for limits discussed in Introduction to Limits.</p>
+      <theorem number="5.4" title="Squeeze Theorem for Sequences">
+        <p>Consider sequences $$\left\{ a_{n} \right\},$$ $$\left\{ b_{n} \right\},$$ and $$\left\{ c_{n} \right\}.$$ Suppose there exists an integer $$N$$ such that</p>
+        <equation>$$a_{n} \leq b_{n} \leq c_{n}\ \text{for all}\ n \geq N.$$</equation>
+        <p>If there exists a real number $$L$$ such that</p>
+        <equation>$$\underset{n\rightarrow\infty}{\text{lim}}a_{n} = L = \underset{n\rightarrow\infty}{\text{lim}}c_{n},$$</equation>
+        <p>then $$\left\{ b_{n} \right\}$$ converges and $$\underset{n\rightarrow\infty}{\text{lim}}b_{n} = L$$ (Figure 5.6).</p>
+      </theorem>
+    </subsection>
+    <subsection title="Proof">
+      <p>Let $$\varepsilon &gt; 0.$$ Since the sequence $$\left\{ a_{n} \right\}$$ converges to $$L,$$ there exists an integer $$N_{1}$$ such that $$\left| {a_{n} - L} \right| &lt; \varepsilon$$ for all $$n \geq N_{1}.$$ Similarly, since $$\left\{ c_{n} \right\}$$ converges to $$L,$$ there exists an integer $$N_{2}$$ such that $$\left| {c_{n} - L} \right| &lt; \varepsilon$$ for all $$n \geq N_{2}.$$ By assumption, there exists an integer $$N$$ such that $$a_{n} \leq b_{n} \leq c_{n}$$ for all $$n \geq N.$$ Let $$M$$ be the largest of $$N_{1},N_{2},$$ and $$N.$$ We must show that $$\left| b_{n} - L \middle| &lt; \varepsilon \right.$$ for all $$n \geq M.$$ For all $$n \geq M,$$</p>
+      <equation>$$\text{−}\varepsilon &lt; \text{−}\left| {a_{n} - L} \right| \leq a_{n} - L \leq b_{n} - L \leq c_{n} - L \leq \left| {c_{n} - L} \right| &lt; \varepsilon.$$</equation>
+      <p>Therefore, $$\text{−}\varepsilon &lt; b_{n} - L &lt; \varepsilon,$$ and we conclude that $$\left| {b_{n} - L} \right| &lt; \varepsilon$$ for all $$n \geq M,$$ and we conclude that the sequence $$\left\{ b_{n} \right\}$$ converges to $$L.$$</p>
+      <p>□</p>
+      <image alt="A graph in quadrant 1 with the line y = L and the x axis labeled as the n axis. Points are plotted above and below the line, converging to L as n goes to infinity. Points a_n, b_n, and c_n are plotted at the same n-value. A_n and b_n are above y = L, and c_n is below it." number="5.6" caption="Each term $$b_{n}$$ satisfies $$a_{n} \leq b_{n} \leq c_{n}$$ and the sequences $$\left\{ a_{n} \right\}$$ and $$\left\{ c_{n} \right\}$$ converge to the same limit, so the sequence $$\left\{ b_{n} \right\}$$ must converge to the same limit as well." />
+      <example number="5.5">
+        <problem>
+          <title>Using the Squeeze Theorem</title>
+          <p>Use the Squeeze Theorem to find the limit of each of the following sequences.</p>
+          <list type="ol" style="a">
+            <item>$$\left\{ \frac{\text{cos}\mspace{2mu} n}{n^{2}} \right\}$$</item>
+            <item>$$\left\{ \left( {- \frac{1}{2}} \right)^{n} \right\}$$</item>
+          </list>
+        </problem>
+        <solution>
+          <list type="ol" style="a">
+            <item>Sincefor all integerswe haveSinceandwe conclude thatas well.<equation>$$-1 \leq \text{cos}\mspace{2mu} n \leq 1$$</equation>
+              <equation>$$n,$$</equation>
+              <equation>$$- \frac{1}{n^{2}} \leq \frac{\text{cos}\mspace{2mu} n}{n^{2}} \leq \frac{1}{n^{2}}.$$</equation>
+              <equation>$$-1\text{/}n^{2}\rightarrow 0$$</equation>
+              <equation>$$1\text{/}n^{2}\rightarrow 0,$$</equation>
+              <equation>$$\text{cos}\mspace{2mu} n\text{/}n^{2}\rightarrow 0$$</equation>
+            </item>
+            <item>Sincefor all positive integersandwe can conclude that<equation>$$- \frac{1}{2^{n}} \leq \left( {- \frac{1}{2}} \right)^{n} \leq \frac{1}{2^{n}}$$</equation>
+              <equation>$$n,$$</equation>
+              <equation>$$-1\text{/}2^{n}\rightarrow 0$$</equation>
+              <equation>$$1\text{/}2^{n}\rightarrow 0,$$</equation>
+              <equation>$${(-1\text{/}2)}^{n}\rightarrow 0.$$</equation>
+            </item>
+          </list>
+        </solution>
+      </example>
+      <checkpoint number="5.5">
+        <problem>
+          <p>Find $$\underset{n\rightarrow\infty}{\text{lim}}\frac{2n - \text{sin}\mspace{2mu} n}{n}.$$</p>
+        </problem>
+        <solution>
+          <p>$$2$$</p>
+        </solution>
+      </checkpoint>
+      <p>Using the idea from Example 5.5b. we conclude that $$r^{n}\rightarrow 0$$ for any real number $$r$$ such that $$-1 &lt; r &lt; 0.$$ If $$r &lt; \text{−}1,$$ the sequence $$\left\{ r^{n} \right\}$$ diverges because the terms oscillate and become arbitrarily large in magnitude. If $$r = -1,$$ the sequence $$\left\{ r^{n} \right\} = \left\{ (-1)^{n} \right\}$$ diverges, as discussed earlier. Here is a summary of the properties for geometric sequences.</p>
+      <equation>$$r^{n}\rightarrow 0\ \text{if}\ |r| &lt; 1$$</equation>
+      <equation>$$r^{n}\rightarrow 1\ \text{if}\ r = 1$$</equation>
+      <equation>$$r^{n}\rightarrow\infty\ \text{if}\ r &gt; 1$$</equation>
+      <equation>$$\left\{ r^{n} \right\}\ \text{diverges if}\ r \leq \text{−}1$$</equation>
+    </subsection>
+  </subsection>
+  <subsection title="Bounded Sequences">
+    <p>We now turn our attention to one of the most important theorems involving sequences: the Monotone Convergence Theorem. Before stating the theorem, we need to introduce some terminology and motivation. We begin by defining what it means for a sequence to be bounded.</p>
+    <note type="Definition">
+      <p>A sequence $$\left\{ a_{n} \right\}$$ is bounded above if there exists a real number $$M$$ such that</p>
+      <equation>$$a_{n} \leq M$$</equation>
+      <p>for all positive integers $$n.$$</p>
+      <p>A sequence $$\left\{ a_{n} \right\}$$ is bounded below if there exists a real number $$M$$ such that</p>
+      <equation>$$M \leq a_{n}$$</equation>
+      <p>for all positive integers $$n.$$</p>
+      <p>A sequence $$\left\{ a_{n} \right\}$$ is a bounded sequence if it is bounded above and bounded below.</p>
+      <p>If a sequence is not bounded, it is an unbounded sequence.</p>
+    </note>
+    <p>For example, the sequence $$\left\{ 1\text{/}n \right\}$$ is bounded above because $$1\text{/}n \leq 1$$ for all positive integers $$n.$$ It is also bounded below because $$1\text{/}n \geq 0$$ for all positive integers n. Therefore, $$\left\{ 1\text{/}n \right\}$$ is a bounded sequence. On the other hand, consider the sequence $$\left\{ 2^{n} \right\}.$$ Because $$2^{n} \geq 2$$ for all $$n \geq 1,$$ the sequence is bounded below. However, the sequence is not bounded above. Therefore, $$\left\{ 2^{n} \right\}$$ is an unbounded sequence.</p>
+    <p>We now discuss the relationship between boundedness and convergence. Suppose a sequence $$\left\{ a_{n} \right\}$$ is unbounded. Then it is not bounded above, or not bounded below, or both. In either case, there are terms $$a_{n}$$ that are arbitrarily large in magnitude as $$n$$ gets larger. As a result, the sequence $$\left\{ a_{n} \right\}$$ cannot converge. Therefore, being bounded is a necessary condition for a sequence to converge.</p>
+    <theorem number="5.5" title="Convergent Sequences Are Bounded">
+      <p>If a sequence $$\left\{ a_{n} \right\}$$ converges, then it is bounded.</p>
+    </theorem>
+    <p>Note that a sequence being bounded is not a sufficient condition for a sequence to converge. For example, the sequence $$\left\{ (-1)^{n} \right\}$$ is bounded, but the sequence diverges because the sequence oscillates between $$1$$ and $$-1$$ and never approaches a finite number. We now discuss a sufficient (but not necessary) condition for a bounded sequence to converge.</p>
+    <p>Consider a bounded sequence $$\left\{ a_{n} \right\}.$$ Suppose the sequence $$\left\{ a_{n} \right\}$$ is increasing. That is, $$a_{1} \leq a_{2} \leq a_{3}\text{…}.$$ Since the sequence is increasing, the terms are not oscillating. Therefore, there are two possibilities. The sequence could diverge to infinity, or it could converge. However, since the sequence is bounded, it is bounded above and the sequence cannot diverge to infinity. We conclude that $$\left\{ a_{n} \right\}$$ converges. For example, consider the sequence</p>
+    <equation>$$\left\{ {\frac{1}{2},\frac{2}{3},\frac{3}{4},\frac{4}{5}\text{,…}} \right\}.$$</equation>
+    <p>Since this sequence is increasing and bounded above, it converges. Next, consider the sequence</p>
+    <equation>$$\left\{ {2,0,3,0,4,0,1, - \frac{1}{2}, - \frac{1}{3}, - \frac{1}{4}\text{,…}} \right\}.$$</equation>
+    <p>Even though the sequence is not increasing for all values of $$n,$$ we see that $$-1\text{/}2 &lt; \text{−}1\text{/}3 &lt; \text{−}1\text{/}4 &lt; \text{⋯}.$$ Therefore, starting with the eighth term, $$a_{8} = -1\text{/}2,$$ the sequence is increasing. In this case, we say the sequence is eventually increasing. Since the sequence is bounded above, it converges. It is also true that if a sequence is decreasing (or eventually decreasing) and bounded below, it also converges.</p>
+    <note type="Definition">
+      <p>A sequence $$\left\{ a_{n} \right\}$$ is increasing for all $$n \geq n_{0}$$ if</p>
+      <equation>$$a_{n} \leq a_{n + 1}\ \text{for all}\ n \geq n_{0}.$$</equation>
+      <p>A sequence $$\left\{ a_{n} \right\}$$ is decreasing for all $$n \geq n_{0}$$ if</p>
+      <equation>$$a_{n} \geq a_{n + 1}\ \text{for all}\ n \geq n_{0}.$$</equation>
+      <p>A sequence $$\left\{ a_{n} \right\}$$ is a monotone sequence for all $$n \geq n_{0}$$ if it is increasing for all $$n \geq n_{0}$$ or decreasing for all $$n \geq n_{0}.$$</p>
+    </note>
+    <p>We now have the necessary definitions to state the Monotone Convergence Theorem, which gives a sufficient condition for convergence of a sequence.</p>
+    <theorem number="5.6" title="Monotone Convergence Theorem">
+      <p>If $$\left\{ a_{n} \right\}$$ is a bounded sequence and there exists a positive integer $$n_{0}$$ such that $$\left\{ a_{n} \right\}$$ is monotone for all $$n \geq n_{0},$$ then $$\left\{ a_{n} \right\}$$ converges.</p>
+    </theorem>
+    <p>The proof of this theorem is beyond the scope of this text. Instead, we provide a graph to show intuitively why this theorem makes sense (Figure 5.7).</p>
+    <image alt="A graph in quadrant 1 with the x and y axes labeled n and a_n, respectively. A dotted horizontal is drawn from the a_n axis into quadrant 1. Many points are plotted under the dotted line, increasing in a_n value and converging to the dotted line." number="5.7" caption="Since the sequence $$\left\{ a_{n} \right\}$$ is increasing and bounded above, it must converge." />
+    <p>In the following example, we show how the Monotone Convergence Theorem can be used to prove convergence of a sequence.</p>
+    <example number="5.6">
+      <problem>
+        <title>Using the Monotone Convergence Theorem</title>
+        <p>For each of the following sequences, use the Monotone Convergence Theorem to show the sequence converges and find its limit.</p>
+        <list type="ol" style="a">
+          <item>$$\left\{ \frac{4^{n}}{n\text{!}} \right\}$$</item>
+          <item>defined recursively such that<equation>$$\left\{ a_{n} \right\}$$</equation>
+            <equation>$$a_{1} = 2\ \text{and}\ a_{n + 1} = \frac{a_{n}}{2} + \frac{1}{2a_{n}}\ \text{for all}\ n \geq 2.$$</equation>
+          </item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="a">
+          <item>Writing out the first few terms, we see thatAt first, the terms increase. However, after the third term, the terms decrease. In fact, the terms decrease for allWe can show this as follows.Therefore, the sequence is decreasing for allFurther, the sequence is bounded below bybecausefor all positive integersTherefore, by the Monotone Convergence Theorem, the sequence converges.To find the limit, we use the fact that the sequence converges and letNow note this important observation. ConsiderSincethe only difference between the sequencesandis thatomits the first term. Since a finite number of terms does not affect the convergence of a sequence,Combining this fact with the equationand taking the limit of both sides of the equationwe can conclude that<equation>$$\left\{ \frac{4^{n}}{n\text{!}} \right\} = \left\{ {4,8,\frac{32}{3},\frac{32}{3},\frac{128}{15}\text{,…}} \right\}.$$</equation>
+            <equation>$$n \geq 3.$$</equation>
+            <equation>$$a_{n + 1} = \frac{4^{n + 1}}{\left( {n + 1} \right)\text{!}} = \frac{4}{n + 1} \cdot \frac{4^{n}}{n\text{!}} = \frac{4}{n + 1} \cdot a_{n} \leq a_{n}\ if\ n \geq 3.$$</equation>
+            <equation>$$n \geq 3.$$</equation>
+            <equation>$$0$$</equation>
+            <equation>$$4^{n}\text{/}n\text{!} \geq 0$$</equation>
+            <equation>$$n.$$</equation>
+            <equation>$$L = \underset{n\rightarrow\infty}{\text{lim}}a_{n}.$$</equation>
+            <equation>$$\underset{n\rightarrow\infty}{\text{lim}}a_{n + 1}.$$</equation>
+            <equation>$$\left\{ a_{n + 1} \right\} = \left\{ {a_{2,}a_{3},a_{4}\text{,…}} \right\},$$</equation>
+            <equation>$$\left\{ a_{n + 1} \right\}$$</equation>
+            <equation>$$\left\{ a_{n} \right\}$$</equation>
+            <equation>$$\left\{ a_{n + 1} \right\}$$</equation>
+            <equation>$$\underset{n\rightarrow\infty}{\text{lim}}a_{n + 1} = \underset{n\rightarrow\infty}{\text{lim}}a_{n} = L.$$</equation>
+            <equation>$$a_{n + 1} = \frac{4}{n + 1}a_{n}$$</equation>
+            <equation>$$\underset{n\rightarrow\infty}{\text{lim}}a_{n + 1} = \underset{n\rightarrow\infty}{\text{lim}}\frac{4}{n + 1}a_{n},$$</equation>
+            <equation>$$L = 0 \cdot L = 0.$$</equation>
+          </item>
+          <item>Writing out the first several terms,we can conjecture that the sequence is decreasing and bounded below byTo show that the sequence is bounded below bywe can show thatTo show this, first rewriteSinceandis defined as a sum of positive terms,Similarly, all termsTherefore,if and only ifRewriting the inequalityasand using the fact thatbecause the square of any real number is nonnegative, we can conclude thatTo show that the sequence is decreasing, we must show thatfor allSinceit follows thatDividing both sides bywe obtainUsing the definition ofwe conclude thatSinceis bounded below and decreasing, by the Monotone Convergence Theorem, it converges.To find the limit, letThen using the recurrence relation and the fact thatwe haveand thereforeMultiplying both sides of this equation bywe arrive at the equationSolving this equation forwe conclude thatwhich impliesSince all the terms are positive, the limit<equation>$$\left\{ {2,\frac{5}{4},\frac{41}{40},\frac{3281}{3280}\text{,…}} \right\}.$$</equation>
+            <equation>$$1.$$</equation>
+            <equation>$$1,$$</equation>
+            <equation>$$\frac{a_{n}}{2} + \frac{1}{2a_{n}} \geq 1.$$</equation>
+            <equation>$$\frac{a_{n}}{2} + \frac{1}{2a_{n}} = \frac{a_{n}^{2} + 1}{2a_{n}}.$$</equation>
+            <equation>$$a_{1} &gt; 0$$</equation>
+            <equation>$$a_{2}$$</equation>
+            <equation>$$a_{2} &gt; 0.$$</equation>
+            <equation>$$a_{n} &gt; 0.$$</equation>
+            <equation>$$\frac{a_{n}^{2} + 1}{2a_{n}} \geq 1$$</equation>
+            <equation>$$a_{n}^{2} + 1 \geq 2a_{n}.$$</equation>
+            <equation>$$a_{n}^{2} + 1 \geq 2a_{n}$$</equation>
+            <equation>$$a_{n}^{2} - 2a_{n} + 1 \geq 0,$$</equation>
+            <equation>$$a_{n}^{2} - 2a_{n} + 1 = {(a_{n} - 1)}^{2} \geq 0$$</equation>
+            <equation>$$\frac{a_{n}}{2} + \frac{1}{2a_{n}} \geq 1.$$</equation>
+            <equation>$$a_{n + 1} \leq a_{n}$$</equation>
+            <equation>$$n \geq 1.$$</equation>
+            <equation>$$1 \leq a_{n}^{2},$$</equation>
+            <equation>$$a_{n}^{2} + 1 \leq 2a_{n}^{2}.$$</equation>
+            <equation>$$2a_{n},$$</equation>
+            <equation>$$\frac{a_{n}}{2} + \frac{1}{2a_{n}} \leq a_{n}.$$</equation>
+            <equation>$$a_{n + 1},$$</equation>
+            <equation>$$a_{n + 1} = \frac{a_{n}}{2} + \frac{1}{2a_{n}} \leq a_{n}.$$</equation>
+            <equation>$$\left\{ a_{n} \right\}$$</equation>
+            <equation>$$L = \underset{n\rightarrow\infty}{\text{lim}}a_{n}.$$</equation>
+            <equation>$$\underset{n\rightarrow\infty}{\text{lim}}a_{n} = \underset{n\rightarrow\infty}{\text{lim}}a_{n + 1},$$</equation>
+            <equation>$$\underset{n\rightarrow\infty}{\text{lim}}a_{n + 1} = \underset{n\rightarrow\infty}{\text{lim}}\left( {\frac{a_{n}}{2} + \frac{1}{2a_{n}}} \right),$$</equation>
+            <equation>$$L = \frac{L}{2} + \frac{1}{2L}.$$</equation>
+            <equation>$$2L,$$</equation>
+            <equation>$$2L^{2} = L^{2} + 1.$$</equation>
+            <equation>$$L,$$</equation>
+            <equation>$$L^{2} = 1,$$</equation>
+            <equation>$$L = \text{±}1.$$</equation>
+            <equation>$$L = 1.$$</equation>
+          </item>
+        </list>
+      </solution>
+    </example>
+    <checkpoint number="5.6">
+      <problem>
+        <p>Consider the sequence $$\left\{ a_{n} \right\}$$ defined recursively such that $$a_{1} = 1,$$ $$a_{n} = a_{n - 1}\text{/}2.$$ Use the Monotone Convergence Theorem to show that this sequence converges and find its limit.</p>
+      </problem>
+      <solution>
+        <p>$$0.$$</p>
+      </solution>
+    </checkpoint>
+    <note type="Student Project">
+      <p>The Fibonacci numbers are defined recursively by the sequence $$\left\{ F_{n} \right\}$$ where $$F_{0} = 0,$$ $$F_{1} = 1$$ and for $$n \geq 2,$$</p>
+      <equation>$$F_{n} = F_{n - 1} + F_{n - 2}.$$</equation>
+      <p>Here we look at properties of the Fibonacci numbers.</p>
+      <list type="ol" style="1">
+        <item>Write out the first twenty Fibonacci numbers.</item>
+        <item>Find a closed formula for the Fibonacci sequence by using the following steps.<list type="ol" style="a">
+            <item>Consider the recursively defined sequence $$\left\{ x_{n} \right\}$$ where $$x_{o} = c$$ and $$x_{n + 1} = ax_{n}.$$ Show that this sequence can be described by the closed formula $$x_{n} = ca^{n}$$ for all $$n \geq 0.$$</item>
+            <item>Using the result from part a. as motivation, look for a solution of the equationof the formDetermine what two values forwill allowto satisfy this equation.<equation>$$F_{n} = F_{n - 1} + F_{n - 2}$$</equation>
+              <equation>$$F_{n} = c\lambda^{n}.$$</equation>
+              <equation>$$\lambda$$</equation>
+              <equation>$$F_{n}$$</equation>
+            </item>
+            <item>Consider the two solutions from part b.: $$\lambda_{1}$$ and $$\lambda_{2}.$$ Let $$F_{n} = c_{1}\lambda_{1}{}^{n} + c_{2}\lambda_{2}{}^{n}.$$ Use the initial conditions $$F_{0}$$ and $$F_{1}$$ to determine the values for the constants $$c_{1}$$ and $$c_{2}$$ and write the closed formula $$F_{n}.$$</item>
+          </list>
+        </item>
+        <item>Use the answer in 2 c. to show thatThe numberis known as the(and).<equation>$$\underset{n\rightarrow\infty}{\text{lim}}\frac{F_{n + 1}}{F_{n}} = \frac{1 + \sqrt{5}}{2}.$$</equation>
+          <equation>$$\phi = \left( {1 + \sqrt{5}} \right)\text{/}2$$</equation>
+          <image alt="This is a photo of a sunflower, particularly the curves of the seeds at its middle. The number of spirals in each direction is always a Fibonacci number." number="5.8" caption="The seeds in a sunflower exhibit spiral patterns curving to the left and to the right. The number of spirals in each direction is always a Fibonacci number—always. (credit: modification of work by Esdras Calderan, Wikimedia Commons)" />
+          <image alt="This is a photo of the Parthenon, an ancient Greek temple that was designed with the proportions of the Golden Rule. The entire temple’s front side fits perfectly into a rectangle with those proportions, as do the columns, the level between the columns and the roof, and a portion of the trim below the roof." number="5.9" caption="The proportion of the golden ratio appears in many famous examples of art and architecture. The ancient Greek temple known as the Parthenon appears to have these proportions, and the ratio appears again in many of the smaller details. (credit: modification of work by TravelingOtter, Flickr)" />
+        </item>
+      </list>
+    </note>
+  </subsection>
+  <exercises title="Section 5.1 Exercises">
+    <instruction>Find the first six terms of each of the following sequences, starting with $$n = 1.$$</instruction>
+    <exercise number="1" has_solution="true">
+      <problem>
+        <p>$$a_{n} = 1 + (-1)^{n}$$ for $$n \geq 1$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = 0$$ if $$n$$ is odd and $$a_{n} = 2$$ if $$n$$ is even</p>
+      </solution>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <p>$$a_{n} = n^{2} - 1$$ for $$n \geq 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="true">
+      <problem>
+        <p>$$a_{1} = 1$$ and $$a_{n} = a_{n - 1} + n$$ for $$n \geq 2$$</p>
+      </problem>
+      <solution>
+        <p>$$\left\{ a_{n} \right\} = \left\{ 1,3,6,10,15,21\text{,…} \right\}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <p>$$a_{1} = 1,$$ $$a_{2} = 1$$ and $$a_{n + 2} = a_{n} + a_{n + 1}$$ for $$n \geq 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="5" has_solution="true">
+      <problem>
+        <p>Find an explicit formula for $$a_{n}$$ where $$a_{1} = 1$$ and $$a_{n} = a_{n - 1} + n$$ for $$n \geq 2.$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = \frac{n\left( {n + 1} \right)}{2}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <p>Find a formula $$a_{n}$$ for the $$n\text{th}$$ term of the arithmetic sequence whose first term is $$a_{1} = 1$$ such that $$a_{n + 1} - a_{n} = 17$$ for $$n \geq 1.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="7" has_solution="true">
+      <problem>
+        <p>Find a formula $$a_{n}$$ for the $$n\text{th}$$ term of the arithmetic sequence whose first term is $$a_{1} = -3$$ such that $$a_{n + 1} - a_{n} = 4$$ for $$n \geq 1.$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = 4n - 7$$</p>
+      </solution>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <p>Find a formula $$a_{n}$$ for the $$n\text{th}$$ term of the geometric sequence whose first term is $$a_{1} = 1$$ such that $$\frac{a_{n + 1}}{a_{n}} = 10$$ for $$n \geq 1.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="9" has_solution="true">
+      <problem>
+        <p>Find a formula $$a_{n}$$ for the $$n\text{th}$$ term of the geometric sequence whose first term is $$a_{1} = 3$$ such that $$\frac{a_{n + 1}}{a_{n}} = 1\text{/}10$$ for $$n \geq 1.$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = 3.10^{1 - n} = 30.10^{\text{−}n}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <p>Find an explicit formula for the $$n\text{th}$$ term of the sequence whose first several terms are $$\left\{ {0,3,8,15,24,35,48,63,80,99\text{,…}} \right\}.$$ (Hint: First add one to each term.)</p>
+      </problem>
+    </exercise>
+    <exercise number="11" has_solution="true">
+      <problem>
+        <p>Find an explicit formula for the $$n\text{th}$$ term of the sequence satisfying $$a_{1} = 0$$ and $$a_{n} = 2a_{n - 1} + 1$$ for $$n \geq 2.$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = 2^{n - 1} - 1$$</p>
+      </solution>
+    </exercise>
+    <instruction>Find a formula for the general term $$a_{n}$$ of each of the following sequences.</instruction>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <p>$$\left\{ {1,0,-1,0,1,0,-1,0\text{,…}} \right\}$$ (Hint: Find where $$\text{sin}\mspace{2mu} x$$ takes these values)</p>
+      </problem>
+    </exercise>
+    <exercise number="13" has_solution="true">
+      <problem>
+        <p>$$\left\{ {1,\text{−}{1\text{/}{3,{1\text{/}5}}},\text{−}{1\text{/}{7\text{,…}}}} \right\}$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = \frac{(-1)^{n - 1}}{2n - 1}$$</p>
+      </solution>
+    </exercise>
+    <instruction>Find a function $$f(n)$$ that identifies the $$n\text{th}$$ term $$a_{n}$$ of the following recursively defined sequences, as $$a_{n} = f(n).$$</instruction>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <p>$$a_{1} = 1$$ and $$a_{n + 1} = \text{−}a_{n}$$ for $$n \geq 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="15" has_solution="true">
+      <problem>
+        <p>$$a_{1} = 2$$ and $$a_{n + 1} = 2a_{n}$$ for $$n \geq 1$$</p>
+      </problem>
+      <solution>
+        <p>$$f(n) = 2^{n}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <p>$$a_{1} = 1$$ and $$a_{n + 1} = \left( {n + 1} \right)a_{n}$$ for $$n \geq 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="17" has_solution="true">
+      <problem>
+        <p>$$a_{1} = 2$$ and $$a_{n + 1} = \left( {n + 1} \right)a_{n}\text{/}2$$ for $$n \geq 1$$</p>
+      </problem>
+      <solution>
+        <p>$$f(n) = n\text{!}\text{/}2^{n - 2}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <p>$$a_{1} = 1$$ and $$a_{n + 1} = a_{n}\text{/}2^{n}$$ for $$n \geq 1$$</p>
+      </problem>
+    </exercise>
+    <instruction>Plot the first $$N$$ terms of each sequence. State whether the graphical evidence suggests that the sequence converges or diverges.</instruction>
+    <exercise number="19" has_solution="true">
+      <problem>
+        <p>[T] $$a_{1} = 1,$$ $$a_{2} = 2,$$ and for $$n \geq 2,$$ $$a_{n} = \frac{1}{2}\left( {a_{n - 1} + a_{n - 2}} \right);$$ $$N = 30$$</p>
+      </problem>
+      <solution>
+        <p>Terms oscillate above and below $$5\text{/}3$$ and appear to converge to $$5\text{/}3.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <p>[T] $$a_{1} = 1,$$ $$a_{2} = 2,$$ $$a_{3} = 3$$ and for $$n \geq 4,$$ $$a_{n} = \frac{1}{3}\left( {a_{n - 1} + a_{n - 2} + a_{n - 3}} \right),$$ $$N = 30$$</p>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="true">
+      <problem>
+        <p>[T] $$a_{1} = 1,$$ $$a_{2} = 2,$$ and for $$n \geq 3,$$ $$a_{n} = \sqrt{a_{n - 1}a_{n - 2}};$$ $$N = 30$$</p>
+      </problem>
+      <solution>
+        <p>Terms oscillate above and below $$y \approx 1.57...$$ and appear to converge to a limit.</p>
+      </solution>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <p>[T] $$a_{1} = 1,$$ $$a_{2} = 2,$$ $$a_{3} = 3,$$ and for $$n \geq 4,$$ $$a_{n} = \sqrt{a_{n - 1}a_{n - 2}a_{n - 3}};$$ $$N = 30$$</p>
+      </problem>
+    </exercise>
+    <instruction>Suppose that $$\underset{n\rightarrow\infty}{\text{lim}}a_{n} = 1,$$ $$\underset{n\rightarrow\infty}{\text{lim}}b_{n} = -1,$$ and $$0 &lt; \text{−}b_{n} &lt; a_{n}$$ for all $$n.$$ Evaluate each of the following limits, or state that the limit does not exist, or state that there is not enough information to determine whether the limit exists.</instruction>
+    <exercise number="23" has_solution="true">
+      <problem>
+        <p>$$\underset{n\rightarrow\infty}{\text{lim}}\left( 3a_{n} - 4b_{n} \right)$$</p>
+      </problem>
+      <solution>
+        <p>$$7$$</p>
+      </solution>
+    </exercise>
+    <exercise number="24" has_solution="false">
+      <problem>
+        <p>$$\underset{n\rightarrow\infty}{\text{lim}}\left( \frac{1}{2}b_{n} - \frac{1}{2}a_{n} \right)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="25" has_solution="true">
+      <problem>
+        <p>$$\underset{n\rightarrow\infty}{\text{lim}}\frac{a_{n} + b_{n}}{a_{n} - b_{n}}$$</p>
+      </problem>
+      <solution>
+        <p>$$0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="26" has_solution="false">
+      <problem>
+        <p>$$\underset{n\rightarrow\infty}{\text{lim}}\frac{a_{n} - b_{n}}{a_{n} + b_{n}}$$</p>
+      </problem>
+    </exercise>
+    <instruction>Find the limit of each of the following sequences, using L’Hôpital’s rule when appropriate.</instruction>
+    <exercise number="27" has_solution="true">
+      <problem>
+        <p>$$\frac{n^{2}}{2^{n}}$$</p>
+      </problem>
+      <solution>
+        <p>$$0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="28" has_solution="false">
+      <problem>
+        <p>$$\frac{\left( {n - 1} \right)^{2}}{\left( {n + 1} \right)^{2}}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="29" has_solution="true">
+      <problem>
+        <p>$$\frac{\sqrt{n}}{\sqrt{n + 1}}$$</p>
+      </problem>
+      <solution>
+        <p>$$1$$</p>
+      </solution>
+    </exercise>
+    <exercise number="30" has_solution="false">
+      <problem>
+        <p>$$n^{1\text{/}n}$$ (Hint: $$n^{1\text{/}n} = e^{\frac{1}{n}\mspace{2mu}\text{ln}\ n})$$</p>
+      </problem>
+    </exercise>
+    <instruction>For each of the following sequences, whose $$n\text{th}$$ terms are indicated, state whether the sequence is bounded and whether it is eventually monotone, increasing, or decreasing.</instruction>
+    <exercise number="31" has_solution="true">
+      <problem>
+        <p>$$n\text{/}2^{n},$$ $$n \geq 2$$</p>
+      </problem>
+      <solution>
+        <p>bounded, decreasing for $$n \geq 2$$</p>
+      </solution>
+    </exercise>
+    <exercise number="32" has_solution="false">
+      <problem>
+        <p>$$\text{ln}\left( {1 + \frac{1}{n}} \right)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="33" has_solution="true">
+      <problem>
+        <p>$$\text{sin}\mspace{2mu} n$$</p>
+      </problem>
+      <solution>
+        <p>bounded, not monotone</p>
+      </solution>
+    </exercise>
+    <exercise number="34" has_solution="false">
+      <problem>
+        <p>$$\text{cos}\left( n^{2} \right)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="35" has_solution="true">
+      <problem>
+        <p>$$n^{1\text{/}n},$$ $$n \geq 3$$</p>
+      </problem>
+      <solution>
+        <p>bounded, decreasing</p>
+      </solution>
+    </exercise>
+    <exercise number="36" has_solution="false">
+      <problem>
+        <p>$$n^{-1\text{/}n},$$ $$n \geq 3$$</p>
+      </problem>
+    </exercise>
+    <exercise number="37" has_solution="true">
+      <problem>
+        <p>$$\text{tan}\mspace{2mu} n$$</p>
+      </problem>
+      <solution>
+        <p>not monotone, not bounded</p>
+      </solution>
+    </exercise>
+    <exercise number="38" has_solution="false">
+      <problem>
+        <p>Determine whether the sequence defined as follows has a limit. If it does, find the limit.</p>
+        <p>$$a_{1} = \sqrt{2},$$ $$a_{2} = \sqrt{2\sqrt{2}},$$ $$a_{3} = \sqrt{2\sqrt{2\sqrt{2}}}$$ etc.</p>
+      </problem>
+    </exercise>
+    <exercise number="39" has_solution="true">
+      <problem>
+        <p>Determine whether the sequence defined as follows has a limit. If it does, find the limit.</p>
+        <p>$$a_{1} = 3,$$ $$a_{n} = \sqrt{2a_{n - 1}},$$ $$n = 2,3\text{,…}.$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n}$$ is decreasing and bounded below by $$2.$$ The limit $$a$$ must satisfy $$a = \sqrt{2a}$$ so $$a = 2,$$ independent of the initial value.</p>
+      </solution>
+    </exercise>
+    <instruction>Use the Squeeze Theorem to find the limit of each of the following sequences.</instruction>
+    <exercise number="40" has_solution="false">
+      <problem>
+        <p>$$n\mspace{2mu}\text{sin}\left( {1\text{/}n} \right)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="41" has_solution="true">
+      <problem>
+        <p>$$\frac{\text{cos}\left( {1\text{/}n} \right) - 1}{1\text{/}n}$$</p>
+      </problem>
+      <solution>
+        <p>$$0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="42" has_solution="false">
+      <problem>
+        <p>$$a_{n} = \frac{n\text{!}}{n^{n}}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="43" has_solution="true">
+      <problem>
+        <p>$$a_{n} = \text{sin}\mspace{2mu} n\mspace{2mu}\text{sin}\left( {1\text{/}n} \right)$$</p>
+      </problem>
+      <solution>
+        <p>$$0:{\left| {\text{sin}\mspace{2mu} x} \right| \leq |x|}$$ and $$\left| {\text{sin}\mspace{2mu} x} \right| \leq 1$$ so $$- \frac{1}{n} \leq a_{n} \leq \frac{1}{n}).$$</p>
+      </solution>
+    </exercise>
+    <instruction>For the following sequences, plot the first $$25$$ terms of the sequence and state whether the graphical evidence suggests that the sequence converges or diverges.</instruction>
+    <exercise number="44" has_solution="false">
+      <problem>
+        <p>[T] $$a_{n} = \text{sin}\mspace{2mu} n$$</p>
+      </problem>
+    </exercise>
+    <exercise number="45" has_solution="true">
+      <problem>
+        <p>[T] $$a_{n} = \text{cos}\mspace{2mu} n$$</p>
+      </problem>
+      <solution>
+        <p>Graph oscillates and suggests no limit.</p>
+      </solution>
+    </exercise>
+    <instruction>Determine the limit of the sequence or show that the sequence diverges. If it converges, find its limit.</instruction>
+    <exercise number="46" has_solution="false">
+      <problem>
+        <p>$$a_{n} = \text{tan}^{-1}(n^{2})$$</p>
+      </problem>
+    </exercise>
+    <exercise number="47" has_solution="true">
+      <problem>
+        <p>$$a_{n} = {(2n)}^{1\text{/}n} - n^{1\text{/}n}$$</p>
+      </problem>
+      <solution>
+        <p>$$n^{1\text{/}n}\rightarrow 1$$ and $$2^{1\text{/}n}\rightarrow 1,$$ so $$a_{n}\rightarrow 0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="48" has_solution="false">
+      <problem>
+        <p>$$a_{n} = \frac{\text{ln}(n^{2})}{\text{ln}(2n)}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="49" has_solution="true">
+      <problem>
+        <p>$$a_{n} = \left( {1 - \frac{2}{n}} \right)^{n}$$</p>
+      </problem>
+      <solution>
+        <p>Since $${(1 + 1\text{/}n)}^{n}\rightarrow e,$$ one has $${(1 - 2\text{/}n)}^{n} \approx {(1 + k)}^{-2k}\rightarrow e^{-2}$$ as $$k\rightarrow\infty.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="50" has_solution="false">
+      <problem>
+        <p>$$a_{n} = \text{ln}\left( \frac{n + 2}{n^{2} - 3} \right)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="51" has_solution="true">
+      <problem>
+        <p>$$a_{n} = \frac{2^{n} + 3^{n}}{4^{n}}$$</p>
+      </problem>
+      <solution>
+        <p>$$2^{n} + 3^{n} \leq 2 \cdot 3^{n}$$ and $$3^{n}\text{/}4^{n}\rightarrow 0$$ as $$n\rightarrow\infty,$$ so $$a_{n}\rightarrow 0$$ as $$n\rightarrow\infty.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="52" has_solution="false">
+      <problem>
+        <p>$$a_{n} = \frac{{(1000)}^{n}}{n\text{!}}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="53" has_solution="true">
+      <problem>
+        <p>$$a_{n} = \frac{{(n\text{!})}^{2}}{(2n)\text{!}}$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{a_{n + 1}}{a_{n}} = n\text{!}\text{/}(n + 1)(n + 2)\text{⋯}\ (2n)$$ $$= \frac{1 \cdot 2 \cdot 3\text{⋯}n}{(n + 1)(n + 2)\text{⋯}\ (2n)} &lt; 1\text{/}2^{n}.$$ In particular, $$a_{n + 1}\text{/}a_{n} \leq 1\text{/}2,$$ so $$a_{n}\rightarrow 0$$ as $$n\rightarrow\infty.$$</p>
+      </solution>
+    </exercise>
+    <instruction>Newton’s method seeks to approximate a solution $$f(x) = 0$$ that starts with an initial approximation $$x_{0}$$ and successively defines a sequence $$x_{n + 1} = x_{n} - \frac{f\left( x_{n} \right)}{f^{\prime}\left( x_{n} \right)}.$$ For the given choice of $$f$$ and $$x_{0},$$ write out the formula for $$x_{n + 1}.$$ If the sequence appears to converge, give an exact formula for the solution $$x,$$ then identify the limit $$x$$ accurate to four decimal places and the smallest $$n$$ such that $$x_{n}$$ agrees with $$x$$ up to four decimal places.</instruction>
+    <exercise number="54" has_solution="false">
+      <problem>
+        <p>[T] $$f(x) = x^{2} - 2,$$ $$x_{0} = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="55" has_solution="true">
+      <problem>
+        <p>[T] $$f(x) = \left( {x - 1} \right)^{2} - 2,$$ $$x_{0} = 2$$</p>
+      </problem>
+      <solution>
+        <p>$$x_{n + 1} = x_{n} - \left( {\left( {x_{n} - 1} \right)^{2} - 2} \right)\text{/}2\left( {x_{n} - 1} \right);$$ $$x = 1 + \sqrt{2},$$ $$x \approx 2.4142,$$ $$n = 5$$</p>
+      </solution>
+    </exercise>
+    <exercise number="56" has_solution="false">
+      <problem>
+        <p>[T] $$f(x) = e^{x} - 2,$$ $$x_{0} = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="57" has_solution="true">
+      <problem>
+        <p>[T] $$f(x) = \text{ln}\mspace{2mu} x - 1,$$ $$x_{0} = 2$$</p>
+      </problem>
+      <solution>
+        <p>$$x_{n + 1} = x_{n} - x_{n}\left( {\text{ln}\left( x_{n} \right) - 1} \right);$$ $$x = e,$$ $$x \approx 2.7183,$$ $$n = 5$$</p>
+      </solution>
+    </exercise>
+    <exercise number="58" has_solution="false">
+      <problem>
+        <p>[T] Suppose you start with one liter of vinegar and repeatedly remove $$0.1\ \text{L,}$$ replace with water, mix, and repeat.</p>
+        <list type="ol" style="a">
+          <item>Find a formula for the concentration after $$n$$ steps.</item>
+          <item>After how many steps does the mixture contain less than $$10\text{\%}$$ vinegar?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="59" has_solution="true">
+      <problem>
+        <p>[T] A lake initially contains $$2000$$ fish. Suppose that in the absence of predators or other causes of removal, the fish population increases by $$6\text{\%}$$ each month. However, factoring in all causes, $$150$$ fish are lost each month.</p>
+        <list type="ol" style="a">
+          <item>Explain why the fish population after $$n$$ months is modeled by $$P_{n} = 1.06P_{n - 1} - 150$$ with $$P_{0} = 2000.$$</item>
+          <item>How many fish will be in the pond after one year?</item>
+        </list>
+      </problem>
+      <solution>
+        <p>a. Without losses, the population would obey $$P_{n} = 1.06P_{n - 1}.$$ The subtraction of $$150$$ accounts for fish losses. b. After $$12$$ months, we have $$P_{12} \approx 1494.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="60" has_solution="false">
+      <problem>
+        <p>[T] A bank account earns $$5\text{\%}$$ interest compounded monthly. Suppose that $$\text{\$}1000$$ is initially deposited into the account, but that $$\text{\$}10$$ is withdrawn each month.</p>
+        <list type="ol" style="a">
+          <item>Show that the amount in the account after $$n$$ months is $$A_{n} = \left( {1 + .05\text{/}12} \right)A_{n - 1} - 10;$$ $$A_{0} = 1000.$$</item>
+          <item>How much money will be in the account after $$1$$ year?</item>
+          <item>Is the amount increasing or decreasing?</item>
+          <item>Suppose that instead of $$\text{\$}10,$$ a fixed amount $$d$$ dollars is withdrawn each month. Find a value of $$d$$ such that the amount in the account after each month remains $$\text{\$}1000.$$</item>
+          <item>What happens if $$d$$ is greater than this amount?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="61" has_solution="true">
+      <problem>
+        <p>[T] A student takes out a college loan of $$\text{\$}10,000$$ at an annual percentage rate of $$6\text{\%},$$ compounded monthly.</p>
+        <list type="ol" style="a">
+          <item>If the student makes payments of $$\text{\$}100$$ per month, how much does the student owe after $$12$$ months?</item>
+          <item>After how many months will the loan be paid off?</item>
+        </list>
+      </problem>
+      <solution>
+        <p>a. The student owes $$\text{\$}9383$$ after $$12$$ months. b. The loan will be paid in full after $$139$$ months or eleven and a half years.</p>
+      </solution>
+    </exercise>
+    <exercise number="62" has_solution="false">
+      <problem>
+        <p>[T] Consider a series combining geometric growth and arithmetic decrease. Let $$a_{1} = 1.$$ Fix $$a &gt; 1$$ and $$0 &lt; b &lt; a.$$ Set $$a_{n + 1} = a.a_{n} - b.$$ Find a formula for $$a_{n + 1}$$ in terms of $$a^{n},$$ $$a,$$ and $$b$$ and a relationship between $$a$$ and $$b$$ such that $$a_{n}$$ converges.</p>
+      </problem>
+    </exercise>
+    <exercise number="63" has_solution="true">
+      <problem>
+        <p>[T] The binary representation $$x = 0.b_{1}b_{2}b_{3}...$$ of a number $$x$$ between $$0$$ and $$1$$ can be defined as follows. Let $$b_{1} = 0$$ if $$x &lt; 1\text{/}2$$ and $$b_{1} = 1$$ if $$1\text{/}2 \leq x &lt; 1.$$ Let $$x_{1} = 2x - b_{1}.$$ Let $$b_{2} = 0$$ if $$x_{1} &lt; 1\text{/}2$$ and $$b_{2} = 1$$ if $$1\text{/}2 \leq x &lt; 1.$$ Let $$x_{2} = 2x_{1} - b_{2}$$ and in general, $$x_{n} = 2x_{n - 1} - b_{n}$$ and $$b_{n - 1} = 0$$ if $$x_{n} &lt; 1\text{/}2$$ and $$b_{n - 1} = 1$$ if $$1\text{/}2 \leq x_{n} &lt; 1.$$ Find the binary expansion of $$1\text{/}3.$$</p>
+      </problem>
+      <solution>
+        <p>$$b_{1} = 0,$$ $$x_{1} = 2\text{/}3,$$ $$b_{2} = 1,$$ $$x_{2} = 4\text{/}3 - 1 = 1\text{/}3,$$ so the pattern repeats, and $$1\text{/}3 = 0.010101\text{…}.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="64" has_solution="false">
+      <problem>
+        <p>[T] To find an approximation for $$\pi,$$ set $$a_{0} = \sqrt{2 + 1},$$ $$a_{1} = \sqrt{2 + a_{0}},$$ and, in general, $$a_{n + 1} = \sqrt{2 + a_{n}}.$$ Finally, set $$p_{n} = 3.2^{n + 1}\sqrt{2 - a_{n}}.$$ Find the first ten terms of $$p_{n}$$ and compare the values to $$\pi.$$</p>
+      </problem>
+    </exercise>
+    <instruction>For the following two exercises, assume that you have access to a computer program or Internet source that can generate a list of zeros and ones of any desired length. Pseudorandom number generators (PRNGs) play an important role in simulating random noise in physical systems by creating sequences of zeros and ones that appear like the result of flipping a coin repeatedly. One of the simplest types of PRNGs recursively defines a random-looking sequence of $$N$$ integers $$a_{1},a_{2}\text{,…},a_{N}$$ by fixing two special integers $$K$$ and $$M$$ and letting $$a_{n + 1}$$ be the remainder after dividing $$K.a_{n}$$ into $$M,$$ then creates a bit sequence of zeros and ones whose $$n\text{th}$$ term $$b_{n}$$ is equal to one if $$a_{n}$$ is odd and equal to zero if $$a_{n}$$ is even. If the bits $$b_{n}$$ are pseudorandom, then the behavior of their average $$\left( {b_{1} + b_{2} + \text{⋯} + b_{N}} \right)\text{/}N$$ should be similar to behavior of averages of truly randomly generated bits.</instruction>
+    <exercise number="65" has_solution="true">
+      <problem>
+        <p>[T] Starting with $$K = 16,807$$ and $$M = 2,147,483,647,$$ using ten different starting values of $$a_{1},$$ compute sequences of bits $$b_{n}$$ up to $$n = 1000,$$ and compare their averages to ten such sequences generated by a random bit generator.</p>
+      </problem>
+      <solution>
+        <p>For the starting values $$a_{1} = 1,$$ $$a_{2} = 2\text{,…},$$ $$a_{1} = 10,$$ the corresponding bit averages calculated by the method indicated are $$0.5220,$$ $$0.5000,$$ $$0.4960,$$ $$0.4870,$$ $$0.4860,$$ $$0.4680,$$ $$0.5130,$$ $$0.5210,$$ $$0.5040,$$ and $$0.4840.$$ Here is an example of ten corresponding averages of strings of $$1000$$ bits generated by a random number generator: $$0.4880,$$ $$0.4870,$$ $$0.5150,$$ $$0.5490,$$ $$0.5130,$$ $$0.5180,$$ $$0.4860,$$ $$0.5030,$$ $$0.5050,$$ $$0.4980.$$ There is no real pattern in either type of average. The random-number-generated averages range between $$0.4860$$ and $$0.5490,$$ a range of $$0.0630,$$ whereas the calculated PRNG bit averages range between $$0.4680$$ and $$0.5220,$$ a range of $$0.0540.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="66" has_solution="false">
+      <problem>
+        <p>[T] Find the first $$1000$$ digits of $$\pi$$ using either a computer program or Internet resource. Create a bit sequence $$b_{n}$$ by letting $$b_{n} = 1$$ if the $$n\text{th}$$ digit of $$\pi$$ is odd and $$b_{n} = 0$$ if the $$n\text{th}$$ digit of $$\pi$$ is even. Compute the average value of $$b_{n}$$ and the average value of $$d_{n} = \left| {b_{n + 1} - b_{n}} \right|,$$ $$n = 1\text{,...},999.$$ Does the sequence $$b_{n}$$ appear random? Do the differences between successive elements of $$b_{n}$$ appear random?</p>
+      </problem>
+    </exercise>
+  </exercises>
+</section>

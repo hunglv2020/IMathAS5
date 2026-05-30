@@ -1,0 +1,930 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="5.2" title="Infinite Series">
+  <learning_objectives>
+    <objective number="5.2.1">Explain the meaning of the sum of an infinite series.</objective>
+    <objective number="5.2.2">Calculate the sum of a geometric series.</objective>
+    <objective number="5.2.3">Evaluate a telescoping series.</objective>
+  </learning_objectives>
+  <p>We have seen that a sequence is an ordered set of terms. If you add these terms together, you get a series. In this section we define an infinite series and show how series are related to sequences. We also define what it means for a series to converge or diverge. We introduce one of the most important types of series: the geometric series. We will use geometric series in the next chapter to write certain functions as polynomials with an infinite number of terms. This process is important because it allows us to evaluate, differentiate, and integrate complicated functions by using polynomials that are easier to handle. We also discuss the harmonic series, arguably the most interesting divergent series because it just fails to converge.</p>
+  <subsection title="Sums and Series">
+    <p>An infinite series is a sum of infinitely many terms and is written in the form</p>
+    <equation>$$\sum\limits_{n = 1}^{\infty}a_{n} = a_{1} + a_{2} + a_{3} + \text{⋯}.$$</equation>
+    <p>But what does this mean? We cannot add an infinite number of terms in the same way we can add a finite number of terms. Instead, the value of an infinite series is defined in terms of the limit of partial sums. A partial sum of an infinite series is a finite sum of the form</p>
+    <equation>$${\sum\limits_{n = 1}^{k}a_{n}} = a_{1} + a_{2} + a_{3} + \text{⋯} + a_{k}.$$</equation>
+    <p>To see how we use partial sums to evaluate infinite series, consider the following example. Suppose oil is seeping into a lake such that $$1000$$ gallons enters the lake the first week. During the second week, an additional $$500$$ gallons of oil enters the lake. The third week, $$250$$ more gallons enters the lake. Assume this pattern continues such that each week half as much oil enters the lake as did the previous week. If this continues forever, what can we say about the amount of oil in the lake? Will the amount of oil continue to get arbitrarily large, or is it possible that it approaches some finite amount? To answer this question, we look at the amount of oil in the lake after $$k$$ weeks. Letting $$S_{k}$$ denote the amount of oil in the lake (measured in thousands of gallons) after $$k$$ weeks, we see that</p>
+    <equation>$$\begin{array}{l} {S_{1} = 1} \\ {S_{2} = 1 + 0.5 = 1 + \frac{1}{2}} \\ {S_{3} = 1 + 0.5 + 0.25 = 1 + \frac{1}{2} + \frac{1}{4}} \\ {S_{4} = 1 + 0.5 + 0.25 + 0.125 = 1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8}} \\ {S_{5} = 1 + 0.5 + 0.25 + 0.125 + 0.0625 = 1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16}.} \end{array}$$</equation>
+    <p>Looking at this pattern, we see that the amount of oil in the lake (in thousands of gallons) after $$k$$ weeks is</p>
+    <equation>$$S_{k} = 1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} + \text{⋯} + \frac{1}{2^{k - 1}} = {\sum\limits_{n = 1}^{k}\left( \frac{1}{2} \right)^{n - 1}}.$$</equation>
+    <p>We are interested in what happens as $$k\rightarrow\infty.$$ Symbolically, the amount of oil in the lake as $$k\rightarrow\infty$$ is given by the infinite series</p>
+    <equation>$${\sum\limits_{n = 1}^{\infty}\left( \frac{1}{2} \right)^{n - 1}} = 1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} + \text{⋯}.$$</equation>
+    <p>At the same time, as $$k\rightarrow\infty,$$ the amount of oil in the lake can be calculated by evaluating $$\underset{k\rightarrow\infty}{\text{lim}}S_{k}.$$ Therefore, the behavior of the infinite series can be determined by looking at the behavior of the sequence of partial sums $$\left\{ S_{k} \right\}.$$ If the sequence of partial sums $$\left\{ S_{k} \right\}$$ converges, we say that the infinite series converges, and its sum is given by $$\underset{k\rightarrow\infty}{\text{lim}}S_{k}.$$ If the sequence $$\left\{ S_{k} \right\}$$ diverges, we say the infinite series diverges. We now turn our attention to determining the limit of this sequence $$\left\{ S_{k} \right\}.$$</p>
+    <p>First, simplifying some of these partial sums, we see that</p>
+    <equation>$$\begin{array}{l} {S_{1} = 1} \\ {S_{2} = 1 + \frac{1}{2} = \frac{3}{2}} \\ {S_{3} = 1 + \frac{1}{2} + \frac{1}{4} = \frac{7}{4}} \\ {S_{4} = 1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} = \frac{15}{8}} \\ {S_{5} = 1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} = \frac{31}{16}.} \end{array}$$</equation>
+    <p>Plotting some of these values in Figure 5.10, it appears that the sequence $$\left\{ S_{k} \right\}$$ could be approaching 2.</p>
+    <image alt="This is a graph in quadrant 1with the x and y axes labeled n and S_n, respectively. From 1 to 5, points are plotted. They increase and seem to converge to 2 and n goes to infinity." number="5.10" caption="The graph shows the sequence of partial sums $$\left\{ S_{k} \right\}.$$ It appears that the sequence is approaching the value $$2.$$" />
+    <p>Let’s look for more convincing evidence. In the following table, we list the values of $$S_{k}$$ for several values of $$k.$$</p>
+    <table summary="This is a table with two rows and five columns. The first row is labeled “k” and has the values 5, 10, 15, and 20. The second row is labeled “S_k” and has the values 1.9375, 1.998, 1.999939, and 1.999998.">
+      <tbody>
+        <row>
+          <cell>$$k$$</cell>
+          <cell>$$5$$</cell>
+          <cell>$$10$$</cell>
+          <cell>$$15$$</cell>
+          <cell>$$20$$</cell>
+        </row>
+        <row>
+          <cell>$$S_{k}$$</cell>
+          <cell>$$1.9375$$</cell>
+          <cell>$$1.998$$</cell>
+          <cell>$$1.999939$$</cell>
+          <cell>$$1.999998$$</cell>
+        </row>
+      </tbody>
+    </table>
+    <p>These data supply more evidence suggesting that the sequence $$\left\{ S_{k} \right\}$$ converges to $$2.$$ Later we will provide an analytic argument that can be used to prove that $$\underset{k\rightarrow\infty}{\text{lim}}S_{k} = 2.$$ For now, we rely on the numerical and graphical data to convince ourselves that the sequence of partial sums does actually converge to $$2.$$ Since this sequence of partial sums converges to $$2,$$ we say the infinite series converges to $$2$$ and write</p>
+    <equation>$$\sum\limits_{n = 1}^{\infty}\left( \frac{1}{2} \right)^{n - 1} = 2.$$</equation>
+    <p>Returning to the question about the oil in the lake, since this infinite series converges to $$2,$$ we conclude that the amount of oil in the lake will get arbitrarily close to $$2000$$ gallons as the amount of time gets sufficiently large.</p>
+    <p>This series is an example of a geometric series. We discuss geometric series in more detail later in this section. First, we summarize what it means for an infinite series to converge.</p>
+    <note type="Definition">
+      <p>An infinite series is an expression of the form</p>
+      <equation>$$\sum\limits_{n = 1}^{\infty}a_{n} = a_{1} + a_{2} + a_{3} + \text{⋯}.$$</equation>
+      <p>For each positive integer $$k,$$ the sum</p>
+      <equation>$$S_{k} = \sum\limits_{n = 1}^{k}a_{n} = a_{1} + a_{2} + a_{3} + \text{⋯} + a_{k}$$</equation>
+      <p>is called the $$k\text{th}$$ partial sum of the infinite series. The partial sums form a sequence $$\left\{ S_{k} \right\}.$$ If the sequence of partial sums converges to a real number $$S,$$ the infinite series converges. If we can describe the convergence of a series to $$S,$$ we call $$S$$ the sum of the series, and we write</p>
+      <equation>$$\sum\limits_{n = 1}^{\infty}a_{n} = S.$$</equation>
+      <p>If the sequence of partial sums diverges, we have the divergence of a series.</p>
+    </note>
+    <p>Note that the index for a series need not begin with $$n = 1$$ but can begin with any value. For example, the series</p>
+    <equation>$${\sum\limits_{n = 1}^{\infty}\left( \frac{1}{2} \right)}^{n - 1}$$</equation>
+    <p>can also be written as</p>
+    <equation>$${\sum\limits_{n = 0}^{\infty}\left( \frac{1}{2} \right)}^{n}\ \text{or}\ {\sum\limits_{n = 5}^{\infty}\left( \frac{1}{2} \right)}^{n - 5}.$$</equation>
+    <p>Often it is convenient for the index to begin at $$1,$$ so if for some reason it begins at a different value, we can reindex by making a change of variables. For example, consider the series</p>
+    <equation>$${\sum\limits_{n = 2}^{\infty}\frac{1}{n^{2}}}.$$</equation>
+    <p>By introducing the variable $$m = n - 1,$$ so that $$n = m + 1,$$ we can rewrite the series as</p>
+    <equation>$${\sum\limits_{m = 1}^{\infty}\frac{1}{\left( {m + 1} \right)^{2}}}.$$</equation>
+    <example number="5.7">
+      <problem>
+        <title>Evaluating Limits of Sequences of Partial Sums</title>
+        <p>For each of the following series, use the sequence of partial sums to determine whether the series converges or diverges.</p>
+        <list type="ol" style="a">
+          <item>$$\sum\limits_{n = 1}^{\infty}\frac{n}{n + 1}$$</item>
+          <item>$$\sum\limits_{n = 1}^{\infty}{(-1)}^{n}$$</item>
+          <item>$$\sum\limits_{n = 1}^{\infty}\frac{1}{n(n + 1)}$$</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="a">
+          <item>The sequence of partial sumssatisfiesNotice that each term added is greater thanAs a result, we see thatFrom this pattern we can see thatfor every integerTherefore,is unbounded and consequently, diverges. Therefore, the infinite seriesdiverges.<equation>$$\left\{ S_{k} \right\}$$</equation>
+            <equation>$$\begin{array}{l} {S_{1} = \frac{1}{2}} \\ {S_{2} = \frac{1}{2} + \frac{2}{3}} \\ {S_{3} = \frac{1}{2} + \frac{2}{3} + \frac{3}{4}} \\ {S_{4} = \frac{1}{2} + \frac{2}{3} + \frac{3}{4} + \frac{4}{5}.} \end{array}$$</equation>
+            <equation>$$1\text{/}2.$$</equation>
+            <equation>$$\begin{array}{l} {S_{1} = \frac{1}{2}} \\ {S_{2} = \frac{1}{2} + \frac{2}{3} &gt; \frac{1}{2} + \frac{1}{2} = 2\left( \frac{1}{2} \right)} \\ {S_{3} = \frac{1}{2} + \frac{2}{3} + \frac{3}{4} &gt; \frac{1}{2} + \frac{1}{2} + \frac{1}{2} = 3\left( \frac{1}{2} \right)} \\ {S_{4} = \frac{1}{2} + \frac{2}{3} + \frac{3}{4} + \frac{4}{5} &gt; \frac{1}{2} + \frac{1}{2} + \frac{1}{2} + \frac{1}{2} = 4\left( \frac{1}{2} \right).} \end{array}$$</equation>
+            <equation>$$S_{k} &gt; k\left( \frac{1}{2} \right)$$</equation>
+            <equation>$$k.$$</equation>
+            <equation>$$\left\{ S_{k} \right\}$$</equation>
+            <equation>$$\sum\limits_{n = 1}^{\infty}n\text{/}(n + 1)$$</equation>
+          </item>
+          <item>The sequence of partial sumssatisfiesFrom this pattern we can see the sequence of partial sums isSince this sequence diverges, the infinite seriesdiverges.<equation>$$\left\{ S_{k} \right\}$$</equation>
+            <equation>$$\begin{array}{l} {S_{1} = -1} \\ {S_{2} = -1 + 1 = 0} \\ {S_{3} = -1 + 1 - 1 = -1} \\ {S_{4} = -1 + 1 - 1 + 1 = 0.} \end{array}$$</equation>
+            <equation>$$\left\{ S_{k} \right\} = \left\{ {-1,0,-1,0\text{,…}} \right\}.$$</equation>
+            <equation>$$\sum\limits_{n = 1}^{\infty}(-1)^{n}$$</equation>
+          </item>
+          <item>The sequence of partial sumssatisfiesFrom this pattern, we can see that thepartial sum is given by the explicit formulaSincewe conclude that the sequence of partial sums converges, and therefore the infinite series converges toWe have<equation>$$\left\{ S_{k} \right\}$$</equation>
+            <equation>$$\begin{array}{l} {S_{1} = \frac{1}{1 \cdot 2} = \frac{1}{2}} \\ {S_{2} = \frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} = \frac{1}{2} + \frac{1}{6} = \frac{2}{3}} \\ {S_{3} = \frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \frac{1}{3 \cdot 4} = \frac{1}{2} + \frac{1}{6} + \frac{1}{12} = \frac{3}{4}} \\ {S_{4} = \frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \frac{1}{3 \cdot 4} + \frac{1}{4 \cdot 5} = \frac{4}{5}} \\ {S_{5} = \frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \frac{1}{3 \cdot 4} + \frac{1}{4 \cdot 5} + \frac{1}{5 \cdot 6} = \frac{5}{6}.} \end{array}$$</equation>
+            <equation>$$k\text{th}$$</equation>
+            <equation>$$S_{k} = \frac{k}{k + 1}.$$</equation>
+            <equation>$$k\text{/}\left( {k + 1} \right)\rightarrow 1,$$</equation>
+            <equation>$$1.$$</equation>
+            <equation>$$\sum\limits_{n = 1}^{\infty}\frac{1}{n\left( {n + 1} \right)} = 1.$$</equation>
+          </item>
+        </list>
+      </solution>
+    </example>
+    <checkpoint number="5.7">
+      <problem>
+        <p>Determine whether the series $$\sum\limits_{n = 1}^{\infty}(n + 1)\text{/}n$$ converges or diverges.</p>
+      </problem>
+      <solution>
+        <p>The series diverges because the $$k\text{th}$$ partial sum $$S_{k} &gt; k.$$</p>
+      </solution>
+    </checkpoint>
+    <subsection title="The Harmonic Series">
+      <p>A useful series to know about is the harmonic series. The harmonic series is defined as</p>
+      <equation>$${\sum\limits_{n = 1}^{\infty}\frac{1}{n}} = 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \text{⋯}.$$</equation>
+      <p>This series is interesting because it diverges, but it diverges very slowly. By this we mean that the terms in the sequence of partial sums $$\left\{ S_{k} \right\}$$ approach infinity, but do so very slowly. We will show that the series diverges, but first we illustrate the slow growth of the terms in the sequence $$\left\{ S_{k} \right\}$$ in the following table.</p>
+      <table summary="This is a table with two rows and seven columns. The first row is labeled “k” and has the values 10, 100, 1000, 10,000, 100,000, and 1,000,000. The second row is labeled “S_k” and has the values 2.92897, 5.18738, 7.48547, 9.78761, 12.09015, and 14.39273.">
+        <tbody>
+          <row>
+            <cell>$$k$$</cell>
+            <cell>$$10$$</cell>
+            <cell>$$100$$</cell>
+            <cell>$$1000$$</cell>
+            <cell>$$10,000$$</cell>
+            <cell>$$100,000$$</cell>
+            <cell>$$1,000,000$$</cell>
+          </row>
+          <row>
+            <cell>$$S_{k}$$</cell>
+            <cell>$$2.92897$$</cell>
+            <cell>$$5.18738$$</cell>
+            <cell>$$7.48547$$</cell>
+            <cell>$$9.78761$$</cell>
+            <cell>$$12.09015$$</cell>
+            <cell>$$14.39273$$</cell>
+          </row>
+        </tbody>
+      </table>
+      <p>Even after $$1,000,000$$ terms, the partial sum is still relatively small. From this table, it is not clear that this series actually diverges. However, we can show analytically that the sequence of partial sums diverges, and therefore the series diverges.</p>
+      <p>To show that the sequence of partial sums diverges, we show that the sequence of partial sums is unbounded. We begin by writing the first several partial sums:</p>
+      <equation>$$\begin{array}{l} {S_{1} = 1} \\ {S_{2} = 1 + \frac{1}{2}} \\ {S_{3} = 1 + \frac{1}{2} + \frac{1}{3}} \\ {S_{4} = 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4}.} \end{array}$$</equation>
+      <p>Notice that for the last two terms in $$S_{4},$$</p>
+      <equation>$$\frac{1}{3} + \frac{1}{4} &gt; \frac{1}{4} + \frac{1}{4}.$$</equation>
+      <p>Therefore, we conclude that</p>
+      <equation>$$S_{4} &gt; 1 + \frac{1}{2} + \left( {\frac{1}{4} + \frac{1}{4}} \right) = 1 + \frac{1}{2} + \frac{1}{2} = 1 + 2\left( \frac{1}{2} \right).$$</equation>
+      <p>Using the same idea for $$S_{8},$$ we see that</p>
+      <equation>$$\begin{array}{cl} S_{8} &amp; {= 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8} &gt; 1 + \frac{1}{2} + \left( {\frac{1}{4} + \frac{1}{4}} \right) + \left( {\frac{1}{8} + \frac{1}{8} + \frac{1}{8} + \frac{1}{8}} \right)} \\ &amp; {= 1 + \frac{1}{2} + \frac{1}{2} + \frac{1}{2} = 1 + 3\left( \frac{1}{2} \right).} \end{array}$$</equation>
+      <p>From this pattern, we see that $$S_{1} = 1,$$ $$S_{2} = 1 + 1\text{/}2,$$ $$S_{4} &gt; 1 + 2\left( {1\text{/}2} \right),$$ and $$S_{8} &gt; 1 + 3\left( {1\text{/}2} \right).$$ More generally, it can be shown that $$S_{2^{j}} &gt; 1 + j(1\text{/}2)$$ for all $$j &gt; 1.$$ Since $$1 + j(1\text{/}2)\rightarrow\infty,$$ we conclude that the sequence $$\left\{ S_{k} \right\}$$ is unbounded and therefore diverges. In the previous section, we stated that convergent sequences are bounded. Consequently, since $$\left\{ S_{k} \right\}$$ is unbounded, it diverges. Thus, the harmonic series diverges.</p>
+    </subsection>
+    <subsection title="Algebraic Properties of Convergent Series">
+      <p>Since the sum of a convergent infinite series is defined as a limit of a sequence, the algebraic properties for series listed below follow directly from the algebraic properties for sequences.</p>
+      <theorem number="5.7" title="Algebraic Properties of Convergent Series">
+        <p>Let $$\sum\limits_{n = 1}^{\infty}a_{n}$$ and $$\sum\limits_{n = 1}^{\infty}b_{n}$$ be convergent series. Then the following algebraic properties hold.</p>
+        <list type="ol" style="i">
+          <item>The series $$\sum\limits_{n = 1}^{\infty}{(a_{n} + b_{n})}$$ converges and $$\sum\limits_{n = 1}^{\infty}\left( {a_{n} + b_{n}} \right) = \sum\limits_{n = 1}^{\infty}a_{n} + \sum\limits_{n = 1}^{\infty}b_{n}.$$ (Sum Rule)</item>
+          <item>The series $$\sum\limits_{n = 1}^{\infty}{(a_{n} - b_{n})}$$ converges and $$\sum\limits_{n = 1}^{\infty}\left( {a_{n} - b_{n}} \right) = \sum\limits_{n = 1}^{\infty}a_{n} - \sum\limits_{n = 1}^{\infty}b_{n}.$$ (Difference Rule)</item>
+          <item>For any real number $$c,$$ the series $${\sum\limits_{n = 1}^{\infty}c}a_{n}$$ converges and $$\sum\limits_{n = 1}^{\infty}ca_{n} = c\sum\limits_{n = 1}^{\infty}a_{n}.$$ (Constant Multiple Rule)</item>
+        </list>
+      </theorem>
+      <example number="5.8">
+        <problem>
+          <title>Using Algebraic Properties of Convergent Series</title>
+          <p>Evaluate</p>
+          <equation>$$\sum\limits_{n = 1}^{\infty}\left\lbrack {\frac{3}{n\left( {n + 1} \right)} + \left( \frac{1}{2} \right)^{n - 2}} \right\rbrack.$$</equation>
+        </problem>
+        <solution>
+          <p>We showed earlier that</p>
+          <equation>$${\sum\limits_{n = 1}^{\infty}\frac{1}{n\left( {n + 1} \right)}} = 1$$</equation>
+          <p>and</p>
+          <equation>$$\sum\limits_{n = 1}^{\infty}\left( \frac{1}{2} \right)^{n - 1} = 2.$$</equation>
+          <p>Since both of those series converge, we can apply the properties of Algebraic Properties of Convergent Series to evaluate</p>
+          <equation>$$\sum\limits_{n = 1}^{\infty}\left\lbrack {\frac{3}{n\left( {n + 1} \right)} + \left( \frac{1}{2} \right)^{n - 2}} \right\rbrack.$$</equation>
+          <p>Using the sum rule, write</p>
+          <equation>$$\sum\limits_{n = 1}^{\infty}\left\lbrack {\frac{3}{n\left( {n + 1} \right)} + \left( \frac{1}{2} \right)^{n - 2}} \right\rbrack = \sum\limits_{n = 1}^{\infty}\frac{3}{n\left( {n + 1} \right)}\underset{n = 1}{\overset{\infty}{+ \sum}}\left( \frac{1}{2} \right)^{n - 2}.$$</equation>
+          <p>Then, using the constant multiple rule and the sums above, we can conclude that</p>
+          <equation>$$\begin{array}{ll} {\sum\limits_{n = 1}^{\infty}\frac{3}{n\left( {n + 1} \right)} + \sum\limits_{n = 1}^{\infty}\left( \frac{1}{2} \right)^{n - 2}} &amp; {= 3\sum\limits_{n = 1}^{\infty}\frac{1}{n\left( {n + 1} \right)} + \left( \frac{1}{2} \right)^{-1}\sum\limits_{n = 1}^{\infty}\left( \frac{1}{2} \right)^{n - 1}} \\ &amp; {= 3(1) + \left( \frac{1}{2} \right)^{-1}(2) = 3 + 2(2) = 7.} \end{array}$$</equation>
+        </solution>
+      </example>
+      <checkpoint number="5.8">
+        <problem>
+          <p>Evaluate $$\sum\limits_{n = 1}^{\infty}\frac{5}{2^{n - 1}}.$$</p>
+        </problem>
+        <solution>
+          <p>$$10.$$</p>
+        </solution>
+      </checkpoint>
+    </subsection>
+    <subsection title="Geometric Series">
+      <p>A geometric series is any series that we can write in the form</p>
+      <equation>$$a + ar + ar^{2} + ar^{3} + \text{⋯} = \sum\limits_{n = 1}^{\infty}ar^{n - 1}.$$</equation>
+      <p>Because the ratio of each term in this series to the previous term is r, the number r is called the ratio. We refer to a as the initial term because it is the first term in the series. For example, the series</p>
+      <equation>$$\sum\limits_{n = 1}^{\infty}\left( \frac{1}{2} \right)^{n - 1} = 1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \text{⋯}$$</equation>
+      <p>is a geometric series with initial term $$a = 1$$ and ratio $$r = 1\text{/}2.$$</p>
+      <p>In general, when does a geometric series converge? Consider the geometric series</p>
+      <equation>$$\sum\limits_{n = 1}^{\infty}ar^{n - 1}$$</equation>
+      <p>when $$a &gt; 0.$$ Its sequence of partial sums $$\left\{ S_{k} \right\}$$ is given by</p>
+      <equation>$$S_{k} = \sum\limits_{n = 1}^{k}ar^{n - 1} = a + ar + ar^{2} + \text{⋯} + ar^{k - 1}.$$</equation>
+      <p>Consider the case when $$r = 1.$$ In that case,</p>
+      <equation>$$S_{k} = a + a(1) + a(1)^{2} + \text{⋯} + a(1)^{k - 1} = ak.$$</equation>
+      <p>Since $$a &gt; 0,$$ we know $$ak\rightarrow\infty$$ as $$k\rightarrow\infty.$$ Therefore, the sequence of partial sums is unbounded and thus diverges. Consequently, the infinite series diverges for $$r = 1.$$ For $$r \neq 1,$$ to find the limit of $$\left\{ S_{k} \right\},$$ multiply Equation 5.6 by $$1 - r.$$ Doing so, we see that</p>
+      <equation>$$\begin{array}{cl} {\left( {1 - r} \right)S_{k}} &amp; {= a\left( {1 - r} \right)\left( {1 + r + r^{2} + r^{3} + \text{⋯} + r^{k - 1}} \right)} \\ &amp; {= a\lbrack(1 + r + r^{2} + r^{3} + \text{⋯} + r^{k - 1}) - (r + r^{2} + r^{3} + \text{⋯} + r^{k})\rbrack} \\ &amp; {= a\left( {1 - r^{k}} \right).} \end{array}$$</equation>
+      <p>All the other terms cancel out.</p>
+      <p>Therefore,</p>
+      <equation>$$S_{k} = \frac{a\left( {1 - r^{k}} \right)}{1 - r}\ \text{for}\ r \neq 1.$$</equation>
+      <p>From our discussion in the previous section, we know that the geometric sequence $$r^{k}\rightarrow 0$$ if $$|r| &lt; 1$$ and that $$r^{k}$$ diverges if $$|r| &gt; 1$$ or $$r = \text{±}1.$$ Therefore, for $$|r| &lt; 1,$$ $$S_{k}\rightarrow a\text{/}(1 - r)$$ and we have</p>
+      <equation>$$\sum\limits_{n = 1}^{\infty}ar^{n - 1} = \frac{a}{1 - r}\ \text{if}\ |r| &lt; 1.$$</equation>
+      <p>If $$|r| \geq 1,$$ $$S_{k}$$ diverges, and therefore</p>
+      <equation>$$\sum\limits_{n = 1}^{\infty}ar^{n - 1}\text{diverges if}\ |r| \geq 1.$$</equation>
+      <note type="Definition">
+        <p>A geometric series is a series of the form</p>
+        <equation>$$\sum\limits_{n = 1}^{\infty}ar^{n - 1} = a + ar + ar^{2} + ar^{3} + \text{⋯}.$$</equation>
+        <p>If $$|r| &lt; 1,$$ the series converges, and</p>
+        <equation>$$\sum\limits_{n = 1}^{\infty}ar^{n - 1} = \frac{a}{1 - r}\ \text{for}\ |r| &lt; 1.$$</equation>
+        <p>If $$|r| \geq 1,$$ the series diverges.</p>
+      </note>
+      <p>Geometric series sometimes appear in slightly different forms. For example, sometimes the index begins at a value other than $$n = 1$$ or the exponent involves a linear expression for $$n$$ other than $$n - 1.$$ As long as we can rewrite the series in the form given by Equation 5.5, it is a geometric series. For example, consider the series</p>
+      <equation>$${\sum\limits_{n = 0}^{\infty}\left( \frac{2}{3} \right)^{n + 2}}.$$</equation>
+      <p>To see that this is a geometric series, we write out the first several terms:</p>
+      <equation>$$\begin{array}{cl} {\sum\limits_{n = 0}^{\infty}\left( \frac{2}{3} \right)^{n + 2}} &amp; {= \left( \frac{2}{3} \right)^{2} + \left( \frac{2}{3} \right)^{3} + \left( \frac{2}{3} \right)^{4} + \text{⋯}} \\ &amp; {= \frac{4}{9} + \frac{4}{9} \cdot \left( \frac{2}{3} \right) + \frac{4}{9} \cdot \left( \frac{2}{3} \right)^{2} + \text{⋯}.} \end{array}$$</equation>
+      <p>We see that the initial term is $$a = 4\text{/}9$$ and the ratio is $$r = 2\text{/}3.$$ Therefore, the series can be written as</p>
+      <equation>$${\sum\limits_{n = 1}^{\infty}\frac{4}{9}} \cdot \left( \frac{2}{3} \right)^{n - 1}.$$</equation>
+      <p>Since $$r = 2\text{/}3 &lt; 1,$$ this series converges, and its sum is given by</p>
+      <equation>$${\sum\limits_{n = 1}^{\infty}\frac{4}{9}} \cdot \left( \frac{2}{3} \right)^{n - 1} = \frac{4\text{/}9}{1 - 2\text{/}3} = \frac{4}{3}.$$</equation>
+      <example number="5.9">
+        <problem>
+          <title>Determining Convergence or Divergence of a Geometric Series</title>
+          <p>Determine whether each of the following geometric series converges or diverges, and if it converges, find its sum.</p>
+          <list type="ol" style="a">
+            <item>$$\sum\limits_{n = 1}^{\infty}\frac{{(-3)}^{n + 1}}{4^{n - 1}}$$</item>
+            <item>$$\sum\limits_{n = 1}^{\infty}e^{2n}$$</item>
+          </list>
+        </problem>
+        <solution>
+          <list type="ol" style="a">
+            <item>Writing out the first several terms in the series, we haveThe initial termand the ratioSincethe series converges to<equation>$$\begin{array}{cl} {\sum\limits_{n = 1}^{\infty}\frac{{(-3)}^{n + 1}}{4^{n - 1}}} &amp; {= \frac{{(-3)}^{2}}{4^{0}} + \frac{{(-3)}^{3}}{4} + \frac{{(-3)}^{4}}{4^{2}} + \text{⋯}} \\ &amp; {= {(-3)}^{2} + {(-3)}^{2} \cdot \left( \frac{-3}{4} \right) + {(-3)}^{2} \cdot \left( \frac{-3}{4} \right)^{2} + \text{⋯}} \\ &amp; {= 9 + 9 \cdot \left( \frac{-3}{4} \right) + 9 \cdot \left( \frac{-3}{4} \right)^{2} + \text{⋯}.} \end{array}$$</equation>
+              <equation>$$a = 9$$</equation>
+              <equation>$$r = -3\text{/}4.$$</equation>
+              <equation>$$\left| r \middle| = 3\text{/}4 &lt; 1, \right.$$</equation>
+              <equation>$$\frac{9}{1 - (-3\text{/}4)} = \frac{9}{7\text{/}4} = \frac{36}{7}.$$</equation>
+            </item>
+            <item>Writing this series aswe can see that this is a geometric series whereTherefore, the series diverges.<equation>$$e^{2}\sum\limits_{n = 1}^{\infty}\left( e^{2} \right)^{n - 1}$$</equation>
+              <equation>$$r = e^{2} &gt; 1.$$</equation>
+            </item>
+          </list>
+        </solution>
+      </example>
+      <checkpoint number="5.9">
+        <problem>
+          <p>Determine whether the series $$\sum\limits_{n = 1}^{\infty}\left( \frac{-2}{5} \right)^{n - 1}$$ converges or diverges. If it converges, find its sum.</p>
+        </problem>
+        <solution>
+          <p>$$5\text{/}7$$</p>
+        </solution>
+      </checkpoint>
+      <p>We now turn our attention to a nice application of geometric series. We show how they can be used to write repeating decimals as fractions of integers.</p>
+      <example number="5.10">
+        <problem>
+          <title>Writing Repeating Decimals as Fractions of Integers</title>
+          <p>Use a geometric series to write $$3.\overset{\text{—}}{26}$$ as a fraction of integers.</p>
+        </problem>
+        <solution>
+          <p>Since $$3.\overset{\text{—}}{26} = 3.262626\text{…},$$ first we write</p>
+          <equation>$$\begin{array}{cl} {3.262626\text{…}} &amp; {= 3 + \frac{26}{100} + \frac{26}{10,000} + \frac{26}{1,000,000} + \text{⋯}} \\ &amp; {= 3 + \frac{26}{10^{2}} + \frac{26}{10^{4}} + \frac{26}{10^{6}} + \text{⋯}.} \end{array}$$</equation>
+          <p>Ignoring the term 3, the rest of this expression is a geometric series with initial term $$a = 26\text{/}10^{2}$$ and ratio $$r = 1\text{/}10^{2}.$$ Therefore, the sum of this series is</p>
+          <equation>$$\frac{26\text{/}10^{2}}{1 - (1\text{/}10^{2})} = \frac{26\text{/}10^{2}}{99\text{/}10^{2}} = \frac{26}{99}.$$</equation>
+          <p>Thus,</p>
+          <equation>$$3.262626\text{…} = 3 + \frac{26}{99} = \frac{323}{99}.$$</equation>
+        </solution>
+      </example>
+      <checkpoint number="5.10">
+        <problem>
+          <p>Write $$5.2\overset{\text{–}}{7}$$ as a fraction of integers.</p>
+        </problem>
+        <solution>
+          <p>$$475\text{/}90$$</p>
+        </solution>
+      </checkpoint>
+      <example number="5.11">
+        <problem>
+          <title>Chapter Opener: Finding the Area of the Koch Snowflake</title>
+          <p>Define a sequence of figures $$\left\{ F_{n} \right\}$$ recursively as follows (Figure 5.11). Let $$F_{0}$$ be an equilateral triangle with sides of length $$1.$$ For $$n \geq 1,$$ let $$F_{n}$$ be the curve created by removing the middle third of each side of $$F_{n - 1}$$ and replacing it with an equilateral triangle pointing outward. The limiting figure as $$n\rightarrow\infty$$ is known as Koch’s snowflake.</p>
+          <image alt="This is a diagram of the Koch snowflake, which it created through iterations. The base case is an equilateral triangle. In each iteration, the middle third of each line segment is replaced with another equilateral triangle pointing outward." number="5.11" caption="The first four figures, $$F_{0},F_{1},F_{2},\text{and}\ F_{3},$$ in the construction of the Koch snowflake." />
+          <list type="ol" style="a">
+            <item>Find the length $$L_{n}$$ of the perimeter of $$F_{n}.$$ Evaluate $$\underset{n\rightarrow\infty}{\text{lim}}L_{n}$$ to find the length of the perimeter of Koch’s snowflake.</item>
+            <item>Find the area $$A_{n}$$ of figure $$F_{n}.$$ Evaluate $$\underset{n\rightarrow\infty}{\text{lim}}A_{n}$$ to find the area of Koch’s snowflake.</item>
+          </list>
+        </problem>
+        <solution>
+          <list type="ol" style="a">
+            <item>Letdenote the number of sides of figureSinceis a triangle,Letdenote the length of each side ofSinceis an equilateral triangle with sides of lengthwe now need to determineandSinceis created by removing the middle third of each side and replacing that line segment with two line segments, for each side ofwe get four sides inTherefore, the number of sides forisSince the length of each of these new line segments isthe length of the line segments inthe length of the line segments foris given bySimilarly, forsince the middle third of each side ofis removed and replaced with two line segments, the number of sides inis given bySince the length of each of these sides isthe length of the sides ofthe length of each side of figureis given byMore generally, sinceis created by removing the middle third of each side ofand replacing that line segment with two line segments of lengthin the shape of an equilateral triangle, we know thatandTherefore, the number of sides of figureisand the length of each side isTherefore, to calculate the perimeter ofwe multiply the number of sidesand the length of each sideWe conclude that the perimeter ofis given byTherefore, the length of the perimeter of Koch’s snowflake is<equation>$$N_{n}$$</equation>
+              <equation>$$F_{n}.$$</equation>
+              <equation>$$F_{0}$$</equation>
+              <equation>$$N_{0} = 3.$$</equation>
+              <equation>$$l_{n}$$</equation>
+              <equation>$$F_{n}.$$</equation>
+              <equation>$$F_{0}$$</equation>
+              <equation>$$l_{0} = 1,$$</equation>
+              <equation>$$N_{1}$$</equation>
+              <equation>$$l_{1}.$$</equation>
+              <equation>$$F_{1}$$</equation>
+              <equation>$$F_{0},$$</equation>
+              <equation>$$F_{1}.$$</equation>
+              <equation>$$F_{1}$$</equation>
+              <equation>$$N_{1} = 4 \cdot 3.$$</equation>
+              <equation>$$1\text{/}3$$</equation>
+              <equation>$$F_{0},$$</equation>
+              <equation>$$F_{1}$$</equation>
+              <equation>$$l_{1} = \frac{1}{3} \cdot 1 = \frac{1}{3}.$$</equation>
+              <equation>$$F_{2},$$</equation>
+              <equation>$$F_{1}$$</equation>
+              <equation>$$F_{2}$$</equation>
+              <equation>$$N_{2} = 4N_{1} = 4(4 \cdot 3) = 4^{2} \cdot 3.$$</equation>
+              <equation>$$1\text{/}3$$</equation>
+              <equation>$$F_{1},$$</equation>
+              <equation>$$F_{2}$$</equation>
+              <equation>$$l_{2} = \frac{1}{3} \cdot l_{1} = \frac{1}{3} \cdot \frac{1}{3} = \left( \frac{1}{3} \right)^{2}.$$</equation>
+              <equation>$$F_{n}$$</equation>
+              <equation>$$F_{n - 1}$$</equation>
+              <equation>$$\frac{1}{3}l_{n - 1}$$</equation>
+              <equation>$$N_{n} = 4N_{n - 1}$$</equation>
+              <equation>$$l_{n} = \frac{l_{n - 1}}{3}.$$</equation>
+              <equation>$$F_{n}$$</equation>
+              <equation>$$N_{n} = 4^{n} \cdot 3$$</equation>
+              <equation>$$l_{n} = \left( \frac{1}{3} \right)^{n}.$$</equation>
+              <equation>$$F_{n},$$</equation>
+              <equation>$$N_{n}$$</equation>
+              <equation>$$l_{n}.$$</equation>
+              <equation>$$F_{n}$$</equation>
+              <equation>$$L_{n} = N_{n} \cdot l_{n} = 3 \cdot \left( \frac{4}{3} \right)^{n}.$$</equation>
+              <equation>$$L = \underset{n\rightarrow\infty}{\text{lim}}L_{n} = \infty.$$</equation>
+            </item>
+            <item>Letdenote the area of each new triangle created when formingForis the area of the original equilateral triangle. Therefore,Forsince the lengths of the sides of the new triangle arethe length of the sides ofwe haveTherefore,Since a new triangle is formed on each side ofWriting out the first few termswe see thatMore generally,Factoringout of each term inside the inner parentheses, we rewrite our expression asThe expressionis a geometric sum. As shown earlier, this sum satisfiesSubstituting this expression into the expression above and simplifying, we conclude thatTherefore, the area of Koch’s snowflake is<equation>$$T_{n}$$</equation>
+              <equation>$$F_{n}.$$</equation>
+              <equation>$$n = 0,$$</equation>
+              <equation>$$T_{0}$$</equation>
+              <equation>$$T_{0} = A_{0} = \sqrt{3}\text{/}4.$$</equation>
+              <equation>$$n \geq 1,$$</equation>
+              <equation>$$1\text{/}3$$</equation>
+              <equation>$$F_{n - 1},$$</equation>
+              <equation>$$T_{n} = \left( \frac{1}{3} \right)^{2}T_{n - 1} = \frac{1}{9} \cdot T_{n - 1}.$$</equation>
+              <equation>$$T_{n} = \left( \frac{1}{9} \right)^{n} \cdot \frac{\sqrt{3}}{4}.$$</equation>
+              <equation>$$F_{n - 1},$$</equation>
+              <equation>$$\begin{array}{cl} A_{n} &amp; {= A_{n - 1} + N_{n - 1} \cdot T_{n}} \\ &amp; {= A_{n - 1} + \left( {3 \cdot 4^{n - 1}} \right) \cdot \left( \frac{1}{9} \right)^{n} \cdot \frac{\sqrt{3}}{4}} \\ &amp; {= A_{n - 1} + \frac{3}{4} \cdot \left( \frac{4}{9} \right)^{n} \cdot \frac{\sqrt{3}}{4}.} \end{array}$$</equation>
+              <equation>$$A_{0},A_{1},A_{2},$$</equation>
+              <equation>$$\begin{array}{l} \\ {A_{0} = \frac{\sqrt{3}}{4}} \\ {A_{1} = A_{0} + \frac{3}{4} \cdot \left( \frac{4}{9} \right) \cdot \frac{\sqrt{3}}{4} = \frac{\sqrt{3}}{4} + \frac{3}{4} \cdot \left( \frac{4}{9} \right) \cdot \frac{\sqrt{3}}{4} = \frac{\sqrt{3}}{4}\left\lbrack {1 + \frac{3}{4} \cdot \left( \frac{4}{9} \right)} \right\rbrack} \\ {A_{2} = A_{1} + \frac{3}{4} \cdot \left( \frac{4}{9} \right)^{2} \cdot \frac{\sqrt{3}}{4} = \frac{\sqrt{3}}{4}\left\lbrack {1 + \frac{3}{4} \cdot \left( \frac{4}{9} \right)} \right\rbrack + \frac{3}{4} \cdot \left( \frac{4}{9} \right)^{2} \cdot \frac{\sqrt{3}}{4} = \frac{\sqrt{3}}{4}\left\lbrack {1 + \frac{3}{4} \cdot \left( \frac{4}{9} \right) + \frac{3}{4} \cdot \left( \frac{4}{9} \right)^{2}} \right\rbrack.} \end{array}$$</equation>
+              <equation>$$A_{n} = \frac{\sqrt{3}}{4}\left\lbrack {1 + \frac{3}{4}\left( {\frac{4}{9} + \left( \frac{4}{9} \right)^{2} + \text{⋯} + \left( \frac{4}{9} \right)^{n}} \right)} \right\rbrack.$$</equation>
+              <equation>$$4\text{/}9$$</equation>
+              <equation>$$A_{n} = \frac{\sqrt{3}}{4}\left\lbrack {1 + \frac{1}{3}\left( {1 + \frac{4}{9} + \left( \frac{4}{9} \right)^{2} + \text{⋯} + \left( \frac{4}{9} \right)^{n - 1}} \right)} \right\rbrack.$$</equation>
+              <equation>$$1 + \left( \frac{4}{9} \right) + \left( \frac{4}{9} \right)^{2} + \text{⋯} + \left( \frac{4}{9} \right)^{n - 1}$$</equation>
+              <equation>$$1 + \frac{4}{9} + \left( \frac{4}{9} \right)^{2} + \text{⋯} + \left( \frac{4}{9} \right)^{n - 1} = \frac{1 - {(4\text{/}9)}^{n}}{1 - (4\text{/}9)}.$$</equation>
+              <equation>$$\begin{array}{cl} A_{n} &amp; {= \frac{\sqrt{3}}{4}\left\lbrack {1 + \frac{1}{3}\left( \frac{1 - {(4\text{/}9)}^{n}}{1 - (4\text{/}9)} \right)} \right\rbrack} \\ &amp; {= \frac{\sqrt{3}}{4}\left\lbrack {\frac{8}{5} - \frac{3}{5}\left( \frac{4}{9} \right)^{n}} \right\rbrack.} \end{array}$$</equation>
+              <equation>$$A = \underset{n\rightarrow\infty}{\text{lim}}A_{n} = \frac{2\sqrt{3}}{5}.$$</equation>
+            </item>
+          </list>
+        </solution>
+      </example>
+    </subsection>
+  </subsection>
+  <subsection title="Telescoping Series">
+    <p>Consider the series $${\sum\limits_{n = 1}^{\infty}\frac{1}{n(n + 1)}}.$$ We discussed this series in Example 5.7, showing that the series converges by writing out the first several partial sums $$S_{1},S_{2}\text{,…},S_{6}$$ and noticing that they are all of the form $$S_{k} = \frac{k}{k + 1}.$$ Here we use a different technique to show that this series converges. By using partial fractions, we can write</p>
+    <equation>$$\frac{1}{n(n + 1)} = \frac{1}{n} - \frac{1}{n + 1}.$$</equation>
+    <p>Therefore, the series can be written as</p>
+    <equation>$$\sum\limits_{n = 1}^{\infty}\left\lbrack \frac{1}{n} - \frac{1}{n + 1} \right\rbrack = \left( 1 - \frac{1}{2} \right) + \left( \frac{1}{2} - \frac{1}{3} \right) + \left( \frac{1}{3} - \frac{1}{4} \right) + \text{⋯}.$$</equation>
+    <p>Writing out the first several terms in the sequence of partial sums $$\left\{ S_{k} \right\},$$ we see that</p>
+    <equation>$$\begin{array}{l} {S_{1} = 1 - \frac{1}{2}} \\ {S_{2} = \left( {1 - \frac{1}{2}} \right) + \left( {\frac{1}{2} - \frac{1}{3}} \right) = 1 - \frac{1}{3}} \\ {S_{3} = \left( {1 - \frac{1}{2}} \right) + \left( {\frac{1}{2} - \frac{1}{3}} \right) + \left( {\frac{1}{3} - \frac{1}{4}} \right) = 1 - \frac{1}{4}.} \end{array}$$</equation>
+    <p>In general,</p>
+    <equation>$$S_{k} = \left( {1 - \frac{1}{2}} \right) + \left( {\frac{1}{2} - \frac{1}{3}} \right) + \left( {\frac{1}{3} - \frac{1}{4}} \right) + \text{⋯} + \left( {\frac{1}{k} - \frac{1}{k + 1}} \right) = 1 - \frac{1}{k + 1}.$$</equation>
+    <p>We notice that the middle terms cancel each other out, leaving only the first and last terms. In a sense, the series collapses like a spyglass with tubes that disappear into each other to shorten the telescope. For this reason, we call a series that has this property a telescoping series. For this series, since $$S_{k} = 1 - 1\text{/}(k + 1)$$ and $$1\text{/}(k + 1)\rightarrow 0$$ as $$k\rightarrow\infty,$$ the sequence of partial sums converges to $$1,$$ and therefore the series converges to $$1.$$</p>
+    <note type="Definition">
+      <p>A telescoping series is a series in which most of the terms cancel in each of the partial sums, leaving only some of the first terms and some of the last terms.</p>
+    </note>
+    <p>For example, any series of the form</p>
+    <equation>$$\sum\limits_{n = 1}^{\infty}\left\lbrack {b_{n} - b_{n + 1}} \right\rbrack = \left( {b_{1} - b_{2}} \right) + \left( {b_{2} - b_{3}} \right) + \left( {b_{3} - b_{4}} \right) + \text{⋯}$$</equation>
+    <p>is a telescoping series. We can see this by writing out some of the partial sums. In particular, we see that</p>
+    <equation>$$\begin{array}{l} {S_{1} = b_{1} - b_{2}} \\ {S_{2} = \left( {b_{1} - b_{2}} \right) + \left( {b_{2} - b_{3}} \right) = b_{1} - b_{3}} \\ {S_{3} = \left( {b_{1} - b_{2}} \right) + \left( {b_{2} - b_{3}} \right) + \left( {b_{3} - b_{4}} \right) = b_{1} - b_{4}.} \end{array}$$</equation>
+    <p>In general, the kth partial sum of this series is</p>
+    <equation>$$S_{k} = b_{1} - b_{k + 1}.$$</equation>
+    <p>Since the kth partial sum can be simplified to the difference of these two terms, the sequence of partial sums $$\left\{ S_{k} \right\}$$ will converge if and only if the sequence $$\left\{ b_{k + 1} \right\}$$ converges. Moreover, if the sequence $$b_{k + 1}$$ converges to some finite number $$B,$$ then the sequence of partial sums converges to $$b_{1} - B,$$ and therefore</p>
+    <equation>$$\sum\limits_{n = 1}^{\infty}\lbrack b_{n} - b_{n + 1}\rbrack = b_{1} - B.$$</equation>
+    <p>In the next example, we show how to use these ideas to analyze a telescoping series of this form.</p>
+    <example number="5.12">
+      <problem>
+        <title>Evaluating a Telescoping Series</title>
+        <p>Determine whether the telescoping series</p>
+        <equation>$$\sum\limits_{n = 1}^{\infty}\left\lbrack {\text{cos}\left( \frac{1}{n} \right) - \text{cos}\left( \frac{1}{n + 1} \right)} \right\rbrack$$</equation>
+        <p>converges or diverges. If it converges, find its sum.</p>
+      </problem>
+      <solution>
+        <p>By writing out terms in the sequence of partial sums, we can see that</p>
+        <equation>$$\begin{array}{cll} S_{1} &amp; = &amp; {\text{cos}(1) - \text{cos}\left( \frac{1}{2} \right)} \\ S_{2} &amp; = &amp; {\left( {\text{cos}(1) - \text{cos}\left( \frac{1}{2} \right)} \right) + \left( {\text{cos}\left( \frac{1}{2} \right) - \text{cos}\left( \frac{1}{3} \right)} \right) = \text{cos}(1) - \text{cos}\left( \frac{1}{3} \right)} \\ S_{3} &amp; = &amp; {\left( {\text{cos}(1) - \text{cos}\left( \frac{1}{2} \right)} \right) + \left( {\text{cos}\left( \frac{1}{2} \right) - \text{cos}\left( \frac{1}{3} \right)} \right) + \left( {\text{cos}\left( \frac{1}{3} \right) - \text{cos}\left( \frac{1}{4} \right)} \right)} \\ &amp; = &amp; {\text{cos}(1) - \text{cos}\left( \frac{1}{4} \right).} \end{array}$$</equation>
+        <p>In general,</p>
+        <equation>$$S_{k} = \text{cos}(1) - \text{cos}\left( \frac{1}{k + 1} \right).$$</equation>
+        <p>Since $$1\text{/}(k + 1)\rightarrow 0$$ as $$k\rightarrow\infty$$ and $$\text{cos}\mspace{2mu} x$$ is a continuous function, $$\text{cos}(1\text{/}(k + 1))\rightarrow\text{cos}(0) = 1.$$ Therefore, we conclude that $$S_{k}\rightarrow\text{cos}(1) - 1.$$ The telescoping series converges and the sum is given by</p>
+        <equation>$$\sum\limits_{n = 1}^{\infty}\left\lbrack {\text{cos}\left( \frac{1}{n} \right) - \text{cos}\left( \frac{1}{n + 1} \right)} \right\rbrack = \text{cos}(1) - 1.$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="5.11">
+      <problem>
+        <p>Determine whether $$\sum\limits_{n = 1}^{\infty}\left\lbrack {e^{1\text{/}n} - e^{1\text{/}(n + 1)}} \right\rbrack$$ converges or diverges. If it converges, find its sum.</p>
+      </problem>
+      <solution>
+        <p>$$e - 1$$</p>
+      </solution>
+    </checkpoint>
+    <note type="Student Project">
+      <p>We have shown that the harmonic series $$\sum\limits_{n = 1}^{\infty}\frac{1}{n}$$ diverges. Here we investigate the behavior of the partial sums $$S_{k}$$ as $$k\rightarrow\infty.$$ In particular, we show that they behave like the natural logarithm function by showing that there exists a constant $$\gamma$$ such that</p>
+      <equation>$$\sum\limits_{n = 1}^{k}\frac{1}{n} - \text{ln}\mspace{2mu} k\rightarrow\gamma\ \text{as}\ k\rightarrow\infty.$$</equation>
+      <p>This constant $$\gamma$$ is known as Euler’s constant.</p>
+      <list type="ol" style="1">
+        <item>Let $$T_{k} = {\sum\limits_{n = 1}^{k}{\frac{1}{n} - \text{ln}\mspace{2mu} k}}.$$ Evaluate $$T_{k}$$ for various values of $$k.$$</item>
+        <item>Foras defined in part 1. show that the sequenceconverges by using the following steps.<equation>$$T_{k}$$</equation>
+          <equation>$$\left\{ T_{k} \right\}$$</equation>
+          <list type="ol" style="a">
+            <item>Show that the sequence $$\left\{ T_{k} \right\}$$ is monotone decreasing. (Hint: Show that $$\text{ln}{\left( {1 + 1\text{/}k &gt; 1\text{/}\left( {k + 1} \right)} \right))}$$</item>
+            <item>Show that the sequence $$\left\{ T_{k} \right\}$$ is bounded below by zero. (Hint: Express $$\text{ln}\mspace{2mu} k$$ as a definite integral.)</item>
+            <item>Use the Monotone Convergence Theorem to conclude that the sequence $$\left\{ T_{k} \right\}$$ converges. The limit $$\gamma$$ is Euler’s constant.</item>
+          </list>
+        </item>
+        <item>Now estimate how faris fromfor a given integerProve that forby using the following steps.<equation>$$T_{k}$$</equation>
+          <equation>$$\gamma$$</equation>
+          <equation>$$k.$$</equation>
+          <equation>$$k \geq 1,$$</equation>
+          <equation>$$0 &lt; T_{k} - \gamma \leq 1\text{/}k$$</equation>
+          <list type="ol" style="a">
+            <item>Show that $$\text{ln}\left( {k + 1} \right) - \text{ln}\mspace{2mu} k &lt; 1\text{/}k.$$</item>
+            <item>Use the result from part a. to show that for any integer<equation>$$k,$$</equation>
+              <equation>$$T_{k} - T_{k + 1} &lt; \frac{1}{k} - \frac{1}{k + 1}.$$</equation>
+            </item>
+            <item>For any integersandsuch thatexpressas a telescoping sum by writingUse the result from part b. combined with this telescoping sum to conclude that<equation>$$k$$</equation>
+              <equation>$$j$$</equation>
+              <equation>$$j &gt; k,$$</equation>
+              <equation>$$T_{k} - T_{j}$$</equation>
+              <equation>$$T_{k} - T_{j} = \left( {T_{k} - T_{k + 1}} \right) + \left( {T_{k + 1} - T_{k + 2}} \right) + \left( {T_{k + 2} - T_{k + 3}} \right) + \text{⋯} + \left( {T_{j - 1} - T_{j}} \right).$$</equation>
+              <equation>$$T_{k} - T_{j} &lt; \frac{1}{k} - \frac{1}{j}.$$</equation>
+            </item>
+            <item>Apply the limit to both sides of the inequality in part c. to conclude that<equation>$$T_{k} - \gamma \leq \frac{1}{k}.$$</equation>
+            </item>
+            <item>Estimate $$\gamma$$ to an accuracy of within $$0.001.$$</item>
+          </list>
+        </item>
+      </list>
+    </note>
+  </subsection>
+  <exercises title="Section 5.2 Exercises">
+    <instruction>Using sigma notation, write the following expressions as infinite series.</instruction>
+    <exercise number="67" has_solution="true">
+      <problem>
+        <p>$$1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \text{⋯}$$</p>
+      </problem>
+      <solution>
+        <p>$$\sum\limits_{n = 1}^{\infty}\frac{1}{n}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="68" has_solution="false">
+      <problem>
+        <p>$$1 - 1 + 1 - 1 + \text{⋯}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="69" has_solution="true">
+      <problem>
+        <p>$$1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + ...$$</p>
+      </problem>
+      <solution>
+        <p>$$\sum\limits_{n = 1}^{\infty}\frac{(-1)^{n - 1}}{n}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="70" has_solution="false">
+      <problem>
+        <p>$$\text{sin}\mspace{2mu} 1 + \text{sin}\mspace{2mu}\frac{1}{2} + \text{sin}\mspace{2mu}\frac{1}{3} + \text{sin}\mspace{2mu}\frac{1}{4} + \text{⋯}$$</p>
+      </problem>
+    </exercise>
+    <instruction>Compute the first four partial sums $$S_{1}\text{,…},S_{4}$$ for the series having $$n\text{th}$$ term $$a_{n}$$ starting with $$n = 1$$ as follows.</instruction>
+    <exercise number="71" has_solution="true">
+      <problem>
+        <p>$$a_{n} = n$$</p>
+      </problem>
+      <solution>
+        <p>$$1,3,6,10$$</p>
+      </solution>
+    </exercise>
+    <exercise number="72" has_solution="false">
+      <problem>
+        <p>$$a_{n} = 1\text{/}n$$</p>
+      </problem>
+    </exercise>
+    <exercise number="73" has_solution="true">
+      <problem>
+        <p>$$a_{n} = \text{sin}\left( {n\pi\text{/}2} \right)$$</p>
+      </problem>
+      <solution>
+        <p>$$1,1,0,0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="74" has_solution="false">
+      <problem>
+        <p>$$a_{n} = (-1)^{n}$$</p>
+      </problem>
+    </exercise>
+    <instruction>In the following exercises, compute the general term $$a_{n}$$ of the series with the given partial sum $$S_{n}.$$ If the sequence of partial sums converges, find its limit $$S.$$</instruction>
+    <exercise number="75" has_solution="true">
+      <problem>
+        <p>$$S_{n} = 1 - \frac{1}{n},$$ $$n \geq 2$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = S_{n} - S_{n - 1} = \frac{1}{n - 1} - \frac{1}{n}.$$ Series converges to $$S = 1.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="76" has_solution="false">
+      <problem>
+        <p>$$S_{n} = \frac{n\left( {n + 1} \right)}{2},$$ $$n \geq 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="77" has_solution="true">
+      <problem>
+        <p>$$S_{n} = \sqrt{n},n \geq 2$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = S_{n} - S_{n - 1} = \sqrt{n} - \sqrt{n - 1} = \frac{1}{\sqrt{n - 1} + \sqrt{n}}.$$ Series diverges because partial sums are unbounded.</p>
+      </solution>
+    </exercise>
+    <exercise number="78" has_solution="false">
+      <problem>
+        <p>$$S_{n} = 2 - \left( {n + 2} \right)\text{/}2^{n},n \geq 1$$</p>
+      </problem>
+    </exercise>
+    <instruction>For each of the following series, use the sequence of partial sums to determine whether the series converges or diverges.</instruction>
+    <exercise number="79" has_solution="true">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}\frac{n}{n + 2}$$</p>
+      </problem>
+      <solution>
+        <p>$$S_{1} = 1\text{/}3,$$ $$S_{2} = 1\text{/}3 + 2\text{/}4 &gt; 1\text{/}3 + 1\text{/}3 = 2\text{/}3,$$ $$S_{3} = 1\text{/}3 + 2\text{/}4 + 3\text{/}5 &gt; 3 \cdot \left( {1\text{/}3} \right) = 1.$$ In general $$S_{k} &gt; k\text{/}3.$$ Series diverges.</p>
+      </solution>
+    </exercise>
+    <exercise number="80" has_solution="false">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}\left( {1 - (-1)^{n})} \right)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="81" has_solution="true">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}\frac{1}{\left( {n + 1} \right)\left( {n + 2} \right)}$$ (Hint: Use a partial fraction decomposition like that for $${\sum\limits_{n = 1}^{\infty}\frac{1}{n\left( {n + 1} \right)}}.)$$</p>
+      </problem>
+      <solution>
+        <p>$$\begin{array}{l} {S_{1} = 1\text{/}(2.3) = 1\text{/}6 = 2\text{/}3 - 1\text{/}2,} \\ {S_{2} = 1\text{/}(2.3) + 1\text{/}(3.4) = 2\text{/}12 + 1\text{/}12 = 1\text{/}4 = 3\text{/}4 - 1\text{/}2,} \\ {S_{3} = 1\text{/}(2.3) + 1\text{/}(3.4) + 1\text{/}(4.5) = 10\text{/}60 + 5\text{/}60 + 3\text{/}60 = 3\text{/}10 = 4\text{/}5 - 1\text{/}2,} \\ {S_{4} = 1\text{/}(2.3) + 1\text{/}(3.4) + 1\text{/}(4.5) + 1\text{/}(5.6) = 10\text{/}60 + 5\text{/}60 + 3\text{/}60 + 2\text{/}60 = 1\text{/}3 = 5\text{/}6 - 1\text{/}2.} \end{array}$$</p>
+        <p>The pattern is $$S_{k} = \left( {k + 1} \right)\text{/}\left( {k + 2} \right) - 1\text{/}2$$ and the series converges to $$1\text{/}2.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="82" has_solution="false">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}\frac{1}{2n + 1}$$ (Hint: Follow the reasoning for $${\sum\limits_{n = 1}^{\infty}\frac{1}{n}}.)$$</p>
+      </problem>
+    </exercise>
+    <instruction>Suppose that $${\sum\limits_{n = 1}^{\infty}{a_{n} = 1}},$$ that $${\sum\limits_{n = 1}^{\infty}{b_{n} = -1}},$$ that $$a_{1} = 2,$$ and $$b_{1} = -3.$$ Find the sum of the indicated series.</instruction>
+    <exercise number="83" has_solution="true">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}{(a_{n} + b_{n})}$$</p>
+      </problem>
+      <solution>
+        <p>$$0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="84" has_solution="false">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}{(a_{n} - 2b_{n})}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="85" has_solution="true">
+      <problem>
+        <p>$$\sum\limits_{n = 2}^{\infty}{(a_{n} - b_{n})}$$</p>
+      </problem>
+      <solution>
+        <p>$$-3$$</p>
+      </solution>
+    </exercise>
+    <exercise number="86" has_solution="false">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}{(3a_{n + 1} - 4b_{n + 1})}$$</p>
+      </problem>
+    </exercise>
+    <instruction>State whether the given series converges and explain why.</instruction>
+    <exercise number="87" has_solution="true">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}\frac{1}{n + 1000}$$ (Hint: Rewrite using a change of index.)</p>
+      </problem>
+      <solution>
+        <p>diverges, $$\sum\limits_{n = 1001}^{\infty}\frac{1}{n}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="88" has_solution="false">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}\frac{1}{n + 10^{80}}$$ (Hint: Rewrite using a change of index.)</p>
+      </problem>
+    </exercise>
+    <exercise number="89" has_solution="true">
+      <problem>
+        <p>$$1 + \frac{1}{10} + \frac{1}{100} + \frac{1}{1000} + \text{⋯}$$</p>
+      </problem>
+      <solution>
+        <p>convergent geometric series, $$r = 1\text{/}10 &lt; 1$$</p>
+      </solution>
+    </exercise>
+    <exercise number="90" has_solution="false">
+      <problem>
+        <p>$$1 + \frac{e}{\pi} + \frac{e^{2}}{\pi^{2}} + \frac{e^{3}}{\pi^{3}} + \text{⋯}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="91" has_solution="true">
+      <problem>
+        <p>$$1 + \frac{\pi}{e^{2}} + \frac{\pi^{2}}{e^{4}} + \frac{\pi^{3}}{e^{6}} + \frac{\pi^{4}}{e^{8}} + \text{⋯}$$</p>
+      </problem>
+      <solution>
+        <p>convergent geometric series, $$r = \pi\text{/}e^{2} &lt; 1$$</p>
+      </solution>
+    </exercise>
+    <exercise number="92" has_solution="false">
+      <problem>
+        <p>$$1 - \sqrt{\frac{\pi}{3}} + \sqrt{\frac{\pi^{2}}{9}} - \sqrt{\frac{\pi^{3}}{27}} + \text{⋯}$$</p>
+      </problem>
+    </exercise>
+    <instruction>For $$a_{n}$$ as follows, write the sum as a geometric series of the form $${\sum\limits_{n = 1}^{\infty}{ar^{n}}}.$$ State whether the series converges and if it does, find the value of $${\sum a_{n}}.$$</instruction>
+    <exercise number="93" has_solution="true">
+      <problem>
+        <p>$$a_{1} = -1$$ and $$a_{n}\text{/}a_{n + 1} = -5$$ for $$n \geq 1.$$</p>
+      </problem>
+      <solution>
+        <p>$${\sum\limits_{n = 1}^{\infty}{5 \cdot \left( {-1\text{/}5} \right)^{n}}},$$ converges to $$-5\text{/}6$$</p>
+      </solution>
+    </exercise>
+    <exercise number="94" has_solution="false">
+      <problem>
+        <p>$$a_{1} = 2$$ and $$a_{n}\text{/}a_{n + 1} = 1\text{/}2$$ for $$n \geq 1.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="95" has_solution="true">
+      <problem>
+        <p>$$a_{1} = 10$$ and $$a_{n}\text{/}a_{n + 1} = 10$$ for $$n \geq 1.$$</p>
+      </problem>
+      <solution>
+        <p>$${\sum\limits_{n = 1}^{\infty}{100 \cdot \left( {1\text{/}10} \right)^{n}}},$$ converges to $$100\text{/}9$$</p>
+      </solution>
+    </exercise>
+    <exercise number="96" has_solution="false">
+      <problem>
+        <p>$$a_{1} = 1\text{/}10$$ and $$a_{n}\text{/}a_{n + 1} = -10$$ for $$n \geq 1.$$</p>
+      </problem>
+    </exercise>
+    <instruction>Use the identity $$\frac{1}{1 - y} = {\sum\limits_{n = 0}^{\infty}y^{n}}$$ to express the function as a geometric series in the indicated term.</instruction>
+    <exercise number="97" has_solution="true">
+      <problem>
+        <p>$$\frac{x}{1 + x}$$ in $$x$$</p>
+      </problem>
+      <solution>
+        <p>$$x{\sum\limits_{n = 0}^{\infty}\left( {\text{−}x} \right)^{n}} = {\sum\limits_{n = 1}^{\infty}{(-1)^{n - 1}x^{n}}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="98" has_solution="false">
+      <problem>
+        <p>$$\frac{\sqrt{x}}{1 - x^{3\text{/}2}}$$ in $$\sqrt{x}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="99" has_solution="true">
+      <problem>
+        <p>$$\frac{1}{1 + \text{sin}^{2}x}$$ in $$\text{sin}\mspace{2mu} x$$</p>
+      </problem>
+      <solution>
+        <p>$$\sum\limits_{n = 0}^{\infty}{(-1)^{n}\text{sin}^{2n}(x)}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="100" has_solution="false">
+      <problem>
+        <p>$$\text{sec}^{2}x$$ in $$\text{sin}\mspace{2mu} x$$</p>
+      </problem>
+    </exercise>
+    <instruction>Evaluate the following telescoping series or state whether the series diverges.</instruction>
+    <exercise number="101" has_solution="true">
+      <problem>
+        <p>$${\sum\limits_{n = 1}^{\infty}{2^{1\text{/}n} -}}2^{1\text{/}{({n + 1})}}$$</p>
+      </problem>
+      <solution>
+        <p>$$S_{k} = 2 - 2^{1\text{/}{({k + 1})}}\rightarrow 1$$ as $$k\rightarrow\infty.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="102" has_solution="false">
+      <problem>
+        <p>$${\sum\limits_{n = 1}^{\infty}\frac{1}{n^{13}}} - \frac{1}{\left( {n + 1} \right)^{13}}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="103" has_solution="true">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}\left( {\sqrt{n} - \sqrt{n + 1}} \right)$$</p>
+      </problem>
+      <solution>
+        <p>$$S_{k} = 1 - \sqrt{k + 1}$$ diverges</p>
+      </solution>
+    </exercise>
+    <exercise number="104" has_solution="false">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}\left( {\text{sin}\mspace{2mu} n - \text{sin}\left( {n + 1} \right)} \right)$$</p>
+      </problem>
+    </exercise>
+    <instruction>Express the following series as a telescoping sum and evaluate its nth partial sum.</instruction>
+    <exercise number="105" has_solution="true">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}{\text{ln}\left( \frac{n}{n + 1} \right)}$$</p>
+      </problem>
+      <solution>
+        <p>$$\sum\limits_{n = 1}^{\infty}{\text{ln}\mspace{2mu} n - \text{ln}\left( {n + 1} \right),S_{k} = \text{−}\text{ln}\left( {k + 1} \right)}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="106" has_solution="false">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}\frac{2n + 1}{\left( {n^{2} + n} \right)^{2}}$$ (Hint: Factor denominator and use partial fractions.)</p>
+      </problem>
+    </exercise>
+    <exercise number="107" has_solution="true">
+      <problem>
+        <p>$$\sum\limits_{n = 2}^{\infty}\frac{\text{ln}\left( {1 +_{n}^{1}} \right)}{\text{ln}\mspace{2mu} n\mspace{2mu}\text{ln}\left( {n + 1} \right)}$$</p>
+      </problem>
+      <solution>
+        <p>$$a_{n} = \frac{1}{\text{ln}\mspace{2mu} n} - \frac{1}{\text{ln}(n + 1)}$$ and $$S_{k} = \frac{1}{\text{ln}(2)} - \frac{1}{\text{ln}(k + 1)}\rightarrow\frac{1}{\text{ln}(2)}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="108" has_solution="false">
+      <problem>
+        <p>$$\sum\limits_{n = 1}^{\infty}\frac{\left( {n + 2} \right)}{n\left( {n + 1} \right)2^{n + 1}}$$ (Hint: Look at $$\left. 1\text{/}\left( {n2^{n}} \right). \right)$$</p>
+      </problem>
+    </exercise>
+    <instruction>A general telescoping series is one in which all but the first few terms cancel out after summing a given number of successive terms.</instruction>
+    <exercise number="109" has_solution="true">
+      <problem>
+        <p>Let $$a_{n} = f(n) - 2f\left( {n + 1} \right) + f\left( {n + 2} \right),$$ in which $$f(n)\rightarrow 0$$ as $$n\rightarrow\infty.$$ Find $${\sum\limits_{n = 1}^{\infty}a_{n}}.$$</p>
+      </problem>
+      <solution>
+        <p>$${\sum\limits_{n = 1}^{\infty}{a_{n} =}}f(1) - f(2)$$</p>
+      </solution>
+    </exercise>
+    <exercise number="110" has_solution="false">
+      <problem>
+        <p>$$a_{n} = f(n) - f\left( {n + 1} \right) - f\left( {n + 2} \right) + f\left( {n + 3} \right),$$ in which $$f(n)\rightarrow 0$$ as $$n\rightarrow\infty.$$ Find $${\sum\limits_{n = 1}^{\infty}a_{n}}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="111" has_solution="true">
+      <problem>
+        <p>Suppose that $$a_{n} = c_{0}f(n) + c_{1}f\left( {n + 1} \right) + c_{2}f\left( {n + 2} \right) + c_{3}f\left( {n + 3} \right) + c_{4}f\left( {n + 4} \right),$$ where $$f(n)\rightarrow 0$$ as $$n\rightarrow\infty.$$ Find a condition on the coefficients $$c_{0}\text{,…},c_{4}$$ that make this a general telescoping series.</p>
+      </problem>
+      <solution>
+        <p>$$c_{0} + c_{1} + c_{2} + c_{3} + c_{4} = 0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="112" has_solution="false">
+      <problem>
+        <p>Evaluate $$\sum\limits_{n = 1}^{\infty}\frac{1}{n\left( {n + 1} \right)\left( {n + 2} \right)}$$ (Hint: $$\left. \frac{1}{n\left( {n + 1} \right)\left( {n + 2} \right)} = \frac{1}{2n} - \frac{1}{n + 1} + \frac{1}{2\left( {n + 2} \right)} \right)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="113" has_solution="true">
+      <problem>
+        <p>Evaluate $${\sum\limits_{n = 2}^{\infty}\frac{2}{n^{3} - n}}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{2}{n^{3} - 1} = \frac{1}{n - 1} - \frac{2}{n} + \frac{1}{n + 1},$$ $$S_{n} = \left( {1 - 1 + 1\text{/}3} \right) + \left( {1\text{/}2 - 2\text{/}3 + 1\text{/}4} \right)$$ $$+ \left( {1\text{/}3 - 2\text{/}4 + 1\text{/}5} \right) + \left( {1\text{/}4 - 2\text{/}5 + 1\text{/}6} \right) + \text{⋯} = 1\text{/}2$$</p>
+      </solution>
+    </exercise>
+    <exercise number="114" has_solution="false">
+      <problem>
+        <p>Find a formula for $$\sum\limits_{n = 1}^{\infty}\frac{1}{n\left( {n + N} \right)}$$ where $$N$$ is a positive integer.</p>
+      </problem>
+    </exercise>
+    <exercise number="115" has_solution="true">
+      <problem>
+        <p>[T] Define a sequence $$t_{k} = {\sum\limits_{n = 1}^{k - 1}{(1\text{/}n) - \text{ln}\mspace{2mu} k.}}$$ Use the graph of $$1\text{/}x$$ to verify that $$t_{k}$$ is increasing. Plot $$t_{k}$$ for $$k = 1\text{…}100$$ and state whether it appears that the sequence converges.</p>
+      </problem>
+      <solution>
+        <p>$$t_{k}$$ converges to $$0.57721\text{…}t_{k}$$ is a sum of rectangles of height $$1\text{/}k$$ over the interval $$\lbrack k,k + 1\rbrack$$ which lie above the graph of $$1\text{/}x.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="116" has_solution="false">
+      <problem>
+        <p>[T] Suppose that $$N$$ equal uniform rectangular blocks are stacked one on top of the other, allowing for some overhang. Archimedes’ law of the lever implies that the stack of $$N$$ blocks is stable as long as the center of mass of the top $$\left( {N - 1} \right)$$ blocks lies at the edge of the bottom block. Let $$x$$ denote the position of the edge of the bottom block, and think of its position as relative to the center of the next-to-bottom block. This implies that $$(N - 1)x = \left( {\frac{1}{2} - x} \right)$$ or $$x = 1\text{/}\left( {2N} \right).$$ Use this expression to compute the maximum overhang (the position of the edge of the top block over the edge of the bottom block.) See the following figure.</p>
+      </problem>
+    </exercise>
+    <instruction>Each of the following infinite series converges to the given multiple of $$\pi$$ or $$1\text{/}\pi.$$ In each case, find the minimum value of $$N$$ such that the $$N\text{th}$$ partial sum of the series accurately approximates the left-hand side to the given number of decimal places, and give the desired approximate value. Up to $$15$$ decimals place, $$\pi = 3.141592653589793....$$</instruction>
+    <exercise number="117" has_solution="true">
+      <problem>
+        <p>[T] $$\pi = -3 + {\sum\limits_{n = 1}^{\infty}\frac{n2^{n}n\text{!}^{2}}{\left( {2n} \right)\text{!}}},$$ error $$&lt; 0.0001$$</p>
+      </problem>
+      <solution>
+        <p>$$N = 22,$$ $$S_{N} = 6.1415$$</p>
+      </solution>
+    </exercise>
+    <exercise number="118" has_solution="false">
+      <problem>
+        <p>[T] $$\frac{\pi}{2} = {\sum\limits_{k = 0}^{\infty}\frac{k\text{!}}{\left( {2k + 1} \right)\text{!}\text{!}}} = {\sum\limits_{k = 0}^{\infty}\frac{2^{k}k\text{!}^{2}}{\left( {2k + 1} \right)\text{!}}},$$ error $$&lt; 10^{-4}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="119" has_solution="true">
+      <problem>
+        <p>[T] $$\frac{9801}{2\pi} = \frac{\sqrt{2}}{9801}{\sum\limits_{k = 0}^{\infty}\frac{\left( {4k} \right)\text{!}\left( {1103 + 26390k} \right)}{\left( {k\text{!}} \right)^{4}396^{4k}}},$$ error $$&lt; 10^{-12}$$</p>
+      </problem>
+      <solution>
+        <p>$$N = 3,$$ $$S_{N} = 1.559877597243667...$$</p>
+      </solution>
+    </exercise>
+    <exercise number="120" has_solution="false">
+      <problem>
+        <p>[T] $$\frac{1}{12\pi} = {\sum\limits_{k = 0}^{\infty}\frac{(-1)^{k}\left( {6k} \right)\text{!}\left( {13591409 + 545140134k} \right)}{\left( {3k} \right)\text{!}\left( {k\text{!}} \right)^{3}640320^{3k + 3\text{/}2}}},$$ error $$&lt; 10^{-15}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="121" has_solution="true">
+      <problem>
+        <p>[T] A fair coin is one that has probability $$1\text{/}2$$ of coming up heads when flipped.</p>
+        <list type="ol" style="a">
+          <item>What is the probability that a fair coin will come up tails $$n$$ times in a row?</item>
+          <item>Find the probability that a coin comes up heads for the first time on the last of an even number of coin flips.</item>
+        </list>
+      </problem>
+      <solution>
+        <p>a. The probability of any given ordered sequence of outcomes for $$n$$ coin flips is $$1\text{/}2^{n}.$$ b. The probability of coming up heads for the first time on the $$n$$ th flip is the probability of the sequence $$TT\text{…}TH$$ which is $$1\text{/}2^{n}.$$ The probability of coming up heads for the first time on an even flip is $$\sum\limits_{n = 1}^{\infty}{1\text{/}2^{2n}}$$ or $$1\text{/}3.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="122" has_solution="false">
+      <problem>
+        <p>[T] Find the probability that a fair coin is flipped a multiple of three times before coming up heads.</p>
+      </problem>
+    </exercise>
+    <exercise number="123" has_solution="true">
+      <problem>
+        <p>[T] Find the probability that a fair coin will come up heads for the second time after an even number of flips.</p>
+      </problem>
+      <solution>
+        <p>$$5\text{/}9$$</p>
+      </solution>
+    </exercise>
+    <exercise number="124" has_solution="false">
+      <problem>
+        <p>[T] Find a series that expresses the probability that a fair coin will come up heads for the second time on a multiple of three flips.</p>
+      </problem>
+    </exercise>
+    <exercise number="125" has_solution="true">
+      <problem>
+        <p>[T] The expected number of times that a fair coin will come up heads is defined as the sum over $$n = 1,2\text{,…}$$ of $$n$$ times the probability that the coin will come up heads exactly $$n$$ times in a row, or $$n\text{/}2^{n + 1}.$$ Compute the expected number of consecutive times that a fair coin will come up heads.</p>
+      </problem>
+      <solution>
+        <p>$$E = {\sum\limits_{n = 1}^{\infty}{n\text{/}2^{n + 1} = 1}},$$ as can be shown using summation by parts</p>
+      </solution>
+    </exercise>
+    <exercise number="126" has_solution="false">
+      <problem>
+        <p>[T] A person deposits $$\text{\$}10$$ at the beginning of each quarter into a bank account that earns $$4\text{\%}$$ annual interest compounded quarterly (four times a year).</p>
+        <list type="ol" style="a">
+          <item>Show that the interest accumulated after $$n$$ quarters is $$\text{\$}10\left( {\frac{1.01^{n + 1} - 1}{0.01} - n} \right).$$</item>
+          <item>Find the first eight terms of the sequence.</item>
+          <item>How much interest has accumulated after $$2$$ years?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="127" has_solution="true">
+      <problem>
+        <p>[T] Suppose that the amount of a drug in a patient’s system diminishes by a multiplicative factor $$r &lt; 1$$ each hour. Suppose that a new dose is administered every $$N$$ hours. Find an expression that gives the amount $$A(n)$$ in the patient’s system after $$n$$ hours for each $$n$$ in terms of the dosage $$d$$ and the ratio $$r.$$ (Hint: Write $$n = mN + k,$$ where $$0 \leq k &lt; N,$$ and sum over values from the different doses administered.)</p>
+      </problem>
+      <solution>
+        <p>The part of the first dose after $$n$$ hours is $$dr^{n},$$ the part of the second dose is $$dr^{n - N},$$ and, in general, the part remaining of the $$m\text{th}$$ dose is $$dr^{n - mN},$$ so</p>
+        <p>$$A(n) = {\sum\limits_{l = 0}^{m}{dr^{n - lN} =}}{\sum\limits_{l = 0}^{m}{dr^{k + {({m - l})}N} = {\sum\limits_{q = 0}^{m}{dr^{k + qN}}} = dr^{k}}}{\sum\limits_{q = 0}^{m}{r^{Nq} =}}dr^{k}\frac{1 - r^{({m + 1})N}}{1 - r^{N}},n = k + mN.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="128" has_solution="false">
+      <problem>
+        <p>[T] A certain drug is effective for an average patient only if there is at least $$1$$ mg per kg in the patient’s system, while it is safe only if there is at most $$2$$ mg per kg in an average patient’s system. Suppose that the amount in a patient’s system diminishes by a multiplicative factor of $$0.9$$ each hour after a dose is administered. Find the maximum interval $$N$$ of hours between doses, and corresponding dose range $$d$$ (in mg/kg) for this $$N$$ that will enable use of the drug to be both safe and effective in the long term.</p>
+      </problem>
+    </exercise>
+    <exercise number="129" has_solution="true">
+      <problem>
+        <p>Suppose that $$a_{n} \geq 0$$ is a sequence of numbers. Explain why the sequence of partial sums of $$a_{n}$$ is increasing.</p>
+      </problem>
+      <solution>
+        <p>$$S_{N + 1} = a_{N + 1} + S_{N} \geq S_{N}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="130" has_solution="false">
+      <problem>
+        <p>[T] Suppose that $$a_{n}$$ is a sequence of positive numbers and the sequence $$S_{n}$$ of partial sums of $$a_{n}$$ is bounded above. Explain why $$\sum\limits_{n = 1}^{\infty}a_{n}$$ converges. Does the conclusion remain true if we remove the hypothesis $$a_{n} \geq 0\text{?}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="131" has_solution="true">
+      <problem>
+        <p>[T] Suppose that $$a_{1} = S_{1} = 1$$ and that, for given numbers $$S &gt; 1$$ and $$0 &lt; k &lt; 1,$$ one defines $$a_{n + 1} = k(S - S_{n})$$ and $$S_{n + 1} = a_{n + 1} + S_{n}.$$ Does $$S_{n}$$ converge? If so, to what? (Hint: First argue that $$S_{n} &lt; S$$ for all $$n$$ and $$S_{n}$$ is increasing.)</p>
+      </problem>
+      <solution>
+        <p>Since $$S &gt; 1,$$ $$a_{2} &gt; 0,$$ and since $$k &lt; 1,$$ $$S_{2} = 1 + a_{2} &lt; 1 + (S - 1) = S.$$ If $$S_{n} &gt; S$$ for some n, then there is a smallest n. For this n, $$S &gt; S_{n - 1},$$ so $$S_{n} = S_{n - 1} + k(S - S_{n - 1})$$ $$= kS + (1 - k)S_{n - 1} &lt; S,$$ a contradiction. Thus $$S_{n} &lt; S$$ and $$a_{n + 1} &gt; 0$$ for all n, so $$S_{n}$$ is increasing and bounded by $$S.$$ Let $$S_{\text{∗}} = \text{lim}\ S_{n}.$$ If $$S_{\text{∗}} &lt; S,$$ then $$\delta = k(S - S_{\text{∗}}) &gt; 0,$$ but we can find n such that $$S_{*} - S_{n} &lt; \delta\text{/}2,$$ which implies that $$S_{n + 1} = S_{n} + k(S - S_{n})$$ $$&gt; S_{*} + \delta\text{/}2,$$ contradicting that $$S_{n}$$ is increasing to $$S_{\text{∗}}.$$ Thus $$S_{n}\rightarrow S.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="132" has_solution="false">
+      <problem>
+        <p>[T] A version of von Bertalanffy growth can be used to estimate the age of an individual in a homogeneous species from its length if the annual increase in year $$n + 1$$ satisfies $$a_{n + 1} = k(S - S_{n}),$$ with $$S_{n}$$ as the length at year $$n,$$ $$S$$ as a limiting length, and $$k$$ as a relative growth constant. If $$S_{1} = 3,$$ $$S = 9,$$ and $$k = 1\text{/}2,$$ numerically estimate the smallest value of $$n$$ such that $$S_{n} \geq 8.$$ Note that $$S_{n + 1} = S_{n} + a_{n + 1}.$$ Find the corresponding $$n$$ when $$k = 1\text{/}4.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="133" has_solution="true">
+      <problem>
+        <p>[T] Suppose that $$\sum\limits_{n = 1}^{\infty}a_{n}$$ is a convergent series of positive terms. Explain why $$\underset{N\rightarrow\infty}{\text{lim}}{\sum\limits_{n = N + 1}^{\infty}{a_{n} = 0}}.$$</p>
+      </problem>
+      <solution>
+        <p>Let $$S_{k} = {\sum\limits_{n = 1}^{k}a_{n}}$$ and $$S_{k}\rightarrow L.$$ Then $$S_{k}$$ eventually becomes arbitrarily close to $$L,$$ which means that $$L - S_{N} = {\sum\limits_{n = N + 1}^{\infty}a_{n}}$$ becomes arbitrarily small as $$N\rightarrow\infty.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="134" has_solution="false">
+      <problem>
+        <p>[T] Find the length of the dashed zig-zag path in the following figure.</p>
+      </problem>
+    </exercise>
+    <exercise number="135" has_solution="true">
+      <problem>
+        <p>[T] Find the total length of the dashed path in the following figure.</p>
+      </problem>
+      <solution>
+        <p>$$L = \left( {1 + \frac{1}{2}} \right){\sum\limits_{n = 1}^{\infty}{1\text{/}2^{n} =}}\frac{3}{2}.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="136" has_solution="false">
+      <problem>
+        <p>[T] The Sierpinski triangle is obtained from a triangle by deleting the middle fourth as indicated in the first step, by deleting the middle fourths of the remaining three congruent triangles in the second step, and in general deleting the middle fourths of the remaining triangles in each successive step. Assuming that the original triangle is shown in the figure, find the areas of the remaining parts of the original triangle after $$N$$ steps and find the total length of all of the boundary triangles after $$N$$ steps.</p>
+      </problem>
+    </exercise>
+    <exercise number="137" has_solution="true">
+      <problem>
+        <p>[T] The Sierpinski gasket is obtained by dividing the unit square into nine equal sub-squares, removing the middle square, then doing the same at each stage to the remaining sub-squares. The figure shows the remaining set after four iterations. Compute the total area removed after $$N$$ stages, and compute the length the total perimeter of the remaining set after $$N$$ stages.</p>
+      </problem>
+      <solution>
+        <p>At stage one a square of area $$1\text{/}9$$ is removed, at stage $$2$$ one removes $$8$$ squares of area $$1\text{/}9^{2},$$ at stage three one removes $$8^{2}$$ squares of area $$1\text{/}9^{3},$$ and so on. The total removed area after $$N$$ stages is $${\sum\limits_{n = 0}^{N - 1}{8^{N}\text{/}9^{N + 1}}} = \frac{1}{8}\left( {1 - \left( {8\text{/}9} \right)^{N}} \right)\text{/}\left( {1 - 8\text{/}9} \right)\rightarrow 1$$</p>
+        <p>as $$N\rightarrow\infty.$$ The total perimeter is $$4 + 4{\sum\limits_{n = 0}{8^{N}\text{/}3^{N + 1}}}\rightarrow\infty.$$</p>
+      </solution>
+    </exercise>
+  </exercises>
+</section>

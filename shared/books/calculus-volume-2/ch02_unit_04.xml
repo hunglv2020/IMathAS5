@@ -1,0 +1,536 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="2.4" title="Arc Length of a Curve and Surface Area">
+  <learning_objectives>
+    <objective number="2.4.1">Determine the length of a curve, $$y = f(x),$$ between two points.</objective>
+    <objective number="2.4.2">Determine the length of a curve, $$x = g(y),$$ between two points.</objective>
+    <objective number="2.4.3">Find the surface area of a solid of revolution.</objective>
+  </learning_objectives>
+  <p>In this section, we use definite integrals to find the arc length of a curve. We can think of arc length as the distance you would travel if you were walking along the path of the curve. Many real-world applications involve arc length. If a rocket is launched along a parabolic path, we might want to know how far the rocket travels. Or, if a curve on a map represents a road, we might want to know how far we have to drive to reach our destination.</p>
+  <p>We begin by calculating the arc length of curves defined as functions of $$x,$$ then we examine the same process for curves defined as functions of $$y.$$ (The process is identical, with the roles of $$x$$ and $$y$$ reversed.) The techniques we use to find arc length can be extended to find the surface area of a surface of revolution, and we close the section with an examination of this concept.</p>
+  <subsection title="Arc Length of the Curvey=f(x)">
+    <p>In previous applications of integration, we required the function $$f(x)$$ to be integrable, or at most continuous. However, for calculating arc length we have a more stringent requirement for $$f(x).$$ Here, we require $$f(x)$$ to be differentiable, and furthermore we require its derivative, $$f^{\prime}(x),$$ to be continuous. Functions like this, which have continuous derivatives, are called smooth. (This property comes up again in later chapters.)</p>
+    <p>Let $$f(x)$$ be a smooth function defined over $$\left\lbrack {a,b} \right\rbrack.$$ We want to calculate the length of the curve from the point $$\left( {a,f(a)} \right)$$ to the point $$\left( {b,f(b)} \right).$$ We start by using line segments to approximate the length of the curve. For $$i = 0,\ 1,2\text{,…},n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of $$\left\lbrack {a,b} \right\rbrack.$$ Then, for $$i = 1,2\text{,…},n,$$ construct a line segment from the point $$\left( {x_{i - 1},f(x_{i - 1})} \right)$$ to the point $$\left( {x_{i},f(x_{i})} \right).$$ Although it might seem logical to use either horizontal or vertical line segments, we want our line segments to approximate the curve as closely as possible. Figure 2.37 depicts this construct for $$n = 5.$$</p>
+    <image alt="This figure is a graph in the first quadrant. The curve increases and decreases. It is divided into parts at the points a=xsub0, xsub1, xsub2, xsub3, xsub4, and xsub5=b. Also, there are line segments between the points on the curve." number="2.37" caption="We can approximate the length of a curve by adding line segments." />
+    <p>To help us find the length of each line segment, we look at the change in vertical distance as well as the change in horizontal distance over each interval. Because we have used a regular partition, the change in horizontal distance over each interval is given by $$\text{Δ}x.$$ The change in vertical distance varies from interval to interval, though, so we use $$\text{Δ}y_{i} = f(x_{i}) - f(x_{i - 1})$$ to represent the change in vertical distance over the interval $$\left\lbrack {x_{i - 1},x_{i}} \right\rbrack,$$ as shown in Figure 2.38. Note that some (or all) $$\text{Δ}y_{i}$$ may be negative.</p>
+    <image alt="This figure is a graph. It is a curve above the x-axis beginning at the point f(xsubi-1). The curve ends in the first quadrant at the point f(xsubi). Between the two points on the curve is a line segment. A right triangle is formed with this line segment as the hypotenuse, a horizontal segment with length delta x, and a vertical line segment with length delta y." number="2.38" caption="A representative line segment approximates the curve over the interval $$\left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$" />
+    <p>By the Pythagorean theorem, the length of the line segment is $$\sqrt{\left( {\text{Δ}x} \right)^{2} + \left( {\text{Δ}y_{i}} \right)^{2}}.$$ We can also write this as $$\text{Δ}x\sqrt{1 + \left( {\left( {\text{Δ}y_{i}} \right)\text{/}\left( {\text{Δ}x} \right)} \right)^{2}}.$$ Now, by the Mean Value Theorem, there is a point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack$$ such that $$f^{\prime}(x_{i}^{*}) = {\left( {\text{Δ}y_{i}} \right)\text{/}\left( {\text{Δ}x} \right)}.$$ Then the length of the line segment is given by $$\text{Δ}x\sqrt{1 + \left\lbrack {f^{\prime}(x_{i}^{*})} \right\rbrack^{2}}.$$ Adding up the lengths of all the line segments, we get</p>
+    <equation>$$\text{Arc Length}\ \approx {\sum\limits_{i = 1}^{n}{\sqrt{1 + \left\lbrack {f^{\prime}(x_{i}^{*})} \right\rbrack^{2}}\ \text{Δ}x}}.$$</equation>
+    <p>This is a Riemann sum. Taking the limit as $$n\rightarrow\infty,$$ we have</p>
+    <equation>$$\text{Arc Length} = \underset{n\rightarrow\infty}{\text{lim}}{\sum\limits_{i = 1}^{n}{\sqrt{1 + \left\lbrack {f^{\prime}(x_{i}^{*})} \right\rbrack^{2}}\ \text{Δ}x}} = {\int_{a}^{b}\sqrt{1 + \left\lbrack {f^{\prime}(x)} \right\rbrack^{2}}}\ dx.$$</equation>
+    <p>We summarize these findings in the following theorem.</p>
+    <theorem number="2.4" title="Arc Length fory=f(x)">
+      <p>Let $$f(x)$$ be a smooth function over the interval $$\left\lbrack {a,b} \right\rbrack.$$ Then the arc length of the portion of the graph of $$f(x)$$ from the point $$\left( {a,f(a)} \right)$$ to the point $$\left( {b,\ f(b)} \right)$$ is given by</p>
+      <equation>$$\text{Arc Length} = {\int_{a}^{b}\sqrt{1 + \left\lbrack {f^{\prime}(x)} \right\rbrack^{2}}}\ dx.$$</equation>
+    </theorem>
+    <p>Note that we are integrating an expression involving $$f^{\prime}(x),$$ so we need to be sure $$f^{\prime}(x)$$ is integrable. This is why we require $$f(x)$$ to be smooth. The following example shows how to apply the theorem.</p>
+    <example number="2.18">
+      <problem>
+        <title>Calculating the Arc Length of a Function ofx</title>
+        <p>Let $$f(x) = 2x^{3\text{/}2}.$$ Calculate the arc length of the graph of $$f(x)$$ over the interval $$\left\lbrack {0,1} \right\rbrack.$$ Round the answer to three decimal places.</p>
+      </problem>
+      <solution>
+        <p>We have $$f^{\prime}(x) = 3x^{1\text{/}2},$$ so $$\left\lbrack {f^{\prime}(x)} \right\rbrack^{2} = 9x.$$ Then, the arc length is</p>
+        <equation>$$\begin{array}{cl} \text{Arc Length} &amp; {= {\int_{a}^{b}\sqrt{1 + \left\lbrack {f^{\prime}(x)} \right\rbrack^{2}}}\ dx} \\ &amp; {= {\int_{0}^{1}\sqrt{1 + 9x}}\ dx.} \end{array}$$</equation>
+        <p>Substitute $$u = 1 + 9x.$$ Then, $$du = 9\ dx.$$ When $$x = 0,$$ then $$u = 1,$$ and when $$x = 1,$$ then $$u = 10.$$ Thus,</p>
+        <equation>$$\begin{array}{cl} \text{Arc Length} &amp; {= {\int_{0}^{1}\sqrt{1 + 9x}}\ dx} \\ &amp; {= \frac{1}{9}\int_{0}^{1}\sqrt{1 + 9x}9dx = \frac{1}{9}{\int_{1}^{10}\sqrt{u}}\ du} \\ &amp; {= \left. {\frac{1}{9} \cdot \frac{2}{3}u^{3\text{/}2}} \right|_{1}^{10} = \frac{2}{27}\left\lbrack {10\sqrt{10} - 1} \right\rbrack \approx 2.268\ \text{units}.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="2.18">
+      <problem>
+        <p>Let $$f(x) = \left( {4\text{/}3} \right)x^{3\text{/}2}.$$ Calculate the arc length of the graph of $$f(x)$$ over the interval $$\left\lbrack {0,1} \right\rbrack.$$ Round the answer to three decimal places.</p>
+      </problem>
+      <solution>
+        <p>$$\frac{1}{6}\left( {5\sqrt{5} - 1} \right) \approx 1.697$$</p>
+      </solution>
+    </checkpoint>
+    <p>Although it is nice to have a formula for calculating arc length, this particular theorem can generate expressions that are difficult to integrate. We study some techniques for integration in Introduction to Techniques of Integration. In some cases, we may have to use a computer or calculator to approximate the value of the integral.</p>
+    <example number="2.19">
+      <problem>
+        <title>Using a Computer or Calculator to Determine the Arc Length of a Function ofx</title>
+        <p>Let $$f(x) = x^{2}.$$ Calculate the arc length of the graph of $$f(x)$$ over the interval $$\left\lbrack {1,3} \right\rbrack.$$</p>
+      </problem>
+      <solution>
+        <p>We have $$f^{\prime}(x) = 2x,$$ so $$\left\lbrack {f^{\prime}(x)} \right\rbrack^{2} = 4x^{2}.$$ Then the arc length is given by</p>
+        <equation>$$\text{Arc Length} = {\int_{a}^{b}\sqrt{1 + \left\lbrack {f^{\prime}(x)} \right\rbrack^{2}}}\ dx = {\int_{1}^{3}\sqrt{1 + 4x^{2}}}\ dx.$$</equation>
+        <p>Using a computer to approximate the value of this integral, we get</p>
+        <equation>$${\int_{1}^{3}\sqrt{1 + 4x^{2}}}\ dx \approx 8.26815.$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="2.19">
+      <problem>
+        <p>Let $$f(x) = \text{sin}\ x.$$ Calculate the arc length of the graph of $$f(x)$$ over the interval $$\left\lbrack {0,\pi} \right\rbrack.$$ Use a computer or calculator to approximate the value of the integral.</p>
+      </problem>
+      <solution>
+        <p>$$\text{Arc Length} \approx 3.8202$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="Arc Length of the Curvex=g(y)">
+    <p>We have just seen how to approximate the length of a curve with line segments. If we want to find the arc length of the graph of a function of $$y,$$ we can repeat the same process, except we partition the $$y\text{-axis}$$ instead of the $$x\text{-axis}.$$ Figure 2.39 shows a representative line segment.</p>
+    <image alt="This figure is a graph. It is a curve to the right of the y-axis beginning at the point g(ysubi-1). The curve ends in the first quadrant at the point g(ysubi). Between the two points on the curve is a line segment. A right triangle is formed with this line segment as the hypotenuse, a horizontal segment with length delta x, and a vertical line segment with length delta y." number="2.39" caption="A representative line segment over the interval $$\left\lbrack {y_{i - 1},y_{i}} \right\rbrack.$$" />
+    <p>Then the length of the line segment is $$\sqrt{\left( {\text{Δ}y} \right)^{2} + \left( {\text{Δ}x_{i}} \right)^{2}},$$ which can also be written as $$\text{Δ}y\sqrt{1 + \left( {\left( {\text{Δ}x_{i}} \right)\text{/}\left( {\text{Δ}y} \right)} \right)^{2}}.$$ If we now follow the same development we did earlier, we get a formula for arc length of a function $$x = g(y).$$</p>
+    <theorem number="2.5" title="Arc Length forx=g(y)">
+      <p>Let $$g(y)$$ be a smooth function over a $$y$$ interval $$\left\lbrack {c,d} \right\rbrack.$$ Then, the arc length of the graph of $$g(y)$$ from the point $$\left( g(d),~d \right)$$ to the point $$\left( g(c),~c \right)$$ is given by</p>
+      <equation>$$\text{Arc Length} = {\int_{c}^{d}\sqrt{1 + \left\lbrack {g^{\prime}(y)} \right\rbrack^{2}}}\ dy.$$</equation>
+    </theorem>
+    <example number="2.20">
+      <problem>
+        <title>Calculating the Arc Length of a Function ofy</title>
+        <p>Let $$g(y) = 3y^{3}.$$ Calculate the arc length of the graph of $$g(y)$$ over the interval $$\left\lbrack {1,2} \right\rbrack.$$</p>
+      </problem>
+      <solution>
+        <p>We have $$g^{\prime}(y) = 9y^{2},$$ so $$\left\lbrack {g^{\prime}(y)} \right\rbrack^{2} = 81y^{4}.$$ Then the arc length is</p>
+        <equation>$$\text{Arc Length} = {\int_{c}^{d}\sqrt{1 + \left\lbrack {g^{\prime}(y)} \right\rbrack^{2}}}\ dy = {\int_{1}^{2}\sqrt{1 + 81y^{4}}}\ dy.$$</equation>
+        <p>Using a computer to approximate the value of this integral, we obtain</p>
+        <equation>$${\int_{1}^{2}\sqrt{1 + 81y^{4}}}\ dy \approx 21.0277.$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="2.20">
+      <problem>
+        <p>Let $$g(y) = {1\text{/}y}.$$ Calculate the arc length of the graph of $$g(y)$$ over the interval $$\left\lbrack {1,4} \right\rbrack.$$ Use a computer or calculator to approximate the value of the integral.</p>
+      </problem>
+      <solution>
+        <p>$$\text{Arc Length} = 3.15018$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="Area of a Surface of Revolution">
+    <p>The concepts we used to find the arc length of a curve can be extended to find the surface area of a surface of revolution. Surface area is the total area of the outer layer of an object. For objects such as cubes or bricks, the surface area of the object is the sum of the areas of all of its faces. For curved surfaces, the situation is a little more complex. Let $$f(x)$$ be a nonnegative smooth function over the interval $$\left\lbrack {a,b} \right\rbrack.$$ We wish to find the surface area of the surface of revolution created by revolving the graph of $$y = f(x)$$ around the $$x\text{-axis}$$ as shown in the following figure.</p>
+    <image alt="This figure has two graphs. The first graph is labeled “a” and is a curve in the first quadrant beginning at the y-axis. The curve is y=f(x). The second graph is labeled “b” and has the same curve y=f(x). There is also a solid surface formed by rotating the curve about the x-axis." number="2.40" caption="(a) A curve representing the function $$f(x).$$ (b) The surface of revolution formed by revolving the graph of $$f(x)$$ around the $$x\text{-axis}.$$" />
+    <p>As we have done many times before, we are going to partition the interval $$\left\lbrack {a,b} \right\rbrack$$ and approximate the surface area by calculating the surface area of simpler shapes. We start by using line segments to approximate the curve, as we did earlier in this section. For $$i = 0,1,2\text{,…},n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of $$\left\lbrack {a,b} \right\rbrack.$$ Then, for $$i = 1,2\text{,…},n,$$ construct a line segment from the point $$\left( {x_{i - 1},f(x_{i - 1})} \right)$$ to the point $$\left( {x_{i},f(x_{i})} \right).$$ Now, revolve these line segments around the $$x\text{-axis}$$ to generate an approximation of the surface of revolution as shown in the following figure.</p>
+    <image alt="This figure has two graphs. The first graph is labeled “a” and is a curve in the first quadrant beginning at the y-axis. The curve is y=f(x). The area under the curve above the x-axis has been divided into regions with vertical lines. The second graph is labeled “b” and has the same curve y=f(x). There is also a solid surface formed by rotating the curve about the x-axis." number="2.41" caption="(a) Approximating $$f(x)$$ with line segments. (b) The surface of revolution formed by revolving the line segments around the $$x\text{-axis}.$$" />
+    <p>Notice that when each line segment is revolved around the axis, it produces a band. These bands are actually pieces of cones (think of an ice cream cone with the pointy end cut off). A piece of a cone like this is called a frustum of a cone.</p>
+    <p>To find the surface area of the band, we need to find the lateral surface area, $$S,$$ of the frustum (the area of just the slanted outside surface of the frustum, not including the areas of the top or bottom faces). Let $$r_{1}$$ and $$r_{2}$$ be the radii of the wide end and the narrow end of the frustum, respectively, and let $$l$$ be the slant height of the frustum as shown in the following figure.</p>
+    <image alt="This figure is a graph. It is a frustum of a cone above the x-axis with the y-axis in the center. The radius of the bottom of the frustum is rsub1 and the radius of the top is rsub2. The length of the side is labeled “l”." number="2.42" caption="A frustum of a cone can approximate a small part of surface area." />
+    <p>We know the lateral surface area of a cone is given by</p>
+    <equation>$$\text{Lateral Surface Area} = \pi rs,$$</equation>
+    <p>where $$r$$ is the radius of the base of the cone and $$s$$ is the slant height (see the following figure).</p>
+    <image alt="This figure is a cone. The cone has radius r, height h, and length of side s." number="2.43" caption="The lateral surface area of the cone is given by $$\pi rs.$$" />
+    <p>Since a frustum can be thought of as a piece of a cone, the lateral surface area of the frustum is given by the lateral surface area of the whole cone less the lateral surface area of the smaller cone (the pointy tip) that was cut off (see the following figure).</p>
+    <image alt="This figure is a graph. It is a frustum of a cone. The radius of the bottom of the frustum is rsub1 and the radius of the top is rsub2. The length of the side is labeled “l”. There is also the top of a cone with broken lines above the frustum. It has length of side s." number="2.44" caption="Calculating the lateral surface area of a frustum of a cone." />
+    <p>The cross-sections of the small cone and the large cone are similar triangles, so we see that</p>
+    <equation>$$\frac{r_{2}}{r_{1}} = \frac{s - l}{s}.$$</equation>
+    <p>Solving for $$s,$$ we get</p>
+    <equation>$$\begin{array}{rll} \frac{r_{2}}{r_{1}} &amp; = &amp; \frac{s - l}{s} \\ {r_{2}s} &amp; = &amp; {r_{1}\left( {s - l} \right)} \\ {r_{2}s} &amp; = &amp; {r_{1}s - r_{1}l} \\ {r_{1}l} &amp; = &amp; {r_{1}s - r_{2}s} \\ {r_{1}l} &amp; = &amp; {\left( {r_{1} - r_{2}} \right)s} \\ \frac{r_{1}l}{r_{1} - r_{2}} &amp; = &amp; {s.} \end{array}$$</equation>
+    <p>Then the lateral surface area (SA) of the frustum is</p>
+    <equation>$$\begin{array}{cl} S &amp; {= \ \text{(Lateral SA of large cone)} - \text{(Lateral SA of small cone)}} \\ &amp; {= \pi r_{1}s - \pi r_{2}\left( {s - l} \right)} \\ &amp; {= \pi r_{1}\left( \frac{r_{1}l}{r_{1} - r_{2}} \right) - \pi r_{2}\left( {\frac{r_{1}l}{r_{1} - r_{2}} - l} \right)} \\ &amp; {= \frac{\pi r_{1}^{2}l}{r_{1} - r_{2}} - \frac{\pi r_{1}r_{2}l}{r_{1} - r_{2}} + \pi r_{2}l} \\ &amp; {= \frac{\pi r_{1}^{2}l}{r_{1} - r_{2}} - \frac{\pi r_{1}r_{2}l}{r_{1} - r_{2}} + \frac{\pi r_{2}l\left( {r_{1} - r_{2}} \right)}{r_{1} - r_{2}}} \\ &amp; {= \frac{\pi r_{1}^{2}l}{r_{1} - r_{2}} - \frac{\pi r_{1}r_{2}l}{r_{1} - r_{2}} + \frac{\pi r_{1}r_{2}l}{r_{1} - r_{2}} - \frac{\pi r_{2}{}^{2}l}{r_{1} - r_{2}}} \\ &amp; {= \frac{\pi\left( {r_{1}^{2} - r_{2}^{2}} \right)l}{r_{1} - r_{2}} = \frac{\pi\left( {r_{1} - r_{2}} \right)\left( {r_{1} + r_{2}} \right)l}{r_{1} - r_{2}} = \pi\left( {r_{1} + r_{2}} \right)l.} \end{array}$$</equation>
+    <p>Let’s now use this formula to calculate the surface area of each of the bands formed by revolving the line segments around the $$x\text{-axis}\text{.}$$ A representative band is shown in the following figure.</p>
+    <image alt="This figure has two graphics. The first is a curve in the first quadrant. Around the x-axis is a frustum of a cone. The edge of the frustum is against the curve. The edge begins at f(xsubi-1) and ends at f(xsubi). The second image is the same curve with the same frustum. the height of the frustum is delta x and the curve is labeled y=f(x)." number="2.45" caption="A representative band used for determining surface area." />
+    <p>Note that the slant height of this frustum is just the length of the line segment used to generate it. So, applying the surface area formula, we have</p>
+    <equation>$$\begin{array}{cl} S &amp; {= \pi\left( {r_{1} + r_{2}} \right)l} \\ &amp; {= \pi\left( {f(x_{i - 1}) + f(x_{i})} \right)\sqrt{\text{Δ}x^{2} + \left( {\text{Δ}y_{i}} \right)^{2}}} \\ &amp; {= \pi\left( {f(x_{i - 1}) + f(x_{i})} \right)\text{Δ}x\sqrt{1 + \left( \frac{\text{Δ}y_{i}}{\text{Δ}x} \right)^{2}}.} \end{array}$$</equation>
+    <p>Now, as we did in the development of the arc length formula, we apply the Mean Value Theorem to select $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack$$ such that $$f^{\prime}(x_{i}^{*}) = {\left( {\text{Δ}y_{i}} \right)\text{/}{\text{Δ}x}}.$$ This gives us</p>
+    <equation>$$S = \pi\left( {f(x_{i - 1}) + f(x_{i})} \right)\text{Δ}x\sqrt{1 + \left( {f^{\prime}(x_{i}^{*})} \right)^{2}}.$$</equation>
+    <p>Furthermore, since $$f(x)$$ is continuous, by the Intermediate Value Theorem, there is a point $$x_{i}^{**} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack$$ such that $$f(x_{i}^{**}) = \left( {1\text{/}2} \right)\left\lbrack {f(x_{i - 1}) + f(x_{i})} \right\rbrack,$$ so we get</p>
+    <equation>$$S = 2\pi f(x_{i}^{**})\text{Δ}x\sqrt{1 + \left( {f^{\prime}(x_{i}^{*})} \right)^{2}}.$$</equation>
+    <p>Then the approximate surface area of the whole surface of revolution is given by</p>
+    <equation>$$\text{Surface Area} \approx \sum\limits_{i = 1}^{n}2\pi f(x_{i}^{**})\text{Δ}x\sqrt{1 + \left( {f^{\prime}(x_{i}^{*})} \right)^{2}}.$$</equation>
+    <p>This almost looks like a Riemann sum, except we have functions evaluated at two different points, $$x_{i}^{*}$$ and $$x_{i}^{**},$$ over the interval $$\left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ Although we do not examine the details here, it turns out that because $$f(x)$$ is smooth, if we let $$n\rightarrow\infty,$$ the limit works the same as a Riemann sum even with the two different evaluation points. This makes sense intuitively. Both $$x_{i}^{*}$$ and $$x_{i}^{**}$$ are in the interval $$\left\lbrack {x_{i - 1},x_{i}} \right\rbrack,$$ so it makes sense that as $$n\rightarrow\infty,$$ both $$x_{i}^{*}$$ and $$x_{i}^{**}$$ approach $$x.$$ Those of you who are interested in the details should consult an advanced calculus text.</p>
+    <p>Taking the limit as $$n\rightarrow\infty,$$ we get</p>
+    <equation>$$\text{Surface Area} = \underset{n\rightarrow\infty}{\text{lim}}\sum\limits_{i = 1}^{n}2\pi f(x_{i}^{**})\text{Δ}x\sqrt{1 + \left( {f^{\prime}(x_{i}^{*})} \right)^{2}} = {\int_{a}^{b}{\left( {2\pi f(x)\sqrt{1 + \left( {f^{\prime}(x)} \right)^{2}}} \right)dx}}.$$</equation>
+    <p>As with arc length, we can conduct a similar development for functions of $$y$$ to get a formula for the surface area of surfaces of revolution about the $$y\text{-axis}.$$ These findings are summarized in the following theorem.</p>
+    <theorem number="2.6" title="Surface Area of a Surface of Revolution">
+      <p>Let $$f(x)$$ be a nonnegative smooth function over the interval $$\left\lbrack {a,b} \right\rbrack.$$ Then, the surface area of the surface of revolution formed by revolving the graph of $$f(x)$$ around the x-axis is given by</p>
+      <equation>$$\text{Surface Area} = {\int_{a}^{b}{\left( {2\pi f(x)\sqrt{1 + \left( {f^{\prime}(x)} \right)^{2}}} \right)dx}}.$$</equation>
+      <p>Similarly, let $$g(y)$$ be a nonnegative smooth function over the interval $$\left\lbrack {c,d} \right\rbrack.$$ Then, the surface area of the surface of revolution formed by revolving the graph of $$g(y)$$ around the $$y\text{-axis}$$ is given by</p>
+      <equation>$$\text{Surface Area} = {\int_{c}^{d}{\left( {2\pi g(y)\sqrt{1 + \left( {g^{\prime}(y)} \right)^{2}}} \right)dy}}.$$</equation>
+    </theorem>
+    <example number="2.21">
+      <problem>
+        <title>Calculating the Surface Area of a Surface of Revolution 1</title>
+        <p>Let $$f(x) = \sqrt{x}$$ over the interval $$\left\lbrack {1,4} \right\rbrack.$$ Find the surface area of the surface generated by revolving the graph of $$f(x)$$ around the $$x\text{-axis}.$$ Round the answer to three decimal places.</p>
+      </problem>
+      <solution>
+        <p>The graph of $$f(x)$$ and the surface of rotation are shown in the following figure.</p>
+        <image alt="This figure has two graphs. The first is the curve f(x)=squareroot(x). The curve is increasing and begins at the origin. Also on the graph are the vertical lines x=1 and x=4. The second graph is the same function as the first graph. The region between f(x) and the x-axis, bounded by x=1 and x=4 has been rotated around the x-axis to form a surface." number="2.46" caption="(a) The graph of $$f(x).$$ (b) The surface of revolution." />
+        <p>We have $$f(x) = \sqrt{x}.$$ Then, $$f^{\prime}(x) = {1\text{/}\left( {2\sqrt{x}} \right)}$$ and $$\left( {f^{\prime}(x)} \right)^{2} = {1\text{/}\left( {4x} \right)}.$$ Then,</p>
+        <equation>$$\begin{array}{cl} \text{Surface Area} &amp; {= {\int_{a}^{b}{\left( {2\pi f(x)\sqrt{1 + \left( {f^{\prime}(x)} \right)^{2}}} \right)dx}}} \\ &amp; {= {\int_{1}^{4}\left( {2\pi\sqrt{x}\sqrt{1 + \frac{1}{4x}}} \right)}dx} \\ &amp; {= {\int_{1}^{4}{\left( {2\pi\sqrt{x + \frac{1}{4}}} \right)dx}}.} \end{array}$$</equation>
+        <p>Let $$u = x + {1\text{/}4}.$$ Then, $$du = dx.$$ When $$x = 1,$$ $$u = {5\text{/}4},$$ and when $$x = 4,$$ $$u = {17\text{/}4}.$$ This gives us</p>
+        <equation>$$\begin{array}{cl} {\int_{1}^{4}{\left( {2\pi\sqrt{x + \frac{1}{4}}} \right)dx}} &amp; {= {\int_{5\text{/}4}^{17\text{/}4}{2\pi\sqrt{u}}}\ du} \\ &amp; {= 2\pi\left. \left\lbrack {\frac{2}{3}u^{3\text{/}2}} \right\rbrack\ \right|_{5\text{/}4}^{17\text{/}4} = \frac{\pi}{6}\left\lbrack {17\sqrt{17} - 5\sqrt{5}} \right\rbrack \approx 30.846.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="2.21">
+      <problem>
+        <p>Let $$f(x) = \sqrt{1 - x}$$ over the interval $$\left\lbrack {0,{1\text{/}2}} \right\rbrack.$$ Find the surface area of the surface generated by revolving the graph of $$f(x)$$ around the $$x\text{-axis}.$$ Round the answer to three decimal places.</p>
+      </problem>
+      <solution>
+        <p>$$\frac{\pi}{6}\left( {5\sqrt{5} - 3\sqrt{3}} \right) \approx 3.133$$</p>
+      </solution>
+    </checkpoint>
+    <example number="2.22">
+      <problem>
+        <title>Calculating the Surface Area of a Surface of Revolution 2</title>
+        <p>Let $$f(x) = y = \sqrt[3]{3x}.$$ Consider the portion of the curve where $$0 \leq y \leq 2.$$ Find the surface area of the surface generated by revolving the graph of $$f(x)$$ around the $$y\text{-axis}.$$</p>
+      </problem>
+      <solution>
+        <p>Notice that we are revolving the curve around the $$y\text{-axis},$$ and the interval is in terms of $$y,$$ so we want to rewrite the function as a function of y. We get $$x = g(y) = \left( {1\text{/}3} \right)y^{3}.$$ The graph of $$g(y)$$ and the surface of rotation are shown in the following figure.</p>
+        <image alt="This figure has two graphs. The first is the curve g(y)=1/3y^3. The curve is increasing and begins at the origin. Also on the graph are the horizontal lines y=0 and y=2. The second graph is the same function as the first graph. The region between g(y) and the y-axis, bounded by y=0 and y=2 has been rotated around the y-axis to form a surface." number="2.47" caption="(a) The graph of $$g(y).$$ (b) The surface of revolution." />
+        <p>We have $$g(y) = \left( {1\text{/}3} \right)y^{3},$$ so $$g^{\prime}(y) = y^{2}$$ and $$\left( {g^{\prime}(y)} \right)^{2} = y^{4}.$$ Then</p>
+        <equation>$$\begin{array}{cl} \text{Surface Area} &amp; {= {\int_{c}^{d}{\left( {2\pi g(y)\sqrt{1 + \left( {g^{\prime}(y)} \right)^{2}}} \right)dy}}} \\ &amp; {= {\int_{0}^{2}\left( {2\pi\left( {\frac{1}{3}y^{3}} \right)\sqrt{1 + y^{4}}} \right)}dy} \\ &amp; {= \frac{2\pi}{3}{\int_{0}^{2}\left( {y^{3}\sqrt{1 + y^{4}}} \right)}dy.} \end{array}$$</equation>
+        <p>Let $$u = y^{4} + 1.$$ Then $$du = 4y^{3}dy.$$ When $$y = 0,$$ $$u = 1,$$ and when $$y = 2,$$ $$u = 17.$$ Then</p>
+        <equation>$$\begin{array}{cl} {\frac{2\pi}{3}{\int_{0}^{2}\left( {y^{3}\sqrt{1 + y^{4}}} \right)}dy} &amp; {= \frac{2\pi}{3}{\int_{1}^{17}{\frac{1}{4}\sqrt{u}du}}} \\ &amp; {= \frac{\pi}{6}\left. \left\lbrack {\frac{2}{3}u^{3\text{/}2}} \right\rbrack\ \right|_{1}^{17} = \frac{\pi}{9}\left\lbrack {(17)^{3\text{/}2} - 1} \right\rbrack \approx 24.118.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="2.22">
+      <problem>
+        <p>Let $$g(y) = \sqrt{9 - y^{2}}$$ over the interval $$y \in \left\lbrack {0,2} \right\rbrack.$$ Find the surface area of the surface generated by revolving the graph of $$g(y)$$ around the $$y\text{-axis}.$$</p>
+      </problem>
+      <solution>
+        <p>$$12\pi$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <exercises title="Section 2.4 Exercises">
+    <instruction>For the following exercises, find the length of the functions over the given interval.</instruction>
+    <exercise number="165" has_solution="true">
+      <problem>
+        <p>$$y = 5x\ \text{from}\ x = 0\ \text{to}\ x = 2$$</p>
+      </problem>
+      <solution>
+        <p>$$2\sqrt{26}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="166" has_solution="false">
+      <problem>
+        <p>$$y = - \frac{1}{2}x + 25\ \text{from}\ x = 1\ \text{to}\ x = 4$$</p>
+      </problem>
+    </exercise>
+    <exercise number="167" has_solution="true">
+      <problem>
+        <p>$$x = 4y\ \text{from}\ y = -1\ \text{to}\ y = 1$$</p>
+      </problem>
+      <solution>
+        <p>$$2\sqrt{17}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="168" has_solution="false">
+      <problem>
+        <p>Pick an arbitrary linear function $$x = g(y)$$ over any interval of your choice $$\left( {y_{1},y_{2}} \right).$$ Determine the length of the function and then prove the length is correct by using geometry.</p>
+      </problem>
+    </exercise>
+    <exercise number="169" has_solution="true">
+      <problem>
+        <p>Find the surface area of the volume generated when the curve $$y = \sqrt{x}$$ revolves around the $$x\text{-axis}$$ from $$\left( {1,1} \right)$$ to $$(4,2),$$ as seen here.</p>
+      </problem>
+      <solution>
+        <p>$$\frac{\pi}{6}\left( {17\sqrt{17} - 5\sqrt{5}} \right)$$</p>
+      </solution>
+    </exercise>
+    <exercise number="170" has_solution="false">
+      <problem>
+        <p>Find the surface area of the volume generated when the curve $$y = x^{2}$$ revolves around the $$y\text{-axis}$$ from $$(1,\ 1)$$ to $$(3,9).$$</p>
+      </problem>
+    </exercise>
+    <instruction>For the following exercises, find the lengths of the functions of $$x$$ over the given interval. If you cannot evaluate the integral exactly, use technology to approximate it.</instruction>
+    <exercise number="171" has_solution="true">
+      <problem>
+        <p>$$y = x^{3\text{/}2}$$ from $$\left( {0,0} \right)\ \text{to}\ \left( {1,1} \right)$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{13\sqrt{13} - 8}{27}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="172" has_solution="false">
+      <problem>
+        <p>$$y = x^{2\text{/}3}$$ from $$\left( {1,1} \right)\ \text{to}\ \left( {8,4} \right)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="173" has_solution="true">
+      <problem>
+        <p>$$y = \frac{1}{3}\left( {x^{2} + 2} \right)^{3\text{/}2}$$ from $$x = 0\ \text{to}\ x = 1$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{4}{3}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="174" has_solution="false">
+      <problem>
+        <p>$$y = \frac{1}{3}\left( {x^{2} - 2} \right)^{3\text{/}2}$$ from $$x = 2$$ to $$x = 4$$</p>
+      </problem>
+    </exercise>
+    <exercise number="175" has_solution="true">
+      <problem>
+        <p>[T] $$y = e^{x}$$ on $$x = 0$$ to $$x = 1$$</p>
+      </problem>
+      <solution>
+        <p>$$2.0035$$</p>
+      </solution>
+    </exercise>
+    <exercise number="176" has_solution="false">
+      <problem>
+        <p>$$y = \frac{x^{3}}{3} + \frac{1}{4x}$$ from $$x = 1\ \text{to}\ x = 3$$</p>
+      </problem>
+    </exercise>
+    <exercise number="177" has_solution="true">
+      <problem>
+        <p>$$y = \frac{x^{4}}{4} + \frac{1}{8x^{2}}$$ from $$x = 1\ \text{to}\ x = 2$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{123}{32}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="178" has_solution="false">
+      <problem>
+        <p>$$y = \frac{2x^{3\text{/}2}}{3} - \frac{x^{1\text{/}2}}{2}$$ from $$x = 1\ \text{to}\ x = 4$$</p>
+      </problem>
+    </exercise>
+    <exercise number="179" has_solution="true">
+      <problem>
+        <p>$$y = \frac{1}{27}\left( {9x^{2} + 6} \right)^{3\text{/}2}$$ from $$x = 0\ \text{to}\ x = 2$$</p>
+      </problem>
+      <solution>
+        <p>$$10$$</p>
+      </solution>
+    </exercise>
+    <exercise number="180" has_solution="false">
+      <problem>
+        <p>[T] $$y = \text{sin}\ x$$ on $$x = 0\ \text{to}\ x = \pi$$</p>
+      </problem>
+    </exercise>
+    <instruction>For the following exercises, find the lengths of the functions of $$y$$ over the given interval. If you cannot evaluate the integral exactly, use technology to approximate it.</instruction>
+    <exercise number="181" has_solution="true">
+      <problem>
+        <p>$$y = \frac{5 - 3x}{4}$$ from $$y = 0$$ to $$y = 4$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{20}{3}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="182" has_solution="false">
+      <problem>
+        <p>$$x = \frac{1}{2}\left( {e^{y} + e^{\text{−}y}} \right)$$ from $$y = -1\ \text{to}\ y = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="183" has_solution="true">
+      <problem>
+        <p>$$x = 5y^{3\text{/}2}$$ from $$y = 0$$ to $$y = 1$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{1}{675}\left( {229\sqrt{229} - 8} \right)$$</p>
+      </solution>
+    </exercise>
+    <exercise number="184" has_solution="false">
+      <problem>
+        <p>[T] $$x = y^{2}$$ from $$y = 0$$ to $$y = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="185" has_solution="true">
+      <problem>
+        <p>$$x = \sqrt{y}$$ from $$y = 0\ \text{to}\ y = 1$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{1}{8}\left( {4\sqrt{5} + \text{ln}\left( {9 + 4\sqrt{5}} \right)} \right)$$</p>
+      </solution>
+    </exercise>
+    <exercise number="186" has_solution="false">
+      <problem>
+        <p>$$x = \frac{2}{3}\left( {y^{2} + 1} \right)^{3\text{/}2}$$ from $$y = 1$$ to $$y = 3$$</p>
+      </problem>
+    </exercise>
+    <exercise number="187" has_solution="true">
+      <problem>
+        <p>[T] $$x = \text{tan}\ y$$ from $$y = 0$$ to $$y = \frac{3}{4}$$</p>
+      </problem>
+      <solution>
+        <p>$$1.201$$</p>
+      </solution>
+    </exercise>
+    <exercise number="188" has_solution="false">
+      <problem>
+        <p>[T] $$x = \text{cos}^{2}y$$ from $$y = - \frac{\pi}{2}$$ to $$y = \frac{\pi}{2}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="189" has_solution="true">
+      <problem>
+        <p>[T] $$x = 4^{y}$$ from $$y = 0\ \text{to}\ y = 2$$</p>
+      </problem>
+      <solution>
+        <p>$$15.2341$$</p>
+      </solution>
+    </exercise>
+    <exercise number="190" has_solution="false">
+      <problem>
+        <p>[T] $$x = \text{ln}(y)$$ on $$y = \frac{1}{e}$$ to $$y = e$$</p>
+      </problem>
+    </exercise>
+    <instruction>For the following exercises, find the surface area of the volume generated when the following curves revolve around the $$x\text{-axis}.$$ If you cannot evaluate the integral exactly, use your calculator to approximate it.</instruction>
+    <exercise number="191" has_solution="true">
+      <problem>
+        <p>$$y = \sqrt{x}$$ from $$x = 2$$ to $$x = 6$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{49\pi}{3}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="192" has_solution="false">
+      <problem>
+        <p>$$y = x^{3}$$ from $$x = 0$$ to $$x = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="193" has_solution="true">
+      <problem>
+        <p>$$y = 7x$$ from $$x = -1\ \text{to}\ x = 1$$</p>
+      </problem>
+      <solution>
+        <p>$$70\pi\sqrt{2}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="194" has_solution="false">
+      <problem>
+        <p>[T] $$y = \frac{1}{x^{2}}$$ from $$x = 1\ \text{to}\ x = 3$$</p>
+      </problem>
+    </exercise>
+    <exercise number="195" has_solution="true">
+      <problem>
+        <p>$$y = \sqrt{4 - x^{2}}$$ from $$x = 0\ \text{to}\ x = 2$$</p>
+      </problem>
+      <solution>
+        <p>$$8\pi$$</p>
+      </solution>
+    </exercise>
+    <exercise number="196" has_solution="false">
+      <problem>
+        <p>$$y = \sqrt{4 - x^{2}}$$ from $$x = -1\ \text{to}\ x = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="197" has_solution="true">
+      <problem>
+        <p>$$y = 5x$$ from $$x = 1\ \text{to}\ x = 5$$</p>
+      </problem>
+      <solution>
+        <p>$$120\pi\sqrt{26}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="198" has_solution="false">
+      <problem>
+        <p>[T] $$y = \text{tan}\ x$$ from $$x = - \frac{\pi}{4}\ \text{to}\ x = \frac{\pi}{4}$$</p>
+      </problem>
+    </exercise>
+    <instruction>For the following exercises, find the surface area of the volume generated when the following curves revolve around the $$y\text{-axis}\text{.}$$ If you cannot evaluate the integral exactly, use your calculator to approximate it.</instruction>
+    <exercise number="199" has_solution="true">
+      <problem>
+        <p>$$y = x^{2}$$ from $$x = 0\ \text{to}\ x = 2$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{\pi}{6}\left( {17\sqrt{17} - 1} \right)$$</p>
+      </solution>
+    </exercise>
+    <exercise number="200" has_solution="false">
+      <problem>
+        <p>$$y = \frac{1}{2}x^{2} + \frac{1}{2}$$ from $$x = 0\ \text{to}\ x = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="201" has_solution="true">
+      <problem>
+        <p>$$y = x + 1$$ from $$x = 0\ \text{to}\ x = 3$$</p>
+      </problem>
+      <solution>
+        <p>$$9\sqrt{2}\pi$$</p>
+      </solution>
+    </exercise>
+    <exercise number="202" has_solution="false">
+      <problem>
+        <p>[T] $$y = \frac{1}{x}$$ from $$x = \frac{1}{2}$$ to $$x = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="203" has_solution="true">
+      <problem>
+        <p>$$y = \sqrt[3]{x}$$ from $$x = 1\ \text{to}\ x = 27$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{10\sqrt{10}\pi}{27}\left( {73\sqrt{73} - 1} \right)$$</p>
+      </solution>
+    </exercise>
+    <exercise number="204" has_solution="false">
+      <problem>
+        <p>[T] $$y = 3x^{4}$$ from $$x = 0$$ to $$x = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="205" has_solution="true">
+      <problem>
+        <p>[T] $$y = \frac{1}{\sqrt{x}}$$ from $$x = 1$$ to $$x = 3$$</p>
+      </problem>
+      <solution>
+        <p>$$25.645$$</p>
+      </solution>
+    </exercise>
+    <exercise number="206" has_solution="false">
+      <problem>
+        <p>[T] $$y = \text{cos}\ x$$ from $$x = 0$$ to $$x = \frac{\pi}{2}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="207" has_solution="true">
+      <problem>
+        <p>The base of a lamp is constructed by revolving a quarter circle $$y = \sqrt{2x - x^{2}}$$ around the $$y\text{-axis}$$ from $$x = 1$$ to $$x = 2,$$ as seen here. Create an integral for the surface area of this curve and compute it.</p>
+      </problem>
+      <solution>
+        <p>$$\pi(2 + \pi)$$</p>
+      </solution>
+    </exercise>
+    <exercise number="208" has_solution="false">
+      <problem>
+        <p>A light bulb is a sphere with radius $$1\text{/}2$$ in. with the bottom sliced off to fit exactly onto a cylinder of radius $$1\text{/}4$$ in. and length $$1\text{/}3$$ in., as seen here. The sphere is cut off at the bottom to fit exactly onto the cylinder, so the radius of the cut is $$1\text{/}4$$ in. Find the surface area (not including the top or bottom of the cylinder).</p>
+      </problem>
+    </exercise>
+    <exercise number="209" has_solution="true">
+      <problem>
+        <p>[T] A lampshade is constructed by rotating $$y = {1\text{/}x}$$ around the $$x\text{-axis}$$ from $$y = 1$$ to $$y = 2,$$ as seen here. Determine how much material you would need to construct this lampshade—that is, the surface area—accurate to four decimal places.</p>
+      </problem>
+      <solution>
+        <p>$$10.5017$$</p>
+      </solution>
+    </exercise>
+    <exercise number="210" has_solution="false">
+      <problem>
+        <p>[T] An anchor drags behind a boat according to the function $$y = 24e^{{\text{−}x}\text{/}2} - 24,$$ where $$y$$ represents the depth beneath the boat and $$x$$ is the horizontal distance of the anchor from the back of the boat. If the anchor is $$23$$ ft below the boat, how much rope do you have to pull to reach the anchor? Round your answer to three decimal places.</p>
+      </problem>
+    </exercise>
+    <exercise number="211" has_solution="true">
+      <problem>
+        <p>[T] You are building a bridge that will span $$10$$ ft. You intend to add decorative rope in the shape of $$y = 5\left| {\text{sin}\left( {\left( {x\pi} \right)\text{/}5} \right)} \right|,$$ where $$x$$ is the distance in feet from one end of the bridge. Find out how much rope you need to buy, measured in a whole number of feet.</p>
+      </problem>
+      <solution>
+        <p>$$24$$ ft</p>
+      </solution>
+    </exercise>
+    <instruction>For the following exercises, find the exact arc length for the following problems over the given interval.</instruction>
+    <exercise number="212" has_solution="false">
+      <problem>
+        <p>$$y = \text{ln}(\text{sin}\ x)$$ from $$x = {\pi\text{/}4}$$ to $$x = {\left( {3\pi} \right)\text{/}4}.$$ (Hint: Recall trigonometric identities.)</p>
+      </problem>
+    </exercise>
+    <exercise number="213" has_solution="true">
+      <problem>
+        <p>[T] Draw graphs of $$y = x^{2},$$ $$y = x^{6},$$ and $$y = x^{10}.$$ For $$y = x^{n},$$ as $$n$$ increases, formulate a prediction on the arc length from $$\left( {0,0} \right)$$ to $$\left( {1,1} \right).$$ Now, compute the lengths of these three functions and determine whether your prediction is correct.</p>
+      </problem>
+      <solution>
+        <p>$$2$$</p>
+      </solution>
+    </exercise>
+    <exercise number="214" has_solution="false">
+      <problem>
+        <p>Compare the lengths of the parabola $$x = y^{2}$$ and the line $$x = by$$ from $$\left( {0,0} \right)\ \text{to}\ \left( {b^{2},b} \right)$$ as $$b$$ increases. What do you notice?</p>
+      </problem>
+    </exercise>
+    <exercise number="215" has_solution="true">
+      <problem>
+        <p>Solve for the length of $$x = y^{2}$$ from $$\left( {0,0} \right)\ \text{to}\ \left( {1,1} \right).$$ Show that $$x = \left( {1\text{/}2} \right)y^{2}$$ from $$\left( {0,0} \right)$$ to $$\left( {2,\ 2} \right)$$ is twice as long. Graph both functions and explain why this is so.</p>
+      </problem>
+      <solution>
+        <p>Answers may vary</p>
+      </solution>
+    </exercise>
+    <exercise number="216" has_solution="false">
+      <problem>
+        <p>[T] Which is longer between $$\left( {1,\ 1} \right)$$ and $$\left( {2,{1\text{/}2}} \right)\text{:}$$ the hyperbola $$y = {1\text{/}x}$$ or the graph of $$x + 2y = 3?$$</p>
+      </problem>
+    </exercise>
+    <exercise number="217" has_solution="true">
+      <problem>
+        <p>Explain why the surface area is infinite when $$y = {1\text{/}x}$$ is rotated around the $$x\text{-axis}$$ for $$1 \leq x &lt; \infty,$$ but the volume is finite.</p>
+      </problem>
+      <solution>
+        <p>For more information, look up Gabriel’s Horn.</p>
+      </solution>
+    </exercise>
+  </exercises>
+</section>

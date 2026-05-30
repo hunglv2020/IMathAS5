@@ -1,0 +1,624 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="7.2" title="Nonhomogeneous Linear Equations">
+  <learning_objectives>
+    <objective number="7.2.1">Write the general solution to a nonhomogeneous differential equation.</objective>
+    <objective number="7.2.2">Solve a nonhomogeneous differential equation by the method of undetermined coefficients.</objective>
+    <objective number="7.2.3">Solve a nonhomogeneous differential equation by the method of variation of parameters.</objective>
+  </learning_objectives>
+  <p>In this section, we examine how to solve nonhomogeneous differential equations. The terminology and methods are different from those we used for homogeneous equations, so let’s start by defining some new terms.</p>
+  <subsection title="General Solution to a Nonhomogeneous Linear Equation">
+    <p>Consider the nonhomogeneous linear differential equation</p>
+    <equation>$$a_{2}(x)y^{''} + a_{1}(x)y^{\prime} + a_{0}(x)y = r(x).$$</equation>
+    <p>The associated homogeneous equation</p>
+    <equation>$$a_{2}(x)y^{''} + a_{1}(x)y^{\prime} + a_{0}(x)y = 0$$</equation>
+    <p>is called the complementary equation. We will see that solving the complementary equation is an important step in solving a nonhomogeneous differential equation.</p>
+    <note type="Definition">
+      <p>A solution $$y_{p}(x)$$ of a differential equation that contains no arbitrary constants is called a particular solution to the equation.</p>
+    </note>
+    <theorem number="7.4" title="General Solution to a Nonhomogeneous Equation">
+      <p>Let $$y_{p}(x)$$ be any particular solution to the nonhomogeneous linear differential equation</p>
+      <equation>$$a_{2}(x)y^{''} + a_{1}(x)y^{\prime} + a_{0}(x)y = r(x).$$</equation>
+      <p>Also, let $$c_{1}y_{1}(x) + c_{2}y_{2}(x)$$ denote the general solution to the complementary equation. Then, the general solution to the nonhomogeneous equation is given by</p>
+      <equation>$$y(x) = c_{1}y_{1}(x) + c_{2}y_{2}(x) + y_{p}(x\text{).}$$</equation>
+    </theorem>
+    <subsection title="Proof">
+      <p>To prove $$y(x)$$ is the general solution, we must first show that it solves the differential equation and, second, that any solution to the differential equation can be written in that form. Substituting $$y(x)$$ into the differential equation, we have</p>
+      <equation>$$\begin{array}{cl} {a_{2}(x)y^{''} + a_{1}(x)y^{\prime} + a_{0}(x)y} &amp; {= a_{2}(x)\left( {c_{1}y_{1} + c_{2}y_{2} + y_{p}} \right)\text{''} + a_{1}(x)\left( {c_{1}y_{1} + c_{2}y_{2} + y_{p}} \right)^{\prime}} \\ &amp; {\qquad + a_{0}(x)\left( {c_{1}y_{1} + c_{2}y_{2} + y_{p}} \right)} \\ &amp; {= \left\lbrack {a_{2}(x)\left( {c_{1}y_{1} + c_{2}y_{2}} \right)\text{''} + a_{1}(x)\left( {c_{1}y_{1} + c_{2}y_{2}} \right)^{\prime} + a_{0}(x)\left( {c_{1}y_{1} + c_{2}y_{2}} \right)} \right\rbrack} \\ &amp; {\qquad + a_{2}(x)y_{p}\text{''} + a_{1}(x)y_{p}{}^{\prime} + a_{0}(x)y_{p}} \\ &amp; {= 0 + r(x)} \\ &amp; {= r(x\text{).}} \end{array}$$</equation>
+      <p>So $$y(x)$$ is a solution.</p>
+      <p>Now, let $$z(x)$$ be any solution to $$a_{2}(x)y^{''} + a_{1}(x)y^{\prime} + a_{0}(x)y = r(x).$$ Then</p>
+      <equation>$$\begin{array}{cl} {a_{2}(x)\left( {z - y_{p}} \right)\text{''} + a_{1}(x)\left( {z - y_{p}} \right)^{\prime} + a_{0}(x)\left( {z - y_{p}} \right)} &amp; {= \left( {a_{2}(x)z^{''} + a_{1}(x)z^{\prime} + a_{0}(x)z} \right)} \\ &amp; {\qquad - \left( {a_{2}(x)y_{p}\text{''} + a_{1}(x)y_{p}{}^{\prime} + a_{0}(x)y_{p}} \right)} \\ &amp; {= r(x) - r(x)} \\ &amp; {= 0,} \end{array}$$</equation>
+      <p>so $$z(x) - y_{p}(x)$$ is a solution to the complementary equation. But, $$c_{1}y_{1}(x) + c_{2}y_{2}(x)$$ is the general solution to the complementary equation, so there are constants $$c_{1}$$ and $$c_{2}$$ such that</p>
+      <equation>$$z(x) - y_{p}(x) = c_{1}y_{1}(x) + c_{2}y_{2}(x\text{).}$$</equation>
+      <p>Hence, we see that $$z(x) = c_{1}y_{1}(x) + c_{2}y_{2}(x) + y_{p}(x\text{).}$$</p>
+      <p>□</p>
+      <example number="7.11">
+        <problem>
+          <title>Verifying the General Solution</title>
+          <p>Given that $$y_{p}(x) = x$$ is a particular solution to the differential equation $$y^{''} + y = x,$$ write the general solution and check by verifying that the solution satisfies the equation.</p>
+        </problem>
+        <solution>
+          <p>The complementary equation is $$y^{''} + y = 0,$$ which has the general solution $$c_{1}\text{cos}\mspace{2mu} x + c_{2}\text{sin}\mspace{2mu} x\text{.}$$ So, the general solution to the nonhomogeneous equation is</p>
+          <equation>$$y(x) = c_{1}\text{cos}\mspace{2mu} x + c_{2}\text{sin}\mspace{2mu} x + x\text{.}$$</equation>
+          <p>To verify that this is a solution, substitute it into the differential equation. We have</p>
+          <equation>$$y^{\prime}(x) = \text{−}c_{1}\text{sin}\mspace{2mu} x + c_{2}\text{cos}\mspace{2mu} x + 1\ \text{and}\ y^{''}(x) = \text{−}c_{1}\text{cos}\mspace{2mu} x - c_{2}\text{sin}\mspace{2mu} x\text{.}$$</equation>
+          <p>Then</p>
+          <equation>$$\begin{array}{cl} {y^{''}(x) + y(x)} &amp; {= \text{−}c_{1}\text{cos}\mspace{2mu} x - c_{2}\text{sin}\mspace{2mu} x + c_{1}\text{cos}\mspace{2mu} x + c_{2}\text{sin}\mspace{2mu} x + x} \\ &amp; {= x\text{.}} \end{array}$$</equation>
+          <p>So, $$y(x)$$ is a solution to $$y^{''} + y = x\text{.}$$</p>
+        </solution>
+      </example>
+      <checkpoint number="7.10">
+        <problem>
+          <p>Given that $$y_{p}(x) = -2$$ is a particular solution to $$y^{''} - 3y^{\prime} - 4y = 8,$$ write the general solution and verify that the general solution satisfies the equation.</p>
+        </problem>
+        <solution>
+          <p>$$y(x) = c_{1}e^{\text{−}x} + c_{2}e^{4x} - 2$$</p>
+        </solution>
+      </checkpoint>
+      <p>In the preceding section, we learned how to solve homogeneous equations with constant coefficients. Therefore, for nonhomogeneous equations of the form $$ay^{''} + by^{\prime} + cy = r(x),$$ we already know how to solve the complementary equation, and the problem boils down to finding a particular solution for the nonhomogeneous equation. We now examine two techniques for this: the method of undetermined coefficients and the method of variation of parameters.</p>
+    </subsection>
+  </subsection>
+  <subsection title="Undetermined Coefficients">
+    <p>The method of undetermined coefficients involves making educated guesses about the form of the particular solution based on the form of $$r(x\text{).}$$ When we take derivatives of polynomials, exponential functions, sines, and cosines, we get polynomials, exponential functions, sines, and cosines. So when $$r(x)$$ has one of these forms, it is possible that the solution to the nonhomogeneous differential equation might take that same form. Let’s look at some examples to see how this works.</p>
+    <example number="7.12">
+      <problem>
+        <title>Undetermined Coefficients Whenr(x)r(x)Is a Polynomial</title>
+        <p>Find the general solution to $$y^{''} + 4y^{\prime} + 3y = 3x\text{.}$$</p>
+      </problem>
+      <solution>
+        <p>The complementary equation is $$y^{''} + 4y^{\prime} + 3y = 0,$$ with general solution $$c_{1}e^{\text{−}x} + c_{2}e^{-3x}.$$ Since $$r(x) = 3x,$$ the particular solution might have the form $$y_{p}(x) = Ax + B\text{.}$$ If this is the case, then we have $$y_{p}{}^{\prime}(x) = A$$ and $$y_{p}{}\text{''}(x) = 0.$$ For $$y_{p}$$ to be a solution to the differential equation, we must find values for $$A$$ and $$B$$ such that</p>
+        <equation>$$\begin{array}{rll} {y^{''} + 4y^{\prime} + 3y} &amp; = &amp; {3x} \\ {0 + 4(A) + 3(Ax + B)} &amp; = &amp; {3x} \\ {3Ax + (4A + 3B)} &amp; = &amp; {3x\text{.}} \end{array}$$</equation>
+        <p>Setting coefficients of like terms equal, we have</p>
+        <equation>$$\begin{array}{rll} {3A} &amp; = &amp; 3 \\ {4A + 3B} &amp; = &amp; {0.} \end{array}$$</equation>
+        <p>Then, $$A = 1$$ and $$B = - \frac{4}{3},$$ so $$y_{p}(x) = x - \frac{4}{3}$$ and the general solution is</p>
+        <equation>$$y(x) = c_{1}e^{\text{−}x} + c_{2}e^{-3x} + x - \frac{4}{3}.$$</equation>
+      </solution>
+    </example>
+    <p>In Example 7.12, notice that even though $$r(x)$$ did not include a constant term, it was necessary for us to include the constant term in our guess. If we had assumed a solution of the form $$y_{p} = Ax$$ (with no constant term), we would not have been able to find a solution. (Verify this!) If the function $$r(x)$$ is a polynomial, our guess for the particular solution should be a polynomial of the same degree, and it must include all lower-order terms, regardless of whether they are present in $$r(x\text{).}$$</p>
+    <example number="7.13">
+      <problem>
+        <title>Undetermined Coefficients Whenr(x)r(x)Is an Exponential</title>
+        <p>Find the general solution to $$y^{''} - y^{\prime} - 2y = 2e^{3x}.$$</p>
+      </problem>
+      <solution>
+        <p>The complementary equation is $$y^{''} - y^{\prime} - 2y = 0,$$ with the general solution $$c_{1}e^{\text{−}x} + c_{2}e^{2x}.$$ Since $$r(x) = 2e^{3x},$$ the particular solution might have the form $$y_{p}(x) = Ae^{3x}.$$ Then, we have $$y_{p}{}^{\prime}(x) = 3Ae^{3x}$$ and $$y_{p}{}\text{''}(x) = 9Ae^{3x}.$$ For $$y_{p}$$ to be a solution to the differential equation, we must find a value for $$A$$ such that</p>
+        <equation>$$\begin{array}{rll} {y^{''} - y^{\prime} - 2y} &amp; = &amp; {2e^{3x}} \\ {9Ae^{3x} - 3Ae^{3x} - 2Ae^{3x}} &amp; = &amp; {2e^{3x}} \\ {4Ae^{3x}} &amp; = &amp; {2e^{3x}.} \end{array}$$</equation>
+        <p>So, $$4A = 2$$ and $$A = {1\text{/}2}.$$ Then, $$y_{p}(x) = \left( \frac{1}{2} \right)e^{3x},$$ and the general solution is</p>
+        <equation>$$y(x) = c_{1}e^{\text{−}x} + c_{2}e^{2x} + \frac{1}{2}e^{3x}.$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="7.11">
+      <problem>
+        <p>Find the general solution to $$y^{''} - 4y^{\prime} + 4y = 7\mspace{2mu}\text{sin}\mspace{2mu} t - \text{cos}\mspace{2mu} t\text{.}$$</p>
+      </problem>
+      <solution>
+        <p>$$y(t) = c_{1}e^{2t} + c_{2}te^{2t} + \text{sin}\mspace{2mu} t + \text{cos}\mspace{2mu} t$$</p>
+      </solution>
+    </checkpoint>
+    <p>In the previous checkpoint, $$r(x)$$ included both sine and cosine terms. However, even if $$r(x)$$ included a sine term only or a cosine term only, both terms must be present in the guess. The method of undetermined coefficients also works with products of polynomials, exponentials, sines, and cosines. Some of the key forms of $$r(x)$$ and the associated guesses for $$y_{p}(x)$$ are summarized in Table 7.2.</p>
+    <table summary="This figure is a table with two columns and ten rows. The first column is labeled, “r(x),” and the second column is labeled, “Initial guess for yp(x).” The first row has, “k (a constant),” in the first column and, “A (a constant),” in the second column. The second row has, “ax + b,” in the first column and, “Ax + B (Note: The guess must include both terms even if b = 0.),” in the second column. The third row has, “ax^2 + bx + c,” in the first column and, “Ax^2 + Bx + C (Note: The guess must include all three terms even if b or c are zero.),” in the second column. The fourth row has, “Higher-order polynomials,” in the first column and, “Polynomial of the same order as r(x),” in the second column. The fifth row has, “ae^λx,” in the first column and, “Ae^λx,” in the second column. The sixth row has, “a cos βx + b sin βx,” in the first column and, “A cos βx + B sin βx (Note: The guess must include both terms even if either a = 0 or b = 0.),” in the second column. The seventh row has, “ae^αx cos βx + be^αx sin βx,” in the first column and, “Ae^αx cos βx + Be^αx sin βx,” in the second column. The eighth row has, “(ax^2 + bx + c)e^λx,” in the first column and, “(Ax^2 + Bx + C)e^λx,” in the second column. The ninth row has, “ (a2x^2 + a1x + a0)cos βx + (b2x^2 + b1x + b0)sin βx,” in the first column and, “(A2x^2 + A1x + A0)cos βx + (B2x^2 + B1x + B0)sin βx,” in the second column. The tenth row has, “ (a2x^2 + a1x + a0)e^αx cos βx + (b2x^2 + b1x + b0)e^αx sin βx,” in the first column and, “(A2x^2 + A1x + A0)e^αx cos βx + (B2x^2 + B1x + B0)e^αx sin βx,” in the second column." number="Table 7.2">
+      <thead>
+        <row>
+          <cell>$$r(x)$$</cell>
+          <cell>Initial guess for $$y_{p}(x)$$</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>$$k$$ (a constant)</cell>
+          <cell>$$A$$ (a constant)</cell>
+        </row>
+        <row>
+          <cell>$$ax + b$$</cell>
+          <cell>$$Ax + B$$ (Note: The guess must include both terms even if $$b = 0.$$)</cell>
+        </row>
+        <row>
+          <cell>$$ax^{2} + bx + c$$</cell>
+          <cell>$$Ax^{2} + Bx + C$$ (Note: The guess must include all three terms even if $$b$$ or $$c$$ are zero.)</cell>
+        </row>
+        <row>
+          <cell>Higher-order polynomials</cell>
+          <cell>Polynomial of the same order as $$r(x)$$</cell>
+        </row>
+        <row>
+          <cell>$$ae^{\lambda x}$$</cell>
+          <cell>$$Ae^{\lambda x}$$</cell>
+        </row>
+        <row>
+          <cell>$$a\mspace{2mu}\text{cos}\mspace{2mu}\beta x + b\mspace{2mu}\text{sin}\mspace{2mu}\beta x$$</cell>
+          <cell>$$A\mspace{2mu}\text{cos}\mspace{2mu}\beta x + B\mspace{2mu}\text{sin}\mspace{2mu}\beta x$$ (Note: The guess must include both terms even if either $$a = 0$$ or $$b = 0.$$)</cell>
+        </row>
+        <row>
+          <cell>$$ae^{\alpha x}\text{cos}\mspace{2mu}\beta x + be^{\alpha x}\text{sin}\mspace{2mu}\beta x$$</cell>
+          <cell>$$Ae^{\alpha x}\text{cos}\mspace{2mu}\beta x + Be^{\alpha x}\text{sin}\mspace{2mu}\beta x$$</cell>
+        </row>
+        <row>
+          <cell>$$\left( {ax^{2} + bx + c} \right)e^{\lambda x}$$</cell>
+          <cell>$$\left( {Ax^{2} + Bx + C} \right)e^{\lambda x}$$</cell>
+        </row>
+        <row>
+          <cell>$$\begin{array}{l} {\left( {a_{2}x^{2} + a_{1}x + a_{0}} \right)\mspace{2mu}\text{cos}\mspace{2mu}\beta x} \\ {+ \left( {b_{2}x^{2} + b_{1}x + b_{0}} \right)\mspace{2mu}\text{sin}\mspace{2mu}\beta x} \end{array}$$</cell>
+          <cell>$$\begin{array}{l} {\left( {A_{2}x^{2} + A_{1}x + A_{0}} \right)\mspace{2mu}\text{cos}\mspace{2mu}\beta x} \\ {+ \left( {B_{2}x^{2} + B_{1}x + B_{0}} \right)\mspace{2mu}\text{sin}\mspace{2mu}\beta x} \end{array}$$</cell>
+        </row>
+        <row>
+          <cell>$$\begin{array}{l} {\left( {a_{2}x^{2} + a_{1}x + a_{0}} \right)e^{\alpha x}\text{cos}\mspace{2mu}\beta x} \\ {+ \left( {b_{2}x^{2} + b_{1}x + b_{0}} \right)e^{\alpha x}\text{sin}\mspace{2mu}\beta x} \end{array}$$</cell>
+          <cell>$$\begin{array}{l} {\left( {A_{2}x^{2} + A_{1}x + A_{0}} \right)e^{\alpha x}\text{cos}\mspace{2mu}\beta x} \\ {+ \left( {B_{2}x^{2} + B_{1}x + B_{0}} \right)e^{\alpha x}\text{sin}\mspace{2mu}\beta x} \end{array}$$</cell>
+        </row>
+      </tbody>
+    </table>
+    <p>Keep in mind that there is a key pitfall to this method. Consider the differential equation $$y^{''} + 5y^{\prime} + 6y = 3e^{-2x}.$$ Based on the form of $$r(x),$$ we guess a particular solution of the form $$y_{p}(x) = Ae^{-2x}.$$ But when we substitute this expression into the differential equation to find a value for $$A,$$ we run into a problem. We have</p>
+    <equation>$$y_{p}{}^{\prime}(x) = -2Ae^{-2x}$$</equation>
+    <p>and</p>
+    <equation>$$y_{p}{}\text{''} = 4Ae^{-2x},$$</equation>
+    <p>so we want</p>
+    <equation>$$\begin{array}{rll} {y^{''} + 5y^{\prime} + 6y} &amp; = &amp; {3e^{-2x}} \\ {4Ae^{-2x} + 5\left( {-2Ae^{-2x}} \right) + 6Ae^{-2x}} &amp; = &amp; {3e^{-2x}} \\ {4Ae^{-2x} - 10Ae^{-2x} + 6Ae^{-2x}} &amp; = &amp; {3e^{-2x}} \\ 0 &amp; = &amp; {3e^{-2x},} \end{array}$$</equation>
+    <p>which is not possible.</p>
+    <p>Looking closely, we see that, in this case, the general solution to the complementary equation is $$c_{1}e^{-2x} + c_{2}e^{-3x}.$$ The exponential function in $$r(x)$$ is actually a solution to the complementary equation, so, as we just saw, all the terms on the left side of the equation cancel out. We can still use the method of undetermined coefficients in this case, but we have to alter our guess by multiplying it by$$x\text{.}$$ Using the new guess, $$y_{p}(x) = Axe^{-2x},$$ we have</p>
+    <equation>$$y_{p}{}^{\prime}(x) = A\left( {e^{-2x} - 2xe^{-2x}} \right)$$</equation>
+    <p>and</p>
+    <equation>$$y_{p}{}\text{''}(x) = -4Ae^{-2x} + 4Axe^{-2x}.$$</equation>
+    <p>Substitution gives</p>
+    <equation>$$\begin{array}{rll} {y^{''} + 5y^{\prime} + 6y} &amp; = &amp; {3e^{-2x}} \\ {\left( {-4Ae^{-2x} + 4Axe^{-2x}} \right) + 5\left( {Ae^{-2x} - 2Axe^{-2x}} \right) + 6Axe^{-2x}} &amp; = &amp; {3e^{-2x}} \\ {-4Ae^{-2x} + 4Axe^{-2x} + 5Ae^{-2x} - 10Axe^{-2x} + 6Axe^{-2x}} &amp; = &amp; {3e^{-2x}} \\ {Ae^{-2x}} &amp; = &amp; {3e^{-2x}.} \end{array}$$</equation>
+    <p>So, $$A = 3$$ and $$y_{p}(x) = 3xe^{-2x}.$$ This gives us the following general solution</p>
+    <equation>$$y(x) = c_{1}e^{-2x} + c_{2}e^{-3x} + 3xe^{-2x}.$$</equation>
+    <p>Note that if $$xe^{-2x}$$ were also a solution to the complementary equation, we would have to multiply by $$x$$ again, and we would try $$y_{p}(x) = Ax^{2}e^{-2x}.$$</p>
+    <note type="Problem-Solving Strategy">
+      <list type="ol" style="1">
+        <item>Solve the complementary equation and write down the general solution.</item>
+        <item>Based on the form of $$r(x),$$ make an initial guess for $$y_{p}(x\text{).}$$</item>
+        <item>Check whether any term in the guess for $$y_{p}(x)$$ is a solution to the complementary equation. If so, multiply the guess by$$x\text{.}$$ Repeat this step until there are no terms in $$y_{p}(x)$$ that solve the complementary equation.</item>
+        <item>Substitute $$y_{p}(x)$$ into the differential equation and equate like terms to find values for the unknown coefficients in $$y_{p}(x\text{).}$$</item>
+        <item>Add the general solution to the complementary equation and the particular solution you just found to obtain the general solution to the nonhomogeneous equation.</item>
+      </list>
+    </note>
+    <example number="7.14">
+      <problem>
+        <title>Solving Nonhomogeneous Equations</title>
+        <p>Find the general solutions to the following differential equations.</p>
+        <list type="ol" style="a">
+          <item>$$y^{''} - 9y = -6\mspace{2mu}\text{cos}\mspace{2mu} 3x$$</item>
+          <item>$$x^{''} + 2x^{\prime} + x = 4e^{\text{−}t}$$</item>
+          <item>$$y^{''} - 2y^{\prime} + 5y = 10x^{2} - 3x - 3$$</item>
+          <item>$$y^{''} - 3y^{\prime} = -12t$$</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="a">
+          <item>The complementary equation iswhich has the general solution(step 1). Based on the form ofour initial guess for the particular solution is(step 2). None of the terms insolve the complementary equation, so this is a valid guess (step 3).Now we want to find values forandso substituteinto the differential equation. We haveso we want to find values ofandsuch thatTherefore,This givesandso(step 4).Putting everything together, we have the general solution<equation>$$y^{''} - 9y = 0,$$</equation>
+            <equation>$$c_{1}e^{3x} + c_{2}e^{-3x}$$</equation>
+            <equation>$$r(x) = -6\mspace{2mu}\text{cos}\mspace{2mu} 3x,$$</equation>
+            <equation>$$y_{p}(x) = A\mspace{2mu}\text{cos}\mspace{2mu} 3x + B\mspace{2mu}\text{sin}\mspace{2mu} 3x$$</equation>
+            <equation>$$y_{p}(x)$$</equation>
+            <equation>$$A$$</equation>
+            <equation>$$B,$$</equation>
+            <equation>$$y_{p}$$</equation>
+            <equation>$$y_{p}{}^{\prime}(x) = -3A\mspace{2mu}\text{sin}\mspace{2mu} 3x + 3B\mspace{2mu}\text{cos}\mspace{2mu} 3x\ \text{and}\ y_{p}{}\text{''}(x) = -9A\mspace{2mu}\text{cos}\mspace{2mu} 3x - 9B\mspace{2mu}\text{sin}\mspace{2mu} 3x,$$</equation>
+            <equation>$$A$$</equation>
+            <equation>$$B$$</equation>
+            <equation>$$\begin{array}{rll} {y^{''} - 9y} &amp; = &amp; {-6\mspace{2mu}\text{cos}\mspace{2mu} 3x} \\ {-9A\mspace{2mu}\text{cos}\mspace{2mu} 3x - 9B\mspace{2mu}\text{sin}\mspace{2mu} 3x - 9\left( {A\mspace{2mu}\text{cos}\mspace{2mu} 3x + B\mspace{2mu}\text{sin}\mspace{2mu} 3x} \right)} &amp; = &amp; {-6\mspace{2mu}\text{cos}\mspace{2mu} 3x} \\ {-18A\mspace{2mu}\text{cos}\mspace{2mu} 3x - 18B\mspace{2mu}\text{sin}\mspace{2mu} 3x} &amp; = &amp; {-6\mspace{2mu}\text{cos}\mspace{2mu} 3x\text{.}} \end{array}$$</equation>
+            <equation>$$\begin{array}{rll} {-18A} &amp; = &amp; -6 \\ {-18B} &amp; = &amp; {0.} \end{array}$$</equation>
+            <equation>$$A = \frac{1}{3}$$</equation>
+            <equation>$$B = 0,$$</equation>
+            <equation>$$y_{p}(x) = \left( \frac{1}{3} \right)\mspace{2mu}\text{cos}\mspace{2mu} 3x$$</equation>
+            <equation>$$y(x) = c_{1}e^{3x} + c_{2}e^{-3x} + \frac{1}{3}\mspace{2mu}\text{cos}\mspace{2mu} 3x\text{.}$$</equation>
+          </item>
+          <item>The complementary equation iswhich has the general solution(step 1). Based on the formour initial guess for the particular solution is(step 2). However, we see that this guess solves the complementary equation, so we must multiply bywhich gives a new guess:(step 3). Checking this new guess, we see that it, too, solves the complementary equation, so we must multiply byagain, which gives(step 3 again). Now, checking this guess, we see thatdoes not solve the complementary equation, so this is a valid guess (step 3 yet again).We now want to find a value forso we substituteinto the differential equation. We haveandSubstituting into the differential equation, we want to find a value ofso thatThis givesso(step 4). Putting everything together, we have the general solution<equation>$$x^{''} + 2x^{\prime} + x = 0,$$</equation>
+            <equation>$$c_{1}e^{\text{−}t} + c_{2}te^{\text{−}t}$$</equation>
+            <equation>$$r(t) = 4e^{\text{−}t},$$</equation>
+            <equation>$$x_{p}(t) = Ae^{\text{−}t}$$</equation>
+            <equation>$$t,$$</equation>
+            <equation>$$x_{p}(t) = Ate^{\text{−}t}$$</equation>
+            <equation>$$x_{p}(t) = At^{2}e^{\text{−}t}$$</equation>
+            <equation>$$x_{p}(t)$$</equation>
+            <equation>$$A,$$</equation>
+            <equation>$$x_{p}$$</equation>
+            <equation>$$\begin{array}{rll} {x_{p}(t)} &amp; = &amp; {At^{2}e^{\text{−}t},\ \text{so}} \\ {x_{p}{}^{\prime}(t)} &amp; = &amp; {2Ate^{\text{−}t} - At^{2}e^{\text{−}t}} \end{array}$$</equation>
+            <equation>$$x_{p}{}\text{''}(t) = 2Ae^{\text{−}t} - 2Ate^{\text{−}t} - \left( {2Ate^{\text{−}t} - At^{2}e^{\text{−}t}} \right) = 2Ae^{\text{−}t} - 4Ate^{\text{−}t} + At^{2}e^{\text{−}t}.$$</equation>
+            <equation>$$A$$</equation>
+            <equation>$$\begin{array}{rll} {x^{''} + 2x^{\prime} + x} &amp; = &amp; {4e^{\text{−}t}} \\ {2Ae^{\text{−}t} - 4Ate^{\text{−}t} + At^{2}e^{\text{−}t} + 2\left( {2Ate^{\text{−}t} - At^{2}e^{\text{−}t}} \right) + At^{2}e^{\text{−}t}} &amp; = &amp; {4e^{\text{−}t}} \\ {2Ae^{\text{−}t}} &amp; = &amp; {4e^{\text{−}t}.} \end{array}$$</equation>
+            <equation>$$A = 2,$$</equation>
+            <equation>$$x_{p}(t) = 2t^{2}e^{\text{−}t}$$</equation>
+            <equation>$$x(t) = c_{1}e^{\text{−}t} + c_{2}te^{\text{−}t} + 2t^{2}e^{\text{−}t}.$$</equation>
+          </item>
+          <item>The complementary equation iswhich has the general solution(step 1). Based on the formour initial guess for the particular solution is(step 2). None of the terms insolve the complementary equation, so this is a valid guess (step 3). We now want to find values forandso we substituteinto the differential equation. We haveandso we want to find values ofandsuch thatTherefore,This givesandso(step 4). Putting everything together, we have the general solution<equation>$$y^{''} - 2y^{\prime} + 5y = 0,$$</equation>
+            <equation>$$c_{1}e^{x}\text{cos}\mspace{2mu} 2x + c_{2}e^{x}\text{sin}\mspace{2mu} 2x$$</equation>
+            <equation>$$r(x) = 10x^{2} - 3x - 3,$$</equation>
+            <equation>$$y_{p}(x) = Ax^{2} + Bx + C$$</equation>
+            <equation>$$y_{p}(x)$$</equation>
+            <equation>$$A,$$</equation>
+            <equation>$$B,$$</equation>
+            <equation>$$C,$$</equation>
+            <equation>$$y_{p}$$</equation>
+            <equation>$$y_{p}{}^{\prime}(x) = 2Ax + B$$</equation>
+            <equation>$$y_{p}{}\text{''}(x) = 2A,$$</equation>
+            <equation>$$A,$$</equation>
+            <equation>$$B,$$</equation>
+            <equation>$$C$$</equation>
+            <equation>$$\begin{array}{rll} {y^{''} - 2y^{\prime} + 5y} &amp; = &amp; {10x^{2} - 3x - 3} \\ {2A - 2\left( {2Ax + B} \right) + 5\left( {Ax^{2} + Bx + C} \right)} &amp; = &amp; {10x^{2} - 3x - 3} \\ {5Ax^{2} + \left( {5B - 4A} \right)x + \left( {5C - 2B + 2A} \right)} &amp; = &amp; {10x^{2} - 3x - 3.} \end{array}$$</equation>
+            <equation>$$\begin{array}{rll} {5A} &amp; = &amp; 10 \\ {5B - 4A} &amp; = &amp; -3 \\ {5C - 2B + 2A} &amp; = &amp; {-3.} \end{array}$$</equation>
+            <equation>$$A = 2,$$</equation>
+            <equation>$$B = 1,$$</equation>
+            <equation>$$C = -1,$$</equation>
+            <equation>$$y_{p}(x) = 2x^{2} + x - 1$$</equation>
+            <equation>$$y(x) = c_{1}e^{x}\text{cos}\mspace{2mu} 2x + c_{2}e^{x}\text{sin}\mspace{2mu} 2x + 2x^{2} + x - 1.$$</equation>
+          </item>
+          <item>The complementary equation iswhich has the general solution(step 1). Based on the formour initial guess for the particular solution is(step 2). However, we see that the constant term in this guess solves the complementary equation, so we must multiply bywhich gives a new guess:(step 3). Checking this new guess, we see that none of the terms insolve the complementary equation, so this is a valid guess (step 3 again). We now want to find values forandso we substituteinto the differential equation. We haveandso we want to find values ofandsuch thatTherefore,This givesandso(step 4). Putting everything together, we have the general solution<equation>$$y^{''} - 3y^{\prime} = 0,$$</equation>
+            <equation>$$c_{1}e^{3t} + c_{2}$$</equation>
+            <equation>$$r(t) = -12t,$$</equation>
+            <equation>$$y_{p}(t) = At + B$$</equation>
+            <equation>$$t,$$</equation>
+            <equation>$$y_{p}(t) = At^{2} + Bt$$</equation>
+            <equation>$$y_{p}(t)$$</equation>
+            <equation>$$A$$</equation>
+            <equation>$$B,$$</equation>
+            <equation>$$y_{p}$$</equation>
+            <equation>$$y_{p}{}^{\prime}(t) = 2At + B$$</equation>
+            <equation>$$y_{p}{}\text{''}(t) = 2A,$$</equation>
+            <equation>$$A$$</equation>
+            <equation>$$B$$</equation>
+            <equation>$$\begin{array}{rll} {y^{''} - 3y^{\prime}} &amp; = &amp; {-12t} \\ {2A - 3\left( {2At + B} \right)} &amp; = &amp; {-12t} \\ {- 6At + \left( {2A - 3B} \right)} &amp; = &amp; {-12t\text{.}} \end{array}$$</equation>
+            <equation>$$\begin{array}{rll} {-6A} &amp; = &amp; -12 \\ {2A - 3B} &amp; = &amp; {0.} \end{array}$$</equation>
+            <equation>$$A = 2$$</equation>
+            <equation>$$B = {4\text{/}3},$$</equation>
+            <equation>$$y_{p}(t) = 2t^{2} + \left( {4\text{/}3} \right)t$$</equation>
+            <equation>$$y(t) = c_{1}e^{3t} + c_{2} + 2t^{2} + \frac{4}{3}t\text{.}$$</equation>
+          </item>
+        </list>
+      </solution>
+    </example>
+    <checkpoint number="7.12">
+      <problem>
+        <p>Find the general solution to the following differential equations.</p>
+        <list type="ol" style="a">
+          <item>$$y^{''} - 5y^{\prime} + 4y = 3e^{x}$$</item>
+          <item>$$y^{''} + y^{\prime} - 6y = 52\mspace{2mu}\text{cos}\mspace{2mu} 2t$$</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="a">
+          <item>$$y(x) = c_{1}e^{4x} + c_{2}e^{x} - xe^{x}$$</item>
+          <item>$$y(t) = c_{1}e^{-3t} + c_{2}e^{2t} - 5\mspace{2mu}\text{cos}\mspace{2mu} 2t + \text{sin}\mspace{2mu} 2t$$</item>
+        </list>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="Variation of Parameters">
+    <p>Sometimes, $$r(x)$$ is not a combination of polynomials, exponentials, or sines and cosines. When this is the case, the method of undetermined coefficients does not work, and we have to use another approach to find a particular solution to the differential equation. We use an approach called the method of variation of parameters.</p>
+    <p>To simplify our calculations a little, we are going to divide the differential equation through by $$a,$$ so we have a leading coefficient of 1. Then the differential equation has the form</p>
+    <equation>$$y^{''} + py^{\prime} + qy = r(x),$$</equation>
+    <p>where $$p$$ and $$q$$ are constants.</p>
+    <p>If the general solution to the complementary equation is given by $$c_{1}y_{1}(x) + c_{2}y_{2}(x),$$ we are going to look for a particular solution of the form $$y_{p}(x) = u(x)y_{1}(x) + v(x)y_{2}(x\text{).}$$ In this case, we use the two linearly independent solutions to the complementary equation to form our particular solution. However, we are assuming the coefficients are functions of x, rather than constants. We want to find functions $$u(x)$$ and $$v(x)$$ such that $$y_{p}(x)$$ satisfies the differential equation. We have</p>
+    <equation>$$\begin{array}{rll} y_{p} &amp; = &amp; {uy_{1} + vy_{2}} \\ {y_{p}{}^{\prime}} &amp; = &amp; {u^{\prime}y_{1} + uy_{1}{}^{\prime} + v^{\prime}y_{2} + vy_{2}{}^{\prime}} \\ {y_{p}\text{''}} &amp; = &amp; {\left( {u^{\prime}y_{1} + v^{\prime}y_{2}} \right)^{\prime} + u^{\prime}y_{1}{}^{\prime} + uy_{1}\text{''} + v^{\prime}y_{2}{}^{\prime} + vy_{2}{\text{''}\text{.}}} \end{array}$$</equation>
+    <p>Substituting into the differential equation, we obtain</p>
+    <equation>$$\begin{array}{cl} {y_{p}\text{''} + py_{p}{}^{\prime} + qy_{p}} &amp; {= \left\lbrack {\left( {u^{\prime}y_{1} + v^{\prime}y_{2}} \right)^{\prime} + u^{\prime}y_{1}{}^{\prime} + uy_{1}\text{''} + v^{\prime}y_{2}{}^{\prime} + vy_{2}\text{''}} \right\rbrack} \\ &amp; {\qquad + p\left\lbrack {u^{\prime}y_{1} + uy_{1}{}^{\prime} + v^{\prime}y_{2} + vy_{2}{}^{\prime}} \right\rbrack + q\left\lbrack {uy_{1} + vy_{2}} \right\rbrack} \\ &amp; {= u\left\lbrack {y_{1}\text{''} + py_{1}{}^{\prime} + qy_{1}} \right\rbrack + v\left\lbrack {y_{2}\text{''} + py_{2}{}^{\prime} + qy_{2}} \right\rbrack} \\ &amp; {\qquad + \left( {u^{\prime}y_{1} + v^{\prime}y_{2}} \right)^{\prime} + p\left( {u^{\prime}y_{1} + v^{\prime}y_{2}} \right) + {\left( {u^{\prime}y_{1}{}^{\prime} + v^{\prime}y_{2}{}^{\prime}} \right).}} \end{array}$$</equation>
+    <p>Note that $$y_{1}$$ and $$y_{2}$$ are solutions to the complementary equation, so the first two terms are zero. Thus, we have</p>
+    <equation>$$\left( {u^{\prime}y_{1} + v^{\prime}y_{2}} \right)^{\prime} + p\left( {u^{\prime}y_{1} + v^{\prime}y_{2}} \right) + \left( {u^{\prime}y_{1}{}^{\prime} + v^{\prime}y_{2}{}^{\prime}} \right) = r(x\text{).}$$</equation>
+    <p>If we simplify this equation by imposing the additional condition $$u^{\prime}y_{1} + v^{\prime}y_{2} = 0,$$ the first two terms are zero, and this reduces to $$u^{\prime}y_{1}{}^{\prime} + v^{\prime}y_{2}{}^{\prime} = r(x\text{).}$$ So, with this additional condition, we have a system of two equations in two unknowns:</p>
+    <equation>$$\begin{array}{rll} {u^{\prime}y_{1} + v^{\prime}y_{2}} &amp; = &amp; 0 \\ {u^{\prime}y_{1}{}^{\prime} + v^{\prime}y_{2}{}^{\prime}} &amp; = &amp; {r(x\text{).}} \end{array}$$</equation>
+    <p>Solving this system gives us $$u^{\prime}$$ and $$v^{\prime},$$ which we can integrate to find u and v.</p>
+    <p>Then, $$y_{p}(x) = u(x)y_{1}(x) + v(x)y_{2}(x)$$ is a particular solution to the differential equation. Solving this system of equations is sometimes challenging, so let’s take this opportunity to review Cramer’s rule, which allows us to solve the system of equations using determinants.</p>
+    <note type="Rule" title="Cramer’s Rule">
+      <p>The system of equations</p>
+      <equation>$$\begin{array}{rll} {a_{1}z_{1} + b_{1}z_{2}} &amp; = &amp; r_{1} \\ {a_{2}z_{1} + b_{2}z_{2}} &amp; = &amp; r_{2} \end{array}$$</equation>
+      <p>has a unique solution if and only if the determinant of the coefficients is not zero. In this case, the solution is given by</p>
+      <equation>$$z_{1} = \frac{\left| \begin{array}{ll} r_{1} &amp; b_{1} \\ r_{2} &amp; b_{2} \end{array} \right|}{\left| \begin{array}{ll} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{array} \right|}\qquad\text{and}\qquad z_{2} = \frac{\left| \begin{array}{ll} a_{1} &amp; r_{1} \\ a_{2} &amp; r_{2} \end{array} \right|}{\left| \begin{array}{ll} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{array} \right|}.$$</equation>
+    </note>
+    <example number="7.15">
+      <problem>
+        <title>Using Cramer’s Rule</title>
+        <p>Use Cramer’s rule to solve the following system of equations.</p>
+        <equation>$$\begin{array}{rll} {x^{2}z_{1} + 2xz_{2}} &amp; = &amp; 0 \\ {z_{1} - 3x^{2}z_{2}} &amp; = &amp; {2x} \end{array}$$</equation>
+      </problem>
+      <solution>
+        <p>We have</p>
+        <equation>$$\begin{array}{rll} &amp; &amp; \\ &amp; &amp; \\ {a_{1}(x)} &amp; = &amp; x^{2} \\ {a_{2}(x)} &amp; = &amp; 1 \\ {b_{1}(x)} &amp; = &amp; {2x} \\ {b_{2}(x)} &amp; = &amp; {-3x^{2}} \\ {r_{1}(x)} &amp; = &amp; 0 \\ {r_{2}(x)} &amp; = &amp; {2x\text{.}} \end{array}$$</equation>
+        <p>Then,</p>
+        <equation>$$\left| \begin{array}{ll} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{array} \right| = \left| \begin{array}{ll} x^{2} &amp; {\mspace{14mu}{2x}} \\ 1 &amp; {-3x^{2}} \end{array} \right| = -3x^{4} - 2x$$</equation>
+        <p>and</p>
+        <equation>$$\left| \begin{array}{ll} r_{1} &amp; b_{1} \\ r_{2} &amp; b_{2} \end{array} \right| = \left| \begin{array}{ll} 0 &amp; {\mspace{14mu}{2x}} \\ {2x} &amp; {-3x^{2}} \end{array} \right| = 0 - 4x^{2} = -4x^{2}.$$</equation>
+        <p>Thus,</p>
+        <equation>$$z_{1} = \frac{\left| \begin{array}{ll} r_{1} &amp; b_{1} \\ r_{2} &amp; b_{2} \end{array} \right|}{\left| \begin{array}{ll} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{array} \right|} = \frac{-4x^{2}}{-3x^{4} - 2x} = \frac{4x}{3x^{3} + 2}.$$</equation>
+        <p>In addition,</p>
+        <equation>$$\left| \begin{array}{ll} a_{1} &amp; r_{1} \\ a_{2} &amp; r_{2} \end{array} \right| = \left| \begin{array}{ll} x^{2} &amp; 0 \\ 1 &amp; {2x} \end{array} \right| = 2x^{3} - 0 = 2x^{3}.$$</equation>
+        <p>Thus,</p>
+        <equation>$$z_{2} = \frac{\left| \begin{array}{ll} a_{1} &amp; r_{1} \\ a_{2} &amp; r_{2} \end{array} \right|}{\left| \begin{array}{ll} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{array} \right|} = \frac{2x^{3}}{-3x^{4} - 2x} = \frac{-2x^{2}}{3x^{3} + 2}.$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="7.13">
+      <problem>
+        <p>Use Cramer’s rule to solve the following system of equations.</p>
+        <equation>$$\begin{array}{rll} {2xz_{1} - 3z_{2}} &amp; = &amp; 0 \\ {x^{2}z_{1} + 4xz_{2}} &amp; = &amp; {x + 1} \end{array}$$</equation>
+      </problem>
+      <solution>
+        <p>$$z_{1} = \frac{3x + 3}{11x^{2}},$$ $$z_{2} = \frac{2x + 2}{11x}$$</p>
+      </solution>
+    </checkpoint>
+    <note type="Problem-Solving Strategy">
+      <list type="ol" style="1">
+        <item>Solve the complementary equation and write down the general solution<equation>$$c_{1}y_{1}(x) + c_{2}y_{2}(x\text{).}$$</equation>
+        </item>
+        <item>Use Cramer’s rule or another suitable technique to find functionsandsatisfying<equation>$$u^{\prime}(x)$$</equation>
+          <equation>$$v^{\prime}(x)$$</equation>
+          <equation>$$\begin{array}{rll} {u^{\prime}y_{1} + v^{\prime}y_{2}} &amp; = &amp; 0 \\ {u^{\prime}y_{1}{}^{\prime} + v^{\prime}y_{2}{}^{\prime}} &amp; = &amp; {r(x\text{).}} \end{array}$$</equation>
+        </item>
+        <item>Integrate $$u^{\prime}$$ and $$v^{\prime}$$ to find $$u(x)$$ and $$v(x\text{).}$$ Then, $$y_{p}(x) = u(x)y_{1}(x) + v(x)y_{2}(x)$$ is a particular solution to the equation.</item>
+        <item>Add the general solution to the complementary equation and the particular solution found in step 3 to obtain the general solution to the nonhomogeneous equation.</item>
+      </list>
+    </note>
+    <example number="7.16">
+      <problem>
+        <title>Using the Method of Variation of Parameters</title>
+        <p>Find the general solution to the following differential equations.</p>
+        <list type="ol" style="a">
+          <item>$$y^{''} - 2y^{\prime} + y = \frac{e^{t}}{t^{2}}$$</item>
+          <item>$$y^{''} + y = 3\mspace{2mu}\text{sin}^{2}x$$</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="a">
+          <item>The complementary equation iswith associated general solutionTherefore,andCalculating the derivatives, we getand(step 1). Then, we want to find functionsandso thatApplying Cramer’s rule, we haveandIntegrating, we getThen we haveTheterm is a solution to the complementary equation, so we don’t need to carry that term into our general solution explicitly. The general solution is<equation>$$y^{''} - 2y^{\prime} + y = 0$$</equation>
+            <equation>$$c_{1}e^{t} + c_{2}te^{t}.$$</equation>
+            <equation>$$y_{1}(t) = e^{t}$$</equation>
+            <equation>$$y_{2}(t) = te^{t}.$$</equation>
+            <equation>$$y_{1}{}^{\prime}(t) = e^{t}$$</equation>
+            <equation>$$y_{2}{}^{\prime}(t) = e^{t} + te^{t}$$</equation>
+            <equation>$$u^{\prime}(t)$$</equation>
+            <equation>$$v^{\prime}(t)$$</equation>
+            <equation>$$\begin{array}{rll} {u^{\prime}e^{t} + v^{\prime}te^{t}} &amp; = &amp; 0 \\ {u^{\prime}e^{t} + v^{\prime}\left( {e^{t} + te^{t}} \right)} &amp; = &amp; {\frac{e^{t}}{t^{2}}.} \end{array}$$</equation>
+            <equation>$$u^{\prime} = \frac{\left| \begin{array}{lc} 0 &amp; {te^{t}} \\ \frac{e^{t}}{t^{2}} &amp; {e^{t} + te^{t}} \end{array} \right|}{\left| \begin{array}{lc} e^{t} &amp; {te^{t}} \\ e^{t} &amp; {e^{t} + te^{t}} \end{array} \right|} = \frac{0 - te^{t}\left( \frac{e^{t}}{t^{2}} \right)}{e^{t}\left( {e^{t} + te^{t}} \right) - e^{t}te^{t}} = \frac{- \frac{e^{2t}}{t}}{e^{2t}} = - \frac{1}{t}$$</equation>
+            <equation>$$v^{\prime} = \frac{\left| \begin{array}{ll} e^{t} &amp; 0 \\ e^{t} &amp; \frac{e^{t}}{t^{2}} \end{array} \right|}{\left| \begin{array}{lc} e^{t} &amp; {te^{t}} \\ e^{t} &amp; {e^{t} + te^{t}} \end{array} \right|} = \frac{e^{t}\left( \frac{e^{t}}{t^{2}} \right)}{e^{2t}} = \frac{1}{t^{2}}\ \text{(step 2).}$$</equation>
+            <equation>$$\begin{array}{l} \\ \\ {u = \text{−}\left. \int{\frac{1}{t}dt} \right. = \text{−}\text{ln}|t|} \\ {v = \left. \int\frac{1}{t^{2}} \right.dt = - \frac{1}{t}\ \text{(step 3).}} \end{array}$$</equation>
+            <equation>$$\begin{array}{cl} y_{p} &amp; {= \text{−}e^{t}\text{ln}|t| - \frac{1}{t}te^{t}} \\ &amp; {= \text{−}e^{t}\text{ln}|t| - e^{t}\ \text{(step 4).}} \end{array}$$</equation>
+            <equation>$$e^{t}$$</equation>
+            <equation>$$y(t) = c_{1}e^{t} + c_{2}te^{t} - e^{t}\text{ln}|t|\ \text{(step 5).}$$</equation>
+          </item>
+          <item>The complementary equation iswith associated general solutionSo,and(step 1). Then, we want to find functionsandsuch thatApplying Cramer’s rule, we haveandIntegrating first to find, we getNow, we integrate to find. Using substitution (with), we getThen,The general solution is<equation>$$y^{''} + y = 0$$</equation>
+            <equation>$$c_{1}\text{cos}\mspace{2mu} x + c_{2}\text{sin}\mspace{2mu} x\text{.}$$</equation>
+            <equation>$$y_{1}(x) = \text{cos}\mspace{2mu} x$$</equation>
+            <equation>$$y_{2}(x) = \text{sin}\mspace{2mu} x$$</equation>
+            <equation>$$u^{\prime}(x)$$</equation>
+            <equation>$$v^{\prime}(x)$$</equation>
+            <equation>$$\begin{array}{cll} {u^{\prime}\text{cos}\mspace{2mu} x + v^{\prime}\text{sin}\mspace{2mu} x} &amp; = &amp; 0 \\ {\text{−}u^{\prime}\text{sin}\mspace{2mu} x + v^{\prime}\text{cos}\mspace{2mu} x} &amp; = &amp; {3\mspace{2mu}\text{sin}^{2}x\text{.}} \end{array}$$</equation>
+            <equation>$$u^{\prime} = \frac{\left| \begin{array}{cl} 0 &amp; {\text{sin}\mspace{2mu} x} \\ {3\mspace{2mu}\text{sin}^{2}x} &amp; {\text{cos}\mspace{2mu} x} \end{array} \right|}{\left| \begin{array}{ll} {\text{cos}\mspace{2mu} x} &amp; {\text{sin}\mspace{2mu} x} \\ {\text{−}\text{sin}\mspace{2mu} x} &amp; {\text{cos}\mspace{2mu} x} \end{array} \right|} = \frac{0 - 3\mspace{2mu}\text{sin}^{3}x}{\text{cos}^{2}x + \text{sin}^{2}x} = -3\mspace{2mu}\text{sin}^{3}x$$</equation>
+            <equation>$$v^{\prime} = \frac{\left| \begin{array}{lc} {\text{cos}\mspace{2mu} x} &amp; 0 \\ {\text{−}\text{sin}\mspace{2mu} x} &amp; {3\mspace{2mu}\text{sin}^{2}x} \end{array} \right|}{\left| \begin{array}{ll} {\text{cos}\mspace{2mu} x} &amp; {\text{sin}\mspace{2mu} x} \\ {\text{−}\text{sin}\mspace{2mu} x} &amp; {\text{cos}\mspace{2mu} x} \end{array} \right|} = \frac{3\mspace{2mu}\text{sin}^{2}x\mspace{2mu}\text{cos}\mspace{2mu} x}{1} = 3\mspace{2mu}\text{sin}^{2}x\mspace{2mu}\text{cos}\mspace{2mu} x\ \text{(step 2).}$$</equation>
+            <equation>$$u = {\int{-3\mspace{2mu}\text{sin}^{3}x}}dx = -3\left\lbrack {\text{−}\frac{1}{3}\text{sin}^{2}x\mspace{2mu}\text{cos}\mspace{2mu} x + \frac{2}{3}{\int{\text{sin}\mspace{2mu} x}}dx} \right\rbrack = \text{sin}^{2}x\mspace{2mu}\text{cos}\mspace{2mu} x + 2\mspace{2mu}\text{cos}\mspace{2mu} x\text{.}$$</equation>
+            <equation>$$w = \text{sin}\mspace{2mu} x$$</equation>
+            <equation>$$v = {\int{3\mspace{2mu}\text{sin}^{2}x\mspace{2mu}\text{cos}\mspace{2mu} xdx}} = {\int 3}w^{2}dw = w^{3} = \text{sin}^{3}x\text{.}$$</equation>
+            <equation>$$\begin{array}{cl} y_{p} &amp; {= \left( {\text{sin}^{2}x\mspace{2mu}\text{cos}\mspace{2mu} x + 2\mspace{2mu}\text{cos}\mspace{2mu} x} \right)\mspace{2mu}\text{cos}\mspace{2mu} x + \left( {\text{sin}^{3}x} \right)\mspace{2mu}\text{sin}\mspace{2mu} x} \\ &amp; {= \text{sin}^{2}x\mspace{2mu}\text{cos}^{2}x + 2\mspace{2mu}\text{cos}^{2}x + \text{sin}^{4}x} \\ &amp; {= 2\mspace{2mu}\text{cos}^{2}x + \text{sin}^{2}x\left( {\text{cos}^{2}x + \text{sin}^{2}x} \right)\qquad\text{(step 3).}} \\ &amp; {= 2\mspace{2mu}\text{cos}^{2}x + \text{sin}^{2}x} \\ &amp; {= \text{cos}^{2}x + 1} \end{array}$$</equation>
+            <equation>$$y(x) = c_{1}\text{cos}\mspace{2mu} x + c_{2}\text{sin}\mspace{2mu} x + 1 + \text{cos}^{2}x\ \text{(step 4).}$$</equation>
+          </item>
+        </list>
+      </solution>
+    </example>
+    <checkpoint number="7.14">
+      <problem>
+        <p>Find the general solution to the following differential equations.</p>
+        <list type="ol" style="a">
+          <item>$$y^{''} + y = \text{sec}\mspace{2mu} x$$</item>
+          <item>$$x^{''} - 2x^{\prime} + x = \frac{e^{t}}{t}$$</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="a">
+          <item>$$y(x) = c_{1}\text{cos}\mspace{2mu} x + c_{2}\text{sin}\mspace{2mu} x + \text{cos}\mspace{2mu} x\mspace{2mu}\text{ln}\left| {\text{cos}\mspace{2mu} x} \right| + x\mspace{2mu}\text{sin}\mspace{2mu} x$$</item>
+          <item>$$x(t) = c_{1}e^{t} + c_{2}te^{t} + te^{t}\text{ln}|t|$$</item>
+        </list>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <exercises title="Section 7.2 Exercises">
+    <instruction>Solve the following equations using the method of undetermined coefficients.</instruction>
+    <exercise number="54" has_solution="false">
+      <problem>
+        <p>$$2y^{''} - 5y^{\prime} - 12y = 6$$</p>
+      </problem>
+    </exercise>
+    <exercise number="55" has_solution="true">
+      <problem>
+        <p>$$3y^{''} + y^{\prime} - 4y = 8$$</p>
+      </problem>
+      <solution>
+        <p>$$y = c_{1}e^{-4x\text{/}3} + c_{2}e^{x} - 2$$</p>
+      </solution>
+    </exercise>
+    <exercise number="56" has_solution="false">
+      <problem>
+        <p>$$y^{''} - 6y^{\prime} + 5y = e^{\text{−}x}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="57" has_solution="true">
+      <problem>
+        <p>$$y^{''} + 16y = e^{-2x}$$</p>
+      </problem>
+      <solution>
+        <p>$$y = c_{1}\text{cos}\mspace{2mu} 4x + c_{2}\text{sin}\mspace{2mu} 4x + \frac{1}{20}e^{-2x}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="58" has_solution="false">
+      <problem>
+        <p>$$y^{''} - 4y = x^{2} + 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="59" has_solution="true">
+      <problem>
+        <p>$$y^{''} - 4y^{\prime} + 4y = 8x^{2} + 4x$$</p>
+      </problem>
+      <solution>
+        <p>$$y = c_{1}e^{2x} + c_{2}xe^{2x} + 2x^{2} + 5x + 4$$</p>
+      </solution>
+    </exercise>
+    <exercise number="60" has_solution="false">
+      <problem>
+        <p>$$y^{''} - 2y^{\prime} - 3y = \text{sin}\mspace{2mu} 2x$$</p>
+      </problem>
+    </exercise>
+    <exercise number="61" has_solution="true">
+      <problem>
+        <p>$$y^{''} + 2y^{\prime} + y = \text{sin}\mspace{2mu} x + \text{cos}\mspace{2mu} x$$</p>
+      </problem>
+      <solution>
+        <p>$$y = c_{1}e^{\text{−}x} + c_{2}xe^{\text{−}x} + \frac{1}{2}\mspace{2mu}\text{sin}\mspace{2mu} x - \frac{1}{2}\mspace{2mu}\text{cos}\mspace{2mu} x$$</p>
+      </solution>
+    </exercise>
+    <exercise number="62" has_solution="false">
+      <problem>
+        <p>$$y^{''} + 9y = e^{x}\text{cos}\mspace{2mu} x$$</p>
+      </problem>
+    </exercise>
+    <exercise number="63" has_solution="true">
+      <problem>
+        <p>$$y^{''} + y = 3\mspace{2mu}\text{sin}\mspace{2mu} 2x + x\mspace{2mu}\text{cos}\mspace{2mu} 2x$$</p>
+      </problem>
+      <solution>
+        <p>$$y = c_{1}\text{cos}\mspace{2mu} x + c_{2}\text{sin}\mspace{2mu} x - \frac{1}{3}x\mspace{2mu}\text{cos}\mspace{2mu} 2x - \frac{5}{9}\mspace{2mu}\text{sin}\mspace{2mu} 2x$$</p>
+      </solution>
+    </exercise>
+    <exercise number="64" has_solution="false">
+      <problem>
+        <p>$$y^{''} + 3y^{\prime} - 28y = 10e^{4x}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="65" has_solution="true">
+      <problem>
+        <p>$$y^{''} + 10y^{\prime} + 25y = xe^{-5x} + 4$$</p>
+      </problem>
+      <solution>
+        <p>$$y = c_{1}e^{-5x} + c_{2}xe^{-5x} + \frac{1}{6}x^{3}e^{-5x} + \frac{4}{25}$$</p>
+      </solution>
+    </exercise>
+    <instruction>In each of the following problems, a. Write the form for the particular solution $$y_{p}(x)$$ for the method of undetermined coefficients. b. [T] Use a computer algebra system to find a particular solution to the given equation.</instruction>
+    <exercise number="66" has_solution="false">
+      <problem>
+        <p>$$y^{''} - y^{\prime} - y = x + e^{\text{−}x}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="67" has_solution="true">
+      <problem>
+        <p>$$y^{''} - 3y = x^{2} - 4x + 11$$</p>
+      </problem>
+      <solution>
+        <p>a. $$y_{p}(x) = Ax^{2} + Bx + C$$b. $$y_{p}(x) = - \frac{1}{3}x^{2} + \frac{4}{3}x - \frac{35}{9}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="68" has_solution="false">
+      <problem>
+        <p>$$y^{''} - y^{\prime} - 4y = e^{x}\text{cos}\mspace{2mu} 3x$$</p>
+      </problem>
+    </exercise>
+    <exercise number="69" has_solution="true">
+      <problem>
+        <p>$$2y^{''} - y^{\prime} + y = \left( {x^{2} - 5x} \right)e^{\text{−}x}$$</p>
+      </problem>
+      <solution>
+        <p>a. $$y_{p}(x) = \left( {Ax^{2} + Bx + C} \right)e^{\text{−}x}$$b. $$y_{p}(x) = \left( {\frac{1}{4}x^{2} - \frac{5}{8}x - \frac{33}{32}} \right)e^{\text{−}x}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="70" has_solution="false">
+      <problem>
+        <p>$$4y^{''} + 5y^{\prime} - 2y = e^{2x} + x\mspace{2mu}\text{sin}\mspace{2mu} x$$</p>
+      </problem>
+    </exercise>
+    <exercise number="71" has_solution="true">
+      <problem>
+        <p>$$y^{''} - y^{\prime} - 2y = x^{2}e^{x}\text{sin}\mspace{2mu} x$$</p>
+      </problem>
+      <solution>
+        <p>a. $$y_{p}(x) = \left( {Ax^{2} + Bx + C} \right)e^{x}\text{cos}\mspace{2mu} x$$ $$+ \left( {Dx^{2} + Ex + F} \right)e^{x}\text{sin}\mspace{2mu} x$$b. $$y_{p}(x) = \left( {- \frac{1}{10}x^{2} - \frac{11}{25}x - \frac{27}{250}} \right)e^{x}\text{cos}\mspace{2mu} x$$ $$+ \left( {- \frac{3}{10}x^{2} + \frac{2}{25}x + \frac{39}{250}} \right)e^{x}\text{sin}\mspace{2mu} x$$</p>
+      </solution>
+    </exercise>
+    <instruction>Solve the differential equation using either the method of undetermined coefficients or the variation of parameters.</instruction>
+    <exercise number="72" has_solution="false">
+      <problem>
+        <p>$$y^{''} + 3y^{\prime} - 4y = 2e^{x}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="73" has_solution="true">
+      <problem>
+        <p>$$y^{''} + 2y^{\prime} = e^{3x}$$</p>
+      </problem>
+      <solution>
+        <p>$$y = c_{1} + c_{2}e^{-2x} + \frac{1}{15}e^{3x}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="74" has_solution="false">
+      <problem>
+        <p>$$y^{''} + 6y^{\prime} + 9y = e^{\text{−}x}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="75" has_solution="true">
+      <problem>
+        <p>$$y^{''} + 2y^{\prime} - 8y = 6e^{2x}$$</p>
+      </problem>
+      <solution>
+        <p>$$y = c_{1}e^{2x} + c_{2}e^{-4x} + xe^{2x}$$</p>
+      </solution>
+    </exercise>
+    <instruction>Solve the differential equation using the method of variation of parameters.</instruction>
+    <exercise number="76" has_solution="false">
+      <problem>
+        <p>$$4y^{''} + y = 2\mspace{2mu}\text{sin}\mspace{2mu} x$$</p>
+      </problem>
+    </exercise>
+    <exercise number="77" has_solution="true">
+      <problem>
+        <p>$$y^{''} - 9y = 8x$$</p>
+      </problem>
+      <solution>
+        <p>$$y = c_{1}e^{3x} + c_{2}e^{-3x} - \frac{8x}{9}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="78" has_solution="false">
+      <problem>
+        <p>$$y^{''} + y = \text{sec}\mspace{2mu} x,\qquad 0 &lt; x &lt; \pi\text{/}2$$</p>
+      </problem>
+    </exercise>
+    <exercise number="79" has_solution="true">
+      <problem>
+        <p>$$y^{''} + 4y = 3\mspace{2mu}\text{csc}\mspace{2mu} 2x,\quad 0 &lt; x &lt; \pi\text{/}2$$</p>
+      </problem>
+      <solution>
+        <p>$$y = c_{1}\text{cos}\mspace{2mu} 2x + c_{2}\text{sin}\mspace{2mu} 2x - \frac{3}{2}x\mspace{2mu}\text{cos}\mspace{2mu} 2x + \frac{3}{4}\mspace{2mu}\text{sin}\mspace{2mu} 2x\mspace{2mu}\text{ln}\mspace{2mu}(\text{sin}\mspace{2mu} 2x)$$</p>
+      </solution>
+    </exercise>
+    <instruction>Find the unique solution satisfying the differential equation and the initial conditions given, where $$y_{p}(x)$$ is the particular solution.</instruction>
+    <exercise number="80" has_solution="false">
+      <problem>
+        <p>$$y^{''} - 2y^{\prime} + y = 12e^{x},$$ $$\text{y}_{p}(x) = 6x^{2}e^{x},$$ $$y(0) = 6,\ \ y\prime(0) = 0$$</p>
+      </problem>
+    </exercise>
+    <exercise number="81" has_solution="true">
+      <problem>
+        <p>$$y^{''} - 7y^{\prime} = 4xe^{7x},$$ $$y_{p}(x) = \frac{2}{7}x^{2}e^{7x} - \frac{4}{49}xe^{7x},$$ $$y(0) = -1,\ \ y\prime(0) = 0$$</p>
+      </problem>
+      <solution>
+        <p>$$y = - \frac{347}{343} + \frac{4}{343}e^{7x} + \frac{2}{7}x^{2}e^{7x} - \frac{4}{49}xe^{7x}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="82" has_solution="false">
+      <problem>
+        <p>$$y^{''} + y = \text{cos}\mspace{2mu} x - 4\mspace{2mu}\text{sin}\mspace{2mu} x,$$ $$y_{p}(x) = 2x\mspace{2mu}\text{cos}\mspace{2mu} x + \frac{1}{2}x\mspace{2mu}\text{sin}\mspace{2mu} x,$$ $$y(0) = 8,\ \ y\prime(0) = -4$$</p>
+      </problem>
+    </exercise>
+    <exercise number="83" has_solution="true">
+      <problem>
+        <p>$$y^{''} - 5y^{\prime} = e^{5x} + 8e^{-5x},$$ $$y_{p}(x) = \frac{1}{5}xe^{5x} + \frac{4}{25}e^{-5x},$$ $$y(0) = -2,\ \ y\prime(0) = 0$$</p>
+      </problem>
+      <solution>
+        <p>$$y = - \frac{57}{25} + \frac{3}{25}e^{5x} + \frac{1}{5}xe^{5x} + \frac{4}{25}e^{-5x}$$</p>
+      </solution>
+    </exercise>
+    <instruction>In each of the following problems, two linearly independent solutions—$$y_{1}$$ and $$y_{2}$$—are given that satisfy the corresponding homogeneous equation. Use the method of variation of parameters to find a particular solution to the given nonhomogeneous equation. Assume x &gt; 0 in each exercise.</instruction>
+    <exercise number="84" has_solution="false">
+      <problem>
+        <p>$$x^{2}y^{''} + 2xy^{\prime} - 2y = 3x,$$ $$y_{1}(x) = x,\quad y_{2}(x) = x^{-2}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="85" has_solution="true">
+      <problem>
+        <p>$$x^{2}y^{''} - 2y = 10x^{2} - 1,$$ $$y_{1}(x) = x^{2},\quad y_{2}(x) = x^{-1}$$</p>
+      </problem>
+      <solution>
+        <p>$$y_{p} = \frac{1}{2} + \frac{10}{3}x^{2}\text{ln}\mspace{2mu} x$$</p>
+      </solution>
+    </exercise>
+  </exercises>
+</section>
