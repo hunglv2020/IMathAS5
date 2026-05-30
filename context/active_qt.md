@@ -1,13 +1,13 @@
 # active_qt.md
 
-List các question template đang active trong session này.
-Agent đọc file này khi bắt đầu để biết đang làm việc với `qt-{id}` nào.
+List of question templates active in this session.
+Agent reads this file at the start to know which `qt-{id}` is being worked on.
 
-Nếu file trống hoặc không có id nào được đánh dấu → agent hỏi user.
+If the file is empty or no id is marked → agent asks the user.
 
 ---
 
 ## Active
 
-<!-- Ghi id của question đang làm việc vào đây. Ví dụ: qt-227006 -->
+<!-- Write the id of the question being worked on here. Example: qt-227006 -->
 
