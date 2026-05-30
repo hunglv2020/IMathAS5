@@ -1,0 +1,1365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch09" chapter_number="9" section="unit_02" section_number="2">
+  <section number="9.2" title="Direction Fields and Euler’s Method">
+    <figure>
+      <credit>Copyright © Cengage Learning. All Rights Reserved</credit>
+    </figure>
+    <content>
+      <paragraph>
+        Unfortunately, it’s impossible to solve most differential equations in the sense of obtaining an explicit formula for the solution. In this section we show that, despite the absence of an explicit solution, we can still learn a lot about the solution through a graphical approach (direction fields) or a numerical approach (Euler’s method).
+      </paragraph>
+    </content>
+  </section>
+  <subsection title="Direction Fields">
+    <paragraph>
+      Suppose we are asked to sketch the graph of the solution of the initial-value problem
+    </paragraph>
+    <paragraph>
+      <math display="block">$${y^{\prime} = x + y}\qquad{y(0) = 1}$$</math>
+    </paragraph>
+    <paragraph>
+      We don’t know a formula for the solution, so how can we possibly sketch its graph? Let’s think about what the differential equation means. The equation <math display="inline">$$y^{\prime} = x + y$$</math> tells us that the slope at any point <math display="inline">$$\left( {x,y} \right)$$</math> on the graph (called the <em>solution curve</em>) is equal to the sum of the <math display="inline">$$x$$</math>- and <math display="inline">$$y$$</math>-coordinates of the point (see Figure 1). In particular, because the curve passes through the point <math display="inline">$$\left( {0,1} \right)$$</math> , its slope there must be <math display="inline">$$0 + 1 = 1$$</math> . So a small portion of the solution curve near the point <math display="inline">$$\left( {0,1} \right)$$</math> looks like a short line segment through <math display="inline">$$\left( {0,1} \right)$$</math> with slope <math display="inline">$$1$$</math> . (See Figure 2.)
+    </paragraph>
+    <figure number="1" caption="A solution of y ′ = x + y">
+      <alt_text>A curve is graphed on the x y coordinate plane. The curve enters the viewing window from the top-left of the second quadrant, goes down and to the right concave up, and crosses the y axis at a point. It then enters the first quadrant, goes up and to the right concave up, and exits from the top-right of the first quadrant, near the y axis. A tangent line intersects the curve in the second quadrant at a point labeled: Slope at (x_1, y_1) is x_1 + y_1. Another tangent line intersects the curve in the first quadrant at a point labeled: Slope at (x_2, y_2) is x_2 + y_2.</alt_text>
+    </figure>
+    <figure number="2" caption="Beginning of the solution curve through ( 0 , 1 )">
+      <alt_text>A short line segment is graphed on the x y coordinate plane. The line segment begins from the second quadrant, passes through (0, 1), and points to the top right in the first quadrant. Slope at (0, 1) is 0 + 1 = 1.</alt_text>
+    </figure>
+    <paragraph>
+      As a guide to sketching the rest of the curve, let’s draw short line segments at a number of points <math display="inline">$$\left( {x,y} \right)$$</math> with slope <math display="inline">$$x + y$$</math> . The result is called a <em>direction field</em> and is shown in Figure 3. For instance, the line segment at the point <math display="inline">$$\left( {1,2} \right)$$</math> has slope <math display="inline">$$1 + 2 = 3$$</math> . The direction field allows us to visualize the general shape of the solution curves by indicating the direction in which the curves proceed at each point.
+    </paragraph>
+    <figure number="3" caption="Direction field for y ′ = x + y">
+      <alt_text>A direction field is graphed on the x y coordinate plane. The direction field lines are short line segments that appear to follow the following pattern. From the first quadrant, lines are sloping toward the second and fourth quadrants. From the fourth quadrant, lines are sloping toward the second quadrant via the third quadrant. From the third quadrant, lines are sloping toward the second quadrant. In the second quadrant, lines are sloping toward the top left.</alt_text>
+    </figure>
+    <paragraph>
+      Now we can sketch the solution curve through the point <math display="inline">$$\left( {0,1} \right)$$</math> by following the direction field as in Figure 4. Notice that we have drawn the curve so that it is parallel to nearby line segments.
+    </paragraph>
+    <figure number="4" caption="The solution curve through ( 0 , 1 )">
+      <alt_text>A direction field and a curve are graphed on the x y coordinate plane. The direction field lines are short line segments that appear to follow the following pattern. From the first quadrant, lines are sloping toward the second and fourth quadrants. From the fourth quadrant, lines are sloping toward the second quadrant via the third quadrant. From the third quadrant, lines are sloping toward the second quadrant. In the second quadrant, lines are sloping toward the top left. The curve enters the viewing window from the top-left of the first quadrant, goes down and to the left concave up, and passes through the point (0, 1). It then enters the second quadrant, goes down, and reaches the low point. It then goes up and to the left concave up, and exits from the top-left of the second quadrant.</alt_text>
+    </figure>
+    <paragraph>
+      In general, suppose we have a first-order differential equation of the form
+    </paragraph>
+    <paragraph>
+      <math display="block">$$y^{\prime} = F(x,y)$$</math>
+    </paragraph>
+    <paragraph>
+      where <math display="inline">$$F(x,y)$$</math> is some expression in <math display="inline">$$x$$</math> and <math display="inline">$$y$$</math> . The differential equation says that the slope of a solution curve at a point <math display="inline">$$(x,y)$$</math> on the curve is <math display="inline">$$F(x,y)$$</math> . If we draw short line segments with slope <math display="inline">$$F(x,y)$$</math> at several points <math display="inline">$$(x,y)$$</math> , the result is called a <strong>direction field</strong> (or <strong>slope field</strong>). These line segments indicate the direction in which a solution curve is heading, so the direction field helps us visualize the general shape of these curves.
+    </paragraph>
+    <example number="1">
+      <problem>
+        <list ordered="false">
+          <item>
+            <paragraph>
+              Sketch the direction field for the differential equation <math display="inline">$$y^{\prime} = x^{2} + y^{2} - 1$$</math> .
+            </paragraph>
+          </item>
+          <item>
+            <paragraph>
+              Use part (a) to sketch the solution curve that passes through the origin.
+            </paragraph>
+          </item>
+        </list>
+        <paragraph>
+          Solution
+        </paragraph>
+        <list ordered="false">
+          <item>
+            <paragraph>
+              We start by computing the slope at several points in the following table:
+            </paragraph>
+          </item>
+        </list>
+        <table>
+          <tbody>
+            <row>
+              <cell>
+              </cell>
+              <cell>
+                <paragraph>
+                  −2
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  −1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  0
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  2
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  −2
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  −1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  0
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  2
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  …
+                </paragraph>
+              </cell>
+            </row>
+            <row>
+              <cell>
+              </cell>
+              <cell>
+                <paragraph>
+                  0
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  0
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  0
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  0
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  0
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  …
+                </paragraph>
+              </cell>
+            </row>
+            <row>
+              <cell>
+              </cell>
+              <cell>
+                <paragraph>
+                  3
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  0
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  −1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  0
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  3
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  4
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  0
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  1
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  4
+                </paragraph>
+              </cell>
+              <cell>
+                <paragraph>
+                  …
+                </paragraph>
+              </cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>
+          Now we draw short line segments with these slopes at these points. The result is the direction field shown in Figure 5.
+        </paragraph>
+        <figure number="5">
+          <alt_text>A direction field is graphed on the x y coordinate plane. The x axis and y axis are displayed from negative 2 to 2 in increments of 1 unit. The direction field lines are short line segments that appear to follow the following pattern. From the first quadrant, lines are sloping toward the fourth and second quadrants. From the fourth quadrant, lines are passing through the origin and move toward the second quadrant. From the second quadrant, lines are sloping toward the third quadrant, and in the third quadrant, lines are sloping toward the bottom-left.</alt_text>
+        </figure>
+        <list ordered="false">
+          <item>
+            <paragraph>
+              We start at the origin and move to the right in the direction of the line segment (which has slope <math display="inline">$$- 1$$</math> ). We continue to draw the solution curve so that it moves parallel to the nearby line segments. The resulting solution curve is shown in Figure 6. Returning to the origin, we draw the solution curve to the left as well.
+            </paragraph>
+            <figure number="6">
+              <alt_text>“A direction field is graphed on the x y coordinate plane. The x axis is displayed from negative 2 to 2 in increments of 1 unit. The y axis is displayed from negative 2 to 2 in increments of 1 unit. The direction field lines are short line segments that appear to follow the following pattern. From the first quadrant, lines are sloping toward the fourth and second quadrant. From the fourth quadrant, lines are passing through the origin and moving toward the second quadrant. From the second quadrant, lines are sloping toward the third quadrant, and in the third quadrant, lines are sloping toward the bottom-left. The curve enters the third quadrant near the x axis, goes up and to the right, concave down, and crosses the x axis approximately at (negative 1.6, 0). It then enters the second quadrant, reaches a high point at (negative 1, 0.5), then goes down and to the right by passing through the origin, now concave up, and reaches a low point in the fourth quadrant approximately at (negative 0.5, 1). Again, it goes up and to the right by crossing the x axis approximately at (1.6, 0), and extends into the top right in the first quadrant.”</alt_text>
+            </figure>
+          </item>
+        </list>
+      </problem>
+    </example>
+    <paragraph>
+      The more line segments we draw in a direction field, the clearer the picture becomes. Of course, it’s tedious to compute slopes and draw line segments by hand for a huge number of points, but computers are well suited for this task. Figure 7 shows a more detailed, computer-drawn direction field for the differential equation in Example 1. It enables us to draw, with reasonable accuracy, the solution curves with <math display="inline">$$y$$</math>-intercepts <math display="inline">$$- 2$$</math> , <math display="inline">$$- 1$$</math> , <math display="inline">$$0$$</math> , <math display="inline">$$1$$</math> , and <math display="inline">$$2$$</math> .
+    </paragraph>
+    <figure number="7">
+      <alt_text>A direction field and 5 curves are graphed on a graphing calculator window screen. The x axis is displayed from negative 3 to 3 in increments of 1 unit. The y axis is displayed from negative 3 to 3 in increments of 1 unit. The direction field lines are short line segments that appear to follow the following pattern. From the first quadrant, lines are sloping toward the fourth and second quadrant. From the fourth quadrant, lines are passing through the origin and moving toward the second quadrant. From the second quadrant, lines are sloping toward the third quadrant, and in the third quadrant, lines are sloping toward the bottom-left. The first curve enters the third quadrant, goes up and to the right, crosses x axis at (negative 1.7, 0), concaves down, then concaves up, and crosses the y axis at (0, 2). It then enters the first quadrant, and exits the viewing window to the top of the first quadrant, near the y axis. The second curve lies below the first curve and initially coincides with the first curve. It enters the third quadrant, goes up and to the right, crosses x axis at (negative 1.7, 0), concaves down, then concaves up, veers away from the first curve, and crosses the y axis at (0, 1). It then enters the first quadrant, and exits the viewing window to the top of the first quadrant. The third curve lies below the second curve and initially almost coincides with the second curve. It enters the third quadrant, goes up and to the right, crosses x axis at (negative 1.7, 0), concaves down, crosses the origin, enters the fourth quadrant, then concaves up, and crosses the x axis at (1.5, 0). It then enters the first quadrant, goes up and to the right, concave up, and exits the viewing window to the top right of the first quadrant. The fourth curve lies below the third curve. It enters the third quadrant, goes up and to the right, concaves down, crosses y axis at (0, negative 1), enters the fourth quadrant, then concaves up, and crosses the x axis at (1.6, 0). It then enters the first quadrant, goes up and to the right, concave up, and exits the viewing window to the top right of the first quadrant, very close to the third curve. The fifth curve lies below the fourth curve. It enters the third quadrant near the negative y axis, goes up and to the right, crosses the y axis at (0, negative 2), enters the fourth quadrant, concaves up, crosses x axis at (1.6, 0). It then enters the first quadrant, goes up and to the right, concave up, coincides with the fourth curve, and exits the viewing window to the top right of the first quadrant.</alt_text>
+    </figure>
+    <paragraph>
+      Now let’s see how direction fields give insight into physical situations. The simple electric circuit shown in Figure 8 contains an electromotive force (usually a battery or generator) that produces a voltage of <math display="inline">$$E(t)$$</math> volts (V) and a current of <math display="inline">$$I(t)$$</math> amperes (A) at time <math display="inline">$$t$$</math> . The circuit also contains a resistor with a resistance of <math display="inline">$$R$$</math> ohms <math display="inline">$$(\Omega)$$</math> and an inductor with an inductance of <math display="inline">$$L$$</math> henries (H).
+    </paragraph>
+    <figure number="8">
+      <alt_text>A circuit diagram with a switch, a battery (E), a resistor, and an inductor. Open Switch at the bottom has one end connected to the battery at the left. The battery connects to the resistor, R at the top. The resistor connects to an inductor at the right. The inductor, L connects the other end of the switch and completes the circuit.</alt_text>
+    </figure>
+    <paragraph>
+      Ohm’s Law gives the drop in voltage due to the resistor as <math display="inline">$$\mathit{RI}$$</math> . The voltage drop due to the inductor is <math display="inline">$$L\left( dI\slash dt \right)$$</math> . One of Kirchhoff’s laws says that the sum of the voltage drops is equal to the supplied voltage <math display="inline">$$E(t)$$</math> . Thus we have
+    </paragraph>
+    <paragraph>
+      which is a first-order differential equation that models the current <math display="inline">$$I$$</math> at time <math display="inline">$$t$$</math> .
+    </paragraph>
+    <example number="2">
+      <problem>
+        <paragraph>
+          Suppose that in the simple circuit of Figure 8 the resistance is <math display="inline">$$12\Omega$$</math> , the inductance is <math display="inline">$$4$$</math> H, and a battery gives a constant voltage of <math display="inline">$$60$$</math> V.
+        </paragraph>
+        <list ordered="false">
+          <item>
+            <paragraph>
+              Draw a direction field for Equation 1 with these values.
+            </paragraph>
+          </item>
+          <item>
+            <paragraph>
+              What can you say about the limiting value of the current?
+            </paragraph>
+          </item>
+          <item>
+            <paragraph>
+              Identify any equilibrium solutions.
+            </paragraph>
+          </item>
+          <item>
+            <paragraph>
+              If the switch is closed when <math display="inline">$$t = 0$$</math> so the current starts with <math display="inline">$$I(0) = 0$$</math> , use the direction field to sketch the solution curve.
+            </paragraph>
+          </item>
+        </list>
+        <paragraph>
+          Solution
+        </paragraph>
+        <list ordered="false">
+          <item>
+            <paragraph>
+              If we put <math display="inline">$$L = 4$$</math> , <math display="inline">$$R = 12$$</math> , and <math display="inline">$$E(t) = 60$$</math> in Equation 1, we get
+            </paragraph>
+          </item>
+        </list>
+        <paragraph>
+          <math display="block">$$4\frac{\mathit{dI}}{\mathit{dt}} + 12I = 60$$</math>
+        </paragraph>
+        <paragraph>
+          or
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\frac{\mathit{dI}}{\mathit{dt}} = 15 - 3I$$</math>
+        </paragraph>
+        <paragraph>
+          The direction field for this differential equation is shown in Figure 9.
+        </paragraph>
+        <figure number="9">
+          <alt_text>A direction field is graphed on the coordinate plane. The vertical axis represents I and the horizontal axis represents t. The t axis is displayed from 0 to 3 in increments of 1 unit. The I axis is displayed from 0 to 6 in increments of 2 units. The direction field lines are small line segments that appear to follow the following pattern. The lines at y = 5 are horizontal for all values of x. Below y = 5, lines are sloping upward and toward the right of the graph, and levels out at y = 5. Above y = 5, lines are sloping downward and toward the right of the graph, and levels out at y = 5.</alt_text>
+        </figure>
+        <list ordered="false">
+          <item>
+            <paragraph>
+              It appears from the direction field that all solutions approach the value <math display="inline">$$5$$</math> A, that is,
+            </paragraph>
+          </item>
+        </list>
+        <paragraph>
+          <math display="block">$$\lim\limits_{t\rightarrow\infty}I(t) = 5$$</math>
+        </paragraph>
+        <list ordered="false">
+          <item>
+            <paragraph>
+              From the direction field we see that the constant function <math display="inline">$$I(t) = 5$$</math> is an equilibrium solution. Indeed, we can verify this directly from the differential equation <math display="inline">$$\left. \mathit{dI}\slash\mathit{dt} = 15 - 3I \right.$$</math> . If <math display="inline">$$I(t) = 5$$</math> , then the left side is <math display="inline">$$\left. \mathit{dI}\slash\mathit{dt} = 0 \right.$$</math> and the right side is <math display="inline">$$15 - 3(5) = 0$$</math> .
+            </paragraph>
+          </item>
+          <item>
+            <paragraph>
+              We use the direction field to sketch the solution curve that passes through <math display="inline">$$(0,0)$$</math> , as shown in red in Figure 10.
+            </paragraph>
+          </item>
+        </list>
+        <figure number="10">
+          <alt_text>A direction field and 3 curves are graphed on the coordinate plane. The vertical axis represents I and the horizontal axis represents t. The t axis is displayed from 0 to 3 in increments of 1 unit. The I axis is displayed from 0 to 6 in increments of 2 units. The direction field lines are small line segments that appear to follow the following pattern. The lines at y = 5 are horizontal for all values of x. Below y = 5, lines are sloping upward and toward the right of the graph, and levels out at y = 5. Above y = 5, lines are sloping downward and toward the right of the graph, and levels out at y = 5. The first curve enters the viewing window from the origin, goes up and to the right, concave down, levels out approximately after (1.5, 5), and extends to the right of the graph. The second curve enters the viewing window at (1, 0), goes up and to the right, concave down, levels out approximately after (2.25, 5), coincides with the solution curve, and extends to the right of the graph. The third curve enters the viewing window at (2, 0), goes up and to the right, concave down, and veers towards the other two curves, to the right of the graph.</alt_text>
+        </figure>
+        <paragraph>
+          Recall that an equilibrium solution is a constant solution (its graph is a horizontal line).
+        </paragraph>
+      </problem>
+    </example>
+    <paragraph>
+      Notice from Figure 9 that the line segments along any horizontal line are parallel. That is because the independent variable <math display="inline">$$t$$</math> does not occur on the right side of the equation <math display="inline">$$I^{\prime} = 15 - 3I$$</math> . In general, a differential equation of the form
+    </paragraph>
+    <paragraph>
+      <math display="block">$$y^{\prime} = f(y)$$</math>
+    </paragraph>
+    <paragraph>
+      in which the independent variable is missing from the right side, is called <strong>autonomous</strong>. For such an equation, the slopes corresponding to two different points with the same <math display="inline">$$y$$</math>-coordinate must be equal. This means that if we know one solution to an autonomous differential equation, then we can obtain infinitely many others just by shifting the graph of the known solution to the right or left. In Figure 10 we have shown the solutions that result from shifting the solution curve of Example 2 one and two time units (namely, seconds) to the right. They correspond to closing the switch when <math display="inline">$$t = 1$$</math> or <math display="inline">$$t = 2$$</math> .
+    </paragraph>
+  </subsection>
+  <subsection title="Euler’s Method">
+    <paragraph>
+      The basic idea behind direction fields can be used to find numerical approximations to solutions of differential equations. We illustrate the method on the initial-value problem that we used to introduce direction fields:
+    </paragraph>
+    <paragraph>
+      <math display="block">$${y^{\prime} = x + y}\qquad{y(0) = 1}$$</math>
+    </paragraph>
+    <paragraph>
+      The differential equation tells us that <math display="inline">$$y^{\prime}(0) = 0 + 1 = 1$$</math> , so the solution curve has slope <math display="inline">$$1$$</math> at the point <math display="inline">$$(0,1)$$</math> . As a first approximation to the solution we could use the linear approximation <math display="inline">$$L(x) = x + 1$$</math> . In other words, we could use the tangent line at <math display="inline">$$(0,1)$$</math> as a rough approximation to the solution curve (see Figure 11).
+    </paragraph>
+    <figure number="11" caption="First Euler approximation">
+      <alt_text>Two curves are graphed on the x y coordinate plane. The x axis is displayed from 0 to 1. The first curve labeled solution curve begins at (0, 1), goes up and to the right, concave up, and continues to rise in the first quadrant. It exits the viewing window near the top right of the graph where value of x coordinate is 1. The second curve labeled y = L(x) lies below the solution curve. It also begins from (0, 1), and initially coincides with the solution curve. It then begins to veer away from the solution curve, goes slightly up and to the right, concave up, continues to rise, and exits where value of x coordinate is 1.</alt_text>
+    </figure>
+    <paragraph>
+      Euler’s idea was to improve on this approximation by proceeding only a short distance along this tangent line and then making a midcourse correction by changing direction as indicated by the direction field. Figure 12 shows what happens if we start out along the tangent line but stop when <math display="inline">$$x = 0.5$$</math> . (This horizontal distance traveled is called the <em>step size</em>.) Since <math display="inline">$$L(0.5) = 1.5$$</math> , we have <math display="inline">$$y(0.5) \approx 1.5$$</math> and we take <math display="inline">$$(0.5,1.5)$$</math> as the starting point for a new line segment. The differential equation tells us that <math display="inline">$$y^{\prime}(0.5) = 0.5 + 1.5 = 2$$</math> , so we use the linear function
+    </paragraph>
+    <paragraph>
+      <math display="block">$$y = 1.5 + 2(x - 0.5) = 2x + 0.5$$</math>
+    </paragraph>
+    <figure number="12" caption="Euler approximation with step size 0.5">
+      <alt_text>Two curves are graphed on the x y coordinate plane. The x axis is displayed from 0 to 1. The first curve begins at (0, 1), goes up and to the right, concave up, and continues to rise. It exits the viewing window near the top right of the graph where the value of the x coordinate is 1. The second curve lies below the first curve. It also begins from (0, 1) and initially coincides with the first curve. It then begins to veer away from the first curve, passes through (0.5, 1.5), goes up and to the right, concave up, and continues to rise. It exits the viewing window to the right where the value of the x coordinate is 1. A dotted line is drawn from (0.5, 1.5) on the curve to (0.5, 0).</alt_text>
+    </figure>
+    <paragraph>
+      as an approximation to the solution for <math display="inline">$$x &gt; 0.5$$</math> (the purple segment in Figure 12). If we decrease the step size from <math display="inline">$$0.5$$</math> to <math display="inline">$$0.25$$</math> , we get the better Euler approximation shown in Figure 13.
+    </paragraph>
+    <figure number="13" caption="Euler approximation with step size 0.25">
+      <alt_text>Two curves are graphed on the x y coordinate plane. The x axis is displayed from 0 to 1 in increments of 0.25. The first curve begins at (0, 1) goes up and to the right, concave up, and continues to rise. It exits the viewing window near the top right where the value of the x coordinate is 1. The second curve lies below the first curve, begins at (0, 1), and initially coincides with it. It follows the same trend as the first curve and passes through points where the value of x is 0.25, 0.5, and 0.75.</alt_text>
+    </figure>
+    <paragraph>
+      In general, Euler’s method says to start at the point given by the initial value and proceed in the direction indicated by the direction field. Stop after a short distance, look at the slope at the new location, and proceed in that direction. Keep stopping and changing direction according to the direction field. Euler’s method does not produce the exact solution to an initial-value problem—it gives approximations. But by decreasing the step size (and therefore increasing the number of midcourse corrections), we obtain successively better approximations to the exact solution. (Compare Figures 11, 12, and 13.)
+    </paragraph>
+    <paragraph>
+      For the general first-order initial-value problem <math display="inline">$$y^{\prime} = F(x,y)$$</math> , <math display="inline">$$y\left( x_{0} \right) = y_{0}$$</math> , our aim is to find approximate values for the solution at equally spaced numbers <math display="inline">$$x_{0},x_{1} = x_{0} + h,x_{2} = x_{1} + h,\ldots$$</math> , where <math display="inline">$$h$$</math> is the step size. The differential equation tells us that the slope at <math display="inline">$$\left( x_{0},y_{0} \right)$$</math> is <math display="inline">$$y^{\prime} = F\left( x_{0},y_{0} \right)$$</math> , so Figure 14 shows that the approximate value of the solution when <math display="inline">$$x = x_{1}$$</math> is
+    </paragraph>
+    <paragraph>
+      <math display="block">$$y_{1} = y_{0} + hF(x_{0},y_{0})$$</math>
+    </paragraph>
+    <paragraph>
+      Similarly,
+    </paragraph>
+    <paragraph>
+      <math display="block">$$y_{2} = y_{1} + hF(x_{1},y_{1})$$</math>
+    </paragraph>
+    <paragraph>
+      In general,
+    </paragraph>
+    <paragraph>
+      <math display="block">$$y_{n} = y_{n - 1} + hF(x_{n - 1},y_{n - 1})$$</math>
+    </paragraph>
+    <figure number="14">
+      <alt_text>A curve and a tangent line are graphed on the x y coordinate plane. The x axis has two markings: x_0 and x_1, in the order from left to right. The curve enters the second quadrant, crosses the y axis, goes up and to the right, concave up, and exits from the top-right of the graph in the first quadrant. The tangent line with a positive slope enters below the curve, goes up and to the right, intersects the curve exactly once at the point (x_0, y_0), and exits at a labeled point (x_1, y_1). This line has slope = F(x_0, y_0). Vertical lines from the points (x_0, y_0), and (x_1, y_1) extend to meet the x axis at x_0 and x_1. A horizontal line segment labeled h extends rightward from point (x_0, y_0) and meets the vertical line segment at x_1. Thus, a right triangle is formed below the tangent line, which has base labeled h, and the right vertical side labeled h F (x_0, y_0).</alt_text>
+    </figure>
+    <note title="Euler’s Method">
+      <paragraph>
+        Approximate values for the solution of the initial-value problem <math display="inline">$$y^{\prime} = F(x,y)$$</math> , <math display="inline">$$y\left( x_{0} \right) = y_{0}$$</math> , with step size <math display="inline">$$h$$</math> , at <math display="inline">$$x_{n} = x_{n - 1} + h$$</math> , are
+      </paragraph>
+    </note>
+    <example number="3">
+      <problem>
+        <paragraph>
+          Use Euler’s method with step size <math display="inline">$$0.1$$</math> to construct a table of approximate values for the solution of the initial-value problem
+        </paragraph>
+        <paragraph>
+          <math display="block">$${y^{\prime} = x + y}\qquad{y(0) = 1}$$</math>
+        </paragraph>
+        <paragraph>
+          Solution We are given that <math display="inline">$$h = 0.1$$</math> , <math display="inline">$$x_{0} = 0$$</math> , <math display="inline">$$y_{0} = 1$$</math> , and <math display="inline">$$F(x,y) = x + y$$</math> . So we have
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\begin{array}{rllllll}
+  y_{1} &amp; = &amp; y_{0} &amp; + &amp; {hF\left( x_{0},y_{0} \right)} &amp; = &amp; {1 + 0.1(0 + 1) = 1.1} \\
+  y_{2} &amp; = &amp; y_{1} &amp; + &amp; {hF\left( x_{1},y_{1} \right)} &amp; = &amp; {1.1 + 0.1(0.1 + 1.1) = 1.22} \\
+  y_{3} &amp; = &amp; y_{2} &amp; + &amp; {hF\left( x_{2},y_{2} \right)} &amp; = &amp; {1.22 + 0.1(0.2 + 1.22) = 1.362}
+  \end{array}$$</math>
+        </paragraph>
+        <paragraph>
+          This means that if <math display="inline">$$y(x)$$</math> is the exact solution, then <math display="inline">$$y(0.3) \approx 1.362$$</math> .
+        </paragraph>
+        <paragraph>
+          Proceeding with similar calculations, we get the values in the table:
+        </paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">n</cell>
+              <cell header="true">x n</cell>
+              <cell header="true">y</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>
+                1
+              </cell>
+              <cell>
+                0.1
+              </cell>
+              <cell>
+                1.100000
+              </cell>
+            </row>
+            <row>
+              <cell>
+                2
+              </cell>
+              <cell>
+                0.2
+              </cell>
+              <cell>
+                1.220000
+              </cell>
+            </row>
+            <row>
+              <cell>
+                3
+              </cell>
+              <cell>
+                0.3
+              </cell>
+              <cell>
+                1.362000
+              </cell>
+            </row>
+            <row>
+              <cell>
+                4
+              </cell>
+              <cell>
+                0.4
+              </cell>
+              <cell>
+                1.528200
+              </cell>
+            </row>
+            <row>
+              <cell>
+                5
+              </cell>
+              <cell>
+                0.5
+              </cell>
+              <cell>
+                1.721020
+              </cell>
+            </row>
+            <row>
+              <cell>
+                6
+              </cell>
+              <cell>
+                0.6
+              </cell>
+              <cell>
+                1.943122
+              </cell>
+            </row>
+            <row>
+              <cell>
+                7
+              </cell>
+              <cell>
+                0.7
+              </cell>
+              <cell>
+                2.197434
+              </cell>
+            </row>
+            <row>
+              <cell>
+                8
+              </cell>
+              <cell>
+                0.8
+              </cell>
+              <cell>
+                2.487178
+              </cell>
+            </row>
+            <row>
+              <cell>
+                9
+              </cell>
+              <cell>
+                0.9
+              </cell>
+              <cell>
+                2.815895
+              </cell>
+            </row>
+            <row>
+              <cell>
+                10
+              </cell>
+              <cell>
+                1.0
+              </cell>
+              <cell>
+                3.187485
+              </cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>
+          Computer software that produces numerical approximations to solutions of differential equations uses methods that are refinements of Euler’s method. Although Euler’s method is simple and not as accurate, it is the basic idea on which the more accurate methods are based.
+        </paragraph>
+      </problem>
+    </example>
+    <paragraph>
+      For a more accurate table of values in Example 3 we could decrease the step size. But for a large number of small steps the amount of computation is considerable and so we need to program a calculator or computer to carry out these calculations. The following table shows the results of applying Euler’s method with decreasing step size to the initial-value problem of Example 3.
+    </paragraph>
+    <paragraph>
+      Notice that the Euler estimates in the table below seem to be approaching limits, namely, the true values of <math display="inline">$$y(0.5)$$</math> and <math display="inline">$$y(1)$$</math> . Figure 15 shows graphs of the Euler approximations with step sizes <math display="inline">$$0.5$$</math> , <math display="inline">$$0.25$$</math> , <math display="inline">$$0.1$$</math> , <math display="inline">$$0.05$$</math> , <math display="inline">$$0.02$$</math> , <math display="inline">$$0.01$$</math> , and <math display="inline">$$0.005$$</math> . They are approaching the exact solution curve as the step size <math display="inline">$$h$$</math> approaches <math display="inline">$$0$$</math> .
+    </paragraph>
+    <figure number="15" caption="Euler approximation approaching the exact solution">
+      <alt_text>Seven curves are graphed on the x y coordinate plane. The x axis is displayed from 0 to 1 in increments of 0.5. All the curves begin from (0, 1) and exit the viewing window to the top right of the graph where the value of x coordinate is 1. The first 3 curves coincide go up and to the right, concave up, and continue to rise to the right in the first quadrant. The fourth curve follows the same trend and lies below the first 3 curves. It almost coincides with the first 3 curves, initially, and then begins to slightly veer away from them towards the exit. The fifth curve lies below the fourth curve and follows the same trend as the fourth curve. The sixth curve also coincides with the other curves initially, and soon veers away from the other curves, goes up and to the right, concave up, and continues to rise to the right in the first quadrant, just like other curves. The seventh curve lies below the sixth curve and follows the same trend as the sixth curve.</alt_text>
+    </figure>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Step size</cell>
+          <cell header="true">Euler estimate of y ( 0.5 )</cell>
+          <cell header="true">Euler estimate of y ( 1 )</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>
+            0.500
+          </cell>
+          <cell>
+            1.500000
+          </cell>
+          <cell>
+            2.500000
+          </cell>
+        </row>
+        <row>
+          <cell>
+            0.250
+          </cell>
+          <cell>
+            1.625000
+          </cell>
+          <cell>
+            2.882813
+          </cell>
+        </row>
+        <row>
+          <cell>
+            0.100
+          </cell>
+          <cell>
+            1.721020
+          </cell>
+          <cell>
+            3.187485
+          </cell>
+        </row>
+        <row>
+          <cell>
+            0.050
+          </cell>
+          <cell>
+            1.757789
+          </cell>
+          <cell>
+            3.306595
+          </cell>
+        </row>
+        <row>
+          <cell>
+            0.020
+          </cell>
+          <cell>
+            1.781212
+          </cell>
+          <cell>
+            3.383176
+          </cell>
+        </row>
+        <row>
+          <cell>
+            0.010
+          </cell>
+          <cell>
+            1.789264
+          </cell>
+          <cell>
+            3.409628
+          </cell>
+        </row>
+        <row>
+          <cell>
+            0.005
+          </cell>
+          <cell>
+            1.793337
+          </cell>
+          <cell>
+            3.423034
+          </cell>
+        </row>
+        <row>
+          <cell>
+            0.001
+          </cell>
+          <cell>
+            1.796619
+          </cell>
+          <cell>
+            3.433848
+          </cell>
+        </row>
+      </tbody>
+    </table>
+    <example number="4">
+      <problem>
+        <paragraph>
+          In Example 2 we discussed a simple electric circuit with resistance <math display="inline">$$12\Omega$$</math> , inductance <math display="inline">$$4$$</math> H, and a battery with voltage <math display="inline">$$60$$</math> V. If the switch is closed when <math display="inline">$$t = 0$$</math> , we modeled the current <math display="inline">$$I$$</math> at time <math display="inline">$$t$$</math> by the initial-value problem
+        </paragraph>
+        <paragraph>
+          <math display="block">$${\frac{\mathit{dI}}{\mathit{dt}} = 15 - 3I}\qquad{I(0) = 0}$$</math>
+        </paragraph>
+        <paragraph>
+          Estimate the current in the circuit half a second after the switch is closed.
+        </paragraph>
+        <paragraph>
+          Solution We use Euler’s method with <math display="inline">$$F(t,I) = 15 - 3I$$</math> , <math display="inline">$$t_{0} = 0$$</math> , <math display="inline">$$I_{0} = 0$$</math> , and step size <math display="inline">$$h = 0.1{second}$$</math> :
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\begin{array}{rll}
+  I_{1} &amp; = &amp; {0 + 0.1(15 - 3 \cdot 0) = 1.5} \\
+  I_{2} &amp; = &amp; {1.5 + 0.1(15 - 3 \cdot 1.5) = 2.55} \\
+  I_{3} &amp; = &amp; {2.55 + 0.1(15 - 3 \cdot 2.55) = 3.285} \\
+  I_{4} &amp; = &amp; {3.285 + 0.1(15 - 3 \cdot 3.285) = 3.7995} \\
+  I_{5} &amp; = &amp; {3.7995 + 0.1(15 - 3 \cdot 3.7995) = 4.15965}
+  \end{array}$$</math>
+        </paragraph>
+        <paragraph>
+          So the current after <math display="inline">$$0.5$$</math> s is
+        </paragraph>
+        <paragraph>
+          <math display="block">$$I(0.5) \approx 4.16A$$</math>
+        </paragraph>
+      </problem>
+    </example>
+    <note title="Euler">
+      <paragraph>
+        Leonhard Euler (1707–1783) was the leading mathematician of the mid-18th century and the most prolific mathematician of all time. He was born in Switzerland but spent most of his career at the academies of science supported by Catherine the Great in St. Petersburg and Frederick the Great in Berlin. The collected works of Euler (pronounced <em>Oiler</em>) fill about <math display="inline">$$100$$</math> large volumes. As the French physicist Arago said, “Euler calculated without apparent effort, as men breathe or as eagles sustain themselves in the air.” Euler’s calculations and writings were not diminished by raising <math display="inline">$$13$$</math> children or being totally blind for the last <math display="inline">$$17$$</math> years of his life. In fact, when blind, he dictated his discoveries to his helpers from his prodigious memory and imagination. His treatises on calculus and most other mathematical subjects became the standard for mathematics instruction and the equation <math display="inline">$$e^{ i\pi} + 1 = 0$$</math> that he discovered brings together the five most famous numbers in all of mathematics.
+      </paragraph>
+    </note>
+  </subsection>
+  <subsection number="9.2" title="Exercises">
+    <exercises>
+      <exercise_group>
+        <problem number="1">
+          <statement>
+            <paragraph>
+              A direction field for the differential equation <math display="inline">$$y^{\prime} = x\cos\pi y$$</math> is shown.
+            </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Sketch the graphs of the solutions that satisfy the given initial conditions.
+                </paragraph>
+                <list ordered="true">
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$y(0) = 0$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$y(0) = 0.5$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$y(0) = 1$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$y(0) = 1.6$$</math>
+                    </paragraph>
+                  </item>
+                </list>
+              </item>
+              <item>
+                <paragraph>
+                  Find all the equilibrium solutions.
+                </paragraph>
+                <figure>
+                  <alt_text>A direction field is graphed on the x y coordinate plane. The x axis is displayed from negative 2 to 2 in increments of 1 unit. The y axis is displayed from 0 to 2.0 in increments of 0.5 units. The direction field lines are small line segments that appear to follow the following pattern. At y = 1.5 and y = 0.5, lines are horizontal for the whole range of x axis. Above y = 1.5, in the first quadrant, lines are sloping downward and toward the second quadrant. Above y = 1.5, in the second quadrant, lines are sloping upward and toward the top-left. Between y = 1.5 and y = 0.5, in the first quadrant, lines are sloping upward and toward the second quadrant. Between y = 1.5 and y = 0.5, in the second quadrant, lines are sloping downward and toward the bottom-left. Below y = 0.5, in the first quadrant, lines are sloping upward and toward the right. Below y = 0.5, in the second quadrant, lines are sloping downward and toward the first quadrant.</alt_text>
+                </figure>
+                <paragraph>
+                  <math display="inline">$$y = 0.5$$</math> , <math display="inline">$$y = 1.5$$</math>
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="2">
+          <statement>
+            <paragraph>
+              A direction field for the differential equation <math display="inline">$$y^{\prime} = \tan\left( \frac{1}{2}\pi y \right)$$</math> is shown.
+            </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Sketch the graphs of the solutions that satisfy the given initial conditions.
+                </paragraph>
+                <list ordered="true">
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$y(0) = 1$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$y(0) = 0.2$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$y(0) = 2$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$y(1) = 3$$</math>
+                    </paragraph>
+                  </item>
+                </list>
+              </item>
+              <item>
+                <paragraph>
+                  Find all the equilibrium solutions.
+                </paragraph>
+                <figure>
+                  <alt_text>A direction field is graphed on the x y coordinate plane. The x axis is displayed from negative 2 to 2 in increments of 1 unit. The y axis is displayed from 0 to 4 in increments of 1 unit. The direction field lines are small line segments that appear to follow the following pattern. At y = 4 and y = 2, lines are horizontal for the whole range of the x axis. At y = 3 and y = 1, lines are almost vertical for the whole range of the x axis. Between y = 4 and y = 3, in the first quadrant, lines are sloping upward and toward the second quadrant. Between y = 4 and y = 3, in the second quadrant, lines are sloping upward and toward the top left. Between y = 3 and y = 2, in the first quadrant, lines are sloping upward and toward the right. Between y = 3 and y = 2, in the second quadrant, lines are sloping upward and toward the first quadrant. Between y = 2 and y = 1, in the first quadrant, lines are sloping upward and toward the second quadrant. Between y = 2 and y = 1, in the second quadrant, lines are sloping upward and toward the left. Between y = 1 and y = 0, in the first quadrant, lines are sloping upward and toward the top-right. Between y = 1 and y = 0, in the second quadrant, lines are sloping upward and toward the first quadrant.</alt_text>
+                </figure>
+              </item>
+            </list>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          3, 4, 5, and 6 Match the differential equation with its direction field (labeled I, II, III, and IV). Give reasons for your answer.
+        </instructions>
+      </exercise_group>
+      <exercise_group>
+        <problem number="3">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = 2 - y$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              III
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="4">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x(2 - y)$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="5">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x + y - 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              IV
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="6">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = \sin x\sin y$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <problem number="7">
+          <statement>
+            <paragraph>
+              Use the direction field labeled I (above) to sketch the graphs of the solutions that satisfy the given initial conditions.
+            </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  <math display="inline">$$y(0) = 1$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  <math display="inline">$$y(0) = 2.5$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  <math display="inline">$$y(0) = 3.5$$</math>
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="8">
+          <statement>
+            <paragraph>
+              Use the direction field labeled III (above) to sketch the graphs of the solutions that satisfy the given initial conditions.
+            </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  <math display="inline">$$y(0) = 1$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  <math display="inline">$$y(0) = 2.5$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  <math display="inline">$$y(0) = 3.5$$</math>
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          9–10 Sketch a direction field for the differential equation. Then use it to sketch three solution curves.
+        </instructions>
+        <problem number="9">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = \frac{1}{2}y$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+          </answer>
+        </problem>
+        <problem number="10">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x - y + 1$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          11, 12, 13, and 14  Sketch the direction field of the differential equation. Then use it to sketch a solution curve that passes through the given point.
+        </instructions>
+        <problem number="11">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = y - 2x$$</math> , <math display="inline">$$\quad(1,0)$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+          </answer>
+        </problem>
+        <problem number="12">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = xy - x^{2}$$</math> , <math display="inline">$$\quad(0,1)$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="13">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = y + xy$$</math> , <math display="inline">$$\quad(0,1)$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+          </answer>
+        </problem>
+        <problem number="14">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x + y^{2}$$</math> , <math display="inline">$$\quad(0,0)$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          15–16  Use a computer to draw a direction field for the given differential equation. Get a printout and sketch on it the solution curve that passes through <math display="inline">$$(0,1)$$</math> . Compare your sketch to a computer-drawn solution curve.
+        </instructions>
+        <problem number="15">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x^{2}y - \frac{1}{2}y^{2}$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+          </answer>
+        </problem>
+        <problem number="16">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = \cos(x + y)$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <problem number="17">
+          <statement>
+            <paragraph>
+              Use a computer to draw a direction field for the differential equation <math display="inline">$$y^{\prime} = y^{3} - 4y$$</math> . Get a printout and sketch on it solutions that satisfy the initial condition <math display="inline">$$y(0) = c$$</math> for various values of <math display="inline">$$c$$</math> . For what values of <math display="inline">$$c$$</math> does <math display="inline">$$\lim_{t\rightarrow\infty}y(t)$$</math> exist? What are the possible values for this limit?
+            </paragraph>
+          </statement>
+          <answer>
+            <figure>
+            </figure>
+            <paragraph>
+              <math display="inline">$$- 2 \leqslant c \leqslant 2$$</math> ; <math display="inline">$$- 2$$</math> , <math display="inline">$$0$$</math> , <math display="inline">$$2$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="18">
+          <statement>
+            <paragraph>
+              Make a rough sketch of a direction field for the autonomous differential equation <math display="inline">$$y^{\prime} = f(y)$$</math> , where the graph of <math display="inline">$$f$$</math> is as shown. How does the limiting behavior of solutions depend on the value of <math display="inline">$$y(0)$$</math> ?
+            </paragraph>
+            <figure>
+              <alt_text>A curve, which is symmetric about the vertical axis, is graphed on the coordinate plane. The horizontal axis is labeled y and the vertical axis is labeled f(y). The curve enters the second quadrant from the top left, goes down and to the right, concave up, crosses the x axis at (negative 2, 0), and reaches its low point. It then goes up and to the right and crosses the x axis at (negative 1, 0), now concave down, and reaches its high point on the y axis. The curve then mirrors its earlier path in the first quadrant. It then goes down and to the right in the first quadrant, crossing the x axis at (1, 0), now concave up, and reaches a low point in the fourth quadrant. It goes up and to the right in the fourth quadrant, crosses the x axis at (2, 0), now becomes concave down, and reaches its high point in the first quadrant.</alt_text>
+            </figure>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <problem number="19">
+          <statement>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Use Euler’s method with each of the following step sizes to estimate the value of <math display="inline">$$y(0.4)$$</math> , where <math display="inline">$$y$$</math> is the solution of the initial-value problem <math display="inline">$$y^{\prime} = y$$</math> , <math display="inline">$$y(0) = 1$$</math> .
+                </paragraph>
+                <list ordered="true">
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$h = 0.4$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$h = 0.2$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$h = 0.1$$</math>
+                    </paragraph>
+                  </item>
+                </list>
+                <list ordered="true">
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$1.4$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$1.44$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$1.4641$$</math>
+                    </paragraph>
+                  </item>
+                </list>
+              </item>
+              <item>
+                <paragraph>
+                  We know that the exact solution of the initial-value problem in part (a) is <math display="inline">$$y = e^{ x}$$</math> . Draw, as accurately as you can, the graph of <math display="inline">$$y = e^{ x}$$</math> , <math display="inline">$$0 \leqslant x \leqslant 0.4$$</math> , together with the Euler approximations using the step sizes in part (a). (Your sketches should resemble Figures 11, 12, and 13.) Use your sketches to decide whether your estimates in part (a) are underestimates or overestimates.
+                </paragraph>
+                <figure>
+                </figure>
+                <paragraph>
+                  Underestimates
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  The error in Euler’s method is the difference between the exact value and the approximate value. Find the errors made in part (a) in using Euler’s method to estimate the true value of <math display="inline">$$y(0.4)$$</math> , namely, <math display="inline">$$e^{0.4}$$</math> . What happens to the error each time the step size is halved?
+                </paragraph>
+                <list ordered="true">
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$0.0918$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$0.0518$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$0.0277$$</math>
+                    </paragraph>
+                  </item>
+                </list>
+                <paragraph>
+                  It appears that the error is also halved (approximately).
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="20">
+          <statement>
+            <paragraph>
+              A direction field for a differential equation is shown. Draw, with a ruler, the graphs of the Euler approximations to the solution curve that passes through the origin. Use step sizes <math display="inline">$$h = 1$$</math> and <math display="inline">$$h = 0.5$$</math> . Will the Euler estimates be underestimates or overestimates? Explain.
+            </paragraph>
+            <figure>
+              <alt_text>A direction field is graphed on the x y coordinate plane. The x axis and y axis are displayed from 0 to 2 in increments of 1. The direction field lines are short line segments that appear to follow the following pattern. The lines are arranged in a column for all values of y-axis at the following approximate values of x-axis: 0, 0.3, 0.6, 1, 1.3, 1.6, and 2. The lines are sloping upward and to the right.</alt_text>
+            </figure>
+          </statement>
+        </problem>
+        <problem number="21">
+          <statement>
+            <paragraph>
+              Use Euler’s method with step size <math display="inline">$$0.5$$</math> to compute the approximate <math display="inline">$$y$$</math>-values <math display="inline">$$y_{1}$$</math> , <math display="inline">$$y_{2}$$</math> , <math display="inline">$$y_{3}$$</math> , and <math display="inline">$$y_{4}$$</math> of the solution of the initial-value problem <math display="inline">$$y^{\prime} = y - 2x$$</math> , <math display="inline">$$y(1) = 0$$</math> .
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              <math display="inline">$$- 1$$</math> , <math display="inline">$$- 3$$</math> , <math display="inline">$$- 6.5$$</math> , <math display="inline">$$- 12.25$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="22">
+          <statement>
+            <paragraph>
+              Use Euler’s method with step size <math display="inline">$$0.2$$</math> to estimate <math display="inline">$$y(1)$$</math> , where <math display="inline">$$y(x)$$</math> is the solution of the initial-value problem <math display="inline">$$y^{\prime} = x^{2}y - \frac{1}{2}y^{2}$$</math> , <math display="inline">$$y(0) = 1$$</math> .
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="23">
+          <statement>
+            <paragraph>
+              Use Euler’s method with step size <math display="inline">$$0.1$$</math> to estimate <math display="inline">$$y(0.5)$$</math> , where <math display="inline">$$y(x)$$</math> is the solution of the initial-value problem <math display="inline">$$y^{\prime} = y + xy$$</math> , <math display="inline">$$y(0) = 1$$</math> .
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              <math display="inline">$$1.7616$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="24">
+          <statement>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Use Euler’s method with step size <math display="inline">$$0.2$$</math> to estimate <math display="inline">$$y(0.6)$$</math> , where <math display="inline">$$y(x)$$</math> is the solution of the initial-value problem <math display="inline">$$y^{\prime} = \cos(x + y)$$</math> , <math display="inline">$$y(0) = 0$$</math> .
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Repeat part (a) with step size <math display="inline">$$0.1$$</math> .
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="25">
+          <statement>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Program a calculator or computer to use Euler’s method to compute <math display="inline">$$y(1)$$</math> , where <math display="inline">$$y(x)$$</math> is the solution of the initial-value problem
+                </paragraph>
+                <paragraph>
+                  <math display="block">$${\frac{\mathit{dy}}{\mathit{dx}} + 3x^{2}y = 6x^{2}}\qquad{y(0) = 3}$$</math>
+                </paragraph>
+                <list ordered="true">
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$h = 1$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$h = 0.1$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$h = 0.01$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$h = 0.001$$</math>
+                    </paragraph>
+                  </item>
+                </list>
+                <list ordered="true">
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$3$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$2.3928$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$2.3701$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$2.3681$$</math>
+                    </paragraph>
+                  </item>
+                </list>
+              </item>
+              <item>
+                <paragraph>
+                  Verify that <math display="inline">$$y = 2 + e^{- x^{3}}$$</math> is the exact solution of the differential equation.
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Find the errors in using Euler’s method to compute <math display="inline">$$y(1)$$</math> with the step sizes in part (a). What happens to the error when the step size is divided by <math display="inline">$$10$$</math> ?
+                </paragraph>
+                <list ordered="true">
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$- 0.6321$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$- 0.0249$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$- 0.0022$$</math>
+                    </paragraph>
+                  </item>
+                  <item>
+                    <paragraph>
+                      <math display="inline">$$- 0.0002$$</math>
+                    </paragraph>
+                  </item>
+                </list>
+                <paragraph>
+                  It appears that the error is also divided by <math display="inline">$$10$$</math> (approximately).
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="26">
+          <statement>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Use Euler’s method with step size <math display="inline">$$0.01$$</math> to calculate <math display="inline">$$y(2)$$</math> , where <math display="inline">$$y$$</math> is the solution of the initial-value problem
+                </paragraph>
+                <paragraph>
+                  <math display="block">$${y^{\prime} = x^{3} - y^{3}}\qquad{y(0) = 1}$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Compare your answer to part (a) to the value of <math display="inline">$$y(2)$$</math> that appears on a computer-drawn solution curve.
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="27">
+          <statement>
+            <paragraph>
+              The figure shows a circuit containing an electromotive force, a capacitor with a capacitance of <math display="inline">$$C$$</math> farads (F), and a resistor with a resistance of <math display="inline">$$R$$</math> ohms <math display="inline">$$(\Omega)$$</math> . The voltage drop across the capacitor is <math display="inline">$$Q \slash C$$</math> , where <math display="inline">$$Q$$</math> is the charge (in coulombs, C), so in this case Kirchhoff’s Law gives
+            </paragraph>
+            <paragraph>
+              <math display="block">$$\mathit{RI} + \frac{Q}{C} = E(t)$$</math>
+            </paragraph>
+            <paragraph>
+              But <math display="inline">$$\left. I = \mathit{dQ}\slash\mathit{dt} \right.$$</math> , so we have
+            </paragraph>
+            <paragraph>
+              <math display="block">$$R\frac{\mathit{dQ}}{\mathit{dt}} + \frac{1}{C}Q = E(t)$$</math>
+            </paragraph>
+            <paragraph>
+              Suppose the resistance is <math display="inline">$$5\Omega$$</math> , the capacitance is <math display="inline">$$0.05$$</math> F, and a battery gives a constant voltage of <math display="inline">$$60$$</math> V.
+            </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Draw a direction field for this differential equation.
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  What is the limiting value of the charge?
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$3$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Is there an equilibrium solution?
+                </paragraph>
+                <paragraph>
+                  Yes, <math display="inline">$$Q = 3$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  If the initial charge is <math display="inline">$$Q(0) = 0C$$</math> , use the direction field to sketch the solution curve.
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  If the initial charge is <math display="inline">$$Q(0) = 0C$$</math> , use Euler’s method with step size <math display="inline">$$0.1$$</math> to estimate the charge after half a second.
+                </paragraph>
+                <figure>
+                  <alt_text>A circuit diagram with a switch, a battery (E), a resistor, and a capacitor. Open Switch at the bottom has one end connected to the battery at the left. The battery connects to the capacitor, C at the top. The capacitor connects to the resistor, R at the right. The resistor connects the other end of the switch and completes the circuit.</alt_text>
+                </figure>
+                <paragraph>
+                  <math display="inline">$$2.77$$</math> C
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="28">
+          <statement>
+            <paragraph>
+              In Exercise 9.1.26 we considered a <math display="inline">$$95{}_{}^{}$$</math> cup of coffee in a <math display="inline">$$20{}_{}^{}$$</math> room. Suppose it is known that the coffee cools at a rate of <math display="inline">$$1{}_{}^{}$$</math> per minute when its temperature is <math display="inline">$$70{}_{}^{}$$</math> .
+            </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  What does the differential equation become in this case?
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Sketch a direction field and use it to sketch the solution curve for the initial-value problem. What is the limiting value of the temperature?
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Use Euler’s method with step size <math display="inline">$$h = 2{minutes}$$</math> to estimate the temperature of the coffee after <math display="inline">$$10$$</math> minutes.
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+      </exercise_group>
+    </exercises>
+  </subsection>
+</section_file>

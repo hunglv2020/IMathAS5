@@ -1,0 +1,1282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch14" chapter_number="14" section="unit_08" section_number="8">
+  <section number="14.8" title="Lagrange Multipliers">
+    <content>
+      <paragraph>
+        In Example 14.7.6 we maximized a volume function <math display="inline">$$V = xyz$$</math> subject to the constraint <math display="inline">$$2xz + 2yz + xy = 12$$</math> , which expressed the side condition that the surface area was <math display="inline">$$12m^{2}$$</math> . In this section we present Lagrange’s method for maximizing or minimizing a general function <math display="inline">$$f{({x,y,z})}$$</math> subject to a constraint (or side condition) of the form <math display="inline">$$g{({x,y,z})} = k$$</math> .
+      </paragraph>
+    </content>
+  </section>
+  <subsection title="Lagrange Multipliers: One Constraint">
+    <paragraph>
+      First we explain the geometric basis of Lagrange’s method for functions of two variables. We start by trying to find the extreme values of <math display="inline">$$f{({x,y})}$$</math> subject to a constraint of the form <math display="inline">$$g{({x,y})} = k$$</math> . In other words, we seek the extreme values of <math display="inline">$$f{({x,y})}$$</math> when the point <math display="inline">$$({x,y})$$</math> is restricted to lie on the level curve <math display="inline">$$g{({x,y})} = k$$</math> . Figure 1 shows this curve together with several level curves of <math display="inline">$$f$$</math> . These have the equations <math display="inline">$$f{({x,y})} = c$$</math> , where <math display="inline">$$c = 7,8,9,10,11$$</math> . To maximize <math display="inline">$$f{({x,y})}$$</math> subject to <math display="inline">$$g{({x,y})} = k$$</math> is to find the largest value of <math display="inline">$$c$$</math> such that the level curve <math display="inline">$$f{({x,y})} = c$$</math> intersects <math display="inline">$$g{({x,y})} = k$$</math> . It appears from Figure 1 that this happens when these curves just touch each other, that is, when they have a common tangent line. (Otherwise, the value of <math display="inline">$$c$$</math> could be increased further.) This means that the normal lines at the point <math display="inline">$$({x_{0},y_{0}})$$</math> where they touch are identical. So the gradient vectors are parallel; that is, <math display="inline">$$\nabla f{({x_{0},y_{0}})} = \lambda\nabla g{({x_{0},y_{0}})}$$</math> for some scalar <math display="inline">$$\lambda$$</math> .
+    </paragraph>
+    <figure number="1">
+      <alt_text>A contour map, a curve, and a point are graphed in the x y coordinate plane. The contour map consists of a family of five curves. They enter from the top, go down slightly to the left, turn, and go down gradually to the right. The arc of the bottommost curve, nearest to the axes, is the longest while the one farthest away has the shortest arc. The curves are labeled, from the one closest to the axes to the farthest, f(x, y) = 7, f(x, y) = 8, f(x, y) = 9, f(x, y) = 10, and f(x, y) = 11. The curve, labeled g(x, y) = k, enters from the y axis, goes up to the right, slightly concave down, meets the curve f(x, y) = 10 at a marked point as it turns, descends almost linearly downward and slightly to the left and exits at the bottom as it crosses the x axis.</alt_text>
+    </figure>
+    <paragraph>
+      This kind of argument also applies to the problem of finding the extreme values of <math display="inline">$$f{({x,y,z})}$$</math> subject to the constraint <math display="inline">$$g{({x,y,z})} = k$$</math> . Thus the point <math display="inline">$$({x,y,z})$$</math> is restricted to lie on the level surface <math display="inline">$$S$$</math> with equation <math display="inline">$$g{({x,y,z})} = k$$</math> . Instead of the level curves in Figure 1, we consider the level surfaces <math display="inline">$$f{({x,y,z})} = c$$</math> and argue that if the maximum value of <math display="inline">$$f$$</math> is <math display="inline">$$f{({x_{0},y_{0},z_{0}})} = c$$</math> , then the level surface <math display="inline">$$f{({x,y,z})} = c$$</math> is tangent to the level surface <math display="inline">$$g{({x,y,z})} = k$$</math> and so the corresponding gradient vectors are parallel.
+    </paragraph>
+    <paragraph>
+      This intuitive argument can be made precise as follows. Suppose that a function <math display="inline">$$f$$</math> has an extreme value at a point <math display="inline">$$P{({x_{0},y_{0},z_{0}})}$$</math> on the surface <math display="inline">$$S$$</math> and let <math display="inline">$$C$$</math> be a curve with vector equation <math display="inline">$$\mathbf{r}{(t)} = {\langle{x{(t)},y{(t)},z{(t)}}\rangle}$$</math> that lies on <math display="inline">$$S$$</math> and passes through <math display="inline">$$P$$</math> . If <math display="inline">$$t_{0}$$</math> is the parameter value corresponding to the point <math display="inline">$$P$$</math> , then <math display="inline">$$\mathbf{r}{(t_{0})} = {\langle{x_{0},y_{0},z_{0}}\rangle}$$</math> . The composite function <math display="inline">$$h{(t)} = f{({x{(t)},y{(t)},z{(t)}})}$$</math> represents the values that <math display="inline">$$f$$</math> takes on the curve <math display="inline">$$C$$</math> . Since <math display="inline">$$f$$</math> has an extreme value at <math display="inline">$$({x_{0},y_{0},z_{0}})$$</math> , it follows that <math display="inline">$$h$$</math> has an extreme value at <math display="inline">$$t_{0}$$</math> , so <math display="inline">$$h^{\prime}{(t_{0})} = 0$$</math> . But if <math display="inline">$$f$$</math> is differentiable, we can use the Chain Rule to write
+    </paragraph>
+    <paragraph>
+      <math display="block">$$\begin{array}{l}
+  {0 = h^{\prime}{(t_{0})}} \\
+  {\phantom{0} = f_{x}{({x_{0},y_{0},z_{0}})}x^{\prime}{(t_{0})} + f_{y}{({x_{0},y_{0},z_{0}})}y^{\prime}{(t_{0})} + f_{z}{({x_{0},y_{0},z_{0}})}z^{\prime}{(t_{0})}} \\
+  {\phantom{0} = \nabla f{({x_{0},y_{0},z_{0}})} \cdot \mathbf{r}^{\prime}{(t_{0})}}
+  \end{array}$$</math>
+    </paragraph>
+    <paragraph>
+      This shows that the gradient vector <math display="inline">$$\nabla f{({x_{0},y_{0},z_{0}})}$$</math> is orthogonal to the tangent vector <math display="inline">$$\mathbf{r}^{\prime}{(t_{0})}$$</math> to every such curve <math display="inline">$$C$$</math> . But we already know from Section 14.6 that the gradient vector of <math display="inline">$$g$$</math> , <math display="inline">$$\nabla g{({x_{0},y_{0},z_{0}})}$$</math> , is also orthogonal to <math display="inline">$$\mathbf{r}^{\prime}{(t_{0})}$$</math> for every such curve (see Equation 14.6.18). This means that the gradient vectors <math display="inline">$$\nabla f{({x_{0},y_{0},z_{0}})}$$</math> and <math display="inline">$$\nabla g{({x_{0},y_{0},z_{0}})}$$</math> must be parallel. Therefore, if <math display="inline">$$\nabla g{({x_{0},y_{0},z_{0}})} \neq 0$$</math> , there is a number <math display="inline">$$\lambda$$</math> such that
+    </paragraph>
+    <paragraph>
+      The number <math display="inline">$$\lambda$$</math> in Equation 1 is called a <strong>Lagrange multiplier</strong>. The procedure based on Equation 1 is as follows.
+    </paragraph>
+    <note title="Method of Lagrange Multipliers">
+      <paragraph>
+        To find the maximum and minimum values of <math display="inline">$$f{({x,y,z})}$$</math> subject to the constraint <math display="inline">$$g{({x,y,z})} = k$$</math> [assuming that these extreme values exist and <math display="inline">$$\nabla g \neq 0$$</math> on the surface <math display="inline">$$g{({x,y,z})} = k$$</math> ]:
+      </paragraph>
+      <list ordered="false">
+        <item>
+          <paragraph>
+            Find all values of <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , <math display="inline">$$z$$</math> , and <math display="inline">$$\lambda$$</math> such that
+          </paragraph>
+        </item>
+      </list>
+      <paragraph>
+        and
+      </paragraph>
+      <list ordered="false">
+        <item>
+          <paragraph>
+            Evaluate <math display="inline">$$f$$</math> at all the points <math display="inline">$$({x,y,z})$$</math> that result from step 1. The largest of these values is the maximum value of <math display="inline">$$f$$</math> ; the smallest is the minimum value of <math display="inline">$$f$$</math> .
+          </paragraph>
+        </item>
+      </list>
+    </note>
+    <paragraph>
+      If we write the vector equation <math display="inline">$$\nabla f = \lambda\nabla g$$</math> in terms of components, then the equations in step 1 become
+    </paragraph>
+    <paragraph>
+      <math display="block">$$f_{x} = \lambda g_{x}\qquad f_{y} = \lambda g_{y}\qquad f_{z} = \lambda g_{z}\qquad g{({x,y,z})} = k$$</math>
+    </paragraph>
+    <paragraph>
+      This is a system of four equations in the four unknowns <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , <math display="inline">$$z$$</math> , and <math display="inline">$$\lambda$$</math> , and we must find <em>all</em> possible solutions (although the explicit values of <math display="inline">$$\lambda$$</math> are not needed for the conclusion of the method). If <math display="inline">$$x = x_{0}$$</math> , <math display="inline">$$y = y_{0}$$</math> , <math display="inline">$$z = z_{0}$$</math> is a solution to this system of equations and the corresponding value of <math display="inline">$$\lambda$$</math> is not <math display="inline">$$0$$</math> , then <math display="inline">$$\nabla f{({x_{0},y_{0},z_{0}})}$$</math> and <math display="inline">$$\nabla g{({x_{0},y_{0},z_{0}})}$$</math> are parallel (as we argued geometrically at the beginning of the section). If the value of <math display="inline">$$\lambda$$</math> is <math display="inline">$$0$$</math> , then <math display="inline">$$\nabla f{({x_{0},y_{0},z_{0}}) = 0}$$</math> and so <math display="inline">$$({x_{0},y_{0},z_{0}})$$</math> is a critical point of <math display="inline">$$f$$</math> . It follows that <math display="inline">$$f{({x_{0},y_{0},z_{0}})}$$</math> is a possible local extreme value of <math display="inline">$$f$$</math> on its domain, and hence also a possible extreme value of <math display="inline">$$f$$</math> subject to the given constraint (see Exercise 61).
+    </paragraph>
+    <paragraph>
+      For functions of two variables the method of Lagrange multipliers is similar to the method just described. To find the extreme values of <math display="inline">$$f{({x,y})}$$</math> subject to the constraint <math display="inline">$$g{({x,y})} = k$$</math> , we look for values of <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , and <math display="inline">$$\lambda$$</math> such that
+    </paragraph>
+    <paragraph>
+      <math display="block">$$\nabla f{({x,y})} = \lambda\nabla g{({x,y})}$$</math>
+    </paragraph>
+    <paragraph>
+      and
+    </paragraph>
+    <paragraph>
+      <math display="block">$$g{({x,y})} = k$$</math>
+    </paragraph>
+    <paragraph>
+      This amounts to solving three equations in three unknowns:
+    </paragraph>
+    <paragraph>
+      <math display="block">$$f_{x} = \lambda g_{x}\qquad f_{y} = \lambda g_{y}\qquad g{({x,y})} = k$$</math>
+    </paragraph>
+    <example number="1">
+      <problem>
+        <paragraph>
+          Find the extreme values of the function <math display="inline">$$f{({x,y})} = x^{2} + 2y^{2}$$</math> on the circle <math display="inline">$$x^{2} + y^{2} = 1$$</math> .
+        </paragraph>
+        <paragraph>
+          Solution We are asked for the extreme values of <math display="inline">$$f$$</math> subject to the constraint <math display="inline">$$g{({x,y})} = x^{2} + y^{2} = 1$$</math> . Using Lagrange multipliers, we solve the equations <math display="inline">$$\nabla f = \lambda\nabla g$$</math> and <math display="inline">$$g{({x,y})} = 1$$</math> , which can be written as
+        </paragraph>
+        <paragraph>
+          <math display="block">$${f_{x} = \lambda g_{x}}\qquad{f_{y} = \lambda g_{y}}\qquad{g{({x,y})} = 1}$$</math>
+        </paragraph>
+        <paragraph>
+          or as
+        </paragraph>
+        <paragraph>
+          <math display="block">$$2x = 2x\lambda$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$4y = 2y\lambda$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$x^{2} + y^{2} = 1$$</math>
+        </paragraph>
+        <paragraph>
+          From (2) we have <math display="inline">$$2x(1 - \lambda) = 0$$</math> , so <math display="inline">$$x = 0$$</math> or <math display="inline">$$\lambda = 1$$</math> . If <math display="inline">$$x = 0$$</math> , then (4) gives <math display="inline">$$y = \pm 1$$</math> . If <math display="inline">$$\lambda = 1$$</math> , then <math display="inline">$$y = 0$$</math> from (3), so then (4) gives <math display="inline">$$x = \pm 1$$</math> . Therefore <math display="inline">$$f$$</math> has possible extreme values at the points <math display="inline">$$({0,1})$$</math> , <math display="inline">$$({0, - 1})$$</math> , <math display="inline">$$({1,0})$$</math> , and <math display="inline">$$({- 1,0})$$</math> . Evaluating <math display="inline">$$f$$</math> at these four points, we find that
+        </paragraph>
+        <paragraph>
+          <math display="block">$${f{({0,1})} = 2}\qquad{f{({0, - 1})} = 2}\qquad{f{({1,0})} = 1}\qquad{f{({- 1,0})} = 1}$$</math>
+        </paragraph>
+        <paragraph>
+          Therefore the maximum value of <math display="inline">$$f$$</math> on the circle <math display="inline">$$x^{2} + y^{2} = 1$$</math> is <math display="inline">$$f{({0, \pm 1})} = 2$$</math> and the minimum value is <math display="inline">$$f{({\pm 1,0})} = 1$$</math> . In geometric terms, these correspond to the highest and lowest points on the curve <math display="inline">$$C$$</math> in Figure 2, where <math display="inline">$$C$$</math> consists of those points on the paraboloid <math display="inline">$$z = x^{2} + 2y^{2}$$</math> that are directly above the constraint circle <math display="inline">$$x^{2} + y^{2} = 1$$</math> .
+        </paragraph>
+        <figure number="2">
+          <alt_text>A paraboloid, a circle, and a curved ellipse are graphed in the x y z coordinate space. The positive x axis slopes down and to the left. The positive y axis slopes slightly down and to the right. The positive z axis runs vertically upward. The paraboloid, labeled z = x^2 + 2 y^2, opens upward and has its vertex at the origin. The curved ellipse, labeled C, is drawn as a trace on the surface of the paraboloid. The tapering ends are lifted upward and end with a point directly above the negative and positive y axis. The broad ends are lower and end with a point directly above the negative and positive x axis. A circle, labeled x^2 +y^2 = 1, with its center at the origin, lies on the x y plane, directly below the curved ellipse. There are four points on its circumference, where it crosses the x and y axes, directly below the points on the curved ellipse.</alt_text>
+        </figure>
+        <paragraph>
+          Figure 3 shows a contour map of <math display="inline">$$f$$</math> . The extreme values of <math display="inline">$$f{({x,y})} = x^{2} + 2y^{2}$$</math> correspond to the level curves of <math display="inline">$$f$$</math> that just touch the circle <math display="inline">$$x^{2} + y^{2} = 1$$</math> .
+        </paragraph>
+        <figure number="3">
+          <alt_text>A family of ellipses and a circle are graphed in the x y coordinate plane. The circle and the ellipses have their center at the origin. The circle is labeled x^2 + y^2 = 1. The family of ellipses are longer along the x axis. There are five ellipses and a dot at the origin. The second ellipse, counting from the innermost, is labeled f(x, y) = 1. The fourth ellipse, counting from the innermost, is labeled f(x, y) = 2.</alt_text>
+        </figure>
+        <paragraph>
+          Our next illustration of Lagrange’s method is to reconsider the problem given in Example 14.7.6.
+        </paragraph>
+      </problem>
+    </example>
+    <example number="2">
+      <problem>
+        <paragraph>
+          A rectangular box without a lid is to be made from <math display="inline">$$12m^{2}$$</math> of cardboard. Find the maximum volume of such a box.
+        </paragraph>
+        <paragraph>
+          Solution As in Example 14.7.6, we let <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , and <math display="inline">$$z$$</math> be the length, width, and height, respectively, of the box in meters. Then we wish to maximize
+        </paragraph>
+        <paragraph>
+          <math display="block">$$V = xyz$$</math>
+        </paragraph>
+        <paragraph>
+          subject to the constraint
+        </paragraph>
+        <paragraph>
+          <math display="block">$$g{({x,y,z})} = 2xz + 2yz + xy = 12$$</math>
+        </paragraph>
+        <paragraph>
+          Using the method of Lagrange multipliers, we look for values of <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , <math display="inline">$$z$$</math> , and <math display="inline">$$\lambda$$</math> such that <math display="inline">$$\nabla V = \lambda\nabla g$$</math> and <math display="inline">$$g{({x,y,z})} = 12$$</math> . This gives the equations
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\begin{array}{rcl}
+  V_{x} &amp; = &amp; {\lambda g_{x}} \\
+  V_{y} &amp; = &amp; {\lambda g_{y}} \\
+  V_{z} &amp; = &amp; {\lambda g_{z}}
+  \end{array}$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$2xz + 2yz + xy = 12$$</math>
+        </paragraph>
+        <paragraph>
+          which become
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\mathit{yz} = \lambda(2z + y)$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\mathit{xz} = \lambda(2z + x)$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\mathit{xy} = \lambda(2x + 2y)$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$2\mathit{xz} + 2\mathit{yz} + \mathit{xy} = 12$$</math>
+        </paragraph>
+        <paragraph>
+          There are no general rules for solving systems of equations. Sometimes some ingenuity is required. In the present example you might notice that if we multiply (5) by <math display="inline">$$x$$</math> , (6) by <math display="inline">$$y$$</math> , and (7) by <math display="inline">$$z$$</math> , then the left sides of these equations will be identical. Doing this, we have
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\mathit{xyz} = \lambda(2xz + xy)$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\mathit{xyz} = \lambda(2yz + xy)$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\mathit{xyz} = \lambda(2xz + 2yz)$$</math>
+        </paragraph>
+        <paragraph>
+          Another method for solving the system of equations (5, 6, 7, and 8) is to solve each of Equations 5, 6, and 7 for <math display="inline">$$\lambda$$</math> and then to equate the resulting expressions.
+        </paragraph>
+        <paragraph>
+          In general <math display="inline">$$\lambda$$</math> can be <math display="inline">$$0$$</math> , but here we observe that <math display="inline">$$\mathbf{\lambda} \neq 0$$</math> because <math display="inline">$$\mathbf{\lambda} = 0$$</math> would imply <math display="inline">$$yz = xz = xy = 0$$</math> from (5), (6), and (7) and this would contradict (8). Therefore, from (9) and (10), we have
+        </paragraph>
+        <paragraph>
+          <math display="block">$$2xz + xy = 2yz + xy$$</math>
+        </paragraph>
+        <paragraph>
+          which gives <math display="inline">$$xz = yz$$</math> . But <math display="inline">$$z \neq 0$$</math> (since <math display="inline">$$z = 0$$</math> would give <math display="inline">$$V = 0$$</math> ), so <math display="inline">$$x = y$$</math> . From (10) and (11) we have
+        </paragraph>
+        <paragraph>
+          <math display="block">$$2yz + xy = 2xz + 2yz$$</math>
+        </paragraph>
+        <paragraph>
+          which gives <math display="inline">$$2xz = xy$$</math> and so (since <math display="inline">$$x \neq 0$$</math> ) <math display="inline">$$y = 2z$$</math> . If we now put <math display="inline">$$x = y = 2z$$</math> in (8), we get
+        </paragraph>
+        <paragraph>
+          <math display="block">$$4z^{2} + 4z^{2} + 4z^{2} = 12$$</math>
+        </paragraph>
+        <paragraph>
+          Since <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , and <math display="inline">$$z$$</math> are all positive, we therefore have <math display="inline">$$z = 1$$</math> and so <math display="inline">$$x = 2$$</math> and <math display="inline">$$y = 2$$</math> . Thus we have only one point where <math display="inline">$$f$$</math> may have an extreme value; how do we know if this point corresponds to a maximum or minimum? As in Example 14.7.6, we argue that there must be a maximum volume, which must occur at the point we found.
+        </paragraph>
+      </problem>
+    </example>
+    <example number="3">
+      <problem>
+        <paragraph>
+          Find the points on the sphere <math display="inline">$$x^{2} + y^{2} + z^{2} = 4$$</math> that are closest to and farthest from the point <math display="inline">$$({3,1, - 1})$$</math> .
+        </paragraph>
+        <paragraph>
+          Solution The distance from a point <math display="inline">$$({x,y,z})$$</math> to the point <math display="inline">$$({3,1, - 1})$$</math> is
+        </paragraph>
+        <paragraph>
+          <math display="block">$$d = \sqrt{{({x - 3})}^{2} + {({y - 1})}^{2} + {({z + 1})}^{2}}$$</math>
+        </paragraph>
+        <paragraph>
+          but the algebra is simpler if we instead maximize and minimize the square of the distance:
+        </paragraph>
+        <paragraph>
+          <math display="block">$$d^{2} = f{({x,y,z})} = {({x - 3})}^{2} + {({y - 1})}^{2} + {({z + 1})}^{2}$$</math>
+        </paragraph>
+        <paragraph>
+          The constraint is that the point <math display="inline">$$({x,y,z})$$</math> lies on the sphere, that is,
+        </paragraph>
+        <paragraph>
+          <math display="block">$$g{({x,y,z})} = x^{2} + y^{2} + z^{2} = 4$$</math>
+        </paragraph>
+        <paragraph>
+          According to the method of Lagrange multipliers, we solve <math display="inline">$$\nabla f = \lambda\nabla g$$</math> , <math display="inline">$$g = 4$$</math> . This gives
+        </paragraph>
+        <paragraph>
+          <math display="block">$$2(x - 3) = 2x\lambda$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$2(y - 1) = 2y\lambda$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$2(z + 1) = 2z\lambda$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$x^{2} + y^{2} + z^{2} = 4$$</math>
+        </paragraph>
+        <paragraph>
+          The simplest way to solve these equations is to solve for <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , and <math display="inline">$$z$$</math> in terms of <math display="inline">$$\lambda$$</math> from (12), (13), and (14), and then substitute these values into (15). From (12) we have
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\left. x - 3 = x\lambda\qquad\Rightarrow\qquad x{({1 - \lambda})} = 3\qquad\Rightarrow\qquad x = \frac{3}{1 - \lambda} \right.$$</math>
+        </paragraph>
+        <paragraph>
+          [Note that <math display="inline">$$1 - \lambda \neq 0$$</math> because <math display="inline">$$\lambda = 1$$</math> is impossible from (12).] Similarly, (13) and (14) give
+        </paragraph>
+        <paragraph>
+          <math display="block">$$y = \frac{1}{1 - \lambda}\qquad z = - \frac{1}{1 - \lambda}$$</math>
+        </paragraph>
+        <paragraph>
+          Therefore, from (15), we have
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\frac{3^{2}}{{({1 - \lambda})}^{2}} + \frac{1^{2}}{{({1 - \lambda})}^{2}} + \frac{{({- 1})}^{2}}{{({1 - \lambda})}^{2}} = 4$$</math>
+        </paragraph>
+        <paragraph>
+          which gives <math display="inline">$${({1 - \lambda})}^{2} = \frac{11}{4}$$</math> , <math display="inline">$$1 - \lambda = \pm \sqrt{11}/2$$</math> , so
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\lambda = 1 \pm \frac{\sqrt{11}}{2}$$</math>
+        </paragraph>
+        <paragraph>
+          These values of <math display="inline">$$\lambda$$</math> then give the corresponding points <math display="inline">$$({x,y,z})$$</math> :
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\left( {\frac{6}{\sqrt{11}},{\frac{2}{\sqrt{11}}, - \left. \frac{2}{\sqrt{11}} \right)}} \right.$$</math>
+        </paragraph>
+        <paragraph>
+          and
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\left( \left. - {\frac{6}{\sqrt{11}}, - \frac{2}{\sqrt{11}},\frac{2}{\sqrt{11}}} \right) \right.$$</math>
+        </paragraph>
+        <paragraph>
+          It’s easy to see that <math display="inline">$$f$$</math> has a smaller value at the first of these points, so the closest point is <math display="inline">$$({6/\sqrt{11},2/\sqrt{11}, - 2/\sqrt{11}})$$</math> and the farthest is <math display="inline">$$({- 6/\sqrt{11}, - 2/\sqrt{11},2/\sqrt{11}})$$</math> .
+        </paragraph>
+        <paragraph>
+          Figure 4 shows the sphere and the nearest point <math display="inline">$$P$$</math> in Example 3. Can you see how to find the coordinates of <math display="inline">$$P$$</math> without using calculus?
+        </paragraph>
+        <figure number="4">
+          <alt_text>A sphere, two points, and a line segment are graphed in the x y z coordinate space. The positive x axis slopes down and to the left. The positive y axis slopes slightly down and to the right. The positive z axis runs vertically upward. The sphere has its center at the origin. The outline of the surface of the sphere on the x axis is drawn. It is a circle with its center at the origin. A line segment connects a point labeled P on the surface of the sphere, located in the eighth octant, and a point labeled (3, 1, negative 1).</alt_text>
+        </figure>
+      </problem>
+    </example>
+    <example number="4">
+      <problem>
+        <paragraph>
+          Find the extreme values of <math display="inline">$$f{({x,y})} = x^{2} + 2y^{2}$$</math> on the disk <math display="inline">$$D = \{(x,y)|x^{2} + y^{2} \leqslant 1\}$$</math> .
+        </paragraph>
+        <paragraph>
+          Solution According to the procedure in (14.7.9), we compare the values of <math display="inline">$$f$$</math> at the critical points in <math display="inline">$$D$$</math> with the extreme values of <math display="inline">$$f$$</math> on the boundary of <math display="inline">$$D$$</math> . Since <math display="inline">$$f_{x} = 2x$$</math> and <math display="inline">$$f_{y} = 4y$$</math> , the only critical point is <math display="inline">$$({0,0})$$</math> . We compare the value of <math display="inline">$$f$$</math> at that point with the extreme values on the boundary that we found in Example 1 using Lagrange multipliers:
+        </paragraph>
+        <paragraph>
+          <math display="block">$${f{({0,0})} = 0}\qquad{f{({\pm 1,0})} = 1}\qquad{f{({0, \pm 1})} = 2}$$</math>
+        </paragraph>
+        <paragraph>
+          Therefore the maximum value of <math display="inline">$$f$$</math> on <math display="inline">$$D$$</math> is <math display="inline">$$f{({0, \pm 1})} = 2$$</math> and the minimum value is <math display="inline">$$f{({0,0})} = 0$$</math> . Figure 5 shows the portion of the graph of <math display="inline">$$f$$</math> above the disk <math display="inline">$$D$$</math> . You can see that the highest point on the surface occurs at <math display="inline">$$({0, \pm 1})$$</math> and the lowest point is at the origin. Figure 6 shows a contour map of <math display="inline">$$f$$</math> superimposed on the disk <math display="inline">$$D$$</math> .
+        </paragraph>
+        <figure number="5">
+          <alt_text>A curved surface and a circular region are graphed in the x y z coordinate space. The positive x axis slopes down and to the left. The positive y axis slopes slightly down and to the right. The positive z axis runs vertically upward. The curved surface, labeled z = f(x, y), resembles the outer surface of a paraboloid with its vertex at the origin. Its rim resembles an ellipse curve upward, along its longer length, parallel to the y axis. Points are marked on the two upper curved ends of the rim. A circle is drawn on the x y plane with its center at the origin and two points on the y axis where the circle crosses. These points are directly below the points marked on the rim. The region within the circle is shaded and labeled D. The shaded region is defined by the equation x^2 + y^2 &lt;= 1.</alt_text>
+        </figure>
+        <figure number="6">
+          <alt_text>A family of ellipses and a circle are graphed in the x y coordinate plane. The circle and the ellipses have their center at the origin. The family of ellipses are longer along the x axis. There are five ellipses and a dot at the origin. The second ellipse, counting from the innermost, is labeled f(x, y) = 1. The fourth ellipse, counting from the innermost, is labeled f(x, y) = 2. The circle is labeled x^2 + y^2 = 1is shaded and labeled D.</alt_text>
+        </figure>
+      </problem>
+    </example>
+  </subsection>
+  <subsection title="Lagrange Multipliers: Two Constraints">
+    <paragraph>
+      Suppose now that we want to find the maximum and minimum values of a function <math display="inline">$$f{({x,y,z})}$$</math> subject to two constraints (side conditions) of the form <math display="inline">$$g{({x,y,z})} = k$$</math> and <math display="inline">$$h{({x,y,z})} = c$$</math> . Geometrically, this means that we are looking for the extreme values of <math display="inline">$$f$$</math> when <math display="inline">$$({x,y,z})$$</math> is restricted to lie on the curve of intersection <math display="inline">$$C$$</math> of the level surfaces <math display="inline">$$g{({x,y,z})} = k$$</math> and <math display="inline">$$h{({x,y,z})} = c$$</math> . (See Figure 7.) Suppose <math display="inline">$$f$$</math> has such an extreme value at a point <math display="inline">$$P{({x_{0},y_{0},z_{0}})}$$</math> . We know from the beginning of this section that <math display="inline">$$\nabla f$$</math> is orthogonal to <math display="inline">$$C$$</math> at <math display="inline">$$P$$</math> . But we also know that <math display="inline">$$\nabla g$$</math> is orthogonal to <math display="inline">$$g{({x,y,z})} = k$$</math> and <math display="inline">$$\nabla h$$</math> is orthogonal to <math display="inline">$$h{({x,y,z})} = c$$</math> , so <math display="inline">$$\nabla g$$</math> and <math display="inline">$$\nabla h$$</math> are both orthogonal to <math display="inline">$$C$$</math> . This means that the gradient vector <math display="inline">$$\nabla f{({x_{0},y_{0},z_{0}})}$$</math> is in the plane determined by <math display="inline">$$\nabla g{({x_{0},y_{0},z_{0}})}$$</math> and <math display="inline">$$\nabla h{({x_{0},y_{0},z_{0}})}$$</math> . (We assume that these gradient vectors are not zero and not parallel.) So there are numbers <math display="inline">$$\lambda$$</math> and <math display="inline">$$\mu$$</math> (both called Lagrange multipliers) such that
+    </paragraph>
+    <figure number="7">
+      <alt_text>Three planes and three vectors are displayed. The first plane is labeled g = k and resembles a curved rectangle bent like a saddle. The shorter sides are concave down and the longer sides are concave up. The second plane labeled h = c, bulges front and to the right, intersects the first plane parallel to its longer sides at approximately its middle. The intersection of the two planes is a curve labeled C and includes a point labeled P. From P, a vector rises upward, tangent to the plane h = c and is labeled gradient g. From P, a vector slopes down and to the right, tangent to the plane g = k and is labeled gradient h. From P, a third vector slopes up and to the right and is labeled gradient f. The third plane is rectangular with its bottom left corner at P, gradient g and gradient h form its right and bottom sides and gradient f is the diagonal. The rectangle has shorter left and right sides and longer top and bottom sides.</alt_text>
+    </figure>
+    <paragraph>
+      In this case Lagrange’s method is to look for extreme values by solving five equations in the five unknowns <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , <math display="inline">$$z$$</math> , <math display="inline">$$\lambda$$</math> , and <math display="inline">$$\mu$$</math> . These equations are obtained by writing Equation 16 in terms of its components and using the constraint equations:
+    </paragraph>
+    <paragraph>
+      <math display="block">$$\begin{matrix}
+  {f_{x} = {\lambda g_{x} + \mu h_{x}}} \\
+  {f_{y} = {\lambda g_{y} + \mu h_{y}}} \\
+  {f_{z} = {\lambda g_{z} + \mu h_{z}}} \\
+  {{g(x,y,z)} = k} \\
+  {{h(x,y,z)} = c}
+  \end{matrix}$$</math>
+    </paragraph>
+    <example number="5">
+      <problem>
+        <paragraph>
+          Find the maximum value of the function <math display="inline">$$f{({x,y,z})} = x + 2y + 3z$$</math> on the curve of intersection of the plane <math display="inline">$$x - y + z = 1$$</math> and the cylinder <math display="inline">$$x^{2} + y^{2} = 1$$</math> .
+        </paragraph>
+        <paragraph>
+          Solution We maximize the function <math display="inline">$$f{({x,y,z})} = x + 2y + 3z$$</math> subject to the constraints <math display="inline">$$g{({x,y,z})} = x - y + z = 1$$</math> and <math display="inline">$$h{({x,y,z})} = x^{2} + y^{2} = 1$$</math> . The Lagrange condition is <math display="inline">$$\nabla f = \lambda\nabla g + \mu\nabla h$$</math> , so we solve the equations
+        </paragraph>
+        <paragraph>
+          <math display="block">$$1 = \lambda + 2x\mu$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$2 = - \lambda + 2y\mu$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$3 = \lambda$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$x - y + z = 1$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$x^{2} + y^{2} = 1$$</math>
+        </paragraph>
+        <paragraph>
+          Putting <math display="inline">$$\lambda = 3$$</math> [from (19)] in (17), we get <math display="inline">$$2x\mu = - 2$$</math> , so <math display="inline">$$x = - 1/\mu$$</math> . Similarly, (18) gives <math display="inline">$$y = 5/{({2\mu})}$$</math> . Substitution in (21) then gives
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\frac{1}{\mu^{2}} + \frac{25}{4\mu^{2}} = 1$$</math>
+        </paragraph>
+        <paragraph>
+          and so <math display="inline">$$\mu^{2} = \frac{29}{4}$$</math> , <math display="inline">$$\mu = \pm \sqrt{29}/2$$</math> . Then <math display="inline">$$x = \mp 2/\sqrt{29}$$</math> , <math display="inline">$$y = \pm 5/\sqrt{29}$$</math> , and, from (20), <math display="inline">$$z = 1 - x + y = 1 \pm 7/\sqrt{29}$$</math> . The corresponding values of <math display="inline">$$f$$</math> are
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\mp \frac{2}{\sqrt{29}} + 2\left( {\pm \frac{5}{\sqrt{29}}} \right) + 3\left( {1 \pm \frac{7}{\sqrt{29}}} \right) = 3 \pm \sqrt{29}$$</math>
+        </paragraph>
+        <paragraph>
+          Therefore the maximum value of <math display="inline">$$f$$</math> on the given curve is <math display="inline">$$3 + \sqrt{29}$$</math> .
+        </paragraph>
+        <paragraph>
+          The cylinder <math display="inline">$$x^{2} + y^{2} = 1$$</math> intersects the plane <math display="inline">$$x - y + z = 1$$</math> in an ellipse (Figure 8). Example 5 asks for the maximum value of <math display="inline">$$f$$</math> when <math display="inline">$$({x,y,z})$$</math> is restricted to lie on the ellipse.
+        </paragraph>
+        <figure number="8">
+          <alt_text>A three dimensional rendering of a cylinder, a plane, and an ellipse are graphed in the x y z coordinate space. The positive x axis slopes down and to the right. The positive y axis slopes slightly up and to the right. The positive z axis runs vertically upward. The cylinder has its circular base and top side parallel to the x y plane with their centers on the negative and positive z axis, respectively. A slanted plane crosses the cylinder. The plane resembles a square with its top right corner to the right of the top side of the cylinder and bottom left corner to the left of the cylinder's base. The plane traces a slanted ellipse on the surface of the cylinder, its length along the slant longer than its width.</alt_text>
+        </figure>
+      </problem>
+    </example>
+  </subsection>
+  <subsection number="14.8" title="Exercises">
+    <exercises>
+      <exercise_group>
+        <problem number="1">
+          <statement>
+            <paragraph>
+              Pictured are a contour map of <math display="inline">$$f$$</math> and a curve with equation <math display="inline">$$g{({x,y})} = 8$$</math> . Estimate the maximum and minimum values of <math display="inline">$$f$$</math> subject to the constraint that <math display="inline">$$g{({x,y})} = 8$$</math> . Explain your reasoning.
+            </paragraph>
+            <figure>
+              <alt_text>A contour map and a curve are graphed in the x y coordinate plane. The contour map resembles concentric circles and arcs, slightly flattened vertically, symmetric about the y axis, pulled down such that their bottommost points are much closer than the top most ones. The circles are labeled 70, 60, 50, 40, 30, 20, and 10 from the innermost to the outermost. The circles 70, 60, and 50 are fully visible while only parts of the others are visible. The curve labeled g(x, y) = 8 resembles an ellipse with its horizontal length longer than its vertical length, and parallel to the x axis, slightly above it with its narrow ends bulging toward the y axis. The top most point of g(x, y) touches the top most point of 60 and the bottom most point of 30.</alt_text>
+            </figure>
+          </statement>
+          <answer>
+            <paragraph>
+              <math display="inline">$$\approx 59$$</math> , <math display="inline">$$30$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="2">
+          <statement>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Use a graphing calculator or computer to graph the circle <math display="inline">$$x^{2} + y^{2} = 1$$</math> . On the same screen, graph several curves of the form <math display="inline">$$x^{2} + y = c$$</math> until you find two that just touch the circle. What is the significance of the values of <math display="inline">$$c$$</math> for these two curves?
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Use Lagrange multipliers to find the extreme values of <math display="inline">$$f{({x,y})} = x^{2} + y$$</math> subject to the constraint <math display="inline">$$x^{2} + y^{2} = 1$$</math> . Compare your answers with those in part (a).
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, and 16 Each of these extreme value problems has a solution with both a maximum value and a minimum value. Use Lagrange multipliers to find the extreme values of the function subject to the given constraint.
+        </instructions>
+        <problem number="3">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = x^{2} - y^{2}$$</math> , <math display="inline">$$\quad x^{2} + y^{2} = 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f{({\pm 1,0})} = 1$$</math> , minimum <math display="inline">$$f{({0, \pm 1})} = - 1$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="4">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = x^{2}y$$</math> , <math display="inline">$$\quad x^{2} + y^{4} = 5$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="5">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = xy$$</math> , <math display="inline">$$\quad 4x^{2} + y^{2} = 8$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f{({1,2})} = f{({- 1, - 2})} = 2$$</math> , minimum <math display="inline">$$f{({1, - 2})} = f{({- 1,2})} = - 2$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="6">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = xe^{ y}$$</math> , <math display="inline">$$\quad x^{2} + y^{2} = 2$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="7">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = 2x^{2} + 6y^{2}$$</math> , <math display="inline">$$\quad x^{4} + 3y^{4} = 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f{(1/\sqrt{2}, \pm 1/\sqrt{2})} = f{( - 1/\sqrt{2}, \pm 1/\sqrt{2})} = 4$$</math> , minimum <math display="inline">$$f( \pm 1,0) = 2$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="8">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = \mathit{xye}^{- x^{2} - y^{2}}$$</math> , <math display="inline">$$\quad 2x - y = 0$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="9">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = 2x + 2y + z$$</math> , <math display="inline">$$\quad x^{2} + y^{2} + z^{2} = 9$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f{({2,2,1})} = 9$$</math> , minimum <math display="inline">$$f{({- 2, - 2, - 1})} = - 9$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="10">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = e^{ xyz}$$</math> , <math display="inline">$$\quad 2x^{2} + y^{2} + z^{2} = 24$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="11">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = xy^{2}z$$</math> , <math display="inline">$$\quad x^{2} + y^{2} + z^{2} = 4$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f{({1, \pm \sqrt{2},1})} = f{({- 1, \pm \sqrt{2}, - 1})} = 2$$</math> , minimum <math display="inline">$$f{({1, \pm \sqrt{2}, - 1})} = f{({- 1, \pm \sqrt{2},1})} = - 2$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="12">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = {x^{2} + y^{2} + z^{2}}$$</math> , <math display="inline">$$\quad x^{2} + y^{2} + z^{2} + xy = 12$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="13">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = x^{2} + y^{2} + z^{2}$$</math> , <math display="inline">$$\quad x^{4} + y^{4} + z^{4} = 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$\sqrt{3}$$</math> , minimum <math display="inline">$$1$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="14">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = x^{4} + y^{4} + z^{4}$$</math> , <math display="inline">$$\quad x^{2} + y^{2} + z^{2} = 1$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="15">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z,t})} = x + y + z + t$$</math> , <math display="inline">$$\quad x^{2} + y^{2} + z^{2} + t^{2} = 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f\left( {\frac{1}{2},\frac{1}{2},\frac{1}{2},\frac{1}{2}} \right) = 2$$</math> , minimum <math display="inline">$$f\left( {- ‍\frac{1}{2}, - ‍\frac{1}{2}, - ‍\frac{1}{2}, - ‍\frac{1}{2}} \right) = - 2$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="16">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x_{1},x_{2},\ldots,x_{n}})} = x_{1} + x_{2} + \cdots + x_{n}$$</math> , <math display="inline">$$\quad x_{1}^{2} + x_{2}^{2} + \cdots + x_{n}^{2} = 1$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          17, 18, 19, 20, 21, and 22 Use Lagrange multipliers to give an alternate solution to the indicated exercise in Section 4.7.
+        </instructions>
+        <problem number="17">
+          <statement>
+            <paragraph>
+              Exercise 3
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="18">
+          <statement>
+            <paragraph>
+              Exercise 8
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="19">
+          <statement>
+            <paragraph>
+              Exercise 7
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="20">
+          <statement>
+            <paragraph>
+              Exercise 18
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="21">
+          <statement>
+            <paragraph>
+              Exercise 25
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="22">
+          <statement>
+            <paragraph>
+              Exercise 24
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          23–24 The method of Lagrange multipliers assumes that the extreme values exist, but that is not always the case. Show that the problem of finding the minimum value of <math display="inline">$$f$$</math> subject to the given constraint can be solved using Lagrange multipliers, but <math display="inline">$$f$$</math> does not have a maximum value with that constraint.
+        </instructions>
+        <problem number="23">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = x^{2} + y^{2}$$</math> , <math display="inline">$$\quad xy = 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Minimum <math display="inline">$$f{({1,1})} = f{({- 1, - 1})} = 2$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="24">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = x^{2} + 2y^{2} + 3z^{2}$$</math> , <math display="inline">$$\quad x + 2y + 3z = 10$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          25–26 Use Lagrange multipliers to find the maximum value of <math display="inline">$$f$$</math> subject to the given constraint. Then show that <math display="inline">$$f$$</math> has no minimum value with that constraint.
+        </instructions>
+        <problem number="25">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = e^{xy}$$</math> , <math display="inline">$$\quad x^{3} + y^{3} = 16$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f{({2,2})} = e^{4}$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="26">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = 4x + 2y + z$$</math> , <math display="inline">$$\quad x^{2} + y + z^{2} = 1$$</math> .
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          27, 28, and 29 Find the extreme values of <math display="inline">$$f$$</math> on the region described by the inequality.
+        </instructions>
+        <problem number="27">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = x^{2} + y^{2} + 4x - 4y$$</math> , <math display="inline">$$\quad x^{2} + y^{2} \leqslant 9$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f{({3/\sqrt{2}, - 3/\sqrt{2}})} = 9 + 12\sqrt{2}$$</math> , minimum <math display="inline">$$f{({- 2,2})} = - 8$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="28">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = 2x^{2} + 3y^{2} - 4x - 5$$</math> , <math display="inline">$$\quad x^{2} + y^{2} \leqslant 16$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="29">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y})} = e^{- xy}$$</math> , <math display="inline">$$\quad x^{2} + 4y^{2} \leqslant 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f{({\pm 1/\sqrt{2}, \mp 1/{({2\sqrt{2}})}})} = e^{1/4}$$</math> , minimum <math display="inline">$$f{({\pm 1/\sqrt{2}, \pm 1/{({2\sqrt{2}})}})} = e^{- 1/4}$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          30, 31, 32, and 33 Find the extreme values of <math display="inline">$$f$$</math> subject to both constraints.
+        </instructions>
+        <problem number="30">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = z$$</math> ; <math display="inline">$$\quad x^{2} + y^{2} = z^{2}$$</math> , <math display="inline">$$\quad x + y + z = 24$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="31">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = x + y + z$$</math> ; <math display="inline">$$\quad x^{2} + z^{2} = 2$$</math> , <math display="inline">$$\quad x + y = 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f{({0,1,\sqrt{2}})} = 1 + \sqrt{2}$$</math> , minimum <math display="inline">$$f{({0,1, - \sqrt{2}})} = 1 - \sqrt{2}$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="32">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = x^{2} + y^{2} + z^{2}$$</math> ; <math display="inline">$$\quad x - y = 1$$</math> , <math display="inline">$$\quad y^{2} - z^{2} = 1$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="33">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = yz + xy$$</math> ; <math display="inline">$$\quad xy = 1$$</math> , <math display="inline">$$\quad y^{2} + z^{2} = 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$\frac{3}{2}$$</math> , minimum <math display="inline">$$\frac{1}{2}$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <problem number="34">
+          <statement>
+            <paragraph>
+              Consider the problem of maximizing the function <math display="inline">$$f{({x,y})} = 2x + 3y$$</math> subject to the constraint <math display="inline">$$\sqrt{x} + \sqrt{y} = 5$$</math> .
+            </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Try using Lagrange multipliers to solve the problem.
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Does <math display="inline">$$f{({25,0})}$$</math> give a larger value than the one in part (a)?
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Solve the problem by graphing the constraint equation and several level curves of <math display="inline">$$f$$</math> .
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Explain why the method of Lagrange multipliers fails to solve the problem.
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  What is the significance of <math display="inline">$$f{({9,4})}$$</math> ?
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="35">
+          <statement>
+            <paragraph>
+              Consider the problem of minimizing the function <math display="inline">$$f{({x,y})} = x$$</math> on the curve <math display="inline">$$y^{2} + x^{4} - x^{3} = 0$$</math> (a piriform).
+            </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Try using Lagrange multipliers to solve the problem.
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Show that the minimum value is <math display="inline">$$f{({0,0})} = 0$$</math> but the Lagrange condition <math display="inline">$$\nabla f{({0,0})} = \lambda\nabla g{({0,0})}$$</math> is not satisfied for any value of <math display="inline">$$\lambda$$</math> .
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Explain why Lagrange multipliers fail to find the minimum value in this case.
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="36">
+          <statement>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Use software that plots implicitly defined curves to estimate the minimum and maximum values of <math display="inline">$$f{({x,y})} = x^{3} + y^{3} + 3xy$$</math> subject to the constraint <math display="inline">$${({x - 3})}^{2} + {({y - 3})}^{2} = 9$$</math> by graphical methods.
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Solve the problem in part (a) with the aid of Lagrange multipliers. You will need to solve the equations numerically. Compare your answers with those in part (a).
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="37">
+          <statement>
+            <paragraph>
+              The total production <math display="inline">$$P$$</math> of a certain product depends on the amount <math display="inline">$$L$$</math> of labor used and the amount <math display="inline">$$K$$</math> of capital investment. In Section 14.1 and the project following Section 14.3 we discussed how the Cobb-Douglas model <math display="inline">$$P = bL^{\alpha}K^{1 - \alpha}$$</math> follows from certain economic assumptions, where <math display="inline">$$b$$</math> and <math display="inline">$$\alpha$$</math> are positive constants and <math display="inline">$$\alpha &lt; 1$$</math> . If the cost of a unit of labor is <math display="inline">$$m$$</math> and the cost of a unit of capital is <math display="inline">$$n$$</math> , and the company can spend only <math display="inline">$$p$$</math> dollars as its total budget, then maximizing the production <math display="inline">$$P$$</math> is subject to the constraint <math display="inline">$$mL + nK = p$$</math> . Show that the maximum production occurs when
+            </paragraph>
+            <paragraph>
+              <math display="block">$$L = \frac{\alpha p}{m}$$</math>
+            </paragraph>
+            <paragraph>
+              and
+            </paragraph>
+            <paragraph>
+              <math display="block">$$K = \frac{{({1 - \alpha})}p}{n}$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="38">
+          <statement>
+            <paragraph>
+              Referring to Exercise 37, we now suppose that the production is fixed at <math display="inline">$$bL^{\alpha}K^{1 - \alpha} = Q$$</math> , where <math display="inline">$$Q$$</math> is a constant. What values of <math display="inline">$$L$$</math> and <math display="inline">$$K$$</math> minimize the cost function <math display="inline">$$C{({L,K})} = mL + nK$$</math> ?
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="39">
+          <statement>
+            <paragraph>
+              Use Lagrange multipliers to prove that the rectangle with maximum area that has a given perimeter <math display="inline">$$p$$</math> is a square.
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="40">
+          <statement>
+            <paragraph>
+              Use Lagrange multipliers to prove that the triangle with maximum area that has a given perimeter <math display="inline">$$p$$</math> is equilateral.
+            </paragraph>
+            <list ordered="false">
+              <item>
+                <paragraph>
+                  <em>Hint:</em> Use Heron’s formula for the area:
+                </paragraph>
+              </item>
+            </list>
+            <paragraph>
+              <math display="block">$$A = \sqrt{s{({s - x})}{({s - y})}{({s - z})}}$$</math>
+            </paragraph>
+            <paragraph>
+              where <math display="inline">$$s = p/2$$</math> and <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , <math display="inline">$$z$$</math> are the lengths of the sides.
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, and 53 Use Lagrange multipliers to give an alternate solution to the indicated exercise in Section 14.7.
+        </instructions>
+        <problem number="41">
+          <statement>
+            <paragraph>
+              Exercise 43
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="42">
+          <statement>
+            <paragraph>
+              Exercise 44
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="43">
+          <statement>
+            <paragraph>
+              Exercise 45
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="44">
+          <statement>
+            <paragraph>
+              Exercise 46
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="45">
+          <statement>
+            <paragraph>
+              Exercise 47
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="46">
+          <statement>
+            <paragraph>
+              Exercise 48
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="47">
+          <statement>
+            <paragraph>
+              Exercise 49
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="48">
+          <statement>
+            <paragraph>
+              Exercise 50
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="49">
+          <statement>
+            <paragraph>
+              Exercise 51
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="50">
+          <statement>
+            <paragraph>
+              Exercise 52
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="51">
+          <statement>
+            <paragraph>
+              Exercise 53
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="52">
+          <statement>
+            <paragraph>
+              Exercise 54
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="53">
+          <statement>
+            <paragraph>
+              Exercise 57
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <problem number="54">
+          <statement>
+            <paragraph>
+              A package in the shape of a rectangular box can be mailed by the US Postal Service if the sum of its length and girth (the perimeter of a cross-section perpendicular to the length; see Exercise 4.7.23) is at most <math display="inline">$$108$$</math> inches. Use Lagrange multipliers to find the dimensions of the package with largest volume that can be mailed.
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="55">
+          <statement>
+            <paragraph>
+              A grain silo is to be built by attaching a hemispherical roof and a flat floor onto a circular cylinder. Use Lagrange multipliers to show that for a total surface area <math display="inline">$$S$$</math> , the volume of the silo is maximized when the radius and height of the cylinder are equal.
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="56">
+          <statement>
+            <paragraph>
+              Find the maximum and minimum volumes of a rectangular box whose surface area is <math display="inline">$$1500{cm}^{2}$$</math> and whose total edge length is <math display="inline">$$200$$</math> cm.
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="57">
+          <statement>
+            <paragraph>
+              The plane <math display="inline">$$x + y + 2z = 2$$</math> intersects the paraboloid <math display="inline">$$z = x^{2} + y^{2}$$</math> in an ellipse. Find the points on this ellipse that are nearest to and farthest from the origin.
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Nearest <math display="inline">$$\left( {\frac{1}{2},\frac{1}{2},\frac{1}{2}} \right)$$</math> , farthest <math display="inline">$$({- 1, - 1,2})$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="58">
+          <statement>
+            <paragraph>
+              The plane <math display="inline">$$4x - 3y + 8z = 5$$</math> intersects the cone <math display="inline">$$z^{2} = x^{2} + y^{2}$$</math> in an ellipse.
+            </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Graph the cone and the plane, and observe the elliptical intersection.
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Use Lagrange multipliers to find the highest and lowest points on the ellipse.
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          59–60 Find the maximum and minimum values of <math display="inline">$$f$$</math> subject to the given constraints. Use a computer algebra system to solve the system of equations that arises in using Lagrange multipliers. (If your CAS finds only one solution, you may need to use additional commands.)
+        </instructions>
+        <problem number="59">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = ye^{ x - z}$$</math> ; <math display="inline">$$\quad 9x^{2} + 4y^{2} + 36z^{2} = 36$$</math> , <math display="inline">$$xy + yz = 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$\approx 9.7938$$</math> , minimum <math display="inline">$$\approx - 5.3506$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="60">
+          <statement>
+            <paragraph>
+              <math display="inline">$$f{({x,y,z})} = x + y + z$$</math> ; <math display="inline">$$\quad x^{2} - y^{2} = z$$</math> , <math display="inline">$$x^{2} + z^{2} = 4$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <problem number="61">
+          <statement>
+            <paragraph>
+              Use Lagrange multipliers to find the extreme values of <math display="inline">$$f({x,y}) = 3x^{2} + y^{2}$$</math> subject to the constraint <math display="inline">$$x^{2} + y^{2} = 4y$$</math> . Show that the minimum value corresponds to <math display="inline">$$\lambda = 0$$</math> .
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Maximum <math display="inline">$$f{({\pm \sqrt{3},3})} = 18$$</math> , minimum <math display="inline">$$f{(0,0)} = 0$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+        <problem number="62">
+          <statement>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Maximize <math display="inline">$$\sum_{i = 1}^{n}{x_{i}y_{i}}$$</math> subject to the constraints <math display="inline">$$\sum_{i = 1}^{n}{x_{i}^{2} = 1}$$</math> and <math display="inline">$$\sum_{i = 1}^{n}{y_{i}^{2} = 1}$$</math> .
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Put
+                </paragraph>
+                <paragraph>
+                  <math display="block">$$x_{i} = \frac{a_{i}}{\sqrt{\sum a_{j}^{2}}}$$</math>
+                </paragraph>
+                <paragraph>
+                  and
+                </paragraph>
+                <paragraph>
+                  <math display="block">$$y_{i} = \frac{b_{i}}{\sqrt{\sum b_{j}^{2}}}$$</math>
+                </paragraph>
+                <paragraph>
+                  to show that
+                </paragraph>
+                <paragraph>
+                  <math display="block">$$\sum{a_{i}b_{i} \leqslant \sqrt{\Sigma a_{j}^{2}}\sqrt{\Sigma b_{j}^{2}}}$$</math>
+                </paragraph>
+                <paragraph>
+                  for any numbers <math display="inline">$$a_{1},\ldots,a_{n}$$</math> , <math display="inline">$$b_{1},\ldots,b_{n}$$</math> . This inequality is known as the <em>Cauchy-Schwarz Inequality</em>.
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+        <problem number="63">
+          <statement>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Find the maximum value of
+                </paragraph>
+                <paragraph>
+                  <math display="block">$$f{({x_{1},x_{2},\ldots,x_{n}})} = \sqrt[n]{x_{1}x_{2}\cdots x_{n}}$$</math>
+                </paragraph>
+                <paragraph>
+                  given that <math display="inline">$$x_{1},x_{2},\ldots,x_{n}$$</math> are positive numbers and <math display="inline">$$x_{1} + x_{2} + \cdots + x_{n} = c$$</math> , where <math display="inline">$$c$$</math> is a constant.
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$c/n$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Deduce from part (a) that if <math display="inline">$$x_{1},x_{2},\ldots,x_{n}$$</math> are positive numbers, then
+                </paragraph>
+                <paragraph>
+                  <math display="block">$$\sqrt[n]{x_{1}x_{2}\cdots x_{n}} \leqslant \frac{x_{1} + x_{2} + \cdots + x_{n}}{n}$$</math>
+                </paragraph>
+                <paragraph>
+                  This inequality says that the geometric mean of <math display="inline">$$n$$</math> numbers is no larger than the arithmetic mean of the numbers. Under what circumstances are these two means equal?
+                </paragraph>
+                <paragraph>
+                  When <math display="inline">$$x_{1} = x_{2} = \cdots = x_{n}$$</math>
+                </paragraph>
+              </item>
+            </list>
+          </statement>
+        </problem>
+      </exercise_group>
+    </exercises>
+  </subsection>
+  <subsection title="Applied Project Rocket Science">
+    <figure>
+      <credit>NASA</credit>
+    </figure>
+    <paragraph>
+      Many rockets—such as the <em>Saturn V</em> that first put men on the moon—are designed to use three stages in their ascent into space. A large first stage initially propels the rocket until its fuel is consumed, at which point the stage is jettisoned to reduce the mass of the rocket. The smaller second and third stages function similarly in order to place the rocket’s payload into orbit about the earth. (With this design, at least two stages are required in order to reach the necessary velocities, and using three stages has proven to be a good compromise between cost and performance.) Our goal here is to determine the individual masses of the three stages, which are to be designed to minimize the total mass of the rocket while enabling it to reach a desired velocity.
+    </paragraph>
+    <paragraph>
+      For a single-stage rocket consuming fuel at a constant rate, the change in velocity resulting from the acceleration of the rocket vehicle has been modeled by
+    </paragraph>
+    <paragraph>
+      <math display="block">$$\Delta V = - c\ln\left( {1 - \frac{{({1 - S})}M_{r}}{P + M_{r}}} \right)$$</math>
+    </paragraph>
+    <paragraph>
+      where <math display="inline">$$M_{r}$$</math> is the mass of the rocket engine including initial fuel, <math display="inline">$$P$$</math> is the mass of the payload, <math display="inline">$$S$$</math> is a <em>structural factor</em> determined by the design of the rocket (specifically, it is the ratio of the mass of the rocket vehicle without fuel to the total mass of the rocket with fuel), and <math display="inline">$$c$$</math> is the (constant) speed of exhaust relative to the rocket.
+    </paragraph>
+    <figure>
+      <credit>NASA/Lori Losey</credit>
+    </figure>
+    <paragraph>
+      Now consider a rocket with three stages and a payload of mass <math display="inline">$$A$$</math> . Assume that outside forces are negligible and that <math display="inline">$$c$$</math> and <math display="inline">$$S$$</math> remain constant for each stage. If <math display="inline">$$M_{i}$$</math> is the mass of the <math display="inline">$$i$$</math> th stage, we can initially consider the rocket engine to have mass <math display="inline">$$M_{1}$$</math> and its payload to have mass <math display="inline">$$M_{2} + M_{3} + A$$</math> ; the second and third stages can be handled similarly.
+    </paragraph>
+    <list ordered="false">
+      <item>
+        <paragraph>
+          Show that the velocity attained by the rocket after all three stages have been jettisoned is given by
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\upsilon_{f} = c\left\lbrack {\ln\left( \frac{M_{1} + M_{2} + M_{3} + A}{SM_{1} + M_{2} + M_{3} + A} \right) + \ln\left( \frac{M_{2} + M_{3} + A}{SM_{2} + M_{3} + A} \right) + \ln\left( \frac{M_{3} + A}{SM_{3} + A} \right)} \right\rbrack$$</math>
+        </paragraph>
+      </item>
+      <item>
+        <paragraph>
+          We wish to minimize the total mass <math display="inline">$$M = M_{1} + M_{2} + M_{3}$$</math> of the rocket engine subject to the constraint that the desired velocity <math display="inline">$$\upsilon_{f}$$</math> from Problem 1 is attained. The method of Lagrange multipliers is appropriate here, but difficult to implement using the current expressions. To simplify, we define variables <math display="inline">$$N_{i}$$</math> so that the constraint equation may be expressed as <math display="inline">$$\upsilon_{f} = c{({\ln N_{1} + \ln N_{2} + \ln N_{3}})}$$</math> . Since <math display="inline">$$M$$</math> is now difficult to express in terms of the <math display="inline">$$N_{i}$$</math> ’s, we wish to use a simpler function that will be minimized at the same place as <math display="inline">$$M$$</math> . Show that
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\begin{array}{r}
+  {\frac{M_{1} + M_{2} + M_{3} + A}{M_{2} + M_{3} + A} = \frac{(1 - S)N_{1}}{1 - SN_{1}}} \\
+  {\frac{M_{2} + M_{3} + A}{M_{3} + A} = \frac{(1 - S)N_{2}}{1 - SN_{2}}} \\
+  {\frac{M_{3} + A}{A} = \frac{(1 - S)N_{3}}{1 - SN_{3}}}
+  \end{array}$$</math>
+        </paragraph>
+        <paragraph>
+          and conclude that
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\frac{M + A}{A} = \frac{{({1 - S})}^{3}N_{1}N_{2}N_{3}}{{({1 - SN_{1}})}{({1 - SN_{2}})}{({1 - SN_{3}})}}$$</math>
+        </paragraph>
+      </item>
+      <item>
+        <paragraph>
+          Verify that <math display="inline">$$\ln{({{({M + A})}/A})}$$</math> is minimized at the same location as <math display="inline">$$M$$</math> ; use Lagrange multipliers and the results of Problem 2 to find expressions for the values of <math display="inline">$$N_{i}$$</math> where the minimum occurs subject to the constraint <math display="inline">$$\upsilon_{f} = c{({\ln N_{1} + \ln N_{2} + \ln N_{3}})}$$</math> . [<em>Hint:</em> Use properties of logarithms to help simplify the expressions.]
+        </paragraph>
+      </item>
+    </list>
+    <list ordered="false">
+      <item>
+        <paragraph>
+          Find an expression for the minimum value of <math display="inline">$$M$$</math> as a function of <math display="inline">$$\upsilon_{f}$$</math> .
+        </paragraph>
+      </item>
+      <item>
+        <paragraph>
+          If we want to put a three-stage rocket into orbit <math display="inline">$$100$$</math> miles above the earth’s surface, a final velocity of approximately <math display="inline">$$17,500{mi}/h$$</math> is required. Suppose that each stage is built with a structural factor <math display="inline">$$S = 0.2$$</math> and an exhaust speed of <math display="inline">$$c = 6000{mi}/h$$</math> .
+        </paragraph>
+        <list ordered="false">
+          <item>
+            <paragraph>
+              Find the minimum total mass <math display="inline">$$M$$</math> of the rocket engines as a function of <math display="inline">$$A$$</math> .
+            </paragraph>
+          </item>
+          <item>
+            <paragraph>
+              Find the mass of each individual stage as a function of <math display="inline">$$A$$</math> . (They are not equally sized.)
+            </paragraph>
+          </item>
+        </list>
+      </item>
+      <item>
+        <paragraph>
+          The same rocket would require a final velocity of approximately <math display="inline">$$24,700{mi}/h$$</math> in order to escape earth’s gravity. Find the mass of each individual stage that would minimize the total mass of the rocket engines and allow the rocket to propel a <math display="inline">$$500$$</math>-pound probe into deep space.
+        </paragraph>
+      </item>
+    </list>
+  </subsection>
+  <subsection title="Applied Project Hydro-Turbine Optimization">
+    <paragraph>
+      At a hydroelectric generating station, water is piped from a dam to the power station. The rate at which the water flows through the pipe varies, depending on external conditions.
+    </paragraph>
+    <figure>
+      <credit>Romaset / Shutterstock.com</credit>
+    </figure>
+    <paragraph>
+      The power station has three different hydroelectric turbines, each with a known (and unique) power function that gives the amount of electric power generated as a function of the water flow arriving at the turbine. The incoming water can be apportioned in different volumes to each turbine, so the goal of this project is to determine how to distribute water among the turbines to give the maximum total energy production for any rate of flow.
+    </paragraph>
+    <paragraph>
+      Using experimental evidence and <em>Bernoulli’s equation</em>, the following quadratic models were determined for the power output of each turbine, along with the allowable flows of operation:
+    </paragraph>
+    <paragraph>
+      <math display="block">$$\begin{array}{r}
+  {{KW_{1}} = {( - 18.89 + 0.1277Q_{1} - 4.08 \cdot 10^{- 5}Q_{1}^{2})(170 - 1.6 \cdot 10^{- 6}Q_{T}^{2})}} \\
+  {{KW_{2}} = {( - 24.51 + 0.1358Q_{2} - 4.69 \cdot 10^{- 5}Q_{2}^{2})(170 - 1.6 \cdot 10^{- 6}Q_{T}^{2})}} \\
+  {{KW_{3}} = {( - 27.02 + 0.1380Q_{3} - 3.84 \cdot 10^{- 5}Q_{3}^{2})(170 - 1.6 \cdot 10^{- 6}Q_{T}^{2})}}
+  \end{array}$$</math>
+    </paragraph>
+    <paragraph>
+      <math display="block">$$250 \leqslant Q_{1} \leqslant 1110,\quad 250 \leqslant Q_{2} \leqslant 1110,\quad 250 \leqslant Q_{3} \leqslant 1225$$</math>
+    </paragraph>
+    <paragraph>
+      where
+    </paragraph>
+    <paragraph>
+      <math display="block">$$\begin{array}{rcl}
+  Q_{i} &amp; = &amp; {{flow\ through\ turbine}i{in\ cubic\ feet\ per\ second}} \\
+  {KW_{i}} &amp; = &amp; {{power\ generated\ by\ turbine}i{in}{kilowatts}} \\
+  Q_{T} &amp; = &amp; {total\ flow\ through\ the\ station\ in\ cubic\ feet\ per\ second}
+  \end{array}$$</math>
+    </paragraph>
+    <list ordered="true">
+      <item>
+        <paragraph>
+          If all three turbines are being used, we wish to determine the flow <math display="inline">$$Q_{i}$$</math> to each turbine that will give the maximum total energy production. Our limitations are that the flows must sum to the total incoming flow and the given domain restrictions must be observed. Consequently, use Lagrange multipliers to find the values for the individual flows (as functions of <math display="inline">$$Q_{T}$$</math> ) that maximize the total energy production
+        </paragraph>
+        <paragraph>
+          <math display="block">$$KW_{1} + KW_{2} + KW_{3}$$</math>
+        </paragraph>
+        <paragraph>
+          subject to the constraints
+        </paragraph>
+        <paragraph>
+          <math display="block">$$Q_{1} + Q_{2} + Q_{3} = Q_{T}$$</math>
+        </paragraph>
+        <paragraph>
+          and the domain restrictions on each <math display="inline">$$Q_{i}$$</math> .
+        </paragraph>
+      </item>
+      <item>
+        <paragraph>
+          For which values of <math display="inline">$$Q_{T}$$</math> is your result valid?
+        </paragraph>
+      </item>
+      <item>
+        <paragraph>
+          For an incoming flow of <math display="inline">$$2500{ft}^{3}/s$$</math> , determine the distribution to the turbines and verify (by trying some nearby distributions) that your result is indeed a maximum.
+        </paragraph>
+      </item>
+      <item>
+        <paragraph>
+          Until now we have assumed that all three turbines are operating; is it possible in some situations that more power could be produced by using only one turbine? Make a graph of the three power functions and use it to help decide if an incoming flow of <math display="inline">$$1000{ft}^{3}/s$$</math> should be distributed to all three turbines or routed to just one. (If you determine that only one turbine should be used, which one would it be?) What if the flow is only <math display="inline">$$600{ft}^{3}/s$$</math> ?
+        </paragraph>
+      </item>
+      <item>
+        <paragraph>
+          Perhaps for some flow levels it would be advantageous to use two turbines. If the incoming flow is <math display="inline">$$1500{ft}^{3}/s$$</math> , which two turbines would you recommend using? Use Lagrange multipliers to determine how the flow should be distributed between the two turbines to maximize the energy produced. For this flow, is using two turbines more efficient than using all three?
+        </paragraph>
+      </item>
+      <item>
+        <paragraph>
+          If the incoming flow is <math display="inline">$$3400{ft}^{3}/s$$</math> , what distribution would you recommend to the station management?
+        </paragraph>
+      </item>
+    </list>
+  </subsection>
+</section_file>

@@ -1,4 +1,4 @@
-# Applied Calculus
+# Applied Calculus for the Managerial, Life, and Social Sciences
 
 > Generated: 2026-05-30 · 78 files
 
