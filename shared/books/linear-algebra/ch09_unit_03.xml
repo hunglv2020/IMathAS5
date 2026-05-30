@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch09" chapter_number="9" unit_code="9.3">
+  <section number="9.3" title="Linear Programming—Simplex Method">
+    <metadata>
+      <source_pages count="5">
+        <page global_index="442" type="content"/>
+        <page global_index="443" type="content"/>
+        <page global_index="444" type="content"/>
+        <page global_index="445" type="exercises"/>
+        <page global_index="446" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">9.3 Linear Programming—Simplex Method</heading>
+      <paragraph>Transportation problems played an important role in the early days of linear programming, including the Berlin Airlift described in this chapter’s Introductory Example. They are even more important today. The first example is simple, but it suggests how a problem of this type could involve hundreds, if not thousands, of variables and equations.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>A retail sales company has two warehouses and four stores. A particular model of outdoor hot tub is sold at all four stores, and each store has placed an order with company headquarters for a certain number of these hot tubs. Headquarters determines that the warehouses have enough hot tubs and can ship them immediately. The distances from the warehouses to the stores vary, and the cost of transporting a hot tub from a warehouse to a store depends on the distance. The problem is to decide on a shipping schedule that minimizes the total cost of shipping. Let <math display="inline">$x_{ij}$</math> be the number of units (hot tubs) to ship from warehouse <math display="inline">$i$</math> to store <math display="inline">$j$</math>.</paragraph>
+          <figure caption="Figure 1">
+            <image alt="A figure shows two warehouses surrounded by four stores with arrows in between that represent the number of units to ship."/>
+          </figure>
+              <paragraph>Let <math display="inline">$a_{1}$</math> and <math display="inline">$a_{2}$</math> be the numbers of units available at warehouses <math display="inline">$1$</math> and <math display="inline">$2$</math>, and let <math display="inline">$r_{1}$</math>, <math display="inline">$\ldots$</math> , <math display="inline">$r_{4}$</math> be the numbers of units requested by the various stores. Then the <math display="inline">$x_{ij}$</math> must satisfy the equations</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      x_{11} &amp; + &amp; x_{12} &amp; + &amp; x_{13} &amp; + &amp; x_{14} &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; \leq &amp; a_{1} \\
+       &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; x_{21} &amp; + &amp; x_{22} &amp; + &amp; x_{23} &amp; + &amp; x_{24} &amp; \leq &amp; a_{2} \\
+      x_{11} &amp; &amp; &amp; &amp; &amp; &amp; &amp; + &amp; x_{21} &amp; &amp; &amp; &amp; &amp; &amp; &amp; = &amp; r_{1} \\
+       &amp; &amp; x_{12} &amp; &amp; &amp; &amp; &amp; &amp; &amp; + &amp; x_{22} &amp; &amp; &amp; &amp; &amp; = &amp; r_{2} \\
+       &amp; &amp; &amp; &amp; x_{13} &amp; &amp; &amp; &amp; &amp; &amp; &amp; + &amp; x_{23} &amp; &amp; &amp; = &amp; r_{3} \\
+       &amp; &amp; &amp; &amp; &amp; &amp; x_{14} &amp; &amp; &amp; &amp; &amp; &amp; &amp; + &amp; x_{24} &amp; = &amp; r_{4}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>and <math display="inline">$x_{ij} \geq 0$</math> for <math display="inline">$i = 1$</math>, <math display="inline">$2$</math> and <math display="inline">$j = 1$</math>, <math display="inline">$\ldots$</math> , <math display="inline">$4$</math>. If the cost of shipping one unit from warehouse <math display="inline">$i$</math> to store <math display="inline">$j$</math> is <math display="inline">$c_{ij}$</math>, then the problem is to minimize the function</paragraph>
+              <paragraph><math display="block">$$c_{11}x_{11} + c_{12}x_{12} + c_{13}x_{13} + c_{14}x_{14} + c_{21}x_{21} + c_{22}x_{22} + c_{23}x_{23} + c_{24}x_{24}$$</math></paragraph>
+              <paragraph>subject to the four equalities and ten inequalities listed above.</paragraph>
+        </example>
+      <paragraph>The <em>simplex method</em>, discussed below, can easily handle problems the size of <strong>Example 1</strong>. To introduce the method, however, this section focuses mainly on the canonical linear programming problem from Section 9.2, in which the objective function must be maximized. Here is an outline of the steps in the simplex method.</paragraph>
+      <list ordered="true">
+              <item>Select an extreme point x of the feasible set F.</item>
+              <item>Consider all the edges of F that join at x. If the objective function f cannot be increased by moving along any of these edges, then x is an optimal solution.</item>
+              <item>If f can be increased by moving along one or more of the edges, then follow the path that gives the largest increase and move to the extreme point of F at the opposite end.</item>
+              <item>Repeat the process, beginning at step 2.</item>
+        </list>
+      <paragraph>Since the value of <math display="inline">$f$</math> increases at each step, the path will not go through the same extreme point twice. Since there are only a finite number of extreme points, this process will end at an optimal solution (if there is one) in a finite number of steps. If the problem is unbounded, then eventually the path will reach an unbounded edge at step 3 along which <math display="inline">$f$</math> increases without bound.</paragraph>
+      <paragraph>The next five examples concern canonical linear programming problems in which each of the entries in the <math display="inline">$m\text{-tuple}$</math> <math display="inline">$\mathbf{b}$</math> is <em>positive</em>:</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{l}
+      {\text{Maximize~}f\text{(}\mathbf{x}\text{)} = \mathbf{c}^{T}\mathbf{x}} \\
+      {\text{subject~to~the~constraints~}A\mathbf{x} \leq \mathbf{b}~\text{and~}\mathbf{x} \geq 0}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>Here <math display="inline">$\mathbf{c}$</math> and <math display="inline">$\mathbf{x}$</math> are in <math display="inline">$\text{ℝ}^{n}$</math>, <math display="inline">$A$</math> is an <math display="inline">$m \times n$</math> matrix, and <math display="inline">$\mathbf{b}$</math> is in <math display="inline">$\text{ℝ}^{m}$</math>.</paragraph>
+      <paragraph>The simplex method begins by changing each constraint inequality into an <em>equality</em>. This is done by adding one new variable to each inequality. These new variables are not part of the final solution; they appear only in the intermediate calculations.</paragraph>
+      <note type="definition" title="﻿Definition">
+          <heading level="2">﻿Definition</heading>
+              <paragraph>A slack variable is a nonnegative variable that is added to the smaller side of an inequality to convert it to an equality.</paragraph>
+        </note>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Change the inequality</paragraph>
+              <paragraph><math display="block">$$5x_{1} + 7x_{2} \leq 80$$</math></paragraph>
+              <paragraph>into the equality</paragraph>
+              <paragraph><math display="block">$$5x_{1} + 7x_{2} + x_{3} = 80$$</math></paragraph>
+              <paragraph>by adding the slack variable <math display="inline">$x_{3}$</math>. Note that <math display="inline">$x_{3} = 80 - (5x_{1} + 7x_{2}) \geq 0$</math>.</paragraph>
+        </example>
+      <paragraph>If <math display="inline">$A$</math> is <math display="inline">$m \times n$</math>, the addition of <math display="inline">$m$</math> slack variables in <math display="inline">$A\textbf{x} \leq \textbf{b}$</math> produces a linear system with <math display="inline">$m$</math> equations and <math display="inline">$n + m$</math> variables. A solution to this system is called a <strong>basic solution</strong> if no more than <math display="inline">$m$</math> of the variables are nonzero. As in Section 9.2, a solution to the system is called <strong>feasible</strong> if each variable is nonnegative. Thus, in a <strong>basic feasible solution</strong>, each variable must be nonnegative and at most <math display="inline">$m$</math> of them can be positive. Geometrically, these basic feasible solutions correspond to the extreme points of the feasible set.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Find a basic feasible solution for the system</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lllllll}
+      {2x_{1}} &amp; + &amp; {3x_{2}} &amp; + &amp; {4x_{3}} &amp; \leq &amp; 60 \\
+      {3x_{1}} &amp; + &amp; {~~x_{2}} &amp; + &amp; {5x_{3}} &amp; \leq &amp; 46 \\
+      {~~x_{1}} &amp; + &amp; {2x_{2}} &amp; + &amp; {~~x_{3}} &amp; \leq &amp; 50
+      \end{array}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Add slack variables to obtain a system of three <em>equations</em>:</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lllllllllllll}
+      {2x_{1}} &amp; + &amp; {3x_{2}} &amp; + &amp; {4x_{3}} &amp; + &amp; x_{4} &amp; &amp; &amp; &amp; &amp; = &amp; 60 \\
+      {3x_{1}} &amp; + &amp; {~~x_{2}} &amp; + &amp; {5x_{3}} &amp; &amp; &amp; + &amp; x_{5} &amp; &amp; &amp; = &amp; 46 \\
+      {~~x_{1}} &amp; + &amp; {2x_{2}} &amp; + &amp; {~~x_{3}} &amp; &amp; &amp; &amp; &amp; + &amp; x_{6} &amp; = &amp; 50
+      \end{array}$$</math></paragraph>
+              <paragraph>There were three inequalities in the original system, so a basic solution of (1) has at most three nonzero values for the variables. The following simple solution is called the basic feasible solution associated with (1):</paragraph>
+              <paragraph><math display="block">$$x_{1} = x_{2} = x_{3} = 0,~~~x_{4} = 60,~~~x_{5} = 46,~~~\text{and~~~}x_{6} = 50$$</math></paragraph>
+              <paragraph>This solution corresponds to the extreme point <math display="inline">$0$</math> in the feasible set (in <math display="inline">$\text{ℝ}^{3}$</math>).</paragraph>
+        </example>
+      <paragraph>It is customary to refer to the nonzero variables <math display="inline">$x_{4}$</math>, <math display="inline">$x_{5}$</math>, and <math display="inline">$x_{6}$</math> in system (1) as basic variables because each has a coefficient of <math display="inline">$1$</math> and occurs in only one equation.1 The basic variables are said to be “in” the solution of (1). The variables <math display="inline">$x_{1}$</math>, <math display="inline">$x_{2}$</math>, and <math display="inline">$x_{3}$</math> are said to be “out” of the solution. In a linear programming problem, this particular solution would probably not be optimal since only the slack variables are nonzero.</paragraph>
+      <paragraph>A standard procedure in the simplex method is to change the role a variable plays in a solution. For example, although <math display="inline">$x_{2}$</math> is out of the solution in (1), it can be introduced “into” a solution by using elementary row operations. The goal is to pivot on the <math display="inline">$x_{2}$</math> entry in the third equation of (1) to create a new system in which <math display="inline">$x_{2}$</math> appears <em>only</em> in the third equation.2<sup/></paragraph>
+      <paragraph>First, divide the third equation in (1) by the coefficient of <math display="inline">$x_{2}$</math> to obtain a new third equation:</paragraph>
+      <paragraph>
+        <math display="block">$$\frac{1}{2}x_{1} + x_{2} + \frac{1}{2}x_{3}~~~~~~~~~~~~~~ + \frac{1}{2}x_{6} = 25$$</math>
+      </paragraph>
+      <paragraph>Second, to equations 1 and 2 of <strong>(</strong>1<strong>)</strong> add multiples of this new equation that will eliminate <math display="inline">$x_{2}$</math> from those equations. This produces the system</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{lllllllllllll}
+      {\frac{1}{2}x_{1}} &amp; &amp; &amp; + &amp; {\frac{5}{2}x_{3}} &amp; + &amp; x_{4} &amp; &amp; &amp; - &amp; {\frac{3}{2}x_{6}} &amp; = &amp; {- 15} \\
+      {\frac{5}{2}x_{1}} &amp; &amp; &amp; + &amp; {\frac{9}{2}x_{3}} &amp; &amp; &amp; + &amp; x_{5} &amp; - &amp; {\frac{1}{2}x_{6}} &amp; = &amp; {~~~21} \\
+      {\frac{1}{2}x_{1}} &amp; + &amp; x_{2} &amp; + &amp; {\frac{1}{2}x_{3}} &amp; &amp; &amp; &amp; &amp; + &amp; {\frac{1}{2}x_{6}} &amp; = &amp; {~~~25}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>The basic solution associated with this new system is</paragraph>
+      <paragraph>
+        <math display="block">$$x_{1} = x_{3} = x_{6} = 0,~~~x_{2} = 25,~~~~x_{4} = - 15,~~~~x_{5} = 21$$</math>
+      </paragraph>
+      <paragraph>The variable <math display="inline">$x_{2}$</math> has come into the solution, and the variable <math display="inline">$x_{6}$</math> has gone out. Unfortunately, this basic solution is not feasible since <math display="inline">$x_{4} &lt; 0$</math>. This lack of feasibility was caused by an improper choice of a pivot equation. The next paragraph shows how to avoid this problem.</paragraph>
+      <paragraph>In general, consider the system</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{lllllllllll}
+      {a_{11}x_{1}} &amp; + &amp; \cdots &amp; + &amp; {a_{1k}x_{k}} &amp; + &amp; \cdots &amp; + &amp; {a_{1n}x_{n}} &amp; = &amp; b_{1} \\
+       \vdots &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; \\
+      {a_{i1}x_{1}} &amp; + &amp; \cdots &amp; + &amp; {a_{ik}x_{k}} &amp; + &amp; \cdots &amp; + &amp; {a_{in}x_{n}} &amp; = &amp; b_{i} \\
+       \vdots &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; \\
+      {a_{m1}x_{1}} &amp; + &amp; \cdots &amp; + &amp; {a_{mk}x_{k}} &amp; + &amp; \cdots &amp; + &amp; {a_{mn}x_{n}} &amp; = &amp; b_{n}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>and suppose the next step is to bring the variable <math display="inline">$x_{k}$</math> into the solution by using equation <math display="inline">$p$</math> to pivot on entry <math display="inline">$a_{pk}x_{k}$</math>. The basic solution corresponding to the resulting system will be feasible if the following two conditions are satisfied:</paragraph>
+      <list ordered="true">
+              <item>The coefficient apk of xk must be positive. (When the pth equation is divided by apk, the new bp term must be positive.)</item>
+              <item>The ratio bp/apk must be the smallest among all the ratios bi/aik for which aik&gt;0. (This will guarantee that when the pth equation is used to eliminate the xk term from the ith equation, the resulting bi term will be positive.)</item>
+        </list>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Determine which row to use as a pivot in order to bring <math display="inline">$x_{2}$</math> into the solution in <strong>Example 3</strong>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Compute the ratios <math display="inline">$b_{i}\text{/}a_{i2}$</math>:</paragraph>
+              <paragraph><math display="block">$$\frac{b_{1}}{a_{12}} = \frac{60}{3} = 20,~~ ~\frac{b_{2}}{a_{22}} = 46,~~  ~\text{and~~~}\frac{b_{3}}{a_{32}} = \frac{50}{2} = 25$$</math></paragraph>
+              <paragraph>Since the first ratio is the smallest, pivot on the <math display="inline">$x_{2}$</math> term in the first equation. This produces the system</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lllllllllllll}
+      {~~\frac{2}{3}x_{1}} &amp; + &amp; x_{2} &amp; + &amp; {\frac{4}{3}x_{3}} &amp; + &amp; {\frac{1}{3}x_{4}} &amp; &amp; &amp; &amp; &amp; = &amp; 20 \\
+      {~~\frac{7}{3}x_{1}} &amp; &amp; &amp; + &amp; {\frac{11}{3}x_{3}} &amp; - &amp; {\frac{1}{3}x_{4}} &amp; + &amp; x_{5} &amp; &amp; &amp; = &amp; 26 \\
+      {- \frac{1}{3}x_{1}} &amp; &amp; &amp; - &amp; {\frac{5}{3}x_{3}} &amp; - &amp; {\frac{2}{3}x_{4}} &amp; &amp; &amp; + &amp; x_{6} &amp; = &amp; 10
+      \end{array}$$</math></paragraph>
+              <paragraph>Now the basic feasible solution is</paragraph>
+              <paragraph><math display="block">$$x_{1} = x_{3} = x_{4} = 0,~~~x_{2} = 20,~~~x_{5} = 26,~~~x_{6} = 10$$</math></paragraph>
+        </example>
+      <paragraph>A matrix format greatly simplifies calculations of this type. For instance, system (1) in Example 3 is represented by the augmented matrix</paragraph>
+      <figure>
+          <image alt="A 3 by 7 augmented matrix is shown with slack variables from columns 4 to 6."/>
+        </figure>
+      <paragraph>The variables are used as column labels, with the slack variables in color. Recall that the basic feasible solution associated with this matrix is</paragraph>
+      <paragraph>
+        <math display="block">$$x_{1} = x_{2} = x_{3} = 0,~~~x_{4} = 60,~~~x_{5} = 46,~~~x_{6} = 50$$</math>
+      </paragraph>
+      <paragraph>The circled <math display="inline">$3$</math> in the <math display="inline">$x_{2}$</math> column indicates that this entry will be used as a pivot to bring <math display="inline">$x_{2}$</math> into the solution. (The ratio calculations in <strong>Example 4</strong> identified this entry as the appropriate pivot.) Complete row reduction in column 2 produces the new matrix that corresponds to the new system in Example 4:</paragraph>
+      <figure>
+          <image alt="A 3 by 7 augmented matrix is depicted with slack variables from columns 4 to 6."/>
+        </figure>
+      <paragraph>As in Example 4, the new basic feasible solution is</paragraph>
+      <paragraph>
+        <math display="block">$$x_{1} = x_{3} = x_{4} = 0,~~~x_{2} = 20,~~~x_{5} = 26,~~~x_{6} = 10$$</math>
+      </paragraph>
+      <paragraph>The preceding discussion has prepared the way for a full demonstration of the simplex method, based on the constraints in Example 3. At each step, the objective function in <strong>Example 5</strong> will drive the choice of which variable to bring into the solution of the system.</paragraph>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>Maximize <math display="inline">$25x_{1} + 33x_{2} + 18x_{3}$</math></paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      \begin{array}{llllllll}
+      \text{subject to} &amp; {2x_{1}} &amp; + &amp; {3x_{2}} &amp; + &amp; {4x_{3}} &amp; \leq &amp; 60 \\
+       &amp; {3x_{1}} &amp; + &amp; x_{2} &amp; + &amp; {5x_{3}} &amp; \leq &amp; 46 \\
+       &amp; x_{1} &amp; + &amp; {2x_{2}} &amp; + &amp; x_{3} &amp; \leq &amp; 50
+      \end{array} \\
+      {\text{and~}x_{j} \geq \text{0 for~}j = \text{1},\ldots,\text{ 3}\text{.}}
+      \end{array}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>First, add slack variables, as before. Then change the objective <em>function</em> <math display="inline">$25x_{1} + 33x_{2} + 18x_{3}$</math> into an <em>equation</em> by introducing a new variable <math display="inline">$M$</math> given by <math display="inline">$M = 25x_{1} + 33x_{2} + 18x_{3}$</math>. Now the goal is to maximize the variable <math display="inline">$M$</math>, where <math display="inline">$M$</math> satisfies the equation</paragraph>
+              <paragraph><math display="block">$$- 25x_{1} - 33x_{2} - 18x_{3} + M = 0$$</math></paragraph>
+              <paragraph>The original problem is now restated as follows: Among all the solutions of the system of equations</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      {~~~~~2x_{1}} &amp; + &amp; {~~3x_{2}} &amp; + &amp; {4x_{3}} &amp; + &amp; x_{4} &amp; &amp; &amp; &amp; &amp; &amp; &amp; = &amp; 60 \\
+      {~~~~~3x_{1}} &amp; + &amp; {~~~x_{2}} &amp; + &amp; {5x_{3}} &amp; &amp; &amp; + &amp; x_{5} &amp; &amp; &amp; &amp; &amp; = &amp; 46 \\
+      {~~~~~~~x_{1}} &amp; + &amp; {~~2x_{2}} &amp; + &amp; {~~x_{3}} &amp; &amp; &amp; &amp; &amp; + &amp; x_{6} &amp; &amp; &amp; = &amp; 50 \\
+      {- 25x_{1}} &amp; - &amp; {33x_{2}} &amp; - &amp; {18x_{3}} &amp; &amp; &amp; &amp; &amp; &amp; &amp; + &amp; M &amp; = &amp; 0
+      \end{matrix}$$</math></paragraph>
+              <paragraph>find a solution for which <math display="inline">$x_{j} \geq 0$</math> (<math display="inline">$j = 1,\ldots,6$</math>) and for which <math display="inline">$M$</math> is as large as possible.</paragraph>
+              <paragraph>The augmented matrix for this new system is called the <strong>initial simplex tableau</strong>. It is written with two ruled lines in the matrix:</paragraph>
+          <figure>
+            <image alt="A 4 by 8 augmented matrix depicts the initial simplex tableau."/>
+          </figure>
+              <paragraph>The horizontal line above the bottom row isolates the equation corresponding to the objective function. This last row will play a special role in what follows. (The bottom row is used only to decide which variable to bring into the solution. Pivot positions are never chosen from the bottom row.) The column headings for the slack variables are in color, as a reminder that at the end of the calculations only the original variables are part of the final solution of the problem.</paragraph>
+              <paragraph>Look in rows 1 to 3 of the tableau above to find the basic feasible solution. The <em>columns of the</em> <math display="inline">$3 \times 3$</math> <em>identity matrix</em> in these three rows <em>identify the basic variables</em>—namely, <math display="inline">$x_{4}$</math>, <math display="inline">$x_{5}$</math>, and <math display="inline">$x_{6}$</math>. The basic solution is</paragraph>
+              <paragraph><math display="block">$$x_{1} = x_{2} = x_{3} = 0,~~~x_{4} = 60,~~~x_{5} = 46,~~x_{6} = 50,~~~M = 0~$$</math></paragraph>
+              <paragraph>This solution is not optimal, however, since only the slack variables are nonzero. However, the bottom row implies that</paragraph>
+              <paragraph><math display="block">$$M = 25x_{1} + 33x_{2} + 18x_{3}$$</math></paragraph>
+              <paragraph>The value of <math display="inline">$M$</math> will rise when any of the variables <math display="inline">$x_{1}$</math>, <math display="inline">$x_{2}$</math>, or <math display="inline">$x_{3}$</math> rises. Since the coefficient of <math display="inline">$x_{2}$</math> is the largest of the three coefficients, bringing <math display="inline">$x_{2}$</math> into the solution will cause the greatest increase in <math display="inline">$M$</math>.</paragraph>
+              <paragraph>To bring <math display="inline">$x_{2}$</math> into the solution, follow the pivoting procedure outlined earlier. In the tableau above, compare the ratios <math display="inline">$b_{i}\text{/}a_{i2}$</math> for each row except the last. They are <math display="inline">$60\text{/}3$</math>, <math display="inline">$46\text{/}1$</math>, and <math display="inline">$50\text{/}2$</math>. The smallest is <math display="inline">$60\text{/}3$</math>, so the pivot should be the entry <math display="inline">$3$</math> that is circled in the first row.</paragraph>
+          <figure>
+            <image alt="A 4 by 8 augmented matrix is shown with the pivot 3 circled in the first row."/>
+          </figure>
+              <paragraph>The result of the pivot operation is</paragraph>
+          <figure>
+            <image alt="A 4 by 8 augmented matrix is shown."/>
+          </figure>
+              <paragraph>Now the columns of the <math display="inline">$3 \times 3$</math> identity matrix are in columns 2, 5, and 6 of the tableau. So the basic feasible solution is</paragraph>
+              <paragraph><math display="block">$$x_{1} = x_{3} = x_{4} = 0,~~~x_{2} = 20,~~~x_{5} = 26,~~~x_{6} = 10,~~~M = 660$$</math></paragraph>
+              <paragraph>Thus <math display="inline">$M$</math> has increased from <math display="inline">$0$</math> to <math display="inline">$660$</math>. To see if <math display="inline">$M$</math> can be increased further, look at the bottom row of the tableau and solve the equation for <math display="inline">$M$</math>:</paragraph>
+              <paragraph><math display="block">$$M = 660 + 3x_{1} - 26x_{3} - 11x_{4}$$</math></paragraph>
+              <paragraph>Since each of the variables <math display="inline">$x_{j}$</math> is nonnegative, the value of <math display="inline">$M$</math> will increase only if <math display="inline">$x_{1}$</math> increases (from <math display="inline">$0$</math>). (Since the coefficients of <math display="inline">$x_{3}$</math> and <math display="inline">$x_{4}$</math> are both negative at this point, increasing one of them would <em>decrease</em> <math display="inline">$M$</math>.) So <math display="inline">$x_{1}$</math> needs to come into the solution. Compare the ratios (of the augmented column to column 1):</paragraph>
+              <paragraph><math display="block">$$\frac{20}{\frac{2}{3}} = 30~~~\text{and~~~}\frac{26}{\frac{7}{3}} = \frac{78}{7}$$</math></paragraph>
+              <paragraph>The second ratio is smaller, so the next pivot should be <math display="inline">$\frac{7}{3}$</math> in row 2.</paragraph>
+          <figure>
+            <image alt="A 4 by 8 augmented matrix is shown with the pivot 7 divided by 3 circled in the second row."/>
+          </figure>
+              <paragraph>After pivoting, the resulting tableau is</paragraph>
+          <figure>
+            <image alt="A 4 by 8 augmented matrix is depicted."/>
+          </figure>
+              <paragraph>The corresponding basic feasible solution is</paragraph>
+              <paragraph><math display="block">$$x_{3} = x_{4} = x_{5} = 0,~x_{1} = \frac{78}{7},x_{2} = \frac{88}{7},x_{6} = \frac{96}{7},M = \frac{4854}{7}$$</math></paragraph>
+              <paragraph>The bottom row shows that</paragraph>
+              <paragraph><math display="block">$$M = \frac{4854}{7} - \frac{215}{7}x_{3} - \frac{74}{7}x_{4} - \frac{9}{7}x_{5}$$</math></paragraph>
+              <paragraph>The negative coefficients of the variables here show that <math display="inline">$M$</math> can be no larger than <math display="inline">$\frac{4854}{7}$</math> (because <math display="inline">$x_{3}$</math>, <math display="inline">$x_{4}$</math>, and <math display="inline">$x_{5}$</math> are nonnegative), so the solution is optimal. The maximum value of <math display="inline">$25x_{1} + 33x_{2} + 18x_{3}$</math> is <math display="inline">$\frac{4854}{7}$</math>, and this maximum occurs when <math display="inline">$x_{1} = \frac{78}{7}$</math>, <math display="inline">$x_{2} = \frac{88}{7}$</math>, and <math display="inline">$x_{3} = 0$</math>. The variable <math display="inline">$x_{3}$</math> is zero because in the optimal solution <math display="inline">$x_{3}$</math> is a free variable, not a basic variable. Note that the value of <math display="inline">$x_{6}$</math> is not part of the solution of the original problem, because <math display="inline">$x_{6}$</math> is a slack variable. The fact that the slack variables <math display="inline">$x_{4}$</math> and <math display="inline">$x_{5}$</math> are zero means that the first two inequalities listed at the beginning of this example are both <em>equalities</em> at the optimal values of <math display="inline">$x_{1}$</math>, <math display="inline">$x_{2}$</math>, and <math display="inline">$x_{3}$</math>.</paragraph>
+        </example>
+      <paragraph>Example 5 is worth reading carefully several times. In particular, notice that a <em>negative</em> entry in the bottom row of any <math display="inline">$x_{j}$</math> column will become a <em>positive</em> coefficient when that equation is solved for <math display="inline">$M$</math>, indicating that <math display="inline">$M$</math> has not reached its maximum. See tableau (2) and equation (3).</paragraph>
+      <paragraph>In summary, here is the simplex method for solving a canonical maximizing problem when each entry in the vector <math display="inline">$\mathbf{b}$</math> is positive.</paragraph>
+      <note type="procedure_box" title="The Simplex Algorithm for a Canonical Linear Programming Problem﻿">
+          <heading level="2">The Simplex Algorithm for a Canonical Linear Programming Problem﻿</heading>
+          <list ordered="true">
+                  <item>Change the inequality constraints into equalities by adding slack variables. Let M be a variable equal to the objective function, and below the constraint equations write an equation of the form- (objective function)+M=0</item>
+                  <item>Set up the initial simplex tableau. The slack variables (and M) provide the initial basic feasible solution.</item>
+                  <item>Check the bottom row of the tableau for optimality. If all the entries to the left of the vertical line are nonnegative, then the solution is optimal. If some are negative, then choose the variable xk for which the entry in the bottom row is as negative as possible.3</item>
+          </list>
+          <list ordered="true">
+                  <item>Bring the variable xk into the solution. Do this by pivoting on the positive entry apk for which the nonnegative ratio bi/aik is the smallest. The new basic feasible solution includes an increased value for M.</item>
+                  <item>Repeat the process, beginning at step 3, until all the entries in the bottom row are nonnegative.</item>
+          </list>
+        </note>
+      <paragraph>Two things can go wrong in the simplex algorithm. At step 4, there might be a negative entry in the bottom row of the <math display="inline">$x_{k}$</math> column, but no positive entry <math display="inline">$a_{ik}$</math> above it. In this case, it will not be possible to find a pivot to bring <math display="inline">$x_{k}$</math> into the solution. This corresponds to the case where the objective function is unbounded and no optimal solution exists.</paragraph>
+      <paragraph>The second potential problem also occurs at step 4. The smallest ratio <math display="inline">$b_{i}\text{/}a_{ik}$</math> may occur in more than one row. When this happens, the next tableau will have at least one basic variable equal to zero, and in subsequent tableaus the value of <math display="inline">$M$</math> may remain constant. Theoretically it is possible for an infinite sequence of pivots to occur and fail to lead to an optimal solution. Such a phenomenon is called <strong>cycling</strong>. Fortunately, cycling occurs only rarely in practical applications. In most cases, one may arbitrarily choose either row with a minimum ratio as the pivot.</paragraph>
+      <example number="6">
+          <heading level="2">Example 6</heading>
+              <paragraph>A health food store sells two different mixtures of nuts. A box of the first mixture contains <math display="inline">$1$</math> pound of cashews and <math display="inline">$1$</math> pound of peanuts. A box of the second mixture contains <math display="inline">$1$</math> pound of filberts and <math display="inline">$2$</math> pounds of peanuts. The store has available <math display="inline">$30$</math> pounds of cashews, <math display="inline">$20$</math> pounds of filberts, and <math display="inline">$54$</math> pounds of peanuts. Suppose the profit on each box of the first mixture is <math display="inline">$\text{\$</math> and on each box of the second mixture is <math display="inline">$\text{\$</math>. If the store can sell all of the boxes it mixes, how many boxes of each mixture should be made in order to maximize the profit?</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Let <math display="inline">$x_{1}$</math> be the number of boxes of the first mixture, and let <math display="inline">$x_{2}$</math> be the number of boxes of the second mixture. The problem can be expressed mathematically as</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      \begin{array}{lllllll}
+      \text{Maximize} &amp; {2x_{1}} &amp; + &amp; {3x_{2}} &amp; &amp; &amp; \\
+      \text{subject~to} &amp; {~~x_{1}} &amp; &amp; &amp; \leq &amp; 30 &amp; \text{(cashews)} \\
+       &amp; &amp; &amp; {~~x_{2}} &amp; \leq &amp; 20 &amp; \text{(filberts)} \\
+       &amp; {~~x_{1}} &amp; + &amp; {2x_{2}} &amp; \leq &amp; 54 &amp; \text{(peanuts)}
+      \end{array} \\
+      {\text{and~}x_{1} \geq 0,x_{2} \geq 0.}
+      \end{array}$$</math></paragraph>
+              <paragraph>This turns out to be the same problem solved graphically in Example 5 of Section 9.2. When it is solved by the simplex method, the basic feasible solution from each tableau corresponds to an extreme point of the feasible region. See <strong>Figure</strong><strong>1</strong>.</paragraph>
+          <figure>
+            <image alt="A graph shows a shaded region between three straight lines."/>
+          </figure>
+              <paragraph>To construct the initial tableau, add slack variables and rewrite the objective function as an equation. The problem now is to find a nonnegative solution to the system</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lllllllllllll}
+      {~~~~~x_{1}} &amp; &amp; &amp; + &amp; x_{3} &amp; &amp; &amp; &amp; &amp; &amp; &amp; = &amp; 30 \\
+       &amp; &amp; {~~x_{2}} &amp; + &amp; &amp; &amp; x_{4} &amp; &amp; &amp; &amp; &amp; = &amp; 20 \\
+      {~~~~~x_{1}} &amp; + &amp; {2x_{2}} &amp; &amp; &amp; &amp; &amp; + &amp; x_{5} &amp; &amp; &amp; = &amp; 54 \\
+      {- 2x_{1}} &amp; - &amp; {3x_{2}} &amp; &amp; &amp; &amp; &amp; &amp; &amp; + &amp; M &amp; = &amp; {~~0}
+      \end{array}$$</math></paragraph>
+              <paragraph>for which <math display="inline">$M$</math> is a maximum. The initial simplex tableau is</paragraph>
+          <figure>
+            <image alt="A 4 by 7 augmented matrix depicts the initial simplex tableau."/>
+          </figure>
+              <paragraph>The basic feasible solution, where <math display="inline">$x_{1}$</math>, <math display="inline">$x_{2}$</math>, and <math display="inline">$M$</math> are <math display="inline">$0$</math>, corresponds to the extreme point <math display="inline">$(x_{1},x_{2}) = (0,0)$</math> of the feasible region in Figure 1. In the bottom row of the tableau, the most negative entry is <math display="inline">$- 3$</math>, so the first pivot should be in the <math display="inline">$x_{2}$</math> column. The ratios <math display="inline">$20\text{/}1$</math> and <math display="inline">$54\text{/}2$</math> show that the pivot should be the <math display="inline">$1$</math> in the <math display="inline">$x_{2}$</math> column:</paragraph>
+          <figure>
+            <image alt="The graph shows a shaded region between three straight lines."/>
+          </figure>
+          <figure>
+            <image alt="A 4 by 7 augmented matrix is shown with a pivot 1 circled in the second row."/>
+          </figure>
+              <paragraph>After pivoting, the tableau becomes</paragraph>
+          <figure>
+            <image alt="A 4 by 7 augmented matrix is shown, with the first entry in the third row circled."/>
+          </figure>
+              <paragraph>The basic feasible solution is now</paragraph>
+              <paragraph><math display="block">$$x_{1} = x_{4} = 0,~~~x_{2} = 20,~~~x_{3} = 30,~~~x_{5} = 14,~~~M = 60$$</math></paragraph>
+              <paragraph>The new solution is at the extreme point <math display="inline">$(x_{1},x_{2}) = (0,20)$</math> in Figure 1. The <math display="inline">$- 2$</math> in the bottom row of the tableau shows that the next pivot is in column 1, which produces</paragraph>
+          <figure>
+            <image alt="The graph shows a shaded region between three lines."/>
+          </figure>
+          <figure>
+            <image alt="A 4 by 7 augmented matrix is shown, with the first entry in the fourth column circled."/>
+          </figure>
+              <paragraph>This time <math display="inline">$x_{1} = 14$</math> and <math display="inline">$x_{2} = 20$</math>, so the solution has moved across to the extreme point <math display="inline">$(14,20)$</math> in Figure 1, and the objective function has increased from <math display="inline">$60$</math> to <math display="inline">$88$</math>. Finally, the <math display="inline">$- 1$</math> in the bottom row shows that the next pivot is in column 4. Pivoting on the <math display="inline">$2$</math> in the first row produces the final tableau:</paragraph>
+          <figure>
+            <image alt="A graph shows a shaded region between three lines."/>
+          </figure>
+          <figure>
+            <image alt="A 4 by 7 augmented matrix depicts the final tableau after pivoting."/>
+          </figure>
+              <paragraph>Since all the entries in the bottom row are nonnegative, the solution now is optimal, with <math display="inline">$x_{1} = 30$</math> and <math display="inline">$x_{2} = 12$</math>, corresponding to the extreme point <math display="inline">$(30,12)$</math>. The maximum profit of <math display="inline">$\text{\$</math> is attained by making <math display="inline">$30$</math> boxes of the first mixture and <math display="inline">$12$</math> boxes of the second. Note that although <math display="inline">$x_{4}$</math> is part of the basic feasible solution for this tableau, its value is not included in the solution of the original problem, because <math display="inline">$x_{4}$</math> is a slack variable.</paragraph>
+          <figure>
+            <image alt="A graph shows a shaded region between three lines."/>
+          </figure>
+        </example>
+      <heading level="2">Minimization Problems</heading>
+      <paragraph>So far, each canonical maximizing problem involved a vector <math display="inline">$\mathbf{b}$</math> whose coordinates were positive. But what happens when some of the coordinates of <math display="inline">$\mathbf{b}$</math> are zero or negative? And what about a minimizing problem?</paragraph>
+      <paragraph>If some of the coordinates of <math display="inline">$\mathbf{b}$</math> are zero, then it is possible for cycling to occur and the simplex method to fail to terminate at an optimal solution. As mentioned earlier, however, cycling does not generally happen in practical applications, and so the presence of zero entries in the right-hand column seldom causes difficulty in the operation of the simplex method.</paragraph>
+      <paragraph>The case when one of the coordinates of <math display="inline">$\mathbf{b}$</math> is negative can occur in practice and requires some special consideration. The difficulty is that all the <math display="inline">$b_{i}$</math> terms must be nonnegative in order for the slack variables to provide an initial basic feasible solution. One way to change a negative <math display="inline">$b_{i}$</math> term into a positive term would be to multiply the inequality by <math display="inline">$- 1$</math> (before introducing slack variables). But this would change the direction of the inequality. For example,</paragraph>
+      <paragraph>
+        <math display="block">$$x_{1} - 3x_{2} + 2x_{3} \leq - 4$$</math>
+      </paragraph>
+      <paragraph>would become</paragraph>
+      <paragraph>
+        <math display="block">$$- x_{1} + 3x_{2} - 2x_{3} \geq 4$$</math>
+      </paragraph>
+      <paragraph>Thus a negative <math display="inline">$b_{i}$</math> term causes the same problem as a reversed inequality. Since reversed inequalities often occur in minimization problems, the following example discusses this case.</paragraph>
+      <example number="7">
+          <heading level="2">Example 7</heading>
+              <paragraph>Minimize <math display="inline">$x_{1} + 2x_{2}$</math></paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      \begin{array}{llllll}
+      \text{subject~to} &amp; {~x_{1}} &amp; + &amp; x_{2} &amp; \geq &amp; 14 \\
+       &amp; {~x_{1}} &amp; - &amp; x_{2} &amp; \leq &amp; 2
+      \end{array} \\
+      {\text{~and~}x_{1} \geq 0,x_{2} \geq 0.}
+      \end{array}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The minimum of <math display="inline">$f(x_{1},x_{2})$</math> over a set occurs at the same point as the maximum of <math display="inline">$- f(x_{1},x_{2})$</math> over the <em>same</em> set. However, in order to use the simplex algorithm, the canonical <em>description</em> of the feasible set must use <math display="inline">$\leq$</math> signs. So the first inequality above must be rewritten. The second inequality is already in canonical form. Thus the original problem is equivalent to the following:</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      \begin{matrix}
+      \text{Maximize} &amp; {~ - x_{1}} &amp; - &amp; {2x_{2}} &amp; &amp; \\
+      \text{subject~to} &amp; {~ - x_{1}} &amp; - &amp; x_{2} &amp; \leq &amp; {- 14} \\
+       &amp; {~~~~x_{1}} &amp; - &amp; x_{2} &amp; \leq &amp; 2
+      \end{matrix} \\
+      {\text{and~}x_{1} \geq 0,x_{2} \geq 0.}
+      \end{array}$$</math></paragraph>
+              <paragraph>To solve this, let <math display="inline">$M = - x_{1} - 2x_{2}$</math> and add slack variables to the inequalities, as before. This creates the linear system</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      {- x_{1}} &amp; - &amp; x_{2} &amp; + &amp; x_{3} &amp; &amp; &amp; &amp; &amp; = &amp; {- 14} \\
+      x_{1} &amp; - &amp; x_{2} &amp; &amp; &amp; + &amp; x_{4} &amp; &amp; &amp; = &amp; 2 \\
+      x_{1} &amp; + &amp; {2x_{2}} &amp; &amp; &amp; &amp; &amp; + &amp; M &amp; = &amp; 0
+      \end{matrix}$$</math></paragraph>
+              <paragraph>To find a nonnegative solution to this system for which <math display="inline">$M$</math> is a maximum, construct the initial simplex tableau:</paragraph>
+          <figure>
+            <image alt="A 3 by 6 augmented matrix depicts an initial simplex tableau."/>
+          </figure>
+              <paragraph>The corresponding basic solution is</paragraph>
+              <paragraph><math display="block">$$x_{1} = x_{2} = 0,~~~x_{3} = - 14,~~~x_{4} = 2,~~~M = 0$$</math></paragraph>
+              <paragraph>However, since <math display="inline">$x_{3}$</math> is negative, this basic solution is not feasible. <em>Before the standard simplex method can begin, each term in the augmented column above the horizontal line must be a nonnegative number</em>. This is accomplished by pivoting on a negative entry.</paragraph>
+              <paragraph>In order to replace a negative <math display="inline">$b_{i}$</math> entry by a positive number, find another negative entry in the same row. (If all the other entries in the row are nonnegative, then the problem has no feasible solution.) This negative entry is in the column corresponding to the variable that should now come into the solution. In this example, the first two columns both have negative entries, so either <math display="inline">$x_{1}$</math> or <math display="inline">$x_{2}$</math> should be brought into the solution.</paragraph>
+              <paragraph>For example, to bring <math display="inline">$x_{2}$</math> into the solution, select as a pivot the entry <math display="inline">$a_{i2}$</math> in column 2 for which the ratio <math display="inline">$b_{i}\text{/}a_{i2}$</math> is the smallest nonnegative number. (The ratio is positive when both <math display="inline">$b_{i}$</math> and <math display="inline">$a_{i2}$</math> are negative.) In this case, only the ratio <math display="inline">$( - 14)\text{/}( - 1)$</math> is nonnegative, so the <math display="inline">$- 1$</math> in the first row must be the pivot. After the pivot operations on column 2, the resulting tableau is</paragraph>
+          <figure>
+            <image alt="A 3 by 6 augmented matrix depicts the resulting tableau after pivoting column 2."/>
+          </figure>
+              <paragraph>Now each entry in the augmented column (except the bottom entry) is positive, and the simplex method can begin. (Sometimes it may be necessary to pivot more than once in order to make each of these terms nonnegative. See Exercise 19.) The next tableau turns out to be optimal:</paragraph>
+          <figure>
+            <image alt="A 3 by 6 augmented matrix depicts an optimal tableau."/>
+          </figure>
+              <paragraph>The maximum feasible value of <math display="inline">$- x_{1} - 2x_{2}$</math> is <math display="inline">$- 20$</math>, when <math display="inline">$x_{1} = 8$</math> and <math display="inline">$x_{2} = 6$</math>. So the <em>minimum</em> value of <math display="inline">$x_{1} + 2x_{2}$</math> is <math display="inline">$20$</math>.</paragraph>
+        </example>
+      <paragraph>The final example uses the technique of <strong>Example 7</strong>, but the simplex tableau requires more preprocessing before the standard maximization operations can begin.</paragraph>
+      <example number="8">
+          <heading level="2">Example 8</heading>
+              <paragraph>Minimize <math display="inline">$5x_{1} + 3x_{2}$</math></paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      \begin{array}{rrrrrr}
+      \text{subject~to} &amp; {~  4x_{1}} &amp; + &amp; x_{2} &amp; \geq &amp; 12 \\
+       &amp; x_{1} &amp; + &amp; {2x_{2}} &amp; \geq &amp; 10 \\
+       &amp; x_{1} &amp; + &amp; {4x_{2}} &amp; \geq &amp; 16
+      \end{array} \\
+      {\text{~and~}x_{1} \geq 0,x_{2} \geq 0.}
+      \end{array}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Convert the problem into a maximization problem, setting <math display="inline">$M = - 5x_{1} - 3x_{2}$</math> and reversing the three main constraint inequalities:</paragraph>
+              <paragraph><math display="block">$$- 4x_{1} - x_{2} \leq - 12,~~~ - x_{1} - 2x_{2} \leq - 10,~~~ - x_{1} - 4x_{2} \leq - 16$$</math></paragraph>
+              <paragraph>Add nonnegative slack variables, and construct the initial simplex tableau:</paragraph>
+          <figure>
+            <image alt="A set of four equations and their associated matrix form are shown."/>
+          </figure>
+              <paragraph>Before the simplex maximization process can begin, the top three entries in the augmented column must be nonnegative (to make the basic solution feasible). Pivoting on a negative entry to bring <math display="inline">$x_{1}$</math> or <math display="inline">$x_{2}$</math> into the solution will help. Trial and error will work. However, the fastest method is to compute the usual ratios <math display="inline">$b_{i}\text{/}a_{ij}$</math> for all negative entries in rows 1 to 3 of columns 1 and 2. Choose as the pivot the entry with the <em>largest</em> ratio. That will make <em>all</em> the augmented entries change sign (because the pivot operation will <em>add</em> multiples of the pivot row to the other rows). In this example, the pivot should be <math display="inline">$a_{31}$</math>, and the new tableau is</paragraph>
+          <figure>
+            <image alt="An augmented matrix of 4 by 7 order is shown."/>
+          </figure>
+              <paragraph>Now the simplex maximization algorithm is available. The <math display="inline">$- 17$</math> in the last row shows that <math display="inline">$x_{2}$</math> must be brought into the solution. The smallest of the ratios <math display="inline">$52\text{/}15$</math>, <math display="inline">$6\text{/}2$</math>, and <math display="inline">$16\text{/}4$</math> is <math display="inline">$6\text{/}2$</math>. A pivot on the <math display="inline">$2$</math> in column <math display="inline">$2$</math> produces</paragraph>
+          <figure>
+            <image alt="An augmented matrix of 4 by 7 order is depicted."/>
+          </figure>
+              <paragraph>The <math display="inline">$- \frac{7}{2}$</math> in the last row shows that <math display="inline">$x_{5}$</math> must be brought into the solution. The pivot is <math display="inline">$\frac{7}{2}$</math> in column <math display="inline">$5$</math>, and the new (and final) tableau is</paragraph>
+          <figure>
+            <image alt="An augmented matrix of 4 by 7 order is presented."/>
+          </figure>
+              <paragraph>The solution occurs when <math display="inline">$x_{1} = 2$</math> (from row <math display="inline">$3$</math>), <math display="inline">$x_{2} = 4$</math>, and <math display="inline">$M = - 22$</math>, so the minimum of the original objective function is <math display="inline">$22$</math>.</paragraph>
+        </example>
+      <heading level="2">The “Simplex” in the Simplex Algorithm</heading>
+      <paragraph>The geometric approach in Section 9.2 focused on the <em>rows</em> of an <math display="inline">$m \times 2$</math> matrix <math display="inline">$A$</math>, graphing each inequality as a half-space in <math display="inline">$\text{ℝ}^{2}$</math>, and viewing the solution set as the intersection of half-spaces. In higher-dimensional problems, the solution set is again an intersection of half-spaces, but this geometric view does not lead to an efficient algorithm for finding the optimal solution.</paragraph>
+      <paragraph>The simplex algorithm focuses on the <em>columns</em> of <math display="inline">$A$</math> instead of the rows. Suppose that <math display="inline">$A$</math> is <math display="inline">$m \times n$</math> and denote the columns by <math display="inline">$\textbf{a}_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\textbf{a}_{n}$</math>. The addition of <math display="inline">$m$</math> slack variables creates an <math display="inline">$m \times (n + m)$</math> system of equations of the form</paragraph>
+      <paragraph>
+        <math display="block">$$x_{1}\textbf{a}_{1} + \cdots + x_{n}\textbf{a}_{n} + x_{n + 1}\textbf{e}_{1} + \cdots + x_{n + m}\textbf{e}_{m} = \textbf{b}$$</math>
+      </paragraph>
+      <paragraph>where <math display="inline">$x_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$x_{n + m}$</math> are nonnegative and <math display="inline">$\{\textbf{e}_{1},\ldots,\textbf{e}_{m}\}$</math> is the standard basis for <math display="inline">$\text{ℝ}^{m}$</math>. The initial basic feasible solution is obtained when <math display="inline">$x_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$x_{n}$</math> are zero and <math display="inline">$b_{1}\textbf{e}_{1} + \cdots + b_{m}\textbf{e}_{m} = \textbf{b}$</math>. If <math display="inline">$s = b_{1} + \cdots + b_{m}$</math>, then the equation</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{0} + \left( \frac{b_{1}}{s} \right)s\textbf{e}_{1} + \cdots + \left( \frac{b_{m}}{s} \right)s\textbf{e}_{m} = \textbf{b}$$</math>
+      </paragraph>
+      <paragraph>shows that <math display="inline">$\mathbf{b}$</math> is in what is called the <em>simplex</em> generated by <math display="inline">$\textbf{0}$</math>, <math display="inline">$s\textbf{e}_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$s\textbf{e}_{m}$</math>. For simplicity, we say that “<math display="inline">$\mathbf{b}$</math> is in an <math display="inline">$m\text{-dimensional}$</math> simplex determined by <math display="inline">$\textbf{e}_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\textbf{e}_{m}$</math>.” This is the first simplex in the simplex algorithm.4<sup/></paragraph>
+      <paragraph>In general, if <math display="inline">$\textbf{v}_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\textbf{v}_{m}$</math> is any basis of <math display="inline">$\text{ℝ}^{m}$</math>, selected from the columns of the matrix <math display="inline">$P = \left\lbrack \mathbf{a}_{1}\ldots\mathbf{a}_{n}\mathbf{e}_{1}\ldots\mathbf{e}_{m} \right\rbrack$</math>, and if <math display="inline">$\mathbf{b}$</math> is a linear combination of these vectors with nonnegative weights, then <strong>b</strong> is in an <math display="inline">$m\text{-dimensional}$</math> simplex determined by <math display="inline">$\textbf{v}_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\textbf{v}_{m}$</math>. A <em>basic</em> feasible solution of the linear programming problem corresponds to a particular <em>basis</em> from the columns of <math display="inline">$P$</math>. The simplex algorithm changes this basis and hence the corresponding simplex that contains <math display="inline">$\mathbf{b}$</math>, one column at a time. The various ratios computed during the algorithm drive the choice of columns. Since row operations do not change the linear dependence relations among the columns, each basic feasible solution tells how to build <math display="inline">$\mathbf{b}$</math> from the corresponding columns of <math display="inline">$P$</math>.</paragraph>
+      <note type="practice" title="Practice Problem">
+          <heading level="2">Practice Problem</heading>
+              <paragraph>Use the simplex method to solve the following linear programming problem:<math display="block">$$\begin{array}{l}
+      \begin{array}{llllllll}
+      \text{Maximize} &amp; {~~~~~~2x_{1}} &amp; + &amp; x_{2} &amp; &amp; &amp; &amp; \\
+      \text{subject~to} &amp; {~~~~ - x_{1}} &amp; + &amp; {2x_{2}} &amp; \leq &amp; {~~8} &amp; &amp; \\
+       &amp; {~~~~~~3x_{1}} &amp; + &amp; {2x_{2}} &amp; \leq &amp; 24 &amp; &amp; 
+      \end{array} \\
+      {\text{~and~}x_{1} \geq 0,x_{2} \geq 0.}
+      \end{array}$$</math></paragraph>
+        </note>
+      <paragraph><sup>1 </sup>This terminology generalizes that used in Section 1.2, where basic variables also had to correspond to pivot positions in a matrix <em>echelon</em> form. Here, the goal is not to solve for basic variables in terms of free variables, but to obtain a particular solution of the system when the nonbasic (free) variables are zero.</paragraph>
+      <paragraph><sup>2 </sup>To “pivot” on a particular term here means to transform its coefficient into a <math display="inline">$1$</math> and then use it to eliminate corresponding terms in all the other equations, not just the equations below it, as was done in Section 1.2.</paragraph>
+      <paragraph><sup>3 </sup>The goal of step 3 is to produce the greatest increase possible in the value of <math display="inline">$M$</math>. This happens when only one variable <math display="inline">$x_{k}$</math> satisfies the conditions. Suppose, however, that the most negative entry in the bottom row appears in both columns <math display="inline">$j$</math> and <math display="inline">$k$</math>. Step 3 says that either <math display="inline">$x_{j}$</math> or <math display="inline">$x_{k}$</math> should be brought into the solution, and that is correct. Occasionally, a few computations can be avoided by first using step 4 to compute the “smallest ratio” for both columns <math display="inline">$j$</math> and <math display="inline">$k$</math>, and then choosing the column for which this “smallest ratio” is larger. This situation will arise in Section 9.4.</paragraph>
+      <paragraph><sup>4</sup> If <math display="inline">$\textbf{v}_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\textbf{v}_{m}$</math> are linearly independent vectors in <math display="inline">$\text{ℝ}^{m}$</math>, then the convex hull of the set <math display="inline">$\{\textbf{0},\textbf{v}_{1},\ldots,\textbf{v}_{m}\}$</math> is an <math display="inline">$m$</math>-dimensional simplex, <math display="inline">$S$</math>. (See Section 8.5.) A typical vector in <math display="inline">$S$</math> has the form <math display="inline">$c_{0}\textbf{0} + c_{1}\textbf{v}_{1} + \cdots + c_{m}\textbf{v}_{m}$</math>, where the weights are nonnegative and sum to one. (Equivalently, vectors in <math display="inline">$S$</math> have the form <math display="inline">$c_{1}\textbf{v}_{1} + \cdots + c_{m}\textbf{v}_{m}$</math>, where the weights are nonnegative and their sum is at most one.) Any set formed by translating such a set <math display="inline">$S$</math> is also called an <math display="inline">$m$</math>-dimensional simplex, but such sets do not appear in the simplex algorithm.</paragraph>
+    </content>
+    <exercises title="9.3 Exercises">
+      <heading level="1">9.3 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>In Exercises 1 and 2, set up the initial simplex tableau for the given linear programming problem.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{l}
+      \begin{matrix}
+      \text{Maximize} &amp; {  21x_{1}} &amp; + &amp; {25x_{2}} &amp; + &amp; {15x_{3}} &amp; &amp; \\
+      \text{subject~to} &amp; {2x_{1}} &amp; + &amp; {7x_{2}} &amp; + &amp; {10x_{3}} &amp; \leq &amp; 20 \\
+       &amp; {3x_{1}} &amp; + &amp; {4x_{2}} &amp; + &amp; {18x_{3}} &amp; \leq &amp; 25
+      \end{matrix} \\
+      {\text{and~}x_{1} \geq 0,x_{2} \geq 0,x_{3} \geq 0.}
+      \end{array}$</math> ﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{l}
+      \begin{matrix}
+      \text{Maximize} &amp; {  22x_{1}} &amp; + &amp; {14x_{2}} &amp; &amp; \\
+      \text{subject~to} &amp; {~3x_{1}} &amp; + &amp; {~5x_{2}} &amp; \leq &amp; 30 \\
+       &amp; {~2x_{1}} &amp; + &amp; {~7x_{2}} &amp; \leq &amp; 24 \\
+       &amp; {~6x_{1}} &amp; + &amp; {~~x_{2}} &amp; \leq &amp; 42
+      \end{matrix} \\
+      {\text{and~}x_{1} \geq 0,x_{2} \geq 0.}
+      \end{array}~$</math> ﻿</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+                  <instructions>For each simplex tableau in Exercises 3–6, do the following:</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph>Determine which variable should be brought into the solution.</paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph>Compute the next tableau.</paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph>Identify the basic feasible solution corresponding to the tableau in part (b).</paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph>Determine if the answer in part (c) is optimal.</paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="An augmented matrix of 3 by 6 order is shown."/>
+            </figure>
+            <problem number="4">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A 3 by 6 augmented matrix is shown with columns 3 and 4 as slack variables."/>
+            </figure>
+            <problem number="5">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="An augmented matrix of 3 by 6 order is presented."/>
+            </figure>
+            <problem number="6">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="An augmented matrix of 3 by 6 order is depicted."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="7">
+                  <instructions>Exercises 7–12 relate to a canonical linear programming problem with an <math display="inline">$m \times n$</math> coefficient matrix <math display="inline">$A$</math> in the constraint inequality <math display="inline">$A\textbf{x} \leq \textbf{b}$</math>. Mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
+            <problem number="7">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A slack variable is used to change an equality into an inequality.</paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A solution is called a basic solution if <math display="inline">$m$</math> or fewer of the variables are nonzero.</paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A solution is feasible if each variable is nonnegative.</paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The basic feasible solutions correspond to the extreme points of the feasible set.</paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If one of the coordinates in vector <math display="inline">$\textbf{b}$</math> is negative, then the problem is infeasible.</paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The bottom entry in the right column of a simplex tableau gives the maximum value of the objective function.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="13">
+                  <instructions>Solve Exercises 13–18 by using the simplex method.</instructions>
+            <problem number="13">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{l}
+      \begin{matrix}
+      \text{Maximize} &amp; {  10x_{1}} &amp; + &amp; {12x_{2}} &amp; &amp; \\
+      \text{subject~to} &amp; {~~2x_{1}} &amp; + &amp; {~~3x_{2}} &amp; \leq &amp; 36 \\
+       &amp; {~~~5x_{1}} &amp; + &amp; {~~4x_{2}} &amp; \leq &amp; 55
+      \end{matrix} \\
+      {\text{~and~}x_{1} \geq 0,x_{2} \geq 0.}
+      \end{array}$</math> ﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{l}
+      \begin{matrix}
+      \text{Maximize} &amp; {  5x_{1}} &amp; + &amp; {4x_{2}} &amp; &amp; \\
+      \text{subject~to} &amp; {~~x_{1}} &amp; + &amp; {5x_{2}} &amp; \leq &amp; 70 \\
+       &amp; {~3x_{1}} &amp; + &amp; {2x_{2}} &amp; \leq &amp; 54
+      \end{matrix} \\
+      {\text{~and~}x_{1} \geq 0,x_{2} \geq 0.}
+      \end{array}$</math> ﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{l}
+      \begin{array}{rrrrrr}
+      \text{Maximize} &amp; {  4x_{1}} &amp; + &amp; {5x_{2}} &amp; &amp; \\
+      \text{subject~to~} &amp; x_{1} &amp; + &amp; {2x_{2}} &amp; \leq &amp; 26 \\
+       &amp; {2x_{1}} &amp; + &amp; {3x_{2}} &amp; \leq &amp; 30 \\
+       &amp; x_{1} &amp; + &amp; x_{2} &amp; \leq &amp; 13
+      \end{array} \\
+      {\text{~and~}x_{1} \geq 0,x_{2} \geq 0.}
+      \end{array}$</math> ﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{l}
+      \begin{matrix}
+      \text{Maximize} &amp; {  2x_{1}} &amp; + &amp; {5x_{2}} &amp; + &amp; {3x_{3}} &amp; &amp; \\
+      \text{subject~to~} &amp; x_{1} &amp; + &amp; {2x_{2}} &amp; &amp; &amp; \leq &amp; 28 \\
+       &amp; {~~2x_{1}} &amp; &amp; &amp; + &amp; {4x_{3}} &amp; \leq &amp; 16 \\
+       &amp; &amp; &amp; x_{2} &amp; + &amp; x_{3} &amp; \leq &amp; 12
+      \end{matrix} \\
+      {\text{~and~}x_{1} \geq 0,x_{2} \geq 0,x_{3} \geq 0.}
+      \end{array}$</math> ﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="17">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{l}
+      \begin{matrix}
+      \text{Minimize} &amp; {  12x_{1}} &amp; + &amp; {5x_{2}} &amp; &amp; \\
+      \text{subject~to} &amp; {2x_{1}} &amp; + &amp; x_{2} &amp; \geq &amp; 32 \\
+       &amp; {- 3x_{1}} &amp; + &amp; {5x_{2}} &amp; \leq &amp; 30
+      \end{matrix} \\
+      {\text{~and~}x_{1} \geq 0,x_{2} \geq 0.}
+      \end{array}$</math> ﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{l}
+      \begin{matrix}
+      \text{Minimize} &amp; {  2x_{1}} &amp; + &amp; {3x_{2}} &amp; + &amp; {3x_{3}} &amp; &amp; \\
+      \text{subject~to} &amp; x_{1} &amp; - &amp; {2x_{2}} &amp; &amp; &amp; \geq &amp; {- 8} \\
+       &amp; &amp; &amp; {2x_{2}} &amp; + &amp; x_{3} &amp; \geq &amp; 15 \\
+       &amp; {2x_{1}} &amp; - &amp; x_{2} &amp; + &amp; x_{3} &amp; \leq &amp; 25
+      \end{matrix} \\
+      {\text{and~}x_{1} \geq 0,x_{2} \geq 0,x_{3} \geq 0.}
+      \end{array}$</math> ﻿</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="19">
+            <problem number="19">
+              <statement>
+                          <paragraph>Solve Example 7 by bringing <math display="inline">$x_{1}$</math> into the solution (instead of <math display="inline">$x_{2}$</math>) in the initial tableau.</paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph>Use the simplex method to solve the linear programming problem in Section 9.2, Exercise 1.</paragraph>
+              </statement>
+            </problem>
+            <problem number="21">
+              <statement>
+                          <paragraph>Use the simplex method to solve the linear programming problem in Section 9.2, Exercise 17.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph>Use the simplex method to solve the linear programming problem in Section 9.2, Example 1.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

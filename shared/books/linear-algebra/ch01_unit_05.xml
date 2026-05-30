@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch01" chapter_number="1" unit_code="1.5">
+  <section number="1.5" title="Solution Sets of Linear Systems">
+    <metadata>
+      <source_pages count="8">
+        <page global_index="37" type="content"/>
+        <page global_index="38" type="content"/>
+        <page global_index="39" type="content"/>
+        <page global_index="40" type="content"/>
+        <page global_index="41" type="content"/>
+        <page global_index="42" type="exercises"/>
+        <page global_index="43" type="exercises"/>
+        <page global_index="44" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">1.5 Solution Sets of Linear Systems</heading>
+      <video title="Watch Video"/>
+      <paragraph>Solution sets of linear systems are important objects of study in linear algebra. They will appear later in several different contexts. This section uses vector notation to give explicit and geometric descriptions of such solution sets.</paragraph>
+      <heading level="2">Homogeneous Linear Systems</heading>
+      <paragraph>A system of linear equations is said to be homogeneous if it can be written in the form <math display="inline">$A\mathbf{x} = 0$</math>, where <math display="inline">$A$</math> is an <math display="inline">$m \times n$</math> matrix and <math display="inline">$0$</math> is the zero vector in <math display="inline">$\text{ℝ}^{m}$</math>. Such a system <math display="inline">$A\mathbf{x} = 0$</math> <em>always</em> has at least one solution, namely <math display="inline">$\mathbf{x} = 0$</math> (the zero vector in <math display="inline">$\left. \text{ℝ}^{n} \right)$</math>. This zero solution is usually called the trivial solution. For a given equation <math display="inline">$A\mathbf{x} = 0\text{,~}$</math> the important question is whether there exists a nontrivial solution, that is, a nonzero vector <math display="inline">$\mathbf{x}$</math> that satisfies <math display="inline">$A\mathbf{x} = 0.$</math> The Existence and Uniqueness Theorem in Section 1.2 (Theorem 2) leads immediately to the following fact.</paragraph>
+      <note type="theorem_key">
+              <paragraph>The homogeneous equation <math display="inline">$A\mathbf{x} = 0$</math> has a nontrivial solution if and only if the equation has at least one free variable.</paragraph>
+        </note>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Determine if the following homogeneous system has a nontrivial solution. Then describe the solution set.</paragraph>
+              <paragraph><math display="block">$$\begin{array}{rrrrrrr}
+      {3x_{1}} &amp; + &amp; {5x_{2}} &amp; - &amp; {4x_{3}} &amp; = &amp; 0 \\
+      {- 3x_{1}} &amp; - &amp; {2x_{2}} &amp; + &amp; {4x_{3}} &amp; = &amp; 0 \\
+      {6x_{1}} &amp; + &amp; x_{2} &amp; - &amp; {8x_{3}} &amp; = &amp; 0
+      \end{array}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Let <math display="inline">$A$</math> be the matrix of coefficients of the system and row reduce the augmented matrix <math display="inline">$\lbrack A\quad 0\rbrack$</math> to echelon form:</paragraph>
+              <paragraph><math display="block">$$\begin{bmatrix}
+      3 &amp; 5 &amp; {- 4} &amp; 0 \\
+      {- 3} &amp; {- 2} &amp; 4 &amp; 0 \\
+      6 &amp; 1 &amp; {- 8} &amp; 0
+      \end{bmatrix}\,\text{∼}\,\,\begin{bmatrix}
+      3 &amp; 5 &amp; {- 4} &amp; 0 \\
+      0 &amp; 3 &amp; 0 &amp; 0 \\
+      0 &amp; {- 9} &amp; 0 &amp; 0
+      \end{bmatrix}\,\text{∼}\,\,\begin{bmatrix}
+      3 &amp; 5 &amp; {- 4} &amp; 0 \\
+      0 &amp; 3 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>Since <math display="inline">$x_{3}$</math> is a free variable, <math display="inline">$A\mathbf{x} = 0$</math> has nontrivial solutions (one for each nonzero choice of <math display="inline">$x_{3}$</math>). To describe the solution set, continue the row reduction of <math display="inline">$\lbrack A\quad 0\rbrack$</math> to <em>reduced</em> echelon form:</paragraph>
+              <paragraph><math display="block">$$\begin{bmatrix}
+      1 &amp; &amp; &amp; &amp; 0 &amp; &amp; {- \frac{4}{3}} &amp; &amp; &amp; &amp; 0 \\
+      0 &amp; &amp; &amp; &amp; 1 &amp; &amp; 0 &amp; &amp; &amp; &amp; 0 \\
+      0 &amp; &amp; &amp; &amp; 0 &amp; &amp; 0 &amp; &amp; &amp; &amp; 0
+      \end{bmatrix}\qquad\begin{array}{lllllll}
+      x_{1} &amp; &amp; &amp; - &amp; {\frac{4}{3}x_{3}} &amp; = &amp; 0 \\
+       &amp; &amp; x_{2} &amp; &amp; &amp; = &amp; 0 \\
+       &amp; &amp; &amp; &amp; 0 &amp; = &amp; 0
+      \end{array}$$</math></paragraph>
+              <paragraph>Solve for the basic variables <math display="inline">$x_{1}$</math> and <math display="inline">$x_{2}$</math> and obtain <math display="inline">$x_{1} = \frac{4}{3}x_{3}$</math>, <math display="inline">$x_{2} = 0$</math>, with <math display="inline">$x_{3}$</math> free. As a vector, the general solution of <math display="inline">$A\mathbf{x} = 0$</math> has the form</paragraph>
+              <paragraph><math display="block">$$\mathbf{x} = \,\,\begin{bmatrix}
+      x_{1} \\
+      x_{2} \\
+      x_{3}
+      \end{bmatrix}\, = \,\,\begin{bmatrix}
+      {\frac{4}{3}x_{3}} \\
+      0 \\
+      x_{3}
+      \end{bmatrix}\, = x_{3}\,\begin{bmatrix}
+      \frac{4}{3} \\
+      0 \\
+      1
+      \end{bmatrix}\, = x_{3}\mathbf{v}\text{,~}\quad\text{where~}\mathbf{v} = \,\,\begin{bmatrix}
+      \frac{4}{3} \\
+      0 \\
+      1
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>Here <math display="inline">$x_{3}$</math> is factored out of the expression for the general solution vector. This shows that every solution of <math display="inline">$A\mathbf{x} = 0$</math> in this case is a scalar multiple of <math display="inline">$\mathbf{v}$</math>. The trivial solution is obtained by choosing <math display="inline">$x_{3} = 0.$</math> Geometrically, the solution set is a line through <math display="inline">$0$</math> in <math display="inline">$\text{ℝ}^{3}$</math>. See <strong>Figure 1</strong>.</paragraph>
+          <figure caption="Figure 1">
+            <image alt="A graph shows a straight line passing through the origin in a three-dimensional axis."/>
+          </figure>
+              <paragraph>Click here for an Interactive version of Figure 1</paragraph>
+        </example>
+      <paragraph>Notice that a nontrivial solution <math display="inline">$\mathbf{x}$</math> can have some zero entries so long as not all of its entries are zero.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>A single linear equation can be treated as a very simple system of equations. Describe all solutions of the homogeneous “system”</paragraph>
+              <paragraph><math display="block">$$10x_{1} - 3x_{2} - 2x_{3} = 0$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>There is no need for matrix notation. Solve for the basic variable <math display="inline">$x_{1}$</math> in terms of the free variables. The general solution is <math display="inline">$x_{1} = .3x_{2} + .2x_{3}$</math>, with <math display="inline">$x_{2}$</math> and <math display="inline">$x_{3}$</math> free. As a vector, the general solution is</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      {\textbf{x} = \left\lbrack \begin{array}{l}
+      x_{1} \\
+      x_{2} \\
+      x_{3}
+      \end{array} \right\rbrack} &amp; = &amp; {\left\lbrack \begin{array}{l}
+      {.3x_{2} + .2x_{2}} \\
+      x_{2} \\
+      x_{3}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      {.3x_{2}} \\
+      x_{2} \\
+      0
+      \end{array} \right\rbrack + \left\lbrack \begin{array}{r}
+      {.2x3} \\
+      0 \\
+      x_{3}
+      \end{array} \right\rbrack} \\
+       &amp; = &amp; {x_{2}\left\lbrack \begin{array}{l}
+      .3 \\
+      1 \\
+      0
+      \end{array} \right\rbrack + x_{3}\left\lbrack \begin{array}{l}
+      .2 \\
+      0 \\
+      1
+      \end{array} \right\rbrack\,\,\text{(with~}x_{2}\text{,~}x_{\text{3}}\,\text{free)}} \\
+       &amp; &amp; {\begin{array}{llll}
+       &amp; \overset{  \,\, \uparrow}{\textbf{ }\textbf{\, u}} &amp; &amp; 
+      \end{array}\overset{     \,\, \uparrow}{\textbf{ }\textbf{\,\,\,  \,v}}}
+      \end{array}$$</math></paragraph>
+              <paragraph>This calculation shows that every solution of (1) is a linear combination of the vectors <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math>, shown in (2). That is, the solution set is <math display="inline">$\text{Span}\{\mathbf{u}\text{,~}\mathbf{v}\}$</math>. Since neither <math display="inline">$\mathbf{u}$</math> nor <math display="inline">$\mathbf{v}$</math> is a scalar multiple of the other, the solution set is a plane through the origin. See <strong>Figure 2</strong>.</paragraph>
+          <figure caption="Figure 2">
+            <image alt="A graph shows a tilted parallelogram with one vertex resting on the origin of the three-dimensional plane."/>
+          </figure>
+        </example>
+      <paragraph><strong>Examples 1</strong> and <strong>2</strong>, along with the exercises, illustrate the fact that the solution set of a homogeneous equation <math display="inline">$A\mathbf{x} = 0$</math> can always be expressed explicitly as <math display="inline">$\text{Span\,\,\{}\mathbf{v}_{1}\text{,\,…\,,\,\,\,}\mathbf{v}_{p}\text{\}}$</math> for suitable vectors <math display="inline">$\mathbf{v}_{1\,}\text{,\,…\,,\,\,}\mathbf{v}_{p}$</math>. If the only solution is the zero vector, then the solution set is <math display="inline">$\text{Span\,\,\{}\textbf{0}\text{\}}$</math>. If the equation <math display="inline">$A\mathbf{x} = 0$</math> has only one free variable, the solution set is a line through the origin, as in Figure 1. A plane through the origin, as in Figure 2, provides a good mental image for the solution set of <math display="inline">$A\mathbf{x} = 0$</math> when there are two or more free variables. Note, however, that a similar figure can be used to visualize <math display="inline">$\text{Span\,\,}\text{\{}\mathbf{u}\text{,~}\mathbf{v}\text{\}}$</math> even when <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math> do not arise as solutions of <math display="inline">$A\mathbf{x} = 0.$</math> See Figure 11 in Section 1.3.</paragraph>
+      <heading level="2">Parametric Vector Form</heading>
+      <paragraph>The original equation (1) for the plane in Example 2 is an <em>implicit</em> description of the plane. Solving this equation amounts to finding an <em>explicit</em> description of the plane as the set spanned by <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math>. Equation (2) is called a parametric vector equation of the plane. Sometimes such an equation is written as</paragraph>
+      <paragraph>
+        <math display="block">$$\mathbf{x} = s\mathbf{u} + t\mathbf{v}\quad\text{(}s\text{,~}t\,\text{in~}\text{ℝ}\text{)}$$</math>
+      </paragraph>
+      <paragraph>to emphasize that the parameters vary over all real numbers. In Example 1, the equation <math display="inline">$\mathbf{x} = x_{3}\mathbf{v}$</math> (with <math display="inline">$x_{3}$</math> free), or <math display="inline">$\mathbf{x} = t\mathbf{v}$</math> (with <math display="inline">$t$</math> in <math display="inline">$\text{ℝ}$</math>), is a parametric vector equation of a line. Whenever a solution set is described explicitly with vectors as in Examples 1 and 2, we say that the solution is in parametric vector form.</paragraph>
+      <heading level="2">Solutions of Nonhomogeneous Systems</heading>
+      <paragraph>When a nonhomogeneous linear system has many solutions, the general solution can be written in parametric vector form as one vector plus an arbitrary linear combination of vectors that satisfy the corresponding homogeneous system.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Describe all solutions of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math>, where</paragraph>
+              <paragraph><math display="block">$$A = \,\,\begin{bmatrix}
+      3 &amp; 5 &amp; {- 4} \\
+      {- 3} &amp; {- 2} &amp; 4 \\
+      6 &amp; 1 &amp; {- 8}
+      \end{bmatrix}\quad\text{and}\quad\mathbf{b} = \,\,\left\lbrack \begin{array}{r}
+      7 \\
+      {- 1} \\
+      {- 4}
+      \end{array} \right\rbrack$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Here <math display="inline">$A$</math> is the matrix of coefficients from Example 1. Row operations on <math display="inline">$\lbrack A\quad\mathbf{b}\rbrack$</math> produce</paragraph>
+              <paragraph><math display="block">$$\begin{bmatrix}
+      3 &amp; 5 &amp; {- 4} &amp; 7 \\
+      {- 3} &amp; {- 2} &amp; 4 &amp; {- 1} \\
+      6 &amp; 1 &amp; {- 8} &amp; {- 4}
+      \end{bmatrix}\,\text{∼}\,\,\begin{bmatrix}
+      1 &amp; &amp; 0 &amp; {- \frac{4}{3}} &amp; {- 1} \\
+      0 &amp; &amp; 1 &amp; 0 &amp; 2 \\
+      0 &amp; &amp; 0 &amp; 0 &amp; 0
+      \end{bmatrix}\,\text{,~}\qquad\begin{matrix}
+      x_{1} &amp; &amp; &amp; - &amp; {\frac{4}{3}x_{3}} &amp; = &amp; {- 1} \\
+       &amp; &amp; x_{2} &amp; &amp; &amp; = &amp; 2 \\
+       &amp; &amp; &amp; &amp; 0 &amp; = &amp; 0
+      \end{matrix}$$</math></paragraph>
+              <paragraph>Thus <math display="inline">$x_{1} = - 1 + \frac{4}{3}x^{3}$</math>, <math display="inline">$x_{2} = 2$</math>, and <math display="inline">$x_{3}$</math> is free. As a vector, the general solution of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> has the form</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \mathbf{\text{x}} &amp; = &amp; \begin{bmatrix}
+      x_{1} \\
+      x_{2} \\
+      x_{3}
+      \end{bmatrix} &amp; = &amp; \begin{bmatrix}
+      {- 1 + \frac{4}{3}x_{3}} \\
+      2 \\
+      x_{3}
+      \end{bmatrix} &amp; = &amp; \left\lbrack \begin{array}{r}
+      {- 1} \\
+      2 \\
+      0
+      \end{array} \right\rbrack &amp; + &amp; \begin{bmatrix}
+      {\frac{4}{3}x_{3}} \\
+      0 \\
+      x_{3}
+      \end{bmatrix} &amp; = &amp; \left\lbrack \begin{array}{r}
+      {- 1} \\
+      2 \\
+      0
+      \end{array} \right\rbrack &amp; + &amp; {x_{3}\begin{bmatrix}
+      \frac{4}{3} \\
+      0 \\
+      1
+      \end{bmatrix}} \\
+       &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; &amp; {\,\,\,\overset{\uparrow}{\mathbf{\text{p}}}} &amp; &amp; {\,\,\,\,\,\,\overset{\uparrow}{\mathbf{\text{v}}}}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>The equation <math display="inline">$\mathbf{x} = \mathbf{p} + x_{3}\mathbf{v}$</math>, or, writing <math display="inline">$t$</math> as a general parameter,</paragraph>
+              <paragraph><math display="block">$$\mathbf{x} = \mathbf{p} + t\mathbf{v}\quad\left( t\text{~in~}\text{ℝ} \right)$$</math></paragraph>
+              <paragraph>describes the solution set of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> in parametric vector form. Recall from Example 1 that the solution set of <math display="inline">$A\mathbf{x} = 0$</math> has the parametric vector equation</paragraph>
+              <paragraph><math display="block">$$\mathbf{x} = t\mathbf{v}\quad\left( t\text{~in~}\text{ℝ} \right)$$</math></paragraph>
+              <paragraph>[with the same <math display="inline">$\mathbf{v}$</math> that appears in (3)]. Thus the solutions of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> are obtained by adding the vector <math display="inline">$\mathbf{p}$</math> to the solutions of <math display="inline">$A\mathbf{x} = 0$</math>. The vector <math display="inline">$\mathbf{p}$</math> itself is just one particular solution of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> [corresponding to <math display="inline">$t = 0$</math> in (3)].</paragraph>
+        </example>
+      <paragraph>To describe the solution set of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> geometrically, we can think of vector addition as a <em>translation</em>. Given <math display="inline">$\mathbf{v}$</math> and <math display="inline">$\mathbf{p}$</math> in <math display="inline">$\text{ℝ}^{2}$</math> or <math display="inline">$\text{ℝ}^{3}$</math>, the effect of adding <math display="inline">$\mathbf{p}$</math> to <math display="inline">$\mathbf{v}$</math> is to <em>move</em> <math display="inline">$\mathbf{v}$</math> in a direction parallel to the line through <math display="inline">$\mathbf{p}$</math> and <math display="inline">$0$</math>. We say that <math display="inline">$\mathbf{v}$</math> is translated by <math display="inline">$p$</math> to <math display="inline">$\mathbf{v} + \mathbf{p}$</math>. See <strong>Figure 3</strong>. If each point on a line <math display="inline">$L$</math> in <math display="inline">$\text{ℝ}^{2}$</math> or <math display="inline">$\text{ℝ}^{3}$</math> is translated by a vector <math display="inline">$\mathbf{p}$</math>, the result is a line parallel to <math display="inline">$L$</math>. See <strong>Figure 4</strong>.</paragraph>
+      <figure label="Figure 3" caption="Adding  p﻿ to ﻿ v translates  v﻿ to ﻿ v+p">
+          <image alt="A graph shows a tilted parallelogram with one of its vertices resting on the origin."/>
+        </figure>
+      <paragraph>Click here for an Interactive version of Figure 3</paragraph>
+      <figure label="Figure 4" caption="Translated line">
+          <image alt="A figure shows two slanted parallel lines labeled L and L plus P. Three dotted arrows point from the line L to the line L plus P."/>
+        </figure>
+      <paragraph>Click here for an Interactive version of Figure 4</paragraph>
+      <paragraph>Suppose <math display="inline">$L$</math> is the line through <math display="inline">$0$</math> and <math display="inline">$\mathbf{v}$</math>, described by equation (4). Adding <math display="inline">$\mathbf{p}$</math> to each point on <math display="inline">$L$</math> produces the translated line described by equation (3). Note that <math display="inline">$\mathbf{p}$</math> is on the line in equation (3). We call (3) the equation of the line through <math display="inline">$p$</math> parallel to <math display="inline">$v$</math>. Thus <em>the solution set of</em> <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> <em>is a line through</em> <math display="inline">$\mathbf{p}$</math> <em>parallel to the solution set of</em> <math display="inline">$A\mathbf{x} = 0$</math>. <strong>Figure 5</strong> illustrates this case.</paragraph>
+      <figure label="Figure 5" caption="Parallel solution sets of  Ax=b and  Ax=0﻿">
+          <image alt="A figure shows two slanted parallel lines on a coordinate plane."/>
+        </figure>
+      <paragraph>Click here for an Interactive version of Figure 5</paragraph>
+      <paragraph>The relation between the solution sets of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> and <math display="inline">$A\mathbf{x} = 0$</math> shown in Figure 5 generalizes to any <em>consistent</em> equation <math display="inline">$A\mathbf{x} = \mathbf{b}$</math>, although the solution set will be larger than a line when there are several free variables. The following theorem gives the precise statement. See Exercise 37 at the end of this section for a proof.</paragraph>
+      <note type="procedure" title="Theorem 6">
+          <heading level="2">Theorem 6</heading>
+              <paragraph>Suppose the equation <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> is consistent for some given <math display="inline">$\mathbf{b}$</math>, and let <math display="inline">$\mathbf{p}$</math> be a solution. Then the solution set of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> is the set of all vectors of the form <math display="inline">$\mathbf{w} = \mathbf{p} + \mathbf{v}_{h}$</math>, where <math display="inline">$\mathbf{v}_{h}$</math> is any solution of the homogeneous equation <math display="inline">$A\mathbf{x} = 0$</math>.</paragraph>
+        </note>
+      <paragraph><strong>Theorem 6</strong> says that if <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> has a solution, then the solution set is obtained by translating the solution set of <math display="inline">$A\mathbf{x} = 0$</math>, using any particular solution <math display="inline">$\mathbf{p}$</math> of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> for the translation. <strong>Figure 6</strong> illustrates the case in which there are two free variables. Even when <math display="inline">$n &gt; 3$</math>, our mental image of the solution set of a consistent system <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> (with <math display="inline">$\mathbf{b} \neq 0$</math>) is either a single nonzero point or a line or plane not passing through the origin.</paragraph>
+      <figure caption="Figure 6">
+          <image alt="A figure shows two rectangular planes lying on the three-dimensional plane stacked on each other."/>
+        </figure>
+      <paragraph>Parallel solution sets of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> and <math display="inline">$A\mathbf{x} = 0$</math>.</paragraph>
+      <paragraph><em><strong>Warning:</strong></em> Theorem 6 and Figure 6 apply only to an equation <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> that has at least one nonzero solution <math display="inline">$\mathbf{p}$</math>. When <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> has no solution, the solution set is empty.</paragraph>
+      <paragraph>The following algorithm outlines the calculations shown in Examples 1, 2, and 3.</paragraph>
+      <note type="procedure_box" title="Writing a Solution Set (of a Consistent System) in Parametric Vector Form">
+          <heading level="2">Writing a Solution Set (of a Consistent System) in Parametric Vector Form</heading>
+          <list ordered="true">
+                  <item>Row reduce the augmented matrix to reduced echelon form.</item>
+                  <item>Express each basic variable in terms of any free variables appearing in an equation.</item>
+                  <item>Write a typical solution x as a vector whose entries depend on the free variables, if any.</item>
+                  <item>Decompose x into a linear combination of vectors (with numeric entries) using the free variables as parameters.</item>
+          </list>
+        </note>
+      <note type="warning" title="Reasonable Answers">
+          <heading level="2">Reasonable Answers</heading>
+              <paragraph>To verify that the solutions you found are indeed solutions to the homogeneous equation <math display="inline">$A\mathbf{x} = 0$</math>, simply multiply the matrix by each vector in your solution and check that the result is the zero vector. For example, if <math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; {- 2} &amp; 1 &amp; 2 \\
+      1 &amp; {- 1} &amp; 2 &amp; 5 \\
+      0 &amp; 1 &amp; 1 &amp; 3
+      \end{bmatrix}\,,$</math> and you found the homogeneous solutions to be <math display="inline">$x_{3}\,\,\left\lbrack \begin{array}{r}
+      {- 3} \\
+      {- 1} \\
+      1 \\
+      0
+      \end{array} \right\rbrack\, + \,x_{4}\,\,\left\lbrack \begin{array}{r}
+      {- 8} \\
+      {- 3} \\
+      0 \\
+      1
+      \end{array} \right\rbrack\,,$</math> check <math display="inline">$\begin{bmatrix}
+      1 &amp; {- 2} &amp; 1 &amp; 2 \\
+      1 &amp; {- 1} &amp; 2 &amp; 5 \\
+      0 &amp; 1 &amp; 1 &amp; 3
+      \end{bmatrix}\,\,\left\lbrack \begin{array}{r}
+      {- 3} \\
+      {- 1} \\
+      1 \\
+      0
+      \end{array} \right\rbrack\, = \,\,\begin{bmatrix}
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}$</math> and <math display="inline">$\begin{bmatrix}
+      1 &amp; {- 2} &amp; 1 &amp; 2 \\
+      1 &amp; {- 1} &amp; 2 &amp; 5 \\
+      0 &amp; 1 &amp; 1 &amp; 3
+      \end{bmatrix}\,\,\left\lbrack \begin{array}{r}
+      {- 8} \\
+      {- 3} \\
+      0 \\
+      1
+      \end{array} \right\rbrack\, = \,\,\begin{bmatrix}
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}\,.$</math> Then <math display="inline">$A\,\,\left( {x_{3}\,\,\left\lbrack \begin{array}{r}
+      {- 3} \\
+      {- 1} \\
+      1 \\
+      0
+      \end{array} \right\rbrack\, + \,x_{4}\,\,\left\lbrack \begin{array}{r}
+      {- 8} \\
+      {- 3} \\
+      0 \\
+      1
+      \end{array} \right\rbrack\,} \right)\, = x_{3}A\,\,\left\lbrack \begin{array}{r}
+      {- 3} \\
+      {- 1} \\
+      1 \\
+      0
+      \end{array} \right\rbrack\, + \,x_{4}A\,\,\left\lbrack \begin{array}{r}
+      {- 8} \\
+      {- 3} \\
+      0 \\
+      1
+      \end{array} \right\rbrack\,,$</math> which is equal to <math display="inline">$x_{3}\mspace{-4mu}\,\,\begin{bmatrix}
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}\, + \,x_{4}\,\,\mspace{-4mu}\begin{bmatrix}
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}\, = \,\,\begin{bmatrix}
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}\,,$</math> as desired.</paragraph>
+              <paragraph>If you are solving <math display="inline">$A\mathbf{x} = \mathbf{b}$</math>, then you can again verify that you have correct solutions by multiplying the matrix by each vector in your solutions. The product of <math display="inline">$A$</math> with the first vector (the one that is <em>not</em> part of the solution to the homogeneous equation) should be <math display="inline">$\mathbf{b}$</math>. The product of <math display="inline">$A$</math> with the remaining vectors (the ones that are part of the solution to the homogeneous equation) should of course be <math display="inline">$0$</math>.</paragraph>
+              <paragraph>For example, to verify that <math display="inline">$\begin{bmatrix}
+      2 \\
+      1 \\
+      1 \\
+      2
+      \end{bmatrix}\, + \,x_{3}\,\mspace{-4mu}\,\left\lbrack \begin{array}{r}
+      {- 3} \\
+      {- 1} \\
+      1 \\
+      0
+      \end{array} \right\rbrack\, + \,x_{4}\,\mspace{-4mu}\,\left\lbrack \begin{array}{r}
+      {- 8} \\
+      {- 3} \\
+      0 \\
+      1
+      \end{array} \right\rbrack$</math> are solutions to <math display="inline">$A\mathbf{x} = \,\,\left\lbrack \begin{array}{r}
+      5 \\
+      13 \\
+      8
+      \end{array} \right\rbrack\,,$</math> check <math display="inline">$\begin{bmatrix}
+      1 &amp; {- 2} &amp; 1 &amp; 2 \\
+      1 &amp; {- 1} &amp; 2 &amp; 5 \\
+      0 &amp; 1 &amp; 1 &amp; 3
+      \end{bmatrix}\,\,\begin{bmatrix}
+      2 \\
+      1 \\
+      1 \\
+      2
+      \end{bmatrix}\, = \,\,\left\lbrack \begin{array}{r}
+      5 \\
+      13 \\
+      8
+      \end{array} \right\rbrack$</math>, and use the calculations from above. Notice <math display="inline">$A\,\,\left( {\,\,\begin{bmatrix}
+      2 \\
+      1 \\
+      1 \\
+      2
+      \end{bmatrix}\, + \,x_{3}\,\mspace{-4mu}\,\left\lbrack \begin{array}{r}
+      {- 3} \\
+      {- 1} \\
+      1 \\
+      0
+      \end{array} \right\rbrack\, + \,x_{4}\,\mspace{-4mu}\,\left\lbrack \begin{array}{r}
+      {- 8} \\
+      {- 3} \\
+      0 \\
+      1
+      \end{array} \right\rbrack\,\,} \right)\, = A\,\,\begin{bmatrix}
+      2 \\
+      1 \\
+      1 \\
+      2
+      \end{bmatrix}\, + \,x_{3}A\,\,\left\lbrack \begin{array}{r}
+      {- 3} \\
+      {- 1} \\
+      1 \\
+      0
+      \end{array} \right\rbrack\, + \,x_{4}A\,\,\left\lbrack \begin{array}{r}
+      {- 8} \\
+      {- 3} \\
+      0 \\
+      1
+      \end{array} \right\rbrack\,\text{,~}$</math> which is equal to <math display="inline">$\left\lbrack \begin{array}{r}
+      5 \\
+      13 \\
+      8
+      \end{array} \right\rbrack\, + \,x_{3}\,\,\begin{bmatrix}
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}\, + \,x_{4}\,\,\begin{bmatrix}
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}\, = \,\,\left\lbrack \begin{array}{r}
+      5 \\
+      13 \\
+      8
+      \end{array} \right\rbrack\,,$</math> as desired.</paragraph>
+        </note>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Each of the following equations determines a plane in ℝ3. Do the two planes intersect? If so, describe their intersection.</item>
+          </list>
+              <paragraph><math display="block">$$\begin{matrix}
+      x_{1} &amp; + &amp; {4x_{2}} &amp; - &amp; {5x_{3}} &amp; = &amp; 0 \\
+      {2x_{1}} &amp; - &amp; x_{2} &amp; + &amp; {8x_{3}} &amp; = &amp; 9
+      \end{matrix}$$</math></paragraph>
+          <list ordered="true">
+                  <item>Write the general solution of 10x1−3x2−2x3=7 in parametric vector form, and relate the solution set to the one found in Example 2.</item>
+          </list>
+          <list ordered="true">
+                  <item>Prove the first part of Theorem 6: Suppose that p is a solution of Ax=b, so that Ap=b. Let vh be any solution to the homogeneous equation Ax=0, and let w=p+vh. Show that w is a solution to Ax=b.</item>
+          </list>
+        </note>
+    </content>
+    <exercises title="1.5 Exercises">
+      <heading level="1">1.5 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>In Exercises 1–4, determine if the system has a nontrivial solution. Try to use as few row operations as possible.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{rrrrrrr}
+      {2x_{1}} &amp; - &amp; {5x_{2}} &amp; + &amp; {8x_{3}} &amp; = &amp; 0 \\
+      {- 2x_{1}} &amp; - &amp; {7x_{2}} &amp; + &amp; x_{3} &amp; = &amp; 0 \\
+      {4x_{1}} &amp; + &amp; {2x_{2}} &amp; + &amp; {7x_{3}} &amp; = &amp; 0
+      \end{array}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{rrrrrrr}
+      x_{1} &amp; - &amp; {3x_{2}} &amp; + &amp; {7x_{3}} &amp; = &amp; 0 \\
+      {- 2x_{1}} &amp; + &amp; x_{2} &amp; - &amp; {4x_{3}} &amp; = &amp; 0 \\
+      x_{1} &amp; + &amp; {2x_{2}} &amp; + &amp; {9x_{3}} &amp; = &amp; 0
+      \end{array}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{rrrrrrr}
+      {- 3x_{1}} &amp; + &amp; {5x_{2}} &amp; - &amp; {7x_{3}} &amp; = &amp; 0 \\
+      {- 6x_{1}} &amp; + &amp; {7x_{2}} &amp; + &amp; x_{3} &amp; = &amp; 0
+      \end{array}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{rrrrrrr}
+      {- 5x_{1}} &amp; + &amp; {7x_{2}} &amp; + &amp; {9x_{3}} &amp; = &amp; 0 \\
+      x_{1} &amp; - &amp; {2x_{2}} &amp; + &amp; {6x_{3}} &amp; = &amp; 0
+      \end{array}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="5">
+                  <instructions>In Exercises 5 and 6, follow the method of Examples 1 and 2 to write the solution set of the given homogeneous system in parametric vector form.</instructions>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{rrrrrrr}
+      x_{1} &amp; + &amp; {3x_{2}} &amp; + &amp; x_{3} &amp; = &amp; 0 \\
+      {- 4x_{1}} &amp; - &amp; {9x_{2}} &amp; + &amp; {2x_{3}} &amp; = &amp; 0 \\
+       &amp; - &amp; {3x_{2}} &amp; - &amp; {6x_{3}} &amp; = &amp; 0
+      \end{array}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$\begin{array}{rrrrrrr}
+      x_{1} &amp; + &amp; {3x_{2}} &amp; - &amp; {5x_{3}} &amp; = &amp; 0 \\
+      x_{1} &amp; + &amp; {4x_{2}} &amp; - &amp; {8x_{3}} &amp; = &amp; 0 \\
+      {- 3x_{1}} &amp; - &amp; {7x_{2}} &amp; + &amp; {9x_{3}} &amp; = &amp; 0
+      \end{array}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="7">
+                  <instructions>In Exercises 7–12, describe all solutions of <math display="inline">$A\mathbf{x} = 0$</math> in parametric vector form, where <math display="inline">$A$</math> is row equivalent to the given matrix.</instructions>
+            <problem number="7">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      1 &amp; 3 &amp; {- 3} &amp; 7 \\
+      0 &amp; 1 &amp; {- 4} &amp; 5
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      1 &amp; {- 2} &amp; {- 9} &amp; 5 \\
+      0 &amp; 1 &amp; 2 &amp; {- 6}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      3 &amp; {- 9} &amp; 6 \\
+      {- 1} &amp; 3 &amp; {- 2}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      1 &amp; 3 &amp; 0 &amp; {- 4} \\
+      2 &amp; 6 &amp; 0 &amp; {- 8}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrrrr}
+      1 &amp; {- 4} &amp; {- 2} &amp; 0 &amp; 3 &amp; {- 5} \\
+      0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; {- 1} \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; {- 4} \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrrrr}
+      1 &amp; 5 &amp; 2 &amp; {- 6} &amp; 9 &amp; 0 \\
+      0 &amp; 0 &amp; 1 &amp; {- 7} &amp; 4 &amp; {- 8} \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="13">
+                  <instructions>You may find it helpful to review the information in the Reasonable Answers box from this section before answering Exercises 13–16.</instructions>
+            <problem number="13">
+              <statement>
+                          <paragraph>Verify that the solutions you found to Exercise 9 are indeed homogeneous solutions.</paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph>Verify that the solutions you found to Exercise 10 are indeed homogeneous solutions.</paragraph>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph>Verify that the solutions you found to Exercise 11 are indeed homogeneous solutions.</paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph>Verify that the solutions you found to Exercise 12 are indeed homogeneous solutions.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="17">
+            <problem number="17">
+              <statement>
+                          <paragraph>Suppose the solution set of a certain system of linear equations can be described as <math display="inline">$x_{1} = 5 + 4x_{3}$</math>, <math display="inline">$x_{2} = - 2 - 7x_{3}$</math>, with <math display="inline">$x_{3}$</math> free. Use vectors to describe this set as a line in <math display="inline">$\text{ℝ}^{3}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph>Suppose the solution set of a certain system of linear equations can be described as <math display="inline">$x_{1} = 3x_{4}$</math>, <math display="inline">$x_{2} = 8 + x_{4}$</math>, <math display="inline">$x_{3} = 2 - 5x_{4}$</math>, with <math display="inline">$x_{4}$</math> free. Use vectors to describe this set as a line in <math display="inline">$\text{ℝ}^{4}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="19">
+              <statement>
+                          <paragraph>Follow the method of Example 3 to describe the solutions of the following system in parametric vector form. Also, give a geometric description of the solution set and compare it to that in Exercise 5.</paragraph>
+                <math display="block">$$\begin{array}{crrrrrr}
+      x_{1} &amp; + &amp; {3x_{2}} &amp; + &amp; x_{3} &amp; = &amp; 1 \\
+      {- 4x_{1}} &amp; - &amp; {9x_{2}} &amp; + &amp; {2x_{3}} &amp; = &amp; {- 1} \\
+       &amp; - &amp; {3x_{2}} &amp; - &amp; {6x_{3}} &amp; = &amp; {- 3}
+      \end{array}$$</math>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph>As in Exercise 19, describe the solutions of the following system in parametric vector form, and provide a geometric comparison with the solution set in Exercise 6.</paragraph>
+                <math display="block">$$\begin{array}{rrrrrrr}
+      x_{1} &amp; + &amp; {3x_{2}} &amp; - &amp; {5x_{3}} &amp; = &amp; 4 \\
+      x_{1} &amp; + &amp; {4x_{2}} &amp; - &amp; {8x_{3}} &amp; = &amp; 7 \\
+      {- 3x_{1}} &amp; - &amp; {7x_{2}} &amp; + &amp; {9x_{3}} &amp; = &amp; {- 6}
+      \end{array}$$</math>
+              </statement>
+            </problem>
+            <problem number="21">
+              <statement>
+                          <paragraph>Describe and compare the solution sets of <math display="inline">$x_{1} + 9x_{2} - 4x_{3} = 0$</math> and <math display="inline">$x_{1} + 9x_{2} - 4x_{3} = - 2$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph>Describe and compare the solution sets of <math display="inline">$x_{1} - 3x_{2} + 5x_{3} = 0$</math> and <math display="inline">$x_{1} - 3x_{2} + 5x_{3} = 4$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="23">
+                  <instructions>In Exercises 23 and 24, find the parametric equation of the line through <math display="inline">$\mathbf{a}$</math> parallel to <math display="inline">$\mathbf{b}$</math>.</instructions>
+            <problem number="23">
+              <statement>
+                          <paragraph><math display="inline">$\mathbf{a} = \left\lbrack \begin{array}{r}
+      {- 2} \\
+      0
+      \end{array} \right\rbrack\text{,~}\mathbf{b} = \left\lbrack \begin{array}{r}
+      {- 5} \\
+      3
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph><math display="inline">$\mathbf{a} = \left\lbrack \begin{array}{r}
+      3 \\
+      {- 4}
+      \end{array} \right\rbrack\text{,~}\mathbf{b} = \left\lbrack \begin{array}{r}
+      {- 7} \\
+      8
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="25">
+                  <instructions>In Exercises 25 and 26, find a parametric equation of the line <math display="inline">$M$</math> through <math display="inline">$\mathbf{p}$</math> and <math display="inline">$\mathbf{q}$</math>. [<em>Hint:</em><strong/><math display="inline">$M$</math> is parallel to the vector <math display="inline">$\mathbf{q} - \mathbf{p}$</math>. See the figure below.]</instructions>
+            <problem number="25">
+              <statement>
+                          <paragraph><math display="inline">$\mathbf{p} = \left\lbrack \begin{array}{r}
+      2 \\
+      {- 5}
+      \end{array} \right\rbrack\text{,~}\mathbf{q} = \left\lbrack \begin{array}{r}
+      {- 3} \\
+      1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph><math display="inline">$\mathbf{p} = \left\lbrack \begin{array}{r}
+      {- 6} \\
+      3
+      \end{array} \right\rbrack\text{,~}\mathbf{q} = \left\lbrack \begin{array}{r}
+      0 \\
+      {- 4}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A graph shows four vectors along with a line M passing through two vectors."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="27">
+                  <instructions>In Exercises 27–36, mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
+            <problem number="27">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A homogeneous equation is always consistent.</paragraph>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\mathbf{x}$</math> is a nontrivial solution of <math display="inline">$A\mathbf{x} = 0$</math>, then every entry in <math display="inline">$\mathbf{x}$</math> is nonzero.</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The equation <math display="inline">$A\mathbf{x} = 0$</math> gives an explicit description of its solution set.</paragraph>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The equation <math display="inline">$\mathbf{x} = x_{2}\mathbf{u} + x_{3}\mathbf{v}$</math>, with <math display="inline">$x_{2}$</math> and <math display="inline">$x_{3}$</math> free (and neither <math display="inline">$\mathbf{u}$</math> nor <math display="inline">$\mathbf{v}$</math> a multiple of the other), describes a plane through the origin.</paragraph>
+              </statement>
+            </problem>
+            <problem number="31">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The homogeneous equation <math display="inline">$A\mathbf{x} = 0$</math> has the trivial solution if and only if the equation has at least one free variable.</paragraph>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The equation <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> is homogeneous if the zero vector is a solution.</paragraph>
+              </statement>
+            </problem>
+            <problem number="33">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The equation <math display="inline">$\mathbf{x} = \mathbf{p} + t\mathbf{v}$</math> describes a line through <math display="inline">$\mathbf{v}$</math> parallel to <math display="inline">$\mathbf{p}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="34">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The effect of adding <math display="inline">$\mathbf{p}$</math> to a vector is to move the vector in a direction parallel to <math display="inline">$\mathbf{p}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="35">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The solution set of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> is the set of all vectors of the form <math display="inline">$\mathbf{w} = \mathbf{p} + \mathbf{v}_{h}$</math>, where <math display="inline">$\mathbf{v}_{h}$</math> is any solution of the equation <math display="inline">$A\mathbf{x} = 0$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="36">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The solution set of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> is obtained by translating the solution set of <math display="inline">$A\mathbf{x} = 0$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="37">
+            <problem number="37">
+              <statement>
+                          <paragraph>Prove the second part of Theorem 6: Let <math display="inline">$\mathbf{w}$</math> be any solution of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math>, and define <math display="inline">$\mathbf{v}_{h} = \mathbf{w} - \mathbf{p}$</math>. Show that <math display="inline">$\mathbf{v}_{h}$</math> is a solution of <math display="inline">$A\mathbf{x} = 0$</math>. This shows that every solution of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> has the form <math display="inline">$\mathbf{w} = \mathbf{p} + \mathbf{v}_{h}$</math>, with <math display="inline">$\mathbf{p}$</math> a particular solution of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> and <math display="inline">$\mathbf{v}_{h}$</math> a solution of <math display="inline">$A\mathbf{x} = 0$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="38">
+              <statement>
+                          <paragraph>Suppose <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> has a solution. Explain why the solution is unique precisely when <math display="inline">$A\mathbf{x} = 0$</math> has only the trivial solution.</paragraph>
+              </statement>
+            </problem>
+            <problem number="39">
+              <statement>
+                          <paragraph>Suppose <math display="inline">$A$</math> is the <math display="inline">$3 \times 3$</math> <em>zero</em> matrix (with all zero entries). Describe the solution set of the equation <math display="inline">$A\mathbf{x} = 0$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="40">
+              <statement>
+                          <paragraph>If <math display="inline">$\mathbf{b} \neq 0$</math>, can the solution set of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> be a plane through the origin? Explain.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="41">
+                  <instructions>In Exercises 41–44, (a) does the equation <math display="inline">$A\mathbf{x} = 0$</math> have a nontrivial solution and (b) does the equation <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> have at least one solution for every possible <math display="inline">$\mathbf{b}\text{?}$</math></instructions>
+            <problem number="41">
+              <statement>
+                          <paragraph><math display="inline">$A$</math> is a <math display="inline">$3 \times 3$</math> matrix with three pivot positions.</paragraph>
+              </statement>
+            </problem>
+            <problem number="42">
+              <statement>
+                          <paragraph><math display="inline">$A$</math> is a <math display="inline">$3 \times 3$</math> matrix with two pivot positions.</paragraph>
+              </statement>
+            </problem>
+            <problem number="43">
+              <statement>
+                          <paragraph><math display="inline">$A$</math> is a <math display="inline">$3 \times 2$</math> matrix with two pivot positions.</paragraph>
+              </statement>
+            </problem>
+            <problem number="44">
+              <statement>
+                          <paragraph><math display="inline">$A$</math> is a <math display="inline">$2 \times 4$</math> matrix with two pivot positions.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="45">
+            <problem number="45">
+              <statement>
+                          <paragraph>Given <math display="inline">$A = \,\,\begin{bmatrix}
+      {- 2} &amp; {- 6} \\
+      7 &amp; 21 \\
+      {- 3} &amp; {- 9}
+      \end{bmatrix}\,,$</math> find one nontrivial solution of <math display="inline">$A\mathbf{x} = 0$</math> by inspection. [<em>Hint:</em><strong/>Think of the equation <math display="inline">$A\mathbf{x} = 0$</math> written as a vector equation.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="46">
+              <statement>
+                          <paragraph>Given <math display="inline">$A = \,\,\begin{bmatrix}
+      4 &amp; {- 6} \\
+      {- 8} &amp; 12 \\
+      6 &amp; {- 9}
+      \end{bmatrix}\,,$</math>, find one nontrivial solution of <math display="inline">$A\mathbf{x} = 0$</math> by inspection.</paragraph>
+              </statement>
+            </problem>
+            <problem number="47">
+              <statement>
+                          <paragraph>Construct a <math display="inline">$3 \times 3$</math> nonzero matrix <math display="inline">$A$</math> such that the vector <math display="inline">$\left\lbrack \begin{array}{r}
+      1 \\
+      1 \\
+      1
+      \end{array} \right\rbrack$</math> is a solution of <math display="inline">$A\mathbf{x} = 0$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="48">
+              <statement>
+                          <paragraph>Construct a <math display="inline">$3 \times 3$</math> nonzero matrix <math display="inline">$A$</math> such that the vector <math display="inline">$\left\lbrack \begin{array}{r}
+      1 \\
+      {- 2} \\
+      1
+      \end{array} \right\rbrack$</math> is a solution of <math display="inline">$A\mathbf{x} = 0$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="49">
+              <statement>
+                          <paragraph>Construct a <math display="inline">$2 \times 2$</math> matrix <math display="inline">$A$</math> such that the solution set of the equation <math display="inline">$A\mathbf{x} = 0$</math> is the line in <math display="inline">$\text{ℝ}^{2}$</math> through <math display="inline">$(4\text{,~}1)$</math> and the origin. Then, find a vector <math display="inline">$\mathbf{b}$</math> in <math display="inline">$\text{ℝ}^{2}$</math> such that the solution set of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> is <em>not</em> a line in <math display="inline">$\text{ℝ}^{2}$</math> parallel to the solution set of <math display="inline">$A\mathbf{x} = 0$</math>. Why does this <em>not</em> contradict Theorem 6?</paragraph>
+              </statement>
+            </problem>
+            <problem number="50">
+              <statement>
+                          <paragraph>Suppose <math display="inline">$A$</math> is a <math display="inline">$3 \times 3$</math> matrix and <math display="inline">$\mathbf{y}$</math> is a vector in <math display="inline">$\text{ℝ}^{3}$</math> such that the equation <math display="inline">$A\mathbf{x} = \mathbf{y}$</math> does <em>not</em> have a solution. Does there exist a vector <math display="inline">$\mathbf{z}$</math> in <math display="inline">$\text{ℝ}^{3}$</math> such that the equation <math display="inline">$A\mathbf{x} = \mathbf{z}$</math> has a unique solution? Discuss.</paragraph>
+              </statement>
+            </problem>
+            <problem number="51">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$m \times n$</math> matrix and let <math display="inline">$\mathbf{u}$</math> be a vector in <math display="inline">$\text{ℝ}^{n}$</math> that satisfies the equation <math display="inline">$A\mathbf{x} = 0$</math>. Show that for any scalar <math display="inline">$c$</math>, the vector <math display="inline">$c\mathbf{u}$</math> also satisfies <math display="inline">$A\mathbf{x} = 0$</math>. [That is, show that <math display="inline">$A(c\mathbf{u}) = 0$</math>.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="52">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$m \times n$</math> matrix, and let <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math> be vectors in <math display="inline">$\text{ℝ}^{n}$</math> with the property that <math display="inline">$A\mathbf{u} = 0$</math> and <math display="inline">$A\mathbf{v} = 0$</math>. Explain why <math display="inline">$A(\mathbf{u} + \mathbf{v})$</math> must be the zero vector. Then explain why <math display="inline">$A(c\mathbf{u} + d\mathbf{v}) = 0$</math> for each pair of scalars <math display="inline">$c$</math> and <math display="inline">$d$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

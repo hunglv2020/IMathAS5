@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch10" chapter_number="10" unit_code="10.1">
+  <section number="10.1" title="Introduction and Examples">
+    <metadata>
+      <source_pages count="7">
+        <page global_index="454" type="content"/>
+        <page global_index="455" type="content"/>
+        <page global_index="456" type="content"/>
+        <page global_index="457" type="content"/>
+        <page global_index="458" type="content"/>
+        <page global_index="459" type="exercises"/>
+        <page global_index="460" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">10.1 Introduction and Examples</heading>
+      <paragraph>Recall from Section 5.9 that a Markov chain is a mathematical model for movement between <strong>states</strong>. A process starts in one of these states and moves from state to state. The moves between states are called <strong>steps</strong> or <strong>transitions</strong>. The terms “chain” and “process” are used interchangeably, so the chain can be said to move between states and to be “at a state” or “in a state” after a certain number of steps.</paragraph>
+      <paragraph>The state of the chain at any given step is not known; what is known is the probability that the chain moves from state <math display="inline">$j$</math> to state <math display="inline">$i$</math> in one step. This probability is called a <strong>transition probability</strong> for the Markov chain. The transition probabilities are placed in a matrix called the <strong>transition matrix</strong> <math display="inline">$P$</math> for the chain by entering the probability of a transition from state <math display="inline">$j$</math> to state <math display="inline">$i$</math> at the <math display="inline">$(i\text{,}j)$</math>-entry of <math display="inline">$P$</math>. So if there were <math display="inline">$m$</math> states named <math display="inline">$1,2,\ldots m$</math>, the transition matrix would be the <math display="inline">$m \times m$</math> matrix</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{l}
+      \text{~~~~~~~~~~~~~~~~From:} \\
+      {~~~~~~~~\begin{array}{lllll}
+      1 &amp; {~~j} &amp; &amp; {~~~~~~m} &amp; \text{To:}
+      \end{array}} \\
+      {P = {~\left\lbrack \begin{array}{llll}
+       &amp; \vdots &amp; &amp; \\
+       &amp; \downarrow &amp; &amp; \\
+       &amp; p_{ij} &amp; \cdots &amp; \rightarrow \\
+       &amp; &amp; &amp; 
+      \end{array} \right\rbrack}~\begin{array}{l}
+      1 \\
+       \\
+      i \\
+      m
+      \end{array}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>The probabilities that the chain is in each of the possible states after <math display="inline">$n$</math> steps are listed in a state vector <math display="inline">$\textbf{x}_{n}$</math>. If there are <math display="inline">$m$</math> possible states, the state vector would be</paragraph>
+      <paragraph>
+        <math display="block">$$\left. \mathbf{x}_{n} = \begin{bmatrix}
+      a_{1} \\
+       \vdots \\
+      a_{j} \\
+       \vdots \\
+      a_{m}
+      \end{bmatrix}\leftarrow\text{Probability~that~the~chain~is~at~state~}j\text{~after~}n\text{~steps} \right.$$</math>
+      </paragraph>
+      <paragraph>State vectors are probability vectors since their entries must sum to <math display="inline">$1$</math>. The state vector <math display="inline">$\textbf{x}_{0}$</math> is called the <strong>initial probability vector</strong>.</paragraph>
+      <paragraph>Notice that the <math display="inline">$j^{th}$</math> column of <math display="inline">$P$</math> is a probability vector—its entries list the probabilities of a move from state <math display="inline">$j$</math> to the states of the Markov chain. The transition matrix is thus a stochastic matrix since all of its columns are probability vectors.</paragraph>
+      <paragraph>The state vectors for the chain are related by the equation</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{x}_{n + 1} = P\textbf{x}_{n}$$</math>
+      </paragraph>
+      <paragraph>for <math display="inline">$n = 1,2,\ldots$</math>. Notice that Equation (1) may be used to show that</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{x}_{n} = P^{n}\textbf{x}_{0}$$</math>
+      </paragraph>
+      <paragraph>Thus any state vector <math display="inline">$\textbf{x}_{n}$</math> may be computed from the initial probability vector <math display="inline">$\textbf{x}_{0}$</math> and an appropriate power of the transition matrix <math display="inline">$P$</math>.</paragraph>
+      <paragraph>This chapter concerns itself with Markov chains with a finite number of states—that is, those chains for which the transition matrix <math display="inline">$P$</math> is of finite size. To use a finite-state Markov chain to model a process, the process must have the following properties, which are implied by Equations (1) and (2).</paragraph>
+      <list ordered="true">
+              <item>Since the values in the vector xn+1 depend only on the transition matrix P and on xn, the state of the chain before time n must have no effect on its state at time n+1 and beyond.</item>
+              <item>Since the transition matrix P does not change with time, the probability of a transition from one state to another must not depend on how many steps the chain has taken.</item>
+        </list>
+      <paragraph>Even with these restrictions, Markov chains may be used to model an amazing variety of processes. Here is a sampling.</paragraph>
+      <heading level="2">Signal Transmission</heading>
+      <paragraph>Consider the problem of transmitting a signal along a telephone line or by radio waves. Each piece of data must pass through a multistage process to be transmitted, and at each stage there is a probability that a transmission error will cause the data to be corrupted. Assume that the probability of an error in transmission is not affected by transmission errors in the past and does not depend on time, and that the number of possible pieces of data is finite. The transmission process may then be modeled by a Markov chain. The object of interest is the probability that a piece of data goes through the entire multistage process without error. Here is an example of such a model.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Suppose that each bit of data is either a <math display="inline">$0$</math> or a <math display="inline">$1$</math>, and at each stage there is a probability <math display="inline">$p$</math> that the bit will pass through the stage unchanged. Thus the probability is <math display="inline">$1 - p$</math> that the bit will be transposed. The transmission process is modeled by a Markov chain, with states <math display="inline">$0$</math> and <math display="inline">$1$</math> and transition matrix</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      \text{~~~~~~~~~~~~~~~~~~From:} \\
+      {~~~~~~~~~~~~~\begin{array}{llll}
+      0 &amp; &amp; {~~~~~~~1} &amp; \text{~~To:}
+      \end{array}} \\
+      {P = \left\lbrack \begin{array}{lll}
+      p &amp; &amp; {1 - p} \\
+      {1 - p} &amp; &amp; p
+      \end{array} \right\rbrack\begin{array}{l}
+      0 \\
+      1
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>It is often easier to visualize the action of a Markov chain by representing its transition probabilities graphically, as in <strong>Figure</strong><strong>1</strong>. The points are the states of the chain, and the arrows represent the transitions.</paragraph>
+          <figure label="Figure 1" caption="Transition diagram for signal transmission">
+            <image alt="A transition diagram for signal transmission."/>
+          </figure>
+              <paragraph>Suppose that <math display="inline">$p = .99$</math>. Find the probability that the signal <math display="inline">$0$</math> will still be a <math display="inline">$0$</math> after a two-stage transmission process.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Since the signal begins as <math display="inline">$0$</math>, the probability that the chain begins at <math display="inline">$0$</math> is <math display="inline">$100\%$</math>, or <math display="inline">$1$</math>; that is, the initial probability vector is <math display="inline">$\mathbf{x}_{0} = \left\lbrack \begin{array}{l}
+      1 \\
+      0
+      \end{array} \right\rbrack$</math>. To find the probability of a two-step transition, compute</paragraph>
+              <paragraph><math display="block">$$\textbf{x}_{2} = P^{2}\textbf{x}_{0} = \begin{bmatrix}
+      .99 &amp; .01 \\
+      .01 &amp; .99
+      \end{bmatrix}^{2}\begin{bmatrix}
+      1 \\
+      0
+      \end{bmatrix} = \begin{bmatrix}
+      .9802 &amp; .0198 \\
+      .0198 &amp; .9802
+      \end{bmatrix}\begin{bmatrix}
+      1 \\
+      0
+      \end{bmatrix} = \begin{bmatrix}
+      .9802 \\
+      .0198
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>The probability that the signal <math display="inline">$0$</math> will still be a <math display="inline">$0$</math> after the two-stage process is thus <math display="inline">$.9802$</math>. Notice that this is not the same as the probability that the <math display="inline">$0$</math> is transmitted without error; that probability would be <math display="inline">$(.99)^{2} = .9801$</math>. Our analysis includes the very small probability that the <math display="inline">$0$</math> is erroneously changed to <math display="inline">$1$</math> in the first step, then back to <math display="inline">$0$</math> in the second step of transmission.</paragraph>
+        </example>
+      <paragraph>Consider two compartments filled with different gases that are separated only by a membrane that allows molecules of each gas to pass from one container to the other. The two gases will then diffuse into each other over time, so that each container will contain some mixture of the gases. The major question of interest is what mixture of gases is in each container at a time after the containers are joined. A famous mathematical model for this process was described originally by the physicists Paul and Tatyana Ehrenfest. Since their preferred term for “container” was <em>urn</em>, the model is called the <strong>Ehrenfest urn model</strong> for diffusion.</paragraph>
+      <paragraph>Label the two urns A and B, and place <math display="inline">$k$</math> molecules of gas in each urn. At each time step, select one of the <math display="inline">$2k$</math> molecules at random and move it from its urn to the other urn, and keep track of the number of molecules in urn A. This process can be modeled by a finite-state Markov chain: the number of molecules in urn A after <math display="inline">$n + 1$</math> time steps depends only on the number in urn A after <math display="inline">$n$</math> time steps, the transition probabilities do not change with time, and the number of states is finite.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>For this example, let <math display="inline">$k = 3$</math>. Then the two urns contain a total of <math display="inline">$6$</math> molecules, and the possible states for the Markov chain are <math display="inline">$0$</math>, <math display="inline">$1$</math>, <math display="inline">$2$</math>, <math display="inline">$3$</math>, <math display="inline">$4$</math>, <math display="inline">$5$</math>, and <math display="inline">$6$</math>. Notice first that if there are <math display="inline">$0$</math> molecules in urn A at time <math display="inline">$n$</math>, then there must be <math display="inline">$1$</math> molecule in urn A at time <math display="inline">$n + 1$</math>, and if there are <math display="inline">$6$</math> molecules in urn A at time <math display="inline">$n$</math>, then there must be <math display="inline">$5$</math> molecules in urn A at time <math display="inline">$n + 1$</math>. In terms of the transition matrix <math display="inline">$P$</math>, this means that the columns in <math display="inline">$P$</math> corresponding to states <math display="inline">$0$</math> and <math display="inline">$6$</math> are</paragraph>
+              <paragraph><math display="block">$$\textbf{p}_{0} = ~\begin{bmatrix}
+      0 \\
+      1 \\
+      0 \\
+      0 \\
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}~~~~\text{and~~~~}\textbf{p}_{6} = ~\begin{bmatrix}
+      0 \\
+      0 \\
+      0 \\
+      0 \\
+      0 \\
+      1 \\
+      0
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>If there are <math display="inline">$i$</math> molecules in urn A at time <math display="inline">$n$</math>, with <math display="inline">$0 &lt; i &lt; 6$</math>, then there must be either <math display="inline">$i - 1$</math> or <math display="inline">$i + 1$</math> molecules in urn A at time <math display="inline">$n + 1$</math>. In order for a transition from <math display="inline">$i$</math> to <math display="inline">$i - 1$</math> molecules to occur, one of the <math display="inline">$i$</math> molecules in urn A must be selected to move; this event happens with probability <math display="inline">$i/6$</math>. Likewise, a transition from <math display="inline">$i$</math> to <math display="inline">$i + 1$</math> molecules occurs when one of the <math display="inline">$6 - i$</math> molecules in urn B is selected, and this occurs with probability <math display="inline">$(6 - i)/6$</math>. Allowing <math display="inline">$i$</math> to range from <math display="inline">$1$</math> to <math display="inline">$5$</math> creates the columns of <math display="inline">$P$</math> corresponding to these states, and the transition matrix for the Ehrenfest urn model with <math display="inline">$k = 3$</math> is thus</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~0~~~~~1~~~~~~2~~~~~~~3~~~~~~4~~~~~~5~~~~~6} \\
+      {P = \left\lbrack \begin{array}{lllllll}
+      0 &amp; {1\text{/}6} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      1 &amp; 0 &amp; {1\text{/3}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; {5\text{/}6} &amp; 0 &amp; {1\text{/2}} &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; {2\text{/3}} &amp; 0 &amp; {2\text{/3}} &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; {1\text{/2}} &amp; 0 &amp; {5\text{/6}} &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/3}} &amp; 0 &amp; 1 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/6}} &amp; 0
+      \end{array} \right\rbrack~\begin{array}{l}
+      0 \\
+      1 \\
+      2 \\
+      3 \\
+      4 \\
+      5 \\
+      6
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph><strong>Figure</strong><strong>2</strong> shows a transition diagram of this Markov chain. Other models for diffusion will be considered in the Exercises for this section.</paragraph>
+          <figure label="Figure 2" caption="Transition diagram of the Ehrenfest urn model">
+            <image alt="A transition diagram of the Ehrenfest urn model with 7 states labeled 0, 1, 2, 3, 4, 5, and 6."/>
+          </figure>
+        </example>
+      <heading level="2">Random Walks on 1,…,n</heading>
+      <paragraph>Molecular motion has long been an important issue in physics. Einstein and others investigated Brownian motion, which is a mathematical model for the motion of a molecule exposed to collisions with other molecules. The analysis of Brownian motion turns out to be quite complicated, but a discrete version of Brownian motion called a <strong>random walk</strong> provides an introduction to this important model. Think of the states <math display="inline">$\left\{ 1,2,\ldots,n \right\}$</math> as lying on a line. Place a molecule at a point that is not on the end of the line. At each step the molecule moves left one unit with probability <math display="inline">$p$</math> and right one unit with probability <math display="inline">$1 - p$</math>. See <strong>Figure 3</strong>. The molecule thus “walks randomly” along the line. If <math display="inline">$p = 1/2$</math>, the walk is called <strong>simple</strong>, or <strong>unbiased</strong>. If <math display="inline">$p \neq 1/2$</math>, the walk is said to be <strong>biased</strong>.</paragraph>
+      <figure label="Figure 3" caption="A graphical representation of a random walk">
+          <image alt="A transition diagram of a random walk."/>
+        </figure>
+      <paragraph>The molecule must move to either the left or the right at the states <math display="inline">$2,\ldots,n - 1$</math>, but it cannot do this at the endpoints <math display="inline">$1$</math> and <math display="inline">$n$</math>. The molecule’s possible movements at the endpoints <math display="inline">$1$</math> and <math display="inline">$n$</math> must be specified. One possibility is to have the molecule stay at an endpoint forever once it reaches either end of the line. This is called a <strong>random walk with absorbing boundaries</strong>, and the endpoints <math display="inline">$1$</math> and <math display="inline">$n$</math> are called <strong>absorbing states</strong>. Another possibility is to have the molecule bounce back one unit when an endpoint is reached. This is called a <strong>random walk with reflecting boundaries</strong>.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>A random walk on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> with absorbing boundaries has a transition matrix of</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~1~~~~~~~2~~~~~~~~~3~~~~~~~~~~4~~~~~~5} \\
+      {P = \left\lbrack \begin{array}{lllll}
+      1 &amp; p &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; p &amp; 0 &amp; 0 \\
+      0 &amp; {1 - p} &amp; 0 &amp; p &amp; 0 \\
+      0 &amp; 0 &amp; {1 - p} &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; {1 - p} &amp; 1
+      \end{array} \right\rbrack~\begin{array}{l}
+      1 \\
+      2 \\
+      3 \\
+      4 \\
+      5
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>since the molecule at state <math display="inline">$1$</math> has probability <math display="inline">$1$</math> of staying at state <math display="inline">$1$</math>, and a molecule at state <math display="inline">$5$</math> has probability <math display="inline">$1$</math> of staying at state <math display="inline">$5$</math>. A random walk on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> with reflecting boundaries has a transition matrix of</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~1~~~~~~~2~~~~~~~~~3~~~~~~~~~~4~~~~~~~5} \\
+      {P = \left\lbrack \begin{array}{lllll}
+      0 &amp; p &amp; 0 &amp; 0 &amp; 0 \\
+      1 &amp; 0 &amp; p &amp; 0 &amp; 0 \\
+      0 &amp; {1 - p} &amp; 0 &amp; p &amp; 0 \\
+      0 &amp; 0 &amp; {1 - p} &amp; 0 &amp; 1 \\
+      0 &amp; 0 &amp; 0 &amp; {1 - p} &amp; 0
+      \end{array} \right\rbrack~\begin{array}{l}
+      1 \\
+      2 \\
+      3 \\
+      4 \\
+      5
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>since the molecule at state <math display="inline">$1$</math> has probability <math display="inline">$1$</math> of moving to state <math display="inline">$2$</math>, and a molecule at state <math display="inline">$5$</math> has probability <math display="inline">$1$</math> of moving to state <math display="inline">$4$</math>.</paragraph>
+        </example>
+      <paragraph>In addition to their use in physics, random walks also occur in problems related to gambling and its more socially acceptable variants: the stock market and the insurance industry.</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Consider a very simple casino game. A gambler (who still has some money left with which to gamble) flips a fair coin and calls heads or tails. If the gambler is correct, he wins a dollar; if he is wrong, he loses a dollar. Suppose that the gambler will quit the game when he has either won <math display="inline">$n$</math> dollars or lost all of his money.</paragraph>
+              <paragraph>Suppose that <math display="inline">$n = 7$</math> and the gambler starts with <math display="inline">$\text{\$</math>. Notice that the gambler’s winnings move either up or down <math display="inline">$\text{\$</math> for each coin flip, and once the gambler’s winnings reach <math display="inline">$0$</math> or <math display="inline">$7$</math>, they do not change any more since the gambler has quit the game. Thus the gambler’s winnings may be modeled by a random walk on <math display="inline">$\left\{ 0\text{,~}1\text{,~}2\text{,~}3\text{,~}4\text{,~}5\text{,~}6\text{,~}7 \right\}$</math> with absorbing boundaries. Since a move up or down is equally likely in this case, <math display="inline">$p = 1/2$</math> and the walk is simple.</paragraph>
+        </example>
+      <heading level="2">Random Walks on Graphs</heading>
+      <paragraph>It is useful to perform random walks on geometrical objects other than the one-dimensional line. For example, a <strong>graph</strong> is a collection of points and lines connecting some of the points. The points of a graph are called vertices, and the lines connecting the vertices are called the edges. In <strong>Figure 4</strong>, the vertices are labeled with the numbers <math display="inline">$1$</math> through <math display="inline">$7$</math>.</paragraph>
+      <figure label="Figure 4" caption="A graph with seven vertices">
+          <image alt="A graph with 7 nodes is shown."/>
+        </figure>
+      <paragraph>To define a simple random walk on a graph, allow the chain to move from vertex to vertex on the graph. At each step, the chain is equally likely to move along any of the edges attached to the vertex. For example, if the molecule is at state <math display="inline">$5$</math> in Figure 4, it has probability <math display="inline">$1/2$</math> of moving to state <math display="inline">$2$</math> and probability <math display="inline">$1/2$</math> of moving to state <math display="inline">$6$</math>. This Markov chain is called a <strong>simple random walk on a graph</strong>.</paragraph>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>The simple random walk on the graph in Figure 4 has transition matrix</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~~~1~~~~~~2~~~~~~~3~~~~4~~~~~5~~~~~~6~~~~~7} \\
+      {P = \left\lbrack \begin{array}{lllllll}
+      0 &amp; {1\text{/3}} &amp; {1\text{/4}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      {1\text{/}2} &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
+      {1\text{/}2} &amp; {1\text{/}3} &amp; 0 &amp; 1 &amp; 0 &amp; {1\text{/}3} &amp; 0 \\
+      0 &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0 \\
+      0 &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 1 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0
+      \end{array} \right\rbrack\begin{array}{l}
+      {~1} \\
+      {~2} \\
+      {~3} \\
+      {~4} \\
+      {~5} \\
+      {~6} \\
+      {~7}
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>Find the probability that the chain in Figure 4 moves from state <math display="inline">$6$</math> to state <math display="inline">$2$</math> in exactly three steps.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Compute</paragraph>
+              <paragraph><math display="block">$$\mathbf{x}_{3} = P^{3}\mathbf{x}_{0} = P^{3}\begin{bmatrix}
+      0 \\
+      0 \\
+      0 \\
+      0 \\
+      0 \\
+      1 \\
+      0
+      \end{bmatrix} = \begin{bmatrix}
+      .0833 \\
+      .0417 \\
+      .4028 \\
+      0 \\
+      .2778 \\
+      0 \\
+      .1944
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>Thus the probability of moving from state <math display="inline">$6$</math> to state <math display="inline">$2$</math> in exactly three steps is <math display="inline">$.0417$</math>.</paragraph>
+        </example>
+      <paragraph>Sometimes interpreting a random process as a random walk on a graph can be useful.</paragraph>
+      <example number="6">
+          <heading level="2">Example 6</heading>
+              <paragraph>Suppose a mouse runs through the five-room maze at left in <strong>Figure</strong><strong>5</strong>. The mouse moves to a different room at each time step. When the mouse is in a particular room, it is equally likely to choose any of the doors out of the room. Note that a Markov chain can model the motion of the mouse. Find the probability that a mouse starting in room <math display="inline">$3$</math> returns to that room in exactly five steps.</paragraph>
+          <figure label="Figure 5" caption="Five-room maze with overlaid graph">
+            <image alt="Two illustrations show a five-room maze and overlaid graph."/>
+          </figure>
+          <heading level="3">Solution</heading>
+              <paragraph>A graph is overlaid on the maze, as shown at right in Figure 5. Notice that the motion of the mouse is identical to a simple random walk on the graph, so the transition matrix is</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~~~1~~~~~~2~~~~~~~3~~~~~~4~~~~~~5~} \\
+      {P = \left\lbrack \begin{array}{lllll}
+      0 &amp; {1\text{/3}} &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
+      {1\text{/}2} &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}3} &amp; 0 \\
+      {1\text{/}2} &amp; {1\text{/}3} &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/2}} \\
+      0 &amp; {1\text{/}3} &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}2} \\
+      0 &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}3} &amp; 0
+      \end{array} \right\rbrack\begin{array}{l}
+      {~1} \\
+      {~2} \\
+      {~3} \\
+      {~4} \\
+      {~5}
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>and</paragraph>
+              <paragraph><math display="block">$$\textbf{x}_{5} = P^{5}\textbf{x}_{0} = P^{5}\begin{bmatrix}
+      0 \\
+      0 \\
+      1 \\
+      0 \\
+      0
+      \end{bmatrix}~ = ~\begin{bmatrix}
+      .1507 \\
+      .2143 \\
+      .2701 \\
+      .2143 \\
+      .1507
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>Thus the probability of a return to room <math display="inline">$3$</math> in exactly five steps is <math display="inline">$.2701$</math>.</paragraph>
+        </example>
+      <paragraph>Another interesting object on which to walk randomly is a <strong>directed graph</strong>. A directed graph is a graph in which the vertices are joined not by lines but by arrows. See <strong>Figure</strong><strong>6</strong>.</paragraph>
+      <figure label="Figure 6" caption="A directed graph with seven vertices">
+          <image alt="A graph with 7 nodes is shown. The nodes 1, 2, and 3 are arranged in a triangular shape with 1 as the top vertex, and 2, and 3 as the lower left, and lower right vertices, respectively."/>
+        </figure>
+      <paragraph>To perform a simple random walk on a directed graph, allow the chain to move from vertex to vertex on the graph but only in the directions allowed by the arrows. At each step the walker is equally likely to move away from its current state along any of the arrows pointing away from the vertex. For example, if the molecule is at state <math display="inline">$6$</math> in Figure 6, it has probability <math display="inline">$1/3$</math> of moving to state <math display="inline">$3$</math>, state <math display="inline">$5$</math>, or state <math display="inline">$7$</math>.</paragraph>
+      <paragraph>The PageRank algorithm that Google uses to rank the importance of pages on the World Wide Web (see Introductory Example) begins with a simple random walk on a directed graph. The Web is modeled as a directed graph in which the vertices are the pages and an arrow is drawn from page <math display="inline">$j$</math> to page <math display="inline">$i$</math> if there is a hyperlink from page <math display="inline">$j$</math> to page <math display="inline">$i$</math>. A person surfs randomly in the following way: when the surfer gets to a page, he or she chooses a link from the page so that it is equally probable to choose any of the possible “outlinks.” The surfer then follows the link to arrive at another page. The person surfing in this way is performing a simple random walk on the directed graph that is the World Wide Web.</paragraph>
+      <example number="7">
+          <heading level="2">Example 7</heading>
+              <paragraph>Consider a set of seven pages hyperlinked by the directed graph in Figure 6. If the random surfer starts at page <math display="inline">$5$</math>, find the probability that the surfer will be at page <math display="inline">$3$</math> after four clicks.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The transition matrix for the simple random walk on the directed graph is</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~\begin{array}{lllllll}
+      1 &amp; {~~2} &amp; {~~~3} &amp; {~~4} &amp; {~~5} &amp; {~~~6} &amp; {~7}
+      \end{array}} \\
+      {P = \left\lbrack \begin{array}{lllllll}
+      0 &amp; {1\text{/2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; {1\text{/}3} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
+      1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0 \\
+      0 &amp; 0 &amp; {1\text{/}3} &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; {1\text{/}2} &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0 \\
+      0 &amp; 0 &amp; {1\text{/}3} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 1
+      \end{array} \right\rbrack\begin{array}{l}
+      {~1} \\
+      {~2} \\
+      {~3} \\
+      {~4} \\
+      {~5} \\
+      {~6} \\
+      {~7}
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>Notice that there are no arrows coming from either state <math display="inline">$4$</math> or state <math display="inline">$7$</math> in Figure 6. If the surfer clicks on a link to either of these pages, there is no link to click on next. (Using the “Back” key is not allowed: the state of the chain before time <math display="inline">$n$</math> must have no effect on its state at time <math display="inline">$n + 1$</math> and beyond.) For this reason, the transition probabilities <math display="inline">$p_{44}$</math> and <math display="inline">$p_{77}$</math> are set equal to <math display="inline">$1$</math>—the chain must stay at state <math display="inline">$4$</math> or state <math display="inline">$7$</math> forever once it enters either of these states. Computing <math display="inline">$\textbf{x}_{4}$</math> gives</paragraph>
+              <paragraph><math display="block">$$\textbf{x}_{4} = P^{4}\textbf{x}_{0} = ~\begin{bmatrix}
+      .1319 \\
+      .0833 \\
+      .0880 \\
+      .1389 \\
+      .2199 \\
+      .0833 \\
+      .2546
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>so the probability of being at page <math display="inline">$3$</math> after exactly four clicks is <math display="inline">$.0880$</math>.</paragraph>
+        </example>
+      <paragraph>States <math display="inline">$4$</math> and <math display="inline">$7$</math> are absorbing states for the Markov chain in the previous example. In technical terms, they are called <strong>dangling nodes</strong> and are quite common on the Web; data pages in particular usually have no links leading from them. Dangling nodes will appear in the next section, where the PageRank algorithm will be explained.</paragraph>
+      <paragraph>As noted in Section 5.9, the most interesting questions about Markov chains concern their long-term behavior—that is, the behavior of <math display="inline">$\textbf{x}_{n}$</math> as <math display="inline">$n$</math> increases. This study will occupy a large portion of this chapter. The foremost issues in our study will be whether the sequence of vectors <math display="inline">$\{\textbf{x}_{n}\}$</math> is converging to some limiting vector as <math display="inline">$n$</math> increases, and how to interpret this limiting vector if it exists. Convergence to a limiting vector will be addressed in the next section.</paragraph>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Fill in the missing entries in the stochastic matrix.P = .1*.2*.3.3.6.2*</item>
+                  <item>In the signal transmission model in Example 1, suppose that p=.97. Find the probability that the signal “1” will be a “0” after a three-stage transmission process.</item>
+          </list>
+        </note>
+    </content>
+    <exercises title="10.1 Exercises">
+      <heading level="1">10.1 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>In Exercises 1 and 2, determine whether <math display="inline">$P$</math> is a stochastic matrix. If <math display="inline">$P$</math> is not a stochastic matrix, explain why not.</instructions>
+            <problem number="1">
+              <statement>
+                <list ordered="true">
+                              <item>P=[.3.4.7.6]</item>
+                              <item>P=[.3.7.4.6]</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                <list ordered="true">
+                              <item>P=[1.50.5]</item>
+                              <item>P=[.21.1.8−.1]</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="3">
+                  <instructions>In Exercises 3 and 4, compute <math display="inline">$\textbf{x}_{3}$</math> in two ways: by computing <math display="inline">$\textbf{x}_{1}$</math> and <math display="inline">$\textbf{x}_{2}$</math>, and by computing <math display="inline">$P^{3}$</math>.</instructions>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$P = \left\lbrack \begin{array}{rr}
+      .6 &amp; .5 \\
+      .4 &amp; .5
+      \end{array} \right\rbrack\text{,~}\mathbf{x}_{0} = \left\lbrack \begin{array}{r}
+      \begin{array}{r}
+      1 \\
+      0
+      \end{array}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$P = \left\lbrack \begin{array}{rr}
+      .3 &amp; .8 \\
+      .7 &amp; .2
+      \end{array} \right\rbrack\text{,~}\mathbf{x}_{0} = \left\lbrack \begin{array}{r}
+      \begin{array}{r}
+      .5 \\
+      .5
+      \end{array}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="5">
+                  <instructions>In Exercises 5 and 6, the transition matrix <math display="inline">$P$</math> for a Markov chain with states <math display="inline">$0$</math> and <math display="inline">$1$</math> is given. Assume that in each case the chain starts in state <math display="inline">$0$</math> at time <math display="inline">$n = 0$</math>. Find the probability that the chain will be in state <math display="inline">$1$</math> at time <math display="inline">$n$</math>.</instructions>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$P = \begin{bmatrix}
+      {1\text{/3}} &amp; {3\text{/4}} \\
+      {2\text{/3}} &amp; {1\text{/4}}
+      \end{bmatrix}\text{,~}n = 3$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$P = \left\lbrack \begin{array}{rr}
+      .4 &amp; .2 \\
+      .6 &amp; .8
+      \end{array} \right\rbrack\text{,~}n = 5$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="7">
+                  <instructions>In Exercises 7 and 8, the transition matrix <math display="inline">$P$</math> for a Markov chain with states <math display="inline">$0$</math>, <math display="inline">$1$</math>, and <math display="inline">$2$</math> is given. Assume that in each case the chain starts in state <math display="inline">$0$</math> at time <math display="inline">$n = 0$</math>. Find the probability that the chain will be in state <math display="inline">$1$</math> at time <math display="inline">$n$</math>.</instructions>
+            <problem number="7">
+              <statement>
+                          <paragraph><math display="inline">$P = \begin{bmatrix}
+      {1\text{/3}} &amp; {1\text{/}4} &amp; {1\text{/}2} \\
+      {1\text{/}3} &amp; {1\text{/}2} &amp; {1\text{/}4} \\
+      {1\text{/}3} &amp; {1\text{/}4} &amp; {1\text{/}4}
+      \end{bmatrix}\text{,~}n = 2$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph><math display="inline">$P = \left\lbrack \begin{array}{rrr}
+      .1 &amp; .2 &amp; .4 \\
+      .6 &amp; .3 &amp; .4 \\
+      .3 &amp; .5 &amp; .2
+      \end{array} \right\rbrack\text{,~}n = 3$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="9">
+            <problem number="9">
+              <statement>
+                          <paragraph>Consider a pair of Ehrenfest urns labeled A and B. There are currently <math display="inline">$3$</math> molecules in urn A and <math display="inline">$1$</math> in urn B. What is the probability that the exact same situation will apply after</paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph>Consider a pair of Ehrenfest urns labeled A and B. There are currently no molecules in urn A and <math display="inline">$5$</math> in urn B. What is the probability that the exact same situation will apply after</paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph>Consider an unbiased random walk on the set <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4 \right\}$</math>. What is the probability of moving from <math display="inline">$2$</math> to <math display="inline">$3$</math> in exactly <math display="inline">$3$</math> steps if the walk has</paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph>Consider a biased random walk on the set <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4 \right\}$</math> with probability <math display="inline">$p = .2$</math> of moving to the left. What is the probability of moving from <math display="inline">$2$</math> to <math display="inline">$3$</math> in exactly <math display="inline">$3$</math> steps if the walk has</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="13">
+                  <instructions>In Exercises 13 and 14, find the transition matrix for the simple random walk on the given graph.</instructions>
+            <problem number="13">
+              <statement>
+                          <paragraph><strong/></paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A figure shows a square in the form of a sealed envelope with 5 vertices. The square with vertices 1, 2, 3, and 4 and the fold forms the 5th vertex at the center of the square by joining 1 to 5 and 2 to 5."/>
+            </figure>
+            <problem number="14">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A figure shows a square with vertices 1, 2, 3, and 4. A diagonal is drawn from 1 to 3. A circle is drawn with vertex 3 as the center joining from 2 to 4."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="15">
+                  <instructions>In Exercises 15 and 16, find the transition matrix for the simple random walk on the given directed graph.</instructions>
+            <problem number="15">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A square with vertices 1, 2, 3, and 4 shows a forward flow arrow from 1 to 2, 1 to 3, 1 to 4; which is a diagonal, 2 to 4, 4 to 3, 4 to 2, and 3 to 1."/>
+            </figure>
+            <problem number="16">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A figure shows two equilateral triangles with one common vertex. Triangle 1 has 1, 2, and 3 as vertices and the 2nd triangle has 3, 4, and 5 as vertices. The directed flows are indicated in the form of arrows."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="17">
+                  <instructions>In Exercises 17 and 18, suppose a mouse wanders through the given maze. The mouse must move into a different room at each time step and is equally likely to leave the room through any of the available doorways.</instructions>
+            <problem number="17">
+              <statement>
+                          <paragraph>The mouse is placed in room <math display="inline">$2$</math> of the maze shown.</paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A square is divided into four equal small squares named 1, 2, 4, and 5. A rhombus named 3 is at the center whose vertices meet the sides of the four squares. A direct opening between each small square and between each square to the rhombus within."/>
+            </figure>
+            <problem number="18">
+              <statement>
+                          <paragraph>The mouse is placed in room <math display="inline">$3$</math> of the maze shown below.</paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A figure shows three blocks, 1, 2, and 3, on the top row and two blocks, 4 and 5 on the bottom row. There is a direct opening between each block in the top as well as bottom rows and also between the blocks of the top and bottom rows."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="19">
+                  <instructions>In Exercises 19 and 20, suppose a mouse wanders through the given maze, some of whose doors are “one-way”: they are just large enough for the mouse to squeeze through in only one direction. The mouse still must move into a different room at each time step if possible. When faced with accessible openings into two or more rooms, the mouse chooses them with equal probability.</instructions>
+            <problem number="19">
+              <statement>
+                          <paragraph>The mouse is placed in room <math display="inline">$1$</math> of the following maze.</paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A rectangle is divided into 6 blocks, where 1, 2, and 3 on the top row and 4, 5, and 6 on the bottom row. There is a valve opening from 1 to 4, 5 to 6, and 3 to 6. Also, there is a direct opening between 1 and 2, 2 and 3, 2 and 5, and 4 and 5."/>
+            </figure>
+            <problem number="20">
+              <statement>
+                          <paragraph>The mouse is placed in room <math display="inline">$1$</math> of the maze shown.</paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A figure shows a square that is divided into four smaller squares 1, 2, 4, and 5. A rhombus named 3 is at the center whose vertices meet the sides of the four squares."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="21">
+                  <instructions>In Exercises 21–26, mark each statement True or False. Justify each answer.</instructions>
+            <problem number="21">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The columns of a transition matrix for a Markov chain must sum to <math display="inline">$1$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The rows of a transition matrix for a Markov chain must sum to <math display="inline">$1$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The transition matrix <math display="inline">$P$</math> may change over time.</paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\{\textbf{x}_{n}\}$</math> is a Markov chain, then <math display="inline">$\textbf{x}_{n + 1}$</math> must depend only on the transition matrix and <math display="inline">$\textbf{x}_{n}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="25">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The <math display="inline">$(i\text{,}j)$</math>-entry in a transition matrix <math display="inline">$P$</math> gives the probability of a move from state <math display="inline">$j$</math> to state <math display="inline">$i.$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The <math display="inline">$(i\text{,}j)$</math>-entry in <math display="inline">$P^{3}$</math> gives the probability of a move from state <math display="inline">$i$</math> to state <math display="inline">$j$</math> in exactly three time steps.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="27">
+            <problem number="27">
+              <statement>
+                          <paragraph>The weather in Charlotte, North Carolina, can be classified as sunny, cloudy, or rainy on a given day. Climate data from 2003 reveal that</paragraph>
+                <list ordered="false">
+                              <item>If a day is sunny, then the next day will be sunny with probability .65, cloudy with probability .1, and rainy with probability .25.</item>
+                              <item>If a day is cloudy, then the next day will be sunny with probability .25, cloudy with probability .25, and rainy with probability .5.</item>
+                              <item>If a day is rainy, then the next day will be sunny with probability .25, cloudy with probability .15, and rainy with probability .60.</item>
+                </list>
+                <list ordered="false">
+                              <item>Suppose it is cloudy on Monday. Use a Markov chain to find the probabilities of the different kinds of weather on Friday.</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph>Suppose that whether it rains in Charlotte tomorrow depends on the weather conditions for today and yesterday. Climate data from 2003 show that</paragraph>
+                <list ordered="false">
+                              <item>If it rained yesterday and today, then it will rain tomorrow with probability .58.</item>
+                              <item>If it rained yesterday but not today, then it will rain tomorrow with probability .29.﻿</item>
+                              <item>If it rained today but not yesterday, then it will rain tomorrow with probability .47.</item>
+                              <item>If it did not rain yesterday or today, then it will rain tomorrow with probability .31.</item>
+                </list>
+                <list ordered="false">
+                              <item>Even though the weather depends on the last two days in this case, we can create a Markov chain model using the states</item>
+                </list>
+                <list ordered="false">
+                              <item>1 it rained yesterday and today</item>
+                              <item>2 it rained yesterday but not today</item>
+                              <item>3 it rained today but not yesterday</item>
+                              <item>4 it did not rain yesterday or today</item>
+                </list>
+                <list ordered="false">
+                              <item>So, for example, the probability of a transition from state 1 to state 1 is , and the transition from state 1 to state 3 is 0.</item>
+                </list>
+                <list ordered="true">
+                              <item>Complete the creation of the transition matrix for this Markov chain.</item>
+                              <item>If it rains on Tuesday and is clear on Wednesday, what is the probability of no rain on the next weekend?</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph>Consider a set of four webpages hyperlinked by the directed graph in Exercise 15. If a random surfer starts at page <math display="inline">$1$</math>, what is the probability that the surfer will be at each of the pages after <math display="inline">$3$</math> clicks?</paragraph>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph>Consider a set of five webpages hyperlinked by the directed graph in Exercise 16. If a random surfer starts at page <math display="inline">$2$</math>, what is the probability that the surfer will be at each of the pages after <math display="inline">$4$</math> clicks?</paragraph>
+              </statement>
+            </problem>
+            <problem number="31">
+              <statement>
+                          <paragraph>Consider a model for signal transmission in which data is sent as two-bit bytes. Then there are four possible bytes, <math display="inline">$00$</math>, <math display="inline">$01$</math>, <math display="inline">$10$</math>, and <math display="inline">$11$</math>, which are the states of the Markov chain. At each stage there is a probability <math display="inline">$p$</math> that each bit will pass through the stage unchanged.</paragraph>
+                <list ordered="true">
+                              <item>Construct the transition matrix for the model.</item>
+                              <item>Suppose that p=.99. Find the probability that the signal “01” will still be “01” after a three-stage transmission.</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph>Consider a model for signal transmission in which data is sent as three-bit bytes. Construct the transition matrix for the model.</paragraph>
+              </statement>
+            </problem>
+            <problem number="33">
+              <statement>
+                          <paragraph>Another version of the Ehrenfest model for diffusion starts with <math display="inline">$k$</math> molecules of gas in each urn. One of the <math display="inline">$2k$</math> molecules is picked at random just as in the Ehrenfest model in the text. The chosen molecule is then moved to the other urn with a fixed probability <math display="inline">$p$</math> and is placed back in its urn with probability <math display="inline">$1 - p$</math>. (Note that the Ehrenfest model in the text is this model with <math display="inline">$p = 1$</math>.)</paragraph>
+                <list ordered="true">
+                              <item>Let k=3. Find the transition matrix for this model.</item>
+                              <item>Let k=3 and p=1/2. If there are currently no molecules in urn A, what is the probability that there will be 3 molecules in urn A after 5 selections?</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="34">
+              <statement>
+                          <paragraph>Another model for diffusion is called the <strong>Bernoulli-Laplace model</strong>. Two urns (urn A and urn B) contain a total of <math display="inline">$2k$</math> molecules. In this case, <math display="inline">$k$</math> of the molecules are of one type (called type I molecules) and <math display="inline">$k$</math> are of another type (type II molecules). In addition, <math display="inline">$k$</math> molecules must be in each urn at all times. At each time step, a pair of molecules is selected, one from urn A and one from urn B, and these molecules change urns. Let the Markov chain model the number of type I molecules in urn A (which is also the number of type II molecules in urn B).</paragraph>
+                <list ordered="true">
+                              <item>Suppose that there are j type I molecules in urn A with 0&lt;j&lt;k. Explain why the probability of a transition to j−1 type I molecules in urn A is (j/k)2, and why the probability of a transition to j+1 type I molecules in urn A is ((k−j)/k)2.</item>
+                              <item>Let k=5. Use the result in part (a) to set up the transition matrix for the Markov chain that models the number of type I molecules in urn A.</item>
+                              <item>Let k=5 and begin with all type I molecules in urn A. What is the distribution of type I molecules after 3 time steps?</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="35">
+              <statement>
+                          <paragraph>To win a game in tennis, one player must score four points and must also score at least two points more than his or her opponent. Thus if the two players have scored an equal number of points (four or more), which is called “deuce” in tennis jargon, one player must then score two points in a row to win the game. Suppose that players A and B are playing a game of tennis that is at deuce. If A wins the next point it is called “advantage A,” while if B wins the point it is “advantage B.” If the game is at advantage A and player A wins the next point, then player A wins the game. If player B wins the point at advantage A, the game is back at deuce.</paragraph>
+                <list ordered="true">
+                              <item>Suppose the probability of player A winning any point is p. Model the progress of a tennis game starting at deuce using a Markov chain with the following five states.</item>
+                </list>
+                <list ordered="true">
+                              <item>Let p=.6. Find the probability that the game will be at “advantage B” after three points starting at deuce.</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="36">
+              <statement>
+                          <paragraph>Volleyball uses two different scoring systems in which a team must win by at least two points. In both systems, a <em>rally</em> begins with a serve by one of the teams and ends when the ball goes out of play or touches the floor or a player commits a fault. The team that wins the rally gets to serve for the next rally. Games are played to <math display="inline">$15$</math>, <math display="inline">$25$</math>, or <math display="inline">$30$</math> points.</paragraph>
+                <list ordered="true">
+                              <item>In rally point scoring, the team that wins a rally is awarded a point no matter which team served for the rally. Assume that team A has probability p of winning a rally for which it serves, and that team B has probability q of winning a rally for which it serves. Model the progress of a volleyball game using a Markov chain with the following six states.</item>
+                </list>
+                <list ordered="true">
+                              <item>Suppose that team A and team B are tied 15-15 in a 15-point game and that team A is serving. Let p=q=.6. Find the probability that the game will not be finished after three rallies. In side out scoring, the team that wins a rally is awarded a point only when it served for the rally. Assume that team A has probability p of winning a rally for which it serves, and that team B has probability q of winning a rally for which it serves. Model the progress of a volleyball game using a Markov chain with the following eight states.</item>
+                              <item>1 tied – A serving 2 tied – B serving 3 A ahead by 1 point – A serving 4 A ahead by 1 point – B serving 5 B ahead by 1 point – A serving 6 B ahead by 1 point – B serving 7 A wins the game 8 B wins the game Find the transition matrix for this Markov chain.</item>
+                </list>
+                <list ordered="true">
+                              <item>Suppose that team A and team B are tied 15–15 in a 15-point game and that team A is serving. Let p=q=.6. Find the probability that the game will not be finished after three rallies.</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="37">
+              <statement>
+                          <paragraph>Suppose that <math display="inline">$P$</math> is a stochastic matrix all of whose entries are greater than or equal to <math display="inline">$p$</math>. Show that all of the entries in <math display="inline">$P^{n}$</math> are greater than or equal to <math display="inline">$p$</math> for <math display="inline">$n = 1\text{,}2\text{,}\ldots$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

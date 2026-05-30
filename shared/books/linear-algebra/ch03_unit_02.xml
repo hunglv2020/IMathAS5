@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch03" chapter_number="3" unit_code="3.2">
+  <section number="3.2" title="Properties of Determinants">
+    <metadata>
+      <source_pages count="9">
+        <page global_index="148" type="content"/>
+        <page global_index="149" type="content"/>
+        <page global_index="150" type="content"/>
+        <page global_index="151" type="content"/>
+        <page global_index="152" type="content"/>
+        <page global_index="153" type="exercises"/>
+        <page global_index="154" type="exercises"/>
+        <page global_index="155" type="exercises"/>
+        <page global_index="156" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">3.2 Properties of Determinants</heading>
+      <video title="Watch Video"/>
+      <paragraph>The secret of determinants lies in how they change when row operations are performed. The following theorem generalizes the results of Exercises 19–24 in Section 3.1. The proof is at the end of this section.</paragraph>
+      <note type="procedure" title="Theorem 3">
+          <heading level="2">Theorem 3</heading>
+          <heading level="3">Row Operations</heading>
+              <paragraph>Let <math display="inline">$A$</math> be a square matrix.</paragraph>
+          <list ordered="true">
+                  <item>If a multiple of one row of A is added to another row to produce a matrix B, then det B=det A.</item>
+                  <item>If two rows of A are interchanged to produce B, then det B=−det A.</item>
+                  <item>If one row of A is multiplied by k to produce B, then det B=k det A.</item>
+          </list>
+        </note>
+      <paragraph>The following examples show how to use <strong>Theorem 3</strong> to find determinants efficiently.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Compute <math display="inline">$\text{det }A$</math>, where <math display="inline">$A = \left\lbrack \begin{array}{rrr}
+      1 &amp; {- 4} &amp; 2 \\
+      {- 2} &amp; 8 &amp; {- 9} \\
+      {- 1} &amp; 7 &amp; 0
+      \end{array} \right\rbrack$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The strategy is to reduce <math display="inline">$A$</math> to echelon form and then to use the fact that the determinant of a triangular matrix is the product of the diagonal entries. The first two row replacements in column <math display="inline">$1$</math> do not change the determinant:</paragraph>
+              <paragraph><math display="block">$$\text{det \,}A = \left\lbrack \begin{array}{rrr}
+      1 &amp; {- 4} &amp; 2 \\
+      {- 2} &amp; 8 &amp; {- 9} \\
+      {- 1} &amp; 7 &amp; 0
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rrr}
+      1 &amp; {- 4} &amp; 2 \\
+      0 &amp; 0 &amp; {- 5} \\
+      {- 1} &amp; 7 &amp; 0
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rrr}
+      1 &amp; {- 4} &amp; 2 \\
+      0 &amp; 0 &amp; {- 5} \\
+      0 &amp; 3 &amp; 2
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>An interchange of rows <math display="inline">$2$</math> and <math display="inline">$3$</math> reverses the sign of the determinant, so</paragraph>
+              <paragraph><math display="block">$$\text{det \,}A = - \left\lbrack \begin{array}{rrr}
+      1 &amp; {- 4} &amp; 2 \\
+      0 &amp; 3 &amp; 2 \\
+      0 &amp; 0 &amp; {- 5}
+      \end{array} \right\rbrack = - \text{(}1\text{)\,(}3\text{)(}\mspace{-4mu} - \mspace{-4mu} 5\text{)} = 15$$</math></paragraph>
+        </example>
+      <paragraph>A common use of <strong>Theorem 3(c)</strong> in hand calculations is to <em>factor out a common multiple of one row</em> of a matrix. For instance,</paragraph>
+      <paragraph>
+        <math display="block">$$\left| \begin{matrix}
+      * &amp; * &amp; * \\
+      {5k} &amp; {- 2k} &amp; {3k} \\
+      * &amp; * &amp; *
+      \end{matrix} \right| = k\left| \begin{matrix}
+      * &amp; * &amp; * \\
+      5 &amp; {- 2} &amp; 3 \\
+      * &amp; * &amp; *
+      \end{matrix} \right|$$</math>
+      </paragraph>
+      <paragraph>where the starred entries are unchanged. We use this step in the next example.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Compute <math display="inline">$\text{det \,}A$</math>, where <math display="inline">$A = \left\lbrack \begin{array}{rrrr}
+      2 &amp; {- 8} &amp; 6 &amp; 8 \\
+      3 &amp; {- 9} &amp; 5 &amp; 10 \\
+      {- 3} &amp; 0 &amp; 1 &amp; {- 2} \\
+      1 &amp; {- 4} &amp; 0 &amp; 6
+      \end{array} \right\rbrack$</math>.﻿</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>To simplify the arithmetic, we want a <math display="inline">$1$</math> in the upper-left corner. We could interchange rows <math display="inline">$1$</math> and <math display="inline">$4$</math>. Instead, we factor out <math display="inline">$2$</math> from the top row, and then proceed with row replacements in the first column:</paragraph>
+              <paragraph><math display="block">$$\text{det\, }A = 2~\left\lbrack \begin{array}{rrrr}
+      1 &amp; {- 4} &amp; 3 &amp; 4 \\
+      3 &amp; {- 9} &amp; 5 &amp; 10 \\
+      {- 3} &amp; 0 &amp; 1 &amp; {- 2} \\
+      1 &amp; {- 4} &amp; 0 &amp; 6
+      \end{array} \right\rbrack = 2~\left\lbrack \begin{array}{rrrr}
+      1 &amp; {- 4} &amp; 3 &amp; 4 \\
+      0 &amp; 3 &amp; {- 4} &amp; {- 2} \\
+      0 &amp; {- 12} &amp; 10 &amp; 10 \\
+      0 &amp; 0 &amp; {- 3} &amp; 2
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Next, we could factor out another <math display="inline">$2$</math> from row <math display="inline">$3$</math> or use the <math display="inline">$3$</math> in the second column as a pivot. We choose the latter operation, adding <math display="inline">$4$</math> times row <math display="inline">$2$</math> to row <math display="inline">$3$</math>:</paragraph>
+              <paragraph><math display="block">$$\text{det\, }A = 2~\left\lbrack \begin{array}{rrrr}
+      1 &amp; {- 4} &amp; 3 &amp; 4 \\
+      0 &amp; 3 &amp; {- 4} &amp; {- 2} \\
+      0 &amp; 0 &amp; {- 6} &amp; 2 \\
+      0 &amp; 0 &amp; {- 3} &amp; 2
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Finally, adding <math display="inline">$- 1/2$</math> times row <math display="inline">$3$</math> to row <math display="inline">$4$</math>, and computing the “triangular” determinant, we find that</paragraph>
+              <paragraph><math display="block">$$\text{det\,\,}A = 2~\left\lbrack \begin{array}{rrrr}
+      1 &amp; {- 4} &amp; 3 &amp; 4 \\
+      0 &amp; 3 &amp; {- 4} &amp; {- 2} \\
+      0 &amp; 0 &amp; {- 6} &amp; 2 \\
+      0 &amp; 0 &amp; 0 &amp; 1
+      \end{array} \right\rbrack = 2\text{(}1\text{)(}3\text{)}\left( {- 6} \right)\text{)(}1\text{)} = - 36$$</math></paragraph>
+        </example>
+      <paragraph>Suppose a square matrix <math display="inline">$A$</math> has been reduced to an echelon form <math display="inline">$U$</math> by row replacements and row interchanges. (This is always possible. See the row reduction algorithm in Section 1.2.) If there are <math display="inline">$r$</math> interchanges, then Theorem 3 shows that</paragraph>
+      <paragraph>
+        <math display="block">$$\text{det }A = \left( {- 1} \right)^{r\,}\text{det\,}{\text{\,\,}U}$$</math>
+      </paragraph>
+      <paragraph>Since <math display="inline">$U$</math> is in echelon form, it is triangular, and so <math display="inline">$\text{det }U$</math> is the product of the diagonal entries <math display="inline">$u_{11\,}\text{,}\ldots\text{,\,}{\text{\, }u_{nn}}$</math>. If <math display="inline">$A$</math> is invertible, the entries <math display="inline">$u_{ii}$</math> are all pivots (because <math display="inline">$A \sim I_{n}$</math> and the <math display="inline">$u_{ii}$</math> have not been scaled to <math display="inline">$1’s$</math>). Otherwise, at least <math display="inline">$u_{nn}$</math> is zero, and the product <math display="inline">$u_{11}\ldots u_{nn}$</math> is zero. See <strong>Figure 1</strong>. Thus</paragraph>
+      <note type="theorem_key">
+          <note type="theorem_key">
+                  <paragraph><math display="block">$$\text{det }A = \left\{ \begin{array}{lll}
+      ( - 1)^{r} &amp; \left( \begin{array}{l}
+      \text{product~of} \\
+      {\text{pivots~in\,\,\,}U}
+      \end{array} \right) &amp; {\text{when\,\,}A\,\text{is~invertible}} \\
+      0 &amp; &amp; {\text{when }A\,\text{is~not~invertible}}
+      \end{array} \right.$$</math></paragraph>
+          </note>
+        </note>
+      <heading level="4">Figure 1
+              Typical echelon forms of square matrices</heading>
+      <figure caption="Watch Video">
+          <image alt="The figure illustrates two matrices, one with a non-zero determinant and the other with a determinant equal to zero."/>
+        </figure>
+      <paragraph>Click here for interactive version of Figure 1</paragraph>
+      <paragraph>It is interesting to note that although the echelon form <math display="inline">$U$</math> described above is not unique (because it is not completely row reduced), and the pivots are not unique, the <em>product</em> of the pivots <em>is</em> unique, except for a possible minus sign.</paragraph>
+      <paragraph>Formula <strong>(</strong>1<strong>)</strong> not only gives a concrete interpretation of <math display="inline">$\text{det }A$</math> but also proves the main theorem of this section:</paragraph>
+      <note type="procedure" title="Theorem 4">
+          <heading level="2">Theorem 4</heading>
+              <paragraph>A square matrix <math display="inline">$A$</math> is invertible if and only if <math display="inline">$\text{det }A \neq 0$</math>.</paragraph>
+        </note>
+      <paragraph><strong>Theorem 4</strong> adds the statement “<math display="inline">$\text{det }A \neq 0$</math>” to the Invertible Matrix Theorem. A useful corollary is that <math display="inline">$\text{det }A = 0$</math> when the columns of <math display="inline">$A$</math> are linearly dependent. Also, <math display="inline">$\text{det }A = 0$</math> when the <em>rows</em> of <math display="inline">$A$</math> are linearly dependent. (Rows of <math display="inline">$A$</math> are columns of <math display="inline">$A^{T}$</math>, and linearly dependent columns of <math display="inline">$A^{T}$</math> make <math display="inline">$A^{T}$</math> singular. When <math display="inline">$A^{T}$</math> is singular, so is <math display="inline">$A$</math>, by the Invertible Matrix Theorem.) In practice, linear dependence is obvious when two columns or two rows are the same or a column or a row is zero.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Compute <math display="inline">$\text{det }A$</math>, where <math display="inline">$A = {\left\lbrack \begin{array}{rrrr}
+      3 &amp; {- 1} &amp; 2 &amp; {- 5} \\
+      0 &amp; 5 &amp; {- 3} &amp; {- 6} \\
+      {- 6} &amp; 7 &amp; {- 7} &amp; 4 \\
+      {- 5} &amp; {- 8} &amp; 0 &amp; 9
+      \end{array} \right\rbrack.}$</math>﻿</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Add <math display="inline">$2$</math> times row <math display="inline">$1$</math> to row <math display="inline">$3$</math> to obtain</paragraph>
+              <paragraph><math display="block">$$\text{det }A = \text{det\, }\left\lbrack \begin{array}{rrrr}
+      3 &amp; {- 1} &amp; 2 &amp; {- 5} \\
+      0 &amp; 5 &amp; {- 3} &amp; {- 6} \\
+      0 &amp; 5 &amp; {- 3} &amp; {- 6} \\
+      {- 5} &amp; {- 8} &amp; 0 &amp; 9
+      \end{array} \right\rbrack = 0$$</math></paragraph>
+              <paragraph>because the second and third rows of the second matrix are equal.</paragraph>
+        </example>
+      <note type="caution" title="Numerical Notes">
+          <heading level="2">Numerical Notes</heading>
+          <list ordered="true">
+                  <item>Most computer programs that compute det A for a general matrix A use the method of formula (1) above.</item>
+                  <item>It can be shown that evaluation of an n×n determinant using row operations requires about 2n3/3 arithmetic operations. Any modern microcomputer can calculate a 25×25 determinant in a fraction of a second, since only about 10,000 operations are required.</item>
+          </list>
+        </note>
+      <paragraph>Computers can also handle large “sparse” matrices, with special routines that take advantage of the presence of many zeros. Of course, zero entries can speed hand computations, too. The calculations in the next example combine the power of row operations with the strategy from Section 3.1 of using zero entries in cofactor expansions.</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Compute <math display="inline">$\text{det }A$</math>, where <math display="inline">$A = {\left\lbrack \begin{array}{rrrr}
+      0 &amp; 1 &amp; 2 &amp; {- 1} \\
+      2 &amp; 5 &amp; {- 7} &amp; 3 \\
+      0 &amp; 3 &amp; 6 &amp; 2 \\
+      {- 2} &amp; {- 5} &amp; 4 &amp; {- 2}
+      \end{array} \right\rbrack.}$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>A good way to begin is to use the <math display="inline">$2$</math> in column <math display="inline">$1$</math> as a pivot, eliminating the <math display="inline">$- 2$</math> below it. Then use a cofactor expansion to reduce the size of the determinant, followed by another row replacement operation. Thus</paragraph>
+              <paragraph><math display="block">$$\left. \text{det\,\,}A = \middle| \begin{array}{rrrr}
+      0 &amp; 1 &amp; 2 &amp; {- 1} \\
+      2 &amp; 5 &amp; {- 7} &amp; 3 \\
+      0 &amp; 3 &amp; 6 &amp; 2 \\
+      0 &amp; 0 &amp; {- 3} &amp; 1
+      \end{array} \middle| = - 2\, \middle| \begin{array}{rrr}
+      1 &amp; 2 &amp; {- 1} \\
+      3 &amp; 6 &amp; 2 \\
+      0 &amp; {- 3} &amp; 1
+      \end{array} \middle| = - 2\, \middle| \begin{array}{rrr}
+      1 &amp; 2 &amp; {- 1} \\
+      0 &amp; 0 &amp; 5 \\
+      0 &amp; {- 3} &amp; 1
+      \end{array} \right|$$</math></paragraph>
+              <paragraph>An interchange of rows <math display="inline">$2$</math> and <math display="inline">$3$</math> would produce a “triangular determinant.” Another approach is to make a cofactor expansion down the first column:</paragraph>
+              <paragraph><math display="block">$$\left. \text{det\,\,}A = \,\,\left( {- 2} \right)\text{(}1\text{)\,\,} \middle| \begin{array}{rr}
+      0 &amp; 5 \\
+      {- 3} &amp; 1
+      \end{array} \middle| = - 2\text{(}15\text{)} = - 30 \right.$$</math></paragraph>
+        </example>
+      <heading level="2">Column Operations</heading>
+      <paragraph>We can perform operations on the columns of a matrix in a way that is analogous to the row operations we have considered. The next theorem shows that column operations have the same effects on determinants as row operations.</paragraph>
+      <paragraph><em>Remark:</em> The Principle of Mathematical Induction says the following: Let <math display="inline">$P(n)$</math> be a statement that is either true or false for each natural number <math display="inline">$n$</math>. Then <math display="inline">$P(n)$</math> is true for all <math display="inline">$n \geq 1$</math> provided that <math display="inline">$P(1)$</math> is true, and for each natural number <math display="inline">$k$</math>, if <math display="inline">$P(k)$</math> is true, then <math display="inline">$P(k + 1)$</math> is true. The Principle of Mathematical Induction is used to prove the next theorem.</paragraph>
+      <note type="procedure" title="Theorem 5">
+          <heading level="2">Theorem 5</heading>
+              <paragraph>If <math display="inline">$A$</math> is an <math display="inline">$n \times n$</math> matrix, then <math display="inline">$\text{det }A^{T} = \text{det }A$</math>.</paragraph>
+        </note>
+      <heading level="3">Proof﻿</heading>
+      <paragraph>The theorem is obvious for <math display="inline">$n = 1$</math>. Suppose the theorem is true for <math display="inline">$k \times k$</math> determinants and let <math display="inline">$n = k + 1$</math>. Then the cofactor of <math display="inline">$a_{1j}$</math> in <math display="inline">$A$</math> equals the cofactor of <math display="inline">$a_{j1}$</math> in <math display="inline">$A^{T}$</math>, because the cofactors involve <math display="inline">$k \times k$</math> determinants. Hence the cofactor expansion of <math display="inline">$\text{det }A$</math> along the first <em>row</em> equals the cofactor expansion of <math display="inline">$\text{det }A^{T}$</math> down the first <em>column</em>. That is, <math display="inline">$A$</math> and <math display="inline">$A^{T}$</math> have equal determinants. The theorem is true for <math display="inline">$n = 1$</math>, and the truth of the theorem for one value of <math display="inline">$n$</math> implies its truth for the next value of <math display="inline">$n$</math>. By the Principle of Mathematical Induction, the theorem is true for all <math display="inline">$n \geq 1$</math>.</paragraph>
+      <paragraph>Because of <strong>Theorem 5</strong>, each statement in Theorem 3 is true when the word <em>row</em> is replaced everywhere by <em>column</em>. To verify this property, one merely applies the original Theorem 3 to <math display="inline">$A^{T}$</math>. A row operation on <math display="inline">$A^{T}$</math> amounts to a column operation on <math display="inline">$A$</math>.</paragraph>
+      <paragraph>Column operations are useful for both theoretical purposes and hand computations. However, for simplicity we’ll perform only row operations in numerical calculations.</paragraph>
+      <heading level="2">Determinants and Matrix Products</heading>
+      <paragraph>The proof of the following useful theorem is at the end of the section. Applications are in the exercises.</paragraph>
+      <note type="procedure" title="Theorem 6">
+          <heading level="2">Theorem 6</heading>
+          <heading level="3">Multiplicative Property</heading>
+              <paragraph>If <math display="inline">$A$</math> and <math display="inline">$B$</math> are <math display="inline">$n \times n$</math> matrices, then <math display="inline">$\text{det }AB = \text{(det }A\text{)(det\,\,}B\text{)}$</math>.</paragraph>
+        </note>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>Verify <strong>Theorem 6</strong> for <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      6 &amp; 1 \\
+      3 &amp; 2
+      \end{array} \right\rbrack$</math> and <math display="inline">$B = \left\lbrack \begin{array}{rr}
+      4 &amp; 3 \\
+      1 &amp; 2
+      \end{array} \right\rbrack$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph><math display="block">$$A B = \left\lbrack \begin{array}{rr}
+      6 &amp; 1 \\
+      3 &amp; 2
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      4 &amp; 3 \\
+      1 &amp; 2
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
+      25 &amp; 20 \\
+      14 &amp; 13
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>and</paragraph>
+              <paragraph><math display="block">$$\text{det }A B = 25\text{(}13\text{)} - 20\text{(}14\text{)} = 325 - 280 = 45$$</math></paragraph>
+              <paragraph>Since <math display="inline">$\text{det \,\,}A = 9$</math> and <math display="inline">$\text{det \,\,}B = 5$</math>,</paragraph>
+              <paragraph><math display="block">$$\text{(}\text{det }A\text{)(}\text{det }B\text{)} = 9\text{(}5\text{)} = 45 = \text{det }AB$$</math></paragraph>
+        </example>
+      <paragraph>Click here to compare the product of the determinants to the determinant of the product</paragraph>
+      <paragraph><strong><em>Warning:</em></strong><em/>A common misconception is that Theorem 6 has an analogue for <em>sums</em> of matrices. However, <math display="inline">$\text{det}(A + B)$</math> is <em>not</em> equal to <math display="inline">$\text{det }A + \text{det }B$</math>, in general.</paragraph>
+      <paragraph>Click here to compare the sum of the determinants to the determinant of the sum</paragraph>
+      <heading level="2">A Linearity Property of the Determinant Function</heading>
+      <paragraph>For an <math display="inline">$n \times n$</math> matrix <math display="inline">$A$</math>, we can consider <math display="inline">$\text{det }A$</math> as a function of the <math display="inline">$n$</math> column vectors in <math display="inline">$A$</math>. We will show that if all columns except one are held fixed, then <math display="inline">$\text{det }A$</math> is a <em>linear function</em> of that one (vector) variable.</paragraph>
+      <paragraph>Suppose that the <math display="inline">$\textit{j}\text{\,\,th}$</math> column of <math display="inline">$A$</math> is allowed to vary, and write</paragraph>
+      <paragraph>
+        <math display="block">$$A = \left\lbrack \begin{array}{rrrrrrr}
+      \textbf{a}_{1} &amp; \cdots &amp; {\textbf{a}_{j - 1}\textbf{~}} &amp; \textbf{x~} &amp; \textbf{a}_{j + 1} &amp; \cdots &amp; \textbf{a}_{n}
+      \end{array} \right\rbrack$$</math>
+      </paragraph>
+      <paragraph>Define a transformation <math display="inline">$T$</math> from <math display="inline">$\text{ℝ}^{n}$</math> to <math display="inline">$\text{ℝ}$</math> by</paragraph>
+      <paragraph>
+        <math display="block">$$T(\textbf{x}) = \text{det }\left\lbrack \begin{array}{rrrrrrr}
+      \textbf{a}_{1} &amp; \cdots &amp; {\textbf{a}_{j - 1}\textbf{~}} &amp; \textbf{x~} &amp; \textbf{a}_{j + 1} &amp; \cdots &amp; \textbf{a}_{n}
+      \end{array} \right\rbrack$$</math>
+      </paragraph>
+      <paragraph>Then,</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+       &amp; {T\text{(}c\textbf{x}\text{)} = cT\text{(}\textbf{x}\text{)}\quad\text{for all scalars c and all~}\textbf{x~}\text{in~}\text{ℝ}^{n}}
+      \end{matrix}$$</math>
+      </paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+       &amp; {T\text{(}\textbf{u} + \textbf{v}\text{)} = T\text{(}\textbf{u}\text{)} + T\text{(}\textbf{v}\text{)}\quad\text{for~all~}\textbf{u}\text{,~}\textbf{v}\text{~in~}\text{ℝ}^{n}}
+      \end{matrix}$$</math>
+      </paragraph>
+      <paragraph>Property <strong>(</strong>2<strong>)</strong> is Theorem 3(c) applied to the columns of <math display="inline">$A$</math>. A proof of property <strong>(</strong>3<strong>)</strong> follows from a cofactor expansion of <math display="inline">$\text{det }A$</math> down the <math display="inline">$\textit{j}\text{\,\,th}$</math> column. (See Exercise 49.) This (multi-)linearity property of the determinant turns out to have many useful consequences that are studied in more advanced courses.</paragraph>
+      <heading level="2">Proofs of Theorems 3 and 6</heading>
+      <paragraph>It is convenient to prove Theorem 3 when it is stated in terms of the elementary matrices discussed in Section 2.2. We call an elementary matrix <math display="inline">$E$</math> a <em>row replacement</em> (<em>matrix</em>) if <math display="inline">$E$</math> is obtained from the identity <math display="inline">$I$</math> by adding a multiple of one row to another row; <math display="inline">$E$</math> is an <em>interchange</em> if <math display="inline">$E$</math> is obtained by interchanging two rows of <math display="inline">$I$</math>; and <math display="inline">$E$</math> is <em>a scale by</em> <math display="inline">$r$</math> if <math display="inline">$E$</math> is obtained by multiplying a row of <math display="inline">$I$</math> by a nonzero scalar <math display="inline">$r$</math>. With this terminology, Theorem 3 can be reformulated as follows:</paragraph>
+      <heading level="3">Proof of Theorem 3</heading>
+      <paragraph>The proof is by induction on the size of <math display="inline">$A$</math>. The case of a <math display="inline">$2 \times 2$</math> matrix was verified in Exercises 33–36 of Section 3.1. Suppose the theorem has been verified for determinants of <math display="inline">$k \times k$</math> matrices with <math display="inline">$k \geq 2$</math>, let <math display="inline">$n = k + 1$</math>, and let <math display="inline">$A$</math> be <math display="inline">$n \times n$</math>. The action of <math display="inline">$E$</math> on <math display="inline">$A$</math> involves either two rows or only one row. So we can expand <math display="inline">$\text{det }EA$</math> across a row that is unchanged by the action of <math display="inline">$E$</math>, say, row <math display="inline">$i$</math>. Let <math display="inline">$A_{ij}$</math> (respectively, <math display="inline">$B_{ij}$</math>) be the matrix obtained by deleting row <math display="inline">$i$</math> and column <math display="inline">$j$</math> from <math display="inline">$A$</math> (respectively, <math display="inline">$EA$</math>). Then the rows of <math display="inline">$B_{ij}$</math> are obtained from the rows of <math display="inline">$A_{ij}$</math> by the same type of elementary row operation that <math display="inline">$E$</math> performs on <math display="inline">$A$</math>. Since these submatrices are only <math display="inline">$k \times k$</math>, the induction assumption implies that</paragraph>
+      <paragraph>
+        <math display="block">$$\text{det }B_{ij} = \alpha\,\text{det }A_{ij}$$</math>
+      </paragraph>
+      <paragraph>where <math display="inline">$\alpha = 1$</math>, <math display="inline">$- 1$</math>, or <math display="inline">$r$</math>, depending on the nature of <math display="inline">$E$</math>. The cofactor expansion across row <math display="inline">$i$</math> is</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+      {\text{det }EA} &amp; {= a_{i1}\left( {- 1} \right)^{i + 1}\text{det }B_{i1} + \cdots + a_{in}\text{(} - 1\text{)}^{i + n}\text{det }B_{in}} \\
+       &amp; {= \alpha a_{i1}\left( {- 1} \right)^{i + 1}\text{det }A_{i1} + \cdots + \alpha a_{in}{\text{(} - 1\text{)}}^{i + n}\text{det }A_{in}} \\
+       &amp; {= \alpha~\text{det }A}
+      \end{matrix}$$</math>
+      </paragraph>
+      <heading level="3">Proof of Theorem 6</heading>
+      <paragraph>If <math display="inline">$A$</math> is not invertible, then neither is <math display="inline">$AB$</math>, by Exercise 35 in Section 2.3. In this case, <math display="inline">$\text{det }AB = (\text{det }A)(\text{det }B)$</math>, because both sides are zero, by Theorem 4. If <math display="inline">$A$</math> is invertible, then <math display="inline">$A$</math> and the identity matrix <math display="inline">$I_{n}$</math> are row equivalent by the Invertible Matrix Theorem. So there exist elementary matrices <math display="inline">$E_{1}\text{,}\ldots\text{, }E_{p}$</math> such that</paragraph>
+      <paragraph>
+        <math display="block">$$A = E_{p}E_{p - 1}\cdots E_{1} I_{n} = E_{p}E_{p - 1}\cdots E_{1}$$</math>
+      </paragraph>
+      <paragraph>For brevity, write <math display="inline">$|A|$</math> for <math display="inline">$\text{det }A$</math>. Then repeated application of Theorem 3, as rephrased above, shows that</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+      |AB| &amp; \left. = \middle| E_{p}\cdots E_{1}B \middle| = \middle| E_{p} \middle| \middle| E_{p - 1}\cdots E_{1}B \middle| = \cdots \right. \\
+       &amp; \left. = \middle| E_{p} \middle| \cdots \middle| E_{1} \middle| \middle| B \middle| = \cdots = \middle| E_{p}\cdots E_{1} \middle| \middle| B \right| \\
+       &amp; \left. = \middle| A \middle| \middle| B \right|
+      \end{matrix}$$</math>
+      </paragraph>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Compute [1−31−22−5−1−20−451−310−68] in as few steps as possible.</item>
+                  <item>Use a determinant to decide if v1, v2, and v3 are linearly independent, when v1 = 5-7 9, v2 = -3 3-5, v3 = 2-7 5</item>
+                  <item>Let A be an n×n matrix such that A2=I. Show that det A=±1.</item>
+          </list>
+        </note>
+    </content>
+    <exercises title="3.2 Exercises">
+      <heading level="1">3.2 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>Each equation in Exercises 1–4 illustrates a property of determinants. State the property.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
+      0 &amp; 5 &amp; {- 2} \\
+      1 &amp; {- 3} &amp; 6 \\
+      4 &amp; {- 1} &amp; 8
+      \end{array} \right| = - \left| \begin{array}{rrr}
+      1 &amp; {- 3} &amp; 6 \\
+      0 &amp; 5 &amp; {- 2} \\
+      4 &amp; {- 1} &amp; 8
+      \end{array} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
+      3 &amp; {- 6} &amp; 9 \\
+      3 &amp; 5 &amp; {- 5} \\
+      1 &amp; 3 &amp; 3
+      \end{array} \right| = 3\left| \begin{array}{rrr}
+      1 &amp; {- 2} &amp; 3 \\
+      3 &amp; 5 &amp; {- 5} \\
+      1 &amp; 3 &amp; 3
+      \end{array} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
+      1 &amp; 2 &amp; 2 \\
+      0 &amp; 3 &amp; {- 4} \\
+      2 &amp; 7 &amp; 4
+      \end{array} \right| = \left| \begin{matrix}
+      1 &amp; 2 &amp; 2 \\
+      0 &amp; 3 &amp; {- 4} \\
+      0 &amp; 3 &amp; 0
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
+      1 &amp; 3 &amp; {- 4} \\
+      2 &amp; 0 &amp; {- 3} \\
+      3 &amp; {- 5} &amp; 2
+      \end{array} \right| = \left| \begin{array}{rrr}
+      1 &amp; 3 &amp; {- 4} \\
+      0 &amp; {- 6} &amp; 5 \\
+      3 &amp; {- 5} &amp; 2
+      \end{array} \right|$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="5">
+                  <instructions>Find the determinants in Exercises 5–10 by row reduction to echelon form.</instructions>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
+      1 &amp; 5 &amp; {- 4} \\
+      {- 1} &amp; {- 4} &amp; 5 \\
+      {- 2} &amp; {- 8} &amp; 7
+      \end{array} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
+      2 &amp; 2 &amp; {- 2} \\
+      3 &amp; 4 &amp; {- 4} \\
+      2 &amp; {- 3} &amp; {- 5}
+      \end{array} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="7">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{matrix}
+      1 &amp; 3 &amp; 0 &amp; 2 \\
+      {- 2} &amp; {- 5} &amp; 7 &amp; 4 \\
+      3 &amp; 5 &amp; 2 &amp; 1 \\
+      1 &amp; {- 1} &amp; 2 &amp; {- 3}
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{array}{rrrr}
+      1 &amp; 3 &amp; 2 &amp; {- 4} \\
+      0 &amp; 1 &amp; 2 &amp; {- 5} \\
+      2 &amp; 7 &amp; 6 &amp; {- 3} \\
+      {- 3} &amp; {- 10} &amp; {- 7} &amp; 2
+      \end{array} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{matrix}
+      1 &amp; {- 1} &amp; {- 3} &amp; 0 \\
+      0 &amp; 1 &amp; 5 &amp; 4 \\
+      {- 1} &amp; 0 &amp; 5 &amp; 3 \\
+      3 &amp; {- 3} &amp; {- 2} &amp; 3
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{array}{rrrrr}
+      1 &amp; 3 &amp; {- 1} &amp; 0 &amp; {- 2} \\
+      0 &amp; 1 &amp; {- 2} &amp; {- 1} &amp; {- 3} \\
+      {- 2} &amp; {- 6} &amp; 2 &amp; 3 &amp; 10 \\
+      1 &amp; 5 &amp; {- 6} &amp; 2 &amp; {- 3} \\
+      0 &amp; 2 &amp; {- 4} &amp; 5 &amp; 9
+      \end{array} \right|$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="11">
+                  <instructions>Combine the methods of row reduction and cofactor expansion to compute the determinants in Exercises 11–14.</instructions>
+            <problem number="11">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{matrix}
+      3 &amp; 4 &amp; {- 3} &amp; {- 1} \\
+      3 &amp; 0 &amp; 1 &amp; {- 3} \\
+      {- 6} &amp; 0 &amp; {- 4} &amp; 3 \\
+      6 &amp; 8 &amp; {- 4} &amp; {- 1}
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{array}{rrrr}
+      {- 1} &amp; 2 &amp; 3 &amp; 0 \\
+      3 &amp; 4 &amp; 3 &amp; 0 \\
+      {11} &amp; 4 &amp; 6 &amp; 6 \\
+      4 &amp; 2 &amp; 4 &amp; 3
+      \end{array} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="13">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{matrix}
+      2 &amp; 5 &amp; 4 &amp; 1 \\
+      4 &amp; 7 &amp; 6 &amp; 2 \\
+      6 &amp; {- 2} &amp; {- 4} &amp; 0 \\
+      {- 6} &amp; 7 &amp; 7 &amp; 0
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{matrix}
+      1 &amp; 5 &amp; 4 &amp; 1 \\
+      0 &amp; {- 3} &amp; {- 6} &amp; 0 \\
+      3 &amp; 5 &amp; 4 &amp; 1 \\
+      {- 6} &amp; 5 &amp; 5 &amp; 0
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="15">
+                  <instructions>Find the determinants in Exercises 15–20, where</instructions>
+                  <instructions><math display="block">$$\left| \begin{array}{rrr}
+      a &amp; b &amp; c \\
+      d &amp; e &amp; f \\
+      g &amp; h &amp; i
+      \end{array} \middle| = 7. \right.$$</math></instructions>
+            <problem number="15">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{matrix}
+      a &amp; b &amp; c \\
+      d &amp; e &amp; f \\
+      {3g} &amp; {3h} &amp; {3i}
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{matrix}
+      a &amp; b &amp; c \\
+      {d + 3g} &amp; {e + 3h} &amp; {f + 3i} \\
+      g &amp; h &amp; i
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="17">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{matrix}
+      {a + d} &amp; {b + e} &amp; {c + f} \\
+      d &amp; e &amp; f \\
+      g &amp; h &amp; i
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{matrix}
+      a &amp; b &amp; c \\
+      {5d} &amp; {5e} &amp; {5f} \\
+      g &amp; h &amp; i
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="19">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{matrix}
+      a &amp; b &amp; c \\
+      {2d + a} &amp; {2e + b} &amp; {2f + c} \\
+      g &amp; h &amp; i
+      \end{matrix} \right|$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
+      d &amp; e &amp; f \\
+      a &amp; b &amp; c \\
+      g &amp; h &amp; i
+      \end{array} \right|$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="21">
+                  <instructions>In Exercises 21–23, use determinants to find out if the matrix is invertible.</instructions>
+            <problem number="21">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      2 &amp; 6 &amp; 0 \\
+      1 &amp; 3 &amp; 2 \\
+      3 &amp; 9 &amp; 2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      5 &amp; 1 &amp; {- 1} \\
+      1 &amp; {- 3} &amp; {- 2} \\
+      0 &amp; 5 &amp; 3
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      2 &amp; 0 &amp; 0 &amp; 6 \\
+      1 &amp; {- 7} &amp; {- 5} &amp; 0 \\
+      3 &amp; 8 &amp; 6 &amp; 0 \\
+      0 &amp; 7 &amp; 5 &amp; 4
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="24">
+                  <instructions>In Exercises 24–26, use determinants to decide if the set of vectors is linearly independent.</instructions>
+            <problem number="24">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{r}
+      4 \\
+      6 \\
+      2
+      \end{array} \right\rbrack$</math>, <math display="inline">$\left\lbrack \begin{array}{r}
+      {- 6} \\
+      0 \\
+      6
+      \end{array} \right\rbrack$</math>, <math display="inline">$\left\lbrack \begin{array}{r}
+      {- 3} \\
+      {- 5} \\
+      {- 2}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="25">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{r}
+      7 \\
+      {- 4} \\
+      {- 6}
+      \end{array} \right\rbrack$</math>, <math display="inline">$\left\lbrack \begin{array}{r}
+      {- 8} \\
+      5 \\
+      7
+      \end{array} \right\rbrack$</math>, <math display="inline">$\left\lbrack \begin{array}{r}
+      7 \\
+      0 \\
+      {- 5}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{r}
+      3 \\
+      5 \\
+      {- 6} \\
+      4
+      \end{array} \right\rbrack$</math>, <math display="inline">$\left\lbrack \begin{array}{r}
+      2 \\
+      {- 6} \\
+      0 \\
+      7
+      \end{array} \right\rbrack$</math>, <math display="inline">$\left\lbrack \begin{array}{r}
+      {- 2} \\
+      {- 1} \\
+      3 \\
+      0
+      \end{array} \right\rbrack$</math>, <math display="inline">$\left\lbrack \begin{array}{r}
+      0 \\
+      0 \\
+      0 \\
+      {- 2}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="27">
+                  <instructions>In Exercises 27–34, <math display="inline">$A$</math> and <math display="inline">$B$</math> are <math display="inline">$n \times n$</math> matrices. Mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
+            <problem number="27">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A row replacement operation does not affect the determinant of a matrix.</paragraph>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\text{det }A$</math> is zero, then two rows or two columns are the same, or a row or a column is zero.</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If the columns of <math display="inline">$A$</math> are linearly dependent, then <math display="inline">$\text{det }A = 0$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The determinant of <math display="inline">$A$</math> is the product of the diagonal entries in <math display="inline">$A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="31">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If three row interchanges are made in succession, then the new determinant equals the old determinant.</paragraph>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The determinant of <math display="inline">$A$</math> is the product of the pivots in any echelon form <math display="inline">$U$</math> of <math display="inline">$A$</math>, multiplied by <math display="inline">$( - 1)^{r}$</math>, where <math display="inline">$r$</math> is the number of row interchanges made during row reduction from <math display="inline">$A$</math> to <math display="inline">$U$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="33">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> <math display="inline">$\text{det(}A + B\text{)} = \text{det \,\,}A + \text{det \,\,}B$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="34">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> <math display="inline">$\text{det \,\,}A^{- 1} = \text{(} - 1\text{)det \,\,}A$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="35">
+            <problem number="35">
+              <statement>
+                          <paragraph>Compute <math display="inline">$\text{det }B^{4}$</math>, where <math display="inline">$B = \left\lbrack \begin{array}{rrr}
+      1 &amp; 0 &amp; 1 \\
+      1 &amp; 1 &amp; 2 \\
+      1 &amp; 2 &amp; 1
+      \end{array} \right\rbrack$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="36">
+              <statement>
+                          <paragraph>Use Theorem 3 (but not Theorem 4) to show that if two rows of a square matrix <math display="inline">$A$</math> are equal, then <math display="inline">$\text{det \,\,}A = 0$</math>. The same is true for two columns. Why?</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="37">
+                  <instructions>In Exercises 37–42, mention an appropriate theorem in your explanation.</instructions>
+            <problem number="37">
+              <statement>
+                          <paragraph>Show that if <math display="inline">$A$</math> is invertible, then <math display="inline">$\text{det \,\,}A^{-1}~=~\frac{1}{\text{det \,\,}A}~$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="38">
+              <statement>
+                          <paragraph>Suppose that <math display="inline">$A$</math> is a square matrix such that <math display="inline">$\text{det }A^{3} = 0$</math>. Explain why <math display="inline">$A$</math> cannot be invertible.</paragraph>
+              </statement>
+            </problem>
+            <problem number="39">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> and <math display="inline">$B$</math> be square matrices. Show that even though <math display="inline">$AB$</math> and <math display="inline">$BA$</math> may not be equal, it is always true that <math display="inline">$\text{det \,\,}AB = \text{det \,\,}BA$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="40">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> and <math display="inline">$P$</math> be square matrices, with <math display="inline">$P$</math> invertible. Show that <math display="inline">$\text{det(}PAP^{- 1}\text{)} = \text{det \,\,}A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="41">
+              <statement>
+                          <paragraph>Let <math display="inline">$U$</math> be a square matrix such that <math display="inline">$U^{T}U = I$</math>. Show that <math display="inline">$\text{det \,\,}U = \pm 1$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="42">
+              <statement>
+                          <paragraph>Find a formula for <math display="inline">$\text{det}(rA)$</math> when <math display="inline">$A$</math> is an <math display="inline">$n \times n$</math> matrix.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="43">
+                  <instructions>Verify that <math display="inline">$\text{det }AB = \text{(det }A\text{)\,(det }B\text{)}$</math> for the matrices in Exercises 43 and 44. (Do not use Theorem 6.)</instructions>
+            <problem number="43">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rr}
+      3 &amp; 0 \\
+      6 &amp; 1
+      \end{array} \right\rbrack$</math>, <math display="inline">$B = \left\lbrack \begin{array}{rr}
+      2 &amp; 0 \\
+      5 &amp; 4
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="44">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rr}
+      3 &amp; 6 \\
+      {- 1} &amp; {- 2}
+      \end{array} \right\rbrack$</math>, <math display="inline">$B = \left\lbrack \begin{array}{rr}
+      4 &amp; 3 \\
+      {- 1} &amp; {- 3}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="45">
+            <problem number="45">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> and <math display="inline">$B$</math> be <math display="inline">$3 \times 3$</math> matrices, with <math display="inline">$\text{det \,\,}A = - 2$</math> and <math display="inline">$\text{det \,\,}B = 3$</math>. Use properties of determinants (in the text and in the preceding exercises) to compute:</paragraph>
+                <list ordered="true">
+                              <item>det AB</item>
+                              <item>det 5A</item>
+                              <item>det BT</item>
+                              <item>det A−1</item>
+                              <item>det A3</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="46">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> and <math display="inline">$B$</math> be <math display="inline">$4 \times 4$</math> matrices, with <math display="inline">$\text{det }A = 4$</math> and <math display="inline">$\text{det }B = - 3$</math>. Compute:</paragraph>
+                <list ordered="true">
+                              <item>det AB</item>
+                              <item>det B5</item>
+                              <item>det 2A</item>
+                              <item>det ATBA</item>
+                              <item>det B−1AB</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="47">
+              <statement>
+                          <paragraph>Verify that <math display="inline">$\text{det \,\,}A = \text{det \,\,}B + \text{det \,\,}C$</math>, where <math display="block">$$A~ = ~\begin{bmatrix}
+      {a + e} &amp; {b + f} \\
+      c &amp; d
+      \end{bmatrix},~~~B~ = ~\begin{bmatrix}
+      a &amp; b \\
+      c &amp; d
+      \end{bmatrix},~~C = \begin{bmatrix}
+      e &amp; f \\
+      c &amp; d
+      \end{bmatrix}$$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="48">
+              <statement>
+                          <paragraph>Let <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      1 &amp; 0 \\
+      0 &amp; 1
+      \end{array} \right\rbrack$</math> and <math display="inline">$B = \left\lbrack \begin{array}{rr}
+      a &amp; b \\
+      c &amp; d
+      \end{array} \right\rbrack$</math>. Show that <math display="inline">$\text{det(}A + B\text{)} = \text{det \,\,}A + \text{det \,\,}B$</math> if and only if <math display="inline">$a + d = 0$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="49">
+              <statement>
+                          <paragraph>Verify that <math display="inline">$\text{det \,\,}A = \text{det \,\,}B + \text{det \,\,}C$</math>, where <math display="block">$$A~ = ~\begin{bmatrix}
+      a_{11} &amp; a_{12} &amp; {u_{1} + v_{1}} \\
+      a_{21} &amp; a_{22} &amp; {u_{2} + v_{2}} \\
+      a_{31} &amp; a_{32} &amp; {u_{3} + v_{3}}
+      \end{bmatrix},B~ = ~\begin{bmatrix}
+      a_{11} &amp; a_{12} &amp; u_{1} \\
+      a_{21} &amp; a_{22} &amp; u_{2} \\
+      a_{31} &amp; a_{32} &amp; u_{3}
+      \end{bmatrix},C = ~\begin{bmatrix}
+      a_{11} &amp; a_{12} &amp; v_{1} \\
+      a_{21} &amp; a_{22} &amp; v_{2} \\
+      a_{31} &amp; a_{32} &amp; v_{3}
+      \end{bmatrix}$$</math></paragraph>
+                          <paragraph>Note, however, that <math display="inline">$A$</math> is <em>not</em> the same as <math display="inline">$B + C$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="50">
+              <statement>
+                          <paragraph>Right-multiplication by an elementary matrix <math display="inline">$E$</math> affects the <em>columns</em> of <math display="inline">$A$</math> in the same way that left-multiplication affects the <em>rows</em>. Use Theorems 5 and 3 and the obvious fact that <math display="inline">$E^{T}$</math> is another elementary matrix to show that <math display="block">$$\text{det~}AE~ = ~\left( {\text{det~}E} \right)~\left( {\text{det~}A} \right)$$</math></paragraph>
+                          <paragraph>Do not use Theorem 6.</paragraph>
+              </statement>
+            </problem>
+            <problem number="51">
+              <statement>
+                          <paragraph>Suppose <math display="inline">$A$</math> is an <math display="inline">$n \times n$</math> matrix and a computer suggests that <math display="inline">$\text{det }A = 5$</math> and <math display="inline">$\text{det(}A^{- 1}\text{)} = 1$</math>. Should you trust these answers? Why or why not?</paragraph>
+              </statement>
+            </problem>
+            <problem number="52">
+              <statement>
+                          <paragraph>Suppose <math display="inline">$A$</math> and <math display="inline">$B$</math> are <math display="inline">$n \times n$</math> matrices and a computer suggests that <math display="inline">$\text{det }A = 5$</math>, <math display="inline">$\text{det }B = 2$</math> and <math display="inline">$\text{det }AB = 7$</math>. Should you trust these answers? Why or why not?</paragraph>
+              </statement>
+            </problem>
+            <problem number="53">
+              <statement>
+                          <paragraph><strong>[T]</strong> Compute <math display="inline">$\text{det }A^{T}A$</math> and <math display="inline">$\text{det \,\,}AA^{T}$</math> for several random <math display="inline">$4 \times 5$</math> matrices and several random <math display="inline">$5 \times 6$</math> matrices. What can you say about <math display="inline">$A^{T}A$</math> and <math display="inline">$AA^{T}$</math> when <math display="inline">$A$</math> has more columns than rows?</paragraph>
+              </statement>
+            </problem>
+            <problem number="54">
+              <statement>
+                          <paragraph><strong>[T]</strong> If <math display="inline">$\text{det \,\,}A$</math> is close to zero, is the matrix <math display="inline">$A$</math> nearly singular? Experiment with the nearly singular <math display="inline">$4 \times 4$</math> matrix <math display="block">$$A = \left\lbrack \begin{matrix}
+      {~~4} &amp; {~0} &amp; {- 7} &amp; {- 7} \\
+      {- 6} &amp; {~~1} &amp; {~~11} &amp; {~~~9} \\
+      {~~~7} &amp; {- 5} &amp; {~~10} &amp; {~19} \\
+      {- 1} &amp; {~~~2} &amp; {~~~~3} &amp; {- 1}
+      \end{matrix}~ \right\rbrack$$</math></paragraph>
+                          <paragraph>Compute the determinants of <math display="inline">$A$</math>, <math display="inline">$10A$</math>, and <math display="inline">$0.1A$</math>. In contrast, compute the condition numbers of these matrices. Repeat these calculations when <math display="inline">$A$</math> is the <math display="inline">$4 \times 4$</math> identity matrix. Discuss your results.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

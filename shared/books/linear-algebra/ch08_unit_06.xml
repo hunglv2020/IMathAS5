@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch08" chapter_number="8" unit_code="8.6">
+  <section number="8.6" title="Curves and Surfaces">
+    <metadata>
+      <source_pages count="10">
+        <page global_index="420" type="content"/>
+        <page global_index="421" type="content"/>
+        <page global_index="422" type="content"/>
+        <page global_index="423" type="content"/>
+        <page global_index="424" type="content"/>
+        <page global_index="425" type="content"/>
+        <page global_index="426" type="content"/>
+        <page global_index="427" type="exercises"/>
+        <page global_index="428" type="exercises"/>
+        <page global_index="429" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">8.6 Curves and Surfaces</heading>
+      <paragraph>For thousands of years, builders used long thin strips of wood to create the hull of a boat. In more recent times, designers used long, flexible metal strips to lay out the surfaces of cars and airplanes. Weights and pegs shaped the strips into smooth curves called <em>natural cubic splines</em>. The curve between two successive control points (pegs or weights) has a parametric representation using cubic polynomials. Unfortunately, such curves have the property that moving one control point affects the shape of the entire curve, because of physical forces that the pegs and weights exert on the strip. Design engineers had long wanted local control of the curve—in which movement of one control point would affect only a small portion of the curve. In 1962, a French automotive engineer, Pierre Bézier, solved this problem by adding extra control points and using a class of curves now called by his name.</paragraph>
+      <heading level="2">Bézier Curves</heading>
+      <paragraph>The curves described in this section play an important role in computer graphics as well as engineering. For example, they are used in Adobe Illustrator and Macromedia Freehand, and in application programming languages such as OpenGL. These curves permit a program to store exact information about curved segments and surfaces in a relatively small number of control points. All graphics commands for the segments and surfaces have only to be computed for the control points. The special structure of these curves also speeds up other calculations in the “graphics pipeline” that creates the final display on the viewing screen.</paragraph>
+      <paragraph>Exercises in Section 8.3 introduced quadratic Bézier curves and showed one method for constructing Bézier curves of higher degree. The discussion here focuses on quadratic and cubic Bézier curves, which are determined by three or four control points, denoted by <math display="inline">$\textbf{p}_{0}$</math>, <math display="inline">$\textbf{p}_{1}$</math>, <math display="inline">$\textbf{p}_{2}$</math>, and <math display="inline">$\textbf{p}_{3}$</math>. These points can be in <math display="inline">$\text{ℝ}^{2}$</math> or <math display="inline">$\text{ℝ}^{3}$</math>, or they can be represented by homogeneous forms in <math display="inline">$\text{ℝ}^{3}$</math> or <math display="inline">$\text{ℝ}^{4}$</math>. The standard parametric descriptions of these curves, for <math display="inline">$0 \leq t \leq 1$</math>, are</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{lll}
+      {\mathbf{w}(t)} &amp; = &amp; {{(1 - t)}^{2}\mathbf{p}_{0} + 2t(1 - t)\mathbf{p}_{1} + t^{2}\mathbf{p}_{2}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{lll}
+      {\mathbf{x}(t)} &amp; = &amp; {(1 - t)^{3}\mathbf{p}_{0} + 3t(1 - t)^{2}\mathbf{p}_{1} + 3t^{2}(1 - t)\mathbf{p}_{2} + t^{3}\mathbf{p}_{3}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph><strong>Figure</strong><strong>1</strong> shows two typical curves. Usually, the curves pass through only the initial and terminal control points, but a Bézier curve is always in the convex hull of its control points. (See Exercises 25–28 in Section 8.3.)</paragraph>
+      <figure label="Figure 1" caption="Quadratic and cubic Bézier curves">
+          <image alt="Quadratic and cubic Bezier curves with three and four control points, respectively, are shown."/>
+        </figure>
+      <paragraph>Bézier curves are useful in computer graphics because their essential properties are preserved under the action of linear transformations and translations. For instance, if <math display="inline">$A$</math> is a matrix of appropriate size, then from the linearity of matrix multiplication, for <math display="inline">$0 \leq t \leq 1$</math>,﻿</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{lll}
+      {A\mathbf{x}(t)} &amp; = &amp; {A\left\lbrack (1 - t)^{3}\mathbf{p}_{0} + 3t(1 - t)^{2}\mathbf{p}_{1} + 3t^{2}(1 - t)\mathbf{p}_{2} + t^{3}\mathbf{p}_{3} \right\rbrack} \\
+       &amp; = &amp; {{(1 - t)}^{3}A\mathbf{p}_{0} + 3t(1 - t)^{2}A\mathbf{p}_{1} + 3t^{2}(1 - t)A\mathbf{p}_{2} + t^{3}A\mathbf{p}_{3}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>The new control points are <math display="inline">$A\textbf{p}_{0},\ldots,A\textbf{p}_{3}$</math>. Translations of Bézier curves are considered in Exercise 1.</paragraph>
+      <paragraph>The curves in Figure 1 suggest that the control points determine the tangent lines to the curves at the initial and terminal control points. Recall from calculus that for any parametric curve, say <math display="inline">$\textbf{y}(t)$</math>, the direction of the tangent line to the curve at a point <math display="inline">$\textbf{y}(t)$</math> is given by the derivative <math display="inline">$\mathbf{y}\prime(t)$</math>, called the tangent vector of the curve. (This derivative is computed entry by entry.)</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Determine how the tangent vector of the quadratic Bézier curve <math display="inline">$\textbf{w}(t)$</math> is related to the control points of the curve, at <math display="inline">$t = 0$</math> and <math display="inline">$t = 1$</math>.﻿</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Write the weights in equation (1) as simple polynomials</paragraph>
+              <paragraph><math display="block">$$\textbf{w}(t) = (1 - 2t + t^{2})\textbf{p}_{0} + (2t - 2t^{2})\textbf{p}_{1} + t^{2}\textbf{p}_{2}$$</math></paragraph>
+              <paragraph>Then, because differentiation is a linear transformation on functions,</paragraph>
+              <paragraph><math display="block">$$\mathbf{w}\prime(t) = ( - 2 + 2t)\textbf{p}_{0} + (2 - 4t)\textbf{p}_{1} + 2t\textbf{p}_{2}$$</math></paragraph>
+              <paragraph>So</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \left. \mathbf{w}\prime(0 \right) &amp; {= - 2\textbf{p}_{0} + 2\textbf{p}_{1} = 2(\textbf{p}_{1} - \textbf{p}_{0})} \\
+      \left. \mathbf{w}\prime(1 \right) &amp; {= - 2\textbf{p}_{1} + 2\textbf{p}_{2} = 2(\textbf{p}_{2} - \textbf{p}_{1})}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>The tangent vector at <math display="inline">$\textbf{p}_{0}$</math>, for instance, points from <math display="inline">$\textbf{p}_{0}$</math> to <math display="inline">$\textbf{p}_{1}$</math>, but it is twice as long as the segment from <math display="inline">$\textbf{p}_{0}$</math> to <math display="inline">$\textbf{p}_{1}$</math>. Notice that <math display="inline">$\mathbf{w}\prime(0) = \textbf{0}$</math> when <math display="inline">$\textbf{p}_{1} = \textbf{p}_{0}$</math>. In this case, <math display="inline">$\textbf{w}(t) = \left( 1 - t^{2} \right)\textbf{p}_{1} + t^{2}\textbf{p}_{2}$</math>, and the graph of <math display="inline">$\textbf{w}(t)$</math> is the line segment from <math display="inline">$\textbf{p}_{1}$</math> to <math display="inline">$\textbf{p}_{2}$</math>.﻿</paragraph>
+        </example>
+      <heading level="2">Connecting Two Bézier Curves</heading>
+      <paragraph>Two basic Bézier curves can be joined end to end, with the terminal point of the first curve <math display="inline">$\textbf{x}(t)$</math> being the initial point <math display="inline">$\textbf{p}_{2}$</math> of the second curve <math display="inline">$\textbf{y}(t)$</math>. The combined curve is said to have <math display="inline">$G^{0}$</math> <em>geometric continuity</em> (at <math display="inline">$\textbf{p}_{2}$</math>) because the two segments join at <math display="inline">$\textbf{p}_{2}$</math>. If the tangent line to curve <math display="inline">$1$</math> at <math display="inline">$\textbf{p}_{2}$</math> has a different direction than the tangent line to curve <math display="inline">$2$</math>, then a “corner,” or abrupt change of direction, may be apparent at <math display="inline">$\textbf{p}_{2}$</math>. See <strong>Figure 2</strong>.</paragraph>
+      <figure label="Figure 2" caption="G0  continuity at﻿  p2">
+          <image alt="A figure shows G to the 0 continuity with four line segments in the form a step along with two Bezier curves."/>
+        </figure>
+      <paragraph>To avoid a sharp bend, it usually suffices to adjust the curves to have what is called <math display="inline">$G^{1}$</math> <em>geometric continuity</em>, where both tangent vectors at <math display="inline">$\textbf{p}_{2}$</math> point in the same direction. That is, the derivatives <math display="inline">$\mathbf{x}\prime(1)$</math> and <math display="inline">$\mathbf{y}\prime(0)$</math> point in the same direction, even though their magnitudes may be different. When the tangent vectors are actually equal at <math display="inline">$\textbf{p}_{2}$</math>, the tangent vector is continuous at <math display="inline">$\textbf{p}_{2}$</math>, and the combined curve is said to have <math display="inline">$C^{1}$</math> continuity, or <math display="inline">$C^{1}$</math> <em>parametric continuity</em>. <strong>Figure 3</strong> shows <math display="inline">$G^{1}$</math> continuity in (a) and <math display="inline">$C^{1}$</math> continuity in (b).</paragraph>
+      <figure label="Figure 3" caption="(a)   G1 continuity and (b)  C1 continuity">
+          <image alt="A graph shows G to the continuity and C to the 1 continuity with four control points in the form of a rectangle with its bottom left open."/>
+        </figure>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Let <math display="inline">$\textbf{x}(t)$</math> and <math display="inline">$\textbf{y}(t)$</math> determine two quadratic Bézier curves, with control points <math display="inline">$\{\textbf{p}_{0},\textbf{p}_{1},\textbf{p}_{2}\}$</math> and <math display="inline">$\left\{ \textbf{p}_{2},\textbf{p}_{3},\textbf{p}_{4} \right\}$</math>, respectively. The curves are joined at <math display="inline">$\textbf{p}_{2} = \textbf{x}(1) = \textbf{y}(0)$</math>.</paragraph>
+          <list ordered="true">
+                  <item>Suppose the combined curve has G1 continuity (at p2). What algebraic restriction does this condition impose on the control points? Express this restriction in geometric language.</item>
+                  <item>Repeat part (a) for C1 continuity.</item>
+          </list>
+          <heading level="3">Solution</heading>
+          <list ordered="true">
+                  <item>From Example 1, x′(1)=2(p2−p1). Also, using the control points for y(t) in place of w(t), Example 1 shows that y′(0)=2(p3−p2). G1 continuity means that y′(0)=kx′(1) for some positive constant k. Equivalently,</item>
+          </list>
+              <paragraph><math display="block">$$\mathbf{p}_{3} - \mathbf{p}_{2} = k(\mathbf{p}_{2} - \mathbf{p}_{1}), \text{with}\,k &gt; 0$$</math></paragraph>
+          <list ordered="false">
+                  <item>Geometrically, (3) implies that p2 lies on the line segment from p1 to p3. To prove this, let t=(k+1)−1, and note that 0&lt;t&lt;1. Solve for k to obtain k=(1−t)/t. When this expression is used for k in (3), a rearrangement shows that p2=(1−t)p1+tp3, which verifies the assertion about p2.﻿</item>
+          </list>
+          <list ordered="true">
+                  <item>C1 continuity means that y′(0)=x′(1). Thus 2(p3−p2)=2(p2−p1), so p3−p2=p2−p1, and p2=(p1+p3)/2. Geometrically, p2 is the midpoint of the line segment from p1 to p3. See Figure 3.</item>
+          </list>
+        </example>
+      <paragraph><strong>Figure 4</strong> shows <math display="inline">$C^{1}$</math> continuity for two cubic Bézier curves. Notice how the point joining the two segments lies in the middle of the line segment between the adjacent control points.</paragraph>
+      <figure label="Figure 4" caption="Two cubic Bézier curves">
+          <image alt="A figure shows two cubic Bezier curves along a line segment and a tilted pentagon with its bottom left side missing."/>
+        </figure>
+      <paragraph>Two curves have <math display="inline">$C^{2}$</math> (parametric) continuity when they have <math display="inline">$C^{1}$</math> continuity and the <em>second</em> derivatives <math display="inline">$\mathbf{x}''(1)$</math> and <math display="inline">$\mathbf{y}''(0)$</math> are equal. This is possible for cubic Bézier curves, but it severely limits the positions of the control points. Another class of cubic curves, called <math display="inline">$B\text{-}splines$</math>, always have <math display="inline">$C^{2}$</math> continuity because each pair of curves share three control points rather than one. Graphics figures using <math display="inline">$\text{B-splines}$</math> have more control points and consequently require more computations. Some exercises for this section examine these curves.</paragraph>
+      <paragraph>Surprisingly, if <math display="inline">$\textbf{x}(t)$</math> and <math display="inline">$\textbf{y}(t)$</math> join at <math display="inline">$\textbf{p}_{3}$</math>, the apparent smoothness of the curve at <math display="inline">$\textbf{p}_{3}$</math> is usually the same for both <math display="inline">$G^{1}$</math> continuity and <math display="inline">$C^{1}$</math> continuity. This is because the magnitude of <math display="inline">$\mathbf{x}\prime(t)$</math> is not related to the physical shape of the curve. The magnitude reflects only the mathematical parameterization of the curve. For instance, if a new vector function <math display="inline">$\textbf{z}(t)$</math> equals <math display="inline">$\textbf{x}(2t)$</math>, then the point <math display="inline">$\textbf{z}(t)$</math> traverses the curve from <math display="inline">$\textbf{p}_{0}$</math> to <math display="inline">$\textbf{p}_{3}$</math> twice as fast as the original version, because <math display="inline">$2t$</math> reaches <math display="inline">$1$</math> when <math display="inline">$t$</math> is <math display="inline">$.5$</math>. But, by the chain rule of calculus, <math display="inline">$\mathbf{z}\prime(t) = 2 \cdot \mathbf{x}\prime(2t)$</math>, so the tangent vector to <math display="inline">$\textbf{z}(t)$</math> at <math display="inline">$\textbf{p}_{3}$</math> is twice the tangent vector to <math display="inline">$\textbf{x}(t)$</math> at <math display="inline">$\textbf{p}_{3}$</math>.﻿</paragraph>
+      <paragraph>In practice, many simple Bézier curves are joined to create graphics objects. Typesetting programs provide one important application, because many letters in a type font involve curved segments. Each letter in a PostScript<sup>®</sup> font, for example, is stored as a set of control points, along with information on how to construct the “outline” of the letter using line segments and Bézier curves. Enlarging such a letter basically requires multiplying the coordinates of each control point by one constant scale factor. Once the outline of the letter has been computed, the appropriate solid parts of the letter are filled in. <strong>Figure</strong><strong>5</strong> illustrates this for a character in a PostScript font. Note the control points.</paragraph>
+      <figure label="Figure 5" caption="A PostScript character">
+          <image alt="Two figures show a PostScript character Q along with its control points given by line segments."/>
+        </figure>
+      <heading level="2">Matrix Equations for Bézier Curves</heading>
+      <paragraph>Since a Bézier curve is a linear combination of control points using polynomials as weights, the formula for <math display="inline">$\textbf{x}(t)$</math> may be written as</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{lll}
+      {\mathbf{x}(t)} &amp; = &amp; {\left\lbrack \begin{array}{llll}
+      \mathbf{p}_{0} &amp; \mathbf{p}_{1} &amp; \mathbf{p}_{2} &amp; \mathbf{p}_{3}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{l}
+      (1 - t)^{3} \\
+      {3t(1 - t)^{2}} \\
+      {3t^{2}(1 - t)} \\
+      t^{3}
+      \end{array} \right\rbrack} \\
+       &amp; = &amp; {\left\lbrack \begin{array}{llll}
+      \mathbf{p}_{0} &amp; \mathbf{p}_{1} &amp; \mathbf{p}_{2} &amp; \mathbf{p}_{3}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{l}
+      {1 - 3t + 3t^{2} - t^{3}} \\
+      {3t - 6t^{2} + 3t^{3}} \\
+      {3t^{2} - 3t^{3}} \\
+      t^{3}
+      \end{array} \right\rbrack} \\
+       &amp; = &amp; {\left\lbrack \begin{array}{llll}
+      \mathbf{p}_{0} &amp; \mathbf{p}_{1} &amp; \mathbf{p}_{2} &amp; \mathbf{p}_{3}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rrrr}
+      1 &amp; {- 3} &amp; 3 &amp; {- 1} \\
+      0 &amp; 3 &amp; {- 6} &amp; 3 \\
+      0 &amp; 0 &amp; 3 &amp; {- 3} \\
+      0 &amp; 0 &amp; 0 &amp; 1
+      \end{array} \right\rbrack\left\lbrack \begin{array}{l}
+      1 \\
+      t \\
+      t^{2} \\
+      t^{3}
+      \end{array} \right\rbrack}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>The matrix whose columns are the four control points is called a geometry matrix, <math display="inline">$G$</math>. The <math display="inline">$4 \times 4$</math> matrix of polynomial coefficients is the Bézier basis matrix, <math display="inline">$M_{B}$</math>. If <math display="inline">$\textbf{u}(t)$</math> is the column vector of powers of <math display="inline">$t$</math>, then the Bézier curve is given by</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{x}(t) = GM_{B}\textbf{u}(t)$$</math>
+      </paragraph>
+      <paragraph>Other parametric cubic curves in computer graphics are written in this form, too. For instance, if the entries in the matrix <math display="inline">$M_{B}$</math> are changed appropriately, the resulting curves are <math display="inline">$\text{B-splines}$</math>. They are “smoother” than Bézier curves, but they do not pass through any of the control points. A Hermite cubic curve arises when the matrix <math display="inline">$M_{B}$</math> is replaced by a Hermite basis matrix. In this case, the columns of the geometry matrix consist of the starting and ending points of the curves and the tangent vectors to the curves at those points.1<sup/></paragraph>
+      <paragraph>The Bézier curve in equation (4) can also be “factored” in another way, to be used in the discussion of Bézier surfaces. For convenience later, the parameter <math display="inline">$t$</math> is replaced by a parameter <math display="inline">$s$</math>:</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+      {\mathbf{x}(s)} &amp; = &amp; {\mathbf{u}{(s)}^{T}M_{B}^{T}\begin{bmatrix}
+      \mathbf{p}_{0} \\
+      \mathbf{p}_{1} \\
+      \mathbf{p}_{2} \\
+      \mathbf{p}_{3}
+      \end{bmatrix} = \begin{bmatrix}
+      1 &amp; s &amp; s^{2} &amp; s^{3}
+      \end{bmatrix}\left\lbrack \begin{array}{rrrr}
+      1 &amp; 0 &amp; 0 &amp; 0 \\
+      {- 3} &amp; 3 &amp; 0 &amp; 0 \\
+      3 &amp; {- 6} &amp; 3 &amp; 0 \\
+      {- 1} &amp; 3 &amp; {- 3} &amp; 1
+      \end{array} \right\rbrack\left\lbrack \begin{array}{l}
+      \mathbf{p}_{0} \\
+      \mathbf{p}_{1} \\
+      \mathbf{p}_{2} \\
+      \mathbf{p}_{3}
+      \end{array} \right\rbrack} \\
+       &amp; = &amp; {\left\lbrack {(1 - s)}^{3} 3s{(1 - s)}^{2} 3s^{2}(1 - s) s^{3} \right\rbrack\left\lbrack \begin{array}{l}
+      \mathbf{p}_{0} \\
+      \mathbf{p}_{1} \\
+      \mathbf{p}_{2} \\
+      \mathbf{p}_{3}
+      \end{array} \right\rbrack}
+      \end{matrix}$$</math>
+      </paragraph>
+      <paragraph>This formula is not quite the same as the transpose of the product on the right of <strong>(</strong>4<strong>)</strong>, because <math display="inline">$\textbf{x}(s)$</math> and the control points appear in <strong>(5)</strong> without transpose symbols. The matrix of control points in <strong>(</strong>5<strong>)</strong> is called a <strong>geometry vector</strong>. This should be viewed as a <math display="inline">$4 \times 1$</math> block (partitioned) matrix whose entries are column vectors. The matrix to the left of the geometry vector, in the second part of <strong>(</strong>5<strong>)</strong>, can be viewed as a block matrix, too, with a scalar in each block. The partitioned matrix multiplication makes sense, because each (vector) entry in the geometry vector can be left-multiplied by a scalar as well as by a matrix. Thus, the column vector <math display="inline">$\textbf{x}(s)$</math> is represented by <strong>(</strong>5<strong>)</strong>.</paragraph>
+      <heading level="2">Bézier Surfaces</heading>
+      <paragraph>A <math display="inline">$3D$</math> bicubic surface patch can be constructed from a set of four Bézier curves. Consider the four geometry matrices</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{l}
+      \left\lbrack \begin{array}{llll}
+      \mathbf{p}_{11} &amp; \mathbf{p}_{12} &amp; \mathbf{p}_{13} &amp; \mathbf{p}_{14}
+      \end{array} \right\rbrack \\
+      \left\lbrack \begin{array}{llll}
+      \mathbf{p}_{21} &amp; \mathbf{p}_{22} &amp; \mathbf{p}_{23} &amp; \mathbf{p}_{24}
+      \end{array} \right\rbrack \\
+      \left\lbrack \begin{array}{llll}
+      \mathbf{p}_{31} &amp; \mathbf{p}_{32} &amp; \mathbf{p}_{33} &amp; \mathbf{p}_{34}
+      \end{array} \right\rbrack \\
+      \left\lbrack \begin{array}{llll}
+      \mathbf{p}_{41} &amp; \mathbf{p}_{42} &amp; \mathbf{p}_{43} &amp; \mathbf{p}_{44}
+      \end{array} \right\rbrack
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>and recall from equation (4) that a Bézier curve is produced when any one of these matrices is multiplied on the right by the following vector of weights:</paragraph>
+      <paragraph>
+        <math display="block">$$M_{B}\mathbf{u}(t) = \begin{bmatrix}
+      {(1 - t)}^{3} \\
+      {3t{(1 - t)}^{2}} \\
+      {3t^{2}(1 - t)} \\
+      t^{3}
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>Let <math display="inline">$G$</math> be the block (partitioned) <math display="inline">$4 \times 4$</math> matrix whose entries are the control points <math display="inline">$\textbf{p}_{ij}$</math> displayed above. Then the following product is a block <math display="inline">$4 \times 1$</math> matrix, and each entry is a Bézier curve:</paragraph>
+      <paragraph>
+        <math display="block">$$GM_{B}\mathbf{u}(t) = \left\lbrack \begin{array}{llll}
+      {\mathbf{p}{}_{11}} &amp; \mathbf{p}_{12} &amp; \mathbf{p}_{13} &amp; \mathbf{p}_{14} \\
+      \mathbf{p}_{21} &amp; \mathbf{p}_{22} &amp; \mathbf{p}_{23} &amp; \mathbf{p}_{24} \\
+      \mathbf{p}_{31} &amp; \mathbf{p}_{32} &amp; \mathbf{p}_{33} &amp; \mathbf{p}_{34} \\
+      \mathbf{p}_{41} &amp; \mathbf{p}_{42} &amp; \mathbf{p}_{43} &amp; \mathbf{p}_{44}
+      \end{array} \right\rbrack\begin{bmatrix}
+      {(1 - t)}^{3} \\
+      {3t{(1 - t)}^{2}} \\
+      {3t^{2}(1 - t)} \\
+      t^{3}
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>In fact,</paragraph>
+      <paragraph>
+        <math display="block">$$GM_{B}\textbf{u}(t) = \,\,\begin{bmatrix}
+      {{(1 - t)}^{3}\textbf{p}_{11} + 3t{(1 - t)}^{2}\textbf{p}_{12} + 3t^{2}(1 - t)\textbf{p}_{13} + t^{3}\textbf{p}_{14}} \\
+      {{(1 - t)}^{3}\textbf{p}_{21} + 3t{(1 - t)}^{2}\textbf{p}_{22} + 3t^{2}(1 - t)\textbf{p}_{23} + t^{3}\textbf{p}_{24}} \\
+      {{(1 - t)}^{3}\textbf{p}_{31} + 3t{(1 - t)}^{2}\textbf{p}_{32} + 3t^{2}(1 - t)\textbf{p}_{33} + t^{3}\textbf{p}_{34}} \\
+      {{(1 - t)}^{3}\textbf{p}_{41} + 3t{(1 - t)}^{2}\textbf{p}_{42} + 3t^{2}(1 - t)\textbf{p}_{43} + t^{3}\textbf{p}_{44}}
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>Now fix <math display="inline">$t$</math>. Then <math display="inline">$GM_{B}\textbf{u}(t)$</math> is a column vector that can be used as a geometry vector in equation (5) for a Bézier curve in another variable <math display="inline">$s$</math>. This observation produces the <strong>Bézier bicubic surface</strong>:</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{x}(s,t) = \textbf{u}{(s)}^{T}M_{B}^{T}GM_{B}\textbf{u}(t),\quad{where}~0 \leq s,~t \leq 1$$</math>
+      </paragraph>
+      <paragraph>The formula for <math display="inline">$\textbf{x}(s,t)$</math> is a linear combination of the sixteen control points. If one imagines that these control points are arranged in a fairly uniform rectangular array, as in <strong>Figure 6</strong>, then the Bézier surface is controlled by a web of eight Bézier curves, four in the “<math display="inline">$s\text{-direction}$</math>” and four in the “<math display="inline">$t\text{-direction}$</math>.” The surface actually passes through the four control points at its “corners.” When it is in the middle of a larger surface, the sixteen-point surface shares its twelve boundary control points with its neighbors.</paragraph>
+      <figure label="Figure 6" caption="Sixteen control points for a Bézier bicubic surface patch">
+          <image alt="A figure shows a Bezier bicubic surface patch with sixteen control points."/>
+        </figure>
+      <heading level="2">Approximations to Curves and Surfaces</heading>
+      <paragraph>In CAD programs and in programs used to create realistic computer games, the designer often works at a graphics workstation to compose a “scene” involving various geometric structures. This process requires interaction between the designer and the geometric objects. Each slight repositioning of an object requires new mathematical computations by the graphics program. Bézier curves and surfaces can be useful in this process because they involve fewer control points than objects approximated by many polygons. This dramatically reduces the computation time and speeds up the designer’s work.</paragraph>
+      <paragraph>After the scene composition, however, the final image preparation has different computational demands that are more easily met by objects consisting of flat surfaces and straight edges, such as polyhedra. The designer needs to <em>render</em> the scene, by introducing light sources, adding color and texture to surfaces, and simulating reflections from the surfaces.</paragraph>
+      <paragraph>Computing the direction of a reflected light at a point <math display="inline">$\textbf{p}$</math> on a surface, for instance, requires knowing the directions of both the incoming light and the <em>surface normal</em>—the vector perpendicular to the tangent plane at <math display="inline">$\textbf{p}$</math>. Computing such normal vectors is much easier on a surface composed of, say, tiny flat polygons than on a curved surface whose normal vector changes continuously as <math display="inline">$\textbf{p}$</math> moves. If <math display="inline">$\textbf{p}_{1}$</math>, <math display="inline">$\textbf{p}_{2}$</math>, and <math display="inline">$\textbf{p}_{3}$</math> are adjacent vertices of a flat polygon, then the surface normal is just plus or minus the cross product <math display="inline">$\left( \textbf{p}_{2} - \textbf{p}_{1} \right) \times \left( \textbf{p}_{2} - \textbf{p}_{3} \right)$</math>. When the polygon is small, only one normal vector is needed for rendering the entire polygon. Also, two widely used shading routines, Gouraud shading and Phong shading, both require a surface to be defined by polygons.</paragraph>
+      <paragraph>As a result of these needs for flat surfaces, the Bézier curves and surfaces from the scene composition stage now are usually approximated by straight line segments and polyhedral surfaces. The basic idea for approximating a Bézier curve or surface is to divide the curve or surface into smaller pieces, with more and more control points.</paragraph>
+      <heading level="2">Recursive Subdivision of Bézier Curves and Surfaces</heading>
+      <paragraph><strong>Figure 7</strong> shows the four control points <math display="inline">$\textbf{p}_{0},\ldots,\textbf{p}_{3}$</math> for a Bézier curve, along with control points for two new curves, each coinciding with half of the original curve. The “left” curve begins at <math display="inline">$\textbf{q}_{0} = \textbf{p}_{0}$</math> and ends at <math display="inline">$\textbf{q}_{3}$</math>, at the midpoint of the original curve. The “right” curve begins at <math display="inline">$\textbf{r}_{0} = \textbf{q}_{3}$</math> and ends at <math display="inline">$\textbf{r}_{3} = \textbf{p}_{3}$</math>.﻿</paragraph>
+      <figure label="Figure 7" caption="Subdivision of a Bézier curve">
+          <image alt="A figure shows the Bezier curve along with its subdivision inside an isosceles trapezium that is left open at the bottom."/>
+        </figure>
+      <paragraph><strong>Figure</strong><strong>8</strong> shows how the new control points enclose regions that are “thinner” than the region enclosed by the original control points. As the distances between the control points decrease, the control points of each curve segment also move closer to a line segment. This <em>variation-diminishing property</em> of Bézier curves depends on the fact that a Bézier curve always lies in the convex hull of the control points.</paragraph>
+      <figure label="Figure 8" caption="Convex hulls of the control points">
+          <image alt="A figure shows the convex hulls of the control points with a Bezier curve, a subdivision of the Bezier curve, and a triangle intersecting at a point inside an isosceles trapezium."/>
+        </figure>
+      <paragraph>The new control points are related to the original control points by simple formulas. Of course, <math display="inline">$\textbf{q}_{0} = \textbf{p}_{0}$</math> and <math display="inline">$\textbf{r}_{3} = \textbf{p}_{3}$</math>. The midpoint of the original curve <math display="inline">$\textbf{x}(t)$</math> occurs at <math display="inline">$\textbf{x}(.5)$</math> when <math display="inline">$\textbf{x}(t)$</math> has the standard parameterization,</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{x}(t) = (1 - 3t + 3t^{2} - t^{3})\textbf{p}_{0} + (3t - 6t^{2} + 3t^{3})\textbf{p}_{1} + (3t^{2} - 3t^{3})\textbf{p}_{2} + t^{3}\textbf{p}_{3}$$</math>
+      </paragraph>
+      <paragraph>for <math display="inline">$0 \leq t \leq 1$</math>. Thus, the new control points <math display="inline">$\textbf{q}_{3}$</math> and <math display="inline">$\textbf{r}_{0}$</math> are given by</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{q}_{3} = \textbf{r}_{0} = \textbf{x}\text{(}.5\text{)} = \frac{1}{8}\text{(}\textbf{p}_{0} + 3\textbf{p}_{1} + 3\textbf{p}_{2} + \textbf{p}_{3}\text{)}$$</math>
+      </paragraph>
+      <paragraph>The formulas for the remaining “interior” control points are also simple, but the derivation of the formulas requires some work involving the tangent vectors of the curves. By definition, the tangent vector to a parameterized curve <math display="inline">$\textbf{x}(t)$</math> is the derivative <math display="inline">$\mathbf{x}\prime(t)$</math>. This vector shows the direction of the line tangent to the curve at <math display="inline">$\textbf{x}(t)$</math>. For the Bézier curve in <strong>(7)</strong>,</paragraph>
+      <paragraph>
+        <math display="block">$$\mathbf{x}\prime(t) = ( - 3 + 6t - 3t^{2})\textbf{p}_{0} + (3 - 12t + 9t^{2})\textbf{p}_{1} + (6t - 9t^{2})\textbf{p}_{2} + 3t^{2}\textbf{p}_{3}$$</math>
+      </paragraph>
+      <paragraph>for <math display="inline">$0 \leq t \leq 1$</math>. In particular,</paragraph>
+      <paragraph>
+        <math display="block">$$\mathbf{x}\prime(0) = 3(\textbf{p}_{1} - \textbf{p}_{0})\quad{and}\quad\mathbf{x}\prime(1) = 3(\textbf{p}_{3} - \textbf{p}_{2})$$</math>
+      </paragraph>
+      <paragraph>Geometrically, <math display="inline">$\textbf{p}_{1}$</math> is on the line tangent to the curve at <math display="inline">$\textbf{p}_{0}$</math>, and <math display="inline">$\textbf{p}_{2}$</math> is on the line tangent to the curve at <math display="inline">$\textbf{p}_{3}$</math>. See Figure 8. Also, from <math display="inline">$\textbf{x'}(t)$</math>, compute</paragraph>
+      <paragraph>
+        <math display="block">$$\mathbf{x}\prime\text{(}.5\text{)} = \frac{3}{4}\text{(} - \textbf{p}_{0} - \textbf{p}_{1} + \textbf{p}_{2} + \textbf{p}_{3}\text{)}$$</math>
+      </paragraph>
+      <paragraph>Let <math display="inline">$\textbf{y}(t)$</math> be the Bézier curve determined by <math display="inline">$\textbf{q}_{0},\ldots,\textbf{q}_{3}$</math>, and let <math display="inline">$\textbf{z}(t)$</math> be the Bézier curve determined by <math display="inline">$\textbf{r}_{0},\ldots,\textbf{r}_{3}$</math>. Since <math display="inline">$\textbf{y}(t)$</math> traverses the same path as <math display="inline">$\textbf{x}(t)$</math> but only gets to <math display="inline">$\textbf{x}(.5)$</math> as <math display="inline">$t$</math> goes from <math display="inline">$0$</math> to <math display="inline">$1$</math>, <math display="inline">$\textbf{y}(t) = \textbf{x}(.5t)$</math> for <math display="inline">$0 \leq t \leq 1$</math>. Similarly, since <math display="inline">$\textbf{z}(t)$</math> starts at <math display="inline">$\textbf{x}(.5)$</math> when <math display="inline">$t = 0$</math>, <math display="inline">$\textbf{z}(t) = \textbf{x}(.5 + .5t)$</math> for <math display="inline">$0 \leq t \leq 1$</math>. By the chain rule for derivatives,</paragraph>
+      <paragraph>
+        <math display="block">$$\mathbf{y}\prime(t) = .5\mathbf{x}\prime(.5t)\quad{and}\quad\mathbf{z}\prime(t) = .5\mathbf{x}\prime(.5 + .5t)\quad\text{for~}0 \leq t \leq 1$$</math>
+      </paragraph>
+      <paragraph>From <strong>(</strong>9<strong>)</strong> with <math display="inline">$\mathbf{y}\prime(0)$</math> in place of <math display="inline">$\mathbf{x}\prime(0)$</math>, from <strong>(</strong>11<strong>)</strong> with <math display="inline">$t = 0$</math>, and from <strong>(</strong>9<strong>)</strong>, the control points for <math display="inline">$\textbf{y}(t)$</math> satisfy</paragraph>
+      <paragraph>
+        <math display="block">$$3\text{(}\textbf{q}_{1} - \textbf{q}_{0}\text{)} = \mathbf{y}\prime\text{(}0\text{)} = .5\mathbf{x}\prime\text{(}0\text{)} = \frac{3}{2}\text{(}\textbf{p}_{1} - \textbf{p}_{0}\text{)}$$</math>
+      </paragraph>
+      <paragraph>From <strong>(</strong>9<strong>)</strong> with <math display="inline">$\mathbf{y}\prime(1)$</math> in place of <math display="inline">$\mathbf{x}\prime(1)$</math>, from <strong>(</strong>11<strong>)</strong> with <math display="inline">$t = 1$</math>, and from <strong>(</strong>10<strong>)</strong>,</paragraph>
+      <paragraph>
+        <math display="block">$$3\text{(}\textbf{q}_{3} - \textbf{q}_{2}\text{)} = \textbf{y}^{\prime}\text{(}1\text{)} = .5\textbf{x}^{\prime}\text{(}.5\text{)} = \frac{3}{8}\text{(} - \textbf{p}_{0} - \textbf{p}_{1} + \textbf{p}_{2} + \textbf{p}_{3}\text{)}$$</math>
+      </paragraph>
+      <paragraph>Equations (8), (9), (10), (12), and (13) can be solved to produce the formulas for <math display="inline">$\textbf{q}_{0},\ldots,\textbf{q}_{3}$</math> shown in Exercise 17. Geometrically, the formulas are displayed in <strong>Figure 9</strong>. The interior control points <math display="inline">$\textbf{q}_{1}$</math> and <math display="inline">$\textbf{r}_{2}$</math> are the midpoints, respectively, of the segment from <math display="inline">$\textbf{p}_{0}$</math> to <math display="inline">$\textbf{p}_{1}$</math> and the segment from <math display="inline">$\textbf{p}_{2}$</math> to <math display="inline">$\textbf{p}_{3}$</math>. When the midpoint of the segment from <math display="inline">$\textbf{p}_{1}$</math> to <math display="inline">$\textbf{p}_{2}$</math> is connected to <math display="inline">$\textbf{q}_{1}$</math>, the resulting line segment has <math display="inline">$\textbf{q}_{2}$</math> in the middle!</paragraph>
+      <figure label="Figure 9" caption="Geometric structure of new control points">
+          <image alt="A figure shows the geometric structure of new control points with an isosceles trapezium."/>
+        </figure>
+      <paragraph>This completes one step of the subdivision process. The “recursion” begins, and both new curves are subdivided. The recursion continues to a depth at which all curves are sufficiently straight. Alternatively, at each step the recursion can be “adaptive” and not subdivide one of the two new curves if that curve is sufficiently straight. Once the subdivision completely stops, the endpoints of each curve are joined by line segments, and the scene is ready for the next step in the final image preparation.</paragraph>
+      <paragraph>A Bézier bicubic surface has the same variation-diminishing property as the Bézier curves that make up each cross-section of the surface, so the process described above can be applied in each cross-section. With the details omitted, here is the basic strategy. Consider the four “parallel” Bézier curves whose parameter is <math display="inline">$s$</math>, and apply the subdivision process to each of them. This produces four sets of eight control points; each set determines a curve as <math display="inline">$s$</math> varies from <math display="inline">$0$</math> to <math display="inline">$1$</math>. As <math display="inline">$t$</math> varies, however, there are eight curves, each with four control points. Apply the subdivision process to each of these sets of four points, creating a total of <math display="inline">$64$</math> control points. Adaptive recursion is possible in this setting, too, but there are some subtleties involved.2<sup/></paragraph>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+              <paragraph>A <em>spline</em> usually refers to a curve that passes through specified points. A <math display="inline">$\text{B-spline}$</math>, however, usually does not pass through its control points. A single segment has the parametric form</paragraph>
+              <paragraph><math display="block">$$\mathbf{x}\text{(}t\text{)} = \frac{1}{6}\left\lbrack {\text{(}1 - t\text{)}}^{3}\mathbf{p}_{0} + \text{(}3t^{3} - 6t^{2} + 4\text{)}\mathbf{p}_{1} + \,\left( {- \text{3}t^{3} + 3t^{2} + 3t + 1} \right)\mathbf{p}_{2} + t^{3}\mathbf{p}_{3} \right\rbrack$$</math></paragraph>
+              <paragraph>for <math display="inline">$0 \leq t \leq 1$</math>, where <math display="inline">$\textbf{p}_{0}$</math>, <math display="inline">$\textbf{p}_{1}$</math>, <math display="inline">$\textbf{p}_{2}$</math>, and <math display="inline">$\textbf{p}_{3}$</math> are the control points. When <math display="inline">$t$</math> varies from <math display="inline">$0$</math> to <math display="inline">$1$</math>, <math display="inline">$\textbf{x}(t)$</math> creates a short curve that lies close to <math display="inline">$\overset{‾}{\textbf{p}_{1}\textbf{p}_{2}}$</math>. Basic algebra shows that the <math display="inline">$\text{B-spline}$</math> formula can also be written as</paragraph>
+              <paragraph><math display="block">$$\mathbf{x}\text{(}t\text{)} = \frac{1}{6}\left\lbrack {{\text{(}1 - t\text{)}}^{3}\mathbf{p}_{0} + \text{(}3t{\text{(}1 - t\text{)}}^{2} - 3t + 4\text{)}\mathbf{p}_{1} + \text{(}3t^{2}\text{(}1 - t\text{)} + 3t + 1\text{)}\mathbf{p}_{2} + t^{3}\mathbf{p}_{3}} \right\rbrack$$</math></paragraph>
+              <paragraph>This shows the similarity with the Bézier curve. Except for the <math display="inline">$1/6$</math> factor at the front, the <math display="inline">$\textbf{p}_{0}$</math> and <math display="inline">$\textbf{p}_{3}$</math> terms are the same. The <math display="inline">$\textbf{p}_{1}$</math> component has been increased by <math display="inline">$- 3t + 4$</math> and the <math display="inline">$\textbf{p}_{2}$</math> component has been increased by <math display="inline">$3t + 1$</math>. These components move the curve closer to <math display="inline">$\overset{‾}{\textbf{p}_{1}\textbf{p}_{2}}$</math> than the Bézier curve. The <math display="inline">$1/6$</math> factor is necessary to keep the sum of the coefficients equal to <math display="inline">$1$</math>. <strong>Figure 10</strong> compares a <math display="inline">$\text{B-spline}$</math> with a Bézier curve that has the same control points.</paragraph>
+          <figure label="Figure 10" caption="A  B-spline segment and a Bézier curve">
+            <image alt="A B-spline segment and a Bezier curve with a parallelogram open at the bottom are shown."/>
+          </figure>
+          <list ordered="true">
+                  <item>Show that the B-spline does not begin at p0, but x(0) is in conv {p0,p1,p2}. Assuming that p0, p1, and p2 are affinely independent, find the affine coordinates of x(0) with respect to {p0,p1,p2}.﻿</item>
+                  <item>Show that the B-spline does not end at p3, but x(1) is in conv {p1,p2,p3}. Assuming that p1, p2, and p3 are affinely independent, find the affine coordinates of x(1) with respect to {p1,p2,p3}.﻿</item>
+          </list>
+        </note>
+      <paragraph><sup>1</sup> The term <em>basis matrix</em> comes from the rows of the matrix that list the coefficients of the <em>blending</em> polynomials used to define the curve. For a cubic Bézier curve, the four polynomials are ﻿ <math display="inline">$(1 - t)^{3}$</math>, <math display="inline">$3(1 - t)^{2}$</math>, <math display="inline">$3t^{2}(1 - t)$</math>, and ﻿<math display="inline">$t^{3}$</math> . They form a basis for the space ﻿ <math display="inline">$\text{ℙ}_{3}$</math> of polynomials of degree ﻿<math display="inline">$3$</math> or less. Each entry in the vector ﻿<math display="inline">$\left( \textbf{x} \right)t$</math> is a linear combination of these polynomials. The weights come from the rows of the geometry matrix ﻿<math display="inline">$G$</math> in (4).</paragraph>
+      <paragraph><sup>2</sup> See Foley, van Dam, Feiner, and Hughes, Computer Graphics—Principles and Practice, 2nd Ed. (Boston: Addison-Wesley, 1996), pp. 527–528.</paragraph>
+    </content>
+    <exercises title="8.6 Exercises">
+      <heading level="1">8.6 Exercises</heading>
+      <exercise_group start="1">
+            <problem number="1">
+              <statement>
+                          <paragraph>Suppose a Bézier curve is translated to <math display="inline">$\textbf{x}(t) + \textbf{b}$</math>. That is, for <math display="inline">$0 \leq t \leq 1$</math>, the new curve is</paragraph>
+                <math display="block">$$\mathbf{x}(t) = {(1 - t)}^{3}\mathbf{p}_{0} + 3t{(1 - t)}^{2}\mathbf{p}_{1} + 3t^{2}(1 - t)\mathbf{p}_{2} + t^{3}\mathbf{p}_{3} + \mathbf{b}$$</math>
+                <list ordered="false">
+                              <item>Show that this new curve is again a Bézier curve. [Hint: Where are the new control points?]</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph>The parametric vector form of a <math display="inline">$\text{B-spline}$</math> curve was defined in the Practice Problems as</paragraph>
+                <math display="block">$$\begin{matrix}
+      {\mathbf{x}(t)\, = \frac{1}{6}\left\lbrack (1 - t)^{3}\mathbf{p}_{0} + \,\text{(}3t(1 - t)^{2} - 3t + 4\text{)}\mathbf{p}_{1} + (3t^{2}\left( {1 - t} \right)\, + \,3t + 1)\mathbf{p}_{2} + t^{3}\mathbf{p}_{3} \right\rbrack} &amp; {\text{for~0} \leq t \leq 1,}
+      \end{matrix}$$</math>
+                <list ordered="false">
+                              <item>where p0, p1, p2, and p3 are the control points.</item>
+                </list>
+                <list ordered="true">
+                              <item>Show that for 0≤t≤1, x(t) is in the convex hull of the control points.</item>
+                              <item>Suppose that a B-spline curve x(t) is translated to x(t)+b (as in Exercise 1). Show that this new curve is again a B-spline.</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph>Let <math display="inline">$\textbf{x}(t)$</math> be a cubic Bézier curve determined by points <math display="inline">$\textbf{p}_{0}$</math>, <math display="inline">$\textbf{p}_{1}$</math>, <math display="inline">$\textbf{p}_{2}$</math>, and <math display="inline">$\textbf{p}_{3}$</math>.﻿</paragraph>
+                <list ordered="true">
+                              <item>Compute the tangent vector x′(t). Determine how x′(0) and x′(1) are related to the control points, and give geometric descriptions of the directions of these tangent vectors. Is it possible to have x′(1)=0?</item>
+                              <item>Compute the second derivative x″(t) and determine how x″(0) and x″(1) are related to the control points. Draw a figure based on Figure 10, and construct a line segment that points in the direction of x′′(1). [Hint: Use p1 as the origin of the coordinate system.]</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph>Let <math display="inline">$\textbf{x}(t)$</math> be the <math display="inline">$\text{B-spline}$</math> in Exercise 2, with control points <math display="inline">$\textbf{p}_{0}$</math>, <math display="inline">$\textbf{p}_{1}$</math>, <math display="inline">$\textbf{p}_{2}$</math>, and <math display="inline">$\textbf{p}_{3}$</math>.﻿</paragraph>
+                <list ordered="true">
+                              <item>Compute the tangent vector x′(t) and determine how the derivatives x′(0) and x′(1) are related to the control points. Give geometric descriptions of the directions of these tangent vectors. Explore what happens when both x′(0) and x′(1) equal 0. Justify your assertions.</item>
+                              <item>Compute the second derivative x″(t) and determine how x′′(0) and x′′(1) are related to the control points. Draw a figure based on Figure 10, and construct a line segment that points in the direction of x″(1). [Hint: Use p2 as the origin of the coordinate system.]</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="5">
+              <statement>
+                          <paragraph>Let <math display="inline">$\textbf{x}(t)$</math> and <math display="inline">$\textbf{y}(t)$</math> be cubic Bézier curves with control points <math display="inline">$\{\textbf{p}_{0},\textbf{p}_{1},\textbf{p}_{2},\textbf{p}_{3}\}$</math> and <math display="inline">$\left\{ \textbf{p}_{3},\textbf{p}_{4},\textbf{p}_{5},\textbf{p}_{6} \right\}$</math>, respectively, so that <math display="inline">$\textbf{x}(t)$</math> and <math display="inline">$\textbf{y}(t)$</math> are joined at <math display="inline">$\textbf{p}_{3}$</math>. The following questions refer to the curve consisting of <math display="inline">$\textbf{x}(t)$</math> followed by <math display="inline">$\textbf{y}(t)$</math>. For simplicity, assume that the curve is in <math display="inline">$\text{ℝ}^{2}$</math>.﻿</paragraph>
+                <list ordered="true">
+                              <item>What condition on the control points will guarantee that the curve has C1 continuity at p3? Justify your answer.</item>
+                              <item>What happens when x′(1) and y′(0) are both the zero vector?</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph>A <math display="inline">$\text{B-spline}$</math> is built out of <math display="inline">$\text{B-spline}$</math> segments, described in Exercise 2. Let <math display="inline">$\textbf{p}_{0},\ldots,\textbf{p}_{4}$</math> be control points. For <math display="inline">$0 \leq t \leq 1$</math>, let <math display="inline">$\textbf{x}(t)$</math> and <math display="inline">$\textbf{y}(t)$</math> be determined by the geometry matrices <math display="inline">$\text{[}\begin{matrix}
+      \mathbf{p}_{0} &amp; \mathbf{p}_{1} &amp; \mathbf{p}_{2} &amp; \mathbf{p}_{3}
+      \end{matrix}\text{]}$</math> and <math display="inline">$\text{[}\begin{matrix}
+      \mathbf{p}_{1} &amp; \mathbf{p}_{2} &amp; \mathbf{p}_{3} &amp; \mathbf{p}_{4}
+      \end{matrix}\text{]}$</math>, respectively. Notice how the two segments share three control points. The two segments do not overlap, however—they join at a common endpoint, close to <math display="inline">$\textbf{p}_{2}$</math>.﻿</paragraph>
+                <list ordered="true">
+                              <item>Show that the combined curve has G0 continuity—that is, x(1)=y(0).﻿</item>
+                              <item>Show that the curve has C1 continuity at the join point, x(1). That is, show that x′(1)=y′(0).﻿</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="7">
+              <statement>
+                          <paragraph>Let <math display="inline">$\textbf{x}(t)$</math> and <math display="inline">$\textbf{y}(t)$</math> be Bézier curves from Exercise 5, and suppose the combined curve has <math display="inline">$C^{2}$</math> continuity (which includes <math display="inline">$C^{1}$</math> continuity) at <math display="inline">$\textbf{p}_{3}$</math>. Set <math display="inline">$\mathbf{x}''(1) = \mathbf{y}''(0)$</math> and show that <math display="inline">$\textbf{p}_{5}$</math> is completely determined by <math display="inline">$\textbf{p}_{1}$</math>, <math display="inline">$\textbf{p}_{2}$</math>, and <math display="inline">$\textbf{p}_{3}$</math>. Thus, the points <math display="inline">$\textbf{p}_{0},\ldots,\textbf{p}_{3}$</math> and the <math display="inline">$C^{2}$</math> condition determine all but one of the control points for <math display="inline">$\textbf{y}(t)$</math>.﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph>Let <math display="inline">$\textbf{x}(t)$</math> and <math display="inline">$\textbf{y}(t)$</math> be segments of a <math display="inline">$\text{B-spline}$</math> as in Exercise 6. Show that the curve has <math display="inline">$C^{2}$</math> continuity (as well as <math display="inline">$C^{1}$</math> continuity) at <math display="inline">$\textbf{x}(1)$</math>. That is, show that <math display="inline">$\textbf{x}^{\operatorname{\prime\prime}}(1) = \textbf{y}^{\operatorname{\prime\prime}}(0)$</math>. This higher-order continuity is desirable in CAD applications such as automotive body design, since the curves and surfaces appear much smoother. However, <math display="inline">$\text{B-spline}$</math> require three times the computation of Bézier curves, for curves of comparable length. For surfaces, <math display="inline">$\text{B-spline}$</math> require nine times the computation of Bézier surfaces. Programmers often choose Bézier surfaces for applications (such as an airplane cockpit simulator) that require real-time rendering.</paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph>A quartic Bézier curve is determined by five control points, <math display="inline">$\textbf{p}_{0}$</math>, <math display="inline">$\textbf{p}_{1}$</math>, <math display="inline">$\textbf{p}_{2}$</math>, <math display="inline">$\textbf{p}_{3}$</math>, and <math display="inline">$\textbf{p}_{4}$</math>:</paragraph>
+                <math display="block">$$\begin{matrix}
+      {\mathbf{x}(t)\, = (1 - t)^{4}\mathbf{p}_{0} + 4t(1 - t)^{3}\mathbf{p}_{1} + 6t^{2}\left( {1 - t} \right)^{2}\mathbf{p}_{2} + 4t^{3}\left( {1 - t} \right)\mathbf{p}_{3} + t^{4}\mathbf{p}_{4}} &amp; {\text{for~~0} \leq t \leq 1}
+      \end{matrix}$$</math>
+                <list ordered="false">
+                              <item>Construct the quartic basis matrix MB for x(t).﻿</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph>The “<math display="inline">$\text{B}$</math>” in <math display="inline">$\text{B-spline}$</math> refers to the fact that a segment <math display="inline">$\textbf{x}(t)$</math> may be written in terms of a basis matrix, <math display="inline">$M_{S}$</math>, in a form similar to a Bézier curve. That is,</paragraph>
+                <math display="block">$$\begin{matrix}
+      {\mathbf{x}(t) = GM_{S}\mathbf{u}(t)} &amp; {\text{for~~0} \leq t \leq 1}
+      \end{matrix}$$</math>
+                <list ordered="false">
+                              <item>where G is the geometry matrix [p0p1p2p3] and u(t) is the column vector (1,t,t2,t3). In a uniform B-spline, each segment uses the same basis matrix, but the geometry matrix changes. Construct the basis matrix MS for x(t).﻿</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="11">
+                  <instructions>In Exercises 11–16, mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
+            <problem number="11">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The cubic Bézier curve is based on four control points.</paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The essential properties of Bézier curves are preserved under the action of linear transformations, but not translations.</paragraph>
+              </statement>
+            </problem>
+            <problem number="13">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> Given a quadratic Bézier curve <math display="inline">$\textbf{x}(t)$</math> with control points <math display="inline">$\textbf{p}_{0}$</math>, ﻿<math display="inline">$\textbf{p}_{1}$</math>, and <math display="inline">$\textbf{p}_{2}$</math>, the directed line segment <math display="inline">$\textbf{p}_{1} - \textbf{p}_{0}$</math> (from <math display="inline">$\textbf{p}_{0}$</math> to <math display="inline">$\textbf{p}_{1}$</math>) is the tangent vector to the curve at <math display="inline">$\textbf{p}_{0}$</math>.﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> When two Bézier curves <math display="inline">$\textbf{x}(t)$</math> and <math display="inline">$\textbf{y}(t)$</math> are joined at the point where <math display="inline">$\textbf{x}(1) = \textbf{y}(0)$</math>, the combined curve has <math display="inline">$G^{0}$</math> continuity at that point.</paragraph>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> When two quadratic Bézier curves with control points <math display="inline">$\{\textbf{p}_{0},\textbf{p}_{1},\textbf{p}_{2}\}$</math> and <math display="inline">$\{\textbf{p}_{2},\textbf{p}_{3},\textbf{p}_{4}\}$</math> are joined at <math display="inline">$\textbf{p}_{2}$</math>, the combined Bézier curve will have <math display="inline">$C^{1}$</math> continuity at <math display="inline">$\textbf{p}_{2}$</math> if <math display="inline">$\textbf{p}_{2}$</math> is the midpoint of the line segment between <math display="inline">$\textbf{p}_{1}$</math> and <math display="inline">$\textbf{p}_{3}$</math>.﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The Bézier basis matrix is a matrix whose columns are the control points of the curve.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="17">
+                  <instructions>Exercises 17–19 concern the subdivision of a Bézier curve shown in Figure 7. Let <math display="inline">$\textbf{x}(t)$</math> be the Bézier curve, with control points <math display="inline">$\textbf{p}_{0},\ldots,\textbf{p}_{3}$</math>﻿, and let <math display="inline">$\textbf{y}(t)$</math> and <math display="inline">$\textbf{z}(t)$</math> be the subdividing Bézier curves as in the text, with control points <math display="inline">$\textbf{q}_{0},\ldots,\textbf{q}_{3}$</math> and <math display="inline">$\textbf{r}_{0},\ldots,\textbf{r}_{3}$</math>﻿, respectively.</instructions>
+            <problem number="17">
+              <statement>
+                <list ordered="true">
+                              <item>Use equation (12) to show that q1 is the midpoint of the segment from p0 to p1.﻿</item>
+                              <item>Use equation (13) to show that8q2=8q3+p0+p1−p2−p3.</item>
+                              <item>Use part (b), equation (8), and part (a) to show that q2 is the midpoint of the segment from q1 to the midpoint of the segment from p1 to p2. That is, q2=12[q1+12(p1+p2)].﻿</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                <list ordered="true">
+                              <item>Justify each equal sign:3(r3−r2)=z′(1)=.5x′(1)=32(p3−p2).</item>
+                              <item>Show that r2 is the midpoint of the segment from p2 to p3.﻿</item>
+                              <item>Justify each equal sign: 3(r1−r0)=z′(0)=.5x′(.5).﻿</item>
+                              <item>Use part (c) to show that 8r1=−p0−p1+p2+p3+8r0.﻿</item>
+                              <item>Use part (d), equation (8), and part (a) to show that r1 is the midpoint of the segment from r2 to the midpoint of the segment from p1 to p2. That is, r1=12[r2+12(p1+p2)].﻿</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="19">
+              <statement>
+                          <paragraph>Sometimes only one half of a Bézier curve needs further subdividing. For example, subdivision of the “left” side is accomplished with parts (a) and (c) of Exercise 17 and equation (8). When both halves of the curve <math display="inline">$\textbf{x}(t)$</math> are divided, it is possible to organize calculations efficiently to calculate both left and right control points concurrently, without using equation (8) directly.</paragraph>
+                <list ordered="true">
+                              <item>Show that the tangent vectors y′(1) and z′(0) are equal.</item>
+                              <item>Use part (a) to show that q3 (which equals r0) is the midpoint of the segment from q2 to r1.﻿</item>
+                              <item>Using part (b) and the results of Exercises 17 and 18, write an algorithm that computes the control points for both y(t) and z(t) in an efficient manner. The only operations needed are sums and division by 2.</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="20">
+            <problem number="20">
+              <statement>
+                          <paragraph>Explain why a cubic Bézier curve is completely determined by <math display="inline">$\textbf{x}(0)$</math>, <math display="inline">$\mathbf{x}\prime(0)$</math>, <math display="inline">$\textbf{x}(1)$</math>, and <math display="inline">$\mathbf{x}\prime(1)$</math>.﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="21">
+              <statement>
+                          <paragraph>TrueType<sup>®</sup> fonts, created by Apple Computer and Adobe Systems, use quadratic Bézier curves, while PostScript<sup>®</sup> fonts, created by Microsoft, use cubic Bézier curves. The cubic curves provide more flexibility for typeface design, but it is important to Microsoft that every typeface using quadratic curves can be transformed into one that uses cubic curves. Suppose that <math display="inline">$\textbf{w}(t)$</math> is a quadratic curve, with control points <math display="inline">$\textbf{p}_{0}$</math>, <math display="inline">$\textbf{p}_{1}$</math>, and <math display="inline">$\textbf{p}_{2}$</math>.﻿</paragraph>
+                <list ordered="true">
+                              <item>Find control points r0, r1, r2, and r3 such that the cubic Bézier curve x(t) with these control points has the property that x(t) and w(t) have the same initial and terminal points and the same tangent vectors at t=0 and t=1. (See Exercise 20.)</item>
+                              <item>Show that if x(t) is constructed as in part (a), then x(t)=w(t) for 0≤t≤1.﻿</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph>Use partitioned matrix multiplication to compute the following matrix product, which appears in the alternative formula <strong>(</strong>5<strong>)</strong> for a Bézier curve:<math display="block">$$\left\lbrack \begin{array}{rrrr}
+      1 &amp; 0 &amp; 0 &amp; 0 \\
+      {- 3} &amp; 3 &amp; 0 &amp; 0 \\
+      3 &amp; {- 6} &amp; 3 &amp; 0 \\
+      {- 1} &amp; 3 &amp; {- 3} &amp; 1
+      \end{array} \right\rbrack\begin{bmatrix}
+      \mathbf{p}_{0} \\
+      \mathbf{p}_{1} \\
+      \mathbf{p}_{2} \\
+      \mathbf{p}_{3}
+      \end{bmatrix}$$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

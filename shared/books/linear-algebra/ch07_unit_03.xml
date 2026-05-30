@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch07" chapter_number="7" unit_code="7.3">
+  <section number="7.3" title="Constrained Optimization">
+    <metadata>
+      <source_pages count="3">
+        <page global_index="373" type="content"/>
+        <page global_index="374" type="exercises"/>
+        <page global_index="375" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">7.3 Constrained Optimization</heading>
+      <video title="Watch Video"/>
+      <paragraph>Engineers, economists, scientists, and mathematicians often need to find the maximum or minimum value of a quadratic form <math display="inline">$Q(\textbf{x})$</math> for <math display="inline">$\textbf{x}$</math> in some specified set. Typically, the problem can be arranged so that <math display="inline">$\textbf{x}$</math> varies over the set of unit vectors. This <em>constrained optimization problem</em> has an interesting and elegant solution. Example 6 and the discussion in Section 7.5 will illustrate how such problems arise in practice.</paragraph>
+      <paragraph>The requirement that a vector <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> be a unit vector can be stated in several equivalent ways:</paragraph>
+      <paragraph>
+        <math display="block">$$\text{∥}\textbf{x}\text{∥} = 1,\qquad\text{∥}\textbf{x}\text{∥}^{2} = 1,\qquad\textbf{x}^{T}\textbf{x} = 1$$</math>
+      </paragraph>
+      <paragraph>and</paragraph>
+      <paragraph>
+        <math display="block">$$x_{1}^{2} + x_{2}^{2} + \cdots + x_{n}^{2} = 1$$</math>
+      </paragraph>
+      <paragraph>The expanded version (1) of <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math> is commonly used in applications.</paragraph>
+      <paragraph>When a quadratic form <math display="inline">$Q$</math> has no cross-product terms, it is easy to find the maximum and minimum of <math display="inline">$Q(\textbf{x})$</math> for <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math>.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Find the maximum and minimum values of <math display="inline">$Q(\textbf{x}) = 9x_{1}^{2} + 4x_{2}^{2} + 3x_{3}^{2}$</math> subject to the constraint <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Since <math display="inline">$x_{2}^{2}$</math> and <math display="inline">$x_{3}^{2}$</math> are nonnegative, note that</paragraph>
+              <paragraph><math display="block">$$4x_{2}^{2} \leq 9x_{2}^{2}\qquad\text{and}\qquad 3x_{3}^{2} \leq 9x_{3}^{2}$$</math></paragraph>
+              <paragraph>and hence</paragraph>
+              <paragraph><math display="block">$$\begin{array}{cl}
+      {Q(\textbf{x})} &amp; {= 9x_{1}^{2} + 4x_{2}^{2} + 3x_{3}^{2}} \\
+       &amp; {\leq 9x_{1}^{2} + 9x_{2}^{2} + 9x_{3}^{2}} \\
+       &amp; {= 9(x_{1}^{2} + x_{2}^{2} + x_{3}^{2})} \\
+       &amp; {= 9}
+      \end{array}$$</math></paragraph>
+              <paragraph>whenever <math display="inline">$x_{1}^{2} + x_{2}^{2} + x_{3}^{2} = 1$</math>. So the maximum value of <math display="inline">$Q(\textbf{x})$</math> cannot exceed <math display="inline">$9$</math> when <math display="inline">$\textbf{x}$</math> is a unit vector. Furthermore, <math display="inline">$Q(\textbf{x}) = 9$</math> when <math display="inline">$\textbf{x} = (1,0,0)$</math>. Thus <math display="inline">$9$</math> is the maximum value of <math display="inline">$Q(\textbf{x})$</math> for <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math>.</paragraph>
+              <paragraph>To find the minimum value of <math display="inline">$Q(\textbf{x})$</math>, observe that</paragraph>
+              <paragraph><math display="block">$$9x_{1}^{2} \geq 3x_{1}^{2},\qquad 4x_{2}^{2} \geq 3x_{2}^{2}$$</math></paragraph>
+              <paragraph>and hence</paragraph>
+              <paragraph><math display="block">$$Q(\textbf{x}) \geq 3x_{1}^{2} + 3x_{2}^{2} + 3x_{3}^{2} = 3(x_{1}^{2} + x_{2}^{2} + x_{3}^{2}) = 3$$</math></paragraph>
+              <paragraph>whenever <math display="inline">$x_{1}^{2} + x_{2}^{2} + x_{3}^{2} = 1$</math>. Also, <math display="inline">$Q(\textbf{x}) = 3$</math> when <math display="inline">$x_{1} = 0$</math>, <math display="inline">$x_{2} = 0$</math>, and <math display="inline">$x_{3} = 1$</math>. So <math display="inline">$3$</math> is the minimum value of <math display="inline">$Q(\textbf{x})$</math> when <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math>.</paragraph>
+        </example>
+      <paragraph>It is easy to see in <strong>Example 1</strong> that the matrix of the quadratic form <math display="inline">$Q$</math> has eigenvalues <math display="inline">$9$</math>, <math display="inline">$4$</math>, and <math display="inline">$3$</math> and that the greatest and least eigenvalues equal, respectively, the (constrained) maximum and minimum of <math display="inline">$Q(\textbf{x})$</math>. The same holds true for any quadratic form, as we shall see.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Let <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      3 &amp; 0 \\
+      0 &amp; 7
+      \end{array} \right\rbrack$</math>, and let <math display="inline">$Q(\textbf{x}) = \textbf{x}^{T}A\textbf{x}$</math> for <math display="inline">$\textbf{x}$</math> in <math display="inline">$\textbf{ℝ}^{2}$</math>. <strong>Figure 1</strong> displays the graph of <math display="inline">$Q$</math>. <strong>Figure 2</strong> shows only the portion of the graph inside a cylinder; the intersection of the cylinder with the surface is the set of points <math display="inline">$(x_{1},x_{2},z)$</math> such that <math display="inline">$z = Q(x_{1},x_{2})$</math> and <math display="inline">$x_{1}^{2} + x_{2}^{2} = 1$</math>. The “heights” of these points are the constrained values of <math display="inline">$Q(\textbf{x})$</math>. Geometrically, the constrained optimization problem is to locate the highest and lowest points on the intersection curve.</paragraph>
+          <figure caption="Watch Video">
+            <image alt="A three dimensional graph shows an elliptic paraboloid projecting a unit circle on a plane."/>
+          </figure>
+          <figure label="Figure 1" caption="z=3x12+7x22">
+            <image alt="A three dimensional graph shows the cylindrical coordinates on an elliptic paraboloid in the form of an infinity sign."/>
+          </figure>
+              <paragraph>The two highest points on the curve are <math display="inline">$7$</math> units above the <math display="inline">$x_{1}x_{2}\text{-plane}$</math>, occurring where <math display="inline">$x_{1} = 0$</math> and <math display="inline">$x_{2} = \pm 1$</math>. These points correspond to the eigenvalue <math display="inline">$7$</math> of <math display="inline">$A$</math> and the eigenvectors <math display="inline">$\textbf{x} = (0,1)$</math> and <math display="inline">$- \textbf{x} = (0, - 1)$</math>. Similarly, the two lowest points on the curve are <math display="inline">$3$</math> units above the <math display="inline">$x_{1}x_{2}\text{-plane}$</math>. They correspond to the eigenvalue <math display="inline">$3$</math> and the eigenvectors <math display="inline">$(1,0)$</math> and <math display="inline">$( - 1,0)$</math>.</paragraph>
+        </example>
+      <paragraph>Every point on the intersection curve in Figure 2 has a <math display="inline">$z\text{-coordinate}$</math> between <math display="inline">$3$</math> and <math display="inline">$7$</math>, and for any number <math display="inline">$t$</math> between <math display="inline">$3$</math> and <math display="inline">$7$</math>, there is a unit vector <math display="inline">$\textbf{x}$</math> such that <math display="inline">$Q(\textbf{x}) = t$</math>. In other words, the set of all possible values of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math>, for <math display="inline">$\text{∥}\textbf{x}\text{∥} = 1$</math>, is the closed interval <math display="inline">$3 \leq t \leq 7$</math>.</paragraph>
+      <paragraph>It can be shown that for any symmetric matrix <math display="inline">$A$</math>, the set of all possible values of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math>, for <math display="inline">$\text{∥}\textbf{x}\text{∥} = 1$</math>, is a closed interval on the real axis. (See Exercise 13.) Denote the left and right endpoints of this interval by <math display="inline">$m$</math> and <math display="inline">$M$</math>, respectively. That is, let</paragraph>
+      <paragraph>
+        <math display="block">$$m = \min\left\{ \textbf{x}^{T}A\textbf{x}:\text{∥}\textbf{x}\text{∥} = 1 \right\},\quad M = \max\left\{ \textbf{x}^{T}A\textbf{x}:\text{∥}\textbf{x}\text{∥} = 1 \right\}$$</math>
+      </paragraph>
+      <paragraph>Exercise 12 asks you to prove that if <math display="inline">$\text{λ}$</math> is an eigenvalue of <math display="inline">$A$</math>, then <math display="inline">$m \leq \text{λ} \leq M$</math>. The next theorem says that <math display="inline">$m$</math> and <math display="inline">$M$</math> are themselves eigenvalues of <math display="inline">$A$</math>, just as in<strong>Example 2</strong>. 1<sup/></paragraph>
+      <note type="procedure" title="Theorem 6">
+          <heading level="2">Theorem 6</heading>
+              <paragraph>Let <math display="inline">$A$</math> be a symmetric matrix, and define <math display="inline">$m$</math> and <math display="inline">$M$</math> as in (2). Then <math display="inline">$M$</math> is the greatest eigenvalue <math display="inline">$\text{λ}_{1}$</math> of <math display="inline">$A$</math> and <math display="inline">$m$</math> is the least eigenvalue of <math display="inline">$A$</math>. The value of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> is <math display="inline">$M$</math> when <math display="inline">$\textbf{x}$</math> is a unit eigenvector <math display="inline">$\textbf{u}_{1}$</math> corresponding to <math display="inline">$M$</math>. The value of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> is <math display="inline">$m$</math> when <math display="inline">$\textbf{x}$</math> is a unit eigenvector corresponding to <math display="inline">$m$</math>.</paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>Orthogonally diagonalize <math display="inline">$A$</math> as <math display="inline">${PDP}^{- 1}$</math>. We know that</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{x}^{T}A\textbf{x} = \textbf{y}^{T}D\textbf{y}\quad\text{when~}\textbf{x} = P\textbf{y}$$</math>
+      </paragraph>
+      <paragraph>Also,</paragraph>
+      <paragraph>
+        <math display="block">$$\text{∥}\textbf{x}\text{∥} = \text{∥}\textit{P}\textbf{y}\text{∥} = \text{∥}\textbf{y}\text{∥}\quad\text{for all~}\textbf{y}$$</math>
+      </paragraph>
+      <paragraph>because <math display="inline">$P^{T}P = I$</math> and <math display="inline">$\text{∥}\textit{P}\textbf{y}\text{∥}^{2} = {\text{(}P\textbf{y}\text{)}}^{T}\text{(}P\textbf{y}\text{)} = \textbf{y}^{T}P^{T}P\textbf{y} = \textbf{y}^{T}\textbf{y} = \text{∥}\textbf{y}\text{∥}^{2}$</math>. In particular, <math display="inline">$\text{∥}\textbf{y}\text{∥} = 1$</math> if and only if <math display="inline">$\text{∥}\textbf{x}\text{∥} = 1$</math>. Thus <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> and <math display="inline">$\textbf{y}^{T}D\textbf{y}$</math> assume the same set of values as <math display="inline">$\textbf{x}$</math> and <math display="inline">$\textbf{y}$</math> range over the set of all unit vectors.</paragraph>
+      <paragraph>To simplify notation, suppose that <math display="inline">$A$</math> is a <math display="inline">$3 \times 3$</math> matrix with eigenvalues <math display="inline">$a \geq b \geq c$</math>. Arrange the (eigenvector) columns of <math display="inline">$P$</math> so that <math display="inline">$P = \begin{bmatrix}
+      \textbf{u}_{1} &amp; \textbf{u}_{2} &amp; \textbf{u}_{3}
+      \end{bmatrix}$</math> and</paragraph>
+      <paragraph>
+        <math display="block">$$D = ~\begin{bmatrix}
+      a &amp; 0 &amp; 0 \\
+      0 &amp; b &amp; 0 \\
+      0 &amp; 0 &amp; c
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>Given any unit vector <math display="inline">$\textbf{y}$</math> in <math display="inline">$\text{ℝ}^{3}$</math> with coordinates <math display="inline">$y_{1}$</math>, <math display="inline">$y_{2}$</math>, <math display="inline">$y_{3}$</math>, observe that</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{rr}
+      {ay_{1}^{2}} &amp; {= ay_{1}^{2}} \\
+      {by_{2}^{2}} &amp; {\leq ay_{2}^{2}} \\
+      {cy_{3}^{2}} &amp; {\leq ay_{3}^{2}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>and obtain these inequalities:</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+      {\textbf{y}^{T}D\textbf{y}} &amp; {= ay_{1}^{2} + by_{2}^{2} + cy_{3}^{2}} \\
+       &amp; {\leq ay_{1}^{2} + ay_{2}^{2} + ay_{3}^{2}} \\
+       &amp; {= a\left( y_{1}^{2} + y_{2}^{2} + y_{3}^{2} \right)} \\
+       &amp; {= a\text{∥}\textbf{y}\text{∥}^{2} = a}
+      \end{matrix}$$</math>
+      </paragraph>
+      <paragraph>Thus <math display="inline">$M \leq a$</math>, by definition of <math display="inline">$M$</math>. However, <math display="inline">$\textbf{y}^{T}D\textbf{y} = a$</math> when <math display="inline">$\textbf{y} = \textbf{e}_{\text{1}} = (1,0,0)$</math>, so in fact <math display="inline">$M = a$</math>. By (3), the <math display="inline">$\textbf{x}$</math> that corresponds to <math display="inline">$\textbf{y} = \textbf{e}_{\text{1}}$</math> is the eigenvector <math display="inline">$\textbf{u}_{1}$</math> of <math display="inline">$A$</math>, because</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{x} = P\textbf{e}_{1} = \begin{bmatrix}
+      \textbf{u}_{1} &amp; \textbf{u}_{2} &amp; \textbf{u}_{3}
+      \end{bmatrix}\begin{bmatrix}
+      1 \\
+      0 \\
+      0
+      \end{bmatrix} = \textbf{u}_{1}$$</math>
+      </paragraph>
+      <paragraph>Thus <math display="inline">$M = a = \textbf{e}_{1}^{T}D\textbf{e}_{1} = \textbf{u}_{1}^{T}A\textbf{u}_{1}$</math>, which proves the statement about <math display="inline">$M$</math>. A similar argument shows that <math display="inline">$m$</math> is the least eigenvalue, <math display="inline">$c$</math>, and this value of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> is attained when <math display="inline">$\textbf{x} = P\textbf{e}_{3} = \textbf{u}_{3}$</math>.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Let <math display="inline">$A = ~\begin{bmatrix}
+      3 &amp; 2 &amp; 1 \\
+      2 &amp; 3 &amp; 1 \\
+      1 &amp; 1 &amp; 4
+      \end{bmatrix}$</math>. Find the maximum value of the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> subject to the constraint <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math>, and find a unit vector at which this maximum value is attained.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>By <strong>Theorem 6</strong>, the desired maximum value is the greatest eigenvalue of <math display="inline">$A$</math>. The characteristic equation turns out to be</paragraph>
+              <paragraph><math display="block">$$0 = - \text{λ}^{3} + 10\text{λ}^{2} - 27\text{λ} + 18 = - (\text{λ} - 6)(\text{λ} - 3)(\text{λ} - 1)$$</math></paragraph>
+              <paragraph>The greatest eigenvalue is <math display="inline">$6$</math>.</paragraph>
+              <paragraph>The constrained maximum of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> is attained when <math display="inline">$\textbf{x}$</math> is a unit eigenvector for <math display="inline">$\text{λ} = 6$</math>. Solve <math display="inline">$(A - 6I)\textbf{x} = 0$</math> and find an eigenvector <math display="inline">$\left\lbrack \begin{array}{r}
+      1 \\
+      1 \\
+      1
+      \end{array} \right\rbrack$</math>. Set <math display="inline">$\textbf{u}_{1} = \,\,\begin{bmatrix}
+      {1\text{/}\sqrt{3}} \\
+      {1\text{/}\sqrt{3}} \\
+      {1\text{/}\sqrt{3}}
+      \end{bmatrix}$</math>.</paragraph>
+        </example>
+      <paragraph>In <strong>Theorem 7</strong> and in later applications, the values of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> are computed with additional constraints on the unit vector <math display="inline">$\textbf{x}$</math>.</paragraph>
+      <note type="procedure" title="Theorem 7">
+          <heading level="2">Theorem 7</heading>
+              <paragraph>Let <math display="inline">$A,\text{λ}_{1}$</math>, and <math display="inline">$\textbf{u}_{1}$</math> be as in <strong>Theorem 6</strong>. Then the maximum value of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> subject to the constraints</paragraph>
+              <paragraph><math display="block">$$\textbf{x}^{T}\textbf{x} = 1,\quad\textbf{x}^{T}\textbf{u}_{1} = 0$$</math></paragraph>
+              <paragraph>is the second greatest eigenvalue, <math display="inline">$\text{λ}_{2}$</math>, and this maximum is attained when <math display="inline">$\textbf{x}$</math> is an eigenvector <math display="inline">$\textbf{u}_{2}$</math> corresponding to <math display="inline">$\text{λ}_{2}$</math>.</paragraph>
+        </note>
+      <paragraph><strong>Theorem 7</strong> can be proved by an argument similar to the one above in which the theorem is reduced to the case where the matrix of the quadratic form is diagonal. The next example gives an idea of the proof for the case of a diagonal matrix.</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Find the maximum value of <math display="inline">$9x_{1}^{2} + 4x_{2}^{2} + 3x_{3}^{2}$</math> subject to the constraints <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math> and <math display="inline">$\textbf{x}^{T}\textbf{u}_{1} = 0$</math>, where <math display="inline">$\textbf{u}_{1} = (1,0,0)$</math>. Note that <math display="inline">$\textbf{u}_{1}$</math> is a unit eigenvector corresponding to the greatest eigenvalue <math display="inline">$\text{λ} = 9$</math> of the matrix of the quadratic form.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>If the coordinates of <math display="inline">$\textbf{x}$</math> are <math display="inline">$x_{1}$</math>, <math display="inline">$x_{2}$</math>, <math display="inline">$x_{3}$</math>, then the constraint <math display="inline">$\textbf{x}^{T}\textbf{u}_{1} = 0$</math> means simply that <math display="inline">$x_{1} = 0$</math>. For such a unit vector, <math display="inline">$x_{2}^{2} + x_{3}^{2} = 1$</math>, and</paragraph>
+              <paragraph><math display="block">$$\begin{array}{cl}
+      {9x_{1}^{2} + 4x_{2}^{2} + 3x_{3}^{2}} &amp; {= 4x_{2}^{2} + 3x_{3}^{2}} \\
+       &amp; {\leq 4x_{2}^{2} + 4x_{3}^{2}} \\
+       &amp; {= 4(x_{2}^{2} + x_{3}^{2})} \\
+       &amp; {= 4}
+      \end{array}$$</math></paragraph>
+              <paragraph>Thus the constrained maximum of the quadratic form does not exceed <math display="inline">$4$</math>. And this value is attained for <math display="inline">$\textbf{x} = (0,1,0)$</math>, which is an eigenvector for the second greatest eigenvalue of the matrix of the quadratic form.</paragraph>
+        </example>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>Let <math display="inline">$A$</math> be the matrix in Example 3 and let <math display="inline">$\textbf{u}_{1}$</math> be a unit eigenvector corresponding to the greatest eigenvalue of <math display="inline">$A$</math>. Find the maximum value of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> subject to the conditions</paragraph>
+              <paragraph><math display="block">$$\textbf{x}^{T}\textbf{x} = 1,\quad\textbf{x}^{T}\textbf{u}_{1} = 0$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>From Example 3, the second greatest eigenvalue of <math display="inline">$A$</math> is <math display="inline">$\text{λ} = 3$</math>. Solve <math display="inline">$(A - 3I)\textbf{x} = \textbf{0}$</math> to find an eigenvector, and normalize it to obtain</paragraph>
+              <paragraph><math display="block">$$\textbf{u}_{2} = ~\left\lbrack \begin{array}{r}
+      {1\text{/}\sqrt{6}} \\
+      {1\text{/}\sqrt{6}} \\
+      {- 2\text{/}\sqrt{6}}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>The vector <math display="inline">$\textbf{u}_{2}$</math> is automatically orthogonal to <math display="inline">$\textbf{u}_{1}$</math> because the vectors correspond to different eigenvalues. Thus the maximum of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> subject to the constraints in (4) is 3, attained when <math display="inline">$\textbf{x} = \textbf{u}_{2}$</math>.</paragraph>
+        </example>
+      <paragraph>The next theorem generalizes Theorem 7 and, together with Theorem 6, gives a useful characterization of <em>all</em> the eigenvalues of <math display="inline">$A$</math>. The proof is omitted.</paragraph>
+      <note type="procedure" title="Theorem 8">
+          <heading level="2">Theorem 8</heading>
+              <paragraph>Let <math display="inline">$A$</math> be a symmetric <math display="inline">$n \times n$</math> matrix with an orthogonal diagonalization <math display="inline">$A = {PDP}^{- 1}$</math>, where the entries on the diagonal of <math display="inline">$D$</math> are arranged so that <math display="inline">$\text{λ}_{1} \geq \text{λ}_{2} \geq \cdots \geq \text{λ}_{n}$</math> and where the columns of <math display="inline">$P$</math> are corresponding unit eigenvectors <math display="inline">$\textbf{u}_{1},\ldots,\textbf{u}_{n}$</math>. Then for <math display="inline">$k = 2,\ldots,n$</math>, the maximum value of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> subject to the constraints</paragraph>
+              <paragraph><math display="block">$$\textbf{x}^{T}\textbf{x} = 1,\quad\textbf{x}^{T}\textbf{u}_{1} = 0,\quad\ldots,\quad\textbf{x}^{T}\textbf{u}_{k - 1} = 0$$</math></paragraph>
+              <paragraph>is the eigenvalue <math display="inline">$\text{λ}_{k}$</math>, and this maximum is attained at <math display="inline">$\textbf{x} = \textbf{u}_{k}\text{.}$</math></paragraph>
+        </note>
+      <paragraph><strong>Theorem 8</strong>﻿ will be helpful in Sections 7.4﻿ and 7.5. The following application requires only Theorem 6.</paragraph>
+      <example number="6">
+          <heading level="2">Example 6</heading>
+              <paragraph>During the next year, a county government is planning to repair <math display="inline">$x$</math> hundred miles of public roads and bridges and to improve <math display="inline">$y$</math> hundred acres of parks and recreation areas. The county must decide how to allocate its resources (funds, equipment, labor, etc.) between these two projects. If it is more cost effective to work simultaneously on both projects rather than on only one, then <math display="inline">$x$</math> and <math display="inline">$y$</math> might satisfy a <em>constraint</em> such as</paragraph>
+              <paragraph><math display="block">$$4x^{2} + 9y^{2} \leq 36$$</math></paragraph>
+              <paragraph>See <strong>Figure 3</strong>. Each point <math display="inline">$(x,y)$</math> in the shaded <em>feasible set</em> represents a possible public works schedule for the year. The points on the constraint curve, <math display="inline">$4x^{2} + 9y^{2} = 36$</math>, use the maximum amounts of resources available.</paragraph>
+          <figure label="Figure 2" caption="The intersection of  z=3x12+7x22 and the cylinder  x12+x22=1">
+            <image alt="A graph shows public work schedules with road and bridge repair in the x axis versus parks and recreation in the y axis."/>
+          </figure>
+          <figure label="Figure 3" caption="Public works schedules">
+            <image alt="A collage of three photos is shown, arranged one below the other."/>
+          </figure>
+              <paragraph>In choosing its public works schedule, the county wants to consider the opinions of the county residents. To measure the value, or <em>utility</em>, that the residents would assign to the various work schedules <math display="inline">$(x,y)$</math>, economists sometimes use a function such as</paragraph>
+              <paragraph><math display="block">$$q(x,y) = xy$$</math></paragraph>
+              <paragraph>The set of points <math display="inline">$(x,y)$</math> at which <math display="inline">$q(x,y)$</math> is a constant is called an <em>indifference curve</em>. Three such curves are shown in <strong>Figure 4</strong>. Points along an indifference curve correspond to alternatives that county residents as a group would find equally valuable.2<sup/>﻿ Find the public works schedule that maximizes the utility function <math display="inline">$q$</math>.</paragraph>
+          <figure label="Figure 4" caption="The optimum public works schedule is  (2.1,1.4)">
+            <image alt="A graph shows public work schedules with road and bridge repair in the x axis versus parks and recreation in the y axis."/>
+          </figure>
+          <heading level="3">Solution</heading>
+              <paragraph>The constraint equation <math display="inline">$4x^{2} + 9y^{2} = 36$</math> does not describe a set of unit vectors, but a change of variable can fix that problem. Rewrite the constraint in the form</paragraph>
+              <paragraph><math display="block">$$\left( \frac{x}{3} \right)^{2} + \left( \frac{y}{2} \right)^{2} = 1$$</math></paragraph>
+              <paragraph>and define</paragraph>
+              <paragraph><math display="block">$$x_{1} = \frac{x}{3},\quad x_{2} = \frac{y}{2},\qquad\text{that is},\quad x = 3x_{1}\quad\text{and}\quad y = 2x_{2~}$$</math></paragraph>
+              <paragraph>Then the constraint equation becomes</paragraph>
+              <paragraph><math display="block">$$x_{1}^{2} + x_{2}^{2} = 1$$</math></paragraph>
+              <paragraph>and the utility function becomes <math display="inline">$q(3x_{1},2x_{2}) = (3x_{1})(2x_{2}) = 6x_{1}x_{2}$</math>. Let <math display="inline">$\textbf{x} = \begin{bmatrix}
+      x_{1} \\
+      x_{2}
+      \end{bmatrix}$</math>. Then the problem is to maximize <math display="inline">$Q(\textbf{x}) = 6x_{1}x_{2}$</math> subject to <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math>. Note that <math display="inline">$Q(\textbf{x}) = \textbf{x}^{T}A\textbf{x}$</math>, where</paragraph>
+              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rr}
+      0 &amp; 3 \\
+      3 &amp; 0
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>The eigenvalues of <math display="inline">$A$</math> are <math display="inline">$\pm 3$</math>, with eigenvectors <math display="inline">$\left\lbrack \begin{array}{r}
+      {1\text{/}\sqrt{2}} \\
+      {1\text{/}\sqrt{2}}
+      \end{array} \right\rbrack$</math> for <math display="inline">$\text{λ} = 3$</math> and <math display="inline">$\left\lbrack \begin{array}{r}
+      {- 1\text{/}\sqrt{2}} \\
+      {1\text{/}\sqrt{2}}
+      \end{array} \right\rbrack$</math> for <math display="inline">$\text{λ} = - 3$</math>. Thus the maximum value of <math display="inline">$Q(\textbf{x}) = q(x_{1},x_{2})$</math> is <math display="inline">$3$</math>, attained when <math display="inline">$x_{1} = 1\text{/}\sqrt{2}$</math> and <math display="inline">$x_{2} = 1\text{/}\sqrt{2}$</math>.</paragraph>
+              <paragraph>In terms of the original variables, the optimum public works schedule is <math display="inline">$x = 3x_{1} = 3\text{/}\sqrt{2} \approx 2.1$</math> hundred miles of roads and bridges and <math display="inline">$y = 2x_{2} = \sqrt{2} \approx 1.4$</math> hundred acres of parks and recreational areas. The optimum public works schedule is the point where the constraint curve and the indifference curve <math display="inline">$q(x,y) = 3$</math> just meet. Points <math display="inline">$(x,y)$</math> with a higher utility lie on indifference curves that do not touch the constraint curve. See Figure 4.</paragraph>
+        </example>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Let Q(x)=3x12+3x22+2x1x2. Find a change of variable that transforms Q into a quadratic form with no cross-product term, and give the new quadratic form.</item>
+                  <item>With Q as in Problem 1, find the maximum value of Q(x) subject to the constraint xTx=1, and find a unit vector at which the maximum is attained.</item>
+          </list>
+        </note>
+      <paragraph><sup>1</sup> The use of <em>minimum</em> and <em>maximum</em> in (2), and <em>least</em> and <em>greatest</em> in the theorem, refers to the natural ordering of the real numbers, not to magnitudes.</paragraph>
+      <paragraph><sup>2</sup> Indifference curves are discussed in Michael D. Intriligator, Ronald G. Bodkin, and Cheng Hsiao, <em>Econometric Models, Techniques, and Applications</em> (Upper Saddle River, NJ: Prentice Hall, 1996).</paragraph>
+    </content>
+    <exercises title="7.3 Exercises">
+      <heading level="1">7.3 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>In Exercises 1 and 2, find the change of variable <math display="inline">$\textbf{x} = P\textbf{y}$</math> that transforms the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> into <math display="inline">$\textbf{y}^{T}D\textbf{y}$</math> as shown.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$5x_{1}^{2}\, + \,6x_{2}^{2}\, + \,7x_{3}^{2}\, + \,4x_{1}x_{2} - 4x_{2}x_{3} = 9y_{1}^{2}\, + \,6y_{2}^{2}\, + \, 3y_{3}^{2}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$3x_{1}^{2}\, + \,3x_{2}^{2}\, + \, 5x_{3}^{2}\, + \, 6x_{1}x_{2}\, + \,2x_{1}x_{3}\, + \,2x_{2}x_{3} = 7y_{1}^{2}\, + \,4y_{2}^{2}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="3">
+                  <instructions><em>Hint:</em><strong/><math display="inline">$\textbf{x}$</math> and <math display="inline">$\textbf{y}$</math> must have the same number of coordinates, so the quadratic form shown here must have a coefficient of zero for <math display="inline">$y_{3}^{2}$</math>.</instructions>
+                  <instructions>In Exercises 3–6, find (a) the maximum value of <math display="inline">$Q(\textbf{x})$</math> subject to the constraint <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math>, (b) a unit vector <math display="inline">$\textbf{u}$</math> where this maximum is attained, and (c) the maximum of <math display="inline">$Q(\textbf{x})$</math> subject to the constraints <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math> and <math display="inline">$\textbf{x}^{T}\textbf{u} = 0$</math>.</instructions>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$Q(\textbf{x}) = 5x_{1}^{2} + 6x_{2}^{2} + 7x_{3}^{2} + 4x_{1}x_{2} - 4x_{2}x_{3}$</math> (See Exercise 1.)</paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$Q(\textbf{x}) = 3x_{1}^{2}\! + \! 3x_{2}^{2}\! + \! 5x_{3}^{2}\! + \! 6x_{1}x_{2}\! + \! 2x_{1}x_{3}\! + \! 2x_{2}x_{3}$</math> (See Exercise 2.)</paragraph>
+              </statement>
+            </problem>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$Q(\textbf{x}) = x_{1}^{2} + x_{2}^{2} - 10x_{1}x_{2}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$Q(\textbf{x}) = 3x_{1}^{2} + 9x_{2}^{2} + 8x_{1}x_{2}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="7">
+            <problem number="7">
+              <statement>
+                          <paragraph>Let <math display="inline">$Q(\textbf{x}) = - 2x_{1}^{2} - x_{2}^{2} + 4x_{1}x_{2} + 4x_{2}x_{3}$</math>. Find a unit vector <math display="inline">$\textbf{x}$</math> in <math display="inline">$\textbf{ℝ}^{3}$</math> at which <math display="inline">$Q(\textbf{x})$</math> is maximized, subject to <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math>. [<em>Hint:</em><strong/>The eigenvalues of the matrix of the quadratic form <math display="inline">$Q$</math> are <math display="inline">$2$</math>, <math display="inline">$- 1$</math>, and <math display="inline">$- 4$</math>.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph>Let <math display="inline">$Q(\textbf{x}) = 7x_{1}^{2} + x_{2}^{2} + 7x_{3}^{2} - 8x_{1}x_{2} - 4x_{1}x_{3} - 8x_{2}x_{3}$</math>. Find a unit vector <math display="inline">$\textbf{x}$</math> in <math display="inline">$\textbf{ℝ}^{3}$</math> at which <math display="inline">$Q(\textbf{x})$</math> is maximized, subject to <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math>. [<em>Hint:</em><strong/>The eigenvalues of the matrix of the quadratic form <math display="inline">$Q$</math> are <math display="inline">$9$</math> and <math display="inline">$- 3$</math>.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph>Find the maximum value of <math display="inline">$Q(\textbf{x}) = 7x_{1}^{2} + 3x_{2}^{2} - 2x_{1}x_{2}$</math>, subject to the constraint <math display="inline">$x_{1}^{2} + x_{2}^{2} = 1$</math>. (Do not go on to find a vector where the maximum is attained.)</paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph>Find the maximum value of <math display="inline">$Q(\textbf{x}) = - 3x_{1}^{2} + 5x_{2}^{2} - 2x_{1}x_{2}$</math>, subject to the constraint <math display="inline">$x_{1}^{2} + x_{2}^{2} = 1.$</math> (Do not go on to find a vector where the maximum is attained.)</paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph>Suppose <math display="inline">$\textbf{x}$</math> is a unit eigenvector of a matrix <math display="inline">$A$</math> corresponding to an eigenvalue <math display="inline">$3$</math>. What is the value of <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math>?</paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph>Let <math display="inline">$\text{λ}$</math> be any eigenvalue of a symmetric matrix <math display="inline">$A$</math>. Justify the statement made in this section that <math display="inline">$m \leq \text{λ} \leq M$</math>, where <math display="inline">$m$</math> and <math display="inline">$M$</math> are defined as in (2). [<em>Hint:</em><strong/>Find an <math display="inline">$\textbf{x}$</math> such that <math display="inline">$\text{λ} = \textbf{x}^{T}A\textbf{x}$</math>.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="13">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> symmetric matrix, let <math display="inline">$M$</math> and <math display="inline">$m$</math> denote the maximum and minimum values of the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math>, where <math display="inline">$\textbf{x}^{T}\textbf{x} = 1,$</math> and denote corresponding unit eigenvectors by <math display="inline">$\textbf{u}_{1}$</math> and <math display="inline">$\textbf{u}_{n}$</math>. The following calculations show that given any number <math display="inline">$t$</math> between <math display="inline">$M$</math> and <math display="inline">$m$</math>, there is a unit vector <math display="inline">$\textbf{x}$</math> such that <math display="inline">$t = \textbf{x}^{T}A\textbf{x}$</math>. Verify that <math display="inline">$t = (1 - \alpha)m + \alpha M$</math> for some number <math display="inline">$\alpha$</math> between <math display="inline">$0$</math> and <math display="inline">$1$</math>. Then let <math display="inline">$\textbf{x} = \sqrt{1 - \alpha}\textbf{u}_{n} + \sqrt{\alpha}\textbf{u}_{1}$</math>, and show that <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math> and <math display="inline">$\textbf{x}^{T}A\textbf{x} = t$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="14">
+                  <instructions>In Exercises 14–17, follow the instructions given for Exercises 3–6.</instructions>
+            <problem number="14">
+              <statement>
+                          <paragraph><strong>[T]</strong> ﻿<math display="inline">$3x_{1}x_{2} + 5x_{1}x_{3} + 7x_{1}x_{4} + 7x_{2}x_{3} + 5x_{2}x_{4} + 3x_{3}x_{4}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph><strong>[T]</strong> ﻿<math display="inline">$4x_{1}^{2}\! - \! 6x_{1}x_{2}\! - \! 10x_{1}x_{3}\! - \! 10x_{1}x_{4}\! - \! 6x_{2}x_{3}\! - \! 6x_{2}x_{4}\! - \! 2x_{3}x_{4}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><strong>[T]</strong> ﻿<math display="inline">$- 6x_{1}^{2}\! - \! 10x_{2}^{2}\! - \! 13x_{3}^{2}\! - \! 13x_{4}^{2}\! - \! 4x_{1}x_{2}\! - \! 4x_{1}x_{3}\! - \! 4x_{1}x_{4}\! + \! 6x_{3}x_{4}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="17">
+              <statement>
+                          <paragraph><strong>[T]</strong> ﻿<math display="inline">$x_{1}x_{2} + 3x_{1}x_{3} + 30x_{1}x_{4} + 30x_{2}x_{3} + 3x_{2}x_{4} + x_{3}x_{4}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

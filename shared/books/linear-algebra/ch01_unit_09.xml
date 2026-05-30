@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch01" chapter_number="1" unit_code="1.9">
+  <section number="1.9" title="The Matrix of a Linear Transformation">
+    <metadata>
+      <source_pages count="5">
+        <page global_index="63" type="content"/>
+        <page global_index="64" type="content"/>
+        <page global_index="65" type="content"/>
+        <page global_index="66" type="exercises"/>
+        <page global_index="67" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">1.9 The Matrix of a Linear Transformation</heading>
+      <video title="Watch Video"/>
+      <paragraph>Whenever a linear transformation <math display="inline">$T$</math> arises geometrically or is described in words, we usually want a “formula” for <math display="inline">$T(\mathbf{x})$</math>. The discussion that follows shows that every linear transformation from <math display="inline">$\text{ℝ}^{n}$</math> to <math display="inline">$\text{ℝ}^{m}$</math> is actually a matrix transformation <math display="inline">$\mathbf{x}\mapsto A\mathbf{x}$</math> and that important properties of <math display="inline">$T$</math> are intimately related to familiar properties of <math display="inline">$A$</math>. The key to finding <math display="inline">$A$</math> is to observe that <math display="inline">$T$</math> is completely determined by what it does to the columns of the <math display="inline">$n \times n$</math> identity matrix <math display="inline">$I_{n}$</math>.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>The columns of <math display="inline">$I_{2} = \,\begin{bmatrix}
+      1 &amp; 0 \\
+      0 &amp; 1
+      \end{bmatrix}$</math> are <math display="inline">$\mathbf{e}_{1} = \,\begin{bmatrix}
+      1 \\
+      0
+      \end{bmatrix}$</math> and <math display="inline">$\mathbf{e}_{2} = \,\begin{bmatrix}
+      0 \\
+      1
+      \end{bmatrix}$</math>. Suppose <math display="inline">$T$</math> is a linear transformation from <math display="inline">$\text{ℝ}^{2}$</math> into <math display="inline">$\text{ℝ}^{3}$</math> such that</paragraph>
+              <paragraph><math display="block">$$T\text{(}\mathbf{e}_{1}\text{)} = \,\,\left\lbrack \begin{array}{r}
+      5 \\
+      {- 7} \\
+      2
+      \end{array} \right\rbrack\quad\text{and}\quad T\text{(}\mathbf{e}_{2}\text{)} = \,\,\left\lbrack \begin{array}{r}
+      {- 3} \\
+      8 \\
+      0
+      \end{array} \right\rbrack$$</math></paragraph>
+          <figure caption="Watch Video">
+            <image alt="A graph shows two points lying on the horizontal and vertical axes."/>
+          </figure>
+              <paragraph>With no additional information, find a formula for the image of an arbitrary <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{2}$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Write</paragraph>
+              <paragraph><math display="block">$$\mathbf{x} = \begin{bmatrix}
+      x_{1} \\
+      x_{2}
+      \end{bmatrix}\, = x_{1}\begin{bmatrix}
+      1 \\
+      0
+      \end{bmatrix}\, + \,x_{2}\begin{bmatrix}
+      0 \\
+      1
+      \end{bmatrix} = x_{1}\mathbf{e}_{1} + x_{2}\mathbf{e}_{2}$$</math></paragraph>
+              <paragraph>Since <math display="inline">$T$</math> is a <em>linear</em> transformation,</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      {T(\mathbf{x})} &amp; = &amp; {x_{1}T(\mathbf{e}_{1}) + x_{2}T(\mathbf{e}_{2})} \\
+       &amp; = &amp; {x_{1}\left\lbrack \begin{array}{r}
+      5 \\
+      {- 7} \\
+      2
+      \end{array} \right\rbrack + x_{2}\left\lbrack \begin{array}{r}
+      {- 3} \\
+      8 \\
+      0
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{l}
+      {\mspace{14mu} 5x_{1} - 3x_{2}} \\
+      {- 7x_{1} + 8x_{2}} \\
+      {\mspace{14mu} 2x_{1} + 0}
+      \end{array} \right\rbrack}
+      \end{array}$$</math></paragraph>
+        </example>
+      <paragraph>The step from equation (1) to equation (2) explains why knowledge of <math display="inline">$T(\mathbf{e}_{1})$</math> and <math display="inline">$T(\mathbf{e}_{2})$</math> is sufficient to determine <math display="inline">$T(\mathbf{x})$</math> for any <math display="inline">$\mathbf{x}$</math>. Moreover, since (2) expresses <math display="inline">$T(\mathbf{x})$</math> as a linear combination of vectors, we can put these vectors into the columns of a matrix <math display="inline">$A$</math> and write (2) as</paragraph>
+      <paragraph>
+        <math display="block">$$T(\mathbf{x}) = \left\lbrack \begin{array}{rr}
+      {T(\mathbf{e}_{1})} &amp; {T(\mathbf{e}_{2})}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
+      x_{1} \\
+      x_{2}
+      \end{array} \right\rbrack = A\mathbf{x}$$</math>
+      </paragraph>
+      <note type="procedure" title="Theorem 10">
+          <heading level="2">Theorem 10</heading>
+              <paragraph>Let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be a linear transformation. Then there exists a unique matrix <math display="inline">$A$</math> such that</paragraph>
+              <paragraph><math display="block">$$T\text{(}\mathbf{x}\text{)} = A\text{(}\mathbf{x}\text{)}\quad\text{for}\,\text{all}\,\mathbf{x}\,\text{in}\,\textbf{R}^{n}$$</math></paragraph>
+              <paragraph>In fact, <math display="inline">$A$</math> is the <math display="inline">$m \times n$</math> matrix whose <math display="inline">$j\,\text{th}$</math> column is the vector <math display="inline">$T(\mathbf{e}_{j})$</math>, where <math display="inline">$\mathbf{e}_{j}$</math> is the <math display="inline">$j\,\text{th}$</math> column of the identity matrix in <math display="inline">$\text{ℝ}^{n}$</math>:</paragraph>
+              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rrr}
+      {T(\mathbf{e}_{1})} &amp; \cdots &amp; {T(\mathbf{e}_{n})}
+      \end{array} \right\rbrack$$</math></paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>Write <math display="inline">$\mathbf{x} = I_{n}\mathbf{x} = \lbrack\mathbf{e}_{1}\mspace{14mu}\cdots\mspace{14mu}\mathbf{e}_{n}\rbrack\mathbf{x} = x_{1}\mathbf{e}_{1} + \cdots + x_{n}\mathbf{e}_{n}$</math>, and use the linearity of <math display="inline">$T$</math> to compute</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+      {T(\mathbf{x})} &amp; {= T(x_{1}\mathbf{e}_{1} + \cdots + x_{n}\mathbf{e}_{n}) = x_{1}T(\mathbf{e}_{1}) + \cdots + x_{n}T(\mathbf{e}_{n})} \\
+       &amp; {= \left\lbrack \begin{array}{rlr}
+      {T(\mathbf{e}_{1})} &amp; {\mspace{9mu}\cdots\mspace{9mu}} &amp; {T(\mathbf{e}_{n})}
+      \end{array} \right\rbrack\begin{bmatrix}
+      x_{1} \\
+       \vdots \\
+      x_{n}
+      \end{bmatrix} = A\mathbf{x}}
+      \end{matrix}$$</math>
+      </paragraph>
+      <paragraph>The uniqueness of <math display="inline">$A$</math> is treated in Exercise 41.</paragraph>
+      <paragraph>The matrix <math display="inline">$A$</math> in (3) is called the standard matrix for the linear transformation <math display="inline">$T$</math>.</paragraph>
+      <paragraph>We know now that every linear transformation from <math display="inline">$\text{ℝ}^{n}$</math> to <math display="inline">$\text{ℝ}^{m}$</math> can be viewed as a matrix transformation, and vice versa. The term <em>linear transformation</em> focuses on a property of a mapping, while <em>matrix transformation</em> describes how such a mapping is implemented, as <strong>Examples 2</strong> and <strong>3</strong> illustrate.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Find the standard matrix <math display="inline">$A$</math> for the dilation transformation <math display="inline">$T(\mathbf{x}) = 3\mathbf{x}$</math>, for <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{2}$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Write</paragraph>
+          <figure label="Figure 1" caption="A rotation transformation">
+            <image alt="The figure illustrates the linear transformations using matrices for the expression T (e subscript 1) equals 3 e subscript 1 and T (e subscript 2) equals 3 e subscript 2, yielding a matrix of order 2 by 2."/>
+          </figure>
+        </example>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Let <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> be the transformation that rotates each point in <math display="inline">$\text{ℝ}^{2}$</math> about the origin through an angle <math display="inline">$\varphi$</math>, with counterclockwise rotation for a positive angle. We could show geometrically that such a transformation is linear. (See Figure 6 in Section 1.8.) Find the standard matrix <math display="inline">$A$</math> of this transformation.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph><math display="inline">$\left\lbrack \begin{array}{r}
+      1 \\
+      0
+      \end{array} \right\rbrack$</math> rotates into <math display="inline">$\left\lbrack \begin{array}{r}
+      {\cos\varphi} \\
+      {\sin\varphi}
+      \end{array} \right\rbrack$</math>, and <math display="inline">$\left\lbrack \begin{array}{r}
+      0 \\
+      1
+      \end{array} \right\rbrack$</math> rotates into <math display="inline">$\left\lbrack \begin{array}{r}
+      {- \sin\varphi} \\
+      {\cos\varphi}
+      \end{array} \right\rbrack$</math>. See <strong>Figure 1</strong>. By <strong>Theorem 10</strong>,</paragraph>
+              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rr}
+      {\cos\varphi} &amp; {- \sin\varphi} \\
+      {\sin\varphi} &amp; {\cos\varphi}
+      \end{array} \right\rbrack$$</math></paragraph>
+          <figure>
+            <image alt="A figure shows a rotational transformation with a dotted circle covering the first two quadrants."/>
+          </figure>
+              <paragraph>Click here for an interactive version of Figure 1</paragraph>
+              <paragraph>Example 5 in Section 1.8 is a special case of this transformation, with <math display="inline">$\varphi = \pi/2$</math>.</paragraph>
+        </example>
+      <heading level="2">Geometric Linear Transformations of ℝ2</heading>
+      <paragraph>Examples 2 and 3 illustrate linear transformations that are described geometrically. <strong>Tables 1</strong>–<strong>4</strong> illustrate other common geometric linear transformations of the plane. Because the transformations are linear, they are determined completely by what they do to the columns of <math display="inline">$I_{2}$</math>. Instead of showing only the images of <math display="inline">$\mathbf{e}_{1}$</math> and <math display="inline">$\mathbf{e}_{2}$</math>, the tables show what a transformation does to the unit square (<strong>Figure 2</strong>).</paragraph>
+      <figure caption="Table 1          Reflections">
+          <image alt="A table shows reflections of a unit square portraying an image of fish through different axes of the graph."/>
+        </figure>
+      <figure caption="Table 2          Contractions and Expansions">
+          <image alt="A table shows contractions and expansions with a unit square picture of a fish on a graph and a matrix."/>
+        </figure>
+      <figure caption="Table 3          Shears">
+          <image alt="A table shows shears with a square picture of a lamb on a graph and a matrix."/>
+        </figure>
+      <figure caption="Table 4          Projections">
+          <image alt="A table shows projections with a unit square picture of a fish on a graph and a matrix."/>
+        </figure>
+      <figure label="Figure 2" caption="The unit square">
+          <image alt="A graph shows a picture of a fish placed on a coordinate plane."/>
+        </figure>
+      <paragraph>Other transformations can be constructed from those listed in Tables 1–4 by applying one transformation after another. For instance, a horizontal shear could be followed by a reflection in the <math display="inline">$x_{2}\text{-axis}$</math>. Section 2.1 will show that such a <em>composition</em> of linear transformations is linear. (Also, see Exercise 44.)</paragraph>
+      <heading level="2">Existence and Uniqueness Questions</heading>
+      <paragraph>The concept of a linear transformation provides a new way to understand the existence and uniqueness questions asked earlier. The next two definitions give the appropriate terminology for transformations.</paragraph>
+      <note type="definition" title="Definition">
+          <heading level="2">Definition</heading>
+              <paragraph>A mapping <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> is said to be onto <math display="inline">$\text{ℝ}^{m}$</math> if each <math display="inline">$\mathbf{b}$</math> in <math display="inline">$\text{ℝ}^{m}$</math> is the image of <em>at least one</em> <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>.</paragraph>
+        </note>
+      <paragraph>Equivalently, <math display="inline">$T$</math> is onto <math display="inline">$\text{ℝ}^{m}$</math> when the range of <math display="inline">$T$</math> is all of the codomain <math display="inline">$\text{ℝ}^{m}$</math>. That is, <math display="inline">$T$</math> maps <math display="inline">$\text{ℝ}^{n}$</math> onto <math display="inline">$\text{ℝ}^{m}$</math> if, for each <math display="inline">$\mathbf{b}$</math> in the codomain <math display="inline">$\text{ℝ}^{m}$</math>, there exists at least one solution of <math display="inline">$T(\mathbf{x}) = \mathbf{b}$</math>. “Does <math display="inline">$T$</math> map <math display="inline">$\text{ℝ}^{n}$</math> onto <math display="inline">$\text{ℝ}^{m}\text{?}$</math>” is an existence question. The mapping <math display="inline">$T$</math> is <em>not</em> onto when there is some <math display="inline">$\mathbf{b}$</math> in <math display="inline">$\text{ℝ}^{m}$</math> for which the equation <math display="inline">$T(\mathbf{x}) = \mathbf{b}$</math> has no solution. See <strong>Figure 3</strong>.</paragraph>
+      <figure label="Figure 3" caption="Is the range of  T all of  ℝm?﻿">
+          <image alt="Two diagram representations illustrate the conditions of not onto and onto for a linear transformation T from R to the n power to R to the m power."/>
+        </figure>
+      <note type="definition" title="Definition">
+          <heading level="2">Definition</heading>
+              <paragraph>A mapping <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> is said to be one-to-one if each <math display="inline">$\mathbf{b}$</math> in <math display="inline">$\text{ℝ}^{m}$</math> is the image of <em>at most one</em> <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>.</paragraph>
+        </note>
+      <paragraph>Equivalently, <math display="inline">$T$</math> is one-to-one if, for each <math display="inline">$\mathbf{b}$</math> in <math display="inline">$\text{ℝ}^{m}$</math>, the equation <math display="inline">$T(\mathbf{x}) = \mathbf{b}$</math> has either a unique solution or none at all. “Is <math display="inline">$T$</math> one-to-one?” is a uniqueness question. The mapping <math display="inline">$T$</math> is <em>not</em> one-to-one when some <math display="inline">$\mathbf{b}$</math> in <math display="inline">$\text{ℝ}^{m}$</math> is the image of more than one vector in <math display="inline">$\text{ℝ}^{n}$</math>. If there is no such <math display="inline">$\mathbf{b}$</math>, then <math display="inline">$T$</math> is one-to-one. See <strong>Figure 4</strong>.</paragraph>
+      <figure label="Figure 4" caption="Is every  b the image of at most one vector?">
+          <image alt="Two diagram representations illustrate the conditions of not one-one and one-one for a linear transformation T from R to the n power to R to the m power."/>
+        </figure>
+      <paragraph>Click here for an Interactive version of Figure 4</paragraph>
+      <paragraph>The projection transformations shown in Table 4 are <em>not</em> one-to-one and do <em>not</em> map <math display="inline">$\text{ℝ}^{2}$</math> onto <math display="inline">$\text{ℝ}^{2}$</math>. The transformations in Tables 1, 2, and 3 are one-to-one <em>and</em> do map <math display="inline">$\text{ℝ}^{2}$</math> onto <math display="inline">$\text{ℝ}^{2}$</math>. Other possibilities are shown in the two examples below.</paragraph>
+      <paragraph><strong>Example 4</strong> and the theorems that follow show how the function properties of being one-to-one and mapping onto are related to important concepts studied earlier in this chapter.</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Let <math display="inline">$T$</math> be the linear transformation whose standard matrix is</paragraph>
+              <paragraph><math display="block">$$A = \,\,\begin{bmatrix}
+      1 &amp; {- 4} &amp; 8 &amp; 1 \\
+      0 &amp; 2 &amp; {- 1} &amp; 3 \\
+      0 &amp; 0 &amp; 0 &amp; 5
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>Does <math display="inline">$T$</math> map <math display="inline">$\text{ℝ}^{4}$</math> onto <math display="inline">$\text{ℝ}^{3}\text{?}$</math> Is <math display="inline">$T$</math> a one-to-one mapping?</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Since <math display="inline">$A$</math> happens to be in echelon form, we can see at once that <math display="inline">$A$</math> has a pivot position in each row. By Theorem 4 in Section 1.4, for each <math display="inline">$\mathbf{b}$</math> in <math display="inline">$\text{ℝ}^{3}$</math>, the equation <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> is consistent. In other words, the linear transformation <math display="inline">$T$</math> maps <math display="inline">$\text{ℝ}^{4}$</math> (its domain) onto <math display="inline">$\text{ℝ}^{3}$</math>. However, since the equation <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> has a free variable (because there are four variables and only three basic variables), each <math display="inline">$\mathbf{b}$</math> is the image of more than one <math display="inline">$\mathbf{x}$</math>. That is, <math display="inline">$T$</math> is <em>not</em> one-to-one.</paragraph>
+        </example>
+      <note type="procedure" title="Theorem 11">
+          <heading level="2">Theorem 11</heading>
+              <paragraph>Let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be a linear transformation. Then <math display="inline">$T$</math> is one-to-one if and only if the equation <math display="inline">$T(\mathbf{x}) = 0$</math> has only the trivial solution.</paragraph>
+        </note>
+      <paragraph><em>Remark:</em> To prove a theorem that says “statement <math display="inline">$P$</math> is true if and only if statement <math display="inline">$Q$</math> is true,” one must establish two things: (1) If <math display="inline">$P$</math> is true, then <math display="inline">$Q$</math> is true and (2) If <math display="inline">$Q$</math> is true, then <math display="inline">$P$</math> is true. The second requirement can also be established by showing (2a): If <math display="inline">$P$</math> is false, then <math display="inline">$Q$</math> is false. (This is called contrapositive reasoning.) This proof uses (1) and (2a) to show that <math display="inline">$P$</math> and <math display="inline">$Q$</math> are either both true or both false.</paragraph>
+      <heading level="3">Proof</heading>
+      <paragraph>Since <math display="inline">$T$</math> is linear, <math display="inline">$T(0) = 0$</math>. If <math display="inline">$T$</math> is one-to-one, then the equation <math display="inline">$T(\mathbf{x}) = 0$</math> has at most one solution and hence only the trivial solution. If <math display="inline">$T$</math> is not one-to-one, then there is a <math display="inline">$\mathbf{b}$</math> that is the image of at least two different vectors in <math display="inline">$\text{ℝ}^{n}$</math>—say, <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math>. That is, <math display="inline">$T(\mathbf{u}) = \mathbf{b}$</math> and <math display="inline">$T(\mathbf{v}) = \mathbf{b}$</math>. But then, since <math display="inline">$T$</math> is linear,</paragraph>
+      <paragraph>
+        <math display="block">$$T(\mathbf{u} - \mathbf{v}) = T(\mathbf{u}) - T(\mathbf{v}) = \mathbf{b} - \mathbf{b} = 0$$</math>
+      </paragraph>
+      <paragraph>The vector <math display="inline">$\mathbf{u} - \mathbf{v}$</math> is not zero, since <math display="inline">$\mathbf{u} \neq \mathbf{v}$</math>. Hence the equation <math display="inline">$T(\mathbf{x}) = 0$</math> has more than one solution. So, either the two conditions in the theorem are both true or they are both false.</paragraph>
+      <note type="procedure" title="Theorem 12">
+          <heading level="2">Theorem 12</heading>
+              <paragraph>Let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be a linear transformation, and let <math display="inline">$A$</math> be the standard matrix for <math display="inline">$T$</math>. Then:</paragraph>
+          <list ordered="true">
+                  <item>T maps ℝn onto ℝm if and only if the columns of A span ℝm;</item>
+                  <item>T is one-to-one if and only if the columns of A are linearly independent.</item>
+          </list>
+        </note>
+      <paragraph><em>Remark:</em> “If and only if” statements can be linked together. For example if “<math display="inline">$P$</math> if and only if <math display="inline">$Q$</math>” is known and “<math display="inline">$Q$</math> if and only if <math display="inline">$R$</math>” is known, then one can conclude “<math display="inline">$P$</math> if and only if <math display="inline">$R$</math>.” This strategy is used repeatedly in this proof.</paragraph>
+      <heading level="3">Proof</heading>
+      <list ordered="true">
+              <item>By Theorem 4 in Section 1.4, the columns of A span ℝm if and only if for each b in ℝm the equation Ax=b is consistent—in other words, if and only if for every b, the equation T(x)=b has at least one solution. This is true if and only if T maps ℝn onto ℝm.</item>
+              <item>The equations T(x)=0 and Ax=0 are the same except for notation. So, by Theorem 11, T is one-to-one if and only if Ax=0 has only the trivial solution. This happens if and only if the columns of A are linearly independent, as was already noted in the boxed statement (3) in Section 1.7.</item>
+        </list>
+      <paragraph>Statement (a) in <strong>Theorem 12</strong> is equivalent to the statement “<math display="inline">$T$</math> maps <math display="inline">$\text{ℝ}^{n}$</math> onto <math display="inline">$\text{ℝ}^{m}$</math> if and only if every vector in <math display="inline">$\text{ℝ}^{m}$</math> is a linear combination of the columns of <math display="inline">$A$</math>.” See Theorem 4 in Section 1.4.</paragraph>
+      <paragraph>In the next example and in some exercises that follow, column vectors are written in rows, such as <math display="inline">$\mathbf{x} = (x_{1}\text{,~}x_{2})$</math>, and <math display="inline">$T(\mathbf{x})$</math> is written as <math display="inline">$T(x_{1}\text{,~}x_{2})$</math> instead of the more formal <math display="inline">$T((x_{1}\text{,~}x_{2}))$</math>.</paragraph>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>Let <math display="inline">$T\left( x_{1}\text{,~}x_{2} \right) = \left( 3x_{1} + x_{2}\text{,~}5x_{1} + 7x_{2}\text{,~}x_{1} + 3x_{2} \right)$</math>. Show that <math display="inline">$T$</math> is a one-to-one linear transformation. Does <math display="inline">$T$</math> map <math display="inline">$\text{ℝ}^{2}$</math> onto <math display="inline">$\text{ℝ}^{3}$</math>?﻿</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>When <math display="inline">$\mathbf{x}$</math> and <math display="inline">$T(\mathbf{x})$</math> are written as column vectors, you can determine the standard matrix of <math display="inline">$T$</math> by inspection, visualizing the row–vector computation of each entry in <math display="inline">$A\mathbf{x}$</math>.</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {T(\mathbf{x}) = \left\lbrack \begin{array}{l}
+      {3x_{1} + \mspace{9mu} x_{2}} \\
+      {5x_{1} + 7x_{2}} \\
+      {\mspace{9mu} x_{1} + 3x_{2}}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{ll}
+      ? &amp; ? \\
+      ? &amp; ? \\
+      ? &amp; ?
+      \end{array} \right\rbrack\left\lbrack \begin{array}{l}
+      x_{1} \\
+      x_{2}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{ll}
+      3 &amp; 1 \\
+      5 &amp; 7 \\
+      1 &amp; 3
+      \end{array} \right\rbrack\left\lbrack \begin{array}{l}
+      x_{1} \\
+      x_{2}
+      \end{array} \right\rbrack} \\
+      {\mspace{189mu} A}
+      \end{array}$$</math></paragraph>
+              <paragraph>So <math display="inline">$T$</math> is indeed a linear transformation, with its standard matrix <math display="inline">$A$</math> shown in (4). The columns of <math display="inline">$A$</math> are linearly independent because they are not multiples. By Theorem 12(b), <math display="inline">$T$</math> is one-to-one. To decide if <math display="inline">$T$</math> is onto <math display="inline">$\text{ℝ}^{3}$</math>, examine the span of the columns of <math display="inline">$A$</math>. Since <math display="inline">$A$</math> is <math display="inline">$3 \times 2$</math>, the columns of <math display="inline">$A$</math> span <math display="inline">$\text{ℝ}^{3}$</math> if and only if <math display="inline">$A$</math> has <math display="inline">$3$</math> pivot positions, by Theorem 4. This is impossible, since <math display="inline">$A$</math> has only <math display="inline">$2$</math> columns. So the columns of <math display="inline">$A$</math> do not span <math display="inline">$\text{ℝ}^{3}$</math>, and the associated linear transformation is not onto <math display="inline">$\text{ℝ}^{3}$</math>.</paragraph>
+          <figure>
+            <image alt="A figure shows the transformation of two points in a two-dimensional graph into a three-dimensional graph."/>
+          </figure>
+              <paragraph>The transformation <math display="inline">$T$</math> is not onto <math display="inline">$\textbf{ℝ}^{3}$</math>.</paragraph>
+        </example>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Let T:ℝ2→ℝ2 be the transformation that first performs a horizontal shear that maps e2 into e2−.5e1 (but leaves e1 unchanged) and then reflects the result through the x2-axis. Assuming that T is linear, find its standard matrix. [Hint: Determine the final location of the images of e1 and e2.]</item>
+                  <item>Suppose A is a 7×5 matrix with 5 pivots. Let T(x)=Ax be a linear transformation from ℝ5 into ℝ7. Is T a one-to-one linear transformation? Is T onto ℝ7?</item>
+          </list>
+        </note>
+    </content>
+    <exercises title="1.9 Exercises">
+      <heading level="1">1.9 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>In Exercises 1–10, assume that <math display="inline">$T$</math> is a linear transformation. Find the standard matrix of <math display="inline">$T$</math>.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{4}\text{,~}T\text{(}\mathbf{e}_{1}\text{)} = \text{(}2\text{,~}1\text{,~}2\text{,~}1\text{)}$</math> and <math display="inline">$T(\mathbf{e}_{2}) = ( - 5\text{,~}2\text{,~}0\text{,~}0)$</math>, where <math display="inline">$\mathbf{e}_{1} = (1\text{,~}0)$</math> and <math display="inline">$\mathbf{e}_{2} = (0\text{,~}1)$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{3}\rightarrow\text{ℝ}^{2}\text{,~}T\text{(}\mathbf{e}_{1}\text{)} = \text{(}1\text{,~}3\text{),~}T\text{(}\mathbf{e}_{2}\text{)} = \text{(}4\text{,~}2\text{)}$</math>, and <math display="inline">$T(\mathbf{e}_{3}) = ( - 5\text{,~}4)$</math>, where <math display="inline">$\mathbf{e}_{1}\text{,~}\mathbf{e}_{2}\text{,~}\mathbf{e}_{3}$</math> are the columns of the <math display="inline">$3 \times 3$</math> identity matrix.</paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> rotates points (about the origin) through <math display="inline">$3\pi/2$</math> radians (in the counterclockwise direction).</paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> rotates points (about the origin) through <math display="inline">$- \pi/4$</math> radians (since the number is negative, the actual rotation is clockwise). [<em>Hint:</em><strong/> <math display="inline">$T(\mathbf{e}_{1}) = (1/\sqrt{2}\text{,} - 1/\sqrt{2})$</math>.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> is a vertical shear transformation that maps <math display="inline">$\mathbf{e}_{1}$</math> into <math display="inline">$\mathbf{e}_{1} - 2\mathbf{e}_{2}$</math> but leaves the vector <math display="inline">$\mathbf{e}_{2}$</math> unchanged.</paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> is a horizontal shear transformation that leaves <math display="inline">$\mathbf{e}_{1}$</math> unchanged and maps <math display="inline">$\mathbf{e}_{2}$</math> into <math display="inline">$\mathbf{e}_{2} + 3\mathbf{e}_{1}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="7">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> first rotates points through <math display="inline">$- 3\pi/4$</math> radians (since the number is negative, the actual rotation is clockwise) and then reflects points through the horizontal <math display="inline">$x_{1}\text{-axis}$</math>. [<em>Hint:</em><strong/> <math display="inline">$T(\mathbf{e}_{1}) = ( - 1/\sqrt{2}\text{,}1/\sqrt{2})$</math>.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> first reflects points through the horizontal <math display="inline">$x_{1}\text{-axis}$</math> and then reflects points through the line <math display="inline">$x_{2} = x_{1}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> first performs a horizontal shear that transforms <math display="inline">$\mathbf{e}_{2}$</math> into <math display="inline">$\mathbf{e}_{2} - 3\mathbf{e}_{1}$</math> (leaving <math display="inline">$\mathbf{e}_{1}$</math> unchanged) and then reflects points through the line <math display="inline">$x_{2} = - x_{1}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> first reflects points through the vertical <math display="inline">$x_{2}\text{-axis}$</math> and then rotates points <math display="inline">$3\pi/2$</math> radians.</paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A graph shows two vectors lying in two different quadrants."/>
+            </figure>
+            <figure>
+              <image alt="A graph shows two vectors starting from the origin and pointing in different quadrants."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="11">
+            <problem number="11">
+              <statement>
+                          <paragraph>A linear transformation <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> first reflects points through the <math display="inline">$x_{1}\text{-axis}$</math> and then reflects points through the <math display="inline">$x_{2}\text{-axis}$</math>. Show that <math display="inline">$T$</math> can also be described as a linear transformation that rotates points about the origin. What is the angle of that rotation?</paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph>Show that the transformation in Exercise 8 is merely a rotation about the origin. What is the angle of the rotation?</paragraph>
+              </statement>
+            </problem>
+            <problem number="13">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> be the linear transformation such that <math display="inline">$T(\mathbf{e}_{1})$</math> and <math display="inline">$T(\mathbf{e}_{2})$</math> are the vectors shown in the figure. Using the figure, sketch the vector <math display="inline">$T(2\text{,}1)$</math>.</paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A graph shows two vectors lying in two different quadrants."/>
+            </figure>
+            <problem number="14">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> be a linear transformation with standard matrix <math display="inline">$A = \lbrack\mathbf{a}_{1}\quad\mathbf{a}_{2}\rbrack$</math>, where <math display="inline">$\mathbf{a}_{1}$</math> and <math display="inline">$\mathbf{a}_{2}$</math> are shown in the figure. Using the figure, draw the image of <math display="inline">$\left\lbrack \begin{array}{r}
+      {- 1} \\
+      3
+      \end{array} \right\rbrack$</math> under the transformation <math display="inline">$T$</math>.</paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A graph shows two vectors starting from the origin and pointing in different quadrants."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="15">
+                  <instructions>In Exercises 15 and 16, fill in the missing entries of the matrix, assuming that the equation holds for all values of the variables.</instructions>
+            <problem number="15">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      ? &amp; ? &amp; ? \\
+      ? &amp; ? &amp; ? \\
+      ? &amp; ? &amp; ?
+      \end{bmatrix}\,\,\begin{bmatrix}
+      x_{1} \\
+      x_{2} \\
+      x_{3}
+      \end{bmatrix}\, = \,\,\begin{bmatrix}
+      {2x_{1} - 3x_{3}} \\
+      {4x_{1}} \\
+      {x_{1} - x_{2} + x_{3}}
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      ? &amp; ? \\
+      ? &amp; ? \\
+      ? &amp; ?
+      \end{bmatrix}\,\begin{bmatrix}
+      x_{1} \\
+      x_{2}
+      \end{bmatrix}\, = \,\,\begin{bmatrix}
+      {x_{1} - 3x_{2}} \\
+      {- 2x_{1} + x_{2}} \\
+      x_{1}
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="17">
+                  <instructions>In Exercises 17–20, show that <math display="inline">$T$</math> is a linear transformation by finding a matrix that implements the mapping. Note that <math display="inline">$x_{1}\text{,~}x_{2}\text{,}\ldots$</math> are not vectors but are entries in vectors.</instructions>
+            <problem number="17">
+              <statement>
+                          <paragraph><math display="inline">$T(x_{1}\text{,~}x_{2}\text{,~}x_{3}\text{,~}x_{4}) = (0\text{,~}x_{1} + x_{2}\text{,~}x_{2} + x_{3}\text{,~}x_{3} + x_{4})$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph><math display="inline">$T(x_{1}\text{,~}x_{2}) = (2x_{2} - 3x_{1}\text{,~}x_{1} - 4x_{2}\text{,~}0\text{,~}x_{2})$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="19">
+              <statement>
+                          <paragraph><math display="inline">$T(x_{1}\text{,~}x_{2}\text{,~}x_{3}) = (x_{1} - 5x_{2} + 4x_{3}\text{,~}x_{2} - 6x_{3})$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph><math display="inline">$T\text{(}x_{1}\text{,~}x_{2}\text{,~}x_{3}\text{,~}x_{4}\text{)} = 2x_{1} + 3x_{3} - 4x_{4}\mspace{23mu}\text{(}T:\text{ℝ}^{4}\rightarrow\text{ℝ}\text{)}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="21">
+            <problem number="21">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> be a linear transformation such that <math display="inline">$T(x_{1}\text{,~}x_{2}) = (x_{1} + x_{2}\text{,~}4x_{1} + 5x_{2})$</math>. Find <math display="inline">$\mathbf{x}$</math> such that <math display="inline">$T(\mathbf{x}) = (3\text{,~}8)$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{3}$</math> be a linear transformation such that <math display="inline">$T(x_{1}\text{,~}x_{2}) = (x_{1} - 2x_{2}\text{,} - x_{1} + 3x_{2}\text{,~}3x_{1} - 2x_{2})$</math>. Find <math display="inline">$\mathbf{x}$</math> such that <math display="inline">$T(\mathbf{x}) = ( - 1\text{,~}4\text{,~}9)$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="23">
+                  <instructions>In <strong>Exercises</strong><strong>23</strong>–<strong>32</strong>, mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
+            <problem number="23">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A linear transformation <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> is completely determined by its effect on the columns of the <math display="inline">$n \times n$</math> identity matrix.</paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A mapping <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> is one-to-one if each vector in <math display="inline">$\text{ℝ}^{n}$</math> maps onto a unique vector in <math display="inline">$\text{ℝ}^{m}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="25">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> rotates vectors about the origin through an angle <math display="inline">$\phi$</math>, then <math display="inline">$T$</math> is a linear transformation.</paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The columns of the standard matrix for a linear transformation from <math display="inline">$\text{ℝ}^{n}$</math> to <math display="inline">$\text{ℝ}^{m}$</math> are the images of the columns of the <math display="inline">$n \times n$</math> identity matrix.</paragraph>
+              </statement>
+            </problem>
+            <problem number="27">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> When two linear transformations are performed one after another, the combined effect may not always be a linear transformation.</paragraph>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> Not every linear transformation from <math display="inline">$\text{ℝ}^{n}$</math> to <math display="inline">$\text{ℝ}^{m}$</math> is a matrix transformation.</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A mapping <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> is onto <math display="inline">$\text{ℝ}^{m}$</math> if every vector <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> maps onto some vector in <math display="inline">$\text{ℝ}^{m}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The standard matrix of a linear transformation from <math display="inline">$\text{ℝ}^{2}$</math> to <math display="inline">$\text{ℝ}^{2}$</math> that reflects points through the horizontal axis, the vertical axis, or the origin has the form <math display="inline">$\left\lbrack \begin{array}{rr}
+      a &amp; 0 \\
+      0 &amp; d
+      \end{array} \right\rbrack$</math>, where <math display="inline">$a$</math> and <math display="inline">$d$</math> are <math display="inline">$\pm 1$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="31">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A is a <math display="inline">$3 \times 2$</math> matrix, then the transformation <math display="inline">$\mathbf{x}\mapsto A\mathbf{x}$</math> cannot be one-to-one.</paragraph>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A is a <math display="inline">$3 \times 2$</math> matrix, then the transformation <math display="inline">$\mathbf{x}\mapsto A\mathbf{x}$</math> cannot map <math display="inline">$\text{ℝ}^{2}$</math> onto <math display="inline">$\text{ℝ}^{3}$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="33">
+                  <instructions>In Exercises 33–36, determine if the specified linear transformation is (a) one-to-one and (b) onto. Justify each answer.</instructions>
+            <problem number="33">
+              <statement>
+                          <paragraph>The transformation in Exercise 17</paragraph>
+              </statement>
+            </problem>
+            <problem number="34">
+              <statement>
+                          <paragraph>The transformation in Exercise 2</paragraph>
+              </statement>
+            </problem>
+            <problem number="35">
+              <statement>
+                          <paragraph>The transformation in Exercise 19</paragraph>
+              </statement>
+            </problem>
+            <problem number="36">
+              <statement>
+                          <paragraph>The transformation in Exercise 14</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="37">
+                  <instructions>In Exercises 37 and 38, describe the possible echelon forms of the standard matrix for a linear transformation <math display="inline">$T$</math>. Use the notation of Example 1 in Section 1.2.</instructions>
+            <problem number="37">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{3}\rightarrow\text{ℝ}^{4}$</math> is one-to-one.</paragraph>
+              </statement>
+            </problem>
+            <problem number="38">
+              <statement>
+                          <paragraph><math display="inline">$T:\text{ℝ}^{4}\rightarrow\text{ℝ}^{3}$</math> is onto.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="39">
+            <problem number="39">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be a linear transformation, with <math display="inline">$A$</math> its standard matrix. Complete the following statement to make it true: “<math display="inline">$T$</math> is one-to-one if and only if <math display="inline">$A$</math> has _____ pivot columns.” Explain why the statement is true. [<em>Hint:</em><strong/>Look in the exercises for Section 1.7.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="40">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be a linear transformation, with <math display="inline">$A$</math> its standard matrix. Complete the following statement to make it true: “<math display="inline">$T$</math> maps <math display="inline">$\text{ℝ}^{n}$</math> onto <math display="inline">$\text{ℝ}^{m}$</math> if and only if <math display="inline">$A$</math> has _____ pivot columns.” Find some theorems that explain why the statement is true.</paragraph>
+              </statement>
+            </problem>
+            <problem number="41">
+              <statement>
+                          <paragraph>Verify the uniqueness of <math display="inline">$A$</math> in Theorem 10. Let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be a linear transformation such that <math display="inline">$T(\mathbf{x}) = B\mathbf{x}$</math> for some <math display="inline">$m \times n$</math> matrix <math display="inline">$B$</math>. Show that if <math display="inline">$A$</math> is the standard matrix for <math display="inline">$T$</math>, then <math display="inline">$A = B$</math>. [<em>Hint:</em><strong/>Show that <math display="inline">$A$</math> and <math display="inline">$B$</math> have the same columns.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="42">
+              <statement>
+                          <paragraph>Why is the question “Is the linear transformation <math display="inline">$T$</math> onto?” an existence question?</paragraph>
+              </statement>
+            </problem>
+            <problem number="43">
+              <statement>
+                          <paragraph>If a linear transformation <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> maps <math display="inline">$\text{ℝ}^{n}$</math> <em>onto</em> <math display="inline">$\text{ℝ}^{m}$</math>, can you give a relation between <math display="inline">$m$</math> and <math display="inline">$n$</math>? If <math display="inline">$T$</math> is one-to-one, what can you say about <math display="inline">$m$</math> and <math display="inline">$n$</math>?﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="44">
+              <statement>
+                          <paragraph>Let <math display="inline">$S:\text{ℝ}^{p}\rightarrow\text{ℝ}^{n}$</math> and <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be linear transformations. Show that the mapping <math display="inline">$\mathbf{x}\mapsto T(S(\mathbf{x}))$</math> is a linear transformation (from <math display="inline">$\text{ℝ}^{p}$</math> to <math display="inline">$\text{ℝ}^{m}$</math>). [<em>Hint:</em><strong/>Compute <math display="inline">$T(S(c\mathbf{u} + d\mathbf{v}))$</math> for <math display="inline">$\mathbf{u}\text{,}\mathbf{v}$</math> in <math display="inline">$\text{ℝ}^{p}$</math> and scalars <math display="inline">$c$</math> and <math display="inline">$d$</math>. Justify each step of the computation, and explain why this computation gives the desired conclusion.]</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="45">
+                  <instructions><strong>[T]</strong> In Exercises 45–48, let <math display="inline">$T$</math> be the linear transformation whose standard matrix is given. In Exercises 45 and 46, decide if <math display="inline">$T$</math> is a one-to-one mapping. In Exercises 47 and 48, decide if <math display="inline">$T$</math> maps <math display="inline">$\text{ℝ}^{5}$</math> onto <math display="inline">$\text{ℝ}^{5}$</math>. Justify your answers.</instructions>
+            <problem number="45">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      {- 5} &amp; 10 &amp; {- 5} &amp; 4 \\
+      8 &amp; 3 &amp; {- 4} &amp; 7 \\
+      4 &amp; {- 9} &amp; 5 &amp; {- 3} \\
+      {- 3} &amp; {- 2} &amp; 5 &amp; 4
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="46">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      7 &amp; 5 &amp; 4 &amp; {- 9} \\
+      10 &amp; 6 &amp; 16 &amp; {- 4} \\
+      12 &amp; 8 &amp; 12 &amp; 7 \\
+      {- 8} &amp; {- 6} &amp; {- 2} &amp; 5
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="47">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrrr}
+      4 &amp; {- 7} &amp; 3 &amp; 7 &amp; 5 \\
+      6 &amp; {- 8} &amp; 5 &amp; {12} &amp; {- 8} \\
+      {- 7} &amp; {10} &amp; {- 8} &amp; {- 9} &amp; {14} \\
+      3 &amp; {- 5} &amp; 4 &amp; 2 &amp; {- 6} \\
+      {- 5} &amp; 6 &amp; {- 6} &amp; {- 7} &amp; 3
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="48">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrrr}
+      9 &amp; {13} &amp; 5 &amp; 6 &amp; {- 1} \\
+      14 &amp; {15} &amp; {- 7} &amp; {- 6} &amp; 4 \\
+      {- 8} &amp; {- 9} &amp; {12} &amp; {- 5} &amp; {- 9} \\
+      {- 5} &amp; {- 6} &amp; {- 8} &amp; 9 &amp; 8 \\
+      13 &amp; {14} &amp; {15} &amp; 2 &amp; {11}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

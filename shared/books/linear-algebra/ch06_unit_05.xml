@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch06" chapter_number="6" unit_code="6.5">
+  <section number="6.5" title="Least-Squares Problems">
+    <metadata>
+      <source_pages count="6">
+        <page global_index="325" type="content"/>
+        <page global_index="326" type="content"/>
+        <page global_index="327" type="content"/>
+        <page global_index="328" type="exercises"/>
+        <page global_index="329" type="exercises"/>
+        <page global_index="330" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">6.5 Least-Squares Problems</heading>
+      <video title="Watch Video"/>
+      <paragraph>Inconsistent systems arise often in applications. When a solution is demanded and none exists, the best one can do is to find an <math display="inline">$\textbf{x}$</math> that makes <math display="inline">$A\textbf{x}$</math> as close as possible to <math display="inline">$\textbf{b}$</math>.</paragraph>
+      <paragraph>Think of <math display="inline">$A\textbf{x}$</math> as an <em>approximation</em> to <math display="inline">$\textbf{b}$</math>. The smaller the distance between <math display="inline">$\textbf{b}$</math> and <math display="inline">$A\textbf{x}$</math>, given by <math display="inline">$\parallel \textbf{b} - A\textbf{x} \parallel$</math>, the better the approximation. The general least-squares problem is to find an <math display="inline">$\textbf{x}$</math> that makes <math display="inline">$\parallel \textbf{b} - A\textbf{x} \parallel$</math> as small as possible. The adjective “least-squares” arises from the fact that <math display="inline">$\parallel \textbf{b} - A\textbf{x} \parallel$</math> is the square root of a sum of squares.</paragraph>
+      <note type="definition" title="Definition">
+          <heading level="2">Definition</heading>
+              <paragraph>If <math display="inline">$A$</math> is <math display="inline">$m \times n$</math> and <math display="inline">$\textbf{b}$</math> is in <math display="inline">$\text{ℝ}^{m}$</math>, a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> is an <math display="inline">$\widehat{\textbf{x}}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> such that</paragraph>
+              <paragraph><math display="block">$$\text{∥}\textbf{b} - A\widehat{\textbf{x}}\text{∥~} \leq ~\text{∥}\textbf{b} - A\textbf{x}\text{∥}$$</math></paragraph>
+              <paragraph>for all <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>.</paragraph>
+        </note>
+      <paragraph>The most important aspect of the least-squares problem is that no matter what <math display="inline">$\textbf{x}$</math> we select, the vector <math display="inline">$A\textbf{x}$</math> will necessarily be in the column space, <math display="inline">$\text{Col~}A$</math>. So we seek an <math display="inline">$\textbf{x}$</math> that makes <math display="inline">$A\textbf{x}$</math> the closest point in <math display="inline">$\text{Col~}A$</math> to <math display="inline">$\textbf{b}$</math>. See <strong>Figure 1</strong>. (Of course, if <math display="inline">$\textbf{b}$</math> happens to be in <math display="inline">$\text{Col~}A$</math>, then <math display="inline">$\textbf{b}$</math> <em>is</em> <math display="inline">$A\textbf{x}$</math> for some <math display="inline">$\textbf{x}$</math>, and such an <math display="inline">$\textbf{x}$</math> is a “least-squares solution.”)</paragraph>
+      <heading level="4">Figure 1
+              The vector  b ﻿closer to  Axˆ ﻿than to  Ax ﻿for other  x</heading>
+      <figure caption="Watch Video">
+          <image alt="A figure shows a horizontal rectangular plane and a vector b with various projections on the plane."/>
+        </figure>
+      <heading level="2">Solution of the General Least-Squares Problem</heading>
+      <paragraph>Given <math display="inline">$A$</math> and <math display="inline">$\textbf{b}$</math> as above, apply the Best Approximation Theorem in Section 6.3 to the subspace <math display="inline">$\text{Col~}A$</math>. Let</paragraph>
+      <paragraph>
+        <math display="block">$$\widehat{\textbf{b}} = \text{proj}_{\text{Col}A}\textbf{b}$$</math>
+      </paragraph>
+      <paragraph>Because <math display="inline">$\widehat{\textbf{b}}$</math> is in the column space of <math display="inline">$A$</math>, the equation <math display="inline">$A\textbf{x} = \widehat{\textbf{b}}$</math> <em>is</em> consistent, and there is an <math display="inline">$\widehat{\textbf{x}}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> such that</paragraph>
+      <paragraph>
+        <math display="block">$$A\widehat{\textbf{x}} = \widehat{\textbf{b}}$$</math>
+      </paragraph>
+      <paragraph>Since <math display="inline">$\widehat{\textbf{b}}$</math> is the closest point in <math display="inline">$\text{Col~}A$</math> to <math display="inline">$\textbf{b}$</math>, a vector <math display="inline">$\widehat{\textbf{x}}$</math> is a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> if and only if <math display="inline">$\widehat{\textbf{x}}$</math> satisfies <strong>(</strong>1<strong>)</strong>. Such an <math display="inline">$\widehat{\textbf{x}}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> is a list of weights that will build <math display="inline">$\widehat{\textbf{b}}$</math> out of the columns of <math display="inline">$A$</math>. See <strong>Figure 2</strong>. [There are many solutions of <strong>(</strong>1<strong>)</strong> if the equation has free variables.]</paragraph>
+      <figure label="Figure 2" caption="The least-squares solution  xˆ ﻿is in  ℝn">
+          <image alt="A figure shows the least squares solution with two horizontal rectangular planes."/>
+        </figure>
+      <paragraph>Suppose <math display="inline">$\widehat{\textbf{x}}$</math> satisfies <math display="inline">$A\widehat{\textbf{x}} = \widehat{\textbf{b}}$</math>. By the Orthogonal Decomposition Theorem in Section 6.3, the projection <math display="inline">$\widehat{\textbf{b}}$</math> has the property that <math display="inline">$\textbf{b} - \widehat{\textbf{b}}$</math> is orthogonal to <math display="inline">$\text{Col~}\textit{A}$</math>, so <math display="inline">$\textbf{b} - A\widehat{\textbf{x}}$</math> is orthogonal to each column of <math display="inline">$A$</math>. If <math display="inline">$\textbf{a}_{j}$</math> is any column of <math display="inline">$A$</math>, then <math display="inline">$\textbf{a}_{j} \cdot (\textbf{b} - A\widehat{\textbf{x}}) = 0$</math>, and <math display="inline">$\textbf{a}_{j}^{T}(\textbf{b} - A\widehat{\textbf{x}}) = 0$</math>. Since each <math display="inline">$\textbf{a}_{j}^{T}$</math> is a row of <math display="inline">$A^{T}$</math>,</paragraph>
+      <paragraph>
+        <math display="block">$$A^{T}\left( \textbf{b} - A\widehat{\textbf{x}} \right) = \textbf{0}$$</math>
+      </paragraph>
+      <paragraph>(This equation also follows from Theorem 3 in Section 6.1.) Thus</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+      {A^{T}\textbf{b} - A^{T} A\widehat{\textbf{x}}} &amp; = &amp; \textbf{0} \\
+      {A^{T} A\widehat{\textbf{x}}} &amp; = &amp; {A^{T}\textbf{b}}
+      \end{matrix}$$</math>
+      </paragraph>
+      <paragraph>These calculations show that each least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> satisfies the equation</paragraph>
+      <paragraph>
+        <math display="block">$$\boxed{\begin{array}{l}
+      {A^{T} A\textbf{x} = A^{T}\textbf{b}}
+      \end{array}}$$</math>
+      </paragraph>
+      <paragraph>The matrix equation (3) represents a system of equations called the normal equations for <math display="inline">$A\textbf{x} = \textbf{b}$</math>. A solution of (3) is often denoted by <math display="inline">$\widehat{\textbf{x}}$</math>.</paragraph>
+      <note type="procedure" title="Theorem ﻿13﻿">
+          <heading level="2">Theorem ﻿13﻿</heading>
+              <paragraph>The set of least-squares solutions of <math display="inline">$A\textbf{x} = \textbf{b}$</math> coincides with the nonempty set of solutions of the normal equations <math display="inline">$A^{T} A\textbf{x} = A^{T}{\textbf{b}}$</math>.</paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>As shown, the set of least-squares solutions is nonempty and each least-squares solution <math display="inline">$\widehat{\textbf{x}}$</math> satisfies the normal equations. Conversely, suppose <math display="inline">$\widehat{\textbf{x}}$</math> satisfies <math display="inline">$A^{T} A\widehat{\textbf{x}}$</math> <math display="inline">$= A^{T}{\textbf{b}}$</math>. Then <math display="inline">$\widehat{\textbf{x}}$</math> satisfies (2), which shows that <math display="inline">$\textbf{b} - A\widehat{\textbf{x}}$</math> is orthogonal to the rows of <math display="inline">$A^{T}$</math> and hence is orthogonal to the columns of <math display="inline">$A$</math>. Since the columns of <math display="inline">$A$</math> span <math display="inline">$\text{Col~}A$</math>, the vector <math display="inline">$\textbf{b} - A\widehat{\textbf{x}}$</math> is orthogonal to all of <math display="inline">$\text{Col~}A$</math>. Hence the equation</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{b} = A\widehat{\textbf{x}} + \left( \textbf{b} - A\widehat{\textbf{x}} \right)$$</math>
+      </paragraph>
+      <paragraph>is a decomposition of <math display="inline">$\textbf{b}$</math> into the sum of a vector in <math display="inline">$\text{Col~}A$</math> and a vector orthogonal to <math display="inline">$\text{Col~}A$</math>. By the uniqueness of the orthogonal decomposition, <math display="inline">$A\widehat{\textbf{x}}$</math> must be the orthogonal projection of <math display="inline">$\textbf{b}$</math> onto <math display="inline">$\text{Col~}A$</math>. That is, <math display="inline">$A\widehat{\textbf{x}} = \widehat{\textbf{b}}$</math>, and <math display="inline">$\widehat{\textbf{x}}$</math> is a least-squares solution.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Find a least-squares solution of the inconsistent system <math display="inline">$A\textbf{x} = \textbf{b}$</math> for</paragraph>
+              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rr}
+      4 &amp; 0 \\
+      0 &amp; 2 \\
+      1 &amp; 1
+      \end{array} \right\rbrack\text{,~}\quad\textbf{b} = \left\lbrack \begin{array}{r}
+      2 \\
+      0 \\
+      11
+      \end{array} \right\rbrack$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>To use normal equations (3), compute:</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      {A^{T} A} &amp; = &amp; {\left\lbrack \begin{array}{rrr}
+      4 &amp; 0 &amp; 1 \\
+      0 &amp; 2 &amp; 1
+      \end{array} \right\rbrack\,\left\lbrack \begin{array}{rr}
+      4 &amp; 0 \\
+      0 &amp; 2 \\
+      1 &amp; 1
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
+      17 &amp; 1 \\
+      1 &amp; 5
+      \end{array} \right\rbrack} \\
+      {A^{T}\textbf{b}} &amp; = &amp; {\begin{bmatrix}
+      4 &amp; 0 &amp; 1 \\
+      0 &amp; 2 &amp; 1
+      \end{bmatrix}\,\left\lbrack \begin{array}{r}
+      2 \\
+      0 \\
+      11
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      19 \\
+      11
+      \end{array} \right\rbrack}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>Then the equation <math display="inline">$A^{T} A\textbf{x} = A^{T}{\textbf{b}}$</math> becomes</paragraph>
+              <paragraph><math display="block">$$\left\lbrack \begin{array}{rr}
+      17 &amp; 1 \\
+      1 &amp; 5
+      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
+      x_{1} \\
+      x_{2}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      19 \\
+      11
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Row operations can be used to solve this system, but since <math display="inline">$A^{T} A$</math> is invertible and <math display="inline">$2 \times 2$</math>, it is probably faster to compute</paragraph>
+              <paragraph><math display="block">$$\text{(}A^{T}{A\text{)}^{- 1} = \frac{1}{84}\left\lbrack \begin{array}{rr}
+      5 &amp; {- 1} \\
+      {- 1} &amp; 17
+      \end{array} \right\rbrack}$$</math></paragraph>
+              <paragraph>and then to solve <math display="inline">$A^{T} A\textbf{x} = A^{T}{\textbf{b}}$</math> as</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \widehat{\textbf{x}} &amp; = &amp; {{\textbf{(}\mathbf{A}^{T}\mathbf{A}^{- 1}\textbf{)}}\mathbf{A}^{\mathbf{T}}\textbf{b}} \\
+       &amp; = &amp; {\frac{1}{84}\left\lbrack \begin{array}{rr}
+      5 &amp; {- 1} \\
+      {- 1} &amp; {17}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
+      19 \\
+      11
+      \end{array} \right\rbrack = \frac{1}{84}\left\lbrack \begin{array}{r}
+      84 \\
+      168
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      1 \\
+      2
+      \end{array} \right\rbrack}
+      \end{matrix}$$</math></paragraph>
+        </example>
+      <paragraph>In many calculations, <math display="inline">$A^{T} A$</math> is invertible, but this is not always the case. The next example involves a matrix of the sort that appears in what are called <em>analysis of variance</em> problems in statistics.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Find a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> for</paragraph>
+              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rrrr}
+      1 &amp; 1 &amp; 0 &amp; 0 \\
+      1 &amp; 1 &amp; 0 &amp; 0 \\
+      1 &amp; 0 &amp; 1 &amp; 0 \\
+      1 &amp; 0 &amp; 1 &amp; 0 \\
+      1 &amp; 0 &amp; 0 &amp; 1 \\
+      1 &amp; 0 &amp; 0 &amp; 1
+      \end{array} \right\rbrack\text{,}\quad\textbf{b} = \left\lbrack \begin{array}{r}
+      {- 3} \\
+      {- 1} \\
+      0 \\
+      2 \\
+      5 \\
+      1
+      \end{array} \right\rbrack$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Compute</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      {\textit{A}^{\text{T}}\textit{A}} &amp; = &amp; {\begin{bmatrix}
+      1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\
+      1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1
+      \end{bmatrix}~\begin{bmatrix}
+      1 &amp; 1 &amp; 0 &amp; 0 \\
+      1 &amp; 1 &amp; 0 &amp; 0 \\
+      1 &amp; 0 &amp; 1 &amp; 0 \\
+      1 &amp; 0 &amp; 1 &amp; 0 \\
+      1 &amp; 0 &amp; 0 &amp; 1 \\
+      1 &amp; 0 &amp; 0 &amp; 1
+      \end{bmatrix}~ = ~\begin{bmatrix}
+      6 &amp; 2 &amp; 2 &amp; 2 \\
+      2 &amp; 2 &amp; 0 &amp; 0 \\
+      2 &amp; 0 &amp; 2 &amp; 0 \\
+      2 &amp; 0 &amp; 0 &amp; 2
+      \end{bmatrix}} \\
+      {A^{T}\,\textbf{b}} &amp; = &amp; {\begin{bmatrix}
+      1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\
+      1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1
+      \end{bmatrix}~\left\lbrack \begin{array}{r}
+      {- 3} \\
+      {- 1} \\
+      {~~0} \\
+      {~~2} \\
+      {~~5} \\
+      {~~1}
+      \end{array} \right\rbrack~ = \,\,\,\begin{bmatrix}
+      {~~~4} \\
+      {- 4} \\
+      {~~~2} \\
+      {~~~6}
+      \end{bmatrix}}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>The augmented matrix for <math display="inline">$A^{T} A\textbf{x} = A^{T}{\textbf{b}}$</math> is</paragraph>
+              <paragraph><math display="block">$$\left\lbrack \begin{array}{rrrrr}
+      6 &amp; 2 &amp; 2 &amp; 2 &amp; 4 \\
+      2 &amp; 2 &amp; 0 &amp; 0 &amp; {- 4} \\
+      2 &amp; 0 &amp; 2 &amp; 0 &amp; 2 \\
+      2 &amp; 0 &amp; 0 &amp; 2 &amp; 6
+      \end{array} \right\rbrack \sim \left\lbrack \begin{array}{rrrrr}
+      1 &amp; 0 &amp; 0 &amp; 1 &amp; 3 \\
+      0 &amp; 1 &amp; 0 &amp; {- 1} &amp; {- 5} \\
+      0 &amp; 0 &amp; 1 &amp; {- 1} &amp; {- 2} \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>The general solution is <math display="inline">$x_{1} = 3 - x_{4}$</math>, <math display="inline">$x_{2} = - 5 + x_{4}$</math>, <math display="inline">$x_{3} = - 2 + x_{4}$</math>, and <math display="inline">$x_{4}$</math> is free. So the general least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> has the form</paragraph>
+              <paragraph><math display="block">$$\widehat{\textbf{x}} = \left\lbrack \begin{array}{r}
+      3 \\
+      {- 5} \\
+      {- 2} \\
+      0
+      \end{array} \right\rbrack + x_{4}\left\lbrack \begin{array}{r}
+      {- 1} \\
+      1 \\
+      1 \\
+      1
+      \end{array} \right\rbrack$$</math></paragraph>
+        </example>
+      <paragraph>The next theorem gives useful criteria for determining when there is only one least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math>. (Of course, the orthogonal projection <math display="inline">$\widehat{\textbf{b}}$</math> is always unique.)</paragraph>
+      <note type="procedure" title="Theorem 14">
+          <heading level="2">Theorem 14</heading>
+              <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$m \times n$</math> matrix. The following statements are logically equivalent:</paragraph>
+          <list ordered="true">
+                  <item>The equation Ax=b has a unique least-squares solution for each b in ℝm.</item>
+                  <item>The columns of A are linearly independent.</item>
+                  <item>The matrix ATA is invertible.</item>
+          </list>
+              <paragraph>When these statements are true, the least-squares solution <math display="inline">$\widehat{\textbf{x}}$</math> is given by</paragraph>
+              <paragraph><math display="block">$$\widehat{\textbf{x}} = \left( A^{T} A)^{- 1}A^{T}\textbf{b} \right.$$</math></paragraph>
+        </note>
+      <paragraph>The main elements of a proof of Theorem 14 are outlined in Exercises 27–29, which also review concepts from Chapter 4. Formula <strong>(4)</strong> for <math display="inline">$\widehat{\textbf{x}}$</math> is useful mainly for theoretical purposes and for hand calculations when <math display="inline">$A^{T} A$</math> is a <math display="inline">$2 \times 2$</math> invertible matrix.</paragraph>
+      <paragraph>When a least-squares solution <math display="inline">$\widehat{\textbf{x}}$</math> is used to produce <math display="inline">$A\widehat{\textbf{x}}$</math> as an approximation to <math display="inline">$\textbf{b}$</math>, the distance from <math display="inline">$\textbf{b}$</math> to <math display="inline">$A\widehat{\textbf{x}}$</math> is called the least-squares error of this approximation.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Given <math display="inline">$A$</math> and <math display="inline">$\textbf{b}$</math> as in Example 1, determine the least-squares error in the least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>From Example ﻿1,</paragraph>
+              <paragraph><math display="block">$$\textbf{b} = \left\lbrack \begin{array}{r}
+      2 \\
+      0 \\
+      11
+      \end{array} \right\rbrack~~~~\text{and}\quad A\widehat{\textbf{x}} = \left\lbrack \begin{array}{rr}
+      4 &amp; 0 \\
+      0 &amp; 2 \\
+      1 &amp; 1
+      \end{array} \right\rbrack~\left\lbrack \begin{array}{r}
+      1 \\
+      2
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      4 \\
+      4 \\
+      3
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Hence</paragraph>
+              <paragraph><math display="block">$$\textbf{b} - A\widehat{\textbf{x}} = \left\lbrack \begin{array}{r}
+      2 \\
+      0 \\
+      11
+      \end{array} \right\rbrack - \left\lbrack \begin{array}{r}
+      4 \\
+      4 \\
+      3
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      {- 2} \\
+      {- 4} \\
+      8
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>and</paragraph>
+              <paragraph><math display="block">$$\text{∥}\textbf{b} - A\widehat{\textbf{x}}\text{∥} = \sqrt{\left( {- 2} \right)^{2} + \left( {- 4} \right)^{2} + 8^{2}} = \sqrt{84}$$</math></paragraph>
+              <paragraph>The least-squares error is <math display="inline">$\sqrt{84}$</math>. For any <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℝ}^{2}$</math>, the distance between <math display="inline">$\textbf{b}$</math> and the vector <math display="inline">$A\textbf{x}$</math> is at least <math display="inline">$\sqrt{84}$</math>. See <strong>Figure 3</strong>. Note that the least-squares solution <math display="inline">$\widehat{\textbf{x}}$</math> itself does not appear in the figure.</paragraph>
+          <figure caption="Figure 3">
+            <image alt="A graph shows three vectors on a rectangular plane lying on a three-dimensional coordinate and a point projecting on one of the vectors."/>
+          </figure>
+        </example>
+      <heading level="2">Alternative Calculations of Least-Squares Solutions</heading>
+      <paragraph>The next example shows how to find a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> when the columns of <math display="inline">$A$</math> are orthogonal. Such matrices often appear in linear regression problems, discussed in the next section.</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Find a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> for</paragraph>
+              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rr}
+      1 &amp; {- 6} \\
+      1 &amp; {- 2} \\
+      1 &amp; 1 \\
+      1 &amp; 7
+      \end{array} \right\rbrack\text{,~}\quad\textbf{b} = \left\lbrack \begin{array}{r}
+      {- 1} \\
+      2 \\
+      1 \\
+      6
+      \end{array} \right\rbrack$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Because the columns <math display="inline">$\textbf{a}_{1}$</math> and <math display="inline">$\textbf{a}_{2}$</math> of <math display="inline">$A$</math> are orthogonal, the orthogonal projection of <math display="inline">$\textbf{b}$</math> onto <math display="inline">$\text{Col~}A$</math> is given by</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      \widehat{\mathbf{b}} &amp; = &amp; {\frac{\mathbf{b} \cdot \mathbf{a}_{1}}{\mathbf{a}_{1} \cdot \mathbf{a}_{1}}\mathbf{a}_{1} + \frac{\mathbf{b} \cdot \mathbf{a}_{2}}{\mathbf{a}_{2} \cdot \mathbf{a}_{2}}\mathbf{a}_{2} = \frac{8}{4}\mathbf{a}_{1} + \frac{45}{90}\mathbf{a}_{2}} \\
+       &amp; = &amp; {\left\lbrack \begin{array}{l}
+      2 \\
+      2 \\
+      2 \\
+      2
+      \end{array} \right\rbrack + \begin{bmatrix}
+      {- 3} \\
+      {- 1} \\
+      {1\text{/}3} \\
+      {7\text{/}2}
+      \end{bmatrix} = \left\lbrack \begin{array}{l}
+      {- 1} \\
+      1 \\
+      {5\text{/}2} \\
+      {11\text{/}2}
+      \end{array} \right\rbrack}
+      \end{array}$$</math></paragraph>
+              <paragraph>Now that <math display="inline">$\widehat{\textbf{b}}$</math> is known, we can solve <math display="inline">$A\widehat{\textbf{x}} = \widehat{\textbf{b}}$</math>. But this is trivial, since we already know what weights to place on the columns of <math display="inline">$A$</math> to produce <math display="inline">$\widehat{\textbf{b}}$</math>. It is clear from (5) that</paragraph>
+              <paragraph><math display="block">$$\widehat{\textbf{x}} = \begin{bmatrix}
+      {8\text{/}4} \\
+      {45\text{/}90}
+      \end{bmatrix} = \begin{bmatrix}
+      2 \\
+      {1\text{/}2}
+      \end{bmatrix}$$</math></paragraph>
+        </example>
+      <paragraph>In some cases, the normal equations for a least-squares problem can be <em>ill-conditioned</em>; that is, small errors in the calculations of the entries of <math display="inline">$A^{T} A$</math> can sometimes cause relatively large errors in the solution <math display="inline">$\widehat{\textbf{x}}$</math>. If the columns of <math display="inline">$A$</math> are linearly independent, the least-squares solution can often be computed more reliably through a QR factorization of <math display="inline">$A$</math> (described in Section 6.4).1<sup/></paragraph>
+      <note type="procedure" title="Theorem ﻿15﻿">
+          <heading level="2">Theorem ﻿15﻿</heading>
+              <paragraph>Given an <math display="inline">$m \times n$</math> matrix <math display="inline">$A$</math> with linearly independent columns, let <math display="inline">$A = QR$</math> be a QR factorization of <math display="inline">$A$</math> as in Theorem 12. Then, for each <math display="inline">$\textbf{b}$</math> in <math display="inline">$\text{ℝ}^{m}$</math>, the equation <math display="inline">$A\textbf{x} = \textbf{b}$</math> has a unique least-squares solution, given by</paragraph>
+              <paragraph><math display="block">$$\widehat{\textbf{x}} = R^{- 1}Q^{T}\mathbf{b}$$</math></paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>Let <math display="inline">$\widehat{\textbf{x}} = R^{- 1}Q^{T}\mathbf{b}$</math>. Then</paragraph>
+      <paragraph>
+        <math display="block">$$A\widehat{\textbf{x}} = QR\widehat{\textbf{x}} = QRR^{- 1}Q^{T}\mathbf{b} = QQ^{T}\mathbf{b}$$</math>
+      </paragraph>
+      <paragraph>By Theorem 12, the columns of <math display="inline">$Q$</math> form an orthonormal basis for <math display="inline">$\text{Col~}A$</math>. Hence, by Theorem 10, <math display="inline">$QQ^{T}\mathbf{b}$</math> is the orthogonal projection <math display="inline">$\widehat{\textbf{b}}$</math> of <math display="inline">$\textbf{b}$</math> onto <math display="inline">$\text{Col~}A$</math>. Then <math display="inline">$A\widehat{\textbf{x}} = \widehat{\textbf{b}}$</math>, which shows that <math display="inline">$\widehat{\textbf{x}}$</math> is a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math>. The uniqueness of <math display="inline">$\widehat{\textbf{x}}$</math> follows from Theorem 14.</paragraph>
+      <note type="caution" title="﻿﻿Numerical Notes﻿">
+          <heading level="2">﻿﻿Numerical Notes﻿</heading>
+              <paragraph>Since <math display="inline">$R$</math> in <strong>Theorem 15</strong> is upper triangular, <math display="inline">$\widehat{\textbf{x}}$</math> should be calculated as the exact solution of the equation</paragraph>
+              <paragraph><math display="block">$$R\textbf{x} = Q^{T}\mathbf{b}$$</math></paragraph>
+              <paragraph>It is much faster to solve (7) by back-substitution or row operations than to compute <math display="inline">$R^{- 1}$</math> and use (6).</paragraph>
+        </note>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>Find the least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> for</paragraph>
+              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rrr}
+      1 &amp; 3 &amp; 5 \\
+      1 &amp; 1 &amp; 0 \\
+      1 &amp; 1 &amp; 2 \\
+      1 &amp; 3 &amp; 3
+      \end{array} \right\rbrack\text{,~}\quad\textbf{b} = \left\lbrack \begin{array}{r}
+      3 \\
+      5 \\
+      7 \\
+      {- 3}
+      \end{array} \right\rbrack$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The QR factorization of <math display="inline">$A$</math> can be obtained as in Section 6.4.</paragraph>
+              <paragraph><math display="block">$$A = QR = \left\lbrack \begin{array}{rrr}
+      {1\text{/}2} &amp; {1\text{/}2} &amp; {1\text{/}2} \\
+      {1\text{/}2} &amp; {- 1\text{/}2} &amp; {- 1\text{/}2} \\
+      {1\text{/}2} &amp; {- 1\text{/}2} &amp; {1\text{/}2} \\
+      {1\text{/}2} &amp; {1\text{/}2} &amp; {- 1\text{/}2}
+      \end{array} \right\rbrack~\left\lbrack \begin{array}{rrr}
+      2 &amp; 4 &amp; 5 \\
+      0 &amp; 2 &amp; 3 \\
+      0 &amp; 0 &amp; 2
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Then</paragraph>
+              <paragraph><math display="block">$$Q^{T}\mathbf{b} = \left\lbrack \begin{array}{rrrr}
+      {1\text{/}2} &amp; {1\text{/}2} &amp; {1\text{/}2} &amp; {1\text{/}2} \\
+      {1\text{/}2} &amp; {- 1\text{/}2} &amp; {- 1\text{/}2} &amp; {1\text{/}2} \\
+      {1\text{/}2} &amp; {- 1\text{/}2} &amp; {1\text{/}2} &amp; {- 1\text{/}2}
+      \end{array} \right\rbrack~\left\lbrack \begin{array}{r}
+      3 \\
+      5 \\
+      7 \\
+      {- 3}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      6 \\
+      {- 6} \\
+      4
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>The least-squares solution <math display="inline">$\widehat{\textbf{x}}$</math> satisfies <math display="inline">$R\textbf{x} = Q^{T}\mathbf{b}$</math>; that is,</paragraph>
+              <paragraph><math display="block">$$\left\lbrack \begin{array}{rrr}
+      2 &amp; 4 &amp; 5 \\
+      0 &amp; 2 &amp; 3 \\
+      0 &amp; 0 &amp; 2
+      \end{array} \right\rbrack~\left\lbrack \begin{array}{r}
+      x_{1} \\
+      x_{2} \\
+      x_{3}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      6 \\
+      {- 6} \\
+      4
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>This equation is solved easily and yields <math display="inline">$\widehat{\textbf{x}} = \left\lbrack \begin{array}{r}
+      10 \\
+      {- 6} \\
+      2
+      \end{array} \right\rbrack$</math>.</paragraph>
+        </example>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Let A=[1−3−3151172] and b=[5−3−5]. Find a least-squares solution of Ax=b, and compute the associated least-squares error.</item>
+                  <item>What can you say about the least-squares solution of Ax=b when b is orthogonal to the columns of A?</item>
+          </list>
+        </note>
+      <paragraph><sup>1</sup> The QR method is compared with the standard normal equation method in G. Golub and C. Van Loan, <em>Matrix Computations</em>, <math display="inline">$\text{3rd}$</math> ed. (Baltimore: Johns Hopkins Press, 1996), pp. 230–231.</paragraph>
+    </content>
+    <exercises title="6.5 Exercises">
+      <heading level="1">6.5 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>In Exercises 1–4, find a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> by (a) constructing the normal equations for <math display="inline">$\widehat{\textbf{x}}$</math> and (b) solving for <math display="inline">$\widehat{\textbf{x}}$</math>.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rr}
+      {- 1} &amp; 2 \\
+      2 &amp; {- 3} \\
+      {- 1} &amp; 3
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      4 \\
+      1 \\
+      2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rr}
+      2 &amp; 1 \\
+      {- 2} &amp; 0 \\
+      2 &amp; 3
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      {- 5} \\
+      8 \\
+      1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rr}
+      1 &amp; {- 2} \\
+      {- 1} &amp; 2 \\
+      0 &amp; 3 \\
+      2 &amp; 5
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      3 \\
+      1 \\
+      {- 4} \\
+      2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rr}
+      1 &amp; 3 \\
+      1 &amp; {- 1} \\
+      1 &amp; 1
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      5 \\
+      1 \\
+      0
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="5">
+                  <instructions>In Exercises 5 and 6, describe all least-squares solutions of the equation <math display="inline">$A\textbf{x} = \textbf{b}$</math>.</instructions>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rrr}
+      1 &amp; 1 &amp; 0 \\
+      1 &amp; 1 &amp; 0 \\
+      1 &amp; 0 &amp; 1 \\
+      1 &amp; 0 &amp; 1
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      1 \\
+      3 \\
+      8 \\
+      2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rrr}
+      1 &amp; 1 &amp; 0 \\
+      1 &amp; 1 &amp; 0 \\
+      1 &amp; 1 &amp; 0 \\
+      1 &amp; 0 &amp; 1 \\
+      1 &amp; 0 &amp; 1 \\
+      1 &amp; 0 &amp; 1
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      7 \\
+      2 \\
+      3 \\
+      6 \\
+      5 \\
+      4
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="7">
+            <problem number="7">
+              <statement>
+                          <paragraph>Compute the least-squares error associated with the least-squares solution found in Exercise 3.</paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph>Compute the least-squares error associated with the least-squares solution found in Exercise 4.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="9">
+                  <instructions>In Exercises 9–12, find (a) the orthogonal projection of <math display="inline">$\textbf{b}$</math> onto <math display="inline">$\text{Col~}A$</math> and (b) a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math>.</instructions>
+            <problem number="9">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rr}
+      1 &amp; 5 \\
+      3 &amp; 1 \\
+      {- 2} &amp; 4
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      4 \\
+      {- 2} \\
+      {- 3}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rr}
+      1 &amp; 2 \\
+      {- 1} &amp; 4 \\
+      1 &amp; 2
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      3 \\
+      {- 1} \\
+      5
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rrr}
+      4 &amp; 0 &amp; 1 \\
+      1 &amp; {- 5} &amp; 1 \\
+      6 &amp; 1 &amp; 0 \\
+      1 &amp; {- 1} &amp; {- 5}
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      9 \\
+      0 \\
+      0 \\
+      0
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rrr}
+      1 &amp; 1 &amp; 0 \\
+      1 &amp; 0 &amp; {- 1} \\
+      0 &amp; 1 &amp; 1 \\
+      {- 1} &amp; 1 &amp; {- 1}
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      2 \\
+      5 \\
+      6 \\
+      6
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="13">
+            <problem number="13">
+              <statement>
+                          <paragraph>Let <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      3 &amp; 4 \\
+      {- 2} &amp; 1 \\
+      3 &amp; 4
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      11 \\
+      {- 9} \\
+      5
+      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u} = \left\lbrack \begin{array}{r}
+      5 \\
+      {- 1}
+      \end{array} \right\rbrack$</math>, and <math display="inline">$\mathbf{v} = \left\lbrack \begin{array}{r}
+      5 \\
+      {- 2}
+      \end{array} \right\rbrack$</math>. Compute <math display="inline">$A\mathbf{u}$</math> and <math display="inline">$A\mathbf{v}$</math>, and compare them with <math display="inline">$\textbf{b}$</math>. Could <math display="inline">$\mathbf{u}$</math> possibly be a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math>? (Answer this without computing a least-squares solution.)</paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph>Let <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      2 &amp; 1 \\
+      {- 3} &amp; {- 4} \\
+      3 &amp; 2
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      5 \\
+      4 \\
+      4
+      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u} = \left\lbrack \begin{array}{r}
+      4 \\
+      {- 5}
+      \end{array} \right\rbrack$</math>, and <math display="inline">$\mathbf{v} = \left\lbrack \begin{array}{r}
+      6 \\
+      {- 5}
+      \end{array} \right\rbrack$</math>. Compute <math display="inline">$A\mathbf{u}$</math> and <math display="inline">$A\mathbf{v}$</math>, and compare them with <math display="inline">$\textbf{b}$</math>. Is it possible that at least one of <math display="inline">$\mathbf{u}$</math> or <math display="inline">$\mathbf{v}$</math> could be a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math>? (Answer this without computing a least-squares solution.)</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="15">
+                  <instructions>In Exercises 15 and 16, use the factorization <math display="inline">$A = Q\mspace{-180mu} R$</math> to find the least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math>.</instructions>
+            <problem number="15">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rr}
+      2 &amp; 3 \\
+      2 &amp; 4 \\
+      1 &amp; 1
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
+      {2\text{/}3} &amp; {- 1\text{/}3} \\
+      {2\text{/}3} &amp; {2\text{/}3} \\
+      {1\text{/}3} &amp; {- 2\text{/}3}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      3 &amp; 5 \\
+      0 &amp; 1
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      7 \\
+      3 \\
+      1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><math display="inline">$A = \left\lbrack \begin{array}{rr}
+      1 &amp; {- 1} \\
+      1 &amp; 4 \\
+      1 &amp; {- 1} \\
+      1 &amp; 4
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
+      {1\text{/}2} &amp; {- 1\text{/}2} \\
+      {1\text{/}2} &amp; {1\text{/}2} \\
+      {1\text{/}2} &amp; {- 1\text{/}2} \\
+      {1\text{/}2} &amp; {1\text{/}2}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      2 &amp; 3 \\
+      0 &amp; 5
+      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{b} = \left\lbrack \begin{array}{r}
+      {- 1} \\
+      6 \\
+      5 \\
+      7
+      \end{array} \right\rbrack$</math>﻿</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="17">
+                  <instructions>In Exercises 17–26, <math display="inline">$A$</math> is an <math display="inline">$m \times n$</math> matrix and <math display="inline">$\textbf{b}$</math> is in <math display="inline">$\text{ℝ}^{m}$</math>. Mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
+            <problem number="17">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The general least-squares problem is to find an <math display="inline">$\textbf{x}$</math> that makes <math display="inline">$A\textbf{x}$</math> as close as possible to <math display="inline">$\textbf{b}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\textbf{b}$</math> is in the column space of <math display="inline">$A$</math>, then every solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> is a least-squares solution.</paragraph>
+              </statement>
+            </problem>
+            <problem number="19">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> is a vector <math display="inline">$\widehat{\textbf{x}}$</math> that satisfies <math display="inline">$A\widehat{\textbf{x}} = \widehat{\textbf{b}}$</math>, where <math display="inline">$\widehat{\textbf{b}}$</math> is the orthogonal projection of <math display="inline">$\textbf{b}$</math> onto <math display="inline">$\text{Col~}A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> is a vector <math display="inline">$\widehat{\textbf{x}}$</math> such that <math display="inline">$\parallel \textbf{b} - A\textbf{x} \parallel \leq \parallel {\textbf{b} - A\widehat{\textbf{x}}} \parallel$</math> for all <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="21">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> Any solution of <math display="inline">$A^{T}A\textbf{x} = A^{T}\textbf{b}$</math> is a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If the columns of <math display="inline">$A$</math> are linearly independent, then the equation <math display="inline">$A\textbf{x} = \textbf{b}$</math> has exactly one least-squares solution.</paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> is the point in the column space of <math display="inline">$A$</math> closest to <math display="inline">$\textbf{b}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> is a list of weights that, when applied to the columns of <math display="inline">$A$</math>, produces the orthogonal projection of <math display="inline">$\textbf{b}$</math> onto <math display="inline">$\text{Col~}A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="25">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The normal equations always provide a reliable method for computing least-squares solutions.</paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$A$</math> has a QR factorization, say <math display="inline">$A = QR$</math>, then the best way to find the least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> is to compute <math display="inline">$\widehat{\textbf{x}} = R^{- 1}Q^{T}\textbf{b}$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="27">
+            <problem number="27">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$m \times n$</math> matrix. Use the steps below to show that a vector <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> satisfies <math display="inline">$A\textbf{x} = \textbf{0}$</math> if and only if <math display="inline">$A^{T} A\textbf{x} = \textbf{0}$</math>. This will show that <math display="inline">$\text{Nul~}A = \text{Nul~}A^{T} A$</math>.</paragraph>
+                <list ordered="true">
+                              <item>Show that if Ax=0, then ATAx=0.</item>
+                              <item>Suppose ATAx=0. Explain why xTATAx=0, and use this to show that Ax=0.</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$m \times n$</math> matrix such that <math display="inline">$A^{T} A$</math> is invertible. Show that the columns of <math display="inline">$A$</math> are linearly independent. [<em>Careful:</em> You may not assume that <math display="inline">$A$</math> is invertible; it may not even be square.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$m \times n$</math> matrix whose columns are linearly independent. [<em>Careful:</em> <math display="inline">$A$</math> need not be square.]</paragraph>
+                <list ordered="true">
+                              <item>Use Exercise 27 to show that ATA is an invertible matrix.</item>
+                              <item>Explain why A must have at least as many rows as columns.</item>
+                              <item>Determine the rank of A.</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph>Use Exercise 27 to show that <math display="inline">$\text{rank~}A^{T} A = \text{rank~}A$</math>. [<em>Hint</em>: How many columns does <math display="inline">$A^{T} A$</math> have? How is this connected with the rank of <math display="inline">$A^{T} A$</math>?]</paragraph>
+              </statement>
+            </problem>
+            <problem number="31">
+              <statement>
+                          <paragraph>Suppose <math display="inline">$A$</math> is <math display="inline">$m \times n$</math> with linearly independent columns and <math display="inline">$\textbf{b}$</math> is in <math display="inline">$\text{ℝ}^{m}$</math>. Use the normal equations to produce a formula for <math display="inline">$\widehat{\textbf{b}}$</math>, the projection of <math display="inline">$\textbf{b}$</math> onto <math display="inline">$\text{Col~}A$</math>. [<em>Hint</em>: Find <math display="inline">$\widehat{\textbf{x}}$</math> first. The formula does not require an orthogonal basis for <math display="inline">$\text{Col~}A$</math>.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph>Find a formula for the least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> when the columns of <math display="inline">$A$</math> are orthonormal.</paragraph>
+              </statement>
+            </problem>
+            <problem number="33">
+              <statement>
+                          <paragraph>Describe all least-squares solutions of the system <math display="inline">$\textbf{x}~ + \textbf{~y}~ = 2\textbf{x}~ + \textbf{~y}~ = 4$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="34">
+              <statement>
+                          <paragraph><strong>[T]</strong>Example 2 in Section 4.8<strong/>displayed a low-pass linear filter that changed a signal <math display="inline">$\left\{ y_{k} \right\}$</math> into <math display="inline">$\left\{ y_{k + 1} \right\}$</math> and changed a higher-frequency signal <math display="inline">$\left\{ w_{k} \right\}$</math> into the zero signal, where <math display="inline">$y_{k} = \text{cos~}(\pi k/4)$</math> and <math display="inline">$w_{k} = \text{cos~}(3\pi k/4)$</math>. The following calculations will design a filter with approximately those properties. The filter equation is</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

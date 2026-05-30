@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch07" chapter_number="7" unit_code="7.4">
+  <section number="7.4" title="The Singular Value Decomposition">
+    <metadata>
+      <source_pages count="6">
+        <page global_index="376" type="content"/>
+        <page global_index="377" type="content"/>
+        <page global_index="378" type="content"/>
+        <page global_index="379" type="content"/>
+        <page global_index="380" type="exercises"/>
+        <page global_index="381" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">7.4 The Singular Value Decomposition</heading>
+      <video title="Watch Video"/>
+      <paragraph>The diagonalization theorems in Sections 5.3 and 7.1 play a part in many interesting applications. Unfortunately, as we know, not all matrices can be factored as <math display="inline">$A = PDP^{- 1}$</math> with <math display="inline">$D$</math> diagonal. However, a factorization <math display="inline">$A = QDP^{- 1}$</math> <em>is</em> possible for any <math display="inline">$m \times n$</math> matrix <math display="inline">$A$</math>! A special factorization of this type, called the <em>singular value decomposition</em>, is one of the most useful matrix factorizations in applied linear algebra.</paragraph>
+      <paragraph>The singular value decomposition is based on the following property of the ordinary diagonalization that can be imitated for rectangular matrices: The absolute values of the eigenvalues of a symmetric matrix <math display="inline">$A$</math> measure the amounts that <math display="inline">$A$</math> stretches or shrinks certain vectors (the eigenvectors). If <math display="inline">$A\textbf{x} = \text{λ}\textbf{x}$</math> and <math display="inline">$\text{∥}\textbf{x}\text{∥} = 1$</math>, then</paragraph>
+      <paragraph>(1)﻿</paragraph>
+      <paragraph>
+        <math display="block">$$\left. \text{∥}\textit{A}\textbf{x}\text{∥} = \text{∥λ}\textbf{x}\text{∥} = \middle| \text{λ} \middle| ~\text{∥}\textbf{x}\text{∥} = \middle| \text{λ} \right|$$</math>
+      </paragraph>
+      <paragraph>If <math display="inline">$\text{λ}_{1}$</math> is the eigenvalue with the greatest magnitude, then a corresponding unit eigenvector <math display="inline">$\textbf{v}_{1}$</math> identifies a direction in which the stretching effect of <math display="inline">$A$</math> is greatest. That is, the length of <math display="inline">$A\textbf{x}$</math> is maximized when <math display="inline">$\textbf{x} = \textbf{v}_{1}$</math>, and <math display="inline">$\left. \text{∥}\textit{A}\textbf{v}_{1}\text{∥} = \text{|λ}_{1} \right|$</math>, by (1). This description of <math display="inline">$\textbf{v}_{1}$</math> and <math display="inline">$\left| \text{λ}_{1} \right|$</math> has an analogue for rectangular matrices that will lead to the singular value decomposition.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>If <math display="inline">$A = \left\lbrack \begin{array}{rrr}
+      4 &amp; 11 &amp; 14 \\
+      8 &amp; 7 &amp; {- 2}
+      \end{array} \right\rbrack$</math>, then the linear transformation <math display="inline">$\textbf{x}\mapsto A\textbf{x}$</math> maps the unit sphere <math display="inline">$\left\{ \textbf{x}:\text{∥}\textbf{x}\text{∥} = 1 \right\}$</math> in <math display="inline">$\text{ℝ}^{3}$</math> onto an ellipse in <math display="inline">$\text{ℝ}^{2}$</math>, shown in <strong>Figure 1</strong>. Find a unit vector <math display="inline">$\textbf{x}$</math> at which the length <math display="inline">$\parallel A{\textbf{x} \parallel}$</math> is maximized, and compute this maximum length.</paragraph>
+          <heading level="4">Figure 1
+              A transformation from  ℝ3 to  ℝ2</heading>
+          <figure caption="Watch Video">
+            <image alt="Two graphs show transforming a sphere on a three dimensional axis into an ellipse on a two dimensional axis."/>
+          </figure>
+          <heading level="3">Solution</heading>
+              <paragraph>The quantity <math display="inline">$\text{∥}A{\textbf{x}\text{∥}}^{2}$</math> is maximized at the same <math display="inline">$\textbf{x}$</math> that maximizes <math display="inline">$\parallel A\textbf{x} \parallel$</math>, and <math display="inline">$\parallel A\textbf{x} \parallel^{2}$</math> is easier to study. Observe that</paragraph>
+              <paragraph><math display="block">$$\text{∥}\textit{A}\textbf{x}\text{∥}^{2} = {\text{(}A\textbf{x}\text{)}}^{T}\text{(}A\mathbf{x}\text{)} = \textbf{x}^{T}\mspace{-4mu} A^{T}\mspace{-4mu} A\textbf{x} = \textbf{x}^{T}\text{(}A^{T}\mspace{-4mu} A\text{)}\textbf{x}$$</math></paragraph>
+              <paragraph>Also, <math display="inline">$A^{T}\mspace{-4mu} A$</math> is a symmetric matrix, since <math display="inline">$\text{(}A^{T}\mspace{-4mu} A\text{)}^{T} = A^{T}\mspace{-4mu} A^{TT} = A^{T}\mspace{-4mu} A$</math>. So the problem now is to maximize the quadratic form <math display="inline">$\textbf{x}^{T}\textbf{(}A^{T}\mspace{-4mu} A\text{)}\textbf{x}$</math> subject to the constraint <math display="inline">$\text{∥}\textbf{x}\text{∥} = 1$</math>. By Theorem 6 in Section 7.3, the maximum value is the greatest eigenvalue <math display="inline">$\text{λ}_{1}$</math> of <math display="inline">$A^{T}\mspace{-4mu} A$</math>. Also, the maximum value is attained at a unit eigenvector of <math display="inline">$A^{T}A$</math> corresponding to <math display="inline">$\text{λ}_{1}$</math>.</paragraph>
+              <paragraph>For the matrix <math display="inline">$A$</math> in this example,</paragraph>
+              <paragraph><math display="block">$$A^{T}A = \,\,\begin{bmatrix}
+      4 &amp; 8 \\
+      11 &amp; 7 \\
+      14 &amp; {- 2}
+      \end{bmatrix}\begin{bmatrix}
+      4 &amp; 11 &amp; 14 \\
+      8 &amp; 7 &amp; {- 2}
+      \end{bmatrix} = \,\,\begin{bmatrix}
+      80 &amp; 100 &amp; 40 \\
+      100 &amp; 170 &amp; 140 \\
+      40 &amp; 140 &amp; 200
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>The eigenvalues of <math display="inline">$A^{T}A$</math> are <math display="inline">$\text{λ}_{1} = 360$</math>, <math display="inline">$\text{λ}_{2} = 90$</math>, and <math display="inline">$\text{λ}_{3} = 0$</math>. Corresponding unit eigenvectors are, respectively,</paragraph>
+              <paragraph><math display="block">$$\textbf{v}_{1} = \,\,\begin{bmatrix}
+      {1\text{/}3} \\
+      {2\text{/}3} \\
+      {2\text{/}3}
+      \end{bmatrix}\,,\quad\textbf{v}_{2} = \,\,\left\lbrack \begin{array}{r}
+      {- 2\text{/}3} \\
+      {- 1\text{/}3} \\
+      {2\text{/}3}
+      \end{array} \right\rbrack\,,\quad\textbf{v}_{3} = \,\,\left\lbrack \begin{array}{r}
+      {2\text{/}3} \\
+      {- 2\text{/}3} \\
+      {1\text{/}3}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>The maximum value of <math display="inline">$\parallel A{\textbf{x} \parallel}^{2}$</math> is <math display="inline">$360$</math>, attained when <math display="inline">$\textbf{x}$</math> is the unit vector <math display="inline">$\textbf{v}_{1}$</math>. The vector <math display="inline">$A\textbf{v}_{1}$</math> is a point on the ellipse in Figure 1 farthest from the origin, namely</paragraph>
+              <paragraph><math display="block">$$A\textbf{v}_{1} = ~\begin{bmatrix}
+      4 &amp; 11 &amp; 14 \\
+      8 &amp; 7 &amp; {- 2}
+      \end{bmatrix}\begin{bmatrix}
+      {1\text{/}3} \\
+      {2\text{/}3} \\
+      {2\text{/}3}
+      \end{bmatrix}~ = ~\left\lbrack \begin{array}{r}
+      18 \\
+      6
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>For <math display="inline">$\text{∥}\textbf{x}\text{∥} = 1$</math>, the maximum value of <math display="inline">$\parallel A\textbf{x} \parallel$</math> is <math display="inline">$\text{∥}\textit{A}\textbf{v}_{1}\text{∥} = \sqrt{360} = 6\sqrt{10}$</math>.</paragraph>
+        </example>
+      <paragraph><strong>Example 1</strong> suggests that the effect of <math display="inline">$A$</math> on the unit sphere in <math display="inline">$\text{ℝ}^{3}$</math> is related to the quadratic form <math display="inline">$\textbf{x}^{T}(A^{T}A)\textbf{x}$</math>. In fact, the entire geometric behavior of the transformation <math display="inline">$\textbf{x}\mapsto A\textbf{x}$</math> is captured by this quadratic form, as we shall see.</paragraph>
+      <heading level="2">The Singular Values of an m×n Matrix</heading>
+      <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$m \times n$</math> matrix. Then <math display="inline">$A^{T}A$</math> is symmetric and can be orthogonally diagonalized. Let <math display="inline">$\{\textbf{v}_{1},\ldots,\textbf{v}_{n}\}$</math> be an orthonormal basis for <math display="inline">$\text{ℝ}^{n}$</math> consisting of eigenvectors of <math display="inline">$A^{T}A$</math>, and let <math display="inline">$\text{λ}_{1},\ldots,\text{λ}_{n}$</math> be the associated eigenvalues of <math display="inline">$A^{T}A$</math>. Then, for <math display="inline">$1 \leq i \leq n$</math>,</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+      {\text{∥}A\mathbf{v}_{i}\text{∥}^{2}} &amp; = &amp; {{\text{(}A\mathbf{v}_{i}\text{)}}^{T}A\mathbf{v}_{i}} &amp; = &amp; {\mathbf{v}_{i}^{T}A^{T}A\mathbf{v}_{i}} \\
+       &amp; = &amp; {\mathbf{v}_{i}^{T}\text{(λ}_{i}\mathbf{v}_{i}\text{)}} &amp; &amp; {\text{Since~}\mathbf{v}_{i}~\text{is~an~eigenvector~of~}A^{T}\mspace{-4mu} A} \\
+       &amp; = &amp; \text{λ}_{i} &amp; &amp; {\text{Since~}\mathbf{v}_{i}~\text{is~a~unit~vector}}
+      \end{matrix}$$</math>
+      </paragraph>
+      <paragraph>So the eigenvalues of <math display="inline">$A^{T}A$</math> are all nonnegative. By renumbering, if necessary, we may assume that the eigenvalues are arranged so that</paragraph>
+      <paragraph>
+        <math display="block">$$\text{λ}_{1} \geq \text{λ}_{2} \geq \cdots \geq \text{λ}_{n} \geq 0$$</math>
+      </paragraph>
+      <paragraph>The singular values of <math display="inline">$A$</math> are the square roots of the eigenvalues of <math display="inline">$A^{T}A$</math>, denoted by <math display="inline">$\sigma_{1},\ldots,\sigma_{n}$</math>, and they are arranged in decreasing order. That is, <math display="inline">$\sigma_{i} = \sqrt{\text{λ}_{i}}$</math> for <math display="inline">$1 \leq i \leq n$</math>. By equation (2), <em>the singular values of</em><math display="inline">$A$</math><em>are the lengths of the vectors</em> <math display="inline">$A\textbf{v}_{1},\ldots,A\textbf{v}_{n}$</math>.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Let <math display="inline">$A$</math> be the matrix in Example 1. Since the eigenvalues of <math display="inline">$A^{T}A$</math> are <math display="inline">$360$</math>, <math display="inline">$90$</math>, and <math display="inline">$0$</math>, the singular values of <math display="inline">$A$</math> are</paragraph>
+              <paragraph><math display="block">$$\sigma_{1} = \sqrt{360} = 6\sqrt{10},\quad\sigma_{2} = \sqrt{90} = 3\sqrt{10},\quad\sigma_{3} = 0$$</math></paragraph>
+              <paragraph>From Example 1, the first singular value of <math display="inline">$A$</math> is the maximum of <math display="inline">$\parallel A\textbf{x} \parallel$</math> over all unit vectors, and the maximum is attained at the unit eigenvector <math display="inline">$\textbf{v}_{1}$</math>. Theorem 7 in Section 7.3 shows that the second singular value of <math display="inline">$A$</math> is the maximum of <math display="inline">$\parallel A\textbf{x} \parallel$</math> over all unit vectors that are <em>orthogonal to</em> <math display="inline">$\textbf{v}_{1}\text{,}$</math> and this maximum is attained at the second unit eigenvector, <math display="inline">$\textbf{v}_{2}$</math> (Exercise 22). For the <math display="inline">$\textbf{v}_{2}$</math> in Example 1,</paragraph>
+              <paragraph><math display="block">$$A\textbf{v}_{2} = \begin{bmatrix}
+      4 &amp; 11 &amp; 14 \\
+      8 &amp; 7 &amp; {- 2}
+      \end{bmatrix}\left\lbrack \begin{array}{r}
+      {- 2\text{/}3} \\
+      {- 1\text{/}3} \\
+      {2\text{/}3}
+      \end{array} \right\rbrack~ = ~\left\lbrack \begin{array}{r}
+      3 \\
+      {- 9}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>This point is on the minor axis of the ellipse in Figure 1, just as <math display="inline">$A\textbf{v}_{1}$</math> is on the major axis. (See <strong>Figure 2</strong>.) The first two singular values of <math display="inline">$A$</math> are the lengths of the major and minor semiaxes of the ellipse.</paragraph>
+          <figure caption="Figure 2">
+            <image alt="A graph shows an ellipse tilted towards the left."/>
+          </figure>
+        </example>
+      <paragraph>The fact that <math display="inline">$A\textbf{v}_{1}$</math> and <math display="inline">$A\textbf{v}_{2}$</math> are orthogonal in Figure 2 is no accident, as the next theorem shows.</paragraph>
+      <note type="procedure" title="Theorem 9">
+          <heading level="2">Theorem 9</heading>
+              <paragraph>Suppose <math display="inline">$\{\textbf{v}_{1},\ldots,\textbf{v}_{n}\}$</math> is an orthonormal basis of <math display="inline">$\textbf{ℝ}^{n}$</math> consisting of eigenvectors of <math display="inline">$A^{T}A$</math>, arranged so that the corresponding eigenvalues of <math display="inline">$A^{T}A$</math> satisfy <math display="inline">$\text{λ}_{1} \geq \cdots \geq \text{λ}_{n}$</math>, and suppose <math display="inline">$A$</math> has <math display="inline">$r$</math> nonzero singular values. Then <math display="inline">$\{ A\textbf{v}_{1},\ldots,A\textbf{v}_{r}\}$</math> is an orthogonal basis for <math display="inline">$\text{Col\,\,}A$</math>, and <math display="inline">$\text{rank\,\,}A = r$</math>.</paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>Because <math display="inline">$\textbf{v}_{i}$</math> and <math display="inline">$\text{λ}_{j}\textbf{v}_{j}$</math> are orthogonal for <math display="inline">$i \neq j$</math>,</paragraph>
+      <paragraph>
+        <math display="block">$$(A\textbf{v}_{i})^{T}(A\textbf{v}_{j}) = \textbf{v}_{i}^{T}A^{T}A\textbf{v}_{j} = \textbf{v}_{i}^{T}(\text{λ}_{j}\textbf{v}_{j}) = 0$$</math>
+      </paragraph>
+      <paragraph>Thus <math display="inline">$\{ A\textbf{v}_{1},\ldots,A\textbf{v}_{n}\}$</math> is an orthogonal set. Furthermore, since the lengths of the vectors <math display="inline">$A\textbf{v}_{1},\ldots,A\textbf{v}_{n}$</math> are the singular values of <math display="inline">$A$</math>, and since there are <math display="inline">$r$</math> nonzero singular values, <math display="inline">$A\textbf{v}_{i} \neq \textbf{0}$</math> if and only if <math display="inline">$1 \leq i \leq r$</math>. So <math display="inline">$A\textbf{v}_{1},\ldots,A\textbf{v}_{r}$</math> are linearly independent vectors, and they are in <math display="inline">$\text{Col\,\,}A$</math>. Finally, for any <math display="inline">$\textbf{y}$</math> in <math display="inline">$\text{Col\,\,}A$</math>—say, <math display="inline">$\textbf{y} = A\textbf{x}$</math>—we can write <math display="inline">$\textbf{x} = c_{1}\textbf{v}_{1} + \cdots + c_{n}\textbf{v}_{n}$</math>, and</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{cl}
+      \textbf{y} &amp; {= A\textbf{x} = c_{1}A\textbf{v}_{1} + \cdots + c_{r}A\textbf{v}_{r} + c_{r + 1}A\textbf{v}_{r + 1} + \cdots + c_{n}A\textbf{v}_{n}} \\
+       &amp; {= c_{1}A\textbf{v}_{1} + \cdots + c_{r}A\textbf{v}_{r} + 0 + \cdots + 0}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>Thus <math display="inline">$\textbf{y}$</math> is in <math display="inline">$\text{Span}\{ A\textbf{v}_{1},\ldots,A\textbf{v}_{r}\}$</math>, which shows that <math display="inline">$\{ A\textbf{v}_{1},\ldots,A\textbf{v}_{r}\}$</math> is an orthogonal basis for <math display="inline">$\text{Col\,\,}A$</math>. Hence <math display="inline">$\text{rank\,\,}A = \dim\text{Col\,\,}A = r$</math>.</paragraph>
+      <note type="caution" title="Numerical Notes">
+          <heading level="2">Numerical Notes</heading>
+              <paragraph>In some cases, the rank of <math display="inline">$A$</math> may be very sensitive to small changes in the entries of <math display="inline">$A$</math>. The obvious method of counting the number of pivot columns in <math display="inline">$A$</math> does not work well if <math display="inline">$A$</math> is row reduced by a computer. Roundoff error often creates an echelon form with full rank.</paragraph>
+              <paragraph>In practice, the most reliable way to estimate the rank of a large matrix <math display="inline">$A$</math> is to count the number of nonzero singular values. In this case, extremely small nonzero singular values are assumed to be zero for all practical purposes, and the <em>effective rank</em> of the matrix is the number obtained by counting the remaining nonzero singular values.1<sup/></paragraph>
+        </note>
+      <heading level="2">The Singular Value Decomposition</heading>
+      <paragraph>The decomposition of <math display="inline">$A$</math> involves an <math display="inline">$m \times n$</math> “diagonal” matrix <math display="inline">$\text{Σ}$</math> of the form</paragraph>
+      <figure caption="Figure 3">
+          <image alt="A figure shows a 2 by 2 matrix with second column represented as n minus r columns and second row represented as m minus r rows. Sigma equals first row: capital D, 0 second row: 0, 0."/>
+        </figure>
+      <paragraph>where <math display="inline">$D$</math> is an <math display="inline">$r \times r$</math> diagonal matrix for some <math display="inline">$r$</math> not exceeding the smaller of <math display="inline">$m$</math> and <math display="inline">$n$</math>. (If <math display="inline">$r$</math> equals <math display="inline">$m$</math> or <math display="inline">$n$</math> or both, some or all of the zero matrices do not appear.)</paragraph>
+      <note type="procedure" title="Theorem 10">
+          <heading level="2">Theorem 10</heading>
+          <heading level="3">The Singular Value Decomposition</heading>
+              <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$m \times n$</math> matrix with rank <math display="inline">$r$</math>. Then there exists an <math display="inline">$m \times n$</math> matrix <math display="inline">$\text{Σ}$</math> as in (3) for which the diagonal entries in <math display="inline">$D$</math> are the first <math display="inline">$r$</math> singular values of <math display="inline">$A$</math>, <math display="inline">$\sigma_{1} \geq \sigma_{2} \geq \cdots \geq \sigma_{r} &gt; 0$</math>, and there exist an <math display="inline">$m \times m$</math> orthogonal matrix <math display="inline">$U$</math> and an <math display="inline">$n \times n$</math> orthogonal matrix <math display="inline">$V$</math> such that</paragraph>
+              <paragraph><math display="block">$$A = U\text{Σ}V^{T}$$</math></paragraph>
+        </note>
+      <paragraph>Any factorization <math display="inline">$A = U\text{Σ}V^{T}$</math>, with <math display="inline">$U$</math> and <math display="inline">$V$</math> orthogonal, <math display="inline">$\text{Σ}$</math> as in (3), and positive diagonal entries in <math display="inline">$D$</math>, is called a singular value decomposition<strong/> (or <strong>SVD</strong>) of <math display="inline">$A$</math>. The matrices <math display="inline">$U$</math> and <math display="inline">$V$</math> are not uniquely determined by <math display="inline">$A$</math>, but the diagonal entries of <math display="inline">$\text{Σ}$</math> are necessarily the singular values of <math display="inline">$A$</math>. See Exercise 19. The columns of <math display="inline">$U$</math> in such a decomposition are called left singular vectors<strong/> of <math display="inline">$A$</math>, and the columns of <math display="inline">$V$</math> are called right singular vectors<strong/> of <math display="inline">$A$</math>.</paragraph>
+      <heading level="3">Proof</heading>
+      <paragraph>Let <math display="inline">$\text{λ}_{i}$</math> and <math display="inline">$\textbf{v}_{i}$</math> be as in Theorem 9, so that <math display="inline">$\{ A\textbf{v}_{1},\ldots,A\textbf{v}_{r}\}$</math> is an orthogonal basis for <math display="inline">$\text{Col\,\,}A$</math>. Normalize each <math display="inline">$A\textbf{v}_{i}$</math> to obtain an orthonormal basis <math display="inline">$\{\textbf{u}_{1},\ldots,\textbf{u}_{r}\}$</math>, where</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{u}_{i} = \frac{1}{\parallel A\textbf{v}_{i} \parallel}A\textbf{v}_{i} = \frac{1}{\sigma_{i}}A\textbf{v}_{i}$$</math>
+      </paragraph>
+      <paragraph>and</paragraph>
+      <paragraph>﻿(4)</paragraph>
+      <paragraph>
+        <math display="block">$$A\textbf{v}_{i} = \sigma_{i}\textbf{u}_{i}\qquad(1 \leq i \leq r)$$</math>
+      </paragraph>
+      <paragraph>Now extend <math display="inline">$\{\textbf{u}_{1},\ldots,\textbf{u}_{r}\}$</math> to an orthonormal basis <math display="inline">$\{\textbf{u}_{1},\ldots,\textbf{u}_{m}\}$</math> of <math display="inline">$\textbf{ℝ}^{m}$</math>, and let</paragraph>
+      <paragraph>
+        <math display="block">$$U = \left\lbrack \begin{array}{llll}
+      \textbf{u}_{1} &amp; \textbf{u}_{2} &amp; \cdots &amp; \textbf{u}_{m}
+      \end{array} \right\rbrack\quad\text{and}\quad V = \left\lbrack \begin{array}{llll}
+      \textbf{v}_{1} &amp; \textbf{v}_{2} &amp; \cdots &amp; \textbf{v}_{n}
+      \end{array} \right\rbrack$$</math>
+      </paragraph>
+      <paragraph>By construction, <math display="inline">$U$</math> and <math display="inline">$V$</math> are orthogonal matrices. Also, from (4),</paragraph>
+      <paragraph>
+        <math display="block">$$AV = \begin{bmatrix}
+      {A\textbf{v}_{1}} &amp; \cdots &amp; {A\textbf{v}_{r}} &amp; 0 &amp; \cdots &amp; 0
+      \end{bmatrix} = \begin{bmatrix}
+      {\sigma_{1}\textbf{u}_{1}} &amp; \cdots &amp; {\sigma_{r}\textbf{u}_{r}} &amp; 0 &amp; \cdots &amp; 0
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>Let <math display="inline">$D$</math> be the diagonal matrix with diagonal entries <math display="inline">$\sigma_{1},\ldots,\sigma_{r}$</math>, and let <math display="inline">$\text{Σ}$</math> be as in (3) above. Then</paragraph>
+      <figure>
+          <image alt="A figure shows matrix multiplication of 4 row vector and 5 by 6 matrix."/>
+        </figure>
+      <paragraph>Since <math display="inline">$V$</math> is an orthogonal matrix, <math display="inline">$U\text{Σ}V^{T} = AVV^{T} = A$</math>.</paragraph>
+      <paragraph>The next two examples focus attention on the internal structure of a singular value decomposition. An efficient and numerically stable algorithm for this decomposition would use a different approach. See the Numerical Note at the end of the section.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Use the results of Examples 1 and 2 to construct a singular value decomposition of <math display="inline">$A = \left\lbrack \begin{array}{rrr}
+      4 &amp; 11 &amp; 14 \\
+      8 &amp; 7 &amp; {- 2}
+      \end{array} \right\rbrack$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>A construction can be divided into three steps.</paragraph>
+          <note type="margin_note">
+                  <paragraph>STUDY GUIDE offers additional resources for learning to compute an SVD.</paragraph>
+          </note>
+              <paragraph><em>Step 1</em>. <em><strong>Find an orthogonal diagonalization of</strong></em> ﻿<math display="inline">$\textit{\textbf{A}}^{\mathbf{T}}\mspace{-4mu}\textit{\textbf{A}}$</math> That is, find the eigenvalues of ﻿<math display="inline">$\textit{A}^{T}\mspace{-4mu}\textit{A}$</math> and a corresponding orthonormal set of eigenvectors. If <math display="inline">$A$</math> ﻿had only two columns, the calculations could be done by hand. Larger matrices usually require a matrix program. However, for the matrix <math display="inline">$A$</math> here, the eigendata for <math display="inline">$A^{T}\mspace{-4mu} A$</math> ﻿are provided in Example 1﻿.</paragraph>
+              <paragraph><em>Step 2</em>. <em><strong>Set up</strong></em><math display="inline">$\mathbf{V}$</math><em><strong>and ﻿</strong></em><math display="inline">$\textbf{Σ}$</math><em><strong>.</strong></em> Arrange the eigenvalues of ﻿<math display="inline">$A^{T}\mspace{-4mu} A$</math> in decreasing order. In Example 1, the eigenvalues are already listed in decreasing order: <math display="inline">$360$</math>, <math display="inline">$90$</math>, and <math display="inline">$0$</math>. The corresponding unit eigenvectors, <math display="inline">$\mathbf{v}_{1}$</math>﻿, <math display="inline">$\mathbf{v}_{2}$</math>﻿, and <math display="inline">$\mathbf{v}_{3}$</math>﻿, are the right singular vectors of <math display="inline">$A$</math>﻿. Using Example 1, construct</paragraph>
+              <paragraph><math display="block">$$V = ~\left\lbrack {\textbf{v}_{1}~~\textbf{v}_{2}~~\textbf{v}_{3}} \right\rbrack~ = ~\begin{bmatrix}
+      {1/3} &amp; {- 2/3} &amp; {~~~2/3} \\
+      {2/3} &amp; {- 1/3} &amp; {- 2/3} \\
+      {2/3} &amp; {~~~2/3} &amp; {~~~1/3}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>The square roots of the eigenvalues are the singular values:</paragraph>
+              <paragraph><math display="block">$$\sigma_{1} = 6\sqrt{10},\quad\sigma_{2} = 3\sqrt{10},\quad\sigma_{3} = 0$$</math></paragraph>
+              <paragraph>The nonzero singular values are the diagonal entries of <math display="inline">$D$</math>. The matrix <math display="inline">$\text{Σ}$</math> is the same size as <math display="inline">$A$</math>, with <math display="inline">$D$</math> in its upper left corner and with <math display="inline">$0$</math>’s elsewhere.</paragraph>
+              <paragraph><math display="block">$$D = \begin{bmatrix}
+      {6\sqrt{10}} &amp; 0 \\
+      0 &amp; {3\sqrt{10}}
+      \end{bmatrix},\qquad\text{Σ} = \begin{bmatrix}
+      D &amp; 0
+      \end{bmatrix} = \begin{bmatrix}
+      {6\sqrt{10}} &amp; 0 &amp; 0 \\
+      0 &amp; {3\sqrt{10}} &amp; 0
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph><em>Step 3</em>. <em><strong>Construct</strong></em> <math display="inline">$\mathbf{U}$</math>. When ﻿<math display="inline">$A$</math> has rank ﻿<math display="inline">$r$</math>, the first <math display="inline">$r$</math> columns of ﻿<math display="inline">$U$</math> are the normalized vectors obtained from <math display="inline">$A\textbf{v}_{1},\ldots,A\textbf{v}_{r}$</math>. In this example, <math display="inline">$A$</math> has two nonzero singular values, so <math display="inline">$\text{rank~}A = 2$</math>. Recall from equation (2) and the paragraph before Example 2 that <math display="inline">$\text{∥}\textit{A}\textbf{v}_{1}\text{∥} = \sigma_{1}$</math> and <math display="inline">$\text{∥}\textit{A}\textbf{v}_{2}\text{∥} = \sigma_{2}$</math>. Thus</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \mathbf{u}_{1} &amp; = &amp; {\frac{1}{\sigma_{1}}A\mathbf{v}_{1}} &amp; = &amp; {\frac{1}{6\sqrt{10}}\left\lbrack \begin{array}{r}
+      18 \\
+      6
+      \end{array} \right\rbrack} &amp; = &amp; \left\lbrack \begin{array}{r}
+      {3/\sqrt{10}} \\
+      {1/\sqrt{10}}
+      \end{array} \right\rbrack \\
+      \mathbf{u}_{2} &amp; = &amp; {\frac{1}{\sigma_{2}}A\mathbf{v}_{2}} &amp; = &amp; {\frac{1}{3\sqrt{10}}\left\lbrack \begin{array}{r}
+      3 \\
+      {- 9}
+      \end{array} \right\rbrack} &amp; = &amp; \left\lbrack \begin{array}{r}
+      {1/\sqrt{10}} \\
+      {- 3/\sqrt{10}}
+      \end{array} \right\rbrack
+      \end{matrix}$$</math></paragraph>
+              <paragraph>Note that <math display="inline">$\left\{ \textbf{u}_{1},\textbf{u}_{2} \right\}$</math>﻿ is already a basis for ﻿<math display="inline">$\text{ℝ}^{2}$</math> . Thus no additional vectors are needed for <math display="inline">$U$</math>, and <math display="inline">$U = \left\lbrack \textbf{u}_{1}\quad\textbf{u}_{2} \right\rbrack$</math>. The singular value decomposition of ﻿<math display="inline">$A$</math> is</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \begin{matrix}
+      A &amp; = &amp; \begin{bmatrix}
+      {3\text{/}\sqrt{10}} &amp; {1\text{/}\sqrt{10}} \\
+      {1\text{/}\sqrt{10}} &amp; {- 3\text{/}\sqrt{10}}
+      \end{bmatrix} &amp; \begin{bmatrix}
+      {6\sqrt{10}} &amp; 0 &amp; 0 \\
+      0 &amp; {3\sqrt{10}} &amp; 0
+      \end{bmatrix} &amp; \begin{bmatrix}
+      {1\text{/}3} &amp; {2\text{/}3} &amp; {2\text{/}3} \\
+      {- 2\text{/}3} &amp; {- 1\text{/}3} &amp; {2\text{/}3} \\
+      {2\text{/}3} &amp; {- 2\text{/}3} &amp; {1\text{/}3}
+      \end{bmatrix} \\
+       &amp; &amp; {\mspace{16mu} \uparrow} &amp; {\mspace{7mu} \uparrow} &amp; {\mspace{9mu} \uparrow} \\
+       &amp; &amp; {\mspace{16mu} U} &amp; {\mspace{7mu}\text{Σ}} &amp; {\mspace{9mu} V^{T}}
+      \end{matrix}
+      \end{matrix}$$</math></paragraph>
+        </example>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Find a singular value decomposition of <math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; {- 1} \\
+      {- 2} &amp; 2 \\
+      2 &amp; {- 2}
+      \end{bmatrix}\,.$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>First, compute <math display="inline">$A^{T}A = \left\lbrack \begin{array}{rr}
+      9 &amp; {- 9} \\
+      {- 9} &amp; 9
+      \end{array} \right\rbrack$</math>. The eigenvalues of <math display="inline">$A^{T}A$</math> are <math display="inline">$18$</math> and <math display="inline">$0$</math>, with corresponding unit eigenvectors</paragraph>
+              <paragraph><math display="block">$$\textbf{v}_{1} = \left\lbrack \begin{array}{r}
+      {1\text{/}\sqrt{2}} \\
+      {- 1\text{/}\sqrt{2}}
+      \end{array} \right\rbrack,\quad\textbf{v}_{2} = \left\lbrack \begin{array}{r}
+      {1\text{/}\sqrt{2}} \\
+      {1\text{/}\sqrt{2}}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>These unit vectors form the columns of <math display="inline">$V$</math>:</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {V = \left\lbrack \begin{array}{ll}
+      \textbf{v}_{1} &amp; \textbf{v}_{2}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
+      {1\sqrt{2}} &amp; {1\sqrt{2}} \\
+      {- 1\sqrt{2}} &amp; {1\sqrt{2}}
+      \end{array} \right\rbrack}
+      \end{array}$$</math></paragraph>
+              <paragraph>The singular values are <math display="inline">$\sigma_{1} = \sqrt{18} = 3\sqrt{2}$</math> and <math display="inline">$\sigma_{2} = 0$</math>. Since there is only one nonzero singular value, the “matrix” <math display="inline">$D$</math> may be written as a single number. That is, <math display="inline">$D = 3\sqrt{2}$</math>. The matrix <math display="inline">$\text{Σ}$</math> is the same size as <math display="inline">$A$</math>, with <math display="inline">$D$</math> in its upper left corner:</paragraph>
+              <paragraph><math display="block">$$\text{Σ} = \begin{bmatrix}
+      D &amp; 0 \\
+      0 &amp; 0 \\
+      0 &amp; 0
+      \end{bmatrix} = \begin{bmatrix}
+      {3\sqrt{2}} &amp; 0 \\
+      0 &amp; 0 \\
+      0 &amp; 0
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>To construct <math display="inline">$U$</math>, first construct <math display="inline">$A\textbf{v}_{1}$</math> and <math display="inline">$A\textbf{v}_{2}$</math>:</paragraph>
+              <paragraph><math display="block">$$A\textbf{v}_{1} = ~\left\lbrack \begin{array}{r}
+      {2\text{/}\sqrt{2}} \\
+      {- 4\text{/}\sqrt{2}} \\
+      {4\text{/}\sqrt{2}}
+      \end{array} \right\rbrack\,,\quad A\textbf{v}_{2} = ~\begin{bmatrix}
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>As a check on the calculations, verify that <math display="inline">$\text{∥}A\textbf{v}_{1}\text{∥} = \sigma_{1} = 3\sqrt{2}$</math>. Of course, <math display="inline">$A\textbf{v}_{2} = \textbf{0}$</math> because <math display="inline">$\text{∥}\textit{A}\textbf{v}_{2}\text{∥} = \sigma_{2} = 0$</math>. The only column found for <math display="inline">$U$</math> so far is</paragraph>
+              <paragraph><math display="block">$$\textbf{u}_{1} = \frac{1}{3\sqrt{2}}A\textbf{v}_{1} = ~\left\lbrack \begin{array}{r}
+      {1\text{/}3} \\
+      {- 2\text{/}3} \\
+      {2\text{/}3}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>The other columns of <math display="inline">$U$</math> are found by extending the set <math display="inline">$\left\{ \textbf{u}_{1}\text{\}} \right.$</math> to an orthonormal basis for <math display="inline">${\mathbb{R}}^{3}$</math>. In this case, we need two orthogonal unit vectors <math display="inline">$\textbf{u}_{2}$</math> and <math display="inline">$\textbf{u}_{3}$</math> that are orthogonal to <math display="inline">$\textbf{u}_{1}$</math>. (See <strong>Figure 3</strong>.) Each vector must satisfy <math display="inline">$\textbf{u}_{1}^{T}\textbf{x} = 0$</math>, which is equivalent to the equation <math display="inline">$x_{1} - 2x_{2} + 2x_{3} = 0$</math>. A basis for the solution set of this equation is</paragraph>
+              <paragraph><math display="block">$$\textbf{w}_{1} = ~\begin{bmatrix}
+      2 \\
+      1 \\
+      0
+      \end{bmatrix}\,,\quad\textbf{w}_{2} = ~\left\lbrack \begin{array}{r}
+      {- 2} \\
+      0 \\
+      1
+      \end{array} \right\rbrack$$</math></paragraph>
+          <figure>
+            <image alt="A figure shows two circles on a two dimensional and a three dimensional graph."/>
+          </figure>
+              <paragraph>(Check that <math display="inline">$\textbf{w}_{1}$</math> and <math display="inline">$\textbf{w}_{2}$</math> are each orthogonal to <math display="inline">$\textbf{u}_{1}$</math>.) Apply the Gram–Schmidt process (with normalizations) to <math display="inline">$\{\textbf{w}_{1},\textbf{w}_{2}\}$</math>, and obtain</paragraph>
+              <paragraph><math display="block">$$\textbf{u}_{2} = \begin{bmatrix}
+      {2\text{/}\sqrt{5}} \\
+      {1\text{/}\sqrt{5}} \\
+      0
+      \end{bmatrix},\quad\textbf{u}_{3} = \left\lbrack \begin{array}{r}
+      {- 2\text{/}\sqrt{45}} \\
+      {4\text{/}\sqrt{45}} \\
+      {5\text{/}\sqrt{45}}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Finally, set <math display="inline">$U = \left\lbrack \begin{array}{rrr}
+      \textbf{u}_{1} &amp; \textbf{u}_{2} &amp; \textbf{u}_{3}
+      \end{array} \right\rbrack$</math>, take <math display="inline">$\text{Σ}$</math> and <math display="inline">$V^{T}$</math> from above, and write</paragraph>
+              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rr}
+      1 &amp; {- 1} \\
+      {- 2} &amp; 2 \\
+      2 &amp; {- 2}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rcr}
+      {1\text{/}3} &amp; {2\text{/}\sqrt{5}} &amp; {- 2\text{/}\sqrt{45}} \\
+      {- 2\text{/}3} &amp; {1\text{/}\sqrt{5}} &amp; {4\text{/}\sqrt{45}} \\
+      {2\text{/}3} &amp; 0 &amp; {5\text{/}\sqrt{45}}
+      \end{array} \right\rbrack\begin{bmatrix}
+      {3\sqrt{2}} &amp; 0 \\
+      0 &amp; 0 \\
+      0 &amp; 0
+      \end{bmatrix}\left\lbrack \begin{array}{rr}
+      {1\text{/}\sqrt{2}} &amp; {- 1\text{/}\sqrt{2}} \\
+      {1\text{/}\sqrt{2}} &amp; {1\text{/}\sqrt{2}}
+      \end{array} \right\rbrack$$</math></paragraph>
+        </example>
+      <heading level="2">Applications of the Singular Value Decomposition</heading>
+      <paragraph>The SVD is often used to estimate the rank of a matrix, as noted above. Several other numerical applications are described briefly below, and an application to image processing is presented in Section 7.5.</paragraph>
+      <example number="5" title="(The Condition Number)">
+          <heading level="2">Example 5 (The Condition Number)</heading>
+              <paragraph>Most numerical calculations involving an equation <math display="inline">$A\textbf{x} = \textbf{b}$</math> are as reliable as possible when the SVD of <math display="inline">$A$</math> is used. The two orthogonal matrices <math display="inline">$U$</math> and <math display="inline">$V$</math> do not affect lengths of vectors or angles between vectors (Theorem 7 in Section 6.2). Any possible instabilities in numerical calculations are identified in <math display="inline">$\text{Σ}$</math>. If the singular values of <math display="inline">$A$</math> are extremely large or small, roundoff errors are almost inevitable, but an error analysis is aided by knowing the entries in <math display="inline">$\text{Σ}$</math> and <math display="inline">$V$</math>.</paragraph>
+              <paragraph>If <math display="inline">$A$</math> is an invertible <math display="inline">$n \times n$</math> matrix, then the ratio <math display="inline">$\sigma_{1}\text{/}\sigma_{n}$</math> of the largest and smallest singular values gives the condition number of <math display="inline">$A$</math>. Exercises 50–52 in Section 2.3 showed how the condition number affects the sensitivity of a solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math> to changes (or errors) in the entries of <math display="inline">$A$</math>. (Actually, a “condition number” of <math display="inline">$A$</math> can be computed in several ways, but the definition given here is widely used for studying <math display="inline">$A\textbf{x} = \textbf{b}$</math>.)</paragraph>
+        </example>
+      <example number="6" title="(Bases for Fundamental Subspaces)">
+          <heading level="2">Example 6 (Bases for Fundamental Subspaces)</heading>
+              <paragraph>Given an SVD for an <math display="inline">$m \times n$</math> matrix <math display="inline">$A$</math>, let <math display="inline">$\textbf{u}_{1},\ldots,\textbf{u}_{m}$</math> be the left singular vectors, <math display="inline">$\textbf{v}_{1},\ldots,\textbf{v}_{n}$</math> the right singular vectors, and <math display="inline">$\sigma_{1},\ldots,\sigma_{n}$</math> the singular values, and let <math display="inline">$r$</math> be the rank of <math display="inline">$A$</math>. By Theorem 9,</paragraph>
+              <paragraph><math display="block">$$\{\textbf{u}_{1},\ldots,\textbf{u}_{r}\}$$</math></paragraph>
+              <paragraph>is an orthonormal basis for <math display="inline">$\text{Col\,\,}A$</math>.</paragraph>
+              <paragraph>Recall from Theorem 3 in Section 6.1 that <math display="inline">$\text{(Col\,\,}A\text{)}^{\bot} = \text{Nul\,\,}A^{T}$</math>. Hence</paragraph>
+              <paragraph><math display="block">$$\{\textbf{u}_{r + 1},\ldots,\textbf{u}_{m}\}$$</math></paragraph>
+              <paragraph>is an orthonormal basis for <math display="inline">$\text{Nul\,\,}A^{T}$</math>.</paragraph>
+              <paragraph>Since <math display="inline">$\text{∥}\textit{A}\textbf{v}_{i}\text{∥} = \sigma_{i}$</math> for <math display="inline">$1 \leq i \leq n$</math>, and <math display="inline">$\sigma_{i}$</math> is <math display="inline">$0$</math> if and only if <math display="inline">$i &gt; r$</math>, the vectors <math display="inline">$\textbf{v}_{r + 1},\ldots,\textbf{v}_{n}$</math> span a subspace of <math display="inline">$\text{Nul\,\,}A$</math> of dimension <math display="inline">$n - r$</math>. By the Rank Theorem, <math display="inline">$\dim\text{Nul\,\,}A = n - \text{rank\,\,}A$</math>. It follows that</paragraph>
+              <paragraph><math display="block">$$\{\textbf{v}_{r + 1},\ldots,\textbf{v}_{n}\}$$</math></paragraph>
+              <paragraph>is an orthonormal basis for <math display="inline">$\text{Nul}A$</math>, by the Basis Theorem (in Section 4.5).</paragraph>
+              <paragraph>From (5) and (6), the orthogonal complement of <math display="inline">$\text{Nul\,\,}A^{T}$</math> is <math display="inline">$\text{Col\,\,}A$</math>. Interchanging <math display="inline">$A$</math> and <math display="inline">$A^{T}$</math>, note that <math display="inline">$\text{(Nul\,\,}A\text{)}^{\bot} = \text{Col\,\,}A^{T} = \text{Row\,\,}A$</math>. Hence, from (7),</paragraph>
+              <paragraph><math display="block">$$\{\textbf{v}_{1},\ldots,\textbf{v}_{r}\}$$</math></paragraph>
+              <paragraph>is an orthonormal basis for <math display="inline">$\text{Row}A$</math>.</paragraph>
+              <paragraph><strong>Figure 4</strong> summarizes (5)–(8), but shows the orthogonal basis <math display="inline">$\{\sigma_{1}\textbf{u}_{1},\ldots,\sigma_{r}\textbf{u}_{r}\}$</math> for <math display="inline">$\text{Col\,\,}A$</math> instead of the normalized basis, to remind you that <math display="inline">$A\textbf{v}_{i} = \sigma_{i}\textbf{u}_{i}$</math> for <math display="inline">$1 \leq i \leq r$</math>. Explicit orthonormal bases for the four fundamental subspaces determined by <math display="inline">$A$</math> are useful in some calculations, particularly in constrained optimization problems.</paragraph>
+          <figure label="Figure 4" caption="The four fundamental subspaces and the action of  A">
+            <image alt="A figure shows multiplying four fundamental subspaces with distinct entries."/>
+          </figure>
+          <figure>
+            <image alt="A figure shows a circle on a two dimensional graph and a plane on a three dimensional graph."/>
+          </figure>
+        </example>
+      <paragraph>The four fundamental subspaces and the concept of singular values provide the final statements of the Invertible Matrix Theorem. (Recall that statements about <math display="inline">$A^{T}$</math> have been omitted from the theorem to avoid nearly doubling the number of statements.) The other statements were given in Sections 2.3, 2.9, 3.2, 4.5, and 5.2.</paragraph>
+      <note type="procedure" title="Theorem">
+          <heading level="2">Theorem</heading>
+          <heading level="3">The Invertible Matrix Theorem (concluded)</heading>
+              <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> matrix. Then the following statements are each equivalent to the statement that <math display="inline">$A$</math> is an invertible matrix:</paragraph>
+          <list ordered="true">
+                  <item>(Col A)⊥={0}.</item>
+                  <item>(Nul A)⊥=ℝn.</item>
+                  <item>Row A=ℝn.</item>
+                  <item>A has n nonzero singular values.</item>
+          </list>
+        </note>
+      <example number="7" title="(Reduced SVD and the Pseudoinverse of A)">
+          <heading level="2">Example 7 (Reduced SVD and the Pseudoinverse of A)</heading>
+              <paragraph>When <math display="inline">$\text{Σ}$</math> contains rows or columns of zeros, a more compact decomposition of <math display="inline">$A$</math> is possible. Using the notation established above, let <math display="inline">$r = \text{rank\,\,}A$</math>, and partition <math display="inline">$U$</math> and <math display="inline">$V$</math> into submatrices whose first blocks contain <math display="inline">$r$</math> columns:</paragraph>
+              <paragraph><math display="block">$$\begin{array}{ll}
+      {U = \left\lbrack \begin{array}{ll}
+      U_{r} &amp; U_{m - r}
+      \end{array} \right\rbrack,} &amp; {\text{where~}U_{r} = \left\lbrack \begin{array}{lll}
+      \textbf{u}_{1} &amp; \cdots &amp; \textbf{u}_{r}
+      \end{array} \right\rbrack} \\
+      {V = \left\lbrack \begin{array}{ll}
+      V_{r} &amp; V_{n - r}
+      \end{array} \right\rbrack,} &amp; {\text{where~}V_{r} = \left\lbrack \begin{array}{lll}
+      \textbf{v}_{1} &amp; \cdots &amp; \textbf{v}_{r}
+      \end{array} \right\rbrack}
+      \end{array}$$</math></paragraph>
+              <paragraph>Then <math display="inline">$U_{r}$</math> is <math display="inline">$m \times r$</math> and <math display="inline">$V_{r}$</math> is <math display="inline">$n \times r$</math>. (To simplify notation, we consider <math display="inline">$U_{m - r}$</math> or <math display="inline">$V_{n - r}$</math> even though one of them may have no columns.) Then partitioned matrix multiplication shows that</paragraph>
+              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{ll}
+      U_{r} &amp; U_{m - r}
+      \end{array} \right\rbrack\begin{bmatrix}
+      D &amp; 0 \\
+      0 &amp; 0
+      \end{bmatrix}\begin{bmatrix}
+      V_{r}^{T} \\
+      V_{n - r}^{T}
+      \end{bmatrix} = U_{r}DV_{r}^{T}$$</math></paragraph>
+              <paragraph>This factorization of <math display="inline">$A$</math> is called a reduced singular value decomposition of <math display="inline">$A$</math>. Since the diagonal entries in <math display="inline">$D$</math> are nonzero, <math display="inline">$D$</math> is invertible. The following matrix is called the pseudoinverse (also, the Moore–Penrose inverse) of <math display="inline">$A$</math>:</paragraph>
+              <paragraph><math display="block">$$A^{+} = V_{r}D^{- 1}U_{r}^{T}$$</math></paragraph>
+              <paragraph>Supplementary Exercises 28–30 at the end of the chapter explore some of the properties of the reduced singular value decomposition and the pseudoinverse.</paragraph>
+        </example>
+      <example number="8" title="(Least-Squares Solution)">
+          <heading level="2">Example 8 (Least-Squares Solution)</heading>
+              <paragraph>Given the equation <math display="inline">$A\textbf{x} = \textbf{b}$</math>, use the pseudoinverse of <math display="inline">$A$</math> in (10) to define</paragraph>
+              <paragraph><math display="block">$$\widehat{\textbf{x}} = A^{+}\textbf{b} = V_{r}D^{- 1}U_{r}^{T}\textbf{b}$$</math></paragraph>
+              <paragraph>Then, from the SVD in (9),</paragraph>
+              <paragraph><math display="block">$$\begin{array}{cl}
+      {A\widehat{\textbf{x}}} &amp; {= (U_{r}DV_{r}^{T})(V_{r}D^{- 1}U_{r}^{T}\textbf{b})} \\
+       &amp; {= U_{r}{DD}^{- 1}U_{r}^{T}\textbf{b}\mspace{32mu}{\text{Because}\; V_{r}^{T}\; V_{r} = I_{r}}} \\
+       &amp; {= U_{r}U_{r}^{T}\textbf{b}}
+      \end{array}$$</math></paragraph>
+              <paragraph>It follows from (5) that <math display="inline">$U_{r}U_{r}^{T}\textbf{b}$</math> is the orthogonal projection <math display="inline">$\widehat{\textbf{b}}$</math> of <math display="inline">$\textbf{b}$</math> onto <math display="inline">$\text{Col\,\,}A$</math>. (See Theorem 10 in Section 6.3.) Thus <math display="inline">$\widehat{\textbf{x}}$</math> is a least-squares solution of <math display="inline">$A\textbf{x} = \textbf{b}$</math>. In fact, this <math display="inline">$\widehat{\textbf{x}}$</math> has the smallest length among all least-squares solutions of <math display="inline">$A\textbf{x} = \textbf{b}$</math>. See Supplementary Exercise 30.</paragraph>
+        </example>
+      <note type="caution" title="Numerical Notes">
+          <heading level="2">Numerical Notes</heading>
+              <paragraph>Examples 1–4﻿ and the exercises illustrate the concept of singular values and suggest how to perform calculations by hand. In practice, the computation of <math display="inline">$A^{T}\mspace{-4mu} A$</math> should be avoided, since any errors in the entries of <math display="inline">$A$</math> are squared in the entries of <math display="inline">$A^{T}\mspace{-4mu} A$</math>. There exist fast iterative methods that produce the singular values and singular vectors of <math display="inline">$A$</math> accurately to many decimal places.</paragraph>
+        </note>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Given a singular value decomposition, A=UΣVT, find an SVD of AT. How are the singular values of A and AT related?</item>
+                  <item>For any n×n matrix A, use the SVD to show that there is an n×n orthogonal matrix Q such that ATA=QT(ATA)Q.</item>
+          </list>
+              <paragraph><em>Remark:</em> Practice Problem 2 establishes that for any <math display="inline">$n \times n$</math> matrix <math display="inline">$A$</math>, the matrices <math display="inline">$AA^{T}$</math> and <math display="inline">$A^{T}\! A$</math> are <em>orthogonally similar</em>.</paragraph>
+        </note>
+      <paragraph><sup>1</sup> In general, rank estimation is not a simple problem. For a discussion of the subtle issues involved, see Philip E. Gill, Walter Murray, and Margaret H. Wright, Numerical Linear Algebra and Optimization, vol. 1 (Redwood City, CA: Addison-Wesley, 1991), Sec. 5.8.</paragraph>
+    </content>
+    <exercises title="7.4 Exercises">
+      <heading level="1">7.4 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>Find the singular values of the matrices in Exercises 1–4.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      1 &amp; 0 \\
+      0 &amp; {- 3}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      {- 3} &amp; 0 \\
+      0 &amp; 0
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      2 &amp; 3 \\
+      0 &amp; 2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      3 &amp; 0 \\
+      8 &amp; 3
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="5">
+                  <instructions>Find an SVD of each matrix in Exercises 5–12. [<em>Hint:</em><strong/>In Exercise 11, one choice for <math display="inline">$U$</math> is] <math display="inline">$\begin{bmatrix}
+      {- 1\text{/}3} &amp; {2\text{/}3} &amp; {2\text{/}3} \\
+      {2\text{/}3} &amp; {- 1\text{/}3} &amp; {2\text{/}3} \\
+      {2\text{/}3} &amp; {2\text{/}3} &amp; {- 1\text{/}3}
+      \end{bmatrix}\,.$</math> In Exercise 12, one column of <math display="inline">$U$</math> can be <math display="inline">$\left\lbrack \begin{array}{r}
+      {1\text{/}\sqrt{6}} \\
+      {- 2\text{/}\sqrt{6}} \\
+      {1\text{/}\sqrt{6}}
+      \end{array} \right\rbrack\,$</math>.﻿</instructions>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      {- 2} &amp; 0 \\
+      0 &amp; 0
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      {- 3} &amp; 0 \\
+      0 &amp; {- 2}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="7">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      2 &amp; {- 1} \\
+      2 &amp; 2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      4 &amp; 6 \\
+      0 &amp; 4
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      3 &amp; {- 3} \\
+      0 &amp; 0 \\
+      1 &amp; 1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      7 &amp; 1 \\
+      5 &amp; 5 \\
+      0 &amp; 0
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      {- 3} &amp; 1 \\
+      6 &amp; {- 2} \\
+      6 &amp; {- 2}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      1 &amp; 1 \\
+      0 &amp; 1 \\
+      {- 1} &amp; 1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="13">
+            <problem number="13">
+              <statement>
+                          <paragraph>Find the SVD of <math display="inline">$A = \left\lbrack \begin{array}{rrr}
+      3 &amp; 2 &amp; 2 \\
+      2 &amp; 3 &amp; {- 2}
+      \end{array} \right\rbrack$</math> [<em>Hint:</em><em><strong/></em>Work with <math display="inline">$A^{T}$</math>.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph>In Exercise 7, find a unit vector <math display="inline">$\textbf{x}$</math> at which <math display="inline">$A\textbf{x}$</math> has maximum length.</paragraph>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph>Suppose the factorization below is an SVD of a matrix <math display="inline">$A$</math>, with the entries in <math display="inline">$U$</math> and <math display="inline">$V$</math> rounded to two decimal places.<math display="block">$$\begin{array}{l}
+      {A = \left\lbrack \begin{array}{rrr}
+      .40 &amp; {- .78} &amp; .47 \\
+      .37 &amp; {- .33} &amp; {- .87} \\
+      {- .84} &amp; {- .52} &amp; {- .16}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{lll}
+      7.10 &amp; 0 &amp; 0 \\
+      0 &amp; 3.10 &amp; 0 \\
+      0 &amp; 0 &amp; 0
+      \end{array} \right\rbrack} \\
+      {\mspace{27mu} \times \left\lbrack \begin{array}{rrr}
+      .30 &amp; {- .51} &amp; {- .81} \\
+      .76 &amp; .64 &amp; {- .12} \\
+      .58 &amp; {- .58} &amp; .58
+      \end{array} \right\rbrack}
+      \end{array}$$</math></paragraph>
+                <list ordered="true">
+                              <item>What is the rank of A?</item>
+                              <item>Use this decomposition of A, with no calculations, to write a basis for Col A and a basis for Nul A. [Hint: First write the columns of V.]</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph>Repeat Exercise 15 for the following SVD of a <math display="inline">$3 \times 4$</math> matrix <math display="inline">$A$</math>:<math display="block">$$\begin{array}{l}
+      {A = \left\lbrack \begin{array}{rrr}
+      {- .86} &amp; {- .11} &amp; {- 50} \\
+      .31 &amp; .68 &amp; {- .67} \\
+      .41 &amp; {- .73} &amp; {- .55}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{llll}
+      12.48 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 6.34 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0
+      \end{array} \right\rbrack} \\
+      {\mspace{27mu} \times \left\lbrack \begin{array}{rrrr}
+      .66 &amp; {- .03} &amp; {- .35} &amp; .66 \\
+      {- .13} &amp; {- .90} &amp; {- .39} &amp; {- .13} \\
+      .65 &amp; .08 &amp; {- .16} &amp; {- .73} \\
+      {- .34} &amp; .42 &amp; {- .84} &amp; {- .08}
+      \end{array} \right\rbrack}
+      \end{array}$$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="17">
+                  <instructions>In Exercises 17–24, <math display="inline">$A$</math> is an <math display="inline">$m \times n$</math> matrix with a singular value decomposition <math display="inline">$A = U\text{Σ}V^{T}$</math>, where <math display="inline">$U$</math> is an <math display="inline">$m \times m$</math> orthogonal matrix, <math display="inline">$\text{Σ}$</math> is an <math display="inline">$m \times n$</math> “diagonal” matrix with <math display="inline">$r$</math> positive entries and no negative entries, and <math display="inline">$V$</math> is an <math display="inline">$n \times n$</math> orthogonal matrix. Justify each answer.</instructions>
+            <problem number="17">
+              <statement>
+                          <paragraph>Show that if <math display="inline">$A$</math> is square, then <math display="inline">$|\det A|$</math> is the product of the singular values of <math display="inline">$A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph>Suppose <math display="inline">$A$</math> is square and invertible. Find a singular value decomposition of <math display="inline">$A^{- 1}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="19">
+              <statement>
+                          <paragraph>Show that the columns of <math display="inline">$V$</math> are eigenvectors of <math display="inline">$A^{T}A$</math>, the columns of <math display="inline">$U$</math> are eigenvectors of <math display="inline">$AA^{T}$</math>, and the diagonal entries of <math display="inline">$\text{Σ}$</math> are the singular values of <math display="inline">$A$</math>. [<em>Hint:</em><strong><em/></strong>Use the SVD to compute <math display="inline">$A^{T}A$</math> and <math display="inline">$AA^{T}$</math>.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph>Show that if <math display="inline">$P$</math> is an orthogonal <math display="inline">$m \times m$</math> matrix, then <math display="inline">$PA$</math> has the same singular values as <math display="inline">$A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="21">
+              <statement>
+                          <paragraph>Justify the statement in Example 2 that the second singular value of a matrix <math display="inline">$A$</math> is the maximum of <math display="inline">$\parallel A\textbf{x} \parallel$</math> as <math display="inline">$\textbf{x}$</math> varies over all unit vectors orthogonal to <math display="inline">$\textbf{v}_{1}$</math>, with <math display="inline">$\textbf{v}_{1}$</math> a right singular vector corresponding to the first singular value of <math display="inline">$A$</math>. [<em>Hint:</em><strong/>Use Theorem 7 in Section 7.3.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph>Show that if <math display="inline">$A$</math> is an <math display="inline">$n \times n$</math> positive definite matrix, then an orthogonal diagonalization <math display="inline">$A = {PDP}^{T}$</math> is a singular value decomposition of <math display="inline">$A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph>Let <math display="inline">$U = \left\lbrack \begin{array}{lll}
+      \textbf{u}_{1} &amp; \cdots &amp; \textbf{u}_{m}
+      \end{array} \right\rbrack$</math> and <math display="inline">$V = \left\lbrack \begin{array}{lll}
+      \textbf{v}_{1} &amp; \cdots &amp; \textbf{v}_{n}
+      \end{array} \right\rbrack$</math>, where the <math display="inline">$\textbf{u}_{i}$</math> and <math display="inline">$\textbf{v}_{i}$</math> are as in Theorem 10. Show that<math display="block">$$A = \sigma_{1}\textbf{u}_{1}\textbf{v}_{1}^{T} + \sigma_{2}\textbf{u}_{2}\textbf{v}_{2}^{T} + \cdots + \sigma_{r}\textbf{u}_{r}\textbf{v}_{r}^{T}$$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph>Using the notation of Exercise 23, show that <math display="inline">$A^{T}\textbf{u}_{j} = \sigma_{j}\textbf{v}_{j}$</math> for <math display="inline">$1 \leq j \leq r = \text{rank\,\,}A$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="25">
+            <problem number="25">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be a linear transformation. Describe how to find a basis <math display="inline">$B$</math> for <math display="inline">$\text{ℝ}^{n}$</math> and a basis <math display="inline">$C$</math> for <math display="inline">$\text{ℝ}^{m}$</math> such that the matrix for <math display="inline">$T$</math> relative to <math display="inline">$B$</math> and <math display="inline">$C$</math> is an <math display="inline">$m \times n$</math> “diagonal” matrix.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="26">
+                  <instructions>Compute an SVD of each matrix in Exercises 26<strong/>and 27. Report the final matrix entries accurate to two decimal places. Use the method of Examples 3 and 4.</instructions>
+            <problem number="26">
+              <statement>
+                          <paragraph><math display="inline">$A = \,\,\begin{bmatrix}
+      {- 18} &amp; 13 &amp; {- 4} &amp; 4 \\
+      2 &amp; 19 &amp; {- 4} &amp; 12 \\
+      {- 14} &amp; 11 &amp; {- 12} &amp; 8 \\
+      {- 2} &amp; 21 &amp; 4 &amp; 8
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="27">
+              <statement>
+                          <paragraph><strong>[T]</strong> <math display="inline">$A = \,\,\begin{bmatrix}
+      6 &amp; {- 8} &amp; {- 4} &amp; 5 &amp; {- 4} \\
+      2 &amp; 7 &amp; {- 5} &amp; {- 6} &amp; 4 \\
+      0 &amp; {- 1} &amp; {- 8} &amp; 2 &amp; 2 \\
+      {- 1} &amp; {- 2} &amp; 4 &amp; 4 &amp; {- 8}
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="28">
+            <problem number="28">
+              <statement>
+                          <paragraph><strong>[T]</strong> Compute the singular values of the <math display="inline">$4 \times 4$</math> matrix in Exercise 9 in Section 2.3, and compute the condition number <math display="inline">$\sigma_{1}\text{/}\sigma_{4}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph><strong>[T]</strong> Compute the singular values of the <math display="inline">$5 \times 5$</math> matrix in Exercise 10 in Section 2.3, and compute the condition number <math display="inline">$\sigma_{1}\text{/}\sigma_{5}$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

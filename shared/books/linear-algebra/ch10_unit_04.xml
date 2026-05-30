@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch10" chapter_number="10" unit_code="10.4">
+  <section number="10.4" title="Classification of States and Periodicity">
+    <metadata>
+      <source_pages count="5">
+        <page global_index="473" type="content"/>
+        <page global_index="474" type="content"/>
+        <page global_index="475" type="content"/>
+        <page global_index="476" type="exercises"/>
+        <page global_index="477" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">10.4 Classification of States and Periodicity</heading>
+      <paragraph>The communication classes of a Markov chain have important properties that help determine whether the state vectors converge to a unique steady-state vector. These properties are studied in this section, and it will be shown that Examples 3, ﻿4, and ﻿5 in Section 10.2 are examples of all the ways that the state vectors of a Markov chain can fail to converge to a unique steady-state vector.</paragraph>
+      <heading level="2">Recurrent and Transient States</heading>
+      <paragraph>One way to describe the communication classes is to determine whether it is possible for the Markov chain to leave the class once it has entered it.</paragraph>
+      <note type="definition" title="Definition">
+          <heading level="2">Definition</heading>
+              <paragraph>Let <math display="inline">$C$</math> be a communication class of states for a Markov chain, and let <math display="inline">$j$</math> be a state in <math display="inline">$C$</math>. If there is a state <math display="inline">$i$</math> not in <math display="inline">$C$</math> and <math display="inline">$k &gt; 0$</math> such that the <math display="inline">$(i,j)$</math>-entry in <math display="inline">$P^{k}$</math> is positive, then the class <math display="inline">$C$</math> is called a <strong>transient class</strong> and each state in <math display="inline">$C$</math> is a <strong>transient state</strong>. If a communication class is not transient, it is called a <strong>recurrent class</strong> and each state in the class is a <strong>recurrent state</strong>.</paragraph>
+        </note>
+      <paragraph>Suppose that <math display="inline">$C$</math> is a transient class. Notice that once the system moves from <math display="inline">$C$</math> to another communication class <math display="inline">$D$</math>, the system can never return to <math display="inline">$C$</math>. This is true because <math display="inline">$D$</math> cannot contain a state <math display="inline">$i$</math> from which it is possible to move to a state in <math display="inline">$C$</math>. If <math display="inline">$D$</math> did contain such a state <math display="inline">$i$</math>, then the transitive property of the communication relation would imply that every state in <math display="inline">$C$</math> communicates with every state in <math display="inline">$D$</math>. This is impossible.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Consider the Markov chain on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> studied in Example 4 in Section 10.3. Its transition diagram is given in <strong>Figure 1</strong>. Determine whether each of the communication classes is transient or recurrent.</paragraph>
+          <figure label="Figure 1" caption="Transition diagram for Example 1">
+            <image alt="A transition diagram shows the transition through 5 states in forward and reverse directions."/>
+          </figure>
+          <heading level="3">Solution</heading>
+              <paragraph>The communication classes were found to be <math display="inline">$\left\{ 1\text{,~}2 \right\}$</math>, <math display="inline">$\{ 3\}$</math>, and <math display="inline">$\left\{ 4\text{,~}5 \right\}$</math>. First consider class <math display="inline">$\{ 3\}$</math>. There is a positive probability of a transition from state <math display="inline">$3$</math> to state <math display="inline">$2$</math>, so applying the definition with <math display="inline">$k = 1$</math> shows that class <math display="inline">$\{ 3\}$</math> is a transient class. Now consider class <math display="inline">$\left\{ 1,2 \right\}$</math>. The probability of a one-step transition from either state <math display="inline">$1$</math> or state <math display="inline">$2$</math> to any of states <math display="inline">$3$</math>, <math display="inline">$4$</math>, or <math display="inline">$5$</math> is zero, and this is also true for any number of steps. If the system starts in state <math display="inline">$1$</math> or <math display="inline">$2$</math>, it will always stay in state <math display="inline">$1$</math> or <math display="inline">$2$</math>. Class <math display="inline">$\left\{ 1\text{,~}2 \right\}$</math> is thus a recurrent class. A similar argument shows that class <math display="inline">$\left\{ 4\text{,~}5 \right\}$</math> is also a recurrent class.</paragraph>
+        </example>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Consider the random walk with reflecting boundaries studied in Example 2 in Section 10.3. Determine whether each of the communication classes is transient or recurrent.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>This Markov chain is irreducible: the single communication class for this chain is <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math>. By the definition, this class cannot be transient. Thus the communication class must be recurrent.</paragraph>
+        </example>
+      <paragraph>The result of the preceding example may be generalized to any irreducible Markov chain.</paragraph>
+      <paragraph><strong/><strong><em>Remark:</em></strong><em/>All states of an irreducible Markov chain are recurrent.</paragraph>
+      <paragraph>Suppose that a reducible Markov chain has two transient classes <math display="inline">$C_{1}$</math> and <math display="inline">$C_{2}$</math> and no recurrent classes. Since <math display="inline">$C_{1}$</math> is transient, there must be a state in <math display="inline">$C_{2}$</math> that can be reached from a state in <math display="inline">$C_{1}$</math>. Since <math display="inline">$C_{2}$</math> is transient, there must be a state in <math display="inline">$C_{1}$</math> that can be reached from <math display="inline">$C_{2}$</math>. Thus all states in <math display="inline">$C_{1}$</math> and <math display="inline">$C_{2}$</math> communicate, which is impossible. Thus the Markov chain must have at least one recurrent class. This argument can be generalized to refer to any reducible Markov chain with any number of transient classes, which along with the previous remark proves the following.</paragraph>
+      <paragraph><strong><em/></strong><strong><em>Remark:</em></strong>Every Markov chain must have at least one recurrent class.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Consider the Markov chain studied in Example 3 in Section 10.3. Determine whether each of the communication classes is transient or recurrent.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The transition matrix for this Markov chain is</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~~~1~~~~~~2~~~~~~~3~~~~~~4~~~~~~~5} \\
+      {P = \left\lbrack \begin{array}{lllll}
+      {1\text{/}4} &amp; {1\text{/}3} &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
+      {1\text{/}4} &amp; {1\text{/}3} &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
+      {1\text{/}2} &amp; {1\text{/}3} &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; {3\text{/}4} \\
+      0 &amp; 0 &amp; 0 &amp; {2\text{/}3} &amp; {1\text{/}4}
+      \end{array} \right\rbrack\begin{array}{l}
+      {~1} \\
+      {~2} \\
+      {~3} \\
+      {~4} \\
+      {~5}
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>and the two communication classes are <math display="inline">$\left\{ 1\text{,~}2\text{,~}3 \right\}$</math> and <math display="inline">$\left\{ 4\text{,~}5 \right\}$</math>. The matrix <math display="inline">$P$</math> may be written as the partitioned matrix <math display="inline">$P = \left\lbrack \begin{array}{ll}
+      P_{1} &amp; O \\
+      O &amp; P_{2}
+      \end{array} \right\rbrack$</math>, where</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \begin{array}{l}
+      {~~~~~~~~~~~~~1~~~~~~2~~~~~~~3} \\
+      {P_{1} = \left\lbrack \begin{array}{lll}
+      {1\text{/4}} &amp; {1\text{/}3} &amp; {1\text{/}2} \\
+      {1\text{/}4} &amp; {1\text{/}3} &amp; {1\text{/}4} \\
+      {1\text{/}2} &amp; {1\text{/}3} &amp; {1\text{/}4}
+      \end{array} \right\rbrack~\begin{array}{l}
+      1 \\
+      2 \\
+      3
+      \end{array}}
+      \end{array} &amp; \begin{array}{l}
+       \\
+      \text{and}
+      \end{array} &amp; \begin{array}{l}
+      \begin{array}{ll}
+      {~~~~~~~~~~~~4~~~} &amp; {~5}
+      \end{array} \\
+      {P_{2} = \left\lbrack \begin{array}{ll}
+      {1\text{/3}} &amp; {3\text{/}4} \\
+      {2\text{/}3} &amp; {1\text{/}4}
+      \end{array} \right\rbrack\begin{array}{l}
+      4 \\
+      5
+      \end{array}}
+      \end{array}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>and <math display="inline">$O$</math> is an appropriately sized zero matrix. Using block multiplication,</paragraph>
+              <paragraph><math display="block">$$P^{k} = \begin{bmatrix}
+      P_{1}^{k} &amp; O \\
+      O &amp; P_{2}^{k}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>for all <math display="inline">$k &gt; 0$</math>. Thus if state <math display="inline">$j$</math> is in one class and state <math display="inline">$i$</math> is in the other class, the <math display="inline">$(i,j)$</math>- and <math display="inline">$(j,i)$</math>-entries of <math display="inline">$P^{k}$</math> are zero for all <math display="inline">$k &gt; 0$</math>. Thus both classes of this Markov chain must be recurrent.</paragraph>
+        </example>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Consider altering the previous example slightly to get a Markov chain with transition matrix</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~~~1~~~~~~2~~~~~~~3~~~~~~4~~~~~~5} \\
+      {P = \left\lbrack \begin{array}{lllll}
+      {1\text{/4}} &amp; {1\text{/}3} &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
+      {1\text{/}4} &amp; {1\text{/3}} &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
+      {1\text{/}2} &amp; {1\text{/}3} &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}4} \\
+      0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}2} \\
+      0 &amp; 0 &amp; 0 &amp; {2\text{/}3} &amp; {1\text{/}4}
+      \end{array} \right\rbrack~\begin{array}{l}
+      1 \\
+      2 \\
+      3 \\
+      4 \\
+      5
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>and the transition diagram given in <strong>Figure</strong><strong>2</strong>. Determine whether each of the communication classes is transient or recurrent.</paragraph>
+          <figure label="Figure 2" caption="Transition diagram for Example 4">
+            <image alt="A transition diagram shows state transition through 5 states in forward and reverse directions."/>
+          </figure>
+          <heading level="3">Solution</heading>
+              <paragraph>The communication classes are still <math display="inline">$\left\{ 1\text{,~}2\text{,~}3 \right\}$</math> and <math display="inline">$\left\{ 4\text{,~}5 \right\}$</math>. Now the <math display="inline">$(3,5)$</math>-entry is not zero, so <math display="inline">$\left\{ 4\text{,~}5 \right\}$</math> is a transient class. The chain must have at least one recurrent class, so <math display="inline">$\left\{ 1\text{,~}2\text{,~}3 \right\}$</math> must be that recurrent class. This result may also be proven using partitioned matrices. Let <math display="inline">$P = \begin{bmatrix}
+      P_{1} &amp; S \\
+      O &amp; Q
+      \end{bmatrix}$</math>, where <math display="inline">$P_{1}$</math> is as in the previous example,</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \begin{array}{l}
+      {~~~~~~~~~~~~4~~~~~~~5} \\
+      {Q = \left\lbrack \begin{array}{ll}
+      {1\text{/3}} &amp; {1\text{/}2} \\
+      {2\text{/}3} &amp; {1\text{/}4}
+      \end{array} \right\rbrack~\begin{array}{l}
+      4 \\
+      5
+      \end{array}}
+      \end{array} &amp; \begin{array}{l}
+       \\
+      \text{and}
+      \end{array} &amp; \begin{array}{l}
+      {~~~~~~~~~~4~~~~~5} \\
+      {S = \left\lbrack \begin{array}{ll}
+      0 &amp; 0 \\
+      0 &amp; 0 \\
+      0 &amp; {1\text{/4}}
+      \end{array} \right\rbrack~\begin{array}{l}
+      1 \\
+      2 \\
+      3
+      \end{array}}
+      \end{array}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>The submatrix <math display="inline">$P_{1}$</math> is a transition matrix in its own right: it describes transitions within the recurrent class <math display="inline">$\left\{ 1\text{,~}2\text{,~}3 \right\}$</math>. Matrix <math display="inline">$S$</math> records the probabilities of transitions from the transient class <math display="inline">$\left\{ 4\text{,~}5 \right\}$</math> into the recurrent class <math display="inline">$\left\{ 1\text{,~}2\text{,~}3 \right\}$</math>. Matrix <math display="inline">$Q$</math> records the probabilities of transitions within the transient class <math display="inline">$\left\{ 4\text{,~}5 \right\}$</math>. Block multiplication now gives</paragraph>
+              <paragraph><math display="block">$$P^{k} = \begin{bmatrix}
+      P_{1}^{k} &amp; S_{k} \\
+      O &amp; Q^{k}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>for some nonzero matrix <math display="inline">$S_{k}$</math>. Since the lower left block is <math display="inline">$O$</math> for all matrices <math display="inline">$P^{k}$</math>, it is impossible to leave class <math display="inline">$\left\{ 1\text{,~}2\text{,~}3 \right\}$</math> after entering it, and class <math display="inline">$\left\{ 1\text{,~}2\text{,~}3 \right\}$</math> is a recurrent class.</paragraph>
+        </example>
+      <paragraph>In <strong>Examples 3</strong> and <strong>4</strong>, the states were ordered so that the members of each class were grouped together. In Example 4, the recurrent classes were listed first followed by the transient classes. This ordering was convenient, as it allowed for the use of partitioned matrices to determine the recurrent and transient classes. It is also possible to use block multiplication to compute powers of the transition matrix <math display="inline">$P$</math> if the states are reordered in the manner done in Examples 3 and 4: the states in each communication class are consecutive, and if there are any transient classes, the recurrent classes are listed first, followed by the transient classes. A transition matrix with its states thus reordered is said to be in <strong>canonical form</strong>. To see how this reordering works, consider the following example.</paragraph>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>The Markov chain in <strong>Example 1</strong> has transition matrix</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~~1~~~2~~~~3~~~~4~~~~5} \\
+      {P = \left\lbrack \begin{array}{lllll}
+      .8 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+      .2 &amp; 0 &amp; .3 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; .6 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; .1 &amp; 0 &amp; .4 \\
+      0 &amp; 0 &amp; 0 &amp; 1 &amp; .6
+      \end{array} \right\rbrack~\begin{array}{l}
+      1 \\
+      2 \\
+      3 \\
+      4 \\
+      5
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>and its communication classes are <math display="inline">$\left\{ 1\text{,~}2 \right\}$</math>, <math display="inline">$\{ 3\}$</math>, and <math display="inline">$\left\{ 4\text{,~}5 \right\}$</math>. To place the matrix in canonical form, reorder the classes <math display="inline">$\left\{ 1\text{,~}2 \right\}$</math>, <math display="inline">$\left\{ 4\text{,~}5 \right\}$</math>, and <math display="inline">$\{ 3\}$</math>; that is, rearrange the states in the order <math display="inline">$1$</math>, <math display="inline">$2$</math>, <math display="inline">$4$</math>, <math display="inline">$5$</math>, <math display="inline">$3$</math>. To perform this rearrangement, first rearrange the columns, which produces the matrix</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~1~~~2~~~~3~~~~4~~~~5~~~~~~~~~~~~~~~~~~~~~~~~~~~~1~~~2~~~~4~~~5~~~~3~~~~} \\
+      {\begin{array}{lll}
+      {\left\lbrack \begin{array}{lllll}
+      .8 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+      .2 &amp; 0 &amp; .3 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; .6 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; .1 &amp; 0 &amp; .4 \\
+      0 &amp; 0 &amp; 0 &amp; 1 &amp; .6
+      \end{array} \right\rbrack~\begin{array}{l}
+      1 \\
+      2 \\
+      3 \\
+      4 \\
+      5
+      \end{array}} &amp; \underset{\text{columns}}{\overset{\text{rearrange}}{\rightarrow}} &amp; \left\lbrack \begin{array}{lllll}
+      .8 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+      .2 &amp; 0 &amp; 0 &amp; 0 &amp; .3 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; .6 \\
+      0 &amp; 0 &amp; 0 &amp; .4 &amp; .1 \\
+      0 &amp; 0 &amp; 1 &amp; .6 &amp; 0
+      \end{array} \right\rbrack
+      \end{array}~\begin{array}{l}
+      1 \\
+      2 \\
+      3 \\
+      4 \\
+      5
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>Now rearranging the rows produces the transition matrix in canonical form:</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~1~~~2~~~~3~~~4~~~~~5~~~~~~~~~~~~~~~~~~~~~~~~~~~~1~~~2~~~4~~~~5~~~~3} \\
+      {\begin{array}{lll}
+      {\left\lbrack \begin{array}{lllll}
+      .8 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+      .2 &amp; 0 &amp; 0 &amp; 0 &amp; .3 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; .6 \\
+      0 &amp; 0 &amp; 0 &amp; .4 &amp; .1 \\
+      0 &amp; 0 &amp; 1 &amp; .6 &amp; 0
+      \end{array} \right\rbrack~\begin{array}{l}
+      1 \\
+      2 \\
+      3 \\
+      4 \\
+      5
+      \end{array}} &amp; \underset{\text{rows}}{\overset{\text{rearrange}}{\rightarrow}} &amp; \left\lbrack \begin{array}{lllll}
+      .8 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+      .2 &amp; 0 &amp; 0 &amp; 0 &amp; .3 \\
+      0 &amp; 0 &amp; 0 &amp; .4 &amp; .1 \\
+      0 &amp; 0 &amp; 1 &amp; .6 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; .6
+      \end{array} \right\rbrack
+      \end{array}~\begin{array}{l}
+      1 \\
+      2 \\
+      4 \\
+      5 \\
+      3
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>The transition matrix may be divided as follows:</paragraph>
+          <figure>
+            <image alt="The figure illustrates a 5 by 5 matrix P."/>
+          </figure>
+        </example>
+      <paragraph>In general, suppose that <math display="inline">$P$</math> is the transition matrix for a reducible Markov chain with <math display="inline">$r$</math> recurrent classes and one or more transient classes. A canonical form of <math display="inline">$P$</math> is</paragraph>
+      <figure>
+          <image alt="The figure illustrates the canonical form of a matrix P."/>
+        </figure>
+      <paragraph>Here <math display="inline">$P_{i}$</math> is the transition matrix for the <math display="inline">$i^{th}$</math> recurrent class, <math display="inline">$O$</math> is an appropriately sized zero matrix, <math display="inline">$Q$</math> records transitions within the transient classes, and <math display="inline">$S$</math> contains the probabilities of transitions from the transient classes to the recurrent classes. Since <math display="inline">$P$</math> is a partitioned matrix, it is relatively easy to take powers of it using block multiplication:</paragraph>
+      <figure>
+          <image alt="The figure illustrates the canonical form of a matrix P superscript k."/>
+        </figure>
+      <paragraph>for some matrix <math display="inline">$S_{k}$</math>. The matrices <math display="inline">$Q$</math>, <math display="inline">$S$</math>, and <math display="inline">$S_{k}$</math> help to answer questions about the long-term behavior of the Markov chain that are addressed in Section 10.5.</paragraph>
+      <heading level="2">Periodicity</heading>
+      <paragraph>A final way of classifying states is to examine at what times it is possible for the system to return to the state in which it begins. Consider the following simple example.</paragraph>
+      <example number="6">
+          <heading level="2">Example 6</heading>
+              <paragraph>A Markov chain on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3 \right\}$</math> has transition matrix</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~1~~~~2~~~3} \\
+      {P = {\left\lbrack \begin{array}{lll}
+      0 &amp; 0 &amp; 1 \\
+      1 &amp; 0 &amp; 0 \\
+      0 &amp; 1 &amp; 0
+      \end{array} \right\rbrack~}\begin{array}{l}
+      1 \\
+      2 \\
+      3
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>The transition diagram, which is shown in <strong>Figure</strong><strong>3</strong>, is quite straightforward. The system must return to its starting point in three steps and every time the number of steps is a multiple of three.</paragraph>
+          <figure label="Figure 3" caption="Transition diagram for Example 6">
+            <image alt="A directed graph with an equilateral triangle of vertices as 1, 2, and 3. The flow is from 1 to 2 with p as 1, from 2 to 3 with p as 1, and from 3 to 1 with p as 1."/>
+          </figure>
+        </example>
+      <example number="7">
+          <heading level="2">Example 7</heading>
+              <paragraph>A Markov chain on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4 \right\}$</math> has transition matrix</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~1~~~~~2~~~~~3~~~4} \\
+      {P = \left\lbrack \begin{array}{llll}
+      0 &amp; 0 &amp; 1 &amp; 0 \\
+      1 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; {1\text{/2}} &amp; 0 &amp; 1 \\
+      0 &amp; {1\text{/2}} &amp; 0 &amp; 0
+      \end{array} \right\rbrack~\begin{array}{l}
+      1 \\
+      2 \\
+      3 \\
+      4
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>and the transition diagram shown in <strong>Figure 4</strong>. If the system starts in state <math display="inline">$1$</math>, <math display="inline">$2$</math>, or <math display="inline">$3$</math>, the system may return to its starting point in three steps or in four steps, and may return every time the number of steps is <math display="inline">$3a + 4b$</math> for some non-negative integers <math display="inline">$a$</math> and <math display="inline">$b$</math>. It can be shown that every positive integer greater than <math display="inline">$5$</math> may be written in that form, so if the system starts in state <math display="inline">$1$</math>, <math display="inline">$2$</math>, or <math display="inline">$3$</math>, it may also return to its starting point at any number of steps greater than <math display="inline">$5$</math>. If the system starts in state <math display="inline">$4$</math>, the system may return to its starting point in four steps or in seven steps, and a similar argument shows that the system may also return to its starting point at any number of steps greater than <math display="inline">$17$</math>.</paragraph>
+          <figure label="Figure 4" caption="Transition diagram for Example 7">
+            <image alt="A figure shows two equilateral triangles with a common base and two common vertices. The vertices of the first triangle are 1, 2, and 3. The vertices of the second triangle are 2, 3, and 4. The side 2 to 3 is the common base."/>
+          </figure>
+        </example>
+      <example number="8">
+          <heading level="2">Example 8</heading>
+              <paragraph>The unbiased random walk on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> with reflecting boundaries has the transition diagram shown in <strong>Figure 5</strong>. From this diagram, one can see that it will always take an even number of steps for the system to return to the state in which it started.</paragraph>
+          <figure label="Figure 5" caption="Unbiased random walk with reflecting boundaries">
+            <image alt="A transition diagram of an unbiased random walk with reflecting boundaries shows 5 state transitions through the channels in forward and reverse directions."/>
+          </figure>
+        </example>
+      <paragraph>In <strong>Examples 6</strong> and 8, the time steps at which the system may return to its initial site are multiples of a number <math display="inline">$d$</math>: <math display="inline">$d = 3$</math> for Example 6, <math display="inline">$d = 2$</math> for <strong>Example 8</strong>. This number <math display="inline">$d$</math> is called the <em>period</em> of the state, and is defined as follows.</paragraph>
+      <note type="definition" title="Definition">
+          <heading level="2">Definition</heading>
+              <paragraph>The <strong>period</strong> <math display="inline">$d$</math> of a state <math display="inline">$i$</math> of a Markov chain is the greatest common divisor of all time steps <math display="inline">$n$</math> such that the probability that the Markov chain that started at <math display="inline">$i$</math> visits <math display="inline">$i$</math> at time step <math display="inline">$n$</math> is strictly positive.</paragraph>
+        </note>
+      <paragraph>Using a careful analysis of the set of states visited by the Markov chain, it may be shown that the period of each state in a given communication class is the same, so the period is a property of communication classes. See Appendix 2 for a proof of this fact, which leads to the following definition.</paragraph>
+      <note type="definition" title="Definition">
+          <heading level="2">Definition</heading>
+              <paragraph>The <strong>period</strong> of a communication class <math display="inline">$C$</math> is the period of each state in <math display="inline">$C$</math>. If a Markov chain is irreducible, then the period of the chain is the period of its single communication class. If the period of every communication class (and thus every state) is <math display="inline">$d = 1$</math>, then the Markov chain is <strong>aperiodic</strong>.</paragraph>
+        </note>
+      <paragraph>The reason that the greatest common divisor appears in the definition is to allow a period to be assigned to all states of all Markov chains. In <strong>Example 7</strong>, the system may return to its starting state after any sufficiently large number of steps, so the period of each state is <math display="inline">$d = 1$</math>. That is, the Markov chain in Example 7 is aperiodic. Notice that this chain does not exhibit periodic behavior, so the term aperiodic is quite apt. Using the definition confirms that the period of the Markov chain in Example 6 is <math display="inline">$d = 3$</math>, while the period of the Markov chain in Example 8 is <math display="inline">$d = 2$</math>. The next theorem describes the transition matrix of an irreducible and aperiodic Markov chain.</paragraph>
+      <note type="procedure" title="Theorem 4">
+          <heading level="2">Theorem 4</heading>
+              <paragraph>Let <math display="inline">$P$</math> be the transition matrix for an irreducible, aperiodic Markov chain. Then <math display="inline">$P$</math> is a regular matrix.</paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>Let <math display="inline">$P$</math> be an <math display="inline">$n \times n$</math> transition matrix for an irreducible, aperiodic Markov chain. To show that <math display="inline">$P$</math> is regular, a number <math display="inline">$k$</math> must be found for which every entry in <math display="inline">$P^{k}$</math> is strictly positive. Let <math display="inline">$1 \leq i$</math>, <math display="inline">$j \leq n$</math>. Since the Markov chain is irreducible, there must be a number <math display="inline">$a$</math> that depends on <math display="inline">$i$</math> and <math display="inline">$j$</math> such that the <math display="inline">$(i,j)\text{-element}$</math> in <math display="inline">$P^{a}$</math> is strictly positive. Since the Markov chain is aperiodic, there is a number <math display="inline">$b$</math> that depends on <math display="inline">$j$</math> such that the <math display="inline">$(j,j)\text{-element}$</math> in <math display="inline">$P^{m}$</math> is strictly positive for all <math display="inline">$m \geq b$</math>. Now note that since <math display="inline">$P^{a + m} = P^{a}P^{m}$</math>, the <math display="inline">$(i,j)\text{-element}$</math> in <math display="inline">$P^{a + m}$</math> must be greater than or equal to the product of the <math display="inline">$(i,j)\text{-element}$</math> in <math display="inline">$P^{a}$</math> and the <math display="inline">$(j,j)\text{-element}$</math> in <math display="inline">$P^{m}$</math>. Thus the <math display="inline">$(i,j)\text{-element}$</math> in <math display="inline">$P^{a + m}$</math> must be strictly positive for all <math display="inline">$m \geq b$</math>. Now let <math display="inline">$k$</math> be the maximum over all pairs <math display="inline">$(i,j)$</math> of the quantity <math display="inline">$a + b$</math>. This maximum exists because the state space is finite, and the <math display="inline">$(i,j)\text{-element}$</math> of <math display="inline">$P^{k}$</math> must be strictly positive for all pairs <math display="inline">$(i,j)$</math>. Thus every entry of <math display="inline">$P^{k}$</math> is strictly positive, and <math display="inline">$P$</math> is a regular matrix.</paragraph>
+      <paragraph>So, if <math display="inline">$P$</math> is the transition matrix for an irreducible, aperiodic Markov chain, then <math display="inline">$P$</math> must be regular and Theorem 1 must apply to <math display="inline">$P$</math>. Thus there is a steady-state vector <math display="inline">$\textbf{q}$</math> for which</paragraph>
+      <paragraph>
+        <math display="block">$$\lim\limits_{n\rightarrow\infty}P^{n}\textbf{x}_{0} = \textbf{q}$$</math>
+      </paragraph>
+      <paragraph>for any choice of initial probability vector <math display="inline">$\textbf{x}_{0}$</math>. What can be said about the steady-state vector <math display="inline">$\textbf{q}$</math> if an irreducible Markov chain has period <math display="inline">$d &gt; 1$</math>? The following result is proven in more advanced texts in probability theory.</paragraph>
+      <note type="procedure" title="Theorem ﻿5﻿">
+          <heading level="2">Theorem ﻿5﻿</heading>
+              <paragraph>Let <math display="inline">$P$</math> be the transition matrix for an irreducible Markov chain with period <math display="inline">$d &gt; 1$</math>, and let <math display="inline">$\textbf{q}$</math> be the steady-state vector for the Markov chain. Then, for any initial probability vector <math display="inline">$\textbf{x}_{0}$</math>,</paragraph>
+              <paragraph><math display="block">$$\lim\limits_{n\rightarrow\infty}\frac{1}{d}\left( {P^{n + 1} + \cdots + P^{n + d}} \right)\,\textbf{x}_{0} = \textbf{q}$$</math></paragraph>
+        </note>
+      <paragraph><strong>Theorem 5</strong> says that in the case of an irreducible Markov chain with period <math display="inline">$d &gt; 1$</math>, the vector <math display="inline">$\textbf{q}$</math> is the limit of the average of the probability vectors <math display="inline">$P^{n + 1}\textbf{x}_{0}$</math>, <math display="inline">$P^{n + 2}\textbf{x}_{0}$</math>, ... , <math display="inline">$P^{n + d}\textbf{x}_{0}$</math>. When a Markov chain is irreducible with period <math display="inline">$d &gt; 1$</math>, the vector <math display="inline">$\textbf{q}$</math> may still be interpreted as a vector of occupation times.</paragraph>
+      <example number="9">
+          <heading level="2">Example 9</heading>
+              <paragraph>The period of the irreducible Markov chain in Example 8 is <math display="inline">$d = 2$</math>, so the Markov chain has period <math display="inline">$d &gt; 1$</math>. Let <math display="inline">$n$</math> be an even integer. Taking high powers of the transition matrix <math display="inline">$P$</math> shows that</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~~~~~~1~~~~~~2~~~~~~3~~~~~~4~~~~~~~5} \\
+      \left. P^{n}\rightarrow\left\lbrack \begin{array}{lllll}
+      {1\text{/4}} &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}4} \\
+      0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 \\
+      {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}2} \\
+      0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 \\
+      {1\text{/}4} &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}4}
+      \end{array} \right\rbrack\begin{array}{l}
+      1 \\
+      2 \\
+      {~3} \\
+      4 \\
+      5
+      \end{array} \right.
+      \end{array}$$</math></paragraph>
+              <paragraph>and</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {~~~~~~~~~~~~~~~~~~1~~~~~~2~~~~~~~3~~~~~~4~~~~~~~5} \\
+      \left. P^{n + 1}\rightarrow\left\lbrack \begin{array}{lllll}
+      0 &amp; {1\text{/4}} &amp; 0 &amp; {1\text{/4}} &amp; 0 \\
+      \text{1/2} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}2} \\
+      0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 \\
+      {1\text{/}2} &amp; 0 &amp; {1\text{/2}} &amp; 0 &amp; {1\text{/2}} \\
+      0 &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}4} &amp; 0
+      \end{array} \right\rbrack\begin{array}{l}
+      1 \\
+      2 \\
+      {~3} \\
+      4 \\
+      5
+      \end{array} \right.
+      \end{array}$$</math></paragraph>
+              <paragraph>So for any initial probability vector <math display="inline">$\textbf{x}_{0}$</math>,</paragraph>
+              <paragraph><math display="block">$$\lim\limits_{n\rightarrow\infty}\frac{1}{2}\,\text{(}P^{n} + P^{n + 1}\text{)\,\,\,}\mathbf{x}_{0} = \begin{bmatrix}
+      {1\text{/8}} &amp; {1\text{/8}} &amp; {1\text{/8}} &amp; {1\text{/8}} &amp; {1\text{/8}} \\
+      {1\text{/4}} &amp; {1\text{/4}} &amp; {1\text{/4}} &amp; {1\text{/4}} &amp; {1\text{/4}} \\
+      {1\text{/4}} &amp; {1\text{/4}} &amp; {1\text{/4}} &amp; {1\text{/4}} &amp; {1\text{/4}} \\
+      {1\text{/4}} &amp; {1\text{/4}} &amp; {1\text{/4}} &amp; {1\text{/4}} &amp; {1\text{/4}} \\
+      {1\text{/8}} &amp; {1\text{/8}} &amp; {1\text{/8}} &amp; {1\text{/8}} &amp; {1\text{/8}}
+      \end{bmatrix}\mathbf{x}_{0} = \begin{bmatrix}
+      {1\text{/8}} \\
+      {1\text{/4}} \\
+      {1\text{/4}} \\
+      {1\text{/4}} \\
+      {1\text{/8}}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>But this vector was the steady-state vector for this Markov chain calculated in <strong>Exercise</strong><strong>36</strong> in Section 10.2. Theorem 5 is thus confirmed in this case.</paragraph>
+        </example>
+      <paragraph>The steady-state vector for a <em>reducible</em> Markov chain will be discussed in detail in the next section.</paragraph>
+      <note type="practice" title="Practice Problem">
+          <heading level="2">Practice Problem</heading>
+          <list ordered="true">
+                  <item>Consider the Markov chain on {1, 2, 3, 4} with transition matrixP = 1/41/31/2001/301/33/401/21/301/301/3 Identify the communication classes of the chain as either recurrent or transient, and reorder the states to produce a matrix in canonical form.</item>
+          </list>
+        </note>
+    </content>
+    <exercises title="10.4 Exercises">
+      <heading level="1">10.4 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>In Exercises 1–6, consider a Markov chain with state space with <math display="inline">$\left\{ 1,2,\ldots,n \right\}$</math> and the given transition matrix. Identify the communication classes for each Markov chain as recurrent or transient, and find the period of each communication class.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      {1\text{/4}} &amp; 0 &amp; {1\text{/}3} \\
+      {1\text{/2}} &amp; 1 &amp; {1\text{/}3} \\
+      {1\text{/}4} &amp; 0 &amp; {1\text{/}3}
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      {1\text{/4}} &amp; {1\text{/}2} &amp; {1\text{/}3} \\
+      {1\text{/}2} &amp; {1\text{/}2} &amp; {1\text{/}3} \\
+      {1\text{/}4} &amp; 0 &amp; {1\text{/}3}
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      1 &amp; {1\text{/2}} &amp; {1\text{/}2} \\
+      0 &amp; {1\text{/}2} &amp; 0 \\
+      0 &amp; 0 &amp; {1\text{/}2}
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 \\
+      {1\text{/3}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      {2\text{/}3} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; {1\text{/}4} &amp; {2\text{/}3} &amp; 0 &amp; 0 \\
+      0 &amp; {3\text{/}4} &amp; {1\text{/}3} &amp; 0 &amp; 0
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      0 &amp; 0 &amp; .4 &amp; 0 &amp; .8 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; .7 &amp; 0 &amp; .5 \\
+      .3 &amp; 0 &amp; 0 &amp; 0 &amp; .2 &amp; 0 \\
+      0 &amp; .1 &amp; 0 &amp; 0 &amp; 0 &amp; .5 \\
+      .7 &amp; 0 &amp; .6 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; .9 &amp; 0 &amp; .3 &amp; 0 &amp; 0
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      0 &amp; {1\text{/3}} &amp; 0 &amp; {2\text{/}3} &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
+      {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0 \\
+      0 &amp; {2\text{/}3} &amp; 0 &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; {2\text{/}5} \\
+      {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {3\text{/}5} \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {2\text{/3}} &amp; 0
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="7">
+                  <instructions>In Exercises 7–10, consider a simple random walk on the given directed graph. Identify the communication classes of this Markov chain as recurrent or transient, and find the period of each communication class.</instructions>
+            <problem number="7">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A rectangle with four vertices 1, 2, 3, and 4 shows a directed flow graph from 1 to 2, 2 to 3, 3 to 4, and 4 to 1 using arrows."/>
+            </figure>
+            <problem number="8">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A figure shows two equilateral triangles with one common vertex. Triangle 1 has 1, 2, and 3 as vertices and the 2nd triangle has 3, 4, and 5 as vertices. The directed flows are indicated in the form of arrows."/>
+            </figure>
+            <problem number="9">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A square with vertices 1, 2, 3, and 4 shows a forward flow arrow from 1 to 2, 1 to 3, 3 to 1, 2 to 4, 4 to 2, 4 to 3 and 1 to 4, which is a diagonal. A line extends from 2 to 5 to the right and a flow is indicated from 2 to 5."/>
+            </figure>
+            <problem number="10">
+              <statement>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A figure shows two equilateral triangles with one common vertex at 3. Triangle 1 has 1, 2 and 3 as vertices and 2nd triangle has 3, 4 and 5 as vertices. The directed flows are indicated in the form of arrows. A line extends from 5 to 6 to the right."/>
+            </figure>
+            <figure>
+              <image alt="A rectangle is divided into 6 blocks 1 to 3 on the top row and 4 to 6 on the bottom row. There is a valve opening from 1 to 4, 5 to 6, and 3 to 6. Also, there is a direct opening between 1 and 2, 2 and 3, 2 and 5, and 4 and 5."/>
+            </figure>
+            <figure>
+              <image alt="A figure shows a square that is divided into four smaller squares 1, 2, 4, and 5. A rhombus named 3 is at the center whose vertices meet the sides of the four squares."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="11">
+            <figure>
+              <image alt="A rectangle with four vertices 1, 2, 3, and 4 shows a directed flow graph from 1 to 2, 2 to 3, 3 to 4, and 4 to 1 using arrows."/>
+            </figure>
+            <figure>
+              <image alt="A figure shows two equilateral triangles with one common vertex. Triangle 1 has 1, 2, and 3 as vertices and the 2nd triangle has 3, 4, and 5 as vertices. The directed flows are indicated in the form of arrows."/>
+            </figure>
+            <figure>
+              <image alt="A square with vertices 1, 2, 3, and 4 shows a forward flow arrow from 1 to 2, 1 to 3, 3 to 1, 2 to 4, 4 to 2, 4 to 3 and 1 to 4, which is a diagonal. A line extends from 2 to 5 to the right and a flow is indicated from 2 to 5."/>
+            </figure>
+            <figure>
+              <image alt="A figure shows two equilateral triangles with one common vertex at 3. Triangle 1 has 1, 2 and 3 as vertices and 2nd triangle has 3, 4 and 5 as vertices. The directed flows are indicated in the form of arrows. A line extends from 5 to 6 to the right."/>
+            </figure>
+            <problem number="11">
+              <statement>
+                          <paragraph>Reorder the states in the Markov chain in Exercise 1 to produce a transition matrix in canonical form.</paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph>Reorder the states in the Markov chain in Exercise 2 to produce a transition matrix in canonical form.</paragraph>
+              </statement>
+            </problem>
+            <problem number="13">
+              <statement>
+                          <paragraph>Reorder the states in the Markov chain in Exercise 3 to produce a transition matrix in canonical form.</paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph>Reorder the states in the Markov chain in Exercise 4 to produce a transition matrix in canonical form.</paragraph>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph>Reorder the states in the Markov chain in Exercise 5 to produce a transition matrix in canonical form.</paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph>Reorder the states in the Markov chain in Exercise 6 to produce a transition matrix in canonical form.</paragraph>
+              </statement>
+            </problem>
+            <problem number="17">
+              <statement>
+                          <paragraph>Find the transition matrix for the Markov chain in Exercise 9 and reorder the states to produce a transition matrix in canonical form.</paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph>Find the transition matrix for the Markov chain in Exercise 10 and reorder the states to produce a transition matrix in canonical form.</paragraph>
+              </statement>
+            </problem>
+            <problem number="19">
+              <statement>
+                          <paragraph>Consider the mouse in the following maze from Section 10.1, Exercise 19.</paragraph>
+                <list ordered="true">
+                              <item>Identify the communication classes of this Markov chain as recurrent or transient.</item>
+                              <item>Find the period of each communication class.</item>
+                              <item>Find the transition matrix for the Markov chain and reorder the states to produce a transition matrix in canonical form.</item>
+                </list>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A rectangle is divided into 6 blocks 1 to 3 on the top row and 4 to 6 on the bottom row. There is a valve opening from 1 to 4, 5 to 6, and 3 to 6. Also, there is a direct opening between 1 and 2, 2 and 3, 2 and 5, and 4 and 5."/>
+            </figure>
+            <problem number="20">
+              <statement>
+                          <paragraph>Consider the mouse in the following maze from Section 10.1, Exercise 20.</paragraph>
+                <list ordered="true">
+                              <item>Identify the communication classes of this Markov chain as recurrent or transient.</item>
+                              <item>Find the period of each communication class.</item>
+                              <item>Find the transition matrix for the Markov chain and reorder the states to produce a transition matrix in canonical form.</item>
+                </list>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="A figure shows a square that is divided into four smaller squares 1, 2, 4, and 5. A rhombus named 3 is at the center whose vertices meet the sides of the four squares."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="21">
+                  <instructions>In Exercises 21–26, mark each statement True or False. Justify each answer.</instructions>
+            <problem number="21">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If two states <math display="inline">$i$</math> and <math display="inline">$j$</math> are both recurrent, then they must belong to the same communication class.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If state <math display="inline">$i$</math> is recurrent and state <math display="inline">$i$</math> communicates with state <math display="inline">$j$</math>, then state <math display="inline">$j$</math> is also recurrent.</paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> All of the states in an irreducible Markov chain are recurrent.</paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If two states of a Markov chain have different periods, then the Markov chain is reducible.</paragraph>
+              </statement>
+            </problem>
+            <problem number="25">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> Every Markov chain must have at least one transient class.</paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> Every Markov chain must have exactly one recurrent class.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="27">
+            <problem number="27">
+              <statement>
+                          <paragraph>Confirm Theorem 5 for the Markov chain in Exercise 7 by taking powers of the transition matrix (see Example 9).</paragraph>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph>Confirm Theorem 5 for the Markov chain in Exercise 8 by taking high powers of the transition matrix (see Example 9).</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph>Consider the Markov chain on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3 \right\}$</math> with transition matrix <math display="inline">$P = \,\,\begin{bmatrix}
+      0 &amp; {1/2} &amp; 0 \\
+      1 &amp; 0 &amp; 1 \\
+      0 &amp; {1/2} &amp; 0
+      \end{bmatrix}$</math></paragraph>
+                <list ordered="true">
+                              <item>Explain why this Markov chain is irreducible and has period 2.</item>
+                              <item>Find a steady-state vector q for this Markov chain.</item>
+                              <item>Find an invertible matrix A and a diagonal matrix D such that P=ADA−1. (See Section 5.3.)</item>
+                              <item>Use the result from part (c) to show that Pn may be written as1/41/41/41/21/21/21/41/41/4 +(-1)n 1/4-1/41/4-1/21/2-1/21/4-1/41/4</item>
+                              <item>Use the result from part (d) to confirm Theorem 5 for P.</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph>Follow the plan of Exercise 29 to confirm Theorem 5 for the Markov chain with transition matrix</paragraph>
+                <list ordered="false">
+                              <item>P = 0p010101-p0</item>
+                              <item>where 0&lt;p&lt;1.﻿</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="31">
+              <statement>
+                          <paragraph>Confirm Theorem 5 for the Markov chain in Example 6.</paragraph>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph>Matrix multiplication can be used to find the canonical form of a transition matrix. Consider the matrix <math display="inline">$P$</math> in Example 5 and the matrix</paragraph>
+                <math display="block">$$E~ = ~\begin{bmatrix}
+      1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+      0 &amp; 0 &amp; 1 &amp; 0 &amp; 0
+      \end{bmatrix}$$</math>
+                <list ordered="false">
+                              <item>Notice that the rows of E ﻿are the rows of the identity matrix in the order 1, 2, 4, 5, 3.﻿</item>
+                </list>
+                <list ordered="true">
+                              <item>Compute EP and explain what has happened to the matrix P.</item>
+                              <item>﻿Compute PET ﻿and explain what has happened to the matrix P.</item>
+                              <item>﻿Compute EPET ﻿and explain what has happened to the matrix P.﻿</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="33">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> matrix and let <math display="inline">$E$</math> be an <math display="inline">$n \times n$</math> matrix resulting from permuting the rows of <math display="inline">$I_{n}$</math>, the <math display="inline">$n \times n$</math> identity matrix. The matrix <math display="inline">$E$</math> is called a <strong>permutation matrix</strong>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

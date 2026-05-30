@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch01" chapter_number="1" unit_code="1.8">
+  <section number="1.8" title="Introduction to Linear Transformations">
+    <metadata>
+      <source_pages count="6">
+        <page global_index="57" type="content"/>
+        <page global_index="58" type="content"/>
+        <page global_index="59" type="content"/>
+        <page global_index="60" type="exercises"/>
+        <page global_index="61" type="exercises"/>
+        <page global_index="62" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">1.8 Introduction to Linear Transformations</heading>
+      <video title="Watch Video"/>
+      <paragraph>The difference between a matrix equation <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> and the associated vector equation <math display="inline">$x_{1}\mathbf{a}_{1} + \cdots + x_{n}\mathbf{a}_{n} = \mathbf{b}$</math> is merely a matter of notation. However, a matrix equation <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> can arise in linear algebra (and in applications such as computer graphics and signal processing) in a way that is not directly connected with linear combinations of vectors. This happens when we think of the matrix <math display="inline">$A$</math> as an object that “acts” on a vector <math display="inline">$\mathbf{x}$</math> by multiplication to produce a new vector called <math display="inline">$A\mathbf{x}$</math>.</paragraph>
+      <paragraph>For instance, the equations</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+      \left\lbrack \begin{array}{rrrrr}
+      4 &amp; {- 3} &amp; &amp; 1 &amp; 3 \\
+      2 &amp; 0 &amp; &amp; 5 &amp; 1
+      \end{array} \right\rbrack &amp; \begin{bmatrix}
+      1 \\
+      1 \\
+      1 \\
+      1
+      \end{bmatrix} &amp; = &amp; \begin{bmatrix}
+      5 \\
+      8
+      \end{bmatrix} &amp; \text{and} &amp; \left\lbrack \begin{array}{rrrrr}
+      4 &amp; {- 3} &amp; &amp; 1 &amp; 3 \\
+      2 &amp; 0 &amp; &amp; 5 &amp; 1
+      \end{array} \right\rbrack &amp; \left\lbrack \begin{array}{r}
+      1 \\
+      4 \\
+      {- 1} \\
+      3
+      \end{array} \right\rbrack &amp; = &amp; \begin{bmatrix}
+      0 \\
+      0
+      \end{bmatrix} \\
+      \left. \uparrow \right. &amp; \uparrow &amp; &amp; \uparrow &amp; &amp; \left. \uparrow \right. &amp; \uparrow &amp; &amp; \uparrow \\
+      {A} &amp; \mathbf{x} &amp; &amp; \mathbf{b} &amp; &amp; {A} &amp; \mathbf{u} &amp; &amp; 0
+      \end{matrix}$$</math>
+      </paragraph>
+      <paragraph>say that multiplication by <math display="inline">$A$</math> transforms <math display="inline">$\mathbf{x}$</math> into <math display="inline">$\mathbf{b}$</math> and transforms <math display="inline">$\mathbf{u}$</math> into the zero vector. See <strong>Figure 1</strong>.</paragraph>
+      <figure caption="Watch Video">
+          <image alt="A figure shows the transformation of vectors via matrix multiplication with two vertical planes and arrows in between."/>
+        </figure>
+      <paragraph>Click here for an interactive version of Figure 1</paragraph>
+      <paragraph>From this new point of view, solving the equation <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> amounts to finding all vectors <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{4}$</math> that are transformed into the vector <math display="inline">$\mathbf{b}$</math> in <math display="inline">$\text{ℝ}^{2}$</math> under the “action” of multiplication by <math display="inline">$A$</math>.</paragraph>
+      <paragraph>The correspondence from <math display="inline">$\mathbf{x}$</math> to <math display="inline">$A\mathbf{x}$</math> is a <em>function</em> from one set of vectors to another. This concept generalizes the common notion of a function as a rule that transforms one real number into another.</paragraph>
+      <paragraph>A ﻿transformation (or function or mapping) <math display="inline">$T$</math> from <math display="inline">$\text{ℝ}^{n}$</math> to <math display="inline">$\text{ℝ}^{m}$</math> is a rule that assigns to each vector <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> a vector <math display="inline">$T(\mathbf{x})$</math> in <math display="inline">$\text{ℝ}^{m}$</math>. The set <math display="inline">$\text{ℝ}^{n}$</math> is called the domain of <math display="inline">$T$</math>, and <math display="inline">$\text{ℝ}^{m}$</math> is called the codomain  of <math display="inline">$T$</math>. The notation <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> indicates that the domain of <math display="inline">$T$</math> is <math display="inline">$\text{ℝ}^{n}$</math> and the codomain is <math display="inline">$\text{ℝ}^{m}$</math>. For <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>, the vector <math display="inline">$T(\mathbf{x})$</math> in <math display="inline">$\text{ℝ}^{m}$</math> is called the image of <math display="inline">$\mathbf{x}$</math> (under the action of <math display="inline">$T$</math>). The set of all images <math display="inline">$T(\mathbf{x})$</math> is called the range of <math display="inline">$T$</math>. See <strong>Figure 2</strong>.</paragraph>
+      <heading level="4">Figure 2
+              Domain, codomain, and range of  T:ℝn→ℝm</heading>
+      <figure label="Figure 1" caption="Transforming vectors via matrix multiplication">
+          <image alt="A figure shows the domain, codomain, and range of T with a plane labeled domain and a cube labeled codomain."/>
+        </figure>
+      <paragraph>Click here for an interactive version of Figure 2</paragraph>
+      <paragraph>The new terminology in this section is important because a dynamic view of matrix–vector multiplication is the key to understanding several ideas in linear algebra and to building mathematical models of physical systems that evolve over time. Such <em>dynamical systems</em> will be discussed in Sections 1.10, 4.8, and throughout Chapter 5.</paragraph>
+      <heading level="2">Matrix Transformations</heading>
+      <paragraph>The rest of this section focuses on mappings associated with matrix multiplication. For each <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>, <math display="inline">$T(\mathbf{x})$</math> is computed as <math display="inline">$A\mathbf{x}$</math>, where <math display="inline">$A$</math> is an <math display="inline">$m \times n$</math> matrix. For simplicity, we sometimes denote such a matrix transformation by <math display="inline">$\mathbf{x}\mapsto A\mathbf{x}$</math>. Observe that the domain of <math display="inline">$T$</math> is <math display="inline">$\text{ℝ}^{n}$</math> when <math display="inline">$A$</math> has <math display="inline">$n$</math> columns and the codomain of <math display="inline">$T$</math> is <math display="inline">$\text{ℝ}^{m}$</math> when each column of <math display="inline">$A$</math> has <math display="inline">$m$</math> entries. The range of <math display="inline">$T$</math> is the set of all linear combinations of the columns of <math display="inline">$A$</math>, because each image <math display="inline">$T(\mathbf{x})$</math> is of the form <math display="inline">$A\mathbf{x}$</math>.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Let <math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; {- 3} \\
+      3 &amp; 5 \\
+      {- 1} &amp; 7
+      \end{bmatrix}$</math>, <math display="inline">$\mathbf{u} = \left\lbrack \begin{array}{r}
+      2 \\
+      {- 1}
+      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{b} = \,\,\left\lbrack \begin{array}{r}
+      3 \\
+      2 \\
+      {- 5}
+      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{c} = \,\,\begin{bmatrix}
+      3 \\
+      2 \\
+      5
+      \end{bmatrix}$</math>, and define a transformation <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{3}$</math> by <math display="inline">$T(\mathbf{x}) = A\mathbf{x}$</math>, so that</paragraph>
+              <paragraph><math display="block">$$T\text{(}\mathbf{x}\textbf{)} = A\mathbf{x} = \,\,\begin{bmatrix}
+      1 &amp; {- 3} \\
+      3 &amp; 5 \\
+      {- 1} &amp; 7
+      \end{bmatrix}\begin{bmatrix}
+      x_{1} \\
+      x_{2}
+      \end{bmatrix} = \,\,\left\lbrack \begin{array}{r}
+      {x_{1} - 3x_{2}} \\
+      {3x_{1} + 5x_{2}} \\
+      {- x_{1} + 7x_{2}}
+      \end{array} \right\rbrack$$</math></paragraph>
+          <list ordered="true">
+                  <item>Find T(u), the image of u under the transformation T.</item>
+                  <item>Find an x in ℝ2 whose image under T is b.</item>
+                  <item>Is there more than one x whose image under T is b?</item>
+                  <item>Determine if c is in the range of the transformation T.</item>
+          </list>
+          <figure label="Figure 3" caption="A projection transformation">
+            <image alt="A figure shows the conversion of the two-dimensional graph to a three-dimensional graph indicated by an arrow T."/>
+          </figure>
+          <heading level="3">Solution</heading>
+          <list ordered="true">
+                  <item>ComputeT(u)=Au= 1−335−172−1 = 51−9</item>
+                  <item>Solve T(x)=b for x. That is, solve Ax=b, or</item>
+          </list>
+              <paragraph><math display="block">$$\begin{bmatrix}
+      1 &amp; {- 3} \\
+      3 &amp; 5 \\
+      {- 1} &amp; 7
+      \end{bmatrix}\begin{bmatrix}
+      x_{1} \\
+      x_{2}
+      \end{bmatrix}\, = \,\,\left\lbrack \begin{array}{r}
+      3 \\
+      2 \\
+      {- 5}
+      \end{array} \right\rbrack$$</math></paragraph>
+          <list ordered="false">
+                  <item>Using the method discussed in Section 1.4, row reduce the augmented matrix:</item>
+          </list>
+              <paragraph><math display="block">$$\left. \begin{bmatrix}
+      1 &amp; {- 3} &amp; 3 \\
+      3 &amp; 5 &amp; 2 \\
+      {- 1} &amp; 7 &amp; {- 5}
+      \end{bmatrix}\, \right.\sim\left. \,\,\begin{bmatrix}
+      1 &amp; {- 3} &amp; 3 \\
+      0 &amp; 14 &amp; {- 7} \\
+      0 &amp; 4 &amp; {- 2}
+      \end{bmatrix}\, \right.\sim\left. \,\,\begin{bmatrix}
+      1 &amp; {- 3} &amp; 3 \\
+      0 &amp; 1 &amp; {- .\mspace{-4mu} 5} \\
+      0 &amp; 0 &amp; 0
+      \end{bmatrix}\, \right.\sim\,\,\begin{bmatrix}
+      1 &amp; 0 &amp; 1.5 \\
+      0 &amp; 1 &amp; {- .\mspace{-4mu} 5} \\
+      0 &amp; 0 &amp; 0
+      \end{bmatrix}$$</math></paragraph>
+          <list ordered="false">
+                  <item>Hence x1=1.5, x2=−.5, and x=1.5−.5. The image of this x under T is the given vector b.</item>
+          </list>
+          <list ordered="true">
+                  <item>Any x whose image under T is b must satisfy equation (1). From (2), it is clear that equation (1) has a unique solution. So there is exactly one x whose image is b.</item>
+                  <item>The vector c is in the range of T if c is the image of some x in ℝ2, that is, if c=T(x) for some x. This is just another way of asking if the system Ax=c is consistent. To find the answer, row reduce the augmented matrix:1−33352−175 ~ 1−33014−7048 ~ 1−33012014−7 ~ 1−3301200−35The third equation, 0=−35, shows that the system is inconsistent. So c is not in the range of T.</item>
+          </list>
+        </example>
+      <paragraph>The question in <strong>Example 1(c)</strong> is a <em>uniqueness</em> problem for a system of linear equations, translated here into the language of matrix transformations: Is <math display="inline">$\mathbf{b}$</math> the image of a <em>unique</em> <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}\text{?}$</math> Similarly, <strong>Example 1(d)</strong> is an <em>existence</em> problem: Does there <em>exist</em> an <math display="inline">$\mathbf{x}$</math> whose image is <math display="inline">$\mathbf{c}\text{?}$</math></paragraph>
+      <paragraph>The next two matrix transformations can be viewed geometrically. They reinforce the dynamic view of a matrix as something that transforms vectors into other vectors. Section 2.7 contains other interesting examples connected with computer graphics.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>If <math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; 0 &amp; 0 \\
+      0 &amp; 1 &amp; 0 \\
+      0 &amp; 0 &amp; 0
+      \end{bmatrix}$</math>, then the transformation <math display="inline">$\mathbf{x}\mapsto A\mathbf{x}$</math> <em>projects</em> points in <math display="inline">$\text{ℝ}^{3}$</math> onto the <math display="inline">$x_{1}x_{2}\text{-plane}$</math> because</paragraph>
+              <paragraph><math display="block">$$\begin{bmatrix}
+      x_{1} \\
+      x_{2} \\
+      x_{3}
+      \end{bmatrix}\,\mapsto\,\,\begin{bmatrix}
+      1 &amp; 0 &amp; 0 \\
+      0 &amp; 1 &amp; 0 \\
+      0 &amp; 0 &amp; 0
+      \end{bmatrix}\,\,\begin{bmatrix}
+      x_{1} \\
+      x_{2} \\
+      x_{3}
+      \end{bmatrix}\, = \,\,\begin{bmatrix}
+      x_{1} \\
+      x_{2} \\
+      0
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>See <strong>Figure</strong><strong>3</strong>.</paragraph>
+          <figure label="Figure 4" caption="A shear transformation">
+            <image alt="A graph shows a projectile transformation with various points on a plane lying on a three-dimensional coordinate plane."/>
+          </figure>
+              <paragraph>Click here for an interactive version of Figure 3</paragraph>
+          <figure>
+            <image alt="The figure consists of two parts: the first part shows a picture of a sheep standing upright, while the second part, titled &quot;Sheared Sheep,&quot; depicts the same sheep tilted to the right."/>
+          </figure>
+        </example>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Let <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      1 &amp; 2 \\
+      0 &amp; 1
+      \end{array} \right\rbrack$</math>. The transformation <math display="inline">$\mathbf{T}:\text{ℝ}^{\text{2}}\rightarrow\text{ℝ}^{2}$</math> defined by <math display="inline">$T(\mathbf{x}) = A\mathbf{x}$</math> is called a shear transformation. It can be shown that if <math display="inline">$T$</math> acts on each point in the <math display="inline">$2 \times 2$</math> square shown in <strong>Figure 4</strong>, then the set of images forms the sheared parallelogram. The key idea is to show that <math display="inline">$T$</math> maps line segments onto line segments (as shown in Exercise 35) and then to check that the corners of the square map onto the vertices of the parallelogram. For instance, the image of the point <math display="inline">$\mathbf{u} = \left\lbrack \begin{array}{r}
+      0 \\
+      2
+      \end{array} \right\rbrack$</math> is <math display="inline">$T(\mathbf{u}) = \left\lbrack \begin{array}{rr}
+      1 &amp; 2 \\
+      0 &amp; 1
+      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
+      0 \\
+      2
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      4 \\
+      2
+      \end{array} \right\rbrack$</math>, and the image of <math display="inline">$\left\lbrack \begin{array}{r}
+      2 \\
+      2
+      \end{array} \right\rbrack$</math> is <math display="inline">$\left\lbrack \begin{array}{rr}
+      1 &amp; 2 \\
+      0 &amp; 1
+      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
+      2 \\
+      2
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      6 \\
+      2
+      \end{array} \right\rbrack$</math>. <math display="inline">$T$</math> deforms the square as if the top of the square were pushed to the right while the base is held fixed. Shear transformations appear in physics, geology, and crystallography.</paragraph>
+          <figure>
+            <image alt="A figure shows a shear transformation between two pictures of a sheep in a two-dimensional graph."/>
+          </figure>
+              <paragraph>Click here for an Interactive version of Figure 4</paragraph>
+        </example>
+      <heading level="2">Linear Transformations</heading>
+      <paragraph>Theorem 5 in Section 1.4 shows that if <math display="inline">$A$</math> is <math display="inline">$m \times n$</math>, then the transformation <math display="inline">$\mathbf{x}\mapsto A\mathbf{x}$</math> has the properties</paragraph>
+      <paragraph>
+        <math display="block">$$A(\mathbf{u} + \mathbf{v}) = A\mathbf{u} + A\mathbf{v}\quad\text{and}\quad A(c\mathbf{u}) = cA\mathbf{u}$$</math>
+      </paragraph>
+      <paragraph>for all <math display="inline">$\mathbf{u}\text{,~}\mathbf{v}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> and all scalars <math display="inline">$c$</math>. These properties, written in function notation, identify the most important class of transformations in linear algebra.</paragraph>
+      <note type="definition" title="Definition">
+          <heading level="2">Definition</heading>
+              <paragraph>A transformation (or mapping) <math display="inline">$T$</math> is linear if</paragraph>
+          <list ordered="true">
+                  <item>T(u+v)=T(u)+T(v) for all u, v in the domain of T;</item>
+                  <item>T(cu)=cT(u) for all scalars c and all u in the domain of T.</item>
+          </list>
+        </note>
+      <paragraph>Every matrix transformation is a linear transformation. Important examples of linear transformations that are not matrix transformations will be discussed in Chapters 4 and 5.</paragraph>
+      <paragraph>Linear transformations <em>preserve the operations of vector addition and scalar multiplication</em>. Property (i) says that the result <math display="inline">$T(\mathbf{u} + \mathbf{v})$</math> of first adding <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> and then applying <math display="inline">$T$</math> is the same as first applying <math display="inline">$T$</math> to <math display="inline">$\mathbf{u}$</math> and to <math display="inline">$\mathbf{v}$</math> and then adding <math display="inline">$T(\mathbf{u})$</math> and <math display="inline">$T(\mathbf{v})$</math> in <math display="inline">$\text{ℝ}^{m}$</math>. These two properties lead easily to the following useful facts.</paragraph>
+      <note type="theorem_key">
+              <paragraph>If <math display="inline">$T$</math> is a linear transformation, then</paragraph>
+              <paragraph><math display="block">$$T(0) = 0$$</math></paragraph>
+              <paragraph>and</paragraph>
+              <paragraph><math display="block">$$T(c\mathbf{u} + d\mathbf{v}) = cT(\mathbf{u}) + dT(\mathbf{v})$$</math></paragraph>
+              <paragraph>for all vectors <math display="inline">$\mathbf{u}$</math>, <math display="inline">$\mathbf{v}$</math> in the domain of <math display="inline">$T$</math> and all scalars <math display="inline">$c\text{,~}d$</math>.</paragraph>
+        </note>
+      <paragraph>Property (3) follows from condition (ii) in the definition, because <math display="inline">$T(0) = T(0\mathbf{u}) = 0T(\mathbf{u}) = 0$</math>. Property (4) requires both (i) and (ii):</paragraph>
+      <paragraph>
+        <math display="block">$$T(c\mathbf{u} + d\mathbf{v}) = T(c\mathbf{u}) + T(d\mathbf{v}) = cT(\mathbf{u}) + dT(\mathbf{v})$$</math>
+      </paragraph>
+      <paragraph>Observe that <em>if a transformation satisfies</em> (4) <em>for all</em> <math display="inline">$\mathbf{u}$</math>, <math display="inline">$\mathbf{v}$</math> <em>and</em> <math display="inline">$c$</math>, <math display="inline">$d$</math>, <em>it must be linear</em>. (Set <math display="inline">$c = d = 1$</math> for preservation of addition, and set <math display="inline">$d = 0$</math> for preservation of scalar multiplication.) Repeated application of (4) produces a useful generalization:</paragraph>
+      <paragraph>
+        <math display="block">$$\boxed{T(c_{1}\mathbf{v}_{1} + \cdots + c_{p}\mathbf{v}_{p}) = c_{1}T(\mathbf{v}_{1}) + \cdots + c_{p}T(\mathbf{v}_{p})}$$</math>
+      </paragraph>
+      <paragraph>In engineering and physics, (5) is referred to as a <em>superposition principle</em>. Think of <math display="inline">$\mathbf{v}_{1}\text{,\,\,…\,\,,\,}\,\mathbf{v}_{p}$</math> as signals that go into a system and <math display="inline">$T\text{(}\mathbf{v}_{1}\text{),\,\,…\,\,,\,}T\text{(}\mathbf{v}_{p}\text{)}$</math> as the responses of that system to the signals. The system satisfies the superposition principle if whenever an input is expressed as a linear combination of such signals, the system’s response is <em>the same</em> linear combination of the responses to the individual signals. We will return to this idea in Chapter 4.</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Given a scalar <math display="inline">$r$</math>, define <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> by <math display="inline">$T(\mathbf{x}) = r\mathbf{x}$</math>. <math display="inline">$T$</math> is called a contraction<strong/> when <math display="inline">$0 \leq r \leq 1$</math> and a dilation  when <math display="inline">$r &gt; 1$</math>. Let <math display="inline">$r = 3$</math>, and show that <math display="inline">$T$</math> is a linear transformation.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Let <math display="inline">$\mathbf{u}$</math>, <math display="inline">$\mathbf{v}$</math> be in <math display="inline">$\text{ℝ}^{2}$</math> and let <math display="inline">$c$</math>, <math display="inline">$d$</math> be scalars. Then</paragraph>
+              <paragraph><math display="block">$$\begin{array}{cll}
+      {T(c\mathbf{u} + d\mathbf{v})} &amp; {= 3(c\mathbf{u} + d\mathbf{v})} &amp; {\text{Definition~of~}T} \\
+       &amp; \left. \begin{array}{l}
+      {= 3c\mathbf{u} + 3d\mathbf{v}} \\
+      {= c(3\mathbf{u}) + d(3\mathbf{v})}
+      \end{array}\quad \right\} &amp; \text{Vector~arithmetic} \\
+       &amp; {= cT(\mathbf{u}) + dT(\mathbf{v})} &amp; 
+      \end{array}$$</math></paragraph>
+              <paragraph>Thus <math display="inline">$T$</math> is a linear transformation because it satisfies (4). See <strong>Figure 5</strong>.</paragraph>
+          <figure label="Figure 5" caption="A dilation transformation">
+            <image alt="Two graphs show a dilation transformation of five vectors by an arrow T."/>
+          </figure>
+              <paragraph>Click here to see an interactive example of dilation and contraction</paragraph>
+        </example>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>Define a linear transformation <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> by</paragraph>
+              <paragraph><math display="block">$$T\text{(}\mathbf{x}\text{)} = \,\,\begin{bmatrix}
+      0 &amp; {- 1} \\
+      1 &amp; 0
+      \end{bmatrix}\begin{bmatrix}
+      x_{1} \\
+      x_{2}
+      \end{bmatrix} = \left\lbrack \begin{array}{r}
+      {- x_{2}} \\
+      x_{1}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Find the images under <math display="inline">$T$</math> of <math display="inline">$\mathbf{u} = \,\begin{bmatrix}
+      4 \\
+      1
+      \end{bmatrix}$</math>, <math display="inline">$\mathbf{v} = \,\begin{bmatrix}
+      2 \\
+      3
+      \end{bmatrix}$</math>, and <math display="inline">$\mathbf{u} + \mathbf{v} = \,\begin{bmatrix}
+      6 \\
+      4
+      \end{bmatrix}$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph><math display="block">$$\begin{matrix}
+      {T(\mathbf{u}) = \left\lbrack \begin{array}{rr}
+      0 &amp; {- 1} \\
+      1 &amp; 0
+      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
+      4 \\
+      1
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      {- 1} \\
+      4
+      \end{array} \right\rbrack\text{,~}\qquad T(\mathbf{v}) = \left\lbrack \begin{array}{rr}
+      0 &amp; {- 1} \\
+      1 &amp; 0
+      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
+      2 \\
+      3
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      {- 3} \\
+      2
+      \end{array} \right\rbrack\text{,~}} \\
+      {\mspace{130mu} T(\mathbf{u} + \mathbf{v}) = \left\lbrack \begin{array}{rr}
+      0 &amp; {- 1} \\
+      1 &amp; 0
+      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
+      6 \\
+      4
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      {- 4} \\
+      6
+      \end{array} \right\rbrack}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>Note that <math display="inline">$T(\mathbf{u} + \mathbf{v})$</math> is obviously equal to <math display="inline">$T(\mathbf{u}) + T(\mathbf{v})$</math>. It appears from <strong>Figure 6</strong> that <math display="inline">$T$</math> rotates <math display="inline">$\mathbf{u}$</math>, <math display="inline">$\mathbf{v}$</math>, and <math display="inline">$\mathbf{u} + \mathbf{v}$</math> counterclockwise about the origin through <math display="inline">$90{^\circ}$</math>. In fact, <math display="inline">$T$</math> transforms the entire parallelogram determined by <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math> into the one determined by <math display="inline">$T(\mathbf{u})$</math> and <math display="inline">$T(\mathbf{v})$</math>. (See Exercise 36.)</paragraph>
+          <figure label="Figure 6" caption="A rotation transformation">
+            <image alt="A graph shows rotational transformation with a parallelogram in the first quadrant mirrored by another parallelogram in the second quadrant."/>
+          </figure>
+              <paragraph>Click here for an interactive example of the properties of linear transformations</paragraph>
+        </example>
+      <paragraph>The final example is not geometrical; instead, it shows how a linear mapping can transform one type of data into another.</paragraph>
+      <example number="6">
+          <heading level="2">Example 6</heading>
+              <paragraph>A company manufactures two products, <math display="inline">$\text{B}$</math> and <math display="inline">$\text{C}$</math>. Using data from Example 7 in Section 1.3, we construct a “unit cost” matrix, <math display="inline">$U = \lbrack\mathbf{b}\quad\mathbf{c}\rbrack$</math>, whose columns describe the “costs per dollar of output” for the products:</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {\mspace{50mu}\text{Product}} \\
+      \begin{array}{ll}
+      {\mspace{49mu}\text{B}} &amp; {\mspace{25mu}\text{C}}
+      \end{array} \\
+      {U = \left\lbrack \begin{array}{ll}
+      .45 &amp; {\mspace{9mu}.40} \\
+      .25 &amp; {\mspace{9mu}.30} \\
+      .15 &amp; {\mspace{9mu}.15}
+      \end{array} \right\rbrack\begin{array}{l}
+      {\quad\text{Materials}} \\
+      {\quad\text{Labor}} \\
+      {\quad\text{Overhead}}
+      \end{array}}
+      \end{array}$$</math></paragraph>
+              <paragraph>Let <math display="inline">$\mathbf{x} = \left( x_{1}\text{,~}x_{2} \right)$</math> be a “production” vector, corresponding to <math display="inline">$x_{1}$</math> dollars of product <math display="inline">$\text{B}$</math> and <math display="inline">$x_{2}$</math> dollars of product <math display="inline">$\text{C}$</math>, and define <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{3}$</math> by</paragraph>
+              <paragraph><math display="block">$$T(\mathbf{x}) = U\mathbf{x} = x_{1}\left\lbrack \begin{array}{l}
+      .45 \\
+      .25 \\
+      .15
+      \end{array} \right\rbrack + x_{2}\left\lbrack \begin{array}{l}
+      .40 \\
+      .30 \\
+      .15
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{l}
+      \text{Total cost of materials} \\
+      \text{Total cost of labor} \\
+      \text{Total cost of overhead}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>The mapping <math display="inline">$T$</math> transforms a list of production quantities (measured in dollars) into a list of total costs. The linearity of this mapping is reflected in two ways:</paragraph>
+          <list ordered="true">
+                  <item>If production is increased by a factor of, say, 4, from x to 4x, then the costs will increase by the same factor, from T(x) to 4T(x).</item>
+                  <item>If x and y are production vectors, then the total cost vector associated with the combined production x+y is precisely the sum of the cost vectors T(x) and T(y).</item>
+          </list>
+        </example>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Suppose T:ℝ5→ℝ2 and T(x)=Ax for some matrix A and for each x in ℝ5. How many rows and columns does A have?</item>
+                  <item>Let A=100−1. Give a geometric description of the transformation x↦Ax.</item>
+                  <item>The line segment from 0 to a vector u is the set of points of the form tu, where 0≤t≤1. Show that a linear transformation T maps this segment into the segment between 0 and T(u).</item>
+          </list>
+        </note>
+    </content>
+    <exercises title="1.8 Exercises">
+      <heading level="1">1.8 Exercises</heading>
+      <exercise_group start="1">
+            <problem number="1">
+              <statement>
+                          <paragraph>Let <math display="inline">$A = \,\,\mspace{-4mu}\begin{bmatrix}
+      2 &amp; 0 \\
+      0 &amp; 2
+      \end{bmatrix}$</math>, and define <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> by <math display="inline">$T(\mathbf{x}) = A\mathbf{x}$</math>. Find the images under <math display="inline">$T$</math> of <math display="inline">$\mathbf{u} = \,\mspace{-4mu}\,\,\mspace{-4mu}\left\lbrack \begin{array}{r}
+      1 \\
+      {- 3}
+      \end{array} \right\rbrack$</math> and <math display="inline">$\mathbf{v} = \,\left\lbrack \begin{array}{r}
+      a \\
+      b
+      \end{array} \right\rbrack$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph>Let <math display="inline">$A = \,\,\begin{bmatrix}
+      .5 &amp; 0 &amp; 0 \\
+      0 &amp; .5 &amp; 0 \\
+      0 &amp; 0 &amp; .5
+      \end{bmatrix}$</math>, <math display="inline">$\mathbf{u} = \,\,\left\lbrack \begin{array}{r}
+      1 \\
+      0 \\
+      {- 4}
+      \end{array} \right\rbrack$</math>, and <math display="inline">$\mathbf{v} = \,\,\left\lbrack \begin{array}{r}
+      a \\
+      b \\
+      c
+      \end{array} \right\rbrack$</math>. Define <math display="inline">$T:\text{ℝ}^{3}\rightarrow\text{ℝ}^{3}$</math> by <math display="inline">$T(\mathbf{x}) = A\mathbf{x}$</math>. Find <math display="inline">$T(\mathbf{u})$</math> and <math display="inline">$T(\mathbf{v})$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="3">
+                  <instructions>In Exercises 3–6, with <math display="inline">$T$</math> defined by <math display="inline">$T(\mathbf{x}) = A\mathbf{x}$</math>, find a vector <math display="inline">$\mathbf{x}$</math> whose image under <math display="inline">$T$</math> is <math display="inline">$\mathbf{b}$</math>, and determine whether <math display="inline">$\mathbf{x}$</math> is unique.</instructions>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; 0 &amp; {- 2} \\
+      {- 2} &amp; 1 &amp; 6 \\
+      3 &amp; {- 2} &amp; {- 5}
+      \end{bmatrix}\text{,~}\mathbf{b} = \,\,\left\lbrack \begin{array}{r}
+      {- 1} \\
+      7 \\
+      {- 3}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; {- 3} &amp; 2 \\
+      0 &amp; 1 &amp; {- 4} \\
+      3 &amp; {- 5} &amp; {- 9}
+      \end{bmatrix}\text{,~}\mathbf{b} = \,\,\left\lbrack \begin{array}{r}
+      6 \\
+      {- 7} \\
+      {- 9}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; {- 5} &amp; {- 7} \\
+      {- 3} &amp; 7 &amp; 5
+      \end{bmatrix}\text{,~}\mathbf{b} = \,\,\left\lbrack \begin{array}{r}
+      {- 2} \\
+      {- 2}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; {- 2} &amp; 1 \\
+      3 &amp; {- 4} &amp; 5 \\
+      0 &amp; 1 &amp; 1 \\
+      {- 3} &amp; 5 &amp; {- 4}
+      \end{bmatrix}\text{,~}\mathbf{b} = \,\,\left\lbrack \begin{array}{r}
+      1 \\
+      9 \\
+      3 \\
+      {- 6}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="7">
+            <problem number="7">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be a <math display="inline">$6 \times 5$</math> matrix. What must <math display="inline">$a$</math> and <math display="inline">$b$</math> be in order to define <math display="inline">$T:\text{ℝ}^{a}\rightarrow\text{ℝ}^{b}$</math> by <math display="inline">$T(\mathbf{x}) = A{\mathbf{x}\text{?}}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph>How many rows and columns must a matrix <math display="inline">$A$</math> have in order to define a mapping from <math display="inline">$\text{ℝ}^{4}$</math> into <math display="inline">$\text{ℝ}^{5}$</math> by the rule <math display="inline">$T(\mathbf{x}) = A{\mathbf{x}\text{?}}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="9">
+                  <instructions>For Exercises 9 and 10, find all <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{4}$</math> that are mapped into the zero vector by the transformation <math display="inline">$\mathbf{x}\mapsto A\mathbf{x}$</math> for the given matrix <math display="inline">$A$</math>.</instructions>
+            <problem number="9">
+              <statement>
+                          <paragraph><math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; {- 4} &amp; 7 &amp; {- 5} \\
+      0 &amp; 1 &amp; {- 4} &amp; 3 \\
+      2 &amp; {- 6} &amp; 6 &amp; {- 4}
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; 3 &amp; 9 &amp; 2 \\
+      1 &amp; 0 &amp; 3 &amp; {- 4} \\
+      0 &amp; 1 &amp; 2 &amp; 3 \\
+      {- 2} &amp; 3 &amp; 0 &amp; 5
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="11">
+            <problem number="11">
+              <statement>
+                          <paragraph>Let <math display="inline">$\mathbf{b} = \,\,\left\lbrack \begin{array}{r}
+      {- 1} \\
+      1 \\
+      0
+      \end{array} \right\rbrack$</math>, and let <math display="inline">$A$</math> be the matrix in Exercise 9. Is <math display="inline">$\mathbf{b}$</math> in the range of the linear transformation <math display="inline">$\mathbf{x}\mapsto A{\mathbf{x}\text{?}}$</math> Why or why not?</paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph>Let <math display="inline">$\mathbf{b} = \,\,\left\lbrack \begin{array}{r}
+      {- 1} \\
+      3 \\
+      {- 1} \\
+      4
+      \end{array} \right\rbrack$</math>, and let <math display="inline">$A$</math> be the matrix in Exercise 10. Is <math display="inline">$\mathbf{b}$</math> in the range of the linear transformation <math display="inline">$\mathbf{x}\mapsto A{\mathbf{x}\text{?}}$</math> Why or why not?</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="13">
+                  <instructions>In Exercises 13–16, use a rectangular coordinate system to plot <math display="inline">$\mathbf{u} = \,\,\mspace{-4mu}\left\lbrack \begin{array}{r}
+      5 \\
+      2
+      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v} = \,\,\mspace{-4mu}\left\lbrack \begin{array}{r}
+      {- 2} \\
+      4
+      \end{array} \right\rbrack$</math>, and their images under the given transformation <math display="inline">$T$</math>. (Make a separate and reasonably large sketch for each exercise.) Describe geometrically what <math display="inline">$T$</math> does to each vector <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\text{ℝ}^{2}$</math>.</instructions>
+            <problem number="13">
+              <statement>
+                          <paragraph><math display="inline">$T\text{(}\mathbf{x}\text{)} = \,\,\begin{bmatrix}
+      {- 1} &amp; 0 \\
+      0 &amp; {- 1}
+      \end{bmatrix}\left\lbrack \begin{array}{r}
+      x_{1} \\
+      x_{2}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph><math display="inline">$T\text{(}\mathbf{x}\text{)} = \,\,\begin{bmatrix}
+      .5 &amp; 0 \\
+      0 &amp; .5
+      \end{bmatrix}\left\lbrack \begin{array}{r}
+      x_{1} \\
+      x_{2}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph><math display="inline">$T\text{(}\mathbf{x}\text{)} = \,\,\begin{bmatrix}
+      0 &amp; 0 \\
+      0 &amp; 1
+      \end{bmatrix}\left\lbrack \begin{array}{r}
+      x_{1} \\
+      x_{2}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><math display="inline">$T\text{(}\mathbf{x}\text{)} = \,\,\begin{bmatrix}
+      0 &amp; 1 \\
+      1 &amp; 0
+      \end{bmatrix}\left\lbrack \begin{array}{r}
+      x_{1} \\
+      x_{2}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="The figure consists of two parts that illustrate two coordinate planes: one plotting vectors u, v, and w, while the other plotting the linear transformation vectors T (u) and T (v)."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="17">
+            <problem number="17">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> be a linear transformation that maps <math display="inline">$\mathbf{u} = \,\,\mspace{-4mu}\left\lbrack \begin{array}{r}
+      5 \\
+      2
+      \end{array} \right\rbrack$</math> into <math display="inline">$\left\lbrack \begin{array}{r}
+      2 \\
+      1
+      \end{array} \right\rbrack$</math> and maps <math display="inline">$\mathbf{v} = \,\,\mspace{-4mu}\left\lbrack \begin{array}{r}
+      1 \\
+      3
+      \end{array} \right\rbrack$</math> into <math display="inline">$\left\lbrack \begin{array}{r}
+      {- 1} \\
+      3
+      \end{array} \right\rbrack$</math>. Use the fact that <math display="inline">$T$</math> is linear to find the images under <math display="inline">$T$</math> of <math display="inline">$3\mathbf{u}$</math>, <math display="inline">$2\mathbf{v}$</math>, and <math display="inline">$3\mathbf{u} + 2\mathbf{v}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph>The figure shows vectors <math display="inline">$\mathbf{u}$</math>, <math display="inline">$\mathbf{v}$</math>, and <math display="inline">$\mathbf{w}$</math>, along with the images <math display="inline">$T(\mathbf{u})$</math> and <math display="inline">$T(\mathbf{v})$</math> under the action of a linear transformation <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math>. Copy this figure carefully, and draw the image <math display="inline">$T(\mathbf{w})$</math> as accurately as possible. [<em>Hint:</em><strong/>First, write <math display="inline">$\mathbf{w}$</math> as a linear combination of <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math>.]</paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="The figure consists of two parts that illustrate two coordinate planes: one plotting vectors u, v, and w, while the other plotting the linear transformation vectors T (u) and T (v)."/>
+            </figure>
+            <problem number="19">
+              <statement>
+                          <paragraph>Let <math display="inline">$\mathbf{e}_{1} = \,\,\left\lbrack \begin{array}{r}
+      1 \\
+      0
+      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{e}_{2} = \,\,\left\lbrack \begin{array}{r}
+      0 \\
+      1
+      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{y}_{1} = \,\,\left\lbrack \begin{array}{r}
+      2 \\
+      5
+      \end{array} \right\rbrack$</math>, and <math display="inline">$\mathbf{y}_{2} = \,\,\left\lbrack \begin{array}{r}
+      {- 1} \\
+      6
+      \end{array} \right\rbrack$</math>, and let <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> be a linear transformation that maps <math display="inline">$\mathbf{e}_{1}$</math> into <math display="inline">$\mathbf{y}_{1}$</math> and maps <math display="inline">$\mathbf{e}_{2}$</math> into <math display="inline">$\mathbf{y}_{2}$</math>. Find the images of <math display="inline">$\left\lbrack \begin{array}{r}
+      5 \\
+      {- 3}
+      \end{array} \right\rbrack$</math> and <math display="inline">$\left\lbrack \begin{array}{r}
+      x_{1} \\
+      x_{2}
+      \end{array} \right\rbrack$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph>Let <math display="inline">$\mathbf{x} = \,\,\left\lbrack \begin{array}{r}
+      x_{1} \\
+      x_{2}
+      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v}_{1} = \,\,\left\lbrack \begin{array}{r}
+      {- 2} \\
+      5
+      \end{array} \right\rbrack$</math>, and <math display="inline">$\mathbf{v}_{2} = \,\,\left\lbrack \begin{array}{r}
+      7 \\
+      {- 3}
+      \end{array} \right\rbrack$</math>, and let <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> be a linear transformation that maps <math display="inline">$\mathbf{x}$</math> into <math display="inline">$x_{1}\mathbf{v}_{1} + x_{2}\mathbf{v}_{2}$</math>. Find a matrix <math display="inline">$A$</math> such that <math display="inline">$T(\mathbf{x})$</math> is <math display="inline">$A\mathbf{x}$</math> for each <math display="inline">$\mathbf{x}$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="21">
+                  <instructions>In Exercises 21–30, mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
+            <problem number="21">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A linear transformation is a special type of function.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> Every matrix transformation is a linear transformation.</paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$A$</math> is a <math display="inline">$3 \times 5$</math> matrix and <math display="inline">$T$</math> is a transformation defined by <math display="inline">$T(\mathbf{x}) = A\mathbf{x}$</math>, then the domain of <math display="inline">$T$</math> is <math display="inline">$\text{ℝ}^{3}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The codomain of the transformation <math display="inline">$\mathbf{x}\mapsto A\mathbf{x}$</math> is the set of all linear combinations of the columns of <math display="inline">$A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="25">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$A$</math> is an <math display="inline">$m \times n$</math> matrix, then the range of the transformation <math display="inline">$\mathbf{x}\mapsto A\mathbf{x}$</math> is <math display="inline">$\text{ℝ}^{m}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> is a linear transformation and if <math display="inline">$\mathbf{c}$</math> is in <math display="inline">$\text{ℝ}^{m}$</math>, then a uniqueness question is “Is <math display="inline">$\mathbf{c}$</math> in the range of <math display="inline">$T$</math>?”</paragraph>
+              </statement>
+            </problem>
+            <problem number="27">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> Every linear transformation is a matrix transformation.</paragraph>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A linear transformation preserves the operations of vector addition and scalar multiplication.</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A transformation <math display="inline">$T$</math> is linear if and only if <math display="inline">$T(c_{1}\mathbf{v}_{1} + c_{2}\mathbf{v}_{2}) = c_{1}T(\mathbf{v}_{1}) + c_{2}T(\mathbf{v}_{2})$</math> for all <math display="inline">$\mathbf{v}_{1}$</math> and <math display="inline">$\mathbf{v}_{2}$</math> in the domain of <math display="inline">$T$</math> and for all scalars <math display="inline">$c_{1}$</math> and <math display="inline">$c_{2}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The superposition principle is a physical description of a linear transformation.</paragraph>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="The figure illustrates a line segment from point p to q with the corresponding equation in parametric form in the parameter t."/>
+            </figure>
+          </exercise_group>
+      <exercise_group start="31">
+            <problem number="31">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{2}\rightarrow\text{ℝ}^{2}$</math> be the linear transformation that reflects each point through the <math display="inline">$x_{1}\text{-axis}$</math>. (See Practice Problem 2.) Make two sketches similar to Figure 6 that illustrate properties (i) and (ii) of a linear transformation.</paragraph>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph>Suppose vectors <math display="inline">$\mathbf{v}_{1}\text{,\,\,…\,\,,\,\,\,}\mathbf{v}_{p}$</math> span <math display="inline">$\text{ℝ}^{n}$</math>, and let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{n}$</math> be a linear transformation. Suppose <math display="inline">$T(\mathbf{v}_{i}) = 0$</math> for <math display="inline">$i = 1\text{,\,\,…\,\,,\,\,\,\,}p$</math>. Show that <math display="inline">$T$</math> is the zero transformation. That is, show that if <math display="inline">$\mathbf{x}$</math> is any vector in <math display="inline">$\text{ℝ}^{n}$</math>, then <math display="inline">$T(\mathbf{x}) = 0$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="33">
+              <statement>
+                          <paragraph>Given <math display="inline">$\mathbf{v} \neq 0$</math> and <math display="inline">$\mathbf{p}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>, the line through <math display="inline">$\mathbf{p}$</math> in the direction of <math display="inline">$\mathbf{v}$</math> has the parametric equation <math display="inline">$\mathbf{x} = \mathbf{p} + t\mathbf{v}$</math>. Show that a linear transformation <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{n}$</math> maps this line onto another line or onto a single point (a <em>degenerate line</em>).</paragraph>
+              </statement>
+            </problem>
+            <problem number="34">
+              <statement>
+                          <paragraph>Let <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math> be linearly independent vectors in <math display="inline">$\text{ℝ}^{3}$</math>, and let <math display="inline">$P$</math> be the plane through <math display="inline">$\mathbf{u}$</math>, <math display="inline">$\mathbf{v}$</math>, and <math display="inline">$0$</math>. The parametric equation of <math display="inline">$P$</math> is <math display="inline">$\mathbf{x} = s\mathbf{u} + t\mathbf{v}$</math> (with <math display="inline">$s$</math>, <math display="inline">$t$</math> in <math display="inline">$\text{ℝ}$</math>). Show that a linear transformation <math display="inline">$T:\text{ℝ}^{3}\rightarrow\text{ℝ}^{3}$</math> maps <math display="inline">$P$</math> onto a plane through <math display="inline">$0$</math>, or onto a line through <math display="inline">$0$</math>, or onto just the origin in <math display="inline">$\text{ℝ}^{3}$</math>. What must be true about <math display="inline">$T(\mathbf{u})$</math> and <math display="inline">$T(\mathbf{v})$</math> in order for the image of the plane <math display="inline">$P$</math> to be a plane?</paragraph>
+              </statement>
+            </problem>
+            <problem number="35">
+              <statement>
+                <list ordered="true">
+                              <item>Show that the line through vectors p and q in ℝn may be written in the parametric form x=(1−t)p+tq. (Refer to the figure with Exercises 25 and 26 in Section 1.5.)</item>
+                              <item>The line segment from p to q is the set of points of the form (1−t)p+tq for 0≤t≤1 (as shown in the figure below). Show that a linear transformation T maps this line segment onto a line segment or onto a single point.</item>
+                </list>
+              </statement>
+            </problem>
+            <figure>
+              <image alt="The figure illustrates a line segment from point p to q with the corresponding equation in parametric form in the parameter t."/>
+            </figure>
+            <problem number="36">
+              <statement>
+                          <paragraph>Let <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math> be vectors in <math display="inline">$\text{ℝ}^{n}$</math>. It can be shown that the set <math display="inline">$P$</math> of all points in the parallelogram determined by <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math> has the form <math display="inline">$a\mathbf{u} + b\mathbf{v}$</math>, for <math display="inline">$0 \leq a \leq 1$</math>, <math display="inline">$0 \leq b \leq 1$</math>. Let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be a linear transformation. Explain why the image of a point in <math display="inline">$P$</math> under the transformation <math display="inline">$T$</math> lies in the parallelogram determined by <math display="inline">$T(\mathbf{u})$</math> and <math display="inline">$T(\mathbf{v})$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="37">
+              <statement>
+                          <paragraph>Define <math display="inline">$f:\text{ℝ}\rightarrow\text{ℝ}$</math> by <math display="inline">$f(x) = mx + b$</math>.</paragraph>
+                <list ordered="true">
+                              <item>Show that f is a linear transformation when b=0.</item>
+                              <item>Find a property of a linear transformation that is violated when b≠0.</item>
+                              <item>Why is f called a linear function?</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="38">
+              <statement>
+                          <paragraph>An affine transformation <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> has the form <math display="inline">$T\left( \mathbf{x} \right) = A\mathbf{x} + \mathbf{b}$</math>, with <math display="inline">$A$</math> an <math display="inline">$m \times n$</math> matrix and <math display="inline">$\mathbf{b}$</math> in <math display="inline">$\text{ℝ}^{m}$</math>. Show that <math display="inline">$T$</math> is <em>not</em> a linear transformation when <math display="inline">$\mathbf{b} \neq 0$</math>. (Affine transformations are important in computer graphics.)</paragraph>
+              </statement>
+            </problem>
+            <problem number="39">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be a linear transformation, and let <math display="inline">$\left\{ \mathbf{v}_{1}\text{,~}\mathbf{v}_{2}\text{,~}\mathbf{v}_{3} \right\}$</math> be a linearly dependent set in <math display="inline">$\text{ℝ}^{n}$</math>. Explain why the set <math display="inline">$\left\{ T\left( \mathbf{v}_{1} \right)\text{,~}T\left( \mathbf{v}_{2} \right)\text{,~}T\left( \mathbf{v}_{3} \right) \right\}$</math> is linearly dependent.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="40">
+                  <instructions>In Exercises 40–44, column vectors are written as rows, such as <math display="inline">$\mathbf{x} = \left( x_{1}\text{,~}x_{2} \right)$</math>, and <math display="inline">$T(\mathbf{x})$</math> is written as <math display="inline">$T\left( x_{1}\text{,~}x_{2} \right)$</math>.</instructions>
+            <problem number="40">
+              <statement>
+                          <paragraph>Show that the transformation <math display="inline">$T$</math> defined by <math display="inline">$T(x_{1}\text{,~}x_{2}) = (4x_{1} - 2x_{2}\text{,~}3|x_{2}|)$</math> is not linear.</paragraph>
+              </statement>
+            </problem>
+            <problem number="41">
+              <statement>
+                          <paragraph>Show that the transformation <math display="inline">$T$</math> defined by <math display="inline">$T(x_{1}\text{,~}x_{2}) = (2x_{1} - 3x_{2}\text{,~}x_{1} + 4\text{,~}5x_{2})$</math> is not linear.</paragraph>
+              </statement>
+            </problem>
+            <problem number="42">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{n}\rightarrow\text{ℝ}^{m}$</math> be a linear transformation. Show that if <math display="inline">$T$</math> maps two linearly independent vectors onto a linearly dependent set, then the equation <math display="inline">$T(\mathbf{x}) = 0$</math> has a nontrivial solution. [<em>Hint:</em><strong/>Suppose <math display="inline">$\mathbf{u}$</math> and <math display="inline">$\mathbf{v}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> are linearly independent and yet <math display="inline">$T(\mathbf{u})$</math> and <math display="inline">$T(\mathbf{v})$</math> are linearly dependent. Then <math display="inline">$c_{1}T(\mathbf{u}) + c_{2}T(\mathbf{v}) = 0$</math> for some weights <math display="inline">$c_{1}$</math> and <math display="inline">$c_{2}$</math>, not both zero. Use this equation.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="43">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{3}\rightarrow\text{ℝ}^{3}$</math> be the transformation that reflects each vector <math display="inline">$\mathbf{x} = (x_{1}\text{,~}x_{2}\text{,~}x_{3})$</math> through the plane <math display="inline">$x_{3} = 0$</math> onto <math display="inline">$T\left( \mathbf{x} \right) = \left( x_{1}\text{,~}x_{2}\text{,} - \mspace{-4mu} x_{3} \right)$</math>. Show that <math display="inline">$T$</math> is a linear transformation. [See Example 4 for ideas.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="44">
+              <statement>
+                          <paragraph>Let <math display="inline">$T:\text{ℝ}^{3}\rightarrow\text{ℝ}^{3}$</math> be the transformation that projects each vector <math display="inline">$\mathbf{x} = (x_{1}\text{,~}x_{2}\text{,~}x_{3})$</math> onto the plane <math display="inline">$x_{2} = 0$</math>, so <math display="inline">$T(\mathbf{x}) = (x_{1}\text{,~}0\text{,~}x_{3})$</math>. Show that <math display="inline">$T$</math> is a linear transformation.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="45">
+                  <instructions><strong>[T]</strong> In Exercises 45 and 46, the given matrix determines a linear transformation <math display="inline">$T$</math>. Find all <math display="inline">$\mathbf{x}$</math> such that <math display="inline">$T(\mathbf{x}) = 0$</math>.</instructions>
+            <problem number="45">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      4 &amp; {- 2} &amp; 5 &amp; {- 5} \\
+      {- 9} &amp; 7 &amp; {- 8} &amp; 0 \\
+      {- 6} &amp; 4 &amp; 5 &amp; 3 \\
+      5 &amp; {- 3} &amp; 8 &amp; {- 4}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="46">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      {- 9} &amp; {- 4} &amp; {- 9} &amp; 4 \\
+      5 &amp; {- 8} &amp; {- 7} &amp; 6 \\
+      7 &amp; 11 &amp; 16 &amp; {- 9} \\
+      9 &amp; {- 7} &amp; {- 4} &amp; 5
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="47">
+            <problem number="47">
+              <statement>
+                          <paragraph><strong>[T]</strong> Let <math display="inline">$\mathbf{b} = \left\lbrack \begin{array}{r}
+      7 \\
+      5 \\
+      9 \\
+      7
+      \end{array} \right\rbrack$</math> and let <math display="inline">$A$</math> be the matrix in Exercise 45. Is <math display="inline">$\mathbf{b}$</math> in the range of the transformation <math display="inline">$\mathbf{x}\mapsto A{\mathbf{x}\text{?}}$</math> If so, find an <math display="inline">$\mathbf{x}$</math> whose image under the transformation is <math display="inline">$\mathbf{b}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="48">
+              <statement>
+                          <paragraph><strong>[T]</strong> Let <math display="inline">$\mathbf{b} = \left\lbrack \begin{array}{r}
+      {- 7} \\
+      {- 7} \\
+      13 \\
+      {- 5}
+      \end{array} \right\rbrack$</math> and let <math display="inline">$A$</math> be the matrix in Exercise 46. Is <math display="inline">$\mathbf{b}$</math> in the range of the transformation <math display="inline">$\mathbf{x}\mapsto A{\mathbf{x}\text{?}}$</math> If so, find an <math display="inline">$\mathbf{x}$</math> whose image under the transformation is <math display="inline">$\mathbf{b}$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

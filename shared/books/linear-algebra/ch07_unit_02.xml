@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch07" chapter_number="7" unit_code="7.2">
+  <section number="7.2" title="Quadratic Forms">
+    <metadata>
+      <source_pages count="7">
+        <page global_index="366" type="content"/>
+        <page global_index="367" type="content"/>
+        <page global_index="368" type="content"/>
+        <page global_index="369" type="content"/>
+        <page global_index="370" type="exercises"/>
+        <page global_index="371" type="exercises"/>
+        <page global_index="372" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">7.2 Quadratic Forms</heading>
+      <video title="Watch Video"/>
+      <paragraph>Until now, our attention in this text has focused on linear equations, except for the sums of squares encountered in Chapter 6 when computing <math display="inline">$\textbf{x}^{T}\textbf{x}$</math>. Such sums and more general expressions, called <em>quadratic forms</em>, occur frequently in applications of linear algebra to engineering (in design criteria and optimization) and signal processing (as output noise power). They also arise, for example, in physics (as potential and kinetic energy), differential geometry (as normal curvature of surfaces), economics (as utility functions), and statistics (in confidence ellipsoids). Some of the mathematical background for such applications flows easily from our work on symmetric matrices.</paragraph>
+      <paragraph>A quadratic form on <math display="inline">${\mathbb{R}}^{n}$</math> is a function <math display="inline">$Q$</math> defined on <math display="inline">$\text{ℝ}^{n}$</math> whose value at a vector <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> can be computed by an expression of the form <math display="inline">$Q\text{(}\textbf{x}\text{)} = \textbf{x}^{T}\mspace{-4mu} A\textbf{x}$</math>, where <math display="inline">$A$</math> is an <math display="inline">$n \times n$</math> symmetric matrix. The matrix <math display="inline">$A$</math> is called the <strong>matrix of the quadratic form</strong>.</paragraph>
+      <paragraph>The simplest example of a nonzero quadratic form is <math display="inline">$Q\text{(}\textbf{x}\text{)} = \textbf{x}^{T}I\textbf{x} = \text{∥}\textbf{x}\text{∥}^{2}$</math>. <strong>Examples 1</strong> and <strong>2</strong> show the connection between any symmetric matrix <math display="inline">$A$</math> and the quadratic form <math display="inline">$\textbf{x}^{T}\mspace{-4mu} A\textbf{x}$</math>.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Let <math display="inline">$\textbf{x} = \begin{bmatrix}
+      x_{1} \\
+      x_{2}
+      \end{bmatrix}$</math>. Compute <math display="inline">$\textbf{x}^{T}\mspace{-4mu} A\textbf{x}$</math> for the following matrices:</paragraph>
+          <list ordered="true">
+                  <item>A=4003</item>
+                  <item>A=3−2−27</item>
+          </list>
+          <heading level="3">Solution</heading>
+          <list ordered="true">
+                  <item>xTAx=[x1x2][4003][x1x2]=[x1x2][4x13x2]=4x12+3x22.</item>
+                  <item>There are two −2 entries in A. Watch how they enter the calculations. The (1,2)-entry in A is in boldface type.xTAx=[x1 x2][3−2−27][x1x2]=[x1 x2][3x1−2x2−2x1+7x2]=x1(3x1−2x2)+x2(−2x1+7x2)=3x12−2x1x2−2x2x1+7x22=3x12−4x1x2+7x22</item>
+          </list>
+        </example>
+      <paragraph>The presence of <math display="inline">$- 4x_{1}x_{2}$</math> in the quadratic form in Example 1(b) is due to the <math display="inline">$- 2$</math> entries off the diagonal in the matrix <math display="inline">$A$</math>. In contrast, the quadratic form associated with the diagonal matrix <math display="inline">$A$</math> in Example 1(a) has no <math display="inline">$x_{1}x_{2}$</math> cross-product term.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>For <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℝ}^{3}$</math>, let <math display="inline">$Q(\textbf{x}) = 5x_{1}^{2} + 3x_{2}^{2} + 2x_{3}^{2} - x_{1}x_{2} + 8x_{2}x_{3}$</math>. Write this quadratic form as <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The coefficients of <math display="inline">$x_{1}^{2}$</math>, <math display="inline">$x_{2}^{2}$</math>, <math display="inline">$x_{3}^{2}$</math> go on the diagonal of <math display="inline">$A$</math>. To make <math display="inline">$A$</math> symmetric, the coefficient of <math display="inline">$x_{i}x_{j}$</math> for <math display="inline">$i \neq j$</math> must be split evenly between the <math display="inline">$(i,j)\text{-}$</math> and <math display="inline">$(j,i)\text{-entries}$</math> in <math display="inline">$A$</math>. The coefficient of <math display="inline">$x_{1}x_{3}$</math> is <math display="inline">$0$</math>. It is readily checked that</paragraph>
+              <paragraph><math display="block">$$Q\text{(}\textbf{x}\text{)} = \textbf{x}^{T}\mspace{-4mu} A\textbf{x} = \text{[}x_{1} x_{2} x_{3}\text{]}\begin{bmatrix}
+      5 &amp; {- 1\text{/}2} &amp; 0 \\
+      {- 1\text{/}2} &amp; 3 &amp; 4 \\
+      0 &amp; 4 &amp; 2
+      \end{bmatrix}\begin{bmatrix}
+      x_{1} \\
+      x_{2} \\
+      x_{3}
+      \end{bmatrix}$$</math></paragraph>
+        </example>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Let <math display="inline">$Q(\textbf{x}) = x_{1}^{2} - 8x_{1}x_{2} - 5x_{2}^{2}$</math>. Compute the value of <math display="inline">$Q(\textbf{x})$</math> for <math display="inline">$\textbf{x} = \left\lbrack \begin{array}{r}
+      {- 3} \\
+      1
+      \end{array} \right\rbrack$</math>, <math display="inline">$\left\lbrack \begin{array}{r}
+      2 \\
+      {- 2}
+      \end{array} \right\rbrack$</math>, and <math display="inline">$\left\lbrack \begin{array}{r}
+      1 \\
+      {- 3}
+      \end{array} \right\rbrack$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph><math display="block">$$\begin{array}{ll}
+      {Q( - 3,1)} &amp; {= ( - 3)^{2} - 8( - 3)(1) - 5(1)^{2} = 28} \\
+      {Q(2, - 2)} &amp; {= (2)^{2} - 8(2)( - 2) - 5( - 2)^{2} = 16} \\
+      {Q(1, - 3)} &amp; {= (1)^{2} - 8(1)( - 3) - 5( - 3)^{2} = - 20}
+      \end{array}$$</math></paragraph>
+        </example>
+      <paragraph>In some cases, quadratic forms are easier to use when they have no cross-product terms—that is, when the matrix of the quadratic form is a diagonal matrix. Fortunately, the cross-product term can be eliminated by making a suitable change of variable.</paragraph>
+      <heading level="2">Change of Variable in a Quadratic Form</heading>
+      <paragraph>If <math display="inline">$\textbf{x}$</math> represents a variable vector in <math display="inline">$\text{ℝ}^{n}$</math>, then a <strong>change of variable</strong> is an equation of the form</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{x} = P\textbf{y},\qquad\text{or equivalently},\quad\textbf{y} = P^{- 1}\textbf{x}$$</math>
+      </paragraph>
+      <paragraph>where <math display="inline">$P$</math> is an invertible matrix and <math display="inline">$\textbf{y}$</math> is a new variable vector in <math display="inline">$\text{ℝ}^{n}$</math>. Here <math display="inline">$\textbf{y}$</math> is the coordinate vector of <math display="inline">$\textbf{x}$</math> relative to the basis of <math display="inline">$\text{ℝ}^{n}$</math> determined by the columns of <math display="inline">$P$</math>. (See Section 4.4.)</paragraph>
+      <paragraph>If the change of variable (1) is made in a quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math>, then</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{x}^{T}A\textbf{x} = (P\textbf{y})^{T}A(P\textbf{y}) = \textbf{y}^{T}P^{T}AP\textbf{y} = \textbf{y}^{T}(P^{T}AP)\textbf{y}$$</math>
+      </paragraph>
+      <paragraph>and the new matrix of the quadratic form is <math display="inline">$P^{T}AP$</math>. Since <math display="inline">$A$</math> is symmetric, Theorem 2 guarantees that there is an <em>orthogonal</em> matrix <math display="inline">$P$</math> such that <math display="inline">$P^{T}AP$</math> is a diagonal matrix <math display="inline">$D$</math>, and the quadratic form in (2) becomes <math display="inline">$\textbf{y}^{T}D\textbf{y}$</math>. This is the strategy of the next example.</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Make a change of variable that transforms the quadratic form in Example 3 into a quadratic form with no cross-product term.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The matrix of the quadratic form in Example 3 is</paragraph>
+              <paragraph><math display="block">$$A = \begin{bmatrix}
+      1 &amp; {- 4} \\
+      {- 4} &amp; {- 5}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>The first step is to orthogonally diagonalize <math display="inline">$A$</math>. Its eigenvalues turn out to be <math display="inline">$\text{λ} = 3$</math> and <math display="inline">$\text{λ} = - 7$</math>. Associated unit eigenvectors are</paragraph>
+              <paragraph><math display="block">$$\text{λ} = 3\text{:}\mspace{9mu}\left\lbrack \begin{array}{r}
+      {2\text{/}\sqrt{5}} \\
+      {- 1\text{/}\sqrt{5}}
+      \end{array} \right\rbrack;\qquad\text{λ} = - 7\text{:}\mspace{9mu}\begin{bmatrix}
+      {1\text{/}\sqrt{5}} \\
+      {2\text{/}\sqrt{5}}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>These vectors are automatically orthogonal (because they correspond to distinct eigenvalues) and so provide an orthonormal basis for <math display="inline">$\text{ℝ}^{2}$</math>. Let</paragraph>
+              <paragraph><math display="block">$$P = \left\lbrack \begin{array}{rr}
+      {2\text{/}\sqrt{5}} &amp; {1\text{/}\sqrt{5}} \\
+      {- 1\text{/}\sqrt{5}} &amp; {2\text{/}\sqrt{5}}
+      \end{array} \right\rbrack,\qquad D = \left\lbrack \begin{array}{rr}
+      3 &amp; 0 \\
+      0 &amp; {- 7}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Then <math display="inline">$A = {PDP}^{- 1}$</math> and <math display="inline">$D = P^{- 1}{AP} = P^{T}AP$</math>, as pointed out earlier. A suitable change of variable is</paragraph>
+              <paragraph><math display="block">$$\textbf{x} = P\textbf{y},\mspace{27mu}\text{where~}\textbf{x} = \begin{bmatrix}
+      x_{1} \\
+      x_{2}
+      \end{bmatrix}\quad\text{and}\quad\textbf{y} = \begin{bmatrix}
+      y_{1} \\
+      y_{2}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>Then</paragraph>
+              <paragraph><math display="block">$$\begin{array}{cl}
+      {x_{1}^{2} - 8x_{1}x_{2} - 5x_{2}^{2}} &amp; {= \textbf{x}^{T}A\textbf{x} = (P\textbf{y})^{T}A(P\textbf{y})} \\
+       &amp; {= \textbf{y}^{T}P^{T}{AP}\textbf{y} = \textbf{y}^{T}D\textbf{y}} \\
+       &amp; {= 3y_{1}^{2} - 7y_{2}^{2}}
+      \end{array}$$</math></paragraph>
+        </example>
+      <paragraph>To illustrate the meaning of the equality of quadratic forms in <strong>Example 4</strong>, we can compute <math display="inline">$Q(\textbf{x})$</math> for <math display="inline">$\textbf{x} = (2, - 2)$</math> using the new quadratic form. First, since <math display="inline">$\textbf{x} = P\textbf{y}$</math>,</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{y} = P^{- 1}\textbf{x} = P^{T}\textbf{x}$$</math>
+      </paragraph>
+      <paragraph>so</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{y} = \left\lbrack \begin{array}{rr}
+      {2\text{/}\sqrt{5}} &amp; {- 1\text{/}\sqrt{5}} \\
+      {1\text{/}\sqrt{5}} &amp; {2\text{/}\sqrt{5}}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
+      2 \\
+      {- 2}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      {6\text{/}\sqrt{5}} \\
+      {- 2\text{/}\sqrt{5}}
+      \end{array} \right\rbrack$$</math>
+      </paragraph>
+      <paragraph>Hence</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{cl}
+      {3y_{1}^{2} - 7y_{2}^{2}} &amp; {= 3(6\text{/}\sqrt{5})^{2} - 7( - 2\text{/}\sqrt{5})^{2} = 3(36\text{/}5) - 7(4\text{/}5)} \\
+       &amp; {= 80\text{/}5 = 16}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>This is the value of <math display="inline">$Q(\textbf{x})$</math> in Example 3 when <math display="inline">$\textbf{x} = (2, - 2)$</math>. See <strong>Figure 1</strong>.</paragraph>
+      <figure label="Figure 1" caption="Change of variable in  xTAx">
+          <image alt="A figure shows two parallelogram planes labeled R squared placed on top of each other along with a horizontal scale R in between."/>
+        </figure>
+      <paragraph>Example 4 illustrates the following theorem. The proof of the theorem was essentially given before Example 4.</paragraph>
+      <note type="procedure" title="Theorem 4">
+          <heading level="2">Theorem 4</heading>
+          <heading level="3">The Principal Axes Theorem</heading>
+              <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> symmetric matrix. Then there is an orthogonal change of variable, <math display="inline">$\textbf{x} = P\textbf{y}$</math>, that transforms the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> into a quadratic form <math display="inline">$\textbf{y}^{T}D\textbf{y}$</math> with no cross-product term.</paragraph>
+        </note>
+      <paragraph>The columns of <math display="inline">$P$</math> in the theorem are called the principal axes of the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math>. The vector <math display="inline">$\textbf{y}$</math> is the coordinate vector of <math display="inline">$\textbf{x}$</math> relative to the orthonormal basis of <math display="inline">$\text{ℝ}^{n}$</math> given by these principal axes.</paragraph>
+      <heading level="2">A Geometric View of Principal Axes</heading>
+      <paragraph>Suppose <math display="inline">$Q(\textbf{x}) = \textbf{x}^{T}A\textbf{x}$</math>, where <math display="inline">$A$</math> is an invertible <math display="inline">$2 \times 2$</math> symmetric matrix, and let <math display="inline">$c$</math> be a constant. It can be shown that the set of all <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℝ}^{2}$</math> that satisfy</paragraph>
+      <paragraph>
+        <math display="block">$$\textbf{x}^{T}A\textbf{x} = c$$</math>
+      </paragraph>
+      <paragraph>either corresponds to an ellipse (or circle), a hyperbola, two intersecting lines, or a single point, or contains no points at all. If <math display="inline">$A$</math> is a diagonal matrix, the graph is in standard position, such as in <strong>Figure 2</strong>. If <math display="inline">$A$</math> is not a diagonal matrix, the graph of equation (3) is</paragraph>
+      <figure label="Figure 2" caption="An ellipse and a hyperbola in standard position">
+          <image alt="Two parts of a figure show an ellipse and a hyperbola having a center at the origin on the respective coordinate planes."/>
+        </figure>
+      <paragraph>rotated out of standard position, as in <strong>Figure 3</strong>. Finding the <em>principal axes</em> (determined by the eigenvectors of <math display="inline">$A$</math>) amounts to finding a new coordinate system with respect to which the graph is in standard position.</paragraph>
+      <figure caption="Figure 3﻿         ﻿An ellipse and a hyperbola not in standard position">
+          <image alt="A graph shows an ellipse with its vertices and co-vertices placed on the axes of a rotated coordinate plane."/>
+        </figure>
+      <figure>
+          <image alt="A graph shows a tilted hyperbola with its vertices placed on two straight lines, forming a rotated coordinate plane."/>
+        </figure>
+      <paragraph>The hyperbola in <strong>Figure 3</strong><strong>(b)</strong> is the graph of the equation <math display="inline">$\textbf{x}^{T}\mspace{-4mu} A\textbf{x} = 16$</math>, where <math display="inline">$A$</math> is the matrix in Example 4. The positive <math display="inline">$y_{1}\text{-axis}$</math> in Figure 3(b) is in the direction of the first column of the matrix <math display="inline">$P$</math> in Example 4, and the positive <math display="inline">$y_{2}\text{-axis}$</math> is in the direction of the second column of <math display="inline">$P$</math>.</paragraph>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>The ellipse in <strong>Figure 3(a)</strong> is the graph of the equation <math display="inline">$5x_{1}^{2} - 4x_{1}x_{2} + 5x_{2}^{2} = 48$</math>. Find a change of variable that removes the cross-product term from the equation.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The matrix of the quadratic form is <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      5 &amp; {- 2} \\
+      {- 2} &amp; 5
+      \end{array} \right\rbrack$</math>. The eigenvalues of <math display="inline">$A$</math> turn out to be <math display="inline">$3$</math> and <math display="inline">$7$</math>, with corresponding unit eigenvectors</paragraph>
+              <paragraph><math display="block">$$\textbf{u}_{1} = \left\lbrack \begin{array}{r}
+      {1\text{/}\sqrt{2}} \\
+      {1\text{/}\sqrt{2}}
+      \end{array} \right\rbrack,\quad\textbf{u}_{2} = \left\lbrack \begin{array}{r}
+      {- 1\text{/}\sqrt{2}} \\
+      {1\text{/}\sqrt{2}}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Let <math display="inline">$P = \text{[}\begin{matrix}
+      \textbf{u}_{1} &amp; \textbf{u}_{2}
+      \end{matrix}\text{]} = \left\lbrack \begin{array}{rr}
+      {1\text{/}\sqrt{2}} &amp; {- 1\text{/}\sqrt{2}} \\
+      {1\text{/}\sqrt{2}} &amp; {1\text{/}\sqrt{2}}
+      \end{array} \right\rbrack$</math>. Then <math display="inline">$P$</math> orthogonally diagonalizes <math display="inline">$A$</math>, so the change of variable <math display="inline">$\textbf{x} = P\textbf{y}$</math> produces the quadratic form <math display="inline">$\textbf{y}^{T}D\textbf{y} = 3y_{1}^{2} + 7y_{2}^{2}$</math>. The new axes for this change of variable are shown in Figure 3(a).</paragraph>
+        </example>
+      <heading level="2">Classifying Quadratic Forms</heading>
+      <paragraph>When <math display="inline">$A$</math> is an <math display="inline">$n \times n$</math> matrix, the quadratic form <math display="inline">$Q(\textbf{x}) = \textbf{x}^{T}A\textbf{x}$</math> is a real-valued function with domain <math display="inline">$\text{ℝ}^{n}$</math>. <strong>Figure 4</strong> displays the graphs of four quadratic forms with domain <math display="inline">$\text{ℝ}^{2}$</math>. For each point <math display="inline">$\textbf{x} = (x_{1},x_{2})$</math> in the domain of a quadratic form <math display="inline">$Q$</math>, the graph displays the point <math display="inline">$(x_{1},x_{2},z)$</math> where <math display="inline">$z = Q(\textbf{x})$</math>. Notice that except at <math display="inline">$\textbf{x} = \textbf{0}$</math>, the values of <math display="inline">$Q(\textbf{x})$</math> are all positive in <strong>Figure 4(a)</strong> and all negative in <strong>Figure 4</strong><strong>(d)</strong>. The horizontal cross-sections of the graphs are ellipses in Figures 4(a) and 4(d) and hyperbolas in <strong>Figure 4(c)</strong>.</paragraph>
+      <figure caption="﻿Figure 4         ﻿Graphs of quadratic forms">
+          <image alt="Graph (a) of quadratic equation, z equals 3 x subscript 1 BaseLine squared plus 7 x subscript 2 BaseLine squared plotted in a three-dimensional coordinate system."/>
+        </figure>
+      <figure>
+          <image alt="Graph (b) of quadratic equation, z equals 3 x subscript 1 BaseLine squared plotted in a three-dimensional coordinate system."/>
+        </figure>
+      <figure>
+          <image alt="Graph (c) of quadratic equation, z equals 3 x subscript 1 BaseLine squared minus 7 x subscript 2 BaseLine squared plotted in a three-dimensional coordinate system."/>
+        </figure>
+      <figure>
+          <image alt="Graph (d) of quadratic equation, z equals negative 3 x subscript 1 BaseLine squared minus 7 x subscript 2 BaseLine squared plotted in a three-dimensional coordinate system."/>
+        </figure>
+      <paragraph>The simple <math display="inline">$2 \times 2$</math> examples in Figure 4 illustrate the following definitions.</paragraph>
+      <note type="definition" title="Definition">
+          <heading level="2">Definition</heading>
+              <paragraph>A quadratic form <math display="inline">$Q$</math> is</paragraph>
+          <list ordered="true">
+                  <item>positive definite if Q(x)&gt;0 for all x≠0,</item>
+                  <item>negative definite if Q(x)&lt;0 for all x≠0,</item>
+                  <item>indefinite if Q(x) assumes both positive and negative values.</item>
+          </list>
+        </note>
+      <paragraph>Also, <math display="inline">$Q$</math> is said to be positive semidefinite if <math display="inline">$Q(\textbf{x}) \geq 0$</math> for all <math display="inline">$\textbf{x}$</math>, and to be negative semidefinite if <math display="inline">$Q(\textbf{x}) \leq 0$</math> for all <math display="inline">$\textbf{x}$</math>. The quadratic forms in parts (a) and (b) of Figure 4 are both positive semidefinite, but the form in (a) is better described as positive definite.</paragraph>
+      <paragraph><strong>Theorem</strong><strong>5</strong> characterizes some quadratic forms in terms of eigenvalues.</paragraph>
+      <note type="procedure" title="Theorem 5">
+          <heading level="2">Theorem 5</heading>
+          <heading level="3">Quadratic Forms and Eigenvalues</heading>
+              <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> symmetric matrix. Then a quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> is</paragraph>
+          <list ordered="true">
+                  <item>positive definite if and only if the eigenvalues of A are all positive,</item>
+                  <item>negative definite if and only if the eigenvalues of A are all negative, or</item>
+                  <item>indefinite if and only if A has both positive and negative eigenvalues.</item>
+          </list>
+        </note>
+      <heading level="3">Proof﻿</heading>
+      <paragraph>By the Principal Axes Theorem, there exists an orthogonal change of variable <math display="inline">$\textbf{x} = P\textbf{y}$</math> such that</paragraph>
+      <paragraph>
+        <math display="block">$$Q(\textbf{x}) = \textbf{x}^{T}A\textbf{x} = \textbf{y}^{T}\! D\textbf{y} = \text{λ}_{1}y_{1}^{2} + \text{λ}_{2}y_{2}^{2} + \cdots + \text{λ}_{n}y_{n}^{2}$$</math>
+      </paragraph>
+      <figure>
+          <image alt="A three dimensional graph shows a positive definite quartic form represented by a paraboloid resting on the origin."/>
+        </figure>
+      <figure>
+          <image alt="A three dimensional graph captioned negative definite shows an inverted paraboloid with its highest point passing through the origin."/>
+        </figure>
+      <figure>
+          <image alt="A three dimensional graph shows an indefinite quartic form represented by a hyperbolic paraboloid."/>
+        </figure>
+      <paragraph>where <math display="inline">$\text{λ}_{1},\ldots,\text{λ}_{n}$</math> are the eigenvalues of <math display="inline">$A$</math>. Since <math display="inline">$P$</math> is invertible, there is a one-to-one correspondence between all nonzero <math display="inline">$\textbf{x}$</math> and all nonzero <math display="inline">$\textbf{y}$</math>. Thus the values of <math display="inline">$Q(\textbf{x})$</math> for <math display="inline">$\textbf{x} \neq \textbf{0}$</math> coincide with the values of the expression on the right side of (4), which is obviously controlled by the signs of the eigenvalues <math display="inline">$\text{λ}_{1},\ldots,\text{λ}_{n}$</math>, in the three ways described in the theorem.</paragraph>
+      <example number="6">
+          <heading level="2">Example 6</heading>
+              <paragraph>Is <math display="inline">$Q(\textbf{x}) = 3x_{1}^{2} + 2x_{2}^{2} + x_{3}^{2} + 4x_{1}x_{2} + 4x_{2}x_{3}$</math> positive definite?</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Because of all the plus signs, this form “looks” positive definite. But the matrix of the form is</paragraph>
+              <paragraph><math display="block">$$A = \,\,\begin{bmatrix}
+      3 &amp; 2 &amp; 0 \\
+      2 &amp; 2 &amp; 2 \\
+      0 &amp; 2 &amp; 1
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>and the eigenvalues of <math display="inline">$A$</math> turn out to be <math display="inline">$5$</math>, <math display="inline">$2$</math>, and <math display="inline">$- 1$</math>. So <math display="inline">$Q$</math> is an indefinite quadratic form, not positive definite.</paragraph>
+        </example>
+      <paragraph>The classification of a quadratic form is often carried over to the matrix of the form. Thus a positive definite matrix ﻿<math display="inline">$A$</math> is a <em>symmetric</em> matrix for which the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> is positive definite. Other terms, such as positive semidefinite matrix, are defined analogously.</paragraph>
+      <note type="caution" title="Numerical Notes">
+          <heading level="2">Numerical Notes</heading>
+              <paragraph>A fast way to determine whether a symmetric matrix <math display="inline">$A$</math> is positive definite is to attempt to factor <math display="inline">$A$</math> in the form <math display="inline">$A = R^{T}R$</math>, where <math display="inline">$R$</math> is upper triangular with positive diagonal entries. (A slightly modified algorithm for an LU factorization is one approach.) Such a Cholesky factorization is possible if and only if <math display="inline">$A$</math> is positive definite. See Supplementary Exercise 23 at the end of Chapter 7.</paragraph>
+        </note>
+      <note type="practice" title="Practice Problem">
+          <heading level="2">Practice Problem</heading>
+              <paragraph>Describe a positive semidefinite matrix <math display="inline">$A$</math> in terms of its eigenvalues.</paragraph>
+        </note>
+    </content>
+    <exercises title="7.2 Exercises">
+      <heading level="1">7.2 Exercises</heading>
+      <exercise_group start="1">
+            <problem number="1">
+              <statement>
+                          <paragraph>Compute the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math>, when <math display="inline">$A = \begin{bmatrix}
+      5 &amp; {1\text{/}3} \\
+      {1\text{/}3} &amp; 1
+      \end{bmatrix}$</math> and</paragraph>
+                <list ordered="true">
+                              <item>x=[x1x2]</item>
+                              <item>x=61</item>
+                              <item>x=13</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph>Compute the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math>, for <math display="inline">$A = \,\,\begin{bmatrix}
+      3 &amp; 1 &amp; 0 \\
+      1 &amp; 1 &amp; 2 \\
+      0 &amp; 2 &amp; 0
+      \end{bmatrix}$</math> and</paragraph>
+                <list ordered="true">
+                              <item>x= x1x2x3</item>
+                              <item>x= −2−15</item>
+                              <item>x= 1/31/31/3</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph>Find the matrix of the quadratic form. Assume <math display="inline">$\textbf{x}$</math> is in <math display="inline">$\text{ℝ}^{2}$</math>.</paragraph>
+                <list ordered="true">
+                              <item>3x12−4x1x2+5x22</item>
+                              <item>3x12+2x1x2</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph>Find the matrix of the quadratic form. Assume <math display="inline">$\textbf{x}$</math> is in <math display="inline">$\text{ℝ}^{2}$</math>.</paragraph>
+                <list ordered="true">
+                              <item>5x12+16x1x2−5x22</item>
+                              <item>2x1x2</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="5">
+              <statement>
+                          <paragraph>Find the matrix of the quadratic form. Assume <math display="inline">$\textbf{x}$</math> is in <math display="inline">$\text{ℝ}^{3}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph>Find the matrix of the quadratic form. Assume <math display="inline">$\textbf{x}$</math> is in <math display="inline">$\text{ℝ}^{3}$</math>.</paragraph>
+                <list ordered="true">
+                              <item>3x12−2x22+5x32+4x1x2−6x1x3</item>
+                              <item>4x32−2x1x2+4x2x3</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="7">
+              <statement>
+                          <paragraph>Make a change of variable, <math display="inline">$\textbf{x} = P\textbf{y}$</math>, that transforms the quadratic form <math display="inline">$x_{1}^{2} + 10x_{1}x_{2} + x_{2}^{2}$</math> into a quadratic form with no cross-product term. Give <math display="inline">$P$</math> and the new quadratic form.</paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be the matrix of the quadratic form<math display="block">$$9x_{1}^{2} + 7x_{2}^{2} + 11x_{3}^{2} - 8x_{1}x_{2} + 8x_{1}x_{3}$$</math></paragraph>
+                          <paragraph>It can be shown that the eigenvalues of <math display="inline">$A$</math> are <math display="inline">$3$</math>, <math display="inline">$9$</math>, and <math display="inline">$15$</math>. Find an orthogonal matrix <math display="inline">$P$</math> such that the change of variable <math display="inline">$\textbf{x} = P\textbf{y}$</math> transforms <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> into a quadratic form with no cross-product term. Give <math display="inline">$P$</math> and the new quadratic form.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="9">
+                  <instructions>Classify the quadratic forms in Exercises 9–18. Then make a change of variable, <math display="inline">$\textbf{x} = P\textbf{y}$</math>, that transforms the quadratic form into one with no cross-product term. Write the new quadratic form. Construct <math display="inline">$P$</math> using the methods of Section 7.1.</instructions>
+            <problem number="9">
+              <statement>
+                          <paragraph><math display="inline">$4x_{1}^{2} - 4x_{1}x_{2} + 4x_{2}^{2}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><math display="inline">$2x_{1}^{2} + 6x_{1}x_{2} - 6x_{2}^{2}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph><math display="inline">$2x_{1}^{2} - 4x_{1}x_{2} - x_{2}^{2}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph><math display="inline">$- x_{1}^{2} - 2x_{1}x_{2} - x_{2}^{2}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="13">
+              <statement>
+                          <paragraph><math display="inline">$x_{1}^{2} - 6x_{1}x_{2} + 9x_{2}^{2}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph><math display="inline">$3x_{1}^{2} + 4x_{1}x_{2}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph><strong>[T]</strong> ﻿<math display="inline">$- 3x_{1}^{2} - 7x_{2}^{2} - 10x_{3}^{2} - 10x_{4}^{2} + 4x_{1}x_{2} + 4x_{1}x_{3} + 4x_{1}x_{4} + 6x_{3}x_{4}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><strong>[T]</strong> ﻿<math display="inline">$4x_{1}^{2} + 4x_{2}^{2} + 4x_{3}^{2} + 4x_{4}^{2} + 8x_{1}x_{2} + 8x_{3}x_{4} - 6x_{1}x_{4} + 6x_{2}x_{3}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="17">
+              <statement>
+                          <paragraph><strong>[T]</strong> ﻿<math display="inline">$11x_{1}^{2} + 11x_{2}^{2} + 11x_{3}^{2} + 11x_{4}^{2} + 16x_{1}x_{2} - 12x_{1}x_{4} + 12x_{2}x_{3} + 16x_{3}x_{4}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph><strong>[T]</strong> ﻿<math display="inline">$2x_{1}^{2} + 2x_{2}^{2} - 6x_{1}x_{2} - 6x_{1}x_{3} - 6x_{1}x_{4} - 6x_{2}x_{3} - 6x_{2}x_{4} - 2x_{3}x_{4}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="19">
+            <problem number="19">
+              <statement>
+                          <paragraph>What is the largest possible value of the quadratic form <math display="inline">$5x_{1}^{2} + 8x_{2}^{2}$</math> if <math display="inline">$\textbf{x} = (x_{1},x_{2})$</math> and <math display="inline">$\textbf{x}^{T}\textbf{x} = 1,$</math> that is, if <math display="inline">$x_{1}^{2} + x_{2}^{2} = 1$</math>? (Try some examples of <math display="inline">$\textbf{x}$</math>.)</paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph>What is the largest value of the quadratic form <math display="inline">$5x_{1}^{2} - 3x_{2}^{2}$</math> if <math display="inline">$\textbf{x}^{T}\textbf{x} = 1$</math>?</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="21">
+                  <instructions>In Exercises 21–30, matrices are <math display="inline">$n \times n$</math> and vectors are in <math display="inline">$\textbf{ℝ}^{n}$</math>. Mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
+            <problem number="21">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The matrix of a quadratic form is a symmetric matrix.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The expression <math display="inline">$\text{∥}\textbf{x}\text{∥}^{2}$</math> is not a quadratic form.</paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A quadratic form has no cross-product terms if and only if the matrix of the quadratic form is a diagonal matrix.</paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$A$</math> is symmetric and <math display="inline">$P$</math> is an orthogonal matrix, then the change of variable <math display="inline">$\textbf{x} = P\textbf{y}$</math> transforms <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> into a quadratic form with no cross-product term.</paragraph>
+              </statement>
+            </problem>
+            <problem number="25">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The principal axes of a quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> are eigenvectors of <math display="inline">$A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If the eigenvalues of a symmetric matrix <math display="inline">$A$</math> are all positive, then the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> is positive definite.</paragraph>
+              </statement>
+            </problem>
+            <problem number="27">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A positive definite quadratic form <math display="inline">$Q$</math> satisfies <math display="inline">$Q(\textbf{x}) &gt; 0$</math> for all <math display="inline">$\textbf{x}$</math> in <math display="inline">$\textbf{ℝ}^{n}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> An indefinite quadratic form is neither positive semidefinite nor negative semidefinite.</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A Cholesky factorization of a symmetric matrix <math display="inline">$A$</math> has the form <math display="inline">$A = R^{T}\!\! R$</math>, for an upper triangular matrix <math display="inline">$R$</math> with positive diagonal entries.</paragraph>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$A$</math> is symmetric and the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> has only negative values for <math display="inline">$\textbf{x} \neq \textbf{0}$</math>, then the eigenvalues of <math display="inline">$A$</math> are all positive.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="31">
+                  <instructions>Exercises 31 and 32 show how to classify a quadratic form <math display="inline">$Q(\textbf{x}) = \textbf{x}^{T}A\textbf{x}$</math>, when <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      a &amp; b \\
+      b &amp; d
+      \end{array} \right\rbrack$</math> and <math display="inline">$\det A \neq 0$</math>, without finding the eigenvalues of <math display="inline">$A$</math>.</instructions>
+            <problem number="31">
+              <statement>
+                          <paragraph>If <math display="inline">$\text{λ}_{1}$</math> and <math display="inline">$\text{λ}_{2}$</math> are the eigenvalues of <math display="inline">$A$</math>, then the characteristic polynomial of <math display="inline">$A$</math> can be written in two ways: <math display="inline">$\det(A - \text{λ}I)$</math> and <math display="inline">$(\text{λ} - \text{λ}_{1})(\text{λ} - \text{λ}_{2})$</math>. Use this fact to show that <math display="inline">$\text{λ}_{1} + \text{λ}_{2} = a + d$</math> (the diagonal entries of <math display="inline">$A$</math>) and <math display="inline">$\text{λ}_{1}\text{λ}_{2} = \det A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph>Verify the following statements:</paragraph>
+                <list ordered="true">
+                              <item>Q is positive definite if detA&gt;0 and a&gt;0.</item>
+                              <item>Q is negative definite if detA&gt;0 and a&lt;0.</item>
+                              <item>Q is indefinite if detA&lt;0.</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="33">
+            <problem number="33">
+              <statement>
+                          <paragraph>Show that if <math display="inline">$B$</math> is <math display="inline">$m \times n$</math>, then <math display="inline">$B^{T}B$</math> is positive semidefinite; and if <math display="inline">$B$</math> is <math display="inline">$n \times n$</math> and invertible, then <math display="inline">$B^{T}B$</math> is positive definite.</paragraph>
+              </statement>
+            </problem>
+            <problem number="34">
+              <statement>
+                          <paragraph>Show that if an <math display="inline">$n \times n$</math> matrix <math display="inline">$A$</math> is positive definite, then there exists a positive definite matrix <math display="inline">$B$</math> such that <math display="inline">$A = B^{T}B$</math>. [<em>Hint:</em><strong/>Write <math display="inline">$A = {PDP}^{T}$</math>, with <math display="inline">$P^{T} = P^{- 1}$</math>. Produce a diagonal matrix <math display="inline">$C$</math> such that <math display="inline">$D = C^{T}C$</math>, and let <math display="inline">$B = PCP^{T}$</math>. Show that <math display="inline">$B$</math> works.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="35">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> and <math display="inline">$B$</math> be symmetric <math display="inline">$n \times n$</math> matrices whose eigenvalues are all positive. Show that the eigenvalues of <math display="inline">$A + B$</math> are all positive. [<em>Hint:</em><strong/>Consider quadratic forms.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="36">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> invertible symmetric matrix. Show that if the quadratic form <math display="inline">$\textbf{x}^{T}A\textbf{x}$</math> is positive definite, then so is the quadratic form <math display="inline">$\textbf{x}^{T}A^{- 1}\textbf{x}$</math>. [<em>Hint:</em><strong/>Consider eigenvalues.]</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>
