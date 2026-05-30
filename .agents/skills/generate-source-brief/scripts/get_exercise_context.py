@@ -27,7 +27,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[4]
-BOOKS_DIR = PROJECT_ROOT / "books"
+BOOKS_DIR = PROJECT_ROOT / "shared" / "books"
 
 EXCLUDED_UNIT_CODES = {"chapter_misc", "supplementary", "projects", "intro"}
 
@@ -37,14 +37,16 @@ def natural_sort_key(path: Path) -> tuple:
 
 
 def get_unit_code(root: ET.Element) -> str | None:
-    """Extract section identifier from <section_file> root element."""
-    code = root.get("unit_code")
+    """Extract section identifier from root element (section_file or section)."""
+    code = root.get("unit_code")       # Pearson: unit_code="1.1"
     if code:
         return code
-    # Applied Calculus style uses section_number
-    sec_num = root.get("section_number")
+    sec_num = root.get("section_number")  # Cengage: section_number="1"
     if sec_num:
         return sec_num
+    number = root.get("number")        # OpenStax: <section number="1.1">
+    if number:
+        return number
     return None
 
 
@@ -57,7 +59,7 @@ def find_section_file(book_dir: Path, section: str) -> Path | None:
     candidates = sorted(
         [
             p
-            for p in book_dir.glob("ch*_sect_*.xml")
+            for p in book_dir.glob("ch*_unit_*.xml")
             if not any(
                 excl in p.name
                 for excl in ("chapter_misc", "supplementary", "projects", "intro")
