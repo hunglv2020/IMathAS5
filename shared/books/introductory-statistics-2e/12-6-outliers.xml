@@ -1,0 +1,424 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="12.6" title="Outliers">
+  <p>In some data sets, there are values (observed data points) called outliers. Outliers are observed data points that are far from the least squares line. They have large "errors", where the "error" or residual is the vertical distance from the line to the point.</p>
+  <p>Outliers need to be examined closely. Sometimes, for some reason or another, they should not be included in the analysis of the data. It is possible that an outlier is a result of erroneous data. Other times, an outlier may
+hold valuable information about the population under study and should remain included in the data. The key is to examine carefully what causes a data point to be an outlier.</p>
+  <p>Besides outliers, a sample may contain one or a few points that are called influential points. Influential points are observed data points that are far from the other observed data points in the horizontal direction. These points may have a big effect on the slope of the regression line. To begin to identify an influential point, you can remove it from the data set and see if the slope of the regression line is changed significantly.</p>
+  <p>Computers and many calculators can be used to identify outliers from the data. Computer output for regression analysis will often identify both outliers and influential points so that you can examine them.</p>
+  <subsection title="Identifying Outliers">
+    <p>We could guess at outliers by looking at a graph of the scatterplot and best fit-line. However, we would like some guideline as to how far away a point needs to be in order to be considered an outlier.  As a rough rule of thumb, we can flag any point that is located further than two standard deviations above or below the best-fit line as an outlier. The standard deviation used is the standard deviation of the residuals or errors.</p>
+    <p>We can do this visually in the scatter plot by drawing an extra pair of lines that are two standard deviations above and below the best-fit line. Any data points that are outside this extra pair of lines are flagged as potential outliers. Or we can do this numerically by calculating each residual and comparing it to twice the standard deviation. On the TI-83, 83+, or 84+, the graphical approach is easier. The graphical procedure is shown first, followed by the numerical calculations. You would generally need to use only one of these methods.</p>
+    <example number="12.12">
+      <problem>
+        <p>In the third exam/final exam example, you can determine if there is an outlier or not. If there is an outlier, as an exercise, delete it and fit the remaining data to a new line. For this example, the new line ought to fit the remaining data better. This means the SSE should be smaller and the correlation coefficient ought to be closer to 1 or –1.</p>
+      </problem>
+      <solution>
+        <p>With the TI-83, 83+, 84+ graphing calculators, it is easy to  identify the outliers graphically and visually.  If we were to measure the vertical distance from any data point to the corresponding point on the line of best fit and that distance were equal to 2s or more, then we would consider the data point to be "too far" from the line of best fit. We need to find and graph the lines that are two standard deviations below and above the regression line.  Any points that are outside these two lines are outliers. We will call these lines Y2 and Y3:</p>
+        <p>As we did with the equation of the regression line and the correlation coefficient, we will use technology to calculate this standard deviation for us.  Using the LinRegTTest with this data, scroll down through the output screens to find s = 16.412.</p>
+        <p>Line Y2 = –173.5 + 4.83x –2(16.4) and line Y3 = –173.5 + 4.83x + 2(16.4)where ŷ = –173.5 + 4.83x is the line of best fit. Y2 and Y3 have the same slope as the line of best fit.</p>
+        <p>Graph the scatterplot with the best fit line in equation Y1, then enter the two extra lines as Y2 and Y3 in the "Y="equation editor and press ZOOM 9. You will find that the only data point that is not between lines Y2 and Y3 is the point x = 65, y = 175. On the calculator screen it is just barely outside these lines. The outlier is the student who had a grade of 65 on the third exam and 175 on the final exam; this point is further than two standard deviations away from the best-fit line.</p>
+        <p>Sometimes a point is so close to the lines used to flag outliers on the graph that it is difficult to tell if the point is between or outside the lines.  On a computer, enlarging the graph may help;  on a small calculator screen, zooming in may make the graph clearer.  Note that when the graph does not give a clear enough picture, you can use the numerical comparisons to identify outliers.</p>
+        <image alt="The scatter plot of exam scores with a line of best fit.Two yellow dashed lines run parallel to the line of best fit. The dashed lines run above and below the best fit line at equal distances. One data point falls outside the boundary created by the dashed lines—it is an outlier." number="12.20" />
+      </solution>
+    </example>
+    <note type="Try It" number="12.12">
+      <p>Identify the potential outlier in the scatter plot. The standard deviation of the residuals or errors is approximately 8.6.</p>
+      <image alt="Gráfico de dispersión con una línea de regresión lineal y un punto atípico." number="12.21" />
+    </note>
+  </subsection>
+  <subsection title="Numerical Identification of Outliers">
+    <p>In Table 12.6, the first two columns are the third-exam and final-exam data. The third column shows the predicted ŷ values calculated from the line of best fit: ŷ = –173.5 + 4.83x. The residuals, or errors, have been calculated in the fourth column of the table: observed y value−predicted y value = y − ŷ.</p>
+    <p>s is the standard deviation of all the y − ŷ = ε values where n = the total number of data points. If each residual is calculated and squared, and the results are added, we get the SSE. The standard deviation of the residuals is calculated from the SSE as:</p>
+    <equation>$$s = \sqrt{\frac{SSE}{n - 2}}$$</equation>
+    <note type="NOTE">
+      <p>We divide by (n – 2) because the regression model involves two estimates.</p>
+    </note>
+    <p>Rather than calculate the value of s ourselves, we can find s using the computer or calculator. For this example, the calculator function LinRegTTest found s = 16.4 as the standard deviation of the residuals 35; 
+–17; 
+16; 
+–6; 
+–19; 
+9; 
+3; 
+–1; 
+–10; 
+–9; 
+–1
+.</p>
+    <table summary="The table contains 4 columns and 11 rows of calculation. The first two columns contain the x and y data values. The third column contains the values predicted by the regression line. The fourth column contains the errors or residuals, calculated as the observed y value minus the predicted value." number="Table 12.6">
+      <thead>
+        <row>
+          <cell>x</cell>
+          <cell>y</cell>
+          <cell>ŷ</cell>
+          <cell>y – ŷ</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>65</cell>
+          <cell>175</cell>
+          <cell>140</cell>
+          <cell>175 – 140 = 35</cell>
+        </row>
+        <row>
+          <cell>67</cell>
+          <cell>133</cell>
+          <cell>150</cell>
+          <cell>133 – 150= –17</cell>
+        </row>
+        <row>
+          <cell>71</cell>
+          <cell>185</cell>
+          <cell>169</cell>
+          <cell>185 – 169 = 16</cell>
+        </row>
+        <row>
+          <cell>71</cell>
+          <cell>163</cell>
+          <cell>169</cell>
+          <cell>163 – 169 = –6</cell>
+        </row>
+        <row>
+          <cell>66</cell>
+          <cell>126</cell>
+          <cell>145</cell>
+          <cell>126 – 145 = –19</cell>
+        </row>
+        <row>
+          <cell>75</cell>
+          <cell>198</cell>
+          <cell>189</cell>
+          <cell>198 – 189 = 9</cell>
+        </row>
+        <row>
+          <cell>67</cell>
+          <cell>153</cell>
+          <cell>150</cell>
+          <cell>153 – 150 = 3</cell>
+        </row>
+        <row>
+          <cell>70</cell>
+          <cell>163</cell>
+          <cell>164</cell>
+          <cell>163 – 164 = –1</cell>
+        </row>
+        <row>
+          <cell>71</cell>
+          <cell>159</cell>
+          <cell>169</cell>
+          <cell>159 – 169 = –10</cell>
+        </row>
+        <row>
+          <cell>69</cell>
+          <cell>151</cell>
+          <cell>160</cell>
+          <cell>151 – 160 = –9</cell>
+        </row>
+        <row>
+          <cell>69</cell>
+          <cell>159</cell>
+          <cell>160</cell>
+          <cell>159 – 160 = –1</cell>
+        </row>
+      </tbody>
+    </table>
+    <p>We are looking for all data points for which the residual is greater than 2s = 2(16.4) = 32.8 or less than –32.8. Compare these values to the residuals in column four of the table. The only such data point is the student who had a grade of 65 on the third exam and 175 on the final exam; the residual for this student is 35.</p>
+  </subsection>
+  <subsection title="How does the outlier affect the best fit line?">
+    <p>Numerically and graphically, we have identified the point (65, 175) as an outlier. We should re-examine the data for this point to see if there are any problems with the data. If there is an error, we should fix the error if possible, or delete the data. If the data is correct, we would leave it in the data set. For this problem, we will suppose that we examined the data and found that this outlier data was an error. Therefore we will continue on and delete the outlier, so that we can explore how it affects the results, as a learning experience.</p>
+    <p>Compute a new best-fit line and correlation coefficient using the ten remaining points:
+On the TI-83, TI-83+, TI-84+ calculators, delete the outlier from L1 and L2. Using the LinRegTTest, the new line of best fit and the correlation coefficient are:</p>
+    <p>ŷ = –355.19 + 7.39x and r = 0.9121</p>
+    <p>The new line with r = 0.9121 is a stronger correlation than the original (r = 0.6631) because r = 0.9121 is closer to one. This means that the new line is a better fit to the ten remaining data values. The line can better predict the final exam score given the third exam score.</p>
+  </subsection>
+  <subsection title="Numerical Identification of Outliers: Calculatingsand Finding Outliers Manually">
+    <p>If you do not have the function LinRegTTest, then you can calculate the outlier in the first example by doing the following.
+
+First, square each |y – ŷ|</p>
+    <p>The squares are 
+352; 
+172; 
+162; 
+62; 
+192; 
+92; 
+32; 
+12; 
+102; 
+92; 
+12</p>
+    <p>Then, add (sum) all the |y – ŷ| squared terms using the formula</p>
+    <p>$$\overset{11}{\underset{i~ = ~1}{\Sigma}}\left( \left| y_{i} - {\hat{y}}_{i} \right| \right)^{2} = \overset{11}{\underset{i~ = ~1}{\Sigma}}\varepsilon_{i}{}^{2}$$ (Recall that yi – ŷi = εi.)</p>
+    <p>= 352 + 172 + 162 + 62 + 192 + 92 + 32 + 12 + 102 + 92 + 12</p>
+    <p>= 2440 =  SSE. The result, SSE is the Sum of Squared Errors.</p>
+    <p>Next, calculate s, the standard deviation of all the y – ŷ = ε values where n = the total number of data points.</p>
+    <p>The calculation is $$s = \sqrt{\frac{\text{SSE}}{n–2}}$$.</p>
+    <p>For the third exam/final exam problem, $$s = \sqrt{\frac{2440}{11–2}} = 16.47$$.</p>
+    <p>Next, multiply s by 2:
+(2)(16.47) = 32.94
+32.94 is 2 standard deviations away from the mean of the y – ŷ values.</p>
+    <p>If we were to measure the vertical distance from any data point to the corresponding point on the line of best fit and that distance is at least 2s, then we would consider the data point to be "too far" from the line of best fit. We call that point a potential outlier.</p>
+    <p>For the example, if any of the |y – ŷ| values are at least 32.94, the corresponding (x, y) data point is a potential outlier.</p>
+    <p>For the third exam/final exam problem, all the |y – ŷ|'s are less than 31.29 except for the first one which is 35.</p>
+    <p>35 &gt; 31.29 That is, |y – ŷ| ≥ (2)(s)</p>
+    <p>The point which corresponds to |y – ŷ| = 35 is (65, 175). Therefore, the data point (65,175) is a potential outlier. For this example, we will delete it. (Remember, we do not always delete an outlier.)</p>
+    <note type="NOTE">
+      <p>When outliers are deleted, the researcher should either record that data was deleted, and why, or the researcher should provide results both with and without the deleted data. If data is erroneous and the correct values are known (e.g., student one actually scored a 70 instead of a 65), then this correction can be made to the data.</p>
+    </note>
+    <p>The next step is to compute a new best-fit line using the ten remaining
+points. The new line of best fit and the correlation coefficient are:</p>
+    <p>ŷ = –355.19 + 7.39x and r = 0.9121</p>
+    <example number="12.13">
+      <problem>
+        <p>Using this new line of best fit (based on the remaining ten data points  in the third exam/final exam example), what would a student who receives a 73 on the third exam expect to receive on the final exam? Is this the same as the prediction made using the original line?</p>
+      </problem>
+      <solution>
+        <p>Using the new line of best fit, ŷ = –355.19 + 7.39(73) = 184.28. A student who scored 73 points on the third exam would expect to earn 184 points on the final exam.
+
+The original line predicted ŷ = –173.51 + 4.83(73) = 179.08 so the prediction using the new line with the outlier eliminated differs from the original prediction.</p>
+      </solution>
+    </example>
+    <note type="Try It" number="12.13">
+      <p>The data points for the graph from the third exam/final exam example are as follows: (1, 5), (2, 7), (2, 6), (3, 9), (4, 12), (4, 13), (5, 18), (6, 19), (7, 12), and (7, 21). Remove the outlier and recalculate the line of best fit. Find the value of ŷ when x = 10.</p>
+    </note>
+    <example number="12.14">
+      <problem>
+        <list type="ol" style="a">
+          <item>Draw a scatterplot of the data.</item>
+          <item>Calculate the least squares line. Write the equation in the form ŷ = a + bx.</item>
+          <item>Draw the line on the scatterplot.</item>
+          <item>Find the correlation coefficient. Is it significant?</item>
+          <item>What is the average CPI for the year 1990?</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="a">
+          <item>See Figure 12.22.</item>
+          <item>ŷ = –3204 + 1.662x is the equation of the line of best fit.</item>
+          <item>r = 0.8694</item>
+          <item>The number of data points is n = 14. Use the 95% Critical Values of the Sample Correlation Coefficient table at the end of Chapter 12. n – 2 = 12. The corresponding critical value is 0.532. Since 0.8694 &gt; 0.532, r is significant.
+ŷ = –3204 + 1.662(1990) = 103.4 CPI</item>
+          <item>Using the calculator LinRegTTest, we find that s = 25.4 ; graphing the lines Y2 = –3204 + 1.662X – 2(25.4) and Y3 = –3204 + 1.662X + 2(25.4) shows that no data values are outside those lines, identifying no outliers. (Note that the year 1999 was very close to the upper line, but still inside it.)</item>
+        </list>
+        <image alt="Scatter plot and line of best fit of the consumer price index data, on the y-axis, and year data, on the x-axis." number="12.22" />
+      </solution>
+    </example>
+    <note type="Try It" number="12.14">
+      <p>The following table shows economic development measured in per capita income PCINC.</p>
+      <table summary=".." number="Table 12.8">
+        <thead>
+          <row>
+            <cell>Year</cell>
+            <cell>PCINC</cell>
+            <cell>Year</cell>
+            <cell>PCINC</cell>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <cell>1870</cell>
+            <cell>340</cell>
+            <cell>1920</cell>
+            <cell>1050</cell>
+          </row>
+          <row>
+            <cell>1880</cell>
+            <cell>499</cell>
+            <cell>1930</cell>
+            <cell>1170</cell>
+          </row>
+          <row>
+            <cell>1890</cell>
+            <cell>592</cell>
+            <cell>1940</cell>
+            <cell>1364</cell>
+          </row>
+          <row>
+            <cell>1900</cell>
+            <cell>757</cell>
+            <cell>1950</cell>
+            <cell>1836</cell>
+          </row>
+          <row>
+            <cell>1910</cell>
+            <cell>927</cell>
+            <cell>1960</cell>
+            <cell>2132</cell>
+          </row>
+        </tbody>
+      </table>
+      <list type="ol" style="a">
+        <item>What are the independent and dependent variables?</item>
+        <item>Draw a scatter plot.</item>
+        <item>Use regression to find the line of best fit and the correlation coefficient.</item>
+        <item>Interpret the significance of the correlation coefficient.</item>
+        <item>Is there a linear relationship between the variables?</item>
+        <item>Find the coefficient of determination and interpret it.</item>
+        <item>What is the slope of the regression equation? What does it mean?</item>
+        <item>Use the line of best fit to estimate PCINC for 1900, for 2000.</item>
+        <item>Determine if there are any outliers.</item>
+      </list>
+    </note>
+  </subsection>
+  <subsection title="95% Critical Values of the Sample Correlation Coefficient Table">
+    <table summary="This table presents the 95% Critical Values of the Sample Correlation Coefficient with Degrees of Freedom in the first column and Critical Values in the second column." number="Table 12.9">
+      <thead>
+        <row>
+          <cell>Degrees of Freedom: n – 2</cell>
+          <cell>Critical Values: (+ and –)</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>1</cell>
+          <cell>0.997</cell>
+        </row>
+        <row>
+          <cell>2</cell>
+          <cell>0.950</cell>
+        </row>
+        <row>
+          <cell>3</cell>
+          <cell>0.878</cell>
+        </row>
+        <row>
+          <cell>4</cell>
+          <cell>0.811</cell>
+        </row>
+        <row>
+          <cell>5</cell>
+          <cell>0.754</cell>
+        </row>
+        <row>
+          <cell>6</cell>
+          <cell>0.707</cell>
+        </row>
+        <row>
+          <cell>7</cell>
+          <cell>0.666</cell>
+        </row>
+        <row>
+          <cell>8</cell>
+          <cell>0.632</cell>
+        </row>
+        <row>
+          <cell>9</cell>
+          <cell>0.602</cell>
+        </row>
+        <row>
+          <cell>10</cell>
+          <cell>0.576</cell>
+        </row>
+        <row>
+          <cell>11</cell>
+          <cell>0.555</cell>
+        </row>
+        <row>
+          <cell>12</cell>
+          <cell>0.532</cell>
+        </row>
+        <row>
+          <cell>13</cell>
+          <cell>0.514</cell>
+        </row>
+        <row>
+          <cell>14</cell>
+          <cell>0.497</cell>
+        </row>
+        <row>
+          <cell>15</cell>
+          <cell>0.482</cell>
+        </row>
+        <row>
+          <cell>16</cell>
+          <cell>0.468</cell>
+        </row>
+        <row>
+          <cell>17</cell>
+          <cell>0.456</cell>
+        </row>
+        <row>
+          <cell>18</cell>
+          <cell>0.444</cell>
+        </row>
+        <row>
+          <cell>19</cell>
+          <cell>0.433</cell>
+        </row>
+        <row>
+          <cell>20</cell>
+          <cell>0.423</cell>
+        </row>
+        <row>
+          <cell>21</cell>
+          <cell>0.413</cell>
+        </row>
+        <row>
+          <cell>22</cell>
+          <cell>0.404</cell>
+        </row>
+        <row>
+          <cell>23</cell>
+          <cell>0.396</cell>
+        </row>
+        <row>
+          <cell>24</cell>
+          <cell>0.388</cell>
+        </row>
+        <row>
+          <cell>25</cell>
+          <cell>0.381</cell>
+        </row>
+        <row>
+          <cell>26</cell>
+          <cell>0.374</cell>
+        </row>
+        <row>
+          <cell>27</cell>
+          <cell>0.367</cell>
+        </row>
+        <row>
+          <cell>28</cell>
+          <cell>0.361</cell>
+        </row>
+        <row>
+          <cell>29</cell>
+          <cell>0.355</cell>
+        </row>
+        <row>
+          <cell>30</cell>
+          <cell>0.349</cell>
+        </row>
+        <row>
+          <cell>40</cell>
+          <cell>0.304</cell>
+        </row>
+        <row>
+          <cell>50</cell>
+          <cell>0.273</cell>
+        </row>
+        <row>
+          <cell>60</cell>
+          <cell>0.250</cell>
+        </row>
+        <row>
+          <cell>70</cell>
+          <cell>0.232</cell>
+        </row>
+        <row>
+          <cell>80</cell>
+          <cell>0.217</cell>
+        </row>
+        <row>
+          <cell>90</cell>
+          <cell>0.205</cell>
+        </row>
+        <row>
+          <cell>100</cell>
+          <cell>0.195</cell>
+        </row>
+      </tbody>
+    </table>
+  </subsection>
+</section>

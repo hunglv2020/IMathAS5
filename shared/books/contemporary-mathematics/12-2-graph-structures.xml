@@ -1,0 +1,623 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="12.2" title="Graph Structures">
+  <image alt="An M R I image shows the active nodes in the brain." number="12.16" caption="Neuroimaging shows brain activity. (credit: &quot;MRI Scan&quot; by NIH Image Gallery/Flickr, Public Domain)" />
+  <subsection title="Learning Objectives">
+    <p>After completing this section, you should be able to:</p>
+    <list type="ol" style="1">
+      <item>Describe and interpret relationships in graphs.</item>
+      <item>Model relationships with graphs.</item>
+    </list>
+    <p>Graph theory is used in neuroscience to study how different parts of the brain connect. Neurobiologists use functional magnetic resonance imaging (fMRI) to measure levels of blood in different parts of the brain, called nodes. When nodes are active at the same time, it suggests there is a functional connection between them so they form a network. This network can be represented as a graph where the vertices are the nodes and the functional connections are the edges between them. (Mikey Taylor, "Graph Theory &amp; Machine Learning in Neuroscience," Medium.com, June 24, 2020.</p>
+  </subsection>
+  <subsection title="Importance of the Degrees of Vertices">
+    <p>One reason scientists study these networks is to determine how successful the communication within a network continues to be when it experiences failures in nodes and connections. Graphs can be used to study the resilience of these networks. (Mikey Taylor, "Graph Theory &amp; Machine Learning in Neuroscience," Medium.com, June 24, 2020)</p>
+    <example number="12.6">
+      <problem>
+        <p>The graphs in Figure 12.17 represent neural networks, where the vertices are the nodes, and the edges represent functional connections between them. Which graph do you think would represent a network with the highest resistance to failure? Which graph would probably be the most vulnerable to failure? How might this relate to the degrees of the vertices?</p>
+        <image alt="Three graphs, graph A, graph B, and graph C represent models of neural networks. The graphs have n number of edges and vertices." number="12.17" caption="Models of Neural Networks" />
+      </problem>
+      <solution>
+        <p>Graph B represents a network that would have the highest resistance to failure because there are more edges connecting the nodes indicating there are more connections between nodes than on either of the other graphs. This would make the network more resistant to failure because there are more options to work around a faulty edge or node. Graph A would probably be the most susceptible to failure because the network depends on a few particular edges and vertices for connections. There are more vertices of higher degree in Graph B than in Graph A because there are more edges connecting the nodes.</p>
+      </solution>
+    </example>
+    <note type="Your Turn" number="12.6">
+      <image alt="Three graphs, graph C, graph D, and graph E. Graph C shows edges connecting the following vertices: a b, b c, a c, b e, d e, e f, a f, e i, d g, g h, h i, and e i. Graph D shows edges connecting the following vertices: a b, a d, a e, e c, e g, e i, g f, i h, and f i. Graph E shows edges connecting the following vertices: a b, b c, a c, b d, a e, a f, c e, e g, e h, e i, f h, f i, g h, g i, a g, c f, and c g." caption="Models of Communities" />
+      <p>Which graph do you think represents the most resilient community? What is the sum of the degrees of all the vertices in this graph?</p>
+      <p>Which graph do you think represents the community that is least likely to stay connected over time? What is the sum of the degrees of all the vertices in this graph?</p>
+      <p>Is the sum of the degrees higher or lower in a more resilient community?</p>
+    </note>
+  </subsection>
+  <subsection title="Relating the Number of Edges to the Degrees of Vertices">
+    <p>In the applications of graph theory to neuroscience and sociology in Example 12.6 and YOUR TURN 12.6, there was a correlation between the degrees of vertices and the resilience of a network. Researchers in many fields have also observed a direct relationship between the number of edges in a graph and the degrees of the vertices. To begin to understand this relationship, consider a graph with five vertices and zero edges as in Figure 12.18.</p>
+    <image alt="A graph has five vertices and no edges. The vertices are labeled 0." number="12.18" caption="Graph with Five Vertices and zero Edges" />
+    <p>Instead of being marked with a name, each vertex in Figure 12.18 is marked with its degree. In this case, all of the degrees are 0 so the sum of the degrees is also zero. Suppose that we add an edge between any two existing vertices and indicate the degrees of the vertices. This gives us a graph with five vertices and one edge like the graph in Figure 12.19.</p>
+    <image alt="A graph has five vertices: three vertices are labeled 0 and two others are labeled 1. The vertices labeled 1 are connected with an edge." number="12.19" caption="Graph with Five Vertices and One Edge" />
+    <p>Note that the degrees of two vertices increased, each by 1. So, the sum of the degrees is now 2. Suppose that we continue in this way, adding one edge at a time and making note of the number of edges and the sum of the degrees of the vertices as in Figure 12.20.</p>
+    <image alt="Four graphs. The first graph is labeled edges: 2. Sum of degrees: 4. The graph has five vertices: two vertices labeled 0, two labeled 1, and one labeled 2. The edges connect 1 2 and 1 2. The second graph is labeled edges: 3. Sum of degrees: 6. The graph has five vertices: four vertices labeled 1 and one labeled 2. The edges connect 1 1, 1 2, and 1 2. The third graph is labeled edges: 4. Sum of degrees: 8. The graph has five vertices: three vertices labeled 1, one labeled 2, and one labeled 3. The edges connect 1 2, 2 3, 1 3, and 1 3. The fourth graph is labeled edges: 5. Sum of degrees: 10. The graph has five vertices: two vertices labeled 1, two labeled 3, and one labeled 2. The edges connect 1 3, 3 3, 2 3, 1 3, and 3 2." number="12.20" caption="Comparing Number of Edges to Sum of Degrees" />
+    <p>Figure 12.20 demonstrates a characteristic that is true of all graphs of any shape or size. When the number of edges is increased by one, the sum of the degrees increases by two. This happens because each edge has two ends and each end increases the degree of one vertex by one unit. As a result, the sum of the degrees of the vertices on any graph is always twice the number of edges. This relationship is known as the Sum of Degrees Theorem.</p>
+    <note type="FORMULA">
+      <p>For the Sum of Degrees Theorem,</p>
+      <equation>$${sum\ of\ the\ degrees} = 2 \times {number\ of\ edges}$$</equation>
+      <p>or</p>
+      <equation>$${number\ of\ edges} = \frac{sum\ of\ degrees}{2}$$</equation>
+    </note>
+    <example number="12.7">
+      <problem>
+        <p>Suppose that a graph has five edges.</p>
+        <list type="ol" style="1">
+          <item>Find the sum of the degrees of the vertices.</item>
+          <item>Draw two different graphs that demonstrate this conclusion.</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="1">
+          <item>The sum of the degrees is twice the number of edges: 2 × 5=10. The sum of the degrees is 10.</item>
+          <item>See Figure 12.21.</item>
+        </list>
+        <image alt="Two graphs are labeled graph 1 and graph 2. Graph 1 has six vertices labeled 1, 2, 2, 2, 2, and 1. The edges connect 1 2, 2 2, 2 2, 2 2, and 2 1. Graph 2 has four vertices labeled 3, 2, 3, and 2. The edges connect 3 2, 2 3, 3 2, 2 3, and 3 3." number="12.21" />
+      </solution>
+    </example>
+    <note type="Your Turn" number="12.7">
+      <p>Find the number of edges.</p>
+      <p>Draw two graphs that demonstrate your conclusion.</p>
+    </note>
+  </subsection>
+  <subsection title="Completeness">
+    <p>Suppose that there were five strangers in a room, A, B, C, D, and E, and each one would be introduced to each of the others. How many introductions are necessary? One way to begin to answer this question is to draw a graph with each vertex representing an individual in the room and each edge representing an introduction as in Figure 12.22.</p>
+    <image alt="Five graphs titled 4 edges, 3 more edges, 2 more edges, 1 more edge, and 4 plus 3 plus 2 plus 1 equals 10 edges. The first graph shows the edges connecting the following vertices: A E, A D, A C, and A B. The second graph shows the edges connecting the following vertices: A E, A B, A D, A C, E B, B C, and B D. The third graph shows the edges connecting the following vertices: A E, A B, A D, A C, E B, B C, B D, D C, and E C. The fourth graph shows the edges connecting the following vertices: A E, A B, A D, A C, E B, B C, B D, D C, E C, and E D. The fifth graph shows the edges connecting the following vertices: A E, A B, A D, A C, E B, B C, B D, D C, E C, and E D." number="12.22" caption="Model of Introductions between Five Strangers" />
+    <p>Let’s approach the problem by thinking about how many new people Person A would meet, then Person B, and so on, making sure not to repeat any introductions. The first graph in Figure 12.22 shows Person A meeting Persons B, C, D, and E, for a total of 4 introductions. The next graph shows that Person B still has to meet Persons C, D, and E, for a total of 3 more introductions. The next graph shows that Person C still has to meet Persons D and E, which is 2 more introductions. The next graph shows that Person D only remains to meet Person E, which is 1 more introduction. The final graph has $$4 + 3 + 2 + 1 = 10$$ edges representing 10 introductions. The last graph is an example of a complete graph because each pair of vertices is joined by an edge. Another way of saying this is that the graph is complete because each vertex is adjacent to every other vertex.Figure 12.23 shows complete graphs with three, four, five, and six vertices.</p>
+    <image alt="Four graphs. The first graph shows three vertices, a, b, and c. The edges connect a c, a b, and c b. The second graph shows four vertices, a, b, c, and d. The edges connect a b, b c, c d, a d, a c, and b d. The third graph shows five vertices, a, b, c, d, and e. The edges connect a b, b c, c d, d e, e a, a d, a c, b e, b d, and c e. The fourth graph shows six vertices, a, b, c, d, e, and f. All the vertices are interconnected using 15 edges." number="12.23" caption="Complete Graphs with Up to Six Vertices" />
+    <p>Suppose we want to know the number of introductions necessary in a room with six people. This would be represented by a complete graph with six vertices, and the total number of introductions would be $$5 + 4 + 3 + 2 + 1 = 15$$, the number of edges in the graph. In fact, you can always find the number of introductions in a room with $$n$$ people by adding all the whole numbers from 1 to $$n - 1$$.</p>
+    <note type="FORMULA">
+      <p>The number of edges in a complete graph with $$n$$ vertices is the sum of the whole numbers from 1 to $$n - 1$$, $$1 + 2 + 3 + \cdots + (n - 1)$$.</p>
+    </note>
+    <p>Suppose that we want to determine how many introductions are necessary in a room with 500 strangers. In other words, suppose that we want to determine the number of edges in a complete graph with 500 vertices. Adding up all the numbers from 1 to 499 could take a long time! In the next example, we use the Sum of Degrees Theorem to make the problem more manageable.</p>
+    <example number="12.8">
+      <problem>
+        <p>Use the Sum of Degrees Theorem to determine the number of introductions required in a room with</p>
+        <list type="ol" style="1">
+          <item>6 strangers.</item>
+          <item>10 strangers.</item>
+          <item>$$n$$ strangers.</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="1">
+          <item>Since there are 6 strangers, there are 6 vertices. Since each individual must meet 5 other individuals, there are 5 edges meeting at each vertex which means each vertex has degree 5. Since there are 6 vertices of degree 5, the sum of degrees is $$6 \cdot 5 = 30$$. By the Sum of Degrees Theorem, the number of edges is half the sum of the degrees, which is $$\frac{30}{2} = 15$$. So, the total number of introductions is 15.</item>
+          <item>Since there are 10 strangers, there are 10 vertices. Since each individual must meet 9 other individuals, there are 9 edges meeting at each vertex which means each vertex has degree 9. Since there are 10 vertices of degree 9, the sum of degrees is $$10 \cdot 9 = 90$$. By the Sum of Degrees Theorem, the number of edges is half the sum of the degrees, which is $$\frac{90}{2} = 45$$. So, the total number of introductions is 45.</item>
+          <item>Since there are $$n$$ strangers, there are $$n$$ vertices. Since each individual must meet $$n - 1$$ other individuals, there are $$n - 1$$ edges meeting at each vertex which means each vertex has degree $$n - 1$$. Since there are $$n$$ vertices of degree $$n - 1$$, the sum of degrees is $$n(n - 1)$$. By the Sum of Degrees Theorem, the number of edges is half the sum of the degrees, which is $$\frac{n(n - 1)}{2}$$. So, the total number of introductions is $$\frac{n(n - 1)}{2}$$.</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="12.8">
+      <p>Determine the number of introductions necessary in a room with 500 strangers using the Sum of Degrees Theorem.</p>
+    </note>
+    <p>Now we have a shorter way to calculate the number of introductions in a room with $$n$$ strangers, and the number of edges on a complete graph with $$n$$ vertices. Let’s update our formula.</p>
+    <note type="FORMULA">
+      <p>The number of edges in a complete graph with $$n$$ vertices is $$1 + 2 + 3 + \cdots + (n - 1) = \frac{n(n - 1)}{2}$$.</p>
+    </note>
+  </subsection>
+  <subsection title="Subgraphs">
+    <p>Sometimes a graph is a part of a larger graph. For example, the graph of South Florida Airports from Figure 12.7 is part of a larger graph that includes Orlando International Airport in Central Florida, which is shown in Figure 12.24</p>
+    <image alt="A graph with six vertices. The edges connect Tampa T P A with Key West E Y W, Miami M I A, Fort Lauderdale F L L, and West Palm Beach P B I. An edge connects Key West with Miami. An edge connects Key West with Fort Lauderdale. Edges from Orlando M C O connect with Key West, Miami, and Fort Lauderdale." number="12.24" caption="Orlando and South Florida Airports" />
+    <p>The graph in Figure 12.24 includes an additional vertex, MCO, and additional edges shown with dashed lines. The graph of direct flights between South Florida airports from Figure 12.7 is called a subgraph of the graph that also includes direct flights between Orlando and the same South Florida airports in Figure 12.24. In general terms, if Graph B consists entirely of a set of edges and vertices from a larger Graph A, then B is called a subgraph of A.</p>
+    <example number="12.9">
+      <problem>
+        <p>In Figure 12.25, Graph G is given, along with four diagrams. Determine whether each diagram is or is not a subgraph of Graph G and explain why.</p>
+        <image alt="Five graphs. Graph G has five vertices: a, b, c, d, and e. The edges connect a b, b c, c d, d e, e a, a d, and b e. Diagram J has five vertices: a, b, c, d, and e. The edges connect a b, a e, a d, e c, and c d. Diagram K has four vertices: a, e, c, and d. The edges connect a e, a d, and d c. Diagram L has four vertices: a, b, c, and d. The edges connect a d, d c, and b c. Diagram M has five vertices: a, b, c, d, and f. The edges connect a b, b c, c d, a f, and f d." number="12.25" caption="Graph G and Potential Subgraphs" />
+      </problem>
+      <solution>
+        <list type="ul">
+          <item>Diagram J is not a subgraph of Graph G because edge ec is not in Graph G.</item>
+          <item>Diagram K is a subgraph of Graph G because all of its vertices and edges were part of Graph G.</item>
+          <item>Diagram L is not a graph at all, because there is a line extending from vertex a that does not connect a to another vertex. So, Diagram L cannot be a subgraph.</item>
+          <item>Diagram M is not a subgraph of Graph G because it contains a vertex f, which is not part of G.</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="12.9">
+      <p>Draw a subgraph of Graph F from Figure 12.3 that has exactly four vertices and five edges.</p>
+    </note>
+  </subsection>
+  <subsection title="Identifying and Naming Cycles">
+    <image alt="An illustration represents the water cycle. Through the evaporation process, water from the ocean gets evaporated. The evaporated water converts into clouds through the condensation process. Through the precipitation process, rain pours down from clouds. The surface runoff water from the mountains reaches the lake and from the lake to the ocean." number="12.26" caption="The water cycle begins and ends with water. (credit: &quot;Diagram of the water cycle&quot; by NASA, Public Domain)" />
+    <p>When you think of a cycle in everyday life, you probably think of something that begins and ends the same way. For example, the water cycle (Figure 12.26) begins with water in a lake or ocean, which evaporates into water vapor, condenses into clouds, and then returns to earth as rain or some other form of precipitation that settles into lakes or oceans. A cycle in graph theory is similar in that it begins and ends in the same way: It is a series of connected edges that begin and end at the same vertex but otherwise never repeat any vertices.</p>
+    <p>In a cycle, there are always the same number of vertices as edges, and all vertices must be of degree 2. Cycles are often referred to by the number of vertices. For example, a cycle with 5 vertices can be called a 5-cycle. Cycles can also be named after polygons based on the number of edges. For example a 5-cycle is also called a pentagon. Table 12.1 lists these names for cycles of size 3 through size 10.</p>
+    <table summary=" " number="Table 12.1" caption="Categories of Cycles">
+      <thead>
+        <row>
+          <cell>Cycle Category</cell>
+          <cell>Number of Edges</cell>
+          <cell>Example</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>triangle</cell>
+          <cell>3</cell>
+          <cell />
+        </row>
+        <row>
+          <cell>quadrilateral</cell>
+          <cell>4</cell>
+          <cell />
+        </row>
+        <row>
+          <cell>pentagon</cell>
+          <cell>5</cell>
+          <cell />
+        </row>
+        <row>
+          <cell>hexagon</cell>
+          <cell>6</cell>
+          <cell />
+        </row>
+        <row>
+          <cell>heptagon</cell>
+          <cell>7</cell>
+          <cell />
+        </row>
+        <row>
+          <cell>octagon</cell>
+          <cell>8</cell>
+          <cell />
+        </row>
+        <row>
+          <cell>nonagon</cell>
+          <cell>9</cell>
+          <cell />
+        </row>
+        <row>
+          <cell>decagon</cell>
+          <cell>10</cell>
+          <cell />
+        </row>
+      </tbody>
+    </table>
+    <p>There are many more polygon names, including a megagon that has a million edges and a googolgon that has $$10^{100}$$ edges, but usually we just say $$n$$-gon when the number $$n$$ is past 10. For example, a cycle with 11 edges could be called an 11-gon.</p>
+    <p>Notice that the 10-cycle, or decagon, appears to cross over itself in Table 12.1. Remember, graphs can be drawn differently but represent the same connections. In Figure 12.27, the same decagon is transformed into a graph that does not appear to overlap itself. We have done this without changing any of the connections so both diagrams represent the same relationships, and both diagrams are considered decagons.</p>
+    <image alt="Two graphs. The first graph represents a decagon with 10 edges and 10 vertices. The second graph shows 10 edges and 10 vertices. The edges do not overlap." number="12.27" caption="Transformation of a Decagon" />
+    <note type="Who Knew?">
+      <p>Did the name "googolgon" ring a bell for you? If so, there is a good reason for it. The creators of Google.com renamed their search engine Google, a misspelled reference to the number "googol" alluding to the enormous number of calculations their algorithm can tackle. A googol is a 1 followed by 100 zeroes, or $$10^{100}$$. (William L. Hosch, "Google, American Company," https://www.britannica.com/topic/Google-Inc, Encyclopedia Britannica online)</p>
+    </note>
+  </subsection>
+  <subsection title="Cyclic Subgraphs and Cliques">
+    <p>When cycles appear as subgraphs within a larger graph, they are called cyclic subgraphs. Cyclic subgraphs are named by listing their vertices sequentially. The vertex where you begin is not important. Graph K in Figure 12.28 has two triangle cycles (g, h, j) and (h, i, j), and one quadrilateral cycle (g, h, i, j).</p>
+    <image alt="Four graphs. Graph K shows four vertices: g, h, i, and j. The edges connect h i, i j, j g, g h, and h j. The second graph shows (g, h, j). The edges connect g h, g j, and j h. The third graph shows (h, i, j). The edges connect h i, i j, and j h. The fourth graph shows (g, h, i, j). The edges connect g h, h i, i j, and j g." number="12.28" caption="Cycles in Graph K" />
+    <note type="Checkpoint">
+      <p>The same cycle can be named in many ways, but we must keep in mind that listing two vertices consecutively indicates an edge exists between them. For example, (g, h, i, j) can also be named (h, i, j, g) or (j, i, h, g). However, you cannot name it (g, i, h, j,) which doesn't reflect the correct order of the vertices. We can see that the order (g, i, h, j) is incorrect because the cycle has no edges gi or hj.</p>
+    </note>
+    <example number="12.10">
+      <problem>
+        <p>Identify the types of cyclic subgraphs in Graph H in Figure 12.29 and name them.</p>
+        <image alt="A graph. The graph has seven vertices: a, b, c, d, e, f, and g. The edges connect a b, b c, c d, d e, e f, f a, b g, and g f." number="12.29" caption="Graph H" />
+      </problem>
+      <solution>
+        <p>In order to avoid missing a cycle, begin by analyzing the vertex a, then proceed in alphabetical order. Vertex a is part of two cycles, the quadrilateral cycle (a, b, f, g,) and the hexagonal cycle (a, b, c, d, e, f). Next look at vertex b. It is part of the hexagonal cycle (b, c, d, e, f, g). After checking each of the remaining vertices, we see there are no other cycles.</p>
+      </solution>
+    </example>
+    <note type="Checkpoint">
+      <p>In order to avoid naming the same cycle twice, consider naming cycles beginning with the letter closest to the beginning of the alphabet and then progressing clockwise.</p>
+    </note>
+    <note type="Your Turn" number="12.10">
+      <p>Which types of cycles are in Graph G in Figure 12.25? Use the vertices of the graph to give a name for one of each type that you find.</p>
+    </note>
+    <p>We have seen that sociologists use graphs to study the structures of social networks. In sociology, there is a principle known as Triadic Closure. It says that if two individuals in a social network have a friend in common, then it is more likely those two individuals will become friends too. Sociologists refer to this as an open triad becoming a closed triad. This concept can be visualized as graphs in Figure 12.30. (Chakraborty, Dutta, Mondal, and Nath, "Application of Graph Theory in Social Media, International Journal of Computer Sciences and Engineering, 6(10):722-729) In the open triad in Figure 12.30, person a and person b each has a friendship with person c. In the closed triad, person a and person b have also developed a friendship. Notice that the graph representing the closed triad is a three-cycle, or a triangle, in graph theory terms.</p>
+    <image alt="Two graphs represent the open triad and closed triad. The first graph shows three vertices, a, b, and c. The edges connect a c and c b. The second graph shows the same vertices. The edges connect a c, c b, and b a." number="12.30" caption="Graphs of Open Triad and Closed Triad" />
+    <p>Another topic of interest to sociologists, as well as computer scientists and scientists in many fields, is the concept of a clique. In a social group, a clique is a subgroup who are all friends. A triad is an example of a clique with three people, but there can be cliques of any size. In graph theory, a clique is a complete subgraph.</p>
+    <example number="12.11">
+      <problem>
+        <p>The graphs in YOUR TURN 12.6 represent social communities. The vertices are individuals and the edges are social connections. Use the graphs to answer the questions.</p>
+        <list type="ol" style="1">
+          <item>Which graph has the most triads? Name the triangles.</item>
+          <item>Which graph has the fewest triads? Name the triangles.</item>
+          <item>How might an increase in the number of triads in a graph affect the resilience of a community? Explain your reasoning.</item>
+          <item>Identify a clique with more than three vertices in Graph E by naming its vertices.</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="1">
+          <item>Graph E has the most triads. The triangles are (a, b, c), (a, c, e), (a, c, f), (a, c, g), (a, e, g), (c, e, g), (e, g, h), (e, h, i), and (f, g, i).</item>
+          <item>Graph D has the fewest triads. There are no triangles in the graph.</item>
+          <item>More triads means vertices of greater degree, which indicates greater resilience. Specifically, if an edge is removed from a closed triad, there the two individuals who are no longer adjacent are still connected by way of the third member of the triad.</item>
+          <item>The vertices a, e, c, and g form a clique with four vertices.</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="12.11">
+      <p>From  Exercise 35 in Section 12.1 Exercises, Chloe is interested to know how many in her network of Roblox friends are also friends with each other, so she polls them. The following is a list of each of Chloe’s friends and their common friends. Find a pentagon cycle in the graph of the Roblox friends in Chloe’s network that includes Chloe.
+
+
+Aria is friends with no one else in Chloe’s network.
+Benicio is friends with Dakshayani, Eun-ah, and Fukashi.
+Dakshayani is friends with Benicio.
+Eun-ah is friends with Benicio and Fukashi.
+Fukashi is friends with Benicio and Eun-ah.</p>
+    </note>
+  </subsection>
+  <subsection title="Three-Cycles in Complete Graphs">
+    <p>Just as complete graphs have a predictable number of edges, complete graphs have a predictable number of cyclic subgraphs. Let’s look at the three-cycles within complete graphs with up to six vertices, which are shown in Figure 12.31.</p>
+    <image alt="Four graphs. The first graph shows three vertices, a, b, and c. The edges connect a c, a b, and c b. The second graph shows four vertices, a, b, c, and d. The edges connect a b, b c, c d, a d, a c, and b d. The third graph shows five vertices, a, b, c, d, and e. The edges connect a b, b c, c d, d e, e a, a d, a c, b e, b d, and c e. The fourth graph shows six vertices, a, b, c, d, e, and f. All the vertices are interconnected using 15 edges." number="12.31" caption="Complete Graphs with Up to Six Vertices" />
+    <p>Let's list the names of all the triangles in each graph. Since every pair of vertices is adjacent, any three vertices on a complete graph form a triangle. There is only one triangle in the complete graph with three vertices, (a, b, c). For the rest of the graphs, it is important that we take an organized approach. Start with the vertex that is first alphabetically, listing any triangles that include that vertex also in alphabetical order. Then, proceed to the next vertex in the alphabet, and list any triangles that include that vertex, except those that are already listed. Keep going in this way as shown in Table 12.2.</p>
+    <table summary=" " number="Table 12.2" caption="Listing Triangles in Complete Graphs">
+      <thead>
+        <row>
+          <cell>Complete Graph With:</cell>
+          <cell>3 Vertices</cell>
+          <cell>4 Vertices</cell>
+          <cell>5 Vertices</cell>
+          <cell>6 Vertices</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>All a triangles</cell>
+          <cell>(a, b, c)</cell>
+          <cell>(a, b, c), (a, b, d), (a, c, d)</cell>
+          <cell>(a, b, c), (a, b, d), (a, b, e) (a, c, d), (a, c, e) (a, d, e)</cell>
+          <cell>(a, b, c), (a, b, d), (a, b, e), (a, b, f) (a, c, d), (a, c, e), (a, c, f) (a, d, e), (a, d, f) (a, e, f)</cell>
+        </row>
+        <row>
+          <cell>Other b triangles</cell>
+          <cell>None</cell>
+          <cell>(b, c, d)</cell>
+          <cell>(b, c, d), (b, c, e), (b, d, e)</cell>
+          <cell>(b, c, d), (b, c, e), (b, c, f) (b, d, e), (b, d, f)	 (b, e, f)</cell>
+        </row>
+        <row>
+          <cell>Other c triangles</cell>
+          <cell>None</cell>
+          <cell>None</cell>
+          <cell>(c, d, e)</cell>
+          <cell>(c, d, e), (c, d, f)
+    (c, e, f)</cell>
+        </row>
+        <row>
+          <cell>Other d triangles</cell>
+          <cell>None</cell>
+          <cell>None</cell>
+          <cell>None</cell>
+          <cell>(d, e, f)</cell>
+        </row>
+        <row>
+          <cell>Total</cell>
+          <cell>1</cell>
+          <cell>$$\begin{array}{l} {\left( {2 + 1} \right) + 1} \\ {= 3 + 1} \\ {= 4} \end{array}$$</cell>
+          <cell>$$\begin{array}{l} {\left( {3 + 2 + 1} \right) + \left( {2 + 1} \right) + 1} \\ {= 6 + 3 + 1} \\ {= 10} \end{array}$$</cell>
+          <cell>$$\begin{array}{l} {\left( {4 + 3 + 2 + 1} \right) + \left( {3 + 2 + 1} \right) + \left( {2 + 1} \right) + 1} \\ {= 10 + 6 + 3 + 1} \\ {= 20} \end{array}$$</cell>
+        </row>
+      </tbody>
+    </table>
+    <p>Look at the last row in Table 12.2. Do you see a pattern emerge for counting triangles in a complete graph? Without drawing a complete graph with 7 vertices, we can predict that it will have $$(5 + 4 + 3 + 2 + 1) + \left( {4 + 3 + 2 + 1} \right) + (3 + 2 + 1) + \left( {2 + 1} \right) + 1 = 35$$ triangles inside it. This pattern also appears in a famous diagram known to Western mathematicians as "Pascal’s Triangle." Figure 12.32 displays the first 11 rows of Pascal’s Triangle. Row 0 of Pascal’s Triangle only has the number 1 in it. The first and last entries in each of the other rows are also 1s. Otherwise, all the entries are formed by adding two entries from the previous row. For example, in row 6, entry 1 is 6, which was found by adding 1 and the 5 from the previous row, and entry 2 is 15, which was found by adding the 5 and the 10 from the previous row, as shown in Table 12.2.</p>
+    <image alt="Pascal's triangle with 10 rows. Row 0: 1. Row 1: 1, 1. Row 2: 1, 2, 1. Row 3: 1, 3, 3, 1. Row 4: 1, 4, 6, 4, 1. Row 5: 1, 5, 10, 10, 5, 1. Row 6: 1, 6, 15, 20, 15, 6, 1. Row 7: 1, 7, 21, 35, 35, 21, 7, 1. Row 8: 1, 8, 28, 56, 70, 56, 28, 8, 1. Row 9: 1, 9, 36, 84, 126, 126, 84, 36, 9, 1. Row 10: 1, 10, 45, 120, 210, 252, 210, 120, 45, 10, 1. 6 in row 6 is achieved by adding 1 and 5 in row 5. 15 in row 6 is achieved by adding 5 and 10 in row 5. Arrows from 1 in row 1 point to the 1s in row 2. Row 7 is outlined. In row 10, entry 0 is 1, entry 1 is 10, entry 2 is 45, entry 3 is 120, and so on. The entry 3 diagonal is outlined. 35 is highlighted. Entry 3 in row 7 is the number of triangles (cycles of size 3) in a complete graph with 7 vertices." number="12.32" caption="Pascal’s Triangle" />
+    <note type="Checkpoint">
+      <p>IMPORTANT! When you count the rows and entries of Pascal’s Triangle begin with row 0 and entry 0, not row 1 and entry 1.</p>
+    </note>
+    <note type="Video">
+      <p>The Mathematical Secrets of Pascal's Triangle by Wajdi Mohamed Ratemi</p>
+    </note>
+    <p>If we begin to list the third entries in each row of Pascal's triangle from the top down, we see 1, 4, 10, 20, 35, and so on. Notice that these values are exactly the number of triangles in a complete graph of sizes 3, 4, 5, 6, and 7, respectively. Specifically, entry 3 in row 7 is 35, the number of triangles in a complete graph of size 7. Let's practice using Pascal’s triangle to find the number of triangles in a complete graph of a particular size.</p>
+    <p>STEPS TO FIND THE NUMBER OF TRIANGLES IN A COMPLETE GRAPH OF SIZE n</p>
+    <p>Step 1 Calculate the entries in row n of Pascal's Triangle using sums of pairs of entries in previous rows as needed.</p>
+    <p>Step 2 The number of triangles is entry 3 in row n. Remember to count the entries 0, 1, 2, and 3, from left to right.</p>
+    <example number="12.12">
+      <problem>
+        <p>Use Pascal’s Triangle in Figure 12.32 to find the number of triangles in a complete graph with 11 vertices.</p>
+      </problem>
+      <solution>
+        <p>Step 1: Identify the row number and calculate its entries. Since the complete graph has 11 vertices, we will need to look in row 11 of Pascal’s Triangle. Use row 10 in Figure 12.32 to find the entries in row 11 as shown in Figure 12.33.</p>
+        <image alt="Rows 10 and 11 of Pascal's triangle. Row 10: 1, 10, 45, 120, 210, 252, 210, 120, 45, 10, and 1. Row 11: 1, 11, 55, 165, 330, 462, 462, 330, 165, 55, 11, and 1. Arrows from the first number of row 10 point to the first two numbers of row 11 and so on." number="12.33" caption="Rows 10 and 11 of Pascal’s Triangle" />
+        <p>Step 2: Find entry number 3. The number of triangles is in entry 3. Remember to count the entries beginning with entry 0 as shown in Figure 12.34.</p>
+        <image alt="Rows 10 and 11 of Pascal's triangle. Row 10: 1, 10, 45, 120, 210, 252, 210, 120, 45, 10, and 1. Row 11: 1, 11, 55, 165, 330, 462, 462, 330, 165, 55, 11, and 1. The entries of row 11 are numbered from 0 to 11. Arrows from the first number of row 10 point to the first two numbers of row 11 and so on." number="12.34" caption="Identifying an Entry in Pascal’s Triangle" />
+        <p>Entry 3 in row 11 is 165. So, there are 165 triangles in a complete graph with 11 vertices.</p>
+      </solution>
+    </example>
+    <note type="Your Turn" number="12.12">
+      <p>A  sociologist is studying a community of 13 individuals in which every person has a social connection to every other person. How many closed triads  are there in the community?</p>
+    </note>
+    <note type="Tech Check">
+      <p>Since the entries in Pascal’s Triangle are useful in many applications, many resources such as online and traditional calculator functions have been developed to assist in calculating the values. The website dCode.xyz has a tool that automatically calculates entries in Pascal’s Triangle using these steps:</p>
+      <p>Step 1: Make sure to select Index 0.</p>
+      <p>Step 2: Select your preference, display the triangle until a particular row (line), display only one row (line), or calculate the value at coordinates (which means give the value of a single entry).</p>
+      <p>Step 3: Enter row number (line number) you are interested, or enter the row number and entry number in parentheses: (row number, entry number).</p>
+      <p>Step 4: Select Calculate.</p>
+      <p>Step 5: Retrieve the answer from the results box.</p>
+      <image alt="A screenshot of Pascal's triangle. The left section displays a search tool with results: 55. This section is numbered 5. The right section shows two sections titled, Pascal triangle calculator and Position of a number in Pascal triangle. The first section displays the following information. Display the triangle until line: 8. Display only line number: 11. Calculate only the value at coordinates (line, column): (11, 9) (numbered 3). These 3 options are numbered 2. Index: 0, the first row is noted 0. This is numbered 1. Calculate button is present. This is numbered 4. The second section shows the value to search set to 210. Index: 0, the first row is noted 0. Calculate button is present." number="12.35" caption="Pascal's Triangle Tool on dCode.xyz" />
+    </note>
+  </subsection>
+  <subsection title="Check Your Understanding">
+    <p>A complete graph with four vertices must have exactly four edges.</p>
+    <list type="ol" style="a">
+      <item />
+      <item />
+    </list>
+    <p>In a cycle, every vertex has degree two.</p>
+    <list type="ol" style="a">
+      <item />
+      <item />
+    </list>
+    <p>The number of vertices in a graph is twice the number of edges.</p>
+    <list type="ol" style="a">
+      <item />
+      <item />
+    </list>
+    <p>The cycle (a, b, c, d) can also be called (c, b, a, d).</p>
+    <list type="ol" style="a">
+      <item />
+      <item />
+    </list>
+    <p>The cycle (a, b, c, d) can also be called (a, b, d, c).</p>
+    <list type="ol" style="a">
+      <item />
+      <item />
+    </list>
+    <p>The only cliques that are cycles are cliques of three vertices.</p>
+    <list type="ol" style="a">
+      <item />
+      <item />
+    </list>
+    <p>A student found that the sum of the degrees of the vertices in a graph was 13. Why is that impossible?</p>
+    <p>A student finds the number of edges in a complete graph by taking half the number of vertices, then subtracting one from the number of vertices, then multiplying these two values together. Will the student get the correct result?</p>
+  </subsection>
+  <exercises title="Section 12.2 Exercises">
+    <instruction>Use the figure to answer the following exercises.</instruction>
+    <exercise number="1" has_solution="false">
+      <problem>
+        <p>List any graphs that are subgraphs of Graph U.</p>
+      </problem>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <p>List any graphs that are subgraphs of Graph V.</p>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="false">
+      <problem>
+        <p>Explain why Graph T is not a subgraph of Graph S.</p>
+      </problem>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <p>List any graphs that have a quadrilateral cyclic subgraph and name the quadrilaterals.</p>
+      </problem>
+    </exercise>
+    <instruction>Use the Sum of Degrees Theorem as needed to answer the following exercises.</instruction>
+    <exercise number="5" has_solution="false">
+      <problem>
+        <p>How many edges are in a graph if the sum of the degrees of its vertices is 18.</p>
+      </problem>
+    </exercise>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <p>Draw two possible graphs to demonstrate that the sum of the degrees of the vertices in a graph with 7 edges is 14. Label the degrees of the vertices.</p>
+      </problem>
+    </exercise>
+    <exercise number="7" has_solution="false">
+      <problem>
+        <p>What is the sum of the degrees of the vertices of a graph that has 122 edges?</p>
+      </problem>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <p>A graph has 3 vertices of degree 2, 4 vertices of degree 1, and 2 vertices of degree 3. How many edges are in the graph?</p>
+      </problem>
+    </exercise>
+    <exercise number="9" has_solution="false">
+      <problem>
+        <p>There are 6 vertices and 11 edges in a graph, 2 of degree 5, 1 of degree 4, and 2 of degree 3. What is the degree of the remaining vertex?</p>
+      </problem>
+    </exercise>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <p>A complete graph has 5 vertices. What is the sum of the degrees of the vertices?</p>
+      </problem>
+    </exercise>
+    <exercise number="11" has_solution="false">
+      <problem>
+        <p>A complete graph has 120 edges. How many vertices does it have?</p>
+      </problem>
+    </exercise>
+    <instruction>Use the figure to answer the following exercises. Identify the graph or graphs with the given characteristic.</instruction>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <p>The sum of the degrees of the vertices is 16.</p>
+      </problem>
+    </exercise>
+    <exercise number="13" has_solution="false">
+      <problem>
+        <p>The graph is complete.</p>
+      </problem>
+    </exercise>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <p>The graph has no cyclic subgraphs</p>
+      </problem>
+    </exercise>
+    <exercise number="15" has_solution="false">
+      <problem>
+        <p>The graph contains at least one octagon.</p>
+      </problem>
+    </exercise>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <p>The graph contains exactly two 3-cycles.</p>
+      </problem>
+    </exercise>
+    <instruction>Use the figure to answer the following exercises. Identify the graph or graphs with the given characteristic.</instruction>
+    <exercise number="17" has_solution="false">
+      <problem>
+        <p>The graph is a subgraph of Graph 6.</p>
+      </problem>
+    </exercise>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <p>The sum of the degrees of the vertices is 16.</p>
+      </problem>
+    </exercise>
+    <exercise number="19" has_solution="false">
+      <problem>
+        <p>The graph is complete.</p>
+      </problem>
+    </exercise>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <p>The graph has no pentagons.</p>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="false">
+      <problem>
+        <p>The graph contains at least one octagon.</p>
+      </problem>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <p>The graph contains exactly two cyclic subgraphs.</p>
+      </problem>
+    </exercise>
+    <exercise number="23" has_solution="false">
+      <problem>
+        <p>Use Table 12.1 to name a heptagon in Graph 8.</p>
+      </problem>
+    </exercise>
+    <instruction>Use the figure to answer the following exercises. Identify the graph or graphs with the given characteristic.</instruction>
+    <exercise number="24" has_solution="false">
+      <problem>
+        <p>The sum of the degrees of the vertices is 16.</p>
+      </problem>
+    </exercise>
+    <exercise number="25" has_solution="false">
+      <problem>
+        <p>The graph is complete.</p>
+      </problem>
+    </exercise>
+    <exercise number="26" has_solution="false">
+      <problem>
+        <p>The graph contains exactly one quadrilateral.</p>
+      </problem>
+    </exercise>
+    <exercise number="27" has_solution="false">
+      <problem>
+        <p>The graph contains at least one octagon.</p>
+      </problem>
+    </exercise>
+    <exercise number="28" has_solution="false">
+      <problem>
+        <p>The graph contains exactly one cyclic subgraph.</p>
+      </problem>
+    </exercise>
+    <instruction>Use Table 12.1 to answer the following exercises about the below figure.</instruction>
+    <exercise number="29" has_solution="false">
+      <problem>
+        <p>List every quadrilateral in Graph 12.</p>
+      </problem>
+    </exercise>
+    <exercise number="30" has_solution="false">
+      <problem>
+        <p>List every quadrilateral in Graph 10.</p>
+      </problem>
+    </exercise>
+    <exercise number="31" has_solution="false">
+      <problem>
+        <p>Determine the number of quadrilaterals in Graph 9.</p>
+      </problem>
+    </exercise>
+    <instruction>Use the figure to answer the following exercises.</instruction>
+    <exercise number="32" has_solution="false">
+      <problem>
+        <p>Name five triangles in the graph.</p>
+      </problem>
+    </exercise>
+    <exercise number="33" has_solution="false">
+      <problem>
+        <p>Identify a clique with more than three vertices in the graph by listing its vertices.</p>
+      </problem>
+    </exercise>
+    <instruction>For the following exercises, draw a graph with the given characteristics.</instruction>
+    <exercise number="34" has_solution="false">
+      <problem>
+        <p>4 vertices, 6 edges, a subgraph that is a 4-cycle.</p>
+      </problem>
+    </exercise>
+    <exercise number="35" has_solution="false">
+      <problem>
+        <p>11 vertices, the only cyclic subgraphs are triangles.</p>
+      </problem>
+    </exercise>
+    <exercise number="36" has_solution="false">
+      <problem>
+        <p>Complete graph, no quadrilateral subgraph</p>
+      </problem>
+    </exercise>
+    <exercise number="37" has_solution="false">
+      <problem>
+        <p>4 vertices, 4 edges, no cyclic subgraphs</p>
+      </problem>
+    </exercise>
+    <exercise number="38" has_solution="false">
+      <problem>
+        <p>Complete graph, sum of the degrees of the vertices is 20.</p>
+      </problem>
+    </exercise>
+    <exercise number="39" has_solution="false">
+      <problem>
+        <p>7 vertices, largest clique has 5 vertices.</p>
+      </problem>
+    </exercise>
+    <exercise number="40" has_solution="false">
+      <problem>
+        <p>In chess, a knight can move in any direction, but it must move two spaces then turn and move one more space. The eight possible moves a knight can make from a space in the center of a five-by-five grid are shown in the first figure. Draw a graph that represents all the legal moves of a knight on a three-by-three grid starting from the lower left corner as shown in the second figure where the vertices will represent the spaces occupied by the knight and the edges will indicate a move from one space to the next.</p>
+      </problem>
+    </exercise>
+    <exercise number="41" has_solution="false">
+      <problem>
+        <p>What kind of cycle is the resulting graph you drew for Exercise 40?</p>
+      </problem>
+    </exercise>
+    <exercise number="42" has_solution="false">
+      <problem>
+        <p>Use Pascal’s triangle to find number of triangles in a complete graph with 14 vertices.</p>
+      </problem>
+    </exercise>
+    <exercise number="43" has_solution="false">
+      <problem>
+        <p>Do you think that a graph representing network of friends on Facebook is likely to be complete or not? Explain your reasoning.</p>
+      </problem>
+    </exercise>
+    <exercise number="44" has_solution="false">
+      <problem>
+        <p>Would the graph of a family tree, in which edges represent parent-child lineage, contain any cycles? Why or why not?</p>
+      </problem>
+    </exercise>
+    <exercise number="45" has_solution="false">
+      <problem>
+        <p>We have seen that the number of triangles in a complete graph with 7 vertices can be calculated using the pattern $$(5 + 4 + 3 + 2 + 1) + \left( {4 + 3 + 2 + 1} \right) + (3 + 2 + 1) + \left( {2 + 1} \right) + 1 = 35$$. This pattern gets very long for complete graphs with more vertices, but we have seen sums from 1 to a number before, and we had a shortcut!  Recall from Example 12.8 that $$1 + 2 + 3 + \cdots + (n - 1) = \frac{n(n - 1)}{2}$$. This makes finding the sum from 1 up to $$n - 1$$ shorter. We can write each of the sums we need in the form $$\frac{n(n - 1)}{2}$$.
+
+To find the sum from 1 to 5, since $$n - 1 = 5$$, use $$n = 6:$$ $$1 + 2 + 3 + 4 + 5 = \frac{6(5)}{2}$$
+
+To find the sum from 1 to 4, since $$n - 1 = 4$$, use $$n = 5:$$ $$1 + 2 + 3 + 4 = \frac{5(4)}{2}$$
+
+To find the sum from 1 to 3, since $$n - 1 = 3$$, use $$n = 4:$$ $$1 + 2 + 3 = \frac{4(3)}{2}$$
+
+To find the sum from 1 to 2, since $$n - 1 = 2$$, use $$n = 3:$$ $$1 + 2 = \frac{3(2)}{2}$$
+
+To find the sum from 1 to 1, (Sounds silly, but it helps to see the pattern!) since $$n - 1 = 1$$, use $$n = 2:$$ $$1 = \frac{2(1)}{2}$$
+
+Use these to rewrite the calculation for the number of triangles in a graph with 7 vertices.
+
+$$\begin{matrix} {(5 + 4 + 3 + 2 + 1) + \left( {4 + 3 + 2 + 1} \right) + (3 + 2 + 1) + \left( {2 + 1} \right) + 1} \\ {= \underset{\frac{2(1)}{2}}{\underbrace{1}} + \underset{\frac{3(2)}{2}}{\underbrace{(1 + 2)}} + \underset{\frac{4(3)}{2}}{\underbrace{(1 + 2 + 3)}} + \underset{\frac{5(4)}{2}}{\underbrace{(1 + 2 + 3 + 4)}} + \underset{\frac{6(5)}{2}}{\underbrace{(1 + 2 + 3 + 4 + 5)}}} \\ {= \frac{2(1)}{2} + \frac{3(2)}{2} + \frac{4(3)}{2} + \frac{5(4)}{2} + \frac{6(5)}{2}\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad} \\ {\text{~=~}\underset{\text{The number of triangles in complete graph with 7 vertices}\text{.}}{\underbrace{\frac{1(2) + 2(3) + 3(4) + 4(5) + 5(6)}{2}}} = 35\quad\quad\quad\quad\quad\quad\,\,} \end{matrix}$$
+
+Similarly, for the number of triangles in a complete graph with 8 vertices, instead of
+$$(6 + 5 + 4 + 3 + 2 + 1) + (5 + 4 + 3 + 2 + 1) + \left( {4 + 3 + 2 + 1} \right) + (3 + 2 + 1) + \left( {2 + 1} \right) + 1 = 56$$
+
+use the shorter formula $$\frac{1(2)\, + \, 2(3)\, + \, 3(4)\, + \, 4(5)\, + \, 5(6)\, + \, 6(7)}{2} = 56$$.
+
+Use this pattern to find the number of triangles in a complete graph with 10 vertices.  In which row and entry of Pascal’s triangle can you also find this result?</p>
+      </problem>
+    </exercise>
+    <exercise number="46" has_solution="false">
+      <problem>
+        <p>Use the fact that the sum from 1 to $$n - 1$$ is $$\frac{n(n - 1)}{2}$$ to write a formula for the number of triangles in a complete graph with n vertices.</p>
+      </problem>
+    </exercise>
+  </exercises>
+</section>

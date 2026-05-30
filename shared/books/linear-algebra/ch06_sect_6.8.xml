@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch06" chapter_number="6" unit_code="6.8">
+  <section number="6.8" title="Applications of Inner Product Spaces">
+    <metadata>
+      <source_pages count="6">
+        <page global_index="349" type="content"/>
+        <page global_index="350" type="content"/>
+        <page global_index="351" type="content"/>
+        <page global_index="352" type="content"/>
+        <page global_index="353" type="exercises"/>
+        <page global_index="354" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">6.8 Applications of Inner Product Spaces</heading>
+      <video title="Watch Video"/>
+      <paragraph>The examples in this section suggest how the inner product spaces defined in Section 6.7 arise in practical problems. Like in Section 6.6, important components of machine learning are analyzed.</paragraph>
+      <heading level="2">Weighted Least-Squares</heading>
+      <paragraph>Let <math display="inline">$\textbf{y}$</math> be a vector of <math display="inline">$n$</math> observations, <math display="inline">$y_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$y_{n}$</math>, and suppose we wish to approximate <math display="inline">$\textbf{y}$</math> by a vector <math display="inline">$\widehat{\textbf{y}}$</math> that belongs to some specified subspace of <math display="inline">$\text{ℝ}^{n}$</math>. (In Section 6.5, <math display="inline">$\widehat{\textbf{y}}$</math> was written as <math display="inline">$A\textbf{x}$</math> so that <math display="inline">$\widehat{\textbf{y}}$</math> was in the column space of <math display="inline">$A$</math>.) Denote the entries in <math display="inline">$\widehat{\textbf{y}}$</math> by <math display="inline">${\widehat{y}}_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">${\widehat{y}}_{n}$</math>. Then the <em>sum of the squares for error</em>, or <math display="inline">$\text{SS(E)}$</math>, in approximating <math display="inline">$\textbf{y}$</math> by <math display="inline">$\widehat{\textbf{y}}$</math> is</paragraph>
+      <paragraph>
+        <math display="block">$$\text{SS(E)} = \left( y_{1} - {\widehat{y}}_{1} \right)^{2} + \cdots + \left( y_{n} - {\widehat{y}}_{n} \right)^{2}$$</math>
+      </paragraph>
+      <paragraph>This is simply <math display="inline">$\parallel \textbf{y} - \widehat{\textbf{y}} \parallel^{2}$</math>, using the standard length in <math display="inline">$\text{ℝ}^{n}$</math>.</paragraph>
+      <paragraph>Now suppose the measurements that produced the entries in <math display="inline">$\textbf{y}$</math> are not equally reliable. The entries in <math display="inline">$\textbf{y}$</math> might be computed from various samples of measurements, with unequal sample sizes. Then it becomes appropriate to weight the squared errors in (1) in such a way that more importance is assigned to the more reliable measurements.1 If the weights are denoted by <math display="inline">$w_{1}^{2}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$w_{n}^{2}$</math>, then the weighted sum of the squares for error is</paragraph>
+      <paragraph>
+        <math display="block">$$\text{Weighted SS(E)} = w_{1}^{2}\left( y_{1} - {\widehat{y}}_{1})^{2} + \cdots + w_{n}^{2}\left( y_{n} - {\widehat{y}}_{n})^{2} \right. \right.$$</math>
+      </paragraph>
+      <paragraph>This is the square of the length of <math display="inline">$\textbf{y} - \widehat{\textbf{y}}$</math>, where the length is derived from an inner product analogous to that in Example 1 in Section 6.7, namely</paragraph>
+      <paragraph>
+        <math display="block">$$\left\langle \textbf{x}\text{,~}\textbf{y} \right\rangle = w_{1}^{2}x_{1}y_{1} + \cdots + w_{n}^{2}x_{n}y_{n}$$</math>
+      </paragraph>
+      <paragraph>It is sometimes convenient to transform a weighted least-squares problem into an equivalent ordinary least-squares problem. Let <math display="inline">$W$</math> be the diagonal matrix with (positive) <math display="inline">$w_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$w_{n}$</math> on its diagonal, so that</paragraph>
+      <paragraph>
+        <math display="block">$$W\textbf{y} = \begin{bmatrix}
+      w_{1} &amp; 0 &amp; \cdots &amp; 0 \\
+      0 &amp; w_{2} &amp; &amp; \\
+       \vdots &amp; &amp; \ddots &amp; \vdots \\
+      0 &amp; &amp; \cdots &amp; w_{n}
+      \end{bmatrix}~\left\lbrack \begin{array}{r}
+      y_{1} \\
+      y_{2} \\
+       \vdots \\
+      y_{n}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      {w_{1}y_{1}} \\
+      {w_{2}y_{2}} \\
+       \vdots \\
+      {w_{n}y_{n}}
+      \end{array} \right\rbrack$$</math>
+      </paragraph>
+      <paragraph>with a similar expression for <math display="inline">$W\widehat{\textbf{y}}$</math>. Observe that the <math display="inline">$j$</math>th term in (2) can be written as</paragraph>
+      <paragraph>
+        <math display="block">$$w_{j}^{2}\left( y_{j} - {\widehat{y}}_{j} \right)^{2} = \left( w_{j}y_{j} - w_{j}{\widehat{y}}_{j} \right)^{2}$$</math>
+      </paragraph>
+      <paragraph>It follows that the weighted <math display="inline">$\text{SS(E)}$</math> in (2) is the square of the ordinary length in <math display="inline">$\text{ℝ}^{n}$</math> of <math display="inline">$W\textbf{y} - W\widehat{\textbf{y}}$</math>, which we write as <math display="inline">$\parallel W\textbf{y} - W\widehat{\textbf{y}} \parallel^{2}$</math>.</paragraph>
+      <paragraph>Now suppose the approximating vector <math display="inline">$\widehat{\textbf{y}}$</math> is to be constructed from the columns of a matrix <math display="inline">$A$</math>. Then we seek an <math display="inline">$\widehat{\textbf{x}}$</math> that makes <math display="inline">$A\widehat{\textbf{x}} = \widehat{\textbf{y}}$</math> as close to <math display="inline">$\textbf{y}$</math> as possible. However, the measure of closeness is the weighted error,</paragraph>
+      <paragraph>
+        <math display="block">$$\parallel W\textbf{y} - W\widehat{\textbf{y}} \parallel^{2}~\text{=}~ \parallel W\textbf{y} - W A\widehat{\textbf{x}} \parallel^{2}$$</math>
+      </paragraph>
+      <paragraph>Thus <math display="inline">$\widehat{\textbf{x}}$</math> is the (ordinary) least-squares solution of the equation</paragraph>
+      <paragraph>
+        <math display="block">$$W A\textbf{x} = W\textbf{y}$$</math>
+      </paragraph>
+      <paragraph>The normal equation for the least-squares solution is</paragraph>
+      <paragraph>
+        <math display="block">$$\boxed{\begin{array}{l}
+      {(W A)^{T}W A\textbf{x} = (W A)^{T}W\textbf{y}}
+      \end{array}}$$</math>
+      </paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Find the least-squares line <math display="inline">$y = \beta_{0} + \beta_{1}x$</math> that best fits the data <math display="inline">$\left( - 2\text{,~}3 \right)$</math>, <math display="inline">$\left( - 1\text{,~}5 \right)$</math>, <math display="inline">$\left( 0\text{,~}5 \right)$</math>, <math display="inline">$\left( 1\text{,~}4 \right)$</math>, and <math display="inline">$\left( 2\text{,~}3 \right)$</math>. Suppose the errors in measuring the <math display="inline">$y\text{-values}$</math> of the last two data points are greater than for the other points. Weight these data half as much as the rest of the data.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>As in Section 6.6, write <math display="inline">$X$</math> for the matrix <math display="inline">$A$</math> and <math display="inline">$\mathbf{\beta}$</math> for the vector <math display="inline">$\textbf{x}$</math>, and obtain</paragraph>
+              <paragraph><math display="block">$$X = \left\lbrack \begin{array}{rr}
+      1 &amp; {- 2} \\
+      1 &amp; {- 1} \\
+      1 &amp; 0 \\
+      1 &amp; 1 \\
+      1 &amp; 2
+      \end{array} \right\rbrack\text{,~}\quad\mathbf{\beta} = \left\lbrack \begin{array}{r}
+      \beta_{0} \\
+      \beta_{1}
+      \end{array} \right\rbrack\text{,~}\quad\textbf{y} = \left\lbrack \begin{array}{r}
+      3 \\
+      5 \\
+      5 \\
+      4 \\
+      3
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>For a weighting matrix, choose <math display="inline">$W$</math> with diagonal entries <math display="inline">$2$</math>, <math display="inline">$2$</math>, <math display="inline">$2$</math>, <math display="inline">$1$</math>, and <math display="inline">$1$</math>. Left-multiplication by <math display="inline">$W$</math> scales the rows of <math display="inline">$X$</math> and <math display="inline">$\textbf{y}$</math>:</paragraph>
+              <paragraph><math display="block">$$WX = \left\lbrack \begin{array}{rr}
+      2 &amp; {- 4} \\
+      2 &amp; {- 2} \\
+      2 &amp; 0 \\
+      1 &amp; 1 \\
+      1 &amp; 2
+      \end{array} \right\rbrack\text{,~}\quad W\textbf{y} = \left\lbrack \begin{array}{r}
+      6 \\
+      10 \\
+      10 \\
+      4 \\
+      3
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>For the normal equation, compute</paragraph>
+              <paragraph><math display="block">$${\text{(}WX\text{)}}^{T} = \left\lbrack \begin{array}{rr}
+      14 &amp; {- 9} \\
+      {- 9} &amp; 25
+      \end{array} \right\rbrack\quad\text{and~}\quad\text{(}WX\text{)}^{T}W\textbf{y} = \left\lbrack \begin{array}{r}
+      59 \\
+      {- 34}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>and solve</paragraph>
+              <paragraph><math display="block">$$\left\lbrack \begin{array}{rr}
+      14 &amp; {- 9} \\
+      {- 9} &amp; 25
+      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
+      \beta_{0} \\
+      \beta_{1}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
+      59 \\
+      {- 34}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>The solution of the normal equation is (to two significant digits) <math display="inline">$\beta_{0} = 4.3$</math> and <math display="inline">$\beta_{1} = .20$</math>. The desired line is</paragraph>
+              <paragraph><math display="block">$$y = 4.3 + .20x$$</math></paragraph>
+              <paragraph>In contrast, the ordinary least-squares line for these data is</paragraph>
+              <paragraph><math display="block">$$y = 4.0 - .10x$$</math></paragraph>
+              <paragraph>Both lines are displayed in <strong>Figure</strong><strong>1</strong>.</paragraph>
+          <figure label="Figure 1" caption="Weighted and ordinary least-squares lines">
+            <image alt="A graph of two intersecting lines plotted on a coordinate plane."/>
+          </figure>
+        </example>
+      <heading level="2">Trend Analysis of Data</heading>
+      <paragraph>Let <math display="inline">$f$</math> represent an unknown function whose values are known (perhaps only approximately) at <math display="inline">$t_{0}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$t_{n}$</math>. If there is a “linear trend” in the data <math display="inline">$f\left( t_{0} \right)$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$f\left( t_{n} \right)$</math>, then we might expect to approximate the values of <math display="inline">$f$</math> by a function of the form <math display="inline">$\beta_{0} + \beta_{1}t$</math>. If there is a “quadratic trend” to the data, then we would try a function of the form <math display="inline">$\beta_{0} + \beta_{1}t + \beta_{2}t^{2}$</math>. This was discussed in Section 6.6, from a different point of view.</paragraph>
+      <paragraph>In some statistical problems, it is important to be able to separate the linear trend from the quadratic trend (and possibly cubic or higher-order trends). For instance, suppose engineers are analyzing the performance of a new car, and <math display="inline">$f(t)$</math> represents the distance between the car at time <math display="inline">$t$</math> and some reference point. If the car is traveling at constant velocity, then the graph of <math display="inline">$f(t)$</math> should be a straight line whose slope is the car’s velocity. If the gas pedal is suddenly pressed to the floor, the graph of <math display="inline">$f(t)$</math> will change to include a quadratic term and possibly a cubic term (due to the acceleration). To analyze the ability of the car to pass another car, for example, engineers may want to separate the quadratic and cubic components from the linear term.</paragraph>
+      <paragraph>If the function is approximated by a curve of the form <math display="inline">$y = \beta_{0} + \beta_{1}t + \beta_{2}t^{2}$</math>, the coefficient <math display="inline">$\beta_{2}$</math> may not give the desired information about the quadratic trend in the data, because it may not be “independent” in a statistical sense from the other <math display="inline">$\beta_{i}$</math>. To make what is known as a trend analysis of the data, we introduce an inner product on the space <math display="inline">$\text{ℙ}_{n}$</math> analogous to that given in Example 2 in Section 6.7. For <math display="inline">$p$</math>, <math display="inline">$q$</math> in <math display="inline">$\text{ℙ}_{n}$</math>, define</paragraph>
+      <paragraph>
+        <math display="block">$$\left\langle p\text{,~}q \right\rangle = p\left( t_{0} \right)q\left( t_{0} \right) + \cdots + p\left( t_{n} \right)q\left( t_{n} \right)$$</math>
+      </paragraph>
+      <paragraph>In practice, statisticians seldom need to consider trends in data of degree higher than cubic or quartic. So let <math display="inline">$p_{0}$</math>, <math display="inline">$p_{1}$</math>, <math display="inline">$p_{2}$</math>, <math display="inline">$p_{3}$</math> denote an orthogonal basis of the subspace <math display="inline">$\text{ℙ}_{3}$</math> of <math display="inline">$\text{ℙ}_{n}$</math>, obtained by applying the Gram–Schmidt process to the polynomials <math display="inline">$1$</math>, <math display="inline">$t$</math>, <math display="inline">$t^{2}$</math>, and <math display="inline">$t^{3}$</math>. There is a polynomial <math display="inline">$g$</math> in <math display="inline">$\text{ℙ}_{n}$</math> whose values at <math display="inline">$t_{0}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$t_{n}$</math> coincide with those of the unknown function <math display="inline">$f$</math>. Let <math display="inline">$\widehat{g}$</math> be the orthogonal projection (with respect to the given inner product) of <math display="inline">$g$</math> onto <math display="inline">$\text{ℙ}_{3}$</math>, say,</paragraph>
+      <paragraph>
+        <math display="block">$$\widehat{g} = c_{0}p_{0} + c_{1}p_{1} + c_{2}p_{2} + c_{3}p_{3}$$</math>
+      </paragraph>
+      <paragraph>Then <math display="inline">$\widehat{g}$</math> is called a cubic trend function, and <math display="inline">$c_{0}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$c_{3}$</math> are the trend coefficients of the data. The coefficient <math display="inline">$c_{1}$</math> measures the linear trend, <math display="inline">$c_{2}$</math> the quadratic trend, and <math display="inline">$c_{3}$</math> the cubic trend. It turns out that if the data have certain properties, these coefficients are statistically independent.</paragraph>
+      <paragraph>Since <math display="inline">$p_{0}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$p_{3}$</math> are orthogonal, the trend coefficients may be computed one at a time, independently of one another. (Recall that <math display="inline">$c_{i} = \left\langle g\text{,~}p_{i} \right\rangle/\left\langle p_{i}\text{,~}p_{i} \right\rangle$</math>.) We can ignore <math display="inline">$p_{3}$</math> and <math display="inline">$c_{3}$</math> if we want only the quadratic trend. And if, for example, we needed to determine the quartic trend, we would have to find (via Gram–Schmidt) only a polynomial <math display="inline">$p_{4}$</math> in <math display="inline">$\text{ℙ}_{4}$</math> that is orthogonal to <math display="inline">$\text{ℙ}_{3}$</math> and compute <math display="inline">$\left\langle g\text{,~}p_{4} \right\rangle/\left\langle p_{4}\text{,~}p_{4} \right\rangle$</math>.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>The simplest and most common use of trend analysis occurs when the points <math display="inline">$t_{0}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$t_{n}$</math> can be adjusted so that they are evenly spaced and sum to zero. Fit a quadratic trend function to the data <math display="inline">$\left( - 2\text{,~}3 \right)$</math>, <math display="inline">$\left( - 1\text{,~}5 \right)$</math>, <math display="inline">$\left( 0\text{,~}5 \right)$</math>, <math display="inline">$\left( 1\text{,~}4 \right)$</math>, and <math display="inline">$\left( 2\text{,~}3 \right)$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The <math display="inline">$t\text{-coordinates}$</math> are suitably scaled to use the orthogonal polynomials found in Example 5 of Section 6.7:</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \text{Polynomial} &amp; p_{0} &amp; p_{1} &amp; p_{2} &amp; {\text{Data}:\,g} \\
+      \text{Vector~of~values} &amp; {\left\lbrack \begin{array}{r}
+      1 \\
+      1 \\
+      1 \\
+      1 \\
+      1
+      \end{array} \right\rbrack\text{,~}} &amp; {\left\lbrack \begin{array}{r}
+      {- 2} \\
+      {- 1} \\
+      0 \\
+      1 \\
+      2
+      \end{array} \right\rbrack\text{,~}} &amp; {\left\lbrack \begin{array}{r}
+      2 \\
+      {- 1} \\
+      {- 2} \\
+      {- 1} \\
+      2
+      \end{array} \right\rbrack\text{,~}} &amp; \left\lbrack \begin{array}{r}
+      3 \\
+      5 \\
+      5 \\
+      4 \\
+      3
+      \end{array} \right\rbrack
+      \end{matrix}$$</math></paragraph>
+              <paragraph>The calculations involve only these vectors, not the specific formulas for the orthogonal polynomials. The best approximation to the data by polynomials in <math display="inline">$\text{ℙ}_{2}$</math> is the orthogonal projection given by</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \widehat{p} &amp; = &amp; {\frac{\left\langle g\text{,~}p_{0} \right\rangle}{\left\langle p_{0}\text{,~}p_{0} \right\rangle}p_{0} + \frac{\left\langle g\text{,~}p_{1} \right\rangle}{\left\langle p_{1}\text{,~}p_{1} \right\rangle}p_{1} + \frac{\left\langle g\text{,~}p_{2} \right\rangle}{\left\langle p_{2}\text{,~}p_{2} \right\rangle}p_{2}} \\
+       &amp; = &amp; {\frac{20}{5}p_{0} - \frac{1}{10}p_{1} - \frac{7}{14}p_{2}}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>and</paragraph>
+              <paragraph><math display="block">$$\widehat{p}(t) = 4 - .1t - .5(t^{2} - 2)$$</math></paragraph>
+              <paragraph>Since the coefficient of <math display="inline">$p_{2}$</math> is not extremely small, it would be reasonable to conclude that the trend is at least quadratic. This is confirmed by the graph in <strong>Figure 2</strong>.</paragraph>
+          <figure label="Figure 2" caption="Approximation by a quadratic trend function">
+            <image alt="A graph shows a concave down curve labeled y equals p (t) plotted on a coordinate plane."/>
+          </figure>
+        </example>
+      <heading level="2">Fourier Series (Calculus required)</heading>
+      <paragraph>Continuous functions are often approximated by linear combinations of sine and cosine functions. For instance, a continuous function might represent a sound wave, an electric signal of some type, or the movement of a vibrating mechanical system.</paragraph>
+      <paragraph>For simplicity, we consider functions on <math display="inline">$0 \leq t \leq 2\pi$</math>. It turns out that any function in <math display="inline">$C\left\lbrack 0\text{,~}2\pi \right\rbrack$</math> can be approximated as closely as desired by a function of the form</paragraph>
+      <paragraph>
+        <math display="block">$$\frac{a_{0}}{2} + a_{1}\text{~cos~}t + \cdots + a_{n}\text{~cos~}nt + b_{1}\text{~sin~}t + \cdots + b_{n}\text{~sin~}nt$$</math>
+      </paragraph>
+      <paragraph>for a sufficiently large value of <math display="inline">$n$</math>. The function (4) is called a trigonometric polynomial. If <math display="inline">$a_{n}$</math> and <math display="inline">$b_{n}$</math> are not both zero, the polynomial is said to be of <strong>order</strong><math display="inline">$\mathbf{n}$</math>. The connection between trigonometric polynomials and other functions in <math display="inline">$C\left\lbrack 0\text{,~}2\pi \right\rbrack$</math> depends on the fact that for any <math display="inline">$n \geq 1$</math>, the set</paragraph>
+      <paragraph>
+        <math display="block">$$\left\{ 1\text{,~}\text{cos~}t\text{,~}\text{cos~}2t\text{,~}\ldots\text{,~}\text{cos~}nt\text{,~}\text{sin~}t\text{,~}\text{sin~}2t\text{,~}\ldots\text{,~}\text{sin~}nt \right\}$$</math>
+      </paragraph>
+      <paragraph>is orthogonal with respect to the inner product</paragraph>
+      <paragraph>
+        <math display="block">$$\text{⟨}f\text{,~}g\text{⟩} = \int_{0}^{2\pi} f\text{(}t\text{)}g\text{(}t\text{)} dt$$</math>
+      </paragraph>
+      <paragraph>This orthogonality is verified as in the following example and in Exercises 5 and 6.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Let <math display="inline">$C\lbrack 0\text{,~}2\pi\rbrack$</math> have the inner product (6<strong>)</strong>, and let <math display="inline">$m$</math> and <math display="inline">$n$</math> be unequal positive integers. Show that <math display="inline">$\cos mt$</math> and <math display="inline">$\cos nt$</math> are orthogonal.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Use a trigonometric identity. When <math display="inline">$m \neq n$</math>,</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      \left\langle \text{cos~}mt\text{,~cos~}nt \right\rangle &amp; = &amp; {\int_{0}^{2\pi}\text{cos}\,mt\text{~cos}\,nt\,dt} \\
+       &amp; = &amp; {\frac{1}{2}\int_{0}^{2\pi}\text{[cos}(mt + nt) + \text{cos}\left( mt - nt\text{)} \right.\text{]}dt} \\
+       &amp; = &amp; {\left. \frac{1}{2}\left\lbrack \frac{\sin(mt + nt)}{m + n} + \frac{\sin(mt - nt)}{m - n} \right\rbrack \right|_{0}^{2\pi} = 0}
+      \end{array}$$</math></paragraph>
+        </example>
+      <paragraph>Let <math display="inline">$W$</math> be the subspace of <math display="inline">$C\lbrack 0\text{,~}2\pi\rbrack$</math> spanned by the functions in (5). Given <math display="inline">$f$</math> in <math display="inline">$C\lbrack 0\text{,~}2\pi\rbrack$</math>, the best approximation to <math display="inline">$f$</math> by functions in <math display="inline">$W$</math> is called the nth-order Fourier approximation to <math display="inline">$f$</math> on <math display="inline">$\lbrack 0\text{,~}2\pi\rbrack$</math>. Since the functions in (5) are orthogonal, the best approximation is given by the orthogonal projection onto <math display="inline">$W$</math>. In this case, the coefficients <math display="inline">$a_{k}$</math> and <math display="inline">$b_{k}$</math> in (4) are called the Fourier coefficients of <math display="inline">$f$</math>. The standard formula for an orthogonal projection shows that</paragraph>
+      <paragraph>
+        <math display="block">$$a_{k} = \frac{\left\langle f\text{,~}\text{cos~}kt \right\rangle}{\left\langle \text{cos~}kt\text{,~}\text{cos~}kt \right\rangle}\text{,~}\quad b_{k} = \frac{\left\langle f\text{,~}\text{sin~}kt \right\rangle}{\left\langle \text{sin~}kt\text{,~}\text{sin~}kt \right\rangle}\text{,~}\quad k \geq 1$$</math>
+      </paragraph>
+      <paragraph>Exercise 7 asks you to show that <math display="inline">$\left\langle \text{cos~}kt\text{,~}\text{cos~}kt \right\rangle = \pi$</math> and <math display="inline">$\left\langle \text{sin~}kt\text{,~}\text{sin~}kt \right\rangle = \pi$</math>. Thus</paragraph>
+      <paragraph>
+        <math display="block">$$a_{k} = \frac{1}{\pi}\int_{0}^{2\pi} f\text{(}t\text{)cos~}kt dt\text{,~}\quad b_{k} = \frac{1}{\pi}\int_{0}^{2\pi} f\text{(}t\text{)sin~}kt dt$$</math>
+      </paragraph>
+      <paragraph>The coefficient of the (constant) function <math display="inline">$1$</math> in the orthogonal projection is</paragraph>
+      <paragraph>
+        <math display="block">$$\frac{\left\langle f\text{,~}1 \right\rangle}{\left\langle 1\text{,~}1 \right\rangle} = \frac{1}{2\pi}\int_{0}^{2\pi}f\text{(}t\text{)} \cdot 1 dt = \frac{1}{2}\left\lbrack {\frac{1}{\pi}\int_{0}^{2\pi}f\text{(}t\text{)cos~(}0 \cdot t\text{)} dt} \right\rbrack = \frac{a_{0}}{2}$$</math>
+      </paragraph>
+      <paragraph>where <math display="inline">$a_{0}$</math> is defined by (7) for <math display="inline">$k = 0$</math>. This explains why the constant term in (4) is written as <math display="inline">$a_{0}/2$</math>.</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Find the <math display="inline">$n$</math>th-order Fourier approximation to the function <math display="inline">$f(t) = t$</math> on the interval <math display="inline">$\lbrack 0\text{,~}2\pi\rbrack$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Compute</paragraph>
+              <paragraph><math display="block">$$\frac{a_{0}}{2} = \frac{1}{2} \cdot \frac{1}{\pi}\int_{0}^{2\pi}t dt = \frac{1}{2\pi}\left\lbrack \frac{1}{2}t^{2}|_{0}^{2\pi} \right\rbrack = \pi$$</math></paragraph>
+              <paragraph>and for <math display="inline">$k &gt; 0$</math>, using integration by parts,</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      a_{k} &amp; = &amp; {\frac{1}{\pi}\int_{0}^{2\pi} t\text{~cos~}kt dt = \frac{1}{\pi}\left\lbrack \frac{1}{k^{2}}\text{cos~}kt + \frac{t}{k}\text{sin~}kt \right\rbrack_{0}^{2\pi} = 0} \\
+      b_{k} &amp; = &amp; {\frac{1}{\pi}\int_{0}^{2\pi} t\text{~sin~}kt dt = \frac{1}{\pi}\left\lbrack \frac{1}{k^{2}}\text{sin~}kt - \frac{t}{k}\text{cos~}kt \right\rbrack_{0}^{2\pi} = - \frac{2}{k}}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>Thus the <math display="inline">$n$</math>th-order Fourier approximation of <math display="inline">$f(t) = t$</math> is</paragraph>
+              <paragraph><math display="block">$$\pi - 2\text{sin~}t - \text{sin~}2t - \frac{2}{3}\text{sin~}3t - \cdots - \frac{2}{n}\text{sin~}nt$$</math></paragraph>
+              <paragraph><strong>Figure 3</strong> shows the third- and fourth-order Fourier approximations of <math display="inline">$f$</math>.</paragraph>
+          <figure caption="Figure 3﻿         ﻿Fourier approximations of the function ﻿﻿ f(t)=t">
+            <image alt="A graph shows third order Fourier approximation of the function f of t equals t."/>
+          </figure>
+          <figure>
+            <image alt="A graph shows fourth order Fourier approximation of the function f of t equals t."/>
+          </figure>
+        </example>
+      <paragraph>The norm of the difference between <math display="inline">$f$</math> and a Fourier approximation is called the mean square error in the approximation. (The term <em>mean</em> refers to the fact that the norm is determined by an integral.) It can be shown that the mean square error approaches zero as the order of the Fourier approximation increases. For this reason, it is common to write</paragraph>
+      <paragraph>
+        <math display="block">$$f\text{(}t\text{)} = \frac{a_{0}}{2} + \sum\limits_{m = 1}^{\infty}\text{(}a_{m}\text{~cos~}mt + b_{m}\text{~sin~}mt\text{)}$$</math>
+      </paragraph>
+      <paragraph>This expression for <math display="inline">$f(t)$</math> is called the Fourier series for <math display="inline">$f$</math> on <math display="inline">$\lbrack 0,2\pi\rbrack$</math>. The term <math display="inline">$a_{m}\text{cos}mt$</math>, for example, is the projection of <math display="inline">$f$</math> onto the one-dimensional subspace spanned by <math display="inline">$\cos mt$</math>.</paragraph>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Let q1(t)=1, q2(t)=t, and q3t =3t2−4. Verify that {q1,q2,q3} is an orthogonal set in C[−2,2] with the inner product of Example 7 in Section 6.7 (integration from −2 to 2).</item>
+                  <item>Find the first-order and third-order Fourier approximations to f(t) = 3 - 2 sin t + 5 sin 2t - 6 cos 2t</item>
+          </list>
+        </note>
+      <paragraph><sup>1 </sup>Note for readers with a background in statistics: Suppose the errors in measuring the <math display="inline">$y_{i}$</math> are independent random variables with means equal to zero and variances of <math display="inline">$\sigma_{1}^{2}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\sigma_{n}^{2}$</math>. Then the appropriate weights in <strong>(2)</strong> are <math display="inline">$w_{i}^{2} = 1/\sigma_{i}^{2}$</math>. The larger the variance of the error, the smaller the weight.</paragraph>
+    </content>
+    <exercises title="6.8 Exercises">
+      <heading level="1">6.8 Exercises</heading>
+      <exercise_group start="1">
+            <problem number="1">
+              <statement>
+                          <paragraph>Find the least-squares line <math display="inline">$y = \beta_{0} + \beta_{1}x$</math> that best fits the data <math display="inline">$\left( - 2\text{,~}0 \right)$</math>, <math display="inline">$\left( - 1\text{,~}0 \right)$</math>, <math display="inline">$\left( 0\text{,~}2 \right)$</math>, <math display="inline">$\left( 1\text{,~}4 \right)$</math>, and <math display="inline">$\left( 2\text{,~}4 \right)$</math>, assuming that the first and last data points are less reliable. Weight them half as much as the three interior points.</paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph>Suppose <math display="inline">$5$</math> out of <math display="inline">$25$</math> data points in a weighted least-squares problem have a <math display="inline">$y$</math>-measurement that is less reliable than the others, and they are to be weighted half as much as the other <math display="inline">$20$</math> points. One method is to weight the <math display="inline">$20$</math> points by a factor of <math display="inline">$1$</math> and the other <math display="inline">$5$</math> by a factor of <math display="inline">$\frac{1}{2}$</math>. A second method is to weight the <math display="inline">$20$</math> points by a factor of <math display="inline">$2$</math> and the other <math display="inline">$5$</math> by a factor of <math display="inline">$1$</math>. Do the two methods produce different results? Explain.</paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph>Fit a cubic trend function to the data in Example 2. The orthogonal cubic polynomial is <math display="inline">$p_{3}(t) = \frac{5}{6}t^{3} - \frac{17}{6}t$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph>To make a trend analysis of six evenly spaced data points, one can use orthogonal polynomials with respect to evaluation at the points <math display="inline">$t = - 5$</math>, <math display="inline">$- 3$</math>, <math display="inline">$- 1$</math>, <math display="inline">$1$</math>, <math display="inline">$3$</math>, and <math display="inline">$5$</math> .</paragraph>
+                <list ordered="true">
+                              <item>Show that the first three orthogonal polynomials are</item>
+                </list>
+              </statement>
+            </problem>
+            <problem>
+              <statement>
+                <list ordered="false">
+                              <item>p0t = 1, p1t = t, and p2t = 32t2 - 358</item>
+                              <item>(The polynomial p2 has been scaled so that its values at the evaluation points are small integers.)</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="2">
+            <problem>
+              <statement>
+                <list ordered="true">
+                              <item>Fit a quadratic trend function to the data</item>
+                </list>
+              </statement>
+            </problem>
+            <problem>
+              <statement>
+                          <paragraph><math display="block">$$\left( {- 5,1} \right),~\left( {- 3,1} \right),~\left( {- 1,4} \right),~\left( {1,4} \right),~\left( {3,6} \right),~\left( {5,8} \right)$$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="5">
+                  <instructions>In Exercises 5–14, the space is <math display="inline">$C\lbrack 0,2\pi\rbrack$</math> with the inner product (6).</instructions>
+            <problem number="5">
+              <statement>
+                          <paragraph>Show that <math display="inline">$\sin mt$</math> and <math display="inline">$\sin nt$</math> are orthogonal when <math display="inline">$m \neq n$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph>Show that <math display="inline">$\sin mt$</math> and <math display="inline">$\cos nt$</math> are orthogonal for all positive integers <math display="inline">$m$</math> and <math display="inline">$n$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="7">
+              <statement>
+                          <paragraph>Show that <math display="inline">$\text{∥cos~}kt\text{∥}^{2} = \pi$</math> and <math display="inline">$\text{∥sin~}kt\text{∥}^{2} = \pi$</math> for <math display="inline">$k &gt; 0$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph>Find the third-order Fourier approximation to <math display="inline">$f(t) = t - 1$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph>Find the third-order Fourier approximation to <math display="inline">$f(t) = 2\pi - t$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph>Find the third-order Fourier approximation to the <em>square wave function</em> <math display="inline">$f(t) = 1$</math> for <math display="inline">$0 \leq t &lt; \pi$</math> and <math display="inline">$f(t) = - 1$</math> for <math display="inline">$\pi \leq t &lt; 2\pi$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph>Find the third-order Fourier approximation to <math display="inline">$\text{sin}^{2}t$</math>, without performing any integration calculations.</paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph>Find the third-order Fourier approximation to <math display="inline">$\text{cos}^{3}t$</math>, without performing any integration calculations.</paragraph>
+              </statement>
+            </problem>
+            <problem number="13">
+              <statement>
+                          <paragraph>Explain why a Fourier coefficient of the sum of two functions is the sum of the corresponding Fourier coefficients of the two functions.</paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph>Suppose the first few Fourier coefficients of some function <math display="inline">$f$</math> in <math display="inline">$C\lbrack 0\text{,~}2\pi\rbrack$</math> are <math display="inline">$a_{0}$</math>, <math display="inline">$a_{1}$</math>, <math display="inline">$a_{2}$</math>, and <math display="inline">$b_{1}$</math>, <math display="inline">$b_{2}$</math>, <math display="inline">$b_{3}$</math>. Which of the following trigonometric polynomials is closer to <math display="inline">$f$</math>? Defend your answer.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="15">
+                  <instructions><math display="block">$$\begin{array}{l}
+      {g(t)~ = ~\frac{a_{0}}{2}~ + ~a_{1}\cos t~ + ~a_{2}\cos 2t~ + ~b_{1}\sin t} \\
+      {h(t)~ = ~\frac{a_{0}}{2}~ + ~a_{1}\cos t~ + ~a_{2}\cos 2t~ + ~b_{1}\sin t~ + ~b_{2}\sin 2t}
+      \end{array}~$$</math></instructions>
+            <problem number="15">
+              <statement>
+                          <paragraph><strong>[T]</strong> Refer to the data in Exercise 19 in Section 6.6, concerning the takeoff performance of an airplane. Suppose the possible measurement errors become greater as the speed of the airplane increases, and let <math display="inline">$W$</math> be the diagonal weighting matrix whose diagonal entries are <math display="inline">$1$</math>, <math display="inline">$1$</math>, <math display="inline">$1$</math>, .<math display="inline">$9$</math>, .<math display="inline">$9$</math>, .<math display="inline">$8$</math>, .<math display="inline">$7$</math>, .<math display="inline">$6$</math>, .<math display="inline">$5$</math>, .<math display="inline">$4$</math>, .<math display="inline">$3$</math>, .<math display="inline">$2$</math>, and .<math display="inline">$1$</math>. Find the cubic curve that fits the data with minimum weighted least-squares error, and use it to estimate the velocity of the plane when <math display="inline">$t = 4.5$</math> seconds.</paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><strong>[T]</strong> Let <math display="inline">$f_{4}$</math> and <math display="inline">$f_{5}$</math> be the fourth-order and fifth-order Fourier approximations in <math display="inline">$C\lbrack 0\text{,~}2\pi\rbrack$</math> to the square wave function in Exercise 10. Produce separate graphs of <math display="inline">$f_{4}$</math> and <math display="inline">$f_{5}$</math> on the interval <math display="inline">$\lbrack 0\text{,~}2\pi\rbrack$</math>, and produce a graph of <math display="inline">$f_{5}$</math> on <math display="inline">$\lbrack - 2\pi\text{,~}2\pi\rbrack$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure caption="First- and third-order approximations to  f(t)">
+            <image alt="A graph shows first and third-order approximations to f of t with two sinusoidal waveforms."/>
+          </figure>
+    </exercises>
+  </section>
+</section_file>

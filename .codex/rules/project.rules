@@ -1,0 +1,69 @@
+prefix_rule(
+    pattern = ["uv", "run", ".agents/skills/asciimath/scripts/cli.py"],
+    decision = "allow",
+    justification = "Allow the repo's LaTeX-to-AsciiMath conversion helper.",
+    match = ["uv run .agents/skills/asciimath/scripts/cli.py questions/qt-227006/static/static_question.txt questions/qt-227006/imathas/question_temp.txt"],
+)
+
+prefix_rule(
+    pattern = ["uv", "run", ".agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py"],
+    decision = "allow",
+    justification = "Allow the repo's authoritative IMathAS macro lookup helper.",
+    match = ["uv run .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py makexxpretty"],
+)
+
+prefix_rule(
+    pattern = ["uv", "run", ".agents/skills/write-imathas-x/scripts/search_cases.py"],
+    decision = "allow",
+    justification = "Allow the repo's golden-case search helper.",
+    match = ["uv run .agents/skills/write-imathas-x/scripts/search_cases.py fraction"],
+)
+
+prefix_rule(
+    pattern = ["uv", "run", ".agents/skills/write-imathas-x/scripts/check.py"],
+    decision = "allow",
+    justification = "Allow the repo's IMathAS control robustness checker.",
+    match = ["uv run .agents/skills/write-imathas-x/scripts/check.py questions/qt-227006/imathas/control.php"],
+)
+
+prefix_rule(
+    pattern = ["uv", "run", ".agents/skills/validate-control-syntax/scripts/test_control.py"],
+    decision = "allow",
+    justification = "Allow the repo's IMathAS control syntax validator.",
+    match = ["uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control-file questions/qt-227006/imathas/control.php"],
+)
+
+prefix_rule(
+    pattern = ["uv", "run", ".agents/skills/audit-text-integrity/scripts/audit_text.py"],
+    decision = "allow",
+    justification = "Allow the repo's text integrity audit helper.",
+    match = ["uv run .agents/skills/audit-text-integrity/scripts/audit_text.py --original questions/qt-227006/static/static_question.txt --current questions/qt-227006/imathas/question.txt --threshold 0.95"],
+)
+
+prefix_rule(
+    pattern = ["uv", "run", ".agents/skills/verify-imathas-batch/scripts/verify.py"],
+    decision = "allow",
+    justification = "Allow the repo's IMathAS batch verification helper.",
+    match = ["uv run .agents/skills/verify-imathas-batch/scripts/verify.py --dir questions/qt-227006/imathas 11 15 42 77 99"],
+)
+
+prefix_rule(
+    pattern = ["uv", "run", ".agents/skills/audit-variable-distribution/scripts/audit.py"],
+    decision = "allow",
+    justification = "Allow the repo's variable-distribution stress test helper.",
+    match = ["uv run .agents/skills/audit-variable-distribution/scripts/audit.py --dir questions/qt-227006/imathas --count 2000 --workers 30"],
+)
+
+prefix_rule(
+    pattern = ["uv", "run", "update_imathas_lang.py"],
+    decision = "allow",
+    justification = "Allow the repo's IMathAS language index rebuild helper.",
+    match = ["uv run update_imathas_lang.py"],
+)
+
+prefix_rule(
+    pattern = ["uv", "run", "sync_agents.py"],
+    decision = "prompt",
+    justification = "Syncing .agents/ to main modifies the main branch — always confirm before running.",
+    match = ["uv run sync_agents.py"],
+)

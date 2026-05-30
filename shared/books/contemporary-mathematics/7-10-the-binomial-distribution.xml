@@ -1,0 +1,444 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="7.10" title="The Binomial Distribution">
+  <image alt="A baseball diamond is shown with a game in progress. The pitcher is pitching the ball to a batter at home plate." number="7.45" caption="If one baseball team has a 65% chance of beating another in any single game, what’s the likelihood that they win a best-of-seven series? (credit: “baseball game” by Britt Reints/Flickr, CC BY 2.0)" />
+  <subsection title="Learning Objectives">
+    <p>After completing this section, you should be able to:</p>
+    <list type="ol" style="1">
+      <item>Identify binomial experiments.</item>
+      <item>Use the binomial distribution to analyze binomial experiments.</item>
+    </list>
+  </subsection>
+  <subsection title="Binomial Experiments">
+    <p>The tools of this section apply to multistage experiments that satisfy some pretty specific criteria. Before we move on to the analysis, we need to introduce and explain those criteria so that we can recognize experiments that fall into this category. Experiments that satisfy each of these criteria are called binomial experiments. A binomial experiment is an experiment with a fixed number of repeated independent binomial trials, where each trial has the same probability of success.</p>
+    <subsection title="Repeated Binomial Trials">
+      <p>The first criterion involves the structure of the stages. Each stage of the experiment should be a replication of every other stage; we call these replications trials. An example of this is flipping a coin 10 times; each of the ten flips is a trial, and they all occur under the same conditions as every other. Further, each trial must have only two possible outcomes. These two outcomes are typically labeled “success” and “failure,” even if there is not a positive or negative connotation associated with those outcomes. Experiments with more than two outcomes in their sample spaces are sometimes reconsidered in a way that forces just two outcomes; all we need to do is completely divide the sample space into two parts that we can label “success” and “failure.” For example, your grade on an exam might be recorded as A, B, C, D, or F, but we could instead think of the grades A, B, C, and D as “success” and a grade of F as “failure.” Trials with only two outcomes are called binomial trials (the word binomial derives from Latin and Greek roots that mean “two parts”).</p>
+    </subsection>
+    <subsection title="Independent Trials">
+      <p>The next criterion that we’ll be looking for is independence of trials. Back in Tree Diagrams, Tables, and Outcomes, we said that two stages of an experiment are independent if the outcome of one stage doesn’t affect the other stage. Independence is necessary for the experiments we want to analyze in this section.</p>
+    </subsection>
+    <subsection title="Fixed Number of Trials">
+      <p>Next, we require that the number of trials in the experiment be decided before the experiment begins. For example, we might say “flip a coin 10 times.” The number of trials there is fixed at 10. However, if we say “flip a coin until you get 5 heads,” then the number of trials could be as low as 5, but theoretically it could be 50 or a 100 (or more)! We can’t apply the tools from this section in cases where the number of trials is indeterminate.</p>
+    </subsection>
+    <subsection title="Constant Probability">
+      <p>The next criterion needed for binomial experiments is related to the independence of the trials. We must make sure that the probability of success in each trial is the same as the probability of success in every other trial.</p>
+      <example number="7.34">
+        <problem>
+          <p>Decide whether each of the following is a binomial experiment. For those that aren’t, identify which criterion or criteria are violated.</p>
+          <list type="ol" style="1">
+            <item>You roll a standard 6-sided die 10 times and write down the number that appears each time.</item>
+            <item>You roll a standard 6-sided die 10 times and write down whether the die shows a 6 or not.</item>
+            <item>You roll a standard 6-sided die until you get a 6.</item>
+            <item>You roll a standard 6-sided die 10 times. On the first roll, we define “success” as rolling a 4 or greater. After the first roll, we define “success” as rolling a number greater than the result of the previous roll.</item>
+          </list>
+        </problem>
+        <solution>
+          <list type="ol" style="1">
+            <item>Since we’re noting 1 of 6 possible outcomes, the trials are not binomial. So, this isn’t a binomial experiment.</item>
+            <item>We have 2 possible outcomes (“6” and “not 6”), the trials are independent, the probability of success is the same every time, and the number of trials is fixed. This is a binomial experiment.</item>
+            <item>Since the number of trials isn’t fixed (we don’t know if we’ll get our first 6 after 1 roll or 20 rolls or somewhere in between), this isn’t a binomial experiment.</item>
+            <item>Here, the probability of success might change with every roll (on the first roll, that probability is $$\frac{1}{2}$$; if the first roll is a 6, the probability of success on the next roll is zero). So, this is not a binomial experiment.</item>
+          </list>
+        </solution>
+      </example>
+      <note type="Your Turn" number="7.34">
+        <p>Draw a card from a well-shuffled deck, note its suit, and replace it. Repeat this process 5 times.</p>
+        <p>Draw 5 cards from a well-shuffled deck and count the number of $$\clubsuit$$.</p>
+        <p>Draw a card from a well-shuffled deck, note whether it is a $$\clubsuit$$ or not, and replace it. Repeat this process 5 times.</p>
+        <p>Draw cards from a well-shuffled deck until you get a $$\clubsuit$$.</p>
+      </note>
+    </subsection>
+  </subsection>
+  <subsection title="The Binomial Formula">
+    <p>If we flip a coin 100 times, you might expect the number of heads to be around 50, but you probably wouldn’t be surprised if the actual number of heads was 47 or 52. What is the probability that the number of heads is exactly 50? Or falls between 45 and 55? It seems unlikely that we would get more than 70 heads. Exactly how unlikely is that?</p>
+    <p>Each of these questions is a question about the number of successes in a binomial experiment (flip a coin 100 times, “success” is flipping heads). We could theoretically use the techniques we’ve seen in earlier sections to answer each of these, but the number of calculations we’d have to do is astronomical; just building the tree diagram that represents this situation is more than we could complete in a lifetime; it would have $$2^{100} \approx 1.3 \times 10^{30}$$ final nodes! To put that number in perspective, if we could draw 1,000 dots every second, and we started at the moment of the Big Bang, we’d currently be about 0.00000003% of the way to drawing out those final nodes. Luckily, there’s a shortcut called the Binomial Formula that allows us to get around doing all those calculations!</p>
+    <note type="FORMULA">
+      <p>Binomial Formula: Suppose we have a binomial experiment with $$n$$ trials and the probability of success in each trial is $$p$$. Then:</p>
+      <equation>$$P(\text{number of successes is}\; a) = {}_{}^{}{}_{a} \times p^{a} \times {(1 - p)}^{n - a}$$</equation>
+    </note>
+    <p>We can use this formula to answer one of our questions about 100 coin flips. What is the probability of flipping exactly 50 heads? In this case, $$n = 100$$, $$p = \frac{1}{2}$$, and $$a = 50$$, so $$P(\text{flip 50 heads}) = {}_{}^{}{}_{50} \times \left( \frac{1}{2} \right)^{50} \times \left( {1 - \frac{1}{2}} \right)^{100 - 50}$$. Unfortunately, many calculators will balk at this calculation; that first factor ($${}_{100}C_{50}$$) is an enormous number, and the other two factors are very close to zero. Even if your calculator can handle numbers that large or small, the arithmetic can create serious errors in rounding off.</p>
+    <note type="Tech Check">
+      <p>Luckily, spreadsheet programs have alternate methods for doing this calculation. In Google Sheets, we can use the BINOMDIST function to do this calculation for us. Open up a new sheet, click in any empty cell, and type “=BINOMDIST(50,100,0.5,FALSE)” followed by the Enter key. The cell will display the probability we seek; it’s about 8%. Let’s break down the syntax of that function in Google Sheets: enter “=BINOMDIST($$a$$, $$n$$, $$p$$, FALSE)” to find the probability of $$a$$ successes in $$n$$ trials with probability of success $$p$$.</p>
+    </note>
+    <example number="7.35">
+      <problem>
+        <list type="ol" style="1">
+          <item>Find the probability of rolling a standard 6-sided die 4 times and getting exactly one 6 without using technology.</item>
+          <item>Find the probability of rolling a standard 6-sided die 60 times and getting exactly ten 6s using technology.</item>
+          <item>Find the probability of rolling a standard 6-sided die 60 times and getting exactly eight 6s using technology.</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="1">
+          <item>We’ll apply the Binomial Formula, where,, and:<equation>$$n = 4$$</equation>
+            <equation>$$a = 1$$</equation>
+            <equation>$$p = \frac{1}{6}$$</equation>
+            <equation>$$\begin{array}{rcl} {P(\text{rolling one 6})} &amp; = &amp; {{{}_{}^{}{C1}} \times \left( \frac{1}{6} \right)^{1} \times \left( \frac{5}{6} \right)^{4 - 1}} \\ &amp; = &amp; {\frac{4!}{1!(4 - 1)!} \times \frac{1}{6} \times \left( \frac{5}{6} \right)^{3}} \\ &amp; = &amp; {4 \times \frac{1}{6} \times \frac{5^{3}}{6^{3}}} \\ &amp; = &amp; \frac{4 \times 5^{3}}{6^{4}} \\ &amp; = &amp; {\frac{500}{1,296}.} \end{array}$$</equation>
+          </item>
+          <item>Here, $$n = 60$$, $$a = 10$$, and $$p = \frac{1}{6}$$. In Google Sheets, we’ll enter “=BINOMDIST(10, 60, 1/6, FALSE)” to get our result: 0.137.</item>
+          <item>This experiment is the same as in Exercise 2 of this example; we’re simply changing the number of successes from 10 to 8. Making that change in the formula in Google Sheets, we get the probability 0.116.</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="7.35">
+      <p>You roll the die 10 times and get exactly four 2s.</p>
+      <p>You roll the die 20 times and get exactly four 2s.</p>
+      <p>You roll the die 30 times and get exactly four 2s.</p>
+    </note>
+  </subsection>
+  <subsection title="The Binomial Distribution">
+    <p>If we are interested in the probability of more than just a single outcome in a binomial experiment, it’s helpful to think of the Binomial Formula as a function, whose input is the number of successes and whose output is the probability of observing that many successes. Generally, for a small number of trials, we’ll give that function in table form, with a complete list of the possible outcomes in one column and the probability in the other.</p>
+    <p>For example, suppose Kristen is practicing her basketball free throws. Assume Kristen always makes 82% of those shots. If she attempts 5 free throws, then the Binomial Formula gives us these probabilities:</p>
+    <table summary=" ">
+      <thead>
+        <row>
+          <cell>Shots Made</cell>
+          <cell>Probability</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>0</cell>
+          <cell>0.000189</cell>
+        </row>
+        <row>
+          <cell>1</cell>
+          <cell>0.004304</cell>
+        </row>
+        <row>
+          <cell>2</cell>
+          <cell>0.0392144</cell>
+        </row>
+        <row>
+          <cell>3</cell>
+          <cell>0.1786432</cell>
+        </row>
+        <row>
+          <cell>4</cell>
+          <cell>0.4069096</cell>
+        </row>
+        <row>
+          <cell>5</cell>
+          <cell>0.3707398</cell>
+        </row>
+      </tbody>
+    </table>
+    <p>A table that lists all possible outcomes of an experiment along with the probabilities of those outcomes is an example of a probability density function (PDF). A PDF may also be a formula that you can use to find the probability of any outcome of an experiment.</p>
+    <note type="Checkpoint">
+      <p>Because they refer to the same thing, some sources will refer to the Binomial Formula as the Binomial PDF.</p>
+    </note>
+    <p>If we want to know the probability of a range of outcomes, we could add up the corresponding probabilities. Going back to Kristen’s free throws, we can find the probability that she makes 3 or fewer of her 5 attempts by adding up the probabilities associated with the corresponding outcomes (in this case: 0, 1, 2, or 3):</p>
+    <equation>$$\begin{array}{rcl} {P(\text{makes 3 or fewer})} &amp; = &amp; {P(a = 0) + P(a = 1) + P(a = 2) + P(a = 3)} \\ &amp; = &amp; {0.000189 + 0.004304 + 0.0392144 + 0.1786432} \\ &amp; = &amp; 0.2223506 \end{array}$$</equation>
+    <p>The probability that the outcome of an experiment is less than or equal to a given number is called a cumulative probability. A table of the cumulative probabilities of all possible outcomes of an experiment is an example of a cumulative distribution function (CDF). A CDF may also be a formula that you can use to find those cumulative probabilities.</p>
+    <note type="Checkpoint">
+      <p>Cumulative probabilities are always associated with events that are defined using $$\leq$$. If other inequalities are used to define the event, we must restate the definition so that it uses the correct inequality.</p>
+    </note>
+    <p>Here are the PDF and CDF for Kristen’s free throws:</p>
+    <table summary=" ">
+      <thead>
+        <row>
+          <cell>Shots Made</cell>
+          <cell>Probability</cell>
+          <cell>Cumulative</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>0</cell>
+          <cell>0.000189</cell>
+          <cell>0.000189</cell>
+        </row>
+        <row>
+          <cell>1</cell>
+          <cell>0.004304</cell>
+          <cell>0.004493</cell>
+        </row>
+        <row>
+          <cell>2</cell>
+          <cell>0.0392144</cell>
+          <cell>0.0437073</cell>
+        </row>
+        <row>
+          <cell>3</cell>
+          <cell>0.1786432</cell>
+          <cell>0.2223506</cell>
+        </row>
+        <row>
+          <cell>4</cell>
+          <cell>0.4069096</cell>
+          <cell>0.6292602</cell>
+        </row>
+        <row>
+          <cell>5</cell>
+          <cell>0.3707398</cell>
+          <cell>1</cell>
+        </row>
+      </tbody>
+    </table>
+    <note type="Tech Check">
+      <p>Google Sheets can also compute cumulative probabilities for us; all we need to do is change the “FALSE” in the formulas we used before to "TRUE."</p>
+    </note>
+    <example number="7.36">
+      <problem>
+        <p>Suppose we are about to flip a fair coin 50 times. Let $$H$$ represent the number of heads that result from those flips. Use technology to find the following:</p>
+        <list type="ol" style="1">
+          <item>$$P(H \leq 22)$$</item>
+          <item>$$P(H &lt; 26)$$</item>
+          <item>$$P(H &gt; 28)$$</item>
+          <item>$$P(H \geq 20)$$</item>
+          <item>$$P(20 &lt; H &lt; 25)$$</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="1">
+          <item>The event here is defined by $$H \leq 22$$, which is the inequality we need to have if we want to use the Binomial CDF. In Google Sheets, we’ll enter “=BINOMDIST(22, 50, 0.5, TRUE)” to get our answer: 0.2399.</item>
+          <item>This event uses the wrong inequality, so we need to do some preliminary work. If $$H &lt; 26$$, that means $$H \leq 25$$ (because $$H$$ has to be a whole number). So, we’ll enter “=BINOMDIST(25, 50, 0.5, TRUE)” to find $$P(H &lt; 26) = P(H \leq 25) = 0.5561$$.</item>
+          <item>The inequality associated with this event is pointing in the wrong direction. Ifis the event, that means thatcontains the outcomes {29, 30, 31, 32, 33, …}. Thus,must contain the outcomes {…, 25, 26, 27, 28}. In other words,is defined by. Since it uses, we can findusing “=BINOMDIST(28, 50, 0.5, TRUE)”: 0.8389 So, using the formula for probabilities of complements, we have<equation>$$E$$</equation>
+            <equation>$$H &gt; 28$$</equation>
+            <equation>$$E$$</equation>
+            <equation>$$E\prime$$</equation>
+            <equation>$$E\prime$$</equation>
+            <equation>$$H \leq 28$$</equation>
+            <equation>$$\leq$$</equation>
+            <equation>$$P(E\prime)$$</equation>
+            <equation>$$\begin{matrix} {P(E) = 1 - P(E\prime)} \\ {= 1 - 0.8389} \\ {= 0.1611.} \end{matrix}$$</equation>
+          </item>
+          <item>As in part 3, this inequality is pointing in the wrong direction. Ifis the event, thencontains the outcomes {20, 21, 22, 23, …}. That meanscontains the outcomes {…, 16, 17, 18, 19}, and sois defined by. So, we can findusing “=BINOMDIST(19, 50, 0.5, TRUE)”: 0.0595. Finally, using the formula for probabilities of complements, we get:<equation>$$F$$</equation>
+            <equation>$$H \geq 20$$</equation>
+            <equation>$$F$$</equation>
+            <equation>$$F\prime$$</equation>
+            <equation>$$F\prime$$</equation>
+            <equation>$$H \leq 19$$</equation>
+            <equation>$$P(F\prime)$$</equation>
+            <equation>$$\begin{array}{l} {P(F) = 1 - P(F\prime)} \\ {\mspace{47mu} = 1 - 0.0595} \\ {\mspace{47mu} = 0.9405.} \end{array}$$</equation>
+          </item>
+          <item>If, that means we are interested in the outcomes {21, 22, 23, 24}. This doesn’t look like any of the previous situations, but there is a way to find this probability using the Binomial CDF. We need to put everything in terms of “less than or equal to,” so we’ll first note that all of our outcomes are less than or equal to 24. But we don’t want to include values that are less than or equal to 20. So, we have three events: letbe the event defined by(note that we’re trying to find). Letbe defined by, and letbe defined by. Of these three events,contains the most outcomes. Ifoccurs, then eitherormust have occurred. Moreover,andare mutually exclusive. Thus,, by the Addition Rule. Solving for the probability that we want, we get<equation>$$20 &lt; H &lt; 25$$</equation>
+            <equation>$$I$$</equation>
+            <equation>$$20 &lt; H &lt; 25$$</equation>
+            <equation>$$P(I)$$</equation>
+            <equation>$$J$$</equation>
+            <equation>$$H \leq 24$$</equation>
+            <equation>$$K$$</equation>
+            <equation>$$H \leq 20$$</equation>
+            <equation>$$J$$</equation>
+            <equation>$$J$$</equation>
+            <equation>$$K$$</equation>
+            <equation>$$I$$</equation>
+            <equation>$$K$$</equation>
+            <equation>$$I$$</equation>
+            <equation>$$P(J) = P(K) + P(I)$$</equation>
+            <equation>$$\begin{array}{l} {P(I) = P(J) - P(K)} \\ {\mspace{41mu} = P(H \leq 24) - P(H \leq 20)} \\ {\mspace{41mu} = 0.44386 - 0.10132} \\ {\mspace{41mu} = 0.34254.} \end{array}$$</equation>
+          </item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="7.36">
+      <equation>$$S$$</equation>
+      <p>$$S \leq 5$$</p>
+      <p>$$S &lt; 8$$</p>
+      <p>$$S &gt; 10$$</p>
+      <p>$$S \geq 7$$</p>
+      <p>$$5 &lt; S &lt; 8$$</p>
+    </note>
+    <p>Finally, we can answer the question posed at the beginning of this section. Remember that the Reds are facing the Angels in the World Series, which is won by the team who is first to win 4 games. The Reds have a 65% chance to win any game against the Angels. So, what is the probability that the Reds win the World Series? At first glance, this is not a binomial experiment: The number of games played is not fixed, since the series ends as soon as one team wins 4 games. However, we can extend this situation to a binomial experiment: Let’s assume that 7 games are always played in the World Series, and the winner is the team who wins more games. In a way, this is what happens in reality; it’s as though the first team to lose 4 games (and thus cannot win more than the other team) forfeits the rest of their games. So, we can treat the actual World Series as a binomial experiment with seven trials. If $$W$$ is the number of games won by the Reds, the probability that the Reds win the World Series is $$P(W \geq 4)$$. Using the techniques from the last example, we get $$P(\text{Reds win the series}) = 0.8002$$.</p>
+    <note type="People in Mathematics">
+      <p>Abraham de Moivre was born in 1667 in France to a Protestant family. Though he was educated in Catholic schools, he remained true to his faith; in 1687, he fled with his brother to London to escape persecution under the reign of King Louis XIV. Once he arrived in England, he supported himself as a freelance math tutor while he conducted his own research. Among his interests was probability; in 1711, he published the first edition of The Doctrine of Chances: A Method of Calculating the Probabilities of Events in Play. This book was the second textbook on probability (after Cardano’s Liber de ludo aleae). De Moivre discovered an important connection between the binomial distribution and thenormal distribution (an important concept in statistics; we’ll explore that distribution and its connection to the binomial distribution in Chapter 8). De Moivre also discovered some properties of a new probability distribution that later became known as the Poisson distribution.</p>
+    </note>
+  </subsection>
+  <subsection title="Check Your Understanding">
+    <p>If you roll the die 5 times and note the color showing on each roll, is this a binomial experiment?</p>
+    <p>If you roll the die 5 times and count the number times you roll a green face, is this a binomial experiment?</p>
+    <p>If you count how many times you roll the die until you get a blue face, is this a binomial experiment?</p>
+    <equation>$$O$$</equation>
+    <equation>$$G$$</equation>
+    <equation>$$B$$</equation>
+    <p>$$P(O \leq 7)$$</p>
+    <p>$$P(G = 5)$$</p>
+    <p>$$P(1 \leq B \leq 4)$$</p>
+  </subsection>
+  <exercises title="Section 7.10 Exercises">
+    <instruction>In the following exercises, decide whether the described experiments are binomial experiments. For those that are not, explain why they aren’t.</instruction>
+    <exercise number="1" has_solution="false">
+      <problem>
+        <p>A golfer practices putts from 1 foot, 2 feet, 3 feet, 4 feet, and 5 feet; “success” is defined as making the putt.</p>
+      </problem>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <p>A game designer rolls a pair of dice 100 times and counts the number of times the sum is at least 10.</p>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="false">
+      <problem>
+        <p>A student who is completely unprepared for a multiple-choice pop quiz guesses on all 10 questions. There are 4 choices for each of the first 5 questions and 5 choices for each of the last 5 questions. “Success” is defined as answering the question correctly.</p>
+      </problem>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <p>A baseball player is practicing pitching; he throws pitches until he gets 50 strikes.</p>
+      </problem>
+    </exercise>
+    <exercise number="5" has_solution="false">
+      <problem>
+        <p>A statistician stops 20 college students at random outside a dining hall and notes their class year.</p>
+      </problem>
+    </exercise>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <p>An employee at a bowling alley watches each patron’s first ball and counts how many are strikes over the course of his shift.</p>
+      </problem>
+    </exercise>
+    <instruction>In the following exercises, you have an 8-sided die with 4 faces colored orange, 3 colored red, and 1 colored yellow. You’re going to roll the die 100 times: Let $$Y$$ be the number of times a yellow face is showing, $$R$$ be the number of times a red face is showing, and $$O$$ be the number of times an orange face is showing. Find the given probabilities, rounded to 4 decimal places:</instruction>
+    <exercise number="7" has_solution="false">
+      <problem>
+        <p>$$P(O = 52)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <p>$$P(R &lt; 40)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="9" has_solution="false">
+      <problem>
+        <p>$$P(Y \geq 10)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <p>$$P(O &gt; 55)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="11" has_solution="false">
+      <problem>
+        <p>$$P(R = 35)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <p>$$P(Y &lt; 5)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="13" has_solution="false">
+      <problem>
+        <p>$$P(45 &lt; O &lt; 55)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <p>$$P(R \leq 30)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="15" has_solution="false">
+      <problem>
+        <p>$$P(Y \geq 20)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <p>$$P(O &lt; 40)$$</p>
+      </problem>
+    </exercise>
+    <instruction>The following exercises are about series of games, where Team A faces Team B in a best-of series (like the World Series). Find the probability that Team A wins the series in each of the following scenarios:</instruction>
+    <exercise number="17" has_solution="false">
+      <problem>
+        <p>$$P(\text{Team A wins a single game against Team B}) = 51\%$$ best-of-5 series</p>
+      </problem>
+    </exercise>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <p>$$P(\text{Team A wins a single game against Team B}) = 51\%$$ best-of-7 series</p>
+      </problem>
+    </exercise>
+    <exercise number="19" has_solution="false">
+      <problem>
+        <p>$$P(\text{Team A wins a single game against Team B}) = 51\%$$ best-of-15 series</p>
+      </problem>
+    </exercise>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <p>$$P(\text{Team A wins a single game against Team B}) = 51\%$$, best-of-31 series</p>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="false">
+      <problem>
+        <p>$$P(\text{Team A wins a single game against Team B}) = 51\%$$, best-of-101 series</p>
+      </problem>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <p>$$P(\text{Team A wins a single game against Team B}) = 60\%$$, best-of-5 series</p>
+      </problem>
+    </exercise>
+    <exercise number="23" has_solution="false">
+      <problem>
+        <p>$$P(\text{Team A wins a single game against Team B}) = 60\%$$, best-of-7 series</p>
+      </problem>
+    </exercise>
+    <exercise number="24" has_solution="false">
+      <problem>
+        <p>$$P(\text{Team A wins a single game against Team B}) = 60\%$$, best-of-15 series</p>
+      </problem>
+    </exercise>
+    <exercise number="25" has_solution="false">
+      <problem>
+        <p>$$P(\text{Team A wins a single game against Team B}) = 60\%$$, best-of-31 series</p>
+      </problem>
+    </exercise>
+    <exercise number="26" has_solution="false">
+      <problem>
+        <p>$$P(\text{Team A wins a single game against Team B}) = 60\%$$, best-of-101 series</p>
+      </problem>
+    </exercise>
+    <exercise number="27" has_solution="false">
+      <problem>
+        <p>Give the table of the PDF for flipping a fair coin 5 times and counting the heads. Do the calculations without using technology.</p>
+      </problem>
+    </exercise>
+    <exercise number="28" has_solution="false">
+      <problem>
+        <p>Give the table of the CDF for flipping a fair coin 5 times and counting the heads. Do the calculations without using technology.</p>
+      </problem>
+    </exercise>
+    <instruction>The following exercises are about the casino game roulette. In this game, the dealer spins a marble around a wheel that contains 38 pockets that the marble can fall into. Each pocket has a number (each whole number from 0 to 36, along with a “double zero”) and a color (0 and 00 are both green; the other 36 numbers are evenly divided between black and red). Players make bets on which number (or groups of numbers) they think the marble will land on. The figure shows the layout of the numbers and colors, as well as some of the bets that can be made.
+
+
+
+Roulette Table (credit: "American Roulette Table Layout" by Film8ker/Wikimedia
+Commons, Public Domain)</instruction>
+    <exercise number="29" has_solution="false">
+      <problem>
+        <p>If a player bets $1 on red and wins, the player gets $2 back (the original $1 bet plus $1 winnings). What is the probability that the player wins more than they lose if the player bets on red on 5 consecutive spins?</p>
+      </problem>
+    </exercise>
+    <exercise number="30" has_solution="false">
+      <problem>
+        <p>What is the probability that the player wins more than they lose if the player bets on red on 15 consecutive spins?</p>
+      </problem>
+    </exercise>
+    <exercise number="31" has_solution="false">
+      <problem>
+        <p>What is the probability that the player wins more than they lose if the player bets on red on 30 consecutive spins?</p>
+      </problem>
+    </exercise>
+    <exercise number="32" has_solution="false">
+      <problem>
+        <p>What is the probability that the player wins more than they lose if the player bets on red on 100 consecutive spins?</p>
+      </problem>
+    </exercise>
+    <exercise number="33" has_solution="false">
+      <problem>
+        <p>What is the probability that the player wins more than they lose if the player bets on red on 200 consecutive spins?</p>
+      </problem>
+    </exercise>
+    <exercise number="34" has_solution="false">
+      <problem>
+        <p>What is the probability that the player wins more than they lose if the player bets on red on 1,000 consecutive spins?</p>
+      </problem>
+    </exercise>
+    <exercise number="35" has_solution="false">
+      <problem>
+        <p>What is the probability that the player wins more than they lose if the player bets on red on 5,000 consecutive spins?</p>
+      </problem>
+    </exercise>
+  </exercises>
+</section>

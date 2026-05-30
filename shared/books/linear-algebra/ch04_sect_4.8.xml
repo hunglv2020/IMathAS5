@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch04" chapter_number="4" unit_code="4.8">
+  <section number="4.8" title="Applications to Difference Equations">
+    <metadata>
+      <source_pages count="11">
+        <page global_index="223" type="content"/>
+        <page global_index="224" type="content"/>
+        <page global_index="225" type="content"/>
+        <page global_index="226" type="content"/>
+        <page global_index="227" type="content"/>
+        <page global_index="228" type="content"/>
+        <page global_index="229" type="content"/>
+        <page global_index="230" type="content"/>
+        <page global_index="231" type="exercises"/>
+        <page global_index="232" type="exercises"/>
+        <page global_index="233" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">4.8 Applications to Difference Equations</heading>
+      <paragraph>Continuing our study of discrete-time signals, in this section we explore difference equations, a valuable tool used to filter the data contained in signals. Even when a differential equation is used to model a continuous process, a numerical solution is often produced from a related difference equation. This section highlights some fundamental properties of linear difference equations that are explained using linear algebra.</paragraph>
+      <heading level="2">Linear Independence in the Space 𝕊 of Signals</heading>
+      <paragraph>To simplify notation, we consider a set of only three signals in <math display="inline">$\mathbb{S}$</math>, say, <math display="inline">$\{ u_{k}\}$</math>, <math display="inline">$\{ v_{k}\}$</math>, and <math display="inline">$\{ w_{k}\}$</math>. They are linearly independent precisely when the equation</paragraph>
+      <paragraph>
+        <math display="block">$$c_{1}u_{k} + c_{2}v_{k} + c_{3}w_{k} = 0\quad{\text{for~all~}k}$$</math>
+      </paragraph>
+      <paragraph>implies that <math display="inline">$c_{1} = c_{2} = c_{3} = 0$</math>. The phrase “for all <math display="inline">$k$</math>” means for all integers—positive, negative, and zero. One could also consider signals that start with <math display="inline">$k = 0$</math>, for example, in which case, “for all <math display="inline">$k$</math>” would mean for all integers <math display="inline">$k \geq 0$</math>.</paragraph>
+      <paragraph>Suppose <math display="inline">$c_{1}$</math>, <math display="inline">$c_{2}$</math>, <math display="inline">$c_{3}$</math> satisfy (1). Then equation (1) holds for any three consecutive values of <math display="inline">$k$</math>, say, <math display="inline">$k,k + 1$</math>, and <math display="inline">$k + 2$</math>. Thus (1) implies that</paragraph>
+      <paragraph>
+        <math display="block">$$c_{1}u_{k + 1} + c_{2}v_{k + 1} + c_{3}w_{k + 1} = 0{\text{\quad for~all~}k}$$</math>
+      </paragraph>
+      <paragraph>and</paragraph>
+      <paragraph>
+        <math display="block">$$c_{1}u_{k + 2} + c_{2}v_{k + 2} + c_{3}w_{k + 2} = 0{\text{\quad for~all~}k}$$</math>
+      </paragraph>
+      <paragraph>Hence <math display="inline">$c_{1}$</math>, <math display="inline">$c_{2}$</math>, <math display="inline">$c_{3}$</math> satisfy</paragraph>
+      <paragraph>
+        <math display="block">$$\left\lbrack \begin{array}{lll}
+      u_{k} &amp; v_{k} &amp; w_{k} \\
+      u_{k + 1} &amp; v_{k + 1} &amp; w_{k + 1} \\
+      u_{k + 2} &amp; v_{k + 2} &amp; w_{k + 2}
+      \end{array} \right\rbrack\,\begin{bmatrix}
+      c_{1} \\
+      c_{2} \\
+      c_{3}
+      \end{bmatrix} = \begin{bmatrix}
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}\text{for~all~}k$$</math>
+      </paragraph>
+      <paragraph>The coefficient matrix in this system is called the Casorati matrix, <math display="inline">$C(k)$</math>, of the signals, and the determinant of the matrix is called the Casoratian of <math display="inline">$\{ u_{k}\}$</math>, <math display="inline">$\{ v_{k}\}$</math>, and <math display="inline">$\{ w_{k}\}$</math>. If the Casorati matrix is invertible for at least one value of <math display="inline">$k$</math>, then (2) will imply that <math display="inline">$c_{1} = c_{2} = c_{3} = 0$</math>, which will prove that the three signals are linearly independent.</paragraph>
+      <note type="margin_note">
+              <paragraph><strong>﻿STUDY GUIDE</strong>offers additional resources on the Casorati Test.</paragraph>
+        </note>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Verify that <math display="inline">$\{ 1^{k}\}$</math>, <math display="inline">$\{( - 2)^{k}\}$</math>, and <math display="inline">$\{ 3^{k}\}$</math> are linearly independent signals.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The Casorati matrix is</paragraph>
+              <paragraph><math display="block">$$\left\lbrack \begin{array}{lll}
+      1^{k} &amp; {( - 2)}^{k} &amp; 3^{k} \\
+      1^{k + 1} &amp; {( - 2)}^{k + 1} &amp; 3^{k + 1} \\
+      1^{k + 2} &amp; {( - 2)}^{k + 2} &amp; 3^{k + 2}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Row operations can show fairly easily that this matrix is always invertible. However, it is faster to substitute a value for <math display="inline">$k$</math>—say, <math display="inline">$k = 0$</math>—and row reduce the numerical matrix:</paragraph>
+              <paragraph><math display="block">$$\left\lbrack \begin{array}{rrr}
+      1 &amp; 1 &amp; 1 \\
+      1 &amp; {- 2} &amp; 3 \\
+      1 &amp; 4 &amp; 9
+      \end{array} \right\rbrack \sim \left\lbrack \begin{array}{rrr}
+      1 &amp; 1 &amp; 1 \\
+      0 &amp; {- 3} &amp; 2 \\
+      0 &amp; 3 &amp; 8
+      \end{array} \right\rbrack \sim \left\lbrack \begin{array}{rrr}
+      1 &amp; 1 &amp; 1 \\
+      0 &amp; {- 3} &amp; 2 \\
+      0 &amp; 0 &amp; 10
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>The Casorati matrix is invertible for <math display="inline">$k = 0$</math>. So <math display="inline">$\{ 1^{k}\}$</math>, <math display="inline">$\{( - 2)^{k}\}$</math>, and <math display="inline">$\{ 3^{k}\}$</math> are linearly independent.</paragraph>
+          <figure>
+            <image alt="A graph shows three line graphs plotted on a coordinate plane."/>
+          </figure>
+              <paragraph>The signals <math display="inline">$1^{k}$</math>, <math display="inline">$\left. \text{(} - 2 \right)^{k}$</math>, and <math display="inline">$3^{k}$</math>.</paragraph>
+        </example>
+      <paragraph>If a Casorati matrix is not invertible, the associated signals being tested may or may not be linearly dependent. (See Exercise 35.) However, it can be shown that if the signals are all solutions of the <em>same</em> homogeneous difference equation (described below), then either the Casorati matrix is invertible for all <math display="inline">$k$</math> and the signals are linearly independent, or else the Casorati matrix is not invertible for all <math display="inline">$k$</math> and the signals are linearly dependent. A nice proof using linear transformations is in the <em>Study Guide</em>.</paragraph>
+      <heading level="2">Linear Difference Equations</heading>
+      <paragraph>Given scalars <math display="inline">$a_{0},\ldots\text{,~}a_{n}$</math>, with <math display="inline">$a_{0}$</math> and <math display="inline">$a_{n}$</math> nonzero, and given a signal <math display="inline">$\{ z_{k}\}$</math>, the equation</paragraph>
+      <paragraph>
+        <math display="block">$$a_{0}y_{k + n} + a_{1}y_{k + n - 1} + \cdots + a_{n - 1}y_{k + 1} + a_{n}y_{k} = z_{k}\quad\text{for all~}k$$</math>
+      </paragraph>
+      <paragraph>is called a <strong>linear</strong> <strong>difference equation</strong> (or <strong>linear recurrence relation</strong>) of order <math display="inline">$n$</math>. For simplicity, <math display="inline">$a_{0}$</math> is often taken equal to 1. If <math display="inline">$\{ z_{k}\}$</math> is the zero sequence, the equation is homogeneous; otherwise, the equation is nonhomogeneous.</paragraph>
+      <paragraph>In digital signal processing (DSP), a difference equation such as (3) describes a linear time invariant (LTI) filter, and <math display="inline">$a_{0}\text{,}\ldots\text{,~}a_{n}$</math> are called the filter coefficients. The shift LTI transformations <math display="inline">$S(\{ y_{k}\}) = \{ y_{k - 1}\}$</math> and <math display="inline">$S^{- 1}(\{ y_{k}\}) = \{ y_{k + 1}\}$</math> were introduced in Example 1 of Section 4.7 and are used here to describe the LTI filter associated with a linear difference equation. Define</paragraph>
+      <paragraph>
+        <math display="block">$$T = a_{0}S^{- n} + a_{1}S^{- n + 1} + \cdots + a_{n - 1}S^{- 1} + a_{n}S^{0}.$$</math>
+      </paragraph>
+      <paragraph>Notice if <math display="inline">$\{ z_{k}\} = T(\{ y_{k}\})$</math>, then for any <math display="inline">$k$</math>, Equation (3) describes the relationship between terms in the two signals.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Let us feed two different signals into the filter</paragraph>
+              <paragraph><math display="block">$$.35y_{k + 2} + .5y_{k + 1} + .35y_{k} = z_{k}$$</math></paragraph>
+              <paragraph>Here <math display="inline">$\text{.35}$</math> is an abbreviation for <math display="inline">$\sqrt{2}/4$</math>. The first signal is created by sampling the continuous signal <math display="inline">$y = \text{~cos}(\pi t/4)$</math> at integer values of <math display="inline">$t$</math>, as in <strong>Figure 1(a)</strong>. The discrete signal is</paragraph>
+              <paragraph><math display="block">$$\left\{ y_{k} \right\} = \left( \ldots\text{,~cos}(0)\text{,~cos}(\pi/4)\text{,~cos}(2\pi/4)\text{,~cos}(3\pi/4)\text{,}\ldots \right)$$</math></paragraph>
+              <paragraph>For simplicity, write <math display="inline">$\pm .7$</math> in place of <math display="inline">$\pm \sqrt{2}/2$</math>, so that</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      \left\{ y_{k} \right\} &amp; = &amp; \left( \ldots\text{,}1\text{,~}.7\text{,~}0\text{,} - .7\text{,} - 1\text{,} - .7\text{,~}0\text{,~}.7\text{,~}1\text{,~}.7\text{,~}0\text{,}\ldots \right) \\
+       &amp; &amp; \uparrow \\
+       &amp; &amp; {k = 0}
+      \end{array}$$</math></paragraph>
+          <figure label="Figure 1" caption="Discrete signals with different frequencies.">
+            <image alt="Figure (a) shows a wave for y equals cosine (StartFraction pi t over 4 EndFraction)."/>
+          </figure>
+          <figure caption="Table 1          Computing the Output of a Filter">
+            <image alt="Figure (b) shows a wave for y equals cosine (StartFraction 3 pi t over 4 EndFraction)."/>
+          </figure>
+              <paragraph><strong>Table 1</strong> shows a calculation of the output sequence <math display="inline">$\{ z_{k}\}$</math>, where <math display="inline">$.35(.7)$</math> is an abbreviation for <math display="inline">$\text{(}\sqrt{2}/4\text{)\,(}\sqrt{2}/2\text{)} = .25$</math>. The output is <math display="inline">$\{ y_{k}\}$</math>, shifted by one term.</paragraph>
+          <figure>
+            <image alt="A table shows data for computing the output of a filter."/>
+          </figure>
+              <paragraph>A different input signal is produced from the higher frequency signal <math display="inline">$y = \text{cos}(3\pi t/4)$</math>, shown in <strong>Figure 1(b)</strong>. Sampling at the same rate as before produces a new input sequence:</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \left\{ w_{k} \right\} &amp; = &amp; \left( \ldots\text{,}1\text{,} - .7\text{,~}0\text{,~}.7\text{,} - 1\text{,~}.7\text{,~}0\text{,} - .7\text{,~}1\text{,} - .7\text{,~}0\text{,}\ldots \right) \\
+       &amp; &amp; \uparrow \\
+       &amp; &amp; {k = 0}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>When <math display="inline">$\{ w_{k}\}$</math> is fed into the filter, the output is the zero sequence. The filter, called a <em>low-pass filter</em>, lets <math display="inline">$\{ y_{k}\}$</math> pass through, but stops the higher frequency <math display="inline">$\{ w_{k}\}$</math>.</paragraph>
+        </example>
+      <paragraph>In many applications, a sequence <math display="inline">$\{ z_{k}\}$</math> is specified for the right side of a difference equation (3), and a <math display="inline">$\{ y_{k}\}$</math> that satisfies (3) is called a solution of the equation. The next example shows how to find solutions for a homogeneous equation.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Solutions of a homogeneous difference equation often have the form <math display="inline">$\{ y_{k}\} = \{ r^{k}\}$</math> for some <math display="inline">$r$</math>. Find some solutions of the equation</paragraph>
+              <paragraph><math display="block">$$y_{k + 3} - 2y_{k + 2} - 5y_{k + 1} + 6y_{k} = 0\quad\text{for all~}k$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Substitute <math display="inline">$r^{k}$</math> for <math display="inline">$y_{k}$</math> in the equation and factor the left side:</paragraph>
+              <paragraph><math display="block">$$\begin{array}{rrr}
+      {r^{k + 3} - 2r^{k + 2} - 5r^{k + 1} + 6r^{k}} &amp; = &amp; 0 \\
+      {r^{k}(r^{3} - 2r^{2} - 5r + 6)} &amp; = &amp; 0
+      \end{array}$$</math></paragraph>
+              <paragraph><math display="block">$$\begin{array}{rr}
+      {r^{k}(r - 1)(r + 2)(r - 3)} &amp; {= 0}
+      \end{array}$$</math></paragraph>
+              <paragraph>Since (5) is equivalent to (6), <math display="inline">$\{ r^{k}\}$</math> satisfies the difference equation (4) if and only if <math display="inline">$r$</math> satisfies (6). Thus <math display="inline">$\{ 1^{k}\}$</math>, <math display="inline">$\{( - 2)^{k}\}$</math>, and <math display="inline">$\{ 3^{k}\}$</math> are all solutions of (4). For instance, to verify that <math display="inline">$\{ 3^{k}\}$</math> is a solution of (4), compute</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      3^{k + 3} &amp; - &amp; {2 \cdot 3^{k + 2} - 5 \cdot 3^{k + 1} + 6 \cdot 3^{k}} \\
+       &amp; = &amp; {3^{k}(27 - 18 - 15 + 6) = 0\quad\text{for all~}k}
+      \end{array}$$</math></paragraph>
+        </example>
+      <paragraph>In general, a nonzero signal <math display="inline">$\{ r^{k}\}$</math> satisfies the homogeneous difference equation</paragraph>
+      <paragraph>
+        <math display="block">$$y_{k + n} + a_{1}y_{k + n - 1} + \cdots + a_{n - 1}y_{k + 1} + a_{n}y_{k} = 0{\text{\quad for~all~}k}$$</math>
+      </paragraph>
+      <paragraph>if and only if <math display="inline">$r$</math> is a root of the auxiliary equation<strong/></paragraph>
+      <paragraph>
+        <math display="block">$$r^{n} + a_{1}r^{n - 1} + \cdots + a_{n - 1}r + a_{n} = 0$$</math>
+      </paragraph>
+      <paragraph>We will not consider the case in which <math display="inline">$r$</math> is a repeated root of the auxiliary equation. When the auxiliary equation has a <em>complex root</em>, the difference equation has solutions of the form <math display="inline">$\{ s^{k}\text{~cos~}k\omega\}$</math> and <math display="inline">$\{ s^{k}\text{~sin~}k\omega\}$</math>, for constants <math display="inline">$s$</math> and <math display="inline">$\omega$</math>. This happened in Example 2.</paragraph>
+      <heading level="2">Solution Sets of Linear Difference Equations</heading>
+      <paragraph>Given <math display="inline">$a_{1}\text{,}\ldots\text{,~}a_{n}$</math>, recall that the LTI transformation <math display="inline">$\left. T:\mathbb{S}\rightarrow\mathbb{S} \right.$</math> given by</paragraph>
+      <paragraph>
+        <math display="block">$$T = a_{0}S^{- n} + a_{1}S^{- n + 1} + \cdots + a_{n - 1}S^{- 1} + a_{n}S^{0}$$</math>
+      </paragraph>
+      <paragraph>transforms a signal <math display="inline">$\{ y_{k}\}$</math> into the signal <math display="inline">$\{ w_{k}\}$</math> given by</paragraph>
+      <paragraph>
+        <math display="block">$$w_{k} = y_{k + n} + a_{1}y_{k + n - 1} + \cdots + a_{n - 1}y_{k + 1} + a_{n}y_{k}\text{\quad for all~}k$$</math>
+      </paragraph>
+      <paragraph>This implies that the solution set of the homogeneous equation</paragraph>
+      <paragraph>
+        <math display="block">$$y_{k + n} + a_{1}y_{k + n - 1} + \cdots + a_{n - 1}y_{k + 1} + a_{n}y_{k} = 0\text{\quad for all~}k$$</math>
+      </paragraph>
+      <paragraph>is the kernel of <math display="inline">$T$</math> and describes the signals that are <em>filtered out</em> or transformed into the zero signal. Since the kernel of any linear transformation with domain <math display="inline">$\mathbb{S}$</math> is a <em>subspace</em> of <math display="inline">$\mathbb{S}$</math>, so is the solution set of a homogeneous equation. Any linear combination of solutions is again a solution.</paragraph>
+      <paragraph>The next theorem, a simple but basic result, will lead to more information about the solution sets of difference equations.</paragraph>
+      <note type="procedure" title="Theorem 19">
+          <heading level="2">Theorem 19</heading>
+              <paragraph>If <math display="inline">$a_{n} \neq 0$</math> and if <math display="inline">$\{ z_{k}\}$</math> is given, the equation</paragraph>
+              <paragraph><math display="block">$$y_{k + n} + a_{1}y_{k + n - 1} + \cdots + a_{n - 1}y_{k + 1} + a_{n}y_{k} = z_{k}\quad\text{~for all~}k$$</math></paragraph>
+              <paragraph>has a unique solution whenever <math display="inline">$y_{0}\text{,}\ldots\text{,~}y_{n - 1}$</math> are specified.</paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>If <math display="inline">$y_{0}\text{,}\ldots\text{,~}y_{n - 1}$</math> are specified, use (7) to <em>define</em></paragraph>
+      <paragraph>
+        <math display="block">$$y_{n} = z_{0} - \left\lbrack {a_{1}y_{n - 1} + \cdots + a_{n - 1}y_{1} + a_{n}y_{0}} \right\rbrack$$</math>
+      </paragraph>
+      <paragraph>And now that <math display="inline">$y_{1}\text{,}\ldots\text{,~}y_{n}$</math> are specified, use (7) to define <math display="inline">$y_{n + 1}$</math>. In general, use the recurrence relation</paragraph>
+      <paragraph>
+        <math display="block">$$y_{n + k} = z_{k} - \left\lbrack {a_{1}y_{k + n - 1} + \cdots + a_{n}y_{k}} \right\rbrack$$</math>
+      </paragraph>
+      <paragraph>to define <math display="inline">$y_{n + k}$</math> for <math display="inline">$k \geq 0$</math>. To define <math display="inline">$y_{k}$</math> for <math display="inline">$k &lt; 0$</math>, use the recurrence relation</paragraph>
+      <paragraph>
+        <math display="block">$$y_{k} = \frac{1}{a_{n}}z_{k} - \frac{1}{a_{n}}\left\lbrack {y_{k + n} + a_{1}y_{k + n - 1} + \cdots + a_{n - 1}y_{k + 1}} \right\rbrack$$</math>
+      </paragraph>
+      <paragraph>This produces a signal that satisfies (7). Conversely, any signal that satisfies (7) for all <math display="inline">$k$</math> certainly satisfies (8) and (9), so the solution of (7) is unique.</paragraph>
+      <note type="procedure" title="Theorem 20">
+          <heading level="2">Theorem 20</heading>
+              <paragraph>The set <math display="inline">$H$</math> of all solutions of the <math display="inline">$n\text{th-order}$</math> homogeneous linear difference equation</paragraph>
+              <paragraph><math display="block">$$y_{k + n} + a_{1}y_{k + n - 1} + \cdots + a_{n - 1}y_{k + 1} + a_{n}y_{k} = 0\quad\text{for all~}k$$</math></paragraph>
+              <paragraph>is an <math display="inline">$n\text{-dimensional}$</math> vector space.</paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>As was pointed out earlier, <math display="inline">$H$</math> is a subspace of <math display="inline">$\mathbf{\mathbb{S}}$</math> because <math display="inline">$H$</math> is the kernel of a linear transformation. For <math display="inline">$\{ y_{k}\}$</math> in <math display="inline">$H$</math>, let <math display="inline">$F\{ y_{k}\}$</math> be the vector in <math display="inline">$\mathbf{\mathbb{R}}^{n}$</math> given by <math display="inline">$\left( y_{0}\text{,~}y_{1}\text{,}\ldots\text{,~}y_{n - 1} \right)$</math>. It is readily verified that <math display="inline">$\left. F:H\rightarrow\mathbf{\mathbb{R}}^{n} \right.$</math> is a linear transformation. Given any vector <math display="inline">$\left( y_{0}\text{,~}y_{1}\text{,}\ldots\text{,~}y_{n - 1} \right)$</math> in <math display="inline">$\mathbf{\mathbb{R}}^{n}$</math>, Theorem 19 says that there is a unique signal <math display="inline">$\{ y_{k}\}$</math> in <math display="inline">$H$</math> such that <math display="inline">$F\left\{ y_{k} \right\} = \left( y_{0}\text{,~}y_{1}\text{,}\ldots\text{,~}y_{n - 1} \right)$</math>. This means that <math display="inline">$F$</math> is a one-to-one linear transformation of <math display="inline">$H$</math> onto <math display="inline">$\mathbf{\mathbb{R}}^{n}$</math>; that is, <math display="inline">$F$</math> is an isomorphism. Thus <math display="inline">$\text{dim~}H = \text{dim~}\mathbf{\mathbb{R}}^{n} = n$</math>. (See Exercise 52 in Section 4.5.)</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Find a basis for the set of all solutions to the difference equation</paragraph>
+              <paragraph><math display="block">$$y_{k + 3} - 2y_{k + 2} - 5y_{k + 1} + 6y_{k} = 0{\text{\quad for~all~}k}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Our work in linear algebra really pays off now! We know from Examples 1 and 3 that <math display="inline">$\{ 1^{k}\}$</math>, <math display="inline">$\{( - 2)^{k}\}$</math>, and <math display="inline">$\{ 3^{k}\}$</math> are linearly independent solutions. In general, it can be difficult to verify directly that a set of signals <em>spans</em> the solution space. But that is no problem here because of two key theorems—Theorem 20, which shows that the solution space is exactly three-dimensional, and the Basis Theorem in Section 4.5, which says that a linearly independent set of <math display="inline">$n$</math> vectors in an <math display="inline">$n\text{-dimensional}$</math> space is automatically a basis. So <math display="inline">$\{ 1^{k}\}$</math>, <math display="inline">$\{( - 2)^{k}\}$</math>, and <math display="inline">$\{ 3^{k}\}$</math> form a basis for the solution space.</paragraph>
+        </example>
+      <paragraph>The standard way to describe the “general solution” of the difference equation (10) is to exhibit a basis for the subspace of all solutions. Such a basis is usually called a fundamental set of solutions<strong/>of (10). In practice, if you can find <math display="inline">$n$</math> linearly independent signals that satisfy (10), they will automatically span the <math display="inline">$n\text{-dimensional}$</math> solution space, as explained in <strong>Example 4</strong>.</paragraph>
+      <heading level="2">Nonhomogeneous Equations</heading>
+      <paragraph>The general solution of the nonhomogeneous difference equation</paragraph>
+      <paragraph>
+        <math display="block">$$y_{k + n} + a_{1}y_{k + n - 1} + \cdots + a_{n - 1}y_{k + 1} + a_{n}y_{k} = z_{k}\quad\text{for all~}k$$</math>
+      </paragraph>
+      <paragraph>can be written as one particular solution of (11) plus an arbitrary linear combination of a fundamental set of solutions of the corresponding homogeneous equation (10). This fact is analogous to the result in Section 1.5 showing that the solution sets of <math display="inline">$A\mathbf{x} = \mathbf{b}$</math> and <math display="inline">$A\mathbf{x} = 0$</math> are parallel. Both results have the same explanation: The mapping <math display="inline">$\left. \mathbf{x}\mapsto{A\mathbf{x}} \right.$</math> is linear, and the mapping that transforms the signal <math display="inline">$\{ y_{k}\}$</math> into the signal <math display="inline">$\{ z_{k}\}$</math> in (11) is linear.</paragraph>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>Verify that the signal <math display="inline">$\{ y_{k}\} = \{ k^{2}\}$</math> satisfies the difference equation</paragraph>
+              <paragraph><math display="block">$$y_{k + 2} - 4y_{k + 1} + 3y_{k} = - 4k\quad\text{for all~}k$$</math></paragraph>
+              <paragraph>Then find a description of all solutions of this equation.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Substitute <math display="inline">$k^{2}$</math> for <math display="inline">$y_{k}$</math> on the left side of (12):</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      {(k + 2)^{2} -} &amp; {4(k + 1)^{2} + 3k^{2}} \\
+       &amp; {= (k^{2} + 4k + 4) - 4(k^{2} + 2k + 1) + 3k^{2}} \\
+       &amp; {= - 4k}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>So <math display="inline">$k^{2}$</math> is indeed a solution of (12). The next step is to solve the homogeneous equation</paragraph>
+              <paragraph><math display="block">$$y_{k + 2} - 4y_{k + 1} + 3y_{k} = 0\quad\text{for~all~}\textit{k}$$</math></paragraph>
+              <paragraph>The auxiliary equation is</paragraph>
+              <paragraph><math display="block">$$r^{2} - 4r + 3 = (r - 1)(r - 3) = 0$$</math></paragraph>
+              <paragraph>The roots are <math display="inline">$r = 1\text{,~}3$</math>. So two solutions of the homogeneous difference equation are <math display="inline">$\{ 1^{k}\}$</math> and <math display="inline">$\{ 3^{k}\}$</math>. They are obviously not multiples of each other, so they are linearly independent signals. By Theorem 20, the solution space is two-dimensional, so <math display="inline">$\{ 1^{k}\}$</math> and <math display="inline">$\{ 3^{k}\}$</math> form a basis for the set of solutions of equation (13). Translating that set by a particular solution of the nonhomogeneous equation (12), we obtain the general solution of (12):</paragraph>
+              <paragraph><math display="block">$$\{ k^{2}\} + c_{1}\{ 1^{k}\} + c_{2}\{ 3^{k}\}\text{,~}\text{\quad or\quad}\{ k^{2} + c_{1} + c_{2}3^{k}\}$$</math></paragraph>
+              <paragraph><strong>Figure 2</strong> gives a geometric visualization of the two solution sets. Each point in the figure corresponds to one signal in <math display="inline">$\mathbb{S}$</math>.</paragraph>
+          <figure label="Figure 2" caption="Solution sets of difference equations (12) and (13)">
+            <image alt="A graph of two rectangular planes placed parallel to each other, represents the solution sets of equations on a three-dimensional plane."/>
+          </figure>
+        </example>
+      <heading level="2">Reduction to Systems of First-Order Equations</heading>
+      <paragraph>A modern way to study a homogeneous <math display="inline">$n\text{th-order}$</math> linear difference equation is to replace it by an equivalent system of first-order difference equations, written in the form</paragraph>
+      <paragraph>
+        <math display="block">$$\mathbf{x}_{k\mspace{-4mu}\,\,\,\,\,\, + \mspace{-4mu}\,\,\,\,1} = A\mathbf{x}_{k}\text{\quad for~all~}k$$</math>
+      </paragraph>
+      <paragraph>where the vectors <math display="inline">$\mathbf{x}_{k}$</math> are in <math display="inline">${\mathbb{R}}^{n}$</math> and <math display="inline">$A$</math> is an <math display="inline">$n \times n$</math> matrix.</paragraph>
+      <paragraph>A simple example of such a (vector-valued) difference equation was already studied in Section 1.10. Further examples will be covered in Sections 5.6 and 5.9.</paragraph>
+      <example number="6">
+          <heading level="2">Example 6</heading>
+              <paragraph>Write the following difference equation as a first-order system:</paragraph>
+              <paragraph><math display="block">$$y_{k + 3} - 2y_{k + 2} - 5y_{k + 1} + 6y_{k} = 0{\text{\quad for~all~}k}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>For each <math display="inline">$k$</math>, set</paragraph>
+              <paragraph><math display="block">$$\mathbf{x}_{k} = \left\lbrack \begin{array}{l}
+      y_{k} \\
+      y_{k + 1} \\
+      y_{k + 2}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>The difference equation says that <math display="inline">$y_{k + 3} = - 6y_{k} + 5y_{k + 1} + 2y_{k + 2}$</math>, so</paragraph>
+              <paragraph><math display="block">$$\mathbf{x}_{k + 1} = \begin{bmatrix}
+      y_{k + 1} \\
+      y_{k + 2} \\
+      y_{k + 3}
+      \end{bmatrix} = \begin{bmatrix}
+      {~ \mspace{-4mu} 0} &amp; + &amp; {~{\,\,\,\mspace{-4mu}\mspace{-4mu}\,y_{k + 1}}} &amp; + &amp; 0 \\
+      { \mspace{-4mu}~0} &amp; + &amp; 0 &amp; + &amp; {\,\,~y_{k + 2}} \\
+      {- 6y_{k}} &amp; + &amp; {5y_{k + 1}} &amp; + &amp; {2y_{k + 2}}
+      \end{bmatrix} = \left\lbrack \begin{array}{rrr}
+      0 &amp; 1 &amp; 0 \\
+      0 &amp; 0 &amp; 1 \\
+      {- 6} &amp; 5 &amp; 2
+      \end{array} \right\rbrack\left\lbrack \begin{array}{l}
+      y_{k} \\
+      y_{k + 1} \\
+      y_{k + 2}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>That is,</paragraph>
+              <paragraph><math display="block">$$\mathbf{x}_{k + 1} = A\mathbf{x}_{k} \text{for~all~}\textit{k}, {where} A = \left\lbrack \begin{array}{rrr}
+      0 &amp; 1 &amp; 0 \\
+      0 &amp; 0 &amp; 1 \\
+      {- 6} &amp; 5 &amp; 2
+      \end{array} \right\rbrack$$</math></paragraph>
+        </example>
+      <paragraph>In general, the equation</paragraph>
+      <paragraph>
+        <math display="block">$$y_{k + n} + a_{1}y_{k + n - 1} + \cdots + a_{n - 1}y_{k + 1} + a_{n}y_{k} = 0{\text{\quad for~all~}k}$$</math>
+      </paragraph>
+      <paragraph>can be rewritten as <math display="inline">$\mathbf{x}_{k + 1} = A\mathbf{x}_{k}$</math> for all <math display="inline">$k$</math>, where</paragraph>
+      <paragraph>
+        <math display="block">$$\mathbf{x}_{k} = \begin{bmatrix}
+      y_{k} \\
+      y_{k + 1} \\
+       \vdots \\
+      y_{k\,\,\, + \,\,\,n - 1}
+      \end{bmatrix}\,\text{,\quad}A = \begin{bmatrix}
+      0 &amp; 1 &amp; 0 &amp; \ldots &amp; 0 \\
+      0 &amp; 0 &amp; 1 &amp; &amp; 0 \\
+       \vdots &amp; &amp; &amp; \ddots &amp; \vdots \\
+      0 &amp; 0 &amp; 0 &amp; &amp; 1 \\
+      {- a_{n}} &amp; {- a_{n - 1}} &amp; {- a_{n - 2}} &amp; \cdots &amp; {- a_{1}}
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="false">
+                  <item>It can be shown that the signals 2k, 3k sin kπ2, and 3k cos kπ2 are solutions ofyk+3-2yk+2+9yk+1-18yk=0Show that these signals form a basis for the set of all solutions of the difference equation.</item>
+          </list>
+        </note>
+    </content>
+    <exercises title="4.8 Exercises">
+      <heading level="1">4.8 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>Verify that the signals in Exercises 1 and 2 are solutions of the accompanying difference equation.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$2^{k}$</math>, <math display="inline">$\left( {- 4} \right)^{k}$</math>; <math display="inline">$y_{k + 2} + 2y_{k + 1} - 8y_{k} = 0$</math>﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$3^{k}$</math>, <math display="inline">$\left( {- 3} \right)^{k}$</math>; <math display="inline">$y_{k + 2} - 9y_{k} = 0$</math>﻿</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="3">
+                  <instructions>Show that the signals in Exercises 3–6 form a basis for the solution set of the accompanying difference equation.</instructions>
+            <problem number="3">
+              <statement>
+                          <paragraph>The signals and equation in Exercise 1</paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph>The signals and equation in Exercise 2</paragraph>
+              </statement>
+            </problem>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$\left( {- 3} \right)^{k}$</math>, <math display="inline">$k\left( {- 3} \right)^{k}$</math>; <math display="inline">$y_{k + 2} + 6y_{k + 1} + 9y_{k} = 0$</math>﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$5^{k}\cos\frac{k\pi}{2}$</math>,﻿ <math display="inline">$5^{k}\sin\frac{k\pi}{2}$</math>; <math display="inline">$y_{k + 2} + 25y_{k} = 0$</math>﻿</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="7">
+                  <instructions>In Exercises 7–12, assume the signals listed are solutions of the given difference equation. Determine if the signals form a basis for the solution space of the equation. Justify your answers using appropriate theorems.</instructions>
+            <problem number="7">
+              <statement>
+                          <paragraph><math display="inline">$1^{k}$</math>, <math display="inline">$2^{k}$</math>, <math display="inline">$\left( {- 2} \right)^{k}$</math>; <math display="inline">$y_{k + 3} - y_{k + 2} - 4y_{k + 1} + 4y_{k} = 0$</math>﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph><math display="inline">$2^{k}$</math>, <math display="inline">$4^{k}$</math>, <math display="inline">$\left( {- 5} \right)^{k}$</math>; <math display="inline">$y_{k + 3} - y_{k + 2} - 22y_{k + 1} + 40y_{k} = 0$</math>﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph><math display="inline">$1^{k}$</math>, <math display="inline">$3^{k}\cos\frac{k\pi}{2}$</math>, <math display="inline">$3^{k}\text{~sin~}\frac{k\pi}{2}$</math>; <math display="inline">$y_{k + 3} - y_{k + 2} + 9y_{k + 1} - 9y_{k} = 0$</math>﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><math display="inline">$\left( {- 1} \right)^{k}$</math>, <math display="inline">$k\left( {- 1} \right)^{k}$</math>, <math display="inline">$5^{k}$</math>; <math display="inline">$y_{k + 3} - 3y_{k + 2} - 9y_{k + 1} - 5y_{k} = 0$</math>﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph><math display="inline">$\left( {- 1} \right)^{k}$</math>, <math display="inline">$3^{k}$</math>; <math display="inline">$y_{k + 3} + y_{k + 2} - 9y_{k + 1} - 9y_{k} = 0$</math>﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph><math display="inline">$1^{k}$</math>, <math display="inline">$\left( {- 1} \right)^{k}$</math>; <math display="inline">$y_{k + 4} - 2y_{k + 2} + y_{k} = 0$</math>﻿</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="13">
+                  <instructions>In Exercises 13–16, find a basis for the solution space of the difference equation. Prove that the solutions you find span the solution set.</instructions>
+            <problem number="13">
+              <statement>
+                          <paragraph><math display="inline">$y_{k + 2} - y_{k + 1} + \frac{2}{9}y_{k} = 0$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph><math display="inline">$y_{k + 2} - 7y_{k + 1} + 12y_{k} = 0$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph><math display="inline">$y_{k + 2} - 25y_{k} = 0$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><math display="inline">$16y_{k + 2} + 8y_{k + 1}\! - \! 3y_{k}\! = \! 0$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="17">
+              <statement>
+                          <paragraph>The Fibonacci Sequence is listed in Table 1 of Section 4.7. It can be viewed as the sequence of numbers where each number is the sum of the two numbers before it. It can be described as the homogeneous difference equation<math display="block">$$y_{k + 2} - y_{k + 1} - y_{k} = 0$$</math></paragraph>
+                          <paragraph>with the initial conditions <math display="inline">$y_{0} = 0$</math> and <math display="inline">$y_{1} = 1$</math>. Find the general solution of the Fibonacci sequence.</paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph>If the initial conditions are changed to <math display="inline">$y_{0} = 1$</math> and <math display="inline">$y_{1} = 2$</math> for the Fibonacci sequence in Exercise 17, list the terms of the sequence for <math display="inline">$k = 2$</math>, <math display="inline">$3$</math>, <math display="inline">$4$</math> and <math display="inline">$5$</math>. Find the solution to the difference equation from <math display="inline">$17$</math> with these new initial conditions.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="19">
+                  <instructions>Exercises 19 and 20 concern a simple model of the national economy described by the difference equation</instructions>
+                  <instructions>(14)</instructions>
+                  <instructions><math display="block">$$Y_{k + 2} - a(1 + b)Y_{k + 1} + abY_{k} = 1$$</math></instructions>
+                  <instructions>Here <math display="inline">$Y_{k}$</math> is the total national income during year <math display="inline">$k$</math>, <math display="inline">$a$</math> is a constant less than <math display="inline">$1$</math>, called the <em>marginal propensity to consume</em>, and <math display="inline">$b$</math> is a positive <em>constant of adjustment</em> that describes how changes in consumer spending affect the annual rate of private investment.1<sup/></instructions>
+            <problem number="19">
+              <statement>
+                          <paragraph>Find the general solution of equation (14) when <math display="inline">$a = .9$</math> and <math display="inline">$b = \frac{4}{9}$</math>. What happens to <math display="inline">$Y_{k}$</math> as <math display="inline">$k$</math> increases? [<em>Hint:</em> First find a particular solution of the form <math display="inline">$Y_{k} = T$</math>, where <math display="inline">$T$</math> is a constant, called the equilibrium level of national income.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph>Find the general solution of equation (14) when <math display="inline">$a = .9$</math> and <math display="inline">$b = .5$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure>
+            <image alt="A figure shows a horizontal beam with a weight of 500 pounds balanced on one end with triangular cantilever beams placed 10 feet away from the weight and each other."/>
+          </figure>
+      <instructions>Bending moments on a cantilevered beam.</instructions>
+      <exercise_group start="21">
+            <problem number="21">
+              <statement>
+                          <paragraph>Find the general solution of difference equation (15). Justify your answer.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph>Find the particular solution of (15) that satisfies the <em>boundary conditions</em> <math display="inline">$y_{1} = 5000$</math> and <math display="inline">$y_{N} = 0$</math>. (The answer involves <math display="inline">$N$</math>.)</paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph>When a signal is produced from a sequence of measurements made on a process (a chemical reaction, a flow of heat through a tube, a moving robot arm, etc.), the signal usually contains random <em>noise</em> produced by measurement errors. A standard method of preprocessing the data to reduce the noise is to smooth or filter the data. One simple filter is a <em>moving average</em> that replaces each <math display="inline">$y_{k}$</math> by its average with the two adjacent values:<math display="inline">$\frac{1}{3}y_{k + 1} + \frac{1}{3}y_{k} + \frac{1}{3}y_{k - 1} = z_{k}  {for}k = 1,2,\ldots$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+            <problem>
+              <statement>
+                          <paragraph>Suppose a signal <math display="inline">$y_{k}$</math>, for <math display="inline">$k = 0\text{,}\ldots\mspace{-4mu}\text{,~}14$</math>, is</paragraph>
+              </statement>
+            </problem>
+            <problem>
+              <statement>
+                          <paragraph><math display="inline">$\text{9,~5,~7,~3,~2,~4,~6,~5,~7,~6,~8,~10,~9,~5,~7}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+            <problem>
+              <statement>
+                          <paragraph>Use the filter to compute <math display="inline">$z_{1}\text{,}\ldots\text{,~}z_{13}$</math>. Make a broken-line graph that superimposes the original signal and the smoothed signal.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="24">
+            <problem number="24">
+              <statement>
+                          <paragraph>Let <math display="inline">$\{ y_{k}\}$</math> be the sequence produced by sampling the continuous signal <math display="inline">$2\text{~cos~}\frac{\pi t}{4} + \text{~cos~}\frac{3\pi t}{4}$</math> at <math display="inline">$t = 0\text{,~}1\text{,~}2\text{,}\ldots\text{,~}$</math> as shown in the figure. The values of <math display="inline">$y_{k}$</math>, beginning with <math display="inline">$k = 0$</math>, are <math display="inline">$- 3,\text{.7},0, - \text{.7}, - 3, - \text{.7},0,\text{.7},3,\text{.7},0,\ldots$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+            <problem>
+              <statement>
+                          <paragraph>where <math display="inline">$\text{.7}$</math> is an abbreviation for <math display="inline">$\sqrt{2}/2$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+            <problem number="1">
+              <statement>
+                          <paragraph>Compute the output signal <math display="inline">$\{ z_{k}\}$</math> when <math display="inline">$\{ y_{k}\}$</math> is fed into the filter in Example 2.</paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph>Explain how and why the output in part (a) is related to the calculations in Example 2.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure>
+            <image alt="A graph shows a discrete time cosine waveform for two cycles."/>
+          </figure>
+      <exercise_group start="25">
+                  <instructions>Exercises 25 and 26 refer to a difference equation of the form <math display="inline">$y_{k + 1} - ay_{k} = b$</math>, for suitable constants <math display="inline">$a$</math> and <math display="inline">$b$</math>.</instructions>
+            <problem number="25">
+              <statement>
+                          <paragraph>A loan of <math display="inline">$\text{\$</math> has an interest rate of <math display="inline">$1\%$</math> per month and a monthly payment of <math display="inline">$\$</math>. The loan is made at month <math display="inline">$k = 0$</math>, and the first payment is made one month later, at <math display="inline">$k = 1$</math>. For <math display="inline">$k = 0\text{,~}1\text{,~}2\text{,}\ldots\text{,}$</math> let <math display="inline">$y_{k}$</math> be the unpaid balance of the loan just after the <math display="inline">$\textit{k}\text{th}$</math> monthly payment. Thus<math display="block">$$\begin{matrix}
+      y_{1} &amp; = &amp; 10,000 &amp; + &amp; {\left( \text{.01} \right)10,000} &amp; {- \,450} \\
+      \begin{matrix}
+      \text{New} \\
+      \text{balance}
+      \end{matrix} &amp; &amp; \begin{matrix}
+      \text{Balance} \\
+      \text{due}
+      \end{matrix} &amp; &amp; \begin{matrix}
+      \text{Interest} \\
+      \text{added}
+      \end{matrix} &amp; \begin{matrix}
+      \text{Payment} \\
+      
+      \end{matrix}
+      \end{matrix}$$</math></paragraph>
+                <list ordered="true">
+                              <item>Write a difference equation satisfied by {yk}.</item>
+                              <item>[T] Create a table showing k and the balance yk at month k. List the program or the keystrokes you used to create the table.</item>
+                              <item>[T] What will k be when the last payment is made? How much will the last payment be? How much money did the borrower pay in total?</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph>At time <math display="inline">$k = 0$</math>, an initial investment of <math display="inline">$\$</math> is made into a savings account that pays <math display="inline">$6\%$</math> interest per year compounded monthly. (The interest rate per month is <math display="inline">$\text{.005}$</math>.) Each month after the initial investment, an additional <math display="inline">$\$</math> is added to the account. For <math display="inline">$k = 0\text{,~}1\text{,~}2\text{,~}\ldots\text{,~}$</math> let <math display="inline">$y_{k}$</math> be the amount in the account at time <math display="inline">$k$</math>, just after a deposit has been made.</paragraph>
+                <list ordered="true">
+                              <item>Write a difference equation satisfied by {yk}.</item>
+                              <item>[T] Create a table showing k and the total amount in the savings account at month k, for k=0 through 60. List your program or the keystrokes you used to create the table.</item>
+                              <item>[T] How much will be in the account after two years (that is, 24 months), four years, and five years? How much of the five-year total is interest?</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="27">
+                  <instructions>In Exercises 27–30, show that the given signal is a solution of the difference equation. Then find the general solution of that difference equation.</instructions>
+            <problem number="27">
+              <statement>
+                          <paragraph><math display="inline">$y_{k} = k^{2}$</math>; <math display="inline">$y_{k + 2} + 3y_{k + 1} - 4y_{k} = 7 + 10k$</math>﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph><math display="inline">$y_{k} = 1 + k$</math>; <math display="inline">$y_{k + 2} - 8y_{k + 1} + 15y_{k} = 2 + 8k$</math>﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph><math display="inline">$y_{k} = 2 - 2k$</math>; <math display="inline">$y_{k + 2} - \frac{9}{2}y_{k + 1} + 2y_{k} = 2 + 3k$</math>﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph><math display="inline">$y_{k} = 2k - 4$</math>; <math display="inline">$y_{k + 2} + \frac{3}{2}y_{k + 1} - y_{k} = 1 + 3k$</math>﻿</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="31">
+                  <instructions>Write the difference equations in Exercises 31 and 32 as first-order systems, <math display="inline">$\mathbf{x}_{k + 1} = A\mathbf{x}_{k}$</math>, for all <math display="inline">$k$</math>.</instructions>
+            <problem number="31">
+              <statement>
+                          <paragraph><math display="inline">$y_{k\,\, + \,\,4} - 6y_{k\,\, + \,\,3} + 8y_{k\,\, + \,\,2} + 6y_{k\,\, + \,\,1} - 9y_{k} = 0$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph><math display="inline">$y_{k + 3} - \frac{3}{4}y_{k + 2} + \frac{1}{16}y_{k} = 0$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="33">
+              <statement>
+                          <paragraph>Is the following difference equation of order <math display="inline">$3$</math>? Explain. <math display="inline">$y_{k\,\, + \,\,3} + 5y_{k\,\, + \,\,2} + 6y_{k\,\, + \,\,1} = 0$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="34">
+              <statement>
+                          <paragraph>What is the order of the following difference equation? Explain your answer. <math display="inline">$y_{k\,\, + \,\,3}\, + \,a_{1}y_{k\,\, + \,\,2}\, + \,a_{2}y_{k\,\, + \,\,1}\, + \,a_{3}y_{k} = 0$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="35">
+              <statement>
+                          <paragraph>Let <math display="inline">$y_{k} = k^{2}$</math> and <math display="inline">$z_{k} = 2k|k|$</math>. Are the signals <math display="inline">$\{ y_{k}\}$</math> and <math display="inline">$\{ z_{k}\}$</math> linearly independent? Evaluate the associated Casorati matrix <math display="inline">$C(k)$</math> for <math display="inline">$k = 0$</math>, <math display="inline">$k = - 1$</math>, and <math display="inline">$k = - 2$</math>, and discuss your results.</paragraph>
+              </statement>
+            </problem>
+            <problem number="36">
+              <statement>
+                          <paragraph>Let <math display="inline">$f$</math>, <math display="inline">$g$</math>, and <math display="inline">$h$</math> be linearly independent functions defined for all real numbers, and construct three signals by sampling the values of the functions at the integers:<math display="inline">$\begin{matrix}
+      {u_{k} = f(k),} &amp; &amp; {v_{k} = g(k)} &amp; &amp; {w_{k} = h(k)}
+      \end{matrix}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+            <problem>
+              <statement>
+                          <paragraph>Must the signals be linearly independent in <math display="inline">$\mathbb{S}$</math>? Discuss.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <instructions><sup>1</sup>﻿ For example, see <em>Discrete Dynamical Systems</em>, by James T. Sandefur (Oxford: Clarendon Press, 1990), pp. 267–276. The original <em>accelerator-multiplier model</em> is attributed to the economist P. A. Samuelson.</instructions>
+    </exercises>
+  </section>
+</section_file>

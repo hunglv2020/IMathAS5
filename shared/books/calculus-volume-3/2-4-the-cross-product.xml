@@ -1,0 +1,905 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="2.4" title="The Cross Product">
+  <learning_objectives>
+    <objective number="2.4.1">Calculate the cross product of two given vectors.</objective>
+    <objective number="2.4.2">Use determinants to calculate a cross product.</objective>
+    <objective number="2.4.3">Find a vector orthogonal to two given vectors.</objective>
+    <objective number="2.4.4">Determine areas and volumes by using the cross product.</objective>
+    <objective number="2.4.5">Calculate the torque of a given force and position vector.</objective>
+  </learning_objectives>
+  <p>Imagine a mechanic turning a wrench to tighten a bolt. The mechanic applies a force at the end of the wrench. This creates rotation, or torque, which tightens the bolt. We can use vectors to represent the force applied by the mechanic, and the distance (radius) from the bolt to the end of the wrench. Then, we can represent torque by a vector oriented along the axis of rotation. Note that the torque vector is orthogonal to both the force vector and the radius vector.</p>
+  <p>In this section, we develop an operation called the cross product, which allows us to find a vector orthogonal to two given vectors. Calculating torque is an important application of cross products, and we examine torque in more detail later in the section. This material uses a 3 × 3 determinant of the form
+  $$\left| \begin{array}{lll} a &amp; b &amp; c \\ d &amp; e &amp; f \\ g &amp; h &amp; i \end{array} \right|$$, which expands by minors to
+      $$\left. a \middle| \begin{array}{ll} e &amp; f \\ h &amp; i \end{array} \middle| - b \middle| \begin{array}{ll} d &amp; f \\ g &amp; i \end{array} \middle| + c \middle| \begin{array}{ll} d &amp; e \\ g &amp; h \end{array} \middle| = a(ei–fh)–b(di–fg) + c(dh–eg). \right.$$</p>
+  <subsection title="The Cross Product and Its Properties">
+    <p>The dot product is a multiplication of two vectors that results in a scalar. In this section, we introduce a product of two vectors that generates a third vector orthogonal to the first two. Consider how we might find such a vector. Let $$\mathbf{\text{u}} = \left\langle {u_{1},u_{2},u_{3}} \right\rangle$$
+and $$\mathbf{\text{v}} = \left\langle {v_{1},v_{2},v_{3}} \right\rangle$$
+be nonzero vectors. We want to find a vector $$\mathbf{\text{w}} = \left\langle {w_{1},w_{2},w_{3}} \right\rangle$$ orthogonal to both $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$—that is, we want to find $$\mathbf{\text{w}}$$ such that $$\mathbf{\text{u}} \cdot \mathbf{\text{w}} = 0$$ and $$\mathbf{\text{v}} \cdot \mathbf{\text{w}} = 0.$$ Therefore, $$w_{1},$$ $$w_{2},$$ and $$w_{3}$$ must satisfy</p>
+    <equation>$$\begin{array}{rll} {u_{1}w_{1} + u_{2}w_{2} + u_{3}w_{3}} &amp; = &amp; 0 \\ {v_{1}w_{1} + v_{2}w_{2} + v_{3}w_{3}} &amp; = &amp; 0. \end{array}$$</equation>
+    <p>If we multiply the top equation by $$v_{3}$$ and the bottom equation by $$u_{3}$$ and subtract, we can eliminate the variable $$w_{3},$$ which gives</p>
+    <equation>$$\left( {u_{1}v_{3} - v_{1}u_{3}} \right)w_{1} + \left( {u_{2}v_{3} - v_{2}u_{3}} \right)w_{2} = 0.$$</equation>
+    <p>If we select</p>
+    <equation>$$\begin{array}{rll} w_{1} &amp; = &amp; {u_{2}v_{3} - u_{3}v_{2}} \\ w_{2} &amp; = &amp; {\text{−}\left( {u_{1}v_{3} - u_{3}v_{1}} \right),} \end{array}$$</equation>
+    <p>we get a possible solution vector. Substituting these values back into the original equations gives</p>
+    <equation>$$w_{3} = u_{1}v_{2} - u_{2}v_{1}.$$</equation>
+    <p>That is, vector</p>
+    <equation>$$\mathbf{\text{w}} = \left\langle {u_{2}v_{3} - u_{3}v_{2},\text{−}\left( {u_{1}v_{3} - u_{3}v_{1}} \right),u_{1}v_{2} - u_{2}v_{1}} \right\rangle$$</equation>
+    <p>is orthogonal to both $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}},$$ which leads us to define the following operation, called the cross product.</p>
+    <note type="Definition">
+      <p>Let $$\mathbf{\text{u}} = \left\langle {u_{1},u_{2},u_{3}} \right\rangle\ \text{and}\ \mathbf{\text{v}} = \left\langle {v_{1},v_{2},v_{3}} \right\rangle.$$ Then, the cross product $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ is vector</p>
+      <equation>$$\begin{array}{cl} {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} &amp; {= \left( {u_{2}v_{3} - u_{3}v_{2}} \right)\mathbf{\text{i}} - \left( {u_{1}v_{3} - u_{3}v_{1}} \right)\mathbf{\text{j}} + \left( {u_{1}v_{2} - u_{2}v_{1}} \right)\mathbf{\text{k}}} \\ &amp; {= \left\langle {u_{2}v_{3} - u_{3}v_{2},\text{−}\left( {u_{1}v_{3} - u_{3}v_{1}} \right),u_{1}v_{2} - u_{2}v_{1}} \right\rangle.} \end{array}$$</equation>
+    </note>
+    <p>From the way we have developed $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}},$$ it should be clear that the cross product is orthogonal to both $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$ However, it never hurts to check. To show that $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ is orthogonal to $$\mathbf{\text{u}},$$ we calculate the dot product of $$\mathbf{\text{u}}$$ and $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$</p>
+    <equation>$$\begin{array}{cl} {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right)} &amp; {= \left\langle {u_{1},u_{2},u_{3}} \right\rangle \cdot \left\langle {u_{2}v_{3} - u_{3}v_{2},\text{−}u_{1}v_{3} + u_{3}v_{1},u_{1}v_{2} - u_{2}v_{1}} \right\rangle} \\ &amp; {= u_{1}\left( {u_{2}v_{3} - u_{3}v_{2}} \right) + u_{2}\left( {\text{−}u_{1}v_{3} + u_{3}v_{1}} \right) + u_{3}\left( {u_{1}v_{2} - u_{2}v_{1}} \right)} \\ &amp; {= u_{1}u_{2}v_{3} - u_{1}u_{3}v_{2} - u_{1}u_{2}v_{3} + u_{2}u_{3}v_{1} + u_{1}u_{3}v_{2} - u_{2}u_{3}v_{1}} \\ &amp; {= \left( {u_{1}u_{2}v_{3} - u_{1}u_{2}v_{3}} \right) + \left( {\text{−}u_{1}u_{3}v_{2} + u_{1}u_{3}v_{2}} \right) + \left( {u_{2}u_{3}v_{1} - u_{2}u_{3}v_{1}} \right)} \\ &amp; {= 0} \end{array}$$</equation>
+    <p>In a similar manner, we can show that the cross product is also orthogonal to $$\mathbf{\text{v}}.$$</p>
+    <example number="2.31">
+      <problem>
+        <title>Finding a Cross Product</title>
+        <p>Let $$\mathbf{\text{p}} = \left\langle {-1,2,5} \right\rangle\ \text{and}\ \mathbf{\text{q}} = \left\langle {4,0,-3} \right\rangle$$ (Figure 2.53). Find $$\mathbf{\text{p}}\ \times \ \mathbf{\text{q}}.$$</p>
+        <image alt="This figure is the 3-dimensional coordinate system. It has two vectors in standard position. The first vector is labeled “p = &lt;-1, 2, 5&gt;.” The second vector is labeled “q = &lt;4, 0, -3&gt;.”" number="2.53" caption="Finding a cross product to two given vectors." />
+      </problem>
+      <solution>
+        <p>Substitute the components of the vectors into Equation 2.9:</p>
+        <equation>$$\begin{matrix} {\textbf{p}\ \times \ \textbf{q}} &amp; {= \left\langle -1,2,5 \right\rangle\ \times \ \left\langle 4,0,-3 \right\rangle} \\ &amp; {= \left\langle p_{2}q_{3} - p_{3}q_{2}, - \left( {p_{1}q_{3}~–~p_{3}q_{1}} \right),p_{1}q_{2} - p_{2}q_{1} \right\rangle} \\ &amp; {= \left\langle p_{2}q_{3} - p_{3}q_{2},p_{3}q_{1} - p_{1}q_{3},p_{1}q_{2} - p_{2}q_{1} \right\rangle} \\ &amp; {= \left\langle 2(-3) - 5(0),5(4) - (-1)(-3),(-1)0 - 2(4) \right\rangle} \\ &amp; {= \left\langle -6,17,-8 \right\rangle.} \end{matrix}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="2.30">
+      <problem>
+        <p>Find $$\mathbf{\text{p}}\ \times \ \mathbf{\text{q}}$$ for $$\mathbf{\text{p}} = \left\langle {5,1,2} \right\rangle$$ and $$\mathbf{\text{q}} = \left\langle {-2,0,1} \right\rangle.$$ Express the answer using standard unit vectors.</p>
+      </problem>
+      <solution>
+        <p>$$\mathbf{\text{i}} - 9\mathbf{\text{j}} + 2\mathbf{\text{k}}$$</p>
+      </solution>
+    </checkpoint>
+    <p>Although it may not be obvious from Equation 2.9, the direction of $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ is given by the right-hand rule. If we hold the right hand out with the fingers pointing in the direction of $$\mathbf{\text{u}},$$ then curl the fingers toward vector $$\mathbf{\text{v}},$$ the thumb points in the direction of the cross product, as shown.</p>
+    <image alt="This figure has two images. The first image has three vectors with the same initial point. Two of the vectors are labeled “u” and “v.” The angle between u and v is theta. The third vector is perpendicular to u and v. It is labeled “u cross v.” The second image has three vectors. The vectors are labeled “u, v, and u cross v.” “u cross v” is perpendicular to u and v. Also, on the image of these three vectors is a right hand. The fingers are in the direction of u. As the hand is closing, the direction of the closing fingers is the direction of v. The thumb is up and in the direction of “u cross v.”" number="2.54" caption="The direction of $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ is determined by the right-hand rule." />
+    <p>Notice what this means for the direction of $$\mathbf{\text{v}}\ \times \ \mathbf{\text{u}}.$$ If we apply the right-hand rule to $$\mathbf{\text{v}}\ \times \ \mathbf{\text{u}},$$ we start with our fingers pointed in the direction of $$\mathbf{\text{v}},$$ then curl our fingers toward the vector $$\mathbf{\text{u}}.$$ In this case, the thumb points in the opposite direction of $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ (Try it!)</p>
+    <example number="2.32">
+      <problem>
+        <title>Anticommutativity of the Cross Product</title>
+        <p>Let $$\mathbf{\text{u}} = \left\langle {0,2,1} \right\rangle$$ and $$\mathbf{\text{v}} = \left\langle {3,-1,0} \right\rangle.$$ Calculate $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ and $$\mathbf{\text{v}}\ \times \ \mathbf{\text{u}}$$ and graph them.</p>
+        <image alt="This figure is the 3-dimensional coordinate system. It has two vectors in standard position. The first vector is labeled “u = &lt;0, 2, 1&gt;.” The second vector is labeled “v = &lt;3, -1, 0&gt;.”" number="2.55" caption="Are the cross products $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ and $$\mathbf{\text{v}}\ \times \ \mathbf{\text{u}}$$ in the same direction?" />
+      </problem>
+      <solution>
+        <p>We have</p>
+        <equation>$$\begin{array}{rll} {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} &amp; = &amp; {\left\langle {\left( {0 + 1} \right),\text{−}\left( {0 - 3} \right),\left( {0 - 6} \right)} \right\rangle = \left\langle {1,3,-6} \right\rangle} \\ {\mathbf{\text{v}}\ \times \ \mathbf{\text{u}}} &amp; = &amp; {\left\langle {\left( {-1 - 0} \right),\text{−}\left( {3 - 0} \right),\left( {6 - 0} \right)} \right\rangle = \left\langle {-1,-3,6} \right\rangle.} \end{array}$$</equation>
+        <p>We see that, in this case, $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}} = \text{−}\left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{u}}} \right)$$ (Figure 2.56). We prove this in general later in this section.</p>
+        <image alt="This figure is the 3-dimensional coordinate system. It has two vectors in standard position. The first vector is labeled “u = &lt;0, 2, 1&gt;.” The second vector is labeled “v = &lt;3, -1, 0&gt;.” It also has two vectors that are cross products. The first is “u x v = &lt;1, 3, -6&gt;.” The second is “v x u = &lt;-1, -3, 6&gt;.”" number="2.56" caption="The cross products $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ and $$\mathbf{\text{v}}\ \times \ \mathbf{\text{u}}$$ are both orthogonal to $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}},$$ but in opposite directions." />
+      </solution>
+    </example>
+    <checkpoint number="2.31">
+      <problem>
+        <p>Suppose vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ lie in the xy-plane (the z-component of each vector is zero). Now suppose the x- and y-components of $$\mathbf{\text{u}}$$ and the y-component of $$\mathbf{\text{v}}$$ are all positive, whereas the x-component of $$\mathbf{\text{v}}$$ is negative. Assuming the coordinate axes are oriented in the usual positions, in which direction does $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ point?</p>
+      </problem>
+      <solution>
+        <p>Up (the positive z-direction)</p>
+      </solution>
+    </checkpoint>
+    <p>The cross products of the standard unit vectors $$\mathbf{\text{i}},\mathbf{\text{j}},$$ and $$\mathbf{\text{k}}$$ can be useful for simplifying some calculations, so let’s consider these cross products. A straightforward application of the definition shows that</p>
+    <equation>$$\mathbf{\text{i}}\ \times \ \mathbf{\text{i}} = \mathbf{\text{j}}\ \times \ \mathbf{\text{j}} = \mathbf{\text{k}}\ \times \ \mathbf{\text{k}} = \mathbf{0}.$$</equation>
+    <p>(The cross product of two vectors is a vector, so each of these products results in the zero vector, not the scalar $$0.)$$ It’s up to you to verify the calculations on your own.</p>
+    <p>Furthermore, because the cross product of two vectors is orthogonal to each of these vectors, we know that the cross product of $$\mathbf{\text{i}}$$ and $$\mathbf{\text{j}}$$ is parallel to $$\mathbf{\text{k}}.$$ Similarly, the vector product of $$\mathbf{\text{i}}$$ and $$\mathbf{\text{k}}$$ is parallel to $$\mathbf{\text{j}},$$ and the vector product of $$\mathbf{\text{j}}$$ and $$\mathbf{\text{k}}$$ is parallel to $$\mathbf{\text{i}}.$$ We can use the right-hand rule to determine the direction of each product. Then we have</p>
+    <equation>$$\begin{array}{rllccrll} {\mathbf{\text{i}}\ \times \ \mathbf{\text{j}}} &amp; = &amp; \mathbf{\text{k}} &amp; &amp; &amp; {\mathbf{\text{j}}\ \times \ \mathbf{\text{i}}} &amp; = &amp; {\text{−}\mathbf{\text{k}}} \\ {\mathbf{\text{j}}\ \times \ \mathbf{\text{k}}} &amp; = &amp; \mathbf{\text{i}} &amp; &amp; &amp; {\mathbf{\text{k}}\ \times \ \mathbf{\text{j}}} &amp; = &amp; {\text{−}\mathbf{\text{i}}} \\ {\mathbf{\text{k}}\ \times \ \mathbf{\text{i}}} &amp; = &amp; \mathbf{\text{j}} &amp; &amp; &amp; {\mathbf{\text{i}}\ \times \ \mathbf{\text{k}}} &amp; = &amp; {\text{−}\mathbf{\text{j}}.} \end{array}$$</equation>
+    <p>These formulas come in handy later.</p>
+    <example number="2.33">
+      <problem>
+        <title>Cross Product of Standard Unit Vectors</title>
+        <p>Find $$\mathbf{\text{i}}\ \times \ \left( {\mathbf{\text{j}}\ \times \ \mathbf{\text{k}}} \right).$$</p>
+      </problem>
+      <solution>
+        <p>We know that $$\mathbf{\text{j}}\ \times \ \mathbf{\text{k}} = \mathbf{\text{i}}.$$ Therefore, $$\mathbf{\text{i}}\ \times \ \left( {\mathbf{\text{j}}\ \times \ \mathbf{\text{k}}} \right) = \mathbf{\text{i}}\ \times \ \mathbf{\text{i}} = \mathbf{0}.$$</p>
+      </solution>
+    </example>
+    <checkpoint number="2.32">
+      <problem>
+        <p>Find $$\left( {\mathbf{\text{i}}\ \times \ \mathbf{\text{j}}} \right)\ \times \ \left( {\mathbf{\text{k}}\ \times \ \mathbf{\text{i}}} \right).$$</p>
+      </problem>
+      <solution>
+        <p>$$\text{−}\mathbf{\text{i}}$$</p>
+      </solution>
+    </checkpoint>
+    <p>As we have seen, the dot product is often called the scalar product because it results in a scalar. The cross product results in a vector, so it is sometimes called the vector product. These operations are both versions of vector multiplication, but they have very different properties and applications. Let’s explore some properties of the cross product. We prove only a few of them. Proofs of the other properties are left as exercises.</p>
+    <theorem number="2.6" title="Properties of the Cross Product">
+      <p>Let $$\mathbf{\text{u}},\mathbf{\text{v}},$$ and $$\mathbf{\text{w}}$$ be vectors in space, and let $$c$$ be a scalar.</p>
+      <equation>$$\begin{array}{lccrllcl} \text{i.} &amp; &amp; &amp; {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} &amp; = &amp; {\text{−}\left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{u}}} \right)} &amp; &amp; \text{Anticommutative property} \\ \text{ii.} &amp; &amp; &amp; {\mathbf{\text{u}}\ \times \ \left( {\mathbf{\text{v}} + \mathbf{\text{w}}} \right)} &amp; = &amp; {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}} + \mathbf{\text{u}}\ \times \ \mathbf{\text{w}}} &amp; &amp; \text{Distributive property} \\ \text{iii.} &amp; &amp; &amp; {c\left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right)} &amp; = &amp; {\left( {c\mathbf{\text{u}}} \right)\ \times \ \mathbf{\text{v}} = \mathbf{\text{u}}\ \times \ \left( {c\mathbf{\text{v}}} \right)} &amp; &amp; \text{Multiplication by a constant} \\ \text{iv.} &amp; &amp; &amp; {\mathbf{\text{u}}\ \times \ \mathbf{0}} &amp; = &amp; {\mathbf{0}\ \times \ \mathbf{\text{u}} = \mathbf{0}} &amp; &amp; \text{Cross product of the zero vector} \\ \text{v.} &amp; &amp; &amp; {\mathbf{\text{v}}\ \times \ \mathbf{\text{v}}} &amp; = &amp; \mathbf{0} &amp; &amp; \text{Cross product of a vector with itself} \\ \text{vi.} &amp; &amp; &amp; {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)} &amp; = &amp; {\left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right) \cdot \mathbf{\text{w}}} &amp; &amp; \text{Scalar triple product} \end{array}$$</equation>
+    </theorem>
+    <subsection title="Proof">
+      <p>For property $$\text{i}\operatorname{.,}$$ we want to show $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}} = \text{−}\left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{u}}} \right).$$ We have</p>
+      <equation>$$\begin{array}{cl} {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} &amp; {= \left\langle {u_{1},u_{2},u_{3}} \right\rangle\ \times \ \left\langle {v_{1},v_{2},v_{3}} \right\rangle} \\ &amp; {= \left\langle {u_{2}v_{3} - u_{3}v_{2},\text{−}u_{1}v_{3} + u_{3}v_{1},u_{1}v_{2} - u_{2}v_{1}} \right\rangle} \\ &amp; {= \text{−}\left\langle {u_{3}v_{2} - u_{2}v_{3},\text{−}u_{3}v_{1} + u_{1}v_{3},u_{2}v_{1} - u_{1}v_{2}} \right\rangle} \\ &amp; {= \text{−}\left\langle {v_{1},v_{2},v_{3}} \right\rangle\ \times \ \left\langle {u_{1},u_{2},u_{3}} \right\rangle} \\ &amp; {= \text{−}\left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{u}}} \right).} \end{array}$$</equation>
+      <p>Unlike most operations we’ve seen, the cross product is not commutative. This makes sense if we think about the right-hand rule.</p>
+      <p>For property $$\text{iv}\operatorname{.,}$$ this follows directly from the definition of the cross product. We have</p>
+      <equation>$$\begin{array}{cl} {\mathbf{\text{u}}\ \times \ \mathbf{0}} &amp; {= \left\langle {u_{2}(0) - u_{3}(0),\text{−}\left( {u_{2}(0) - u_{3}(0)} \right),u_{1}(0) - u_{2}(0)} \right\rangle} \\ &amp; {= \left\langle {0,0,0} \right\rangle = \mathbf{0}.} \end{array}$$</equation>
+      <p>Then, by property i., $$\mathbf{0}\ \times \ \mathbf{\text{u}} = \mathbf{0}$$ as well. Remember that the dot product of a vector and the zero vector is the scalar $$0,$$ whereas the cross product of a vector with the zero vector is the vector $$\mathbf{0}.$$</p>
+      <p>Property $$\text{vi}.$$ looks like the associative property, but note the change in operations:</p>
+      <equation>$$\begin{array}{cl} {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)} &amp; {= \mathbf{\text{u}} \cdot \left\langle {v_{2}w_{3} - v_{3}w_{2},\text{−}v_{1}w_{3} + v_{3}w_{1},v_{1}w_{2} - v_{2}w_{1}} \right\rangle} \\ &amp; {= u_{1}\left( {v_{2}w_{3} - v_{3}w_{2}} \right) + u_{2}\left( {\text{−}v_{1}w_{3} + v_{3}w_{1}} \right) + u_{3}\left( {v_{1}w_{2} - v_{2}w_{1}} \right)} \\ &amp; {= u_{1}v_{2}w_{3} - u_{1}v_{3}w_{2} - u_{2}v_{1}w_{3} + u_{2}v_{3}w_{1} + u_{3}v_{1}w_{2} - u_{3}v_{2}w_{1}} \\ &amp; {= \left( {u_{2}v_{3} - u_{3}v_{2}} \right)w_{1} + \left( {u_{3}v_{1} - u_{1}v_{3}} \right)w_{2} + \left( {u_{1}v_{2} - u_{2}v_{1}} \right)w_{3}} \\ &amp; {= \left\langle {u_{2}v_{3} - u_{3}v_{2},u_{3}v_{1} - u_{1}v_{3},u_{1}v_{2} - u_{2}v_{1}} \right\rangle \cdot \left\langle {w_{1},w_{2},w_{3}} \right\rangle} \\ &amp; {= \left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right) \cdot \mathbf{\text{w}}.} \end{array}$$</equation>
+      <p>□</p>
+      <example number="2.34">
+        <problem>
+          <title>Using the Properties of the Cross Product</title>
+          <p>Use the cross product properties to calculate $$\left( {2\mathbf{\text{i}}\ \times \ 3\mathbf{\text{j}}} \right)\ \times \ \mathbf{\text{j}}.$$</p>
+        </problem>
+        <solution>
+          <equation>$$\begin{array}{cl} {\left( {2\mathbf{\text{i}}\ \times \ 3\mathbf{\text{j}}} \right)\ \times \ \mathbf{\text{j}}} &amp; {= 2\left( {\mathbf{\text{i}}\ \times \ 3\mathbf{\text{j}}} \right)\ \times \ \mathbf{\text{j}}} \\ &amp; {= 2(3)\left( {\mathbf{\text{i}}\ \times \ \mathbf{\text{j}}} \right)\ \times \ \mathbf{\text{j}}} \\ &amp; {= \left( {6\mathbf{\text{k}}} \right)\ \times \ \mathbf{\text{j}}} \\ &amp; {= 6\left( {\mathbf{\text{k}}\ \times \ \mathbf{\text{j}}} \right)} \\ &amp; {= 6\left( {\text{−}\mathbf{\text{i}}} \right) = -6\mathbf{\text{i}}.} \end{array}$$</equation>
+        </solution>
+      </example>
+      <checkpoint number="2.33">
+        <problem>
+          <p>Use the properties of the cross product to calculate $$\left( {\mathbf{\text{i}}\ \times \ \mathbf{\text{k}}} \right)\ \times \ \left( {\mathbf{\text{k}}\ \times \ \mathbf{\text{j}}} \right).$$</p>
+        </problem>
+        <solution>
+          <p>$$\text{−}\mathbf{\text{k}}$$</p>
+        </solution>
+      </checkpoint>
+      <p>So far in this section, we have been concerned with the direction of the vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}},$$ but we have not discussed its magnitude. It turns out there is a simple expression for the magnitude of $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ involving the magnitudes of $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}},$$ and the sine of the angle between them.</p>
+      <theorem number="2.7" title="Magnitude of the Cross Product">
+        <p>Let $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ be vectors, and let $$\theta$$ be the angle between them. Then, $$\left\| {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right\| = \left\| \mathbf{\text{u}} \right\| \cdot \left\| \mathbf{\text{v}} \right\| \cdot \text{sin}\ \theta.$$</p>
+      </theorem>
+    </subsection>
+    <subsection title="Proof">
+      <p>Let $$\mathbf{\text{u}} = \left\langle {u_{1},u_{2},u_{3}} \right\rangle$$ and $$\mathbf{\text{v}} = \left\langle {v_{1},v_{2},v_{3}} \right\rangle$$ be vectors, and let $$\theta$$ denote the angle between them. Then</p>
+      <equation>$$\begin{array}{cl} \left\| {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right\|^{2} &amp; {= \left( {u_{2}v_{3} - u_{3}v_{2}} \right)^{2} + \left( {u_{3}v_{1} - u_{1}v_{3}} \right)^{2} + \left( {u_{1}v_{2} - u_{2}v_{1}} \right)^{2}} \\ &amp; {= u_{2}^{2}v_{3}^{2} - 2u_{2}u_{3}v_{2}v_{3} + u_{3}^{2}v_{2}^{2} + u_{3}^{2}v_{1}^{2} - 2u_{1}u_{3}v_{1}v_{3} + u_{1}^{2}v_{3}^{2} + u_{1}^{2}v_{2}^{2} - 2u_{1}u_{2}v_{1}v_{2} + u_{2}^{2}v_{1}^{2}} \\ &amp; {= u_{1}^{2}v_{1}^{2} + u_{1}^{2}v_{2}^{2} + u_{1}^{2}v_{3}^{2} + u_{2}^{2}v_{1}^{2} + u_{2}^{2}v_{2}^{2} + u_{2}^{2}v_{3}^{2} + u_{3}^{2}v_{1}^{2} + u_{3}^{2}v_{2}^{2} + u_{3}^{2}v_{3}^{2}} \\ &amp; {\qquad - \left( {u_{1}^{2}v_{1}^{2} + u_{2}^{2}v_{2}^{2} + u_{3}^{2}v_{3}^{2} + 2u_{1}u_{2}v_{1}v_{2} + 2u_{1}u_{3}v_{1}v_{3} + 2u_{2}u_{3}v_{2}v_{3}} \right)} \\ &amp; {= \left( {u_{1}^{2} + u_{2}^{2} + u_{3}^{2}} \right)\left( {v_{1}^{2} + v_{2}^{2} + v_{3}^{2}} \right) - \left( {u_{1}v_{1} + u_{2}v_{2} + u_{3}v_{3}} \right)^{2}} \\ &amp; {= \left\| \mathbf{\text{u}} \right\|^{2}\left\| \mathbf{\text{v}} \right\|^{2} - \left( {\mathbf{\text{u}} \cdot \mathbf{\text{v}}} \right)^{2}} \\ &amp; {= \left\| \mathbf{\text{u}} \right\|^{2}\left\| \mathbf{\text{v}} \right\|^{2} - \left\| \mathbf{\text{u}} \right\|^{2}\left\| \mathbf{\text{v}} \right\|^{2}\text{cos}^{2}\theta} \\ &amp; {= \left\| \mathbf{\text{u}} \right\|^{2}\left\| \mathbf{\text{v}} \right\|^{2}\left( {1 - \text{cos}^{2}\theta} \right)} \\ &amp; {= \left\| \mathbf{\text{u}} \right\|^{2}\left\| \mathbf{\text{v}} \right\|^{2}\left( {\text{sin}^{2}\theta} \right).} \end{array}$$</equation>
+      <p>Taking square roots and noting that $$\sqrt{\text{sin}^{2}\theta} = \text{sin}\ \theta$$ for $$0 \leq \theta \leq 180\text{°},$$ we have the desired result:</p>
+      <equation>$$\left\| {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right\| = \left\| \mathbf{\text{u}} \right\|\left\| \mathbf{\text{v}} \right\|\text{sin}\ \theta.$$</equation>
+      <p>□</p>
+      <p>This definition of the cross product allows us to visualize or interpret the product geometrically. It is clear, for example, that the cross product is defined only for vectors in three dimensions, not for vectors in two dimensions. In two dimensions, it is impossible to generate a vector simultaneously orthogonal to two nonparallel vectors.</p>
+      <example number="2.35">
+        <problem>
+          <title>Calculating the Cross Product</title>
+          <p>Use Properties of the Cross Product to find the magnitude of the cross product of $$\mathbf{\text{u}} = \left\langle {0,4,0} \right\rangle$$ and $$\mathbf{\text{v}} = \left\langle {0,0,-3} \right\rangle.$$</p>
+        </problem>
+        <solution>
+          <p>We have</p>
+          <equation>$$\begin{array}{cl} \left\| {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right\| &amp; {= \left\| \mathbf{\text{u}} \right\| \cdot \left\| \mathbf{\text{v}} \right\| \cdot \text{sin}\ \theta} \\ &amp; {= \sqrt{0^{2} + 4^{2} + 0^{2}} \cdot \sqrt{0^{2} + 0^{2} + (-3)^{2}} \cdot \text{sin}\ \frac{\pi}{2}} \\ &amp; {= 4(3)(1) = 12.} \end{array}$$</equation>
+        </solution>
+      </example>
+      <checkpoint number="2.34">
+        <problem>
+          <p>Use Properties of the Cross Product to find the magnitude of $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}},$$ where $$\mathbf{\text{u}} = \left\langle {-8,0,0} \right\rangle$$ and $$\mathbf{\text{v}} = \left\langle {0,2,0} \right\rangle.$$</p>
+        </problem>
+        <solution>
+          <p>$$16$$</p>
+        </solution>
+      </checkpoint>
+    </subsection>
+  </subsection>
+  <subsection title="Determinants and the Cross Product">
+    <p>Using Equation 2.9 to find the cross product of two vectors is straightforward, and it presents the cross product in the useful component form. The formula, however, is complicated and difficult to remember. Fortunately, we have an alternative. We can calculate the cross product of two vectors using determinant notation.</p>
+    <p>A $$2\ \times \ 2$$ determinant is defined by</p>
+    <equation>$$\left| \begin{array}{ll} a_{1} &amp; a_{2} \\ b_{1} &amp; b_{2} \end{array} \right| = a_{1}b_{2} - b_{1}a_{2}.$$</equation>
+    <p>For example,</p>
+    <equation>$$\left| \begin{array}{lr} 3 &amp; -2 \\ 5 &amp; 1 \end{array} \right| = 3(1) - 5(-2) = 3 + 10 = 13.$$</equation>
+    <p>A $$3\ \times \ 3$$ determinant is defined in terms of $$2\ \times \ 2$$ determinants as follows:</p>
+    <equation>$$\left| \begin{array}{lll} a_{1} &amp; a_{2} &amp; a_{3} \\ b_{1} &amp; b_{2} &amp; b_{3} \\ c_{1} &amp; c_{2} &amp; c_{3} \end{array} \right| = a_{1}\left| \begin{array}{ll} b_{2} &amp; b_{3} \\ c_{2} &amp; c_{3} \end{array} \right| - a_{2}\left| \begin{array}{ll} b_{1} &amp; b_{3} \\ c_{1} &amp; c_{3} \end{array} \right| + a_{3}\left| \begin{array}{ll} b_{1} &amp; b_{2} \\ c_{1} &amp; c_{2} \end{array} \right|.$$</equation>
+    <p>Equation 2.10 is referred to as the expansion of the determinant along the first row. Notice that the multipliers of each of the $$2\ \times \ 2$$ determinants on the right side of this expression are the entries in the first row of the $$3\ \times \ 3$$ determinant. Furthermore, each of the $$2\ \times \ 2$$ determinants contains the entries from the $$3\ \times \ 3$$ determinant that would remain if you crossed out the row and column containing the multiplier. Thus, for the first term on the right, $$a_{1}$$ is the multiplier, and the $$2\ \times \ 2$$ determinant contains the entries that remain if you cross out the first row and first column of the $$3\ \times \ 3$$ determinant. Similarly, for the second term, the multiplier is $$a_{2},$$ and the $$2\ \times \ 2$$ determinant contains the entries that remain if you cross out the first row and second column of the $$3\ \times \ 3$$ determinant. Notice, however, that the coefficient of the second term is negative. The third term can be calculated in similar fashion.</p>
+    <example number="2.36">
+      <problem>
+        <title>Using Expansion Along the First Row to Compute a3×33×3Determinant</title>
+        <p>Evaluate the determinant $$\left| \begin{array}{rrr} 2 &amp; 5 &amp; -1 \\ -1 &amp; 1 &amp; 3 \\ -2 &amp; 3 &amp; 4 \end{array} \right|.$$</p>
+      </problem>
+      <solution>
+        <p>We have</p>
+        <equation>$$\begin{array}{cl} \left| \begin{array}{rrr} 2 &amp; 5 &amp; -1 \\ -1 &amp; 1 &amp; 3 \\ -2 &amp; 3 &amp; 4 \end{array} \right| &amp; {= 2\left| \begin{array}{ll} 1 &amp; 3 \\ 3 &amp; 4 \end{array} \right| - 5\left| \begin{array}{ll} -1 &amp; 3 \\ -2 &amp; 4 \end{array} \right| - 1\left| \begin{array}{ll} -1 &amp; 1 \\ -2 &amp; 3 \end{array} \right|} \\ &amp; {= 2\left( {4 - 9} \right) - 5\left( {-4 + 6} \right) - 1\left( {-3 + 2} \right)} \\ &amp; {= 2(-5) - 5(2) - 1(-1) = -10 - 10 + 1} \\ &amp; {= -19.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="2.35">
+      <problem>
+        <p>Evaluate the determinant $$\left| \begin{array}{rrr} 1 &amp; -2 &amp; -1 \\ 3 &amp; 2 &amp; -3 \\ 1 &amp; 5 &amp; 4 \end{array} \right|.$$</p>
+      </problem>
+      <solution>
+        <p>$$40$$</p>
+      </solution>
+    </checkpoint>
+    <p>Technically, determinants are defined only in terms of arrays of real numbers. However, the determinant notation provides a useful mnemonic device for the cross product formula.</p>
+    <note type="Rule" title="Cross Product Calculated by a Determinant">
+      <p>Let $$\mathbf{\text{u}} = \left\langle {u_{1},u_{2},u_{3}} \right\rangle$$ and $$\mathbf{\text{v}} = \left\langle {v_{1},v_{2},v_{3}} \right\rangle$$ be vectors. Then the cross product $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ is given by</p>
+      <equation>$$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}} = \left| \begin{array}{lll} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ u_{1} &amp; u_{2} &amp; u_{3} \\ v_{1} &amp; v_{2} &amp; v_{3} \end{array} \right| = \left| \begin{array}{ll} u_{2} &amp; u_{3} \\ v_{2} &amp; v_{3} \end{array} \right|\mathbf{\text{i}} - \left| \begin{array}{ll} u_{1} &amp; u_{3} \\ v_{1} &amp; v_{3} \end{array} \right|\mathbf{\text{j}} + \left| \begin{array}{ll} u_{1} &amp; u_{2} \\ v_{1} &amp; v_{2} \end{array} \right|\mathbf{\text{k}}.$$</equation>
+    </note>
+    <example number="2.37">
+      <problem>
+        <title>Using Determinant Notation to findp×qp×q</title>
+        <p>Let $$\mathbf{\text{p}} = \left\langle {-1,2,5} \right\rangle$$ and $$\mathbf{\text{q}} = \left\langle {4,0,-3} \right\rangle.$$ Find $$\mathbf{\text{p}}\ \times \ \mathbf{\text{q}}.$$</p>
+      </problem>
+      <solution>
+        <p>We set up our determinant by putting the standard unit vectors across the first row, the components of $$\mathbf{\text{u}}$$ in the second row, and the components of $$\mathbf{\text{v}}$$ in the third row. Then, we have</p>
+        <equation>$$\begin{array}{cl} {\mathbf{\text{p}}\ \times \ \mathbf{\text{q}}} &amp; {= \left| \begin{array}{rrr} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ -1 &amp; 2 &amp; 5 \\ 4 &amp; 0 &amp; -3 \end{array} \right| = \left| \begin{array}{rr} 2 &amp; 5 \\ 0 &amp; -3 \end{array} \right|\mathbf{\text{i}} - \left| \begin{array}{rr} -1 &amp; 5 \\ 4 &amp; -3 \end{array} \right|\mathbf{\text{j}} + \left| \begin{array}{rr} -1 &amp; 2 \\ 4 &amp; 0 \end{array} \right|\mathbf{\text{k}}} \\ &amp; {= \left( {-6 - 0} \right)\mathbf{\text{i}} - \left( {3 - 20} \right)\mathbf{\text{j}} + \left( {0 - 8} \right)\mathbf{\text{k}}} \\ &amp; {= -6\mathbf{\text{i}} + 17\mathbf{\text{j}} - 8\mathbf{\text{k}}.} \end{array}$$</equation>
+        <p>Notice that this answer confirms the calculation of the cross product in Example 2.31.</p>
+      </solution>
+    </example>
+    <checkpoint number="2.36">
+      <problem>
+        <p>Use determinant notation to find $$\mathbf{\text{a}}\ \times \ \mathbf{\text{b}},$$ where $$\mathbf{\text{a}} = \left\langle {8,2,3} \right\rangle$$ and $$\mathbf{\text{b}} = \left\langle {-1,0,4} \right\rangle.$$</p>
+      </problem>
+      <solution>
+        <p>$$8\mathbf{\text{i}} - 35\mathbf{\text{j}} + 2\mathbf{\text{k}}$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="Using the Cross Product">
+    <p>The cross product is very useful for several types of calculations, including finding a vector orthogonal to two given vectors, computing areas of triangles and parallelograms, and even determining the volume of the three-dimensional geometric shape made of parallelograms known as a parallelepiped. The following examples illustrate these calculations.</p>
+    <example number="2.38">
+      <problem>
+        <title>Finding a Unit Vector Orthogonal to Two Given Vectors</title>
+        <p>Let $$\mathbf{\text{a}} = \left\langle {5,2,-1} \right\rangle$$ and $$\mathbf{\text{b}} = \left\langle {0,-1,4} \right\rangle.$$ Find a unit vector orthogonal to both $$\mathbf{\text{a}}$$ and $$\mathbf{\text{b}}.$$</p>
+      </problem>
+      <solution>
+        <p>The cross product $$\mathbf{\text{a}}\ \times \ \mathbf{\text{b}}$$ is orthogonal to both vectors $$\mathbf{\text{a}}$$ and $$\mathbf{\text{b}}.$$ We can calculate it with a determinant:</p>
+        <equation>$$\begin{array}{cl} {\mathbf{\text{a}}\ \times \ \mathbf{\text{b}}} &amp; {= \left| \begin{array}{rrr} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ 5 &amp; 2 &amp; -1 \\ 0 &amp; -1 &amp; 4 \end{array} \right| = \left| \begin{array}{rr} 2 &amp; -1 \\ -1 &amp; 4 \end{array} \right|\mathbf{\text{i}} - \left| \begin{array}{rr} 5 &amp; -1 \\ 0 &amp; 4 \end{array} \right|\mathbf{\text{j}} + \left| \begin{array}{rr} 5 &amp; 2 \\ 0 &amp; -1 \end{array} \right|\mathbf{\text{k}}} \\ &amp; {= \left( {8 - 1} \right)\mathbf{\text{i}} - \left( {20 - 0} \right)\mathbf{\text{j}} + \left( {-5 - 0} \right)\mathbf{\text{k}}} \\ &amp; {= 7\mathbf{\text{i}} - 20\mathbf{\text{j}} - 5\mathbf{\text{k}}.} \end{array}$$</equation>
+        <p>Normalize this vector to find a unit vector in the same direction:</p>
+        <equation>$$\left\| {\mathbf{\text{a}}\ \times \ \mathbf{\text{b}}} \right\| = \sqrt{(7)^{2} + (-20)^{2} + (-5)^{2}} = \sqrt{474}.$$</equation>
+        <p>Thus, $$\left\langle {\frac{7}{\sqrt{474}},\frac{-20}{\sqrt{474}},\frac{-5}{\sqrt{474}}} \right\rangle$$ is a unit vector orthogonal to $$\mathbf{\text{a}}$$ and $$\mathbf{\text{b}}.$$</p>
+      </solution>
+    </example>
+    <checkpoint number="2.37">
+      <problem>
+        <p>Find a unit vector orthogonal to both $$\mathbf{\text{a}}$$ and $$\mathbf{\text{b}},$$ where $$\mathbf{\text{a}} = \left\langle {4,0,3} \right\rangle$$ and $$\mathbf{\text{b}} = \left\langle {1,1,4} \right\rangle.$$</p>
+      </problem>
+      <solution>
+        <p>$$\left\langle {\frac{-3}{\sqrt{194}},\frac{-13}{\sqrt{194}},\frac{4}{\sqrt{194}}} \right\rangle$$</p>
+      </solution>
+    </checkpoint>
+    <p>To use the cross product for calculating areas, we state and prove the following theorem.</p>
+    <theorem number="2.8" title="Area of a Parallelogram">
+      <p>If we locate vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ such that they form adjacent sides of a parallelogram, then the area of the parallelogram is given by $$\left\| {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right\|$$ (Figure 2.57).</p>
+    </theorem>
+    <image alt="This figure is a parallelogram. One side is represented with a vector labeled “v.” The second side, the base, has the same initial point as vector v and is labeled “u.” The angle between u and v is theta. Also, a perpendicular line segment is drawn from the terminal point of v to vector u. It is labeled “|v|sin(theta).”" number="2.57" caption="The parallelogram with adjacent sides $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ has base $$\left\| \mathbf{\text{u}} \right\|$$ and height $$\left\| \mathbf{\text{v}} \right\|\text{sin}\ \theta.$$" />
+    <subsection title="Proof">
+      <p>We show that the magnitude of the cross product is equal to the base times height of the parallelogram.</p>
+      <equation>$$\begin{array}{cl} \text{Area of a parallelogram} &amp; {= \text{base}\ \times \ \text{height}} \\ &amp; {= \left\| \mathbf{\text{u}} \right\|\left( {\left\| \mathbf{\text{v}} \right\|\text{sin}\ \theta} \right)} \\ &amp; {= \left\| {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right\|} \end{array}$$</equation>
+      <p>□</p>
+      <example number="2.39">
+        <problem>
+          <title>Finding the Area of a Triangle</title>
+          <p>Let $$P = \left( {1,0,0} \right),Q = \left( {0,1,0} \right),\ \text{and}\ R = \left( {0,0,1} \right)$$ be the vertices of a triangle (Figure 2.58). Find its area.</p>
+          <image alt="This figure is the 3-dimensional coordinate system. It has a triangle drawn in the first octant. The vertices of the triangle are points P(1, 0, 0); Q(0, 1, 0); and R(0, 0, 1)." number="2.58" caption="Finding the area of a triangle by using the cross product." />
+        </problem>
+        <solution>
+          <p>We have $$\overset{\rightarrow}{PQ} = \left\langle {0 - 1,1 - 0,0 - 0} \right\rangle = \left\langle {-1,1,0} \right\rangle$$ and $$\overset{\rightarrow}{PR} = \left\langle {0 - 1,0 - 0,1 - 0} \right\rangle = \left\langle {-1,0,1} \right\rangle.$$ The area of the parallelogram with adjacent sides $$\overset{\rightarrow}{PQ}$$ and $$\overset{\rightarrow}{PR}$$ is given by $$\left\| {\overset{\rightarrow}{PQ}\ \times \ \overset{\rightarrow}{PR}} \right\|\text{:}$$</p>
+          <equation>$$\begin{array}{rll} {\overset{\rightarrow}{PQ}\ \times \ \overset{\rightarrow}{PR}} &amp; = &amp; {\left| \begin{array}{rrr} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ -1 &amp; 1 &amp; 0 \\ -1 &amp; 0 &amp; 1 \end{array} \right| = \left( {1 - 0} \right)\mathbf{\text{i}} - \left( {-1 - 0} \right)\mathbf{\text{j}} + \left( {0 - (-1)} \right)\mathbf{\text{k}} = \mathbf{\text{i}} + \mathbf{\text{j}} + \mathbf{\text{k}}} \\ \left\| {\overset{\rightarrow}{PQ}\ \times \ \overset{\rightarrow}{PR}} \right\| &amp; = &amp; {\left\| \left\langle {1,1,1} \right\rangle \right\| = \sqrt{1^{2} + 1^{2} + 1^{2}} = \sqrt{3}.} \end{array}$$</equation>
+          <p>The area of $$\text{Δ}PQR$$ is half the area of the parallelogram, or $$\sqrt{3}\text{/}2.$$</p>
+        </solution>
+      </example>
+      <checkpoint number="2.38">
+        <problem>
+          <p>Find the area of the parallelogram $$PQRS$$ with vertices $$P\left( {1,1,0} \right),Q\left( {7,1,0} \right),R\left( {9,4,2} \right),$$ and $$S\left( {3,4,2} \right).$$</p>
+        </problem>
+        <solution>
+          <p>$$6\sqrt{13}$$</p>
+        </solution>
+      </checkpoint>
+    </subsection>
+  </subsection>
+  <subsection title="The Triple Scalar Product">
+    <p>Because the cross product of two vectors is a vector, it is possible to combine the dot product and the cross product. The dot product of a vector with the cross product of two other vectors is called the triple scalar product because the result is a scalar.</p>
+    <note type="Definition">
+      <p>The triple scalar product of vectors $$\mathbf{\text{u}},$$ $$\mathbf{\text{v}},$$ and $$\mathbf{\text{w}}$$ is $$\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right).$$</p>
+    </note>
+    <theorem number="2.9" title="Calculating a Triple Scalar Product">
+      <p>The triple scalar product of vectors $$\mathbf{\text{u}} = u_{1}\mathbf{\text{i}} + u_{2}\mathbf{\text{j}} + u_{3}\mathbf{\text{k}},$$ $$\mathbf{\text{v}} = v_{1}\mathbf{\text{i}} + v_{2}\mathbf{\text{j}} + v_{3}\mathbf{\text{k}},$$ and $$\mathbf{\text{w}} = w_{1}\mathbf{\text{i}} + w_{2}\mathbf{\text{j}} + w_{3}\mathbf{\text{k}}$$ is the determinant of the $$3\ \times \ 3$$ matrix formed by the components of the vectors:</p>
+      <equation>$$\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right) = \left| \begin{array}{lll} u_{1} &amp; u_{2} &amp; u_{3} \\ v_{1} &amp; v_{2} &amp; v_{3} \\ w_{1} &amp; w_{2} &amp; w_{3} \end{array} \right|.$$</equation>
+    </theorem>
+    <subsection title="Proof">
+      <p>The calculation is straightforward.</p>
+      <equation>$$\begin{array}{cl} {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)} &amp; {= \left\langle {u_{1},u_{2},u_{3}} \right\rangle \cdot \left\langle {v_{2}w_{3} - v_{3}w_{2},\text{−}v_{1}w_{3} + v_{3}w_{1},v_{1}w_{2} - v_{2}w_{1}} \right\rangle} \\ &amp; {= u_{1}\left( {v_{2}w_{3} - v_{3}w_{2}} \right) + u_{2}\left( {\text{−}v_{1}w_{3} + v_{3}w_{1}} \right) + u_{3}\left( {v_{1}w_{2} - v_{2}w_{1}} \right)} \\ &amp; {= u_{1}\left( {v_{2}w_{3} - v_{3}w_{2}} \right) - u_{2}\left( {v_{1}w_{3} - v_{3}w_{1}} \right) + u_{3}\left( {v_{1}w_{2} - v_{2}w_{1}} \right)} \\ &amp; {= \left| \begin{array}{lll} u_{1} &amp; u_{2} &amp; u_{3} \\ v_{1} &amp; v_{2} &amp; v_{3} \\ w_{1} &amp; w_{2} &amp; w_{3} \end{array} \right|} \end{array}$$</equation>
+      <p>□</p>
+      <example number="2.40">
+        <problem>
+          <title>Calculating the Triple Scalar Product</title>
+          <p>Let $$\mathbf{\text{u}} = \left\langle {1,3,5} \right\rangle,\mathbf{\text{v}} = \left\langle {2,-1,0} \right\rangle\ \text{and}\ \mathbf{\text{w}} = \left\langle {-3,0,-1} \right\rangle.$$ Calculate the triple scalar product $$\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right).$$</p>
+        </problem>
+        <solution>
+          <p>Apply Calculating a Triple Scalar Product directly:</p>
+          <equation>$$\begin{array}{cl} {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)} &amp; {= \left| \begin{array}{rrr} 1 &amp; 3 &amp; 5 \\ 2 &amp; -1 &amp; 0 \\ -3 &amp; 0 &amp; -1 \end{array} \right|} \\ &amp; {= 1\left| \begin{array}{rr} -1 &amp; 0 \\ 0 &amp; -1 \end{array} \right| - 3\left| \begin{array}{rr} 2 &amp; 0 \\ -3 &amp; -1 \end{array} \right| + 5\left| \begin{array}{rr} 2 &amp; -1 \\ -3 &amp; 0 \end{array} \right|} \\ &amp; {= \left( {1 - 0} \right) - 3\left( {-2 - 0} \right) + 5\left( {0 - 3} \right)} \\ &amp; {= 1 + 6 - 15 = -8.} \end{array}$$</equation>
+        </solution>
+      </example>
+      <checkpoint number="2.39">
+        <problem>
+          <p>Calculate the triple scalar product $$\mathbf{\text{a}} \cdot \left( {\mathbf{\text{b}}\ \times \ \mathbf{\text{c}}} \right),$$ where $$\mathbf{\text{a}} = \left\langle {2,-4,1} \right\rangle,$$ $$\mathbf{\text{b}} = \left\langle {0,3,-1} \right\rangle,$$ and $$\mathbf{\text{c}} = \left\langle {5,-3,3} \right\rangle.$$</p>
+        </problem>
+        <solution>
+          <p>$$17$$</p>
+        </solution>
+      </checkpoint>
+      <p>When we create a matrix from three vectors, we must be careful about the order in which we list the vectors. If we list them in a matrix in one order and then rearrange the rows, the absolute value of the determinant remains unchanged. However, each time two rows switch places, the determinant changes sign:</p>
+      <equation>$$\left| \begin{array}{lll} a_{1} &amp; a_{2} &amp; a_{3} \\ b_{1} &amp; b_{2} &amp; b_{3} \\ c_{1} &amp; c_{2} &amp; c_{3} \end{array} \right| = d\qquad\left| \begin{array}{lll} b_{1} &amp; b_{2} &amp; b_{3} \\ a_{1} &amp; a_{2} &amp; a_{3} \\ c_{1} &amp; c_{2} &amp; c_{3} \end{array} \right| = \text{−}d\qquad\left| \begin{array}{lll} b_{1} &amp; b_{2} &amp; b_{3} \\ c_{1} &amp; c_{2} &amp; c_{3} \\ a_{1} &amp; a_{2} &amp; a_{3} \end{array} \right| = d\qquad\left| \begin{array}{lll} c_{1} &amp; c_{2} &amp; c_{3} \\ b_{1} &amp; b_{2} &amp; b_{3} \\ a_{1} &amp; a_{2} &amp; a_{3} \end{array} \right| = \text{−}d.$$</equation>
+      <p>Verifying this fact is straightforward, but rather messy. Let’s take a look at this with an example:</p>
+      <equation>$$\begin{array}{cl} \left| \begin{array}{rlr} 1 &amp; 2 &amp; 1 \\ -2 &amp; 0 &amp; 3 \\ 4 &amp; 1 &amp; -1 \end{array} \right| &amp; {= \left| \begin{array}{lr} 0 &amp; 3 \\ 1 &amp; -1 \end{array} \right| - 2\left| \begin{array}{rr} -2 &amp; 3 \\ 4 &amp; -1 \end{array} \right| + \left| \begin{aligned} -2 &amp; 0 \\ 4 &amp; 1 \end{aligned} \right|} \\ &amp; {= \left( {0 - 3} \right) - 2\left( {2 - 12} \right) + \left( {-2 - 0} \right) = -3 + 20 - 2 = 15.} \end{array}$$</equation>
+      <p>Switching the top two rows we have</p>
+      <equation>$$\left| \begin{array}{rlr} -2 &amp; 0 &amp; 3 \\ 1 &amp; 2 &amp; 1 \\ 4 &amp; 1 &amp; -1 \end{array} \right| = -2\left| \begin{array}{lr} 2 &amp; 1 \\ 1 &amp; -1 \end{array} \right| + 3\left| \begin{array}{ll} 1 &amp; 2 \\ 4 &amp; 1 \end{array} \right| = -2\left( {-2 - 1} \right) + 3\left( {1 - 8} \right) = 6 - 21 = -15.$$</equation>
+      <p>Rearranging vectors in the triple products is equivalent to reordering the rows in the matrix of the determinant. Let $$\mathbf{\text{u}} = u_{1}\mathbf{\text{i}} + u_{2}\mathbf{\text{j}} + u_{3}\mathbf{\text{k}},$$ $$\mathbf{\text{v}} = v_{1}\mathbf{\text{i}} + v_{2}\mathbf{\text{j}} + v_{3}\mathbf{\text{k}},$$ and $$\mathbf{\text{w}} = w_{1}\mathbf{\text{i}} + w_{2}\mathbf{\text{j}} + w_{3}\mathbf{\text{k}}.$$ Applying Calculating a Triple Scalar Product, we have</p>
+      <equation>$$\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right) = \left| \begin{array}{lll} u_{1} &amp; u_{2} &amp; u_{3} \\ v_{1} &amp; v_{2} &amp; v_{3} \\ w_{1} &amp; w_{2} &amp; w_{3} \end{array} \right|\quad\text{and}\quad\mathbf{\text{u}} \cdot \left( {\mathbf{\text{w}}\ \times \ \mathbf{\text{v}}} \right) = \left| \begin{array}{lll} u_{1} &amp; u_{2} &amp; u_{3} \\ w_{1} &amp; w_{2} &amp; w_{3} \\ v_{1} &amp; v_{2} &amp; v_{3} \end{array} \right|.$$</equation>
+      <p>We can obtain the determinant for calculating $$\mathbf{\text{u}} \cdot \left( {\mathbf{\text{w}}\ \times \ \mathbf{\text{v}}} \right)$$ by switching the bottom two rows of $$\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right).$$ Therefore, $$\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right) = \text{−}\mathbf{\text{u}} \cdot \left( {\mathbf{\text{w}}\ \times \ \mathbf{\text{v}}} \right).$$</p>
+      <p>Following this reasoning and exploring the different ways we can interchange variables in the triple scalar product lead to the following identities:</p>
+      <equation>$$\begin{array}{rll} {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)} &amp; = &amp; {\text{−}\mathbf{\text{u}} \cdot \left( {\mathbf{\text{w}}\ \times \ \mathbf{\text{v}}} \right)} \\ {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)} &amp; = &amp; {\mathbf{\text{v}} \cdot \left( {\mathbf{\text{w}}\ \times \ \mathbf{\text{u}}} \right) = \mathbf{\text{w}} \cdot \left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right).} \end{array}$$</equation>
+      <p>Let $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ be two vectors in standard position. If $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are not scalar multiples of each other, then these vectors form adjacent sides of a parallelogram. We saw in Area of a Parallelogram that the area of this parallelogram is $$\left\| {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right\|.$$ Now suppose we add a third vector $$\mathbf{\text{w}}$$ that does not lie in the same plane as $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ but still shares the same initial point. Then these vectors form three edges of a parallelepiped, a three-dimensional prism with six faces that are each parallelograms, as shown in Figure 2.59. The volume of this prism is the product of the figure’s height and the area of its base. The triple scalar product of $$\mathbf{\text{u}},\mathbf{\text{v}},$$ and $$\mathbf{\text{w}}$$ provides a simple method for calculating the volume of the parallelepiped defined by these vectors.</p>
+      <theorem number="2.10" title="Volume of a Parallelepiped">
+        <p>The volume of a parallelepiped with adjacent edges given by the vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\ \text{and}\ \mathbf{\text{w}}$$ is the absolute value of the triple scalar product:</p>
+        <equation>$$V = \left| {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)} \right|.$$</equation>
+        <p>See Figure 2.59.</p>
+      </theorem>
+      <p>Note that, as the name indicates, the triple scalar product produces a scalar. The volume formula just presented uses the absolute value of a scalar quantity.</p>
+      <image alt="This figure is a parallelepided, a three dimensional parallelogram. Three of the sides are represented with vectors. The base has vectors v and w. The vertical side has vector u. All three vectors have the same initial point. A perpendicular vector is drawn from this common point. It is labeled “proj sub (v x w) u.”" number="2.59" caption="The height of the parallelepiped is given by $$\left\| {\text{proj}_{\text{v×w}}\mathbf{\text{u}}} \right\|.$$" />
+    </subsection>
+    <subsection title="Proof">
+      <p>The area of the base of the parallelepiped is given by $$\left\| {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right\|.$$ The height of the figure is given by $$\left\| {\text{proj}_{\text{v×w}}\mathbf{\text{u}}} \right\|.$$ The volume of the parallelepiped is the product of the height and the area of the base, so we have</p>
+      <equation>$$\begin{array}{cl} V &amp; {= \left\| {\text{proj}_{\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}}\mathbf{\text{u}}} \right\|\left\| {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right\|} \\ &amp; {= \left| \frac{\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)}{\left\| {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right\|} \right|\left\| {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right\|} \\ &amp; {= \left| {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)} \right|.} \end{array}$$</equation>
+      <p>□</p>
+      <example number="2.41">
+        <problem>
+          <title>Calculating the Volume of a Parallelepiped</title>
+          <p>Let $$\mathbf{\text{u}} = \left\langle {-1,-2,1} \right\rangle,\mathbf{\text{v}} = \left\langle {4,3,2} \right\rangle,\ \text{and}\ \mathbf{\text{w}} = \left\langle {0,-5,-2} \right\rangle.$$ Find the volume of the parallelepiped with adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\ \text{and}\ \mathbf{\text{w}}$$ (Figure 2.60).</p>
+          <image alt="This figure is the 3-dimensional coordinate system. It has three vectors in standard position. The vectors are u = &lt;-1, -2, 1&gt;; v = &lt;4, 3, 2&gt;; and w = &lt;0, -5, -2&gt;." number="2.60" />
+        </problem>
+        <solution>
+          <p>We have</p>
+          <equation>$$\begin{array}{cl} {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)} &amp; {= \left| \begin{array}{rrr} -1 &amp; -2 &amp; 1 \\ 4 &amp; 3 &amp; 2 \\ 0 &amp; -5 &amp; -2 \end{array} \right| = (-1)\left| \begin{array}{rr} 3 &amp; 2 \\ -5 &amp; -2 \end{array} \right| + 2\left| \begin{array}{rr} 4 &amp; 2 \\ 0 &amp; -2 \end{array} \right| + \left| \begin{array}{rr} 4 &amp; 3 \\ 0 &amp; -5 \end{array} \right|} \\ &amp; {= (-1)\left( {-6 + 10} \right) + 2\left( {-8 - 0} \right) + \left( {-20 - 0} \right)} \\ &amp; {= -4 - 16 - 20} \\ &amp; {= -40.} \end{array}$$</equation>
+          <p>Thus, the volume of the parallelepiped is $$|-40| = 40$$ units3.</p>
+        </solution>
+      </example>
+      <checkpoint number="2.40">
+        <problem>
+          <p>Find the volume of the parallelepiped formed by the vectors $$\mathbf{\text{a}} = 3\mathbf{\text{i}} + 4\mathbf{\text{j}} - \mathbf{\text{k}},$$ $$\mathbf{\text{b}} = 2\mathbf{\text{i}} - \mathbf{\text{j}} - \mathbf{\text{k}},$$ and $$\mathbf{\text{c}} = 3\mathbf{\text{j}} + \mathbf{\text{k}}.$$</p>
+        </problem>
+        <solution>
+          <p>$$8$$ units3</p>
+        </solution>
+      </checkpoint>
+    </subsection>
+  </subsection>
+  <subsection title="Applications of the Cross Product">
+    <p>The cross product appears in many practical applications in mathematics, physics, and engineering. Let’s examine some of these applications here, including the idea of torque, with which we began this section. Other applications show up in later chapters, particularly in our study of vector fields such as gravitational and electromagnetic fields (Introduction to Vector Calculus).</p>
+    <example number="2.42">
+      <problem>
+        <title>Using the Triple Scalar Product</title>
+        <p>Use the triple scalar product to show that vectors $$\mathbf{\text{u}} = \left\langle {2,0,5} \right\rangle,\mathbf{\text{v}} = \left\langle {2,2,4} \right\rangle,\ \text{and}\ \mathbf{\text{w}} = \left\langle {1,-1,3} \right\rangle$$ are coplanar—that is, show that these vectors lie in the same plane.</p>
+      </problem>
+      <solution>
+        <p>Start by calculating the triple scalar product to find the volume of the parallelepiped defined by $$\mathbf{\text{u}},\mathbf{\text{v}},\ \text{and}\ \mathbf{\text{w}}\text{:}$$</p>
+        <equation>$$\begin{array}{cl} {\mathbf{\text{u}} \cdot \left( {\mathbf{\text{v}}\ \times \ \mathbf{\text{w}}} \right)} &amp; {= \left| \begin{array}{rrr} 2 &amp; 0 &amp; 5 \\ 2 &amp; 2 &amp; 4 \\ 1 &amp; -1 &amp; 3 \end{array} \right|} \\ &amp; {= \left\lbrack {2(2)(3) + (0)(4)(1) + 5(2)(-1)} \right\rbrack - \left\lbrack {5(2)(1) + (2)(4)(-1) + (0)(2)(3)} \right\rbrack} \\ &amp; {= 2 - 2} \\ &amp; {= 0.} \end{array}$$</equation>
+        <p>The volume of the parallelepiped is $$0$$ units3, so one of the dimensions must be zero. Therefore, the three vectors all lie in the same plane.</p>
+      </solution>
+    </example>
+    <checkpoint number="2.41">
+      <problem>
+        <p>Are the vectors $$\mathbf{\text{a}} = \mathbf{\text{i}} + \mathbf{\text{j}} - \mathbf{\text{k}},$$ $$\mathbf{\text{b}} = \mathbf{\text{i}} - \mathbf{\text{j}} + \mathbf{\text{k}},$$ and $$\mathbf{\text{c}} = \mathbf{\text{i}} + \mathbf{\text{j}} + \mathbf{\text{k}}$$ coplanar?</p>
+      </problem>
+      <solution>
+        <p>No, the triple scalar product is $$-4 \neq 0,$$ so the three vectors form the adjacent edges of a parallelepiped. They are not coplanar.</p>
+      </solution>
+    </checkpoint>
+    <example number="2.43">
+      <problem>
+        <title>Finding an Orthogonal Vector</title>
+        <p>Only a single plane can pass through any set of three noncolinear points. Find a vector orthogonal to the plane containing points $$P = \left( {9,-3,-2} \right),Q = \left( {1,3,0} \right),$$ and $$R = \left( {-2,5,0} \right).$$</p>
+      </problem>
+      <solution>
+        <p>The plane must contain vectors $$\overset{\rightarrow}{PQ}$$ and $$\overset{\rightarrow}{QR}\text{:}$$</p>
+        <equation>$$\begin{array}{l} {\overset{\rightarrow}{PQ} = \left\langle {1 - 9,3 - (-3),0 - (-2)} \right\rangle = \left\langle {-8,6,2} \right\rangle} \\ {\overset{\rightarrow}{QR} = \left\langle {-2 - 1,5 - 3,0 - 0} \right\rangle = \left\langle {-3,2,0} \right\rangle.} \end{array}$$</equation>
+        <p>The cross product $$\overset{\rightarrow}{PQ}\ \times \ \overset{\rightarrow}{QR}$$ produces a vector orthogonal to both $$\overset{\rightarrow}{PQ}$$ and $$\overset{\rightarrow}{QR}.$$ Therefore, the cross product is orthogonal to the plane that contains these two vectors:</p>
+        <equation>$$\begin{array}{cl} {\overset{\rightarrow}{PQ}\ \times \ \overset{\rightarrow}{QR}} &amp; {= \left| \left. \begin{array}{rrr} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ {- 8} &amp; 6 &amp; 2 \\ {- 3} &amp; 2 &amp; 0 \end{array} \right| \right.} \\ &amp; {= 0\mathbf{\text{i}} - 6\mathbf{\text{j}} - 16\mathbf{\text{k}} - \left( {-18\mathbf{\text{k}} + 4\mathbf{\text{i}} + 0\mathbf{\text{j}}} \right)} \\ &amp; {= -4\mathbf{\text{i}} - 6\mathbf{\text{j}} + 2\mathbf{\text{k}}.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <p>We have seen how to use the triple scalar product and how to find a vector orthogonal to a plane. Now we apply the cross product to real-world situations.</p>
+    <p>Sometimes a force causes an object to rotate. For example, turning a screwdriver or a wrench creates this kind of rotational effect, called torque.</p>
+    <note type="Definition">
+      <p>Torque, $$\tau$$ (the Greek letter tau), measures the tendency of a force to produce rotation about an axis of rotation. Let $$\mathbf{\text{r}}$$ be a vector with an initial point located on the axis of rotation and with a terminal point located at the point where the force is applied, and let vector $$\mathbf{\text{F}}$$ represent the force. Then torque is equal to the cross product of $$\mathbf{\text{r}}$$ and $$\mathbf{\text{F}}\text{:}$$</p>
+      <equation>$$\tau = \mathbf{\text{r}}\ \times \ \mathbf{\text{F}}.$$</equation>
+      <p>See Figure 2.61.</p>
+    </note>
+    <image alt="This figure has a vector r from an “axis of rotation”. At the terminal point of r there is a vector labeled “F”. The angle between r and F is theta." number="2.61" caption="Torque measures how a force causes an object to rotate." />
+    <p>Think about using a wrench to tighten a bolt. The torque $$\tau$$ applied to the bolt depends on how hard we push the wrench (force) and how far up the handle we apply the force (distance). The torque increases with a greater force on the wrench at a greater distance from the bolt. Common units of torque are the newton-meter or foot-pound. Although torque is dimensionally equivalent to work (it has the same units), the two concepts are distinct. Torque is used specifically in the context of rotation, whereas work typically involves motion along a line.</p>
+    <example number="2.44">
+      <problem>
+        <title>Evaluating Torque</title>
+        <p>A bolt is tightened by applying a force of $$6$$ N to a 0.15-m wrench (Figure 2.62). The angle between the wrench and the force vector is $$40\text{°}.$$ Find the magnitude of the torque about the center of the bolt. Round the answer to two decimal places.</p>
+        <image alt="This figure is the image of an open-end wrench. The length of the wrench is labeled “0.15 m.” The angle the wrench makes with a vertical vector is 40 degrees. The vector is labeled with “6 N.”" number="2.62" caption="Torque describes the twisting action of the wrench." />
+      </problem>
+      <solution>
+        <p>Substitute the given information into the equation defining torque:</p>
+        <equation>$$\left\| \tau \right\| = \left\| {\mathbf{\text{r}}\ \times \ \mathbf{\text{F}}} \right\| = \left\| \mathbf{\text{r}} \right\|\left\| \mathbf{\text{F}} \right\|\text{sin}\ \theta = (0.15\ \text{m})(6\ \text{N})\text{sin}\ 40\text{°} \approx 0.58\ \text{N} \cdot \text{m}.$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="2.42">
+      <problem>
+        <p>Calculate the force required to produce $$15\ \text{N} \cdot \text{m}$$ torque at an angle of $$30º$$ from a 150-cm rod.</p>
+      </problem>
+      <solution>
+        <p>$$20$$ N</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <exercises title="Section 2.4 Exercises">
+    <exercise number="183" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. a. Find the cross product $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ of the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$ Express the answer in component form. b. Sketch the vectors $$\mathbf{\text{u}},\mathbf{\text{v}},$$ and $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$</instruction>
+        <p>$$\mathbf{\text{u}} = \left\langle {2,0,0} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {2,2,0} \right\rangle$$</p>
+      </problem>
+      <solution>
+        <p>a. $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}} = \left\langle {0,0,4} \right\rangle;$$
+b.</p>
+      </solution>
+    </exercise>
+    <exercise number="184" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. a. Find the cross product $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ of the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$ Express the answer in component form. b. Sketch the vectors $$\mathbf{\text{u}},\mathbf{\text{v}},$$ and $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$</instruction>
+        <p>$$\mathbf{\text{u}} = \left\langle {3,2,-1} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {1,1,0} \right\rangle$$</p>
+      </problem>
+    </exercise>
+    <exercise number="185" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. a. Find the cross product $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ of the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$ Express the answer in component form. b. Sketch the vectors $$\mathbf{\text{u}},\mathbf{\text{v}},$$ and $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$</instruction>
+        <p>$$\mathbf{\text{u}} = 2\mathbf{\text{i}} + 3\mathbf{\text{j}},$$ $$\mathbf{\text{v}} = \mathbf{\text{j}} + 2\mathbf{\text{k}}$$</p>
+      </problem>
+      <solution>
+        <p>a. $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}} = \left\langle {6,-4,2} \right\rangle;$$
+b.</p>
+      </solution>
+    </exercise>
+    <exercise number="186" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. a. Find the cross product $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ of the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$ Express the answer in component form. b. Sketch the vectors $$\mathbf{\text{u}},\mathbf{\text{v}},$$ and $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$</instruction>
+        <p>$$\mathbf{\text{u}} = 2\mathbf{\text{j}} + 3\mathbf{\text{k}},$$ $$\mathbf{\text{v}} = 3\mathbf{\text{i}} + \mathbf{\text{k}}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="187" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. a. Find the cross product $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ of the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$ Express the answer in component form. b. Sketch the vectors $$\mathbf{\text{u}},\mathbf{\text{v}},$$ and $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$</instruction>
+        <p>Simplify $$\left( {\mathbf{\text{i}}\ \times \ \mathbf{\text{i}} - 2\mathbf{\text{i}}\ \times \ \mathbf{\text{j}} - 4\mathbf{\text{i}}\ \times \ \mathbf{\text{k}} + 3\mathbf{\text{j}}\ \times \ \mathbf{\text{k}}} \right)\ \times \ \mathbf{\text{i}}.$$</p>
+      </problem>
+      <solution>
+        <p>$$-2\mathbf{\text{j}} - 4\mathbf{\text{k}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="188" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. a. Find the cross product $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ of the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$ Express the answer in component form. b. Sketch the vectors $$\mathbf{\text{u}},\mathbf{\text{v}},$$ and $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$</instruction>
+        <p>Simplify $$\mathbf{\text{j}}\ \times \ \left( {\mathbf{\text{k}}\ \times \ \mathbf{\text{j}} + 2\mathbf{\text{j}}\ \times \ \mathbf{\text{i}} - 3\mathbf{\text{j}}\ \times \ \mathbf{\text{j}} + 5\mathbf{\text{i}}\ \times \ \mathbf{\text{k}}} \right).$$</p>
+      </problem>
+    </exercise>
+    <exercise number="189" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Find unit vector $$\mathbf{\text{w}}$$ in the direction of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ Express your answer using standard unit vectors.</instruction>
+        <p>$$\mathbf{\text{u}} = \left\langle {3,-1,2} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {-2,0,1} \right\rangle$$</p>
+      </problem>
+      <solution>
+        <p>$$\mathbf{\text{w}} = - \frac{1}{3\sqrt{6}}\mathbf{\text{i}} - \frac{7}{3\sqrt{6}}\mathbf{\text{j}} - \frac{2}{3\sqrt{6}}\mathbf{\text{k}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="190" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Find unit vector $$\mathbf{\text{w}}$$ in the direction of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ Express your answer using standard unit vectors.</instruction>
+        <p>$$\mathbf{\text{u}} = \left\langle {2,6,1} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {3,0,1} \right\rangle$$</p>
+      </problem>
+    </exercise>
+    <exercise number="191" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Find unit vector $$\mathbf{\text{w}}$$ in the direction of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ Express your answer using standard unit vectors.</instruction>
+        <p>$$\mathbf{\text{u}} = \overset{\rightarrow}{AB},$$ $$\mathbf{\text{v}} = \overset{\rightarrow}{AC},$$ where $$A(1,0,1),$$ $$B(1,-1,3),$$ and $$C(0,0,5)$$</p>
+      </problem>
+      <solution>
+        <p>$$\mathbf{\text{w}} = - \frac{4}{\sqrt{21}}\mathbf{\text{i}} - \frac{2}{\sqrt{21}}\mathbf{\text{j}} - \frac{1}{\sqrt{21}}\mathbf{\text{k}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="192" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Find unit vector $$\mathbf{\text{w}}$$ in the direction of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ Express your answer using standard unit vectors.</instruction>
+        <p>$$\mathbf{\text{u}} = \overset{\rightarrow}{OP},$$ $$\mathbf{\text{v}} = \overset{\rightarrow}{PQ},$$ where $$P(-1,1,0)$$ and $$Q(0,2,1)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="193" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Find unit vector $$\mathbf{\text{w}}$$ in the direction of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ Express your answer using standard unit vectors.</instruction>
+        <p>Determine the real number $$\alpha$$ such that $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ and $$\mathbf{\text{i}}$$ are orthogonal, where $$\mathbf{\text{u}} = 3\mathbf{\text{i}} + \mathbf{\text{j}} - 5\mathbf{\text{k}}$$ and $$\mathbf{\text{v}} = 4\mathbf{\text{i}} - 2\mathbf{\text{j}} + \alpha\mathbf{\text{k}}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\alpha = 10$$</p>
+      </solution>
+    </exercise>
+    <exercise number="194" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Find unit vector $$\mathbf{\text{w}}$$ in the direction of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ Express your answer using standard unit vectors.</instruction>
+        <p>Show that $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ and $$2\mathbf{\text{i}} - 14\mathbf{\text{j}} + 2\mathbf{\text{k}}$$ cannot be orthogonal for any $$\alpha$$ real number, where $$\mathbf{\text{u}} = \mathbf{\text{i}} + 7\mathbf{\text{j}} - \mathbf{\text{k}}$$ and $$\mathbf{\text{v}} = \alpha\mathbf{\text{i}} + 5\mathbf{\text{j}} + \mathbf{\text{k}}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="195" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Find unit vector $$\mathbf{\text{w}}$$ in the direction of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ Express your answer using standard unit vectors.</instruction>
+        <p>Show that $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ is orthogonal to $$\mathbf{\text{u}} + \mathbf{\text{v}}$$ and $$\mathbf{\text{u}} - \mathbf{\text{v}},$$ where $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are nonzero vectors.</p>
+      </problem>
+    </exercise>
+    <exercise number="196" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Find unit vector $$\mathbf{\text{w}}$$ in the direction of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ Express your answer using standard unit vectors.</instruction>
+        <p>Show that $$\mathbf{\text{v}}\ \times \ \mathbf{\text{u}}$$ is orthogonal to $$\left( {\mathbf{\text{u}} \cdot \mathbf{\text{v}}} \right)\left( {\mathbf{\text{u}} + \mathbf{\text{v}}} \right) + \textbf{u},$$ where $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are nonzero vectors.</p>
+      </problem>
+    </exercise>
+    <exercise number="197" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Find unit vector $$\mathbf{\text{w}}$$ in the direction of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ Express your answer using standard unit vectors.</instruction>
+        <p>Calculate the determinant $$\left| \begin{array}{lrr} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ 1 &amp; -1 &amp; 7 \\ 2 &amp; 0 &amp; 3 \end{array} \right|.$$</p>
+      </problem>
+      <solution>
+        <p>$$-3\mathbf{\text{i}} + 11\mathbf{\text{j}} + 2\mathbf{\text{k}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="198" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Find unit vector $$\mathbf{\text{w}}$$ in the direction of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}.$$ Express your answer using standard unit vectors.</instruction>
+        <p>Calculate the determinant $$\left| \begin{array}{lrr} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ 0 &amp; 3 &amp; -4 \\ 1 &amp; 6 &amp; -1 \end{array} \right|.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="199" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>$$\mathbf{\text{u}} = \left\langle {-1,0,e^{t}} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {1,e^{\text{−}t},0} \right\rangle,$$ where $$t$$ is a real number</p>
+      </problem>
+      <solution>
+        <p>$$\mathbf{\text{w}} = \left\langle {-1,e^{t},\text{−}e^{\text{−}t}} \right\rangle$$</p>
+      </solution>
+    </exercise>
+    <exercise number="200" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>$$\mathbf{\text{u}} = \left\langle {1,0,x} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {\frac{2}{x},1,0} \right\rangle,$$ where $$x$$ is a nonzero real number</p>
+      </problem>
+    </exercise>
+    <exercise number="201" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>Find vector $$\left( {\mathbf{\text{a}} - 2\textbf{b}} \right)\ \times \ \textbf{c},$$ where $$\mathbf{\text{a}} = \left| \begin{array}{lrr} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ 2 &amp; -1 &amp; 5 \\ 0 &amp; 1 &amp; 8 \end{array} \right|,$$ $$\textbf{b} = \left| \begin{array}{lrr} \textbf{i} &amp; \textbf{j} &amp; \textbf{k} \\ 0 &amp; 1 &amp; 1 \\ 2 &amp; -1 &amp; -2 \end{array} \right|,$$ and $$\textbf{c} = \mathbf{\text{i}} + \mathbf{\text{j}} + \textbf{k}.$$</p>
+      </problem>
+      <solution>
+        <p>$$-26\mathbf{\text{i}} + 17\mathbf{\text{j}} + 9\mathbf{\text{k}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="202" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>Find vector $$\textbf{c}\ \times \ \left( {\mathbf{\text{a}} + 3\textbf{b}} \right),$$ where $$\mathbf{\text{a}} = \left| \begin{array}{lll} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ 5 &amp; 0 &amp; 9 \\ 0 &amp; 1 &amp; 0 \end{array} \right|,$$ $$\textbf{b} = \left| \begin{array}{lrr} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ 0 &amp; -1 &amp; 1 \\ 7 &amp; 1 &amp; -1 \end{array} \right|,$$ and $$\textbf{c} = \mathbf{\text{i}} - \mathbf{\text{k}}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="203" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>[T] Use the cross product $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ to find the acute angle between vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}},$$ where $$\mathbf{\text{u}} = \mathbf{\text{i}} + 2\mathbf{\text{j}}$$ and $$\mathbf{\text{v}} = \mathbf{\text{i}} + \mathbf{\text{k}}.$$ Express the answer in degrees rounded to the nearest integer.</p>
+      </problem>
+      <solution>
+        <p>$$72\text{°}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="204" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>[T] Use the cross product $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ to find the obtuse angle between vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}},$$ where $$\mathbf{\text{u}} = \text{−}\mathbf{\text{i}} + 3\mathbf{\text{j}} + \mathbf{\text{k}}$$ and $$\mathbf{\text{v}} = \mathbf{\text{i}} - 2\mathbf{\text{j}}.$$ Express the answer in degrees rounded to the nearest integer.</p>
+      </problem>
+    </exercise>
+    <exercise number="205" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>Use the sine and cosine of the angle between two nonzero vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ to prove Lagrange’s identity: $$\left\| {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right\|^{2} = \left\| \mathbf{\text{u}} \right\|^{2}\left\| \mathbf{\text{v}} \right\|^{2} - \left( {\mathbf{\text{u}} \cdot \mathbf{\text{v}}} \right)^{2}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="206" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>Verify Lagrange’s identity $$\left\| {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right\|^{2} = \left\| \mathbf{\text{u}} \right\|^{2}\left\| \mathbf{\text{v}} \right\|^{2} - \left( {\mathbf{\text{u}} \cdot \mathbf{\text{v}}} \right)^{2}$$ for vectors $$\mathbf{\text{u}} = \text{−}\mathbf{\text{i}} + \mathbf{\text{j}} - 2\mathbf{\text{k}}$$ and $$\mathbf{\text{v}} = 2\mathbf{\text{i}} - \mathbf{\text{j}}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="207" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>Nonzero vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are called collinear if there exists a nonzero scalar $$\alpha$$ such that $$\mathbf{\text{v}} = \alpha\mathbf{\text{u}}.$$ Show that $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are collinear if and only if $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}} = \mathbf{0}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="208" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>Nonzero vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are called collinear if there exists a nonzero scalar $$\alpha$$ such that $$\mathbf{\text{v}} = \alpha\mathbf{\text{u}}.$$ Show that vectors $$\overset{\rightarrow}{AB}$$ and $$\overset{\rightarrow}{AC}$$ are collinear, where $$A\left( {4,1,0} \right),$$ $$B\left( {6,5,-2} \right),$$ and $$C\left( {5,3,-1} \right).$$</p>
+      </problem>
+    </exercise>
+    <exercise number="209" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>Find the area of the parallelogram with adjacent sides $$\mathbf{\text{u}} = \left\langle {3,2,0} \right\rangle$$ and $$\mathbf{\text{v}} = \left\langle {0,2,1} \right\rangle.$$</p>
+      </problem>
+      <solution>
+        <p>$$7$$</p>
+      </solution>
+    </exercise>
+    <exercise number="210" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>Find the area of the parallelogram with adjacent sides $$\mathbf{\text{u}} = \mathbf{\text{i}} + \mathbf{\text{j}}$$ and $$\mathbf{\text{v}} = \mathbf{\text{i}} + \mathbf{\text{k}}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="211" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>Consider points $$A\left( {3,-1,2} \right),B\left( {2,1,5} \right),$$ and $$C\left( {1,-2,-2} \right).$$</p>
+        <list type="ol" style="a">
+          <item>Find the area of parallelogram $$ABCD$$ with adjacent sides $$\overset{\rightarrow}{AB}$$ and $$\overset{\rightarrow}{AC}.$$</item>
+          <item>Find the area of triangle $$ABC.$$</item>
+          <item>Find the distance from point $$A$$ to line $$BC.$$</item>
+        </list>
+      </problem>
+      <solution>
+        <p>a. $$5\sqrt{6};$$ b. $$\frac{5\sqrt{6}}{2};$$ c. $$\frac{5\sqrt{6}}{\sqrt{59}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="212" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, the vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are given. Use determinant notation to find vector $$\mathbf{\text{w}}$$ orthogonal to vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}.$$</instruction>
+        <p>Consider points $$A\left( {2,-3,4} \right),B\left( {0,1,2} \right),$$ and $$C(-1,2,0).$$</p>
+        <list type="ol" style="a">
+          <item>Find the area of parallelogram $$ABCD$$ with adjacent sides $$\overset{\rightarrow}{AB}$$ and $$\overset{\rightarrow}{AC}.$$</item>
+          <item>Find the area of triangle $$ABC.$$</item>
+          <item>Find the distance from point $$B$$ to line $$AC.$$</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="213" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>$$\mathbf{\text{u}} = \mathbf{\text{i}} + \mathbf{\text{j}},$$ $$\mathbf{\text{v}} = \mathbf{\text{j}} + \mathbf{\text{k}},$$ and $$\mathbf{\text{w}} = \mathbf{\text{i}} + \mathbf{\text{k}}$$</p>
+      </problem>
+      <solution>
+        <p>a. $$2;$$ b. $$2$$</p>
+      </solution>
+    </exercise>
+    <exercise number="214" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>$$\mathbf{\text{u}} = \left\langle {-3,5,-1} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {0,2,-2} \right\rangle,$$ and $$\mathbf{\text{w}} = \left\langle {3,1,1} \right\rangle$$</p>
+      </problem>
+    </exercise>
+    <exercise number="215" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Calculate the triple scalar products $$\mathbf{\text{v}} \cdot (\mathbf{\text{u}}\ \times \ \textbf{w})$$ and $$\mathbf{\text{w}} \cdot (\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}),$$ where $$\mathbf{\text{u}} = \left\langle {1,1,1} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {7,6,9} \right\rangle,$$ and $$\mathbf{\text{w}} = \left\langle {4,2,7} \right\rangle.$$</p>
+      </problem>
+      <solution>
+        <p>$$\mathbf{\text{v}} \cdot (\mathbf{\text{u}}\ \times \ \text{w}) = -1,$$ $$\mathbf{\text{w}} \cdot (\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}) = 1$$</p>
+      </solution>
+    </exercise>
+    <exercise number="216" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Calculate the triple scalar products $$\mathbf{\text{w}} \cdot (\mathbf{\text{v}}\ \times \ \mathbf{\text{u}})$$ and $$\mathbf{\text{u}} \cdot (\textbf{w}\ \times \ \mathbf{\text{v}}),$$ where $$\mathbf{\text{u}} = \left\langle {4,2,-1} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {2,5,-3} \right\rangle,$$ and $$\mathbf{\text{w}} = \left\langle {9,5,-10} \right\rangle.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="217" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Find vectors $$\mathbf{\text{a}},\mathbf{\text{b}},\ \text{and}\ \mathbf{\text{c}}$$ with a triple scalar product given by the determinant</p>
+        <p>$$\left| \begin{array}{lll} 1 &amp; 2 &amp; 3 \\ 0 &amp; 2 &amp; 5 \\ 8 &amp; 9 &amp; 2 \end{array} \right|.$$ Determine their triple scalar product.</p>
+      </problem>
+      <solution>
+        <p>$$\mathbf{\text{a}} = \left\langle {1,2,3} \right\rangle,$$ $$\textbf{b} = \left\langle {0,2,5} \right\rangle,$$ $$\textbf{c} = \left\langle {8,9,2} \right\rangle;$$ $$\mathbf{\text{a}} \cdot (\text{b}\ \times \ \text{c}) = -9$$</p>
+      </solution>
+    </exercise>
+    <exercise number="218" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>The triple scalar product of vectors $$\mathbf{\text{a}},\mathbf{\text{b}},\ \text{and}\ \mathbf{\text{c}}$$ is given by the determinant</p>
+        <p>$$\left| \begin{array}{rrr} 0 &amp; -2 &amp; 1 \\ 0 &amp; 1 &amp; 4 \\ 1 &amp; -3 &amp; 7 \end{array} \right|.$$ Find vector $$\mathbf{\text{a}} - \textbf{b} + \textbf{c}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="219" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Consider the parallelepiped with edges $$OA,OB,$$ and $$OC,$$ where $$A\left( {2,1,0} \right),B\left( {1,2,0} \right),$$ and $$C\left( {0,1,\alpha} \right).$$</p>
+        <list type="ol" style="a">
+          <item>Find the real number $$\alpha &gt; 0$$ such that the volume of the parallelepiped is $$3$$ units3.</item>
+          <item>For $$\alpha = 1,$$ find the height $$h$$ from vertex $$C$$ of the parallelepiped to the plane formed by the edges $$OA$$ and $$OB$$.</item>
+        </list>
+      </problem>
+      <solution>
+        <p>a. $$\alpha = 1;$$ b. $$h = 1,$$</p>
+      </solution>
+    </exercise>
+    <exercise number="220" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Consider points $$A\left( {\alpha,0,0} \right),B\left( {0,\beta,0} \right),$$ and $$C\left( {0,0,\gamma} \right),$$ with $$\alpha,$$ $$\beta,$$ and $$\gamma$$ positive real numbers.</p>
+        <list type="ol" style="a">
+          <item>Determine the volume of the parallelepiped with adjacent sides $$\overset{\rightarrow}{OA},$$ $$\overset{\rightarrow}{OB},$$ and $$\overset{\rightarrow}{OC}.$$</item>
+          <item>Find the volume of the tetrahedron with vertices $$O,A,B,\ \text{and}\ C.$$ (Hint: The volume of the tetrahedron is $$1\text{/}6$$ of the volume of the parallelepiped.)</item>
+          <item>Find the distance from the origin to the plane determined by $$A,B,\ \text{and}\ C.$$ Sketch the parallelepiped and tetrahedron.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="221" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Let $$\mathbf{\text{u}},\mathbf{\text{v}},\ \text{and}\ \mathbf{\text{w}}$$ be three-dimensional vectors and $$c$$ be a real number. Prove the following properties of the cross product.</p>
+        <list type="ol" style="a">
+          <item>$$\mathbf{\text{u}}\ \times \ \mathbf{\text{u}} = \mathbf{0}$$</item>
+          <item>$$\mathbf{\text{u}}\ \times \ \left( {\mathbf{\text{v}} + \mathbf{\text{w}}} \right) = \left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right) + \left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{w}}} \right)$$</item>
+          <item>$$c\left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right) = \left( {c\mathbf{\text{u}}} \right)\ \times \ \mathbf{\text{v}} = \mathbf{\text{u}}\ \times \ \left( {c\mathbf{\text{v}}} \right)$$</item>
+          <item>$$\mathbf{\text{u}} \cdot \mathbf{(}\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}\mathbf{) = 0}$$</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="222" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Show that vectors $$\mathbf{\text{u}} = \left\langle {1,0,-8} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {0,1,6} \right\rangle,$$ and $$\mathbf{\text{w}} = \left\langle {-1,9,3} \right\rangle$$ satisfy the following properties of the cross product.</p>
+        <list type="ol" style="a">
+          <item>$$\mathbf{\text{u}}\ \times \ \mathbf{\text{u}} = \mathbf{0}$$</item>
+          <item>$$\mathbf{\text{u}}\ \times \ \left( {\mathbf{\text{v}} + \mathbf{\text{w}}} \right) = \left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right) + \left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{w}}} \right)$$</item>
+          <item>$$c\left( {\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}} \right) = \left( {c\mathbf{\text{u}}} \right)\ \times \ \mathbf{\text{v}} = \mathbf{\text{u}}\ \times \ \left( {c\mathbf{\text{v}}} \right)$$</item>
+          <item>$$\mathbf{\text{u}} \cdot \mathbf{(}\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}\mathbf{) = 0}$$</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="223" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Nonzero vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\ \text{and}\ \mathbf{\text{w}}$$ are said to be linearly dependent if one of the vectors is a linear combination of the other two. For instance, there exist two nonzero real numbers $$\alpha$$ and $$\beta$$ such that $$\mathbf{\text{w}} = \alpha\mathbf{\text{u}} + \beta\mathbf{\text{v}}.$$ Otherwise, the vectors are called linearly independent. Show that $$\mathbf{\text{u}},\mathbf{\text{v}},\ \text{and}\ \mathbf{\text{w}}$$ are coplanar if and only if they are linear dependent.</p>
+      </problem>
+    </exercise>
+    <exercise number="224" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Consider vectors $$\mathbf{\text{u}} = \left\langle {1,4,-7} \right\rangle,$$ $$\mathbf{\text{v}} = \left\langle {2,-1,4} \right\rangle,$$ $$\mathbf{\text{w}} = \left\langle {0,-9,18} \right\rangle,$$ and $$\textbf{p} = \left\langle {0,-9,17} \right\rangle.$$</p>
+        <list type="ol" style="a">
+          <item>Show that $$\mathbf{\text{u}},\mathbf{\text{v}},\ \text{and}\ \mathbf{\text{w}}$$ are coplanar by using their triple scalar product</item>
+          <item>Show that $$\mathbf{\text{u}},\mathbf{\text{v}},\ \text{and}\ \mathbf{\text{w}}$$ are coplanar, using the definition that there exist two nonzero real numbers $$\alpha$$ and $$\beta$$ such that $$\mathbf{\text{w}} = \alpha\mathbf{\text{u}} + \beta\mathbf{\text{v}}.$$</item>
+          <item>Show that $$\mathbf{\text{u}},\mathbf{\text{v}},\ \text{and}\ \mathbf{\text{p}}$$ are linearly independent—that is, none of the vectors is a linear combination of the other two.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="225" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Consider points $$A(0,0,2),$$ $$B\left( {1,0,2} \right),$$ $$C\left( {1,1,2} \right),$$ and $$D\left( {0,1,2} \right).$$ Are vectors $$\overset{\rightarrow}{AB},$$ $$\overset{\rightarrow}{AC},$$ and $$\overset{\rightarrow}{AD}$$ linearly dependent (that is, one of the vectors is a linear combination of the other two)?</p>
+      </problem>
+      <solution>
+        <p>Yes, $$\overset{\rightarrow}{AD} = \alpha\overset{\rightarrow}{AB} + \beta\overset{\rightarrow}{AC},$$ where $$\alpha = -1$$ and $$\beta = 1.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="226" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Show that vectors $$\mathbf{\text{i}} + \mathbf{\text{j}},$$ $$\mathbf{\text{i}} - \mathbf{\text{j}},$$ and $$\mathbf{\text{i}} + \mathbf{\text{j}} + \mathbf{\text{k}}$$ are linearly independent—that is, there do not exist two nonzero real numbers $$\alpha$$ and $$\beta$$ such that $$\mathbf{\text{i}} + \mathbf{\text{j}} + \mathbf{\text{k}} = \alpha\left( {\mathbf{\text{i}} + \mathbf{\text{j}}} \right) + \beta\left( {\mathbf{\text{i}} - \mathbf{\text{j}}} \right).$$</p>
+      </problem>
+    </exercise>
+    <exercise number="227" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Let $$\mathbf{\text{u}} = \left\langle {u_{1},u_{2}} \right\rangle$$ and $$\mathbf{\text{v}} = \left\langle {v_{1},v_{2}} \right\rangle$$ be two-dimensional vectors. The cross product of vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ is not defined. However, if the vectors are regarded as the three-dimensional vectors $$\widetilde{\mathbf{\text{u}}} = \left\langle {u_{1},u_{2},0} \right\rangle$$ and $$\widetilde{\mathbf{\text{v}}} = \left\langle {v_{1},v_{2},0} \right\rangle,$$ respectively, then, in this case, we can define the cross product of $$\widetilde{\mathbf{\text{u}}}$$ and $$\widetilde{\mathbf{\text{v}}}.$$ In particular, in determinant notation, the cross product of $$\widetilde{\mathbf{\text{u}}}$$ and $$\widetilde{\mathbf{\text{v}}}$$ is given by</p>
+        <equation>$$\widetilde{\mathbf{\text{u}}}\ \times \ \widetilde{\mathbf{\text{v}}} = \left| \begin{array}{lll} \mathbf{\text{i}} &amp; \mathbf{\text{j}} &amp; \mathbf{\text{k}} \\ u_{1} &amp; u_{2} &amp; 0 \\ v_{1} &amp; v_{2} &amp; 0 \end{array} \right|.$$</equation>
+        <p>Use this result to compute $$(\mathbf{\text{i}}\textit{cos}\ \theta + \mathbf{\text{j}}\textit{sin}\ \theta)\ \times \ (\mathbf{\text{i}}sin\theta - \mathbf{\text{j}}cos\theta),$$ where $$\theta$$ is a real number.</p>
+      </problem>
+      <solution>
+        <p>$$\text{−}\mathbf{\text{k}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="228" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Consider points $$P\left( {2,1} \right),$$ $$Q\left( {4,2} \right),$$ and $$R\left( {1,2} \right).$$</p>
+        <list type="ol" style="a">
+          <item>Find the area of triangle $$P,Q,\ \text{and}\ R.$$</item>
+          <item>Determine the distance from point $$R$$ to the line passing through $$P\ \text{and}\ Q.$$</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="229" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Determine a vector of magnitude $$10$$ perpendicular to the plane passing through the x-axis and point $$P\left( {1,2,4} \right).$$</p>
+      </problem>
+      <solution>
+        <p>$$\left\langle {0,\text{±}4\sqrt{5}, \mp 2\sqrt{5}} \right\rangle$$</p>
+      </solution>
+    </exercise>
+    <exercise number="230" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Determine a unit vector perpendicular to the plane passing through the z-axis and point $$A\left( {3,1,-2} \right).$$</p>
+      </problem>
+    </exercise>
+    <exercise number="231" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Consider $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ two three-dimensional vectors. If the magnitude of the cross product vector $$\mathbf{\text{u}}\ \times \ \mathbf{\text{v}}$$ is $$k$$ times larger than the magnitude of vector $$\mathbf{\text{u}},$$ show that the magnitude of $$\mathbf{\text{v}}$$ is greater than or equal to $$k,$$ where $$k$$ is a natural number.</p>
+      </problem>
+    </exercise>
+    <exercise number="232" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>[T] Assume that the magnitudes of two nonzero vectors $$\mathbf{\text{u}}$$ and $$\mathbf{\text{v}}$$ are known. The function $$f(\theta) = \left\| \mathbf{\text{u}} \right\|\left\| \mathbf{\text{v}} \right\|\text{sin}\ \theta$$ defines the magnitude of the cross product vector $$\mathbf{\text{u}}\ \times \ \textbf{v},$$ where $$\theta \in \lbrack 0,\pi\rbrack$$ is the angle between $$\mathbf{\text{u}}\ \text{and}\ \mathbf{\text{v}}.$$</p>
+        <list type="ol" style="a">
+          <item>Graph the function $$f.$$</item>
+          <item>Find the absolute minimum and maximum of function $$f.$$ Interpret the results.</item>
+          <item>If $$\left\| \mathbf{\text{u}} \right\| = 5$$ and $$\left\| \mathbf{\text{v}} \right\| = 2,$$ find the angle between $$\mathbf{\text{u}}\ \text{and}\ \mathbf{\text{v}}$$ if the magnitude of their cross product vector is equal to $$9.$$</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="233" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Find all vectors $$\mathbf{\text{w}} = \left\langle {w_{1},w_{2},w_{3}} \right\rangle$$ that satisfy the equation $$\left\langle {1,1,1} \right\rangle\ \times \ \mathbf{\text{w}} = \left\langle {-1,-1,2} \right\rangle.$$</p>
+      </problem>
+      <solution>
+        <p>$$\mathbf{\text{w}} = \left\langle {w_{3} - 1,w_{3} + 1,w_{3}} \right\rangle,$$ where $$w_{3}$$ is any real number</p>
+      </solution>
+    </exercise>
+    <exercise number="234" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>Solve the equation $$\mathbf{\text{w}}\ \times \ \left\langle {1,0,-1} \right\rangle = \left\langle {3,0,3} \right\rangle,$$ where $$\mathbf{\text{w}} = \left\langle {w_{1},w_{2},w_{3}} \right\rangle$$ is a nonzero vector with a magnitude of $$3.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="235" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>[T] A mechanic uses a 12-in. wrench to turn a bolt. The wrench makes a $$30\text{°}$$ angle with the horizontal. If the mechanic applies a vertical force of $$10$$ lb on the wrench handle, what is the magnitude of the torque at point $$P$$ (see the following figure)? Express the answer in foot-pounds rounded to two decimal places.</p>
+      </problem>
+      <solution>
+        <p>8.66 ft-lb</p>
+      </solution>
+    </exercise>
+    <exercise number="236" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>[T] A boy applies the brakes on a bicycle by applying a downward force of $$20$$ lb on the pedal when the 6-in. crank makes a $$40\text{°}$$ angle with the horizontal (see the following figure). Find the torque at point $$P.$$ Express your answer in foot-pounds rounded to two decimal places.</p>
+      </problem>
+    </exercise>
+    <exercise number="237" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>[T] Find the magnitude of the force that needs to be applied to the end of a 20-cm wrench located on the positive direction of the y-axis if the force is applied in the direction $$\left\langle {0,1,-2} \right\rangle$$ and it produces a $$100$$ N·m torque to the bolt located at the origin.</p>
+      </problem>
+      <solution>
+        <p>559 N</p>
+      </solution>
+    </exercise>
+    <exercise number="238" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>[T] What is the magnitude of the force required to be applied to the end of a 1-ft wrench at an angle of $$35\text{°}$$ to produce a torque of $$20$$ ft-lbs?</p>
+      </problem>
+    </exercise>
+    <exercise number="239" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>[T] The force vector $$\mathbf{\text{F}}$$ acting on a proton with an electric charge of $$1.6\ \times \ 10^{-19}\text{C}$$ (in coulombs) moving in a magnetic field $$\mathbf{\text{B}}$$ where the velocity vector $$\mathbf{\text{v}}$$ is given by $$\mathbf{\text{F}} = 1.6\ \times \ 10^{-19}\left( {\mathbf{\text{v}}\ \times \ \textbf{B}} \right)$$ (here, $$\mathbf{\text{v}}$$ is expressed in meters per second, $$\mathbf{\text{B}}$$ is in tesla [T], and $$\mathbf{\text{F}}$$ is in newtons [N]). Find the force that acts on a proton that moves in the xy-plane at velocity $$\mathbf{\text{v}} = 10^{5}\mathbf{\text{i}} + 10^{5}\mathbf{\text{j}}$$ (in meters per second) in a magnetic field given by $$\textbf{B} = 0.3\mathbf{\text{j}}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\mathbf{\text{F}} = 4.8\ \times \ 10^{-15}\mathbf{\text{k}}\ \textbf{N}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="240" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>[T] The force vector $$\mathbf{\text{F}}$$ acting on a proton with an electric charge of $$1.6\ \times \ 10^{-19}\text{C}$$ moving in a magnetic field $$\mathbf{\text{B}}$$ where the velocity vector v is given by $$\mathbf{\text{F}} = 1.6\ \times \ 10^{-19}\left( {\mathbf{\text{v}}\ \times \ \textbf{B}} \right)$$ (here, $$\mathbf{\text{v}}$$ is expressed in meters per second, $$\mathbf{\text{B}}$$ in $$\text{T},$$ and $$\mathbf{\text{F}}$$ in $$\text{N}).$$ If the magnitude of force $$\mathbf{\text{F}}$$ acting on a proton is $$5.9\ \times \ 10^{-17}$$ N and the proton is moving at the speed of 300 m/sec in magnetic field $$\mathbf{\text{B}}$$ of magnitude 2.4 T, find the angle between velocity vector $$\mathbf{\text{v}}$$ of the proton and magnetic field $$\mathbf{\text{B}}.$$ Express the answer in degrees rounded to the nearest integer.</p>
+      </problem>
+    </exercise>
+    <exercise number="241" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>[T] Consider $$\textbf{r}(t) = \left\langle {\text{cos}\ t,\text{sin}\ t,2t} \right\rangle$$ the position vector of a particle at time $$t \in \lbrack 0,30\rbrack,$$ where the components of $$\mathbf{\text{r}}$$ are expressed in centimeters and time in seconds. Let $$\overset{\rightarrow}{OP}$$ be the position vector of the particle after $$1$$ sec.</p>
+        <list type="ol" style="a">
+          <item>Determine unit vector $$\textbf{B}(t)$$ (called the binormal unit vector) that has the direction of cross product vector $$\mathbf{\text{v}}(t)\ \times \ \textbf{a}(t),$$ where $$\mathbf{\text{v}}(t)$$ and $$\mathbf{\text{a}}(t)$$ are the instantaneous velocity vector and, respectively, the acceleration vector of the particle after $$t$$ seconds.</item>
+          <item>Use a CAS to visualize vectors $$\mathbf{\text{v}}(1),$$ $$\mathbf{\text{a}}(1),$$ and $$\textbf{B}(1)$$ as vectors starting at point $$P$$ along with the path of the particle.</item>
+        </list>
+      </problem>
+      <solution>
+        <p>a. $$\textbf{B}(t) = \left\langle {\frac{2\ \text{sin}\ t}{\sqrt{5}}, - \frac{2\ \text{cos}\ t}{\sqrt{5}},\frac{1}{\sqrt{5}}} \right\rangle;$$
+b.</p>
+      </solution>
+    </exercise>
+    <exercise number="242" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, vectors $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}$$ are given. a. Find the triple scalar product $$\mathbf{\text{u}} \cdot (\mathbf{\text{v}}\ \times \ \textbf{w}).$$ b. Find the volume of the parallelepiped with the adjacent edges $$\mathbf{\text{u}},\mathbf{\text{v}},\text{and}\ \mathbf{\text{w}}.$$</instruction>
+        <p>A solar panel is mounted on the roof of a house. The panel may be regarded as positioned at the points of coordinates (in meters) $$A(8,0,0),$$ $$B(8,18,0),$$ $$C(0,18,8),$$ and $$D(0,0,8)$$ (see the following figure).</p>
+        <list type="ol" style="a">
+          <item>Find vector $$\textbf{n} = \overset{\rightarrow}{AB}\ \times \ \overset{\rightarrow}{AD}$$ perpendicular to the surface of the solar panels. Express the answer using standard unit vectors.</item>
+          <item>Assume unit vector $$\textbf{s} = \frac{1}{\sqrt{3}}\mathbf{\text{i}} + \frac{1}{\sqrt{3}}\mathbf{\text{j}} + \frac{1}{\sqrt{3}}\mathbf{\text{k}}$$ points toward the Sun at a particular time of the day and the flow of solar energy is $$\mathbf{\text{F}} = 900\textbf{s}$$ (in watts per square meter [$$\text{W/m}^{2}$$]). Find the predicted amount of electrical power the panel can produce, which is given by the dot product of vectors $$\mathbf{\text{F}}$$ and $$\mathbf{\text{n}}$$ (expressed in watts).</item>
+          <item>Determine the angle of elevation of the Sun above the solar panel. Express the answer in degrees rounded to the nearest whole number. (Hint: The angle between vectors $$\mathbf{\text{n}}$$ and $$\mathbf{\text{s}}$$ and the angle of elevation are complementary.)</item>
+        </list>
+      </problem>
+    </exercise>
+  </exercises>
+</section>

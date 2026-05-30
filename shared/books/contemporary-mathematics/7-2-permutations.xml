@@ -1,0 +1,245 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="7.2" title="Permutations">
+  <image alt="Three swimmers are racing in separate lanes in a swimming pool. The swimmer in the top lane is in first place, the swimmer in the bottom lane is in second place, and the swimmer in the middle lane is in third place." number="7.7" caption="We can use permutations to calculate the number of different orders of finish in an Olympic swimming heat. (credit: “London 2012 Olympics Park Stratford London” by Gary Bembridge/Flickr, CC BY 2.0)" />
+  <subsection title="Learning Objectives">
+    <p>After completing this section, you should be able to:</p>
+    <list type="ol" style="1">
+      <item>Use the Multiplication Rule for Counting to determine the number of permutations.</item>
+      <item>Compute expressions containing factorials.</item>
+      <item>Compute permutations.</item>
+      <item>Apply permutations to solve problems.</item>
+    </list>
+  </subsection>
+  <subsection title="Applying the Multiplication Rule for Counting to Permutations">
+    <p>In the case of the swimming finals, one possible permutation of length 3 would be the list of medal winners (first, second, and third place finishers). A permutation of length 8 would be the full order of finish (first place through eighth place). Let’s use the Multiplication Rule for Counting to figure out how many of each of these permutations there are.</p>
+    <example number="7.4">
+      <problem>
+        <p>The final heat of Olympic swimming events features 8 swimmers (or teams of swimmers).</p>
+        <list type="ol" style="1">
+          <item>How many different podium placements (first place, second place, and third place) are possible?</item>
+          <item>How many different complete orders of finish (first place through eighth place) are possible?</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="1">
+          <item>Let’s start with the first place finisher. How many options are there? Since 8 swimmers are competing, there are 8 possibilities. Once that first swimmer completes the race, there are 7 swimmers left competing for second place. After the second finisher is decided, there are 6 swimmers remaining who could possibly finish in third place. Thus, there are 8 possibilities for first place, 7 for second place, and 6 for third place. The Multiplication Rule for Counting then tells us there are $$8 \times 7 \times 6 = 336$$ different ways the winners’ podium can be filled out.</item>
+          <item>To look at the complete order of finish, we can continue the pattern we can see in part 1 of this example: There are 5 possibilities for fourth place, 4 for fifth place, 3 for sixth place, 2 for seventh place, and then just 1 swimmer is left to finish in eighth place. Using the Multiplication Rule for Counting, we see that there are $$8 \times 7 \times 6 \times 5 \times 4 \times 3 \times 2 \times 1 = 40,320$$ possible orders of finish.</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="7.4">
+      <p>You have a hand of 5 cards (that happen to create what’s called a royal flush in the game of poker): 10$$\spadesuit$$, J$$\spadesuit$$, Q$$\spadesuit$$, K$$\spadesuit$$, and A$$\spadesuit$$. Into how many different orders can you put those cards?</p>
+    </note>
+  </subsection>
+  <subsection title="Factorials">
+    <p>The pattern we see in Example 7.4 occurs commonly enough that we have a name for it: factorial. For any positive whole number $$n$$, we define the factorial of $$n$$ (denoted $$n!$$ and read "$$n$$ factorial") to be the product of every whole number less than or equal to $$n$$. We also define 0! to be equal to one. We will use factorials in a couple of different contexts, so let's get some practice doing computations with them.</p>
+    <example number="7.5">
+      <problem>
+        <p>Compute the following:</p>
+        <list type="ol" style="1">
+          <item>$$4!$$</item>
+          <item>$$\frac{8!}{6!}$$</item>
+          <item>$$\frac{9!}{3!4!}$$</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="1">
+          <item>$$4! = 4 \times \text{3} \times \text{2} \times 1 = 24$$</item>
+          <item>There are two ways to approach this calculation. The first way is to compute the factorials first, then divide:<equation>$$\frac{8!}{6!} = \frac{8 \times 7 \times 6 \times 5 \times 4 \times 3 \times 2 \times 1}{6 \times 5 \times 4 \times 3 \times 2 \times 1} = \frac{40,320}{720} = 56$$</equation>
+            <p>However, there is an easier way! You may notice in the second step that there are several terms that can be canceled; that’s always the case whenever we divide factorials. In this case, notice that we can rewrite the numerator like this:</p>
+            <equation>$$8! = 8 \times 7 \times (6 \times 5 \times 4 \times 3 \times 2 \times 1) = 8 \times 7 \times 6!$$</equation>
+            <p>With that in mind, we can proceed this way by canceling out the 6!:</p>
+            <equation>$$\frac{8!}{6!} = \frac{8 \times 7 \times 6!}{6!} = 8 \times 7 = 56$$</equation>
+            <p>That’s much easier!</p>
+          </item>
+          <item>Let’s approach this one using our canceling technique. When we see two factorials in either the numerator or denominator, we should focus on the larger one first. So:<equation>$$\frac{9!}{3!4!} = \frac{9 \times 8 \times 7 \times 6 \times 5 \times \mathbf{4}!}{3!\mathbf{4}!} = \frac{9 \times 8 \times 7 \times \mathbf{6} \times 5}{\mathbf{3} \times \mathbf{2} \times \mathbf{1}} = 9 \times 8 \times 7 \times 5 = 2,520$$</equation>
+          </item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="7.5">
+      <p>$$6!$$</p>
+      <p>$$\frac{12!}{10!}$$</p>
+      <p>$$\frac{8!}{4!4!}$$</p>
+    </note>
+  </subsection>
+  <subsection title="Permutations">
+    <p>As we’ve seen, factorials can pop up when we’re computing permutations. In fact, there is a formula that we can use to make that connection explicit. Let’s define some notation first. If we have a collection of $$n$$ objects and we wish to create an ordered list of $$r$$ of the objects (where $$1 \leq r \leq n$$), we’ll call the number of those permutations $${}_{n}P_{r}$$ (read “the number of permutations of $$n$$ objects taken $$r$$ at a time”). We formalize the formula we'll use to compute permutations below.</p>
+    <note type="FORMULA">
+      <p>$${}_{n}P_{r} = \frac{n!}{(n - r)!}$$</p>
+    </note>
+    <p>If you wondered why we defined $$0! = 1$$ earlier, it was to make formulas like this one work; if we have $$n$$ objects and want to order all of them (so, we want the number of permutations of $$n$$ objects taken $$n$$ at a time), we get $${}_{n}P_{n} = \frac{n!}{(n - n)!} = \frac{n!}{0!} = \frac{n!}{1} = n!$$. Next, we’ll get some practice computing these permutations.</p>
+    <example number="7.6">
+      <problem>
+        <p>Find the following numbers:</p>
+        <list type="ol" style="1">
+          <item>The number of permutations of 12 objects taken 3 at a time</item>
+          <item>The number of permutations of 8 objects taken 5 at a time</item>
+          <item>The number of permutations of 32 objects taken 2 at a time</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="1">
+          <item>
+            <equation>$${}_{12}P_{3} = \frac{12!}{(12 - 3)!} = \frac{12!}{9!} = \frac{12 \times 11 \times 10 \times 9!}{9!} = 12 \times 11 \times 10 = 1,320$$</equation>
+          </item>
+          <item>
+            <equation>$${}_{8}P_{5} = \frac{8!}{(8 - 5)!} = \frac{8 \times 7 \times 6 \times 5 \times 4 \times 3!}{3!} = 8 \times 7 \times 6 \times 5 \times 4 = 6,720$$</equation>
+          </item>
+          <item>
+            <equation>$${}_{32}P_{2} = \frac{32!}{(32 - 2)!} = \frac{32 \times 31 \times 30!}{30!} = 32 \times 31 = 992$$</equation>
+          </item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="7.6">
+      <p>The number of permutations of 6 objects taken 2 at a time</p>
+      <p>The number of permutations of 14 objects taken 4 at a time</p>
+      <p>The number of permutations of 19 objects taken 3 at a time</p>
+    </note>
+    <example number="7.7">
+      <problem>
+        <list type="ol" style="1">
+          <item>A high school graduating class has 312 students. The top student is declared valedictorian, and the second-best is named salutatorian. How many possible outcomes are there for the valedictorian and salutatorian?</item>
+          <item>In the card game blackjack, the dealer’s hand of 2 cards is dealt with 1 card faceup and 1 card facedown. If the game is being played with a single deck of (52) cards, how many possible hands could the dealer get?</item>
+          <item>The University Combinatorics Club has 3 officers: president, vice president, and treasurer. If there are 18 members of the club, how many ways are there to fill the officer positions?</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol" style="1">
+          <item>This is the number of permutations of 312 students taken 2 at a time, and $${}_{312}P_{2} = 97,032$$.</item>
+          <item>We want the number of permutations of 52 cards taken 2 at a time, and $${}_{52}P_{2} = 2,652$$.</item>
+          <item>Here we’re looking for the number of permutations of 18 members taken 3 at a time, and $${}_{18}P_{3} = 4,896$$.</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="7.7">
+      <p>One of the big draws at this year’s state fair is the pig race. There are 15 entrants, and prizes are given to the top three finishers. How many different combinations of top-three finishes could there be?</p>
+    </note>
+    <note type="Who Knew?">
+      <p>Permutations involving relatively small sets of objects can get very big, very quickly. A standard deck contains 52 cards. So, the number of different ways to shuffle the cards—in other words, the number of permutations of 52 objects taken 52 at a time—is $$52! \approx 8 \times 10^{67}$$ (written out, that’s an 8 followed by 67 zeroes). The estimated age of the universe is only about $$4 \times 10^{17}$$ seconds. So, if a very bored all-powerful being started shuffling cards at the instant the universe began, it would have to have averaged at least $$\frac{8 \times 10^{67}}{4 \times 10^{17}} \approx 2 \times 10^{50}$$ shuffles per second since the beginning of time to have covered every possible arrangement of a deck of cards. That means the next time you pick up a deck of cards and give it a good shuffle, it’s almost certain that the particular arrangement you created has never been created before and likely never will be created again.</p>
+    </note>
+  </subsection>
+  <subsection title="Check Your Understanding">
+    <p>Compute 5!.</p>
+    <p>Compute $$\frac{10!}{7!3!}$$.</p>
+    <p>Compute $$_{12}P_{3}$$.</p>
+    <p>Compute $$_{8}P_{4}$$.</p>
+    <p>The standard American edition of the board game Monopoly has a deck of 15 orange Chance cards. In how many different ways could the first 4 Chance cards drawn in a game appear?</p>
+  </subsection>
+  <exercises title="Section 7.2 Exercises">
+    <instruction>For the following exercises, give a whole number that’s equal to the given expression.</instruction>
+    <exercise number="1" has_solution="false">
+      <problem>
+        <p>3!</p>
+      </problem>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <p>9!</p>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="false">
+      <problem>
+        <p>$$\frac{7!}{2!2!3!}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <p>$$\frac{8!}{5!2!}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="5" has_solution="false">
+      <problem>
+        <p>$$\frac{21!}{18!2!}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <p>$$\frac{28!}{26!2!}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="7" has_solution="false">
+      <problem>
+        <p>$$\frac{34!}{30!3!}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <p>$$\frac{17!}{12!5!}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="9" has_solution="false">
+      <problem>
+        <p>$$_{4}P_{3}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <p>$$_{7}P_{5}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="11" has_solution="false">
+      <problem>
+        <p>$$_{12}P_{10}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <p>$$_{14}P_{10}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="13" has_solution="false">
+      <problem>
+        <p>$$_{10}P_{8}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <p>$$_{15}P_{11}$$</p>
+      </problem>
+    </exercise>
+    <instruction>The following exercises are about the card game euchre, which uses a partial standard deck of cards: It only has the cards with ranks 9, 10, J, Q, K, and A for a total of 24 cards. Some variations of the game use the 8s or the 7s and 8s, but we’ll stick with the 24-card version.</instruction>
+    <exercise number="15" has_solution="false">
+      <problem>
+        <p>A euchre hand contains 5 cards. How many ways are there to receive a 5-card hand (where the order in which the cards are received matters, i.e., 9$$\heartsuit$$, J$$\heartsuit$$, $$\text{K}\clubsuit$$, $$9\spadesuit$$, $$10\spadesuit$$ is different from  $$9\spadesuit$$ J$$\heartsuit$$, 9$$\heartsuit$$, $$\text{K}\clubsuit$$, $$10\spadesuit$$?</p>
+      </problem>
+    </exercise>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <p>After all 4 players get their hands, the remaining 4 cards are placed facedown in the center of the table. How many arrangements of 4 cards are there from this deck?</p>
+      </problem>
+    </exercise>
+    <exercise number="17" has_solution="false">
+      <problem>
+        <p>Euchre is played with partners. How many ways are there for 2 partners to receive 5-card hands (where the order in which the cards are received matters)?</p>
+      </problem>
+    </exercise>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <p>How many different arrangements of the full euchre deck are possible (i.e., how many different shuffles are there)?</p>
+      </problem>
+    </exercise>
+    <instruction>The following exercises involve a horse race with 13 entrants.</instruction>
+    <exercise number="19" has_solution="false">
+      <problem>
+        <p>How many possible complete orders of finish are there?</p>
+      </problem>
+    </exercise>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <p>An exacta bet is one where the player tries to predict the top two finishers in order. How many possible exacta bets are there for this race?</p>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="false">
+      <problem>
+        <p>A trifecta bet is one where the player tries to predict the top three finishers in order. How many possible trifecta bets are there for this race?</p>
+      </problem>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <p>A superfecta bet is one where the player tries to predict the top four  finishers in order. How many possible superfecta bets are there for this race?</p>
+      </problem>
+    </exercise>
+  </exercises>
+</section>

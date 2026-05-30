@@ -1,0 +1,650 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="3.6" title="Numerical Integration">
+  <learning_objectives>
+    <objective number="3.6.1">Approximate the value of a definite integral by using the midpoint and trapezoidal rules.</objective>
+    <objective number="3.6.2">Determine the absolute and relative error in using a numerical integration technique.</objective>
+    <objective number="3.6.3">Estimate the absolute and relative error using an error-bound formula.</objective>
+    <objective number="3.6.4">Recognize when the midpoint and trapezoidal rules over- or underestimate the true value of an integral.</objective>
+    <objective number="3.6.5">Use Simpson’s rule to approximate the value of a definite integral to a given accuracy.</objective>
+  </learning_objectives>
+  <p>The antiderivatives of many functions either cannot be expressed or cannot be expressed easily in closed form (that is, in terms of known functions). Consequently, rather than evaluate definite integrals of these functions directly, we resort to various techniques of numerical integration to approximate their values. In this section we explore several of these techniques. In addition, we examine the process of estimating the error in using these techniques.</p>
+  <subsection title="The Midpoint Rule">
+    <p>Earlier in this text we defined the definite integral of a function over an interval as the limit of Riemann sums. In general, any Riemann sum of a function $$f(x)$$ over an interval $$\lbrack a,b\rbrack$$ may be viewed as an estimate of $${\int_{a}^{b}{f(x)dx}}.$$ Recall that a Riemann sum of a function $$f(x)$$ over an interval $$\lbrack a,b\rbrack$$ is obtained by selecting a partition</p>
+    <equation>$$P = \left\{ {x_{0},x_{1},x_{2}\text{,…},x_{n}} \right\},\ \text{where}\ a = x_{0} &lt; x_{1} &lt; x_{2} &lt; \cdots &lt; x_{n} = b$$</equation>
+    <p>and a set</p>
+    <equation>$$S = \left\{ {x_{1}^{*},x_{2}^{*}\text{,…},x_{n}^{*}} \right\},\ \text{where}\ x_{i - 1} \leq x_{i}^{*} \leq x_{i}\ \text{for all}\ i.$$</equation>
+    <p>The Riemann sum corresponding to the partition $$P$$ and the set $$S$$ is given by $${\sum\limits_{i = 1}^{n}{f(x_{i}^{*})\text{Δ}x_{i}}},$$ where $$\text{Δ}x_{i} = x_{i} - x_{i - 1},$$ the length of the ith subinterval.</p>
+    <p>The midpoint rule for estimating a definite integral uses a Riemann sum with subintervals of equal width and the midpoints, $$m_{i},$$ of each subinterval in place of $$x_{i}^{*}.$$ Formally, we state a theorem regarding the convergence of the midpoint rule as follows.</p>
+    <theorem number="3.3" title="The Midpoint Rule">
+      <p>Assume that $$f(x)$$ is continuous on $$\left\lbrack {a,b} \right\rbrack.$$ Let n be a positive integer and $$\text{Δ}x = \frac{b - a}{n}.$$ If $$\left\lbrack {a,b} \right\rbrack$$ is divided into $$n$$ subintervals, each of length $$\text{Δ}x,$$ and $$m_{i}$$ is the midpoint of the ith subinterval, set</p>
+      <equation>$$M_{n} = \sum\limits_{i = 1}^{n}f\left( m_{i} \right)\text{Δ}x.$$</equation>
+      <p>Then $$\underset{n\rightarrow\infty}{\text{lim}}M_{n} = {\int_{a}^{b}{f(x)dx}}.$$</p>
+    </theorem>
+    <p>As we can see in Figure 3.13, if $$f(x) \geq 0$$ over $$\lbrack a,b\rbrack,$$ then $$\sum\limits_{i = 1}^{n}f(m_{i})\text{Δ}x$$ corresponds to the sum of the areas of rectangles approximating the area between the graph of $$f(x)$$ and the x-axis over $$\left\lbrack {a,b} \right\rbrack.$$ The graph shows the rectangles corresponding to $$M_{4}$$ for a nonnegative function over a closed interval $$\lbrack a,b\rbrack.$$</p>
+    <image alt="This figure is a graph of a non-negative function in the first quadrant. The function increases and decreases. The quadrant is divided into a grid. Beginning on the x-axis at the point labeled a = x sub 0, there are rectangles shaded whose heights are approximately the height of the curve. The x-axis is scaled by increments of msub1, x sub 1, m sub 2, x sub 2, m sub 3, x sub 3, m sub 4 and b = x sub 4." number="3.13" caption="The midpoint rule approximates the area between the graph of $$f(x)$$ and the x-axis by summing the areas of rectangles with midpoints that are points on $$f(x).$$" />
+    <example number="3.39">
+      <problem>
+        <title>Using the Midpoint Rule withM4M4</title>
+        <p>Use the midpoint rule to estimate $$\int_{0}^{1}{x^{2}dx}$$ using four subintervals. Compare the result with the actual value of this integral.</p>
+      </problem>
+      <solution>
+        <p>Each subinterval has length $$\text{Δ}x = \frac{1 - 0}{4} = \frac{1}{4}.$$ Therefore, the subintervals consist of</p>
+        <equation>$$\left\lbrack {0,\frac{1}{4}} \right\rbrack,\left\lbrack {\frac{1}{4},\frac{1}{2}} \right\rbrack,\left\lbrack {\frac{1}{2},\frac{3}{4}} \right\rbrack,\ \text{and}\ \left\lbrack {\frac{3}{4},1} \right\rbrack.$$</equation>
+        <p>The midpoints of these subintervals are $$\left\{ {\frac{1}{8},\frac{3}{8},\frac{5}{8},\frac{7}{8}} \right\}.$$ Thus,</p>
+        <equation>$$M_{4} = \frac{1}{4}f\left( \frac{1}{8} \right) + \frac{1}{4}f\left( \frac{3}{8} \right) + \frac{1}{4}f\left( \frac{5}{8} \right) + \frac{1}{4}f\left( \frac{7}{8} \right) = \frac{1}{4} \cdot \frac{1}{64} + \frac{1}{4} \cdot \frac{9}{64} + \frac{1}{4} \cdot \frac{25}{64} + \frac{1}{4} \cdot \frac{49}{64} = \frac{21}{64}.$$</equation>
+        <p>Since</p>
+        <equation>$${\int_{0}^{1}{x^{2}dx = \frac{1}{3}}}\ \text{and}\ \left| {\frac{1}{3} - \frac{21}{64}} \right| = \frac{1}{192} \approx 0.0052,$$</equation>
+        <p>we see that the midpoint rule produces an estimate that is somewhat close to the actual value of the definite integral.</p>
+      </solution>
+    </example>
+    <example number="3.40">
+      <problem>
+        <title>Using the Midpoint Rule withM6M6</title>
+        <p>Use $$M_{6}$$ to estimate the length of the curve $$y = \frac{1}{2}x^{2}$$ on $$\lbrack 1,4\rbrack.$$</p>
+      </problem>
+      <solution>
+        <p>The length of $$y = \frac{1}{2}x^{2}$$ on $$\lbrack 1,4\rbrack$$ is</p>
+        <equation>$${\int_{1}^{4}{\sqrt{1 + \left( \frac{dy}{dx} \right)^{2}}\mspace{2mu} dx}}.$$</equation>
+        <p>Since $$\frac{dy}{dx} = x,$$ this integral becomes $${\int_{1}^{4}{\sqrt{1 + x^{2}}\mspace{2mu} dx}}.$$</p>
+        <p>If $$\lbrack 1,4\rbrack$$ is divided into six subintervals, then each subinterval has length $$\text{Δ}x = \frac{4 - 1}{6} = \frac{1}{2}$$ and the midpoints of the subintervals are $$\left\{ {\frac{5}{4},\frac{7}{4},\frac{9}{4},\frac{11}{4},\frac{13}{4},\frac{15}{4}} \right\}.$$ If we set $$f(x) = \sqrt{1 + x^{2}},$$</p>
+        <equation>$$\begin{array}{cl} M_{6} &amp; {= \frac{1}{2}f\left( \frac{5}{4} \right) + \frac{1}{2}f\left( \frac{7}{4} \right) + \frac{1}{2}f\left( \frac{9}{4} \right) + \frac{1}{2}f\left( \frac{11}{4} \right) + \frac{1}{2}f\left( \frac{13}{4} \right) + \frac{1}{2}f\left( \frac{15}{4} \right)} \\ &amp; {\approx \frac{1}{2}\left( {1.6008 + 2.0156 + 2.4622 + 2.9262 + 3.4004 + 3.8810} \right) = 8.1431.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="3.22">
+      <problem>
+        <p>Use the midpoint rule with $$n = 2$$ to estimate $${\int_{1}^{2}{\frac{1}{x}dx}}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{24}{35}$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="The Trapezoidal Rule">
+    <p>We can also approximate the value of a definite integral by using trapezoids rather than rectangles. In Figure 3.14, the area beneath the curve is approximated by trapezoids rather than by rectangles.</p>
+    <image alt="This figure is a graph of a non-negative function in the first quadrant. The function increases and decreases. The quadrant is divided into a grid. Beginning on the x-axis at the point labeled a = x sub 0, there are trapezoids shaded whose heights are approximately the height of the curve. The x-axis is scaled by increments of a = x sub 0, x sub 1, x sub 2, x sub 3, and b = x sub 4." number="3.14" caption="Trapezoids may be used to approximate the area under a curve, hence approximating the definite integral." />
+    <p>The trapezoidal rule for estimating definite integrals uses trapezoids rather than rectangles to approximate the area under a curve. To gain insight into the final form of the rule, consider the trapezoids shown in Figure 3.14. We assume that the length of each subinterval is given by $$\text{Δ}x.$$ First, recall that the area of a trapezoid with a height of h and bases of length $$b_{1}$$ and $$b_{2}$$ is given by $$\text{Area} = \frac{1}{2}h(b_{1} + b_{2}).$$ We see that the first trapezoid has a height $$\text{Δ}x$$ and parallel bases of length $$f(x_{0})$$ and $$f(x_{1}).$$ Thus, the area of the first trapezoid in Figure 3.14 is</p>
+    <equation>$$\frac{1}{2}\text{Δ}x(f(x_{0}) + f(x_{1})).$$</equation>
+    <p>The areas of the remaining three trapezoids are</p>
+    <equation>$$\frac{1}{2}\text{Δ}x(f(x_{1}) + f(x_{2})),\frac{1}{2}\text{Δ}x(f(x_{2}) + f(x_{3})),\text{and}\ \frac{1}{2}\text{Δ}x(f(x_{3}) + f(x_{4})).$$</equation>
+    <p>Consequently,</p>
+    <equation>$${\int_{a}^{b}{f(x)dx \approx \frac{1}{2}\text{Δ}x(f(x_{0}) + f(x_{1})) + \frac{1}{2}\text{Δ}x(f(x_{1}) + f(x_{2})) + \frac{1}{2}\text{Δ}x(f(x_{2}) + f(x_{3})) + \frac{1}{2}\text{Δ}x(f(x_{3}) + f(x_{4}))}}.$$</equation>
+    <p>After taking out a common factor of $$\frac{1}{2}\text{Δ}x$$ and combining like terms, we have</p>
+    <equation>$$\int_{a}^{b}{f(x)dx \approx \frac{1}{2}\text{Δ}x\left( {f(x_{0}) + 2f\left( x_{1} \right) + 2f(x_{2}) + 2f\left( x_{3} \right) + f(x_{4})} \right).}$$</equation>
+    <p>Generalizing, we formally state the following rule.</p>
+    <theorem number="3.4" title="The Trapezoidal Rule">
+      <p>Assume that $$f(x)$$ is continuous over $$\left\lbrack {a,b} \right\rbrack.$$ Let n be a positive integer and $$\text{Δ}x = \frac{b - a}{n}.$$ Let $$\left\lbrack {a,b} \right\rbrack$$ be divided into $$n$$ subintervals, each of length $$\text{Δ}x,$$ with endpoints at $$P = \left\{ x_{0},x_{1},x_{2}\text{…},x_{n} \right\}.$$ Set</p>
+      <equation>$$T_{n} = \frac{1}{2}\text{Δ}x\left( {f(x_{0}) + 2f\left( x_{1} \right) + 2f(x_{2}) + \cdots + 2f\left( x_{n - 1} \right) + f(x_{n})} \right).$$</equation>
+      <p>Then, $$\underset{n\rightarrow\text{+}\infty}{\text{lim}}T_{n} = {\int_{a}^{b}{f(x)dx}}.$$</p>
+    </theorem>
+    <p>Before continuing, let’s make a few observations about the trapezoidal rule. First of all, it is useful to note that</p>
+    <equation>$$T_{n} = \frac{1}{2}\left( {L_{n} + R_{n}} \right)\ \text{where}\ L_{n} = \sum\limits_{i = 1}^{n}f(x_{i - 1})\text{Δ}x\ \text{and}\ R_{n} = \sum\limits_{i = 1}^{n}f(x_{i})\text{Δ}x.$$</equation>
+    <p>That is, $$L_{n}$$ and $$R_{n}$$ approximate the integral using the left-hand and right-hand endpoints of each subinterval, respectively. In addition, a careful examination of Figure 3.15 leads us to make the following observations about using the trapezoidal rules and midpoint rules to estimate the definite integral of a nonnegative function. The trapezoidal rule tends to overestimate the value of a definite integral systematically over intervals where the function is concave up and to underestimate the value of a definite integral systematically over intervals where the function is concave down. On the other hand, the midpoint rule tends to average out these errors somewhat by partially overestimating and partially underestimating the value of the definite integral over these same types of intervals. This leads us to hypothesize that, in general, the midpoint rule tends to be more accurate than the trapezoidal rule.</p>
+    <image alt="This figure has two graphs, both of the same non-negative function in the first quadrant. The function increases and decreases. The quadrant is divided into a grid. The first graph, beginning on the x-axis at the point labeled a = x sub 0, there are trapezoids shaded whose heights are approximately the height of the curve. The x-axis is scaled by increments of a = x sub 0, xsub1, x sub 2, x sub 3, and b = x sub 4. The second graph has on the x-axis at the point labeled a = x sub 0. There are rectangles shaded whose heights are approximately the height of the curve. The x-axis is scaled by increments of m sub 1, x sub 1, m sub 2, x sub 2, m sub 3, x sub 3, m sub 4 and b = x sub 4." number="3.15" caption="The trapezoidal rule tends to be less accurate than the midpoint rule." />
+    <example number="3.41">
+      <problem>
+        <title>Using the Trapezoidal Rule</title>
+        <p>Use the trapezoidal rule to estimate $$\int_{0}^{1}{x^{2}dx}$$ using four subintervals.</p>
+      </problem>
+      <solution>
+        <p>The endpoints of the subintervals consist of elements of the set $$P = \left\{ {0,\frac{1}{4},\frac{1}{2},\frac{3}{4},1} \right\}$$ and $$\text{Δ}x = \frac{1 - 0}{4} = \frac{1}{4}.$$ Thus,</p>
+        <equation>$$\begin{array}{cl} {\int_{0}^{1}{x^{2}dx}} &amp; {\approx \frac{1}{2} \cdot \frac{1}{4}\left( {f(0) + 2f\left( \frac{1}{4} \right) + 2f\left( \frac{1}{2} \right) + 2f\left( \frac{3}{4} \right) + f(1)} \right)} \\ &amp; {= \frac{1}{8}\left( {0 + 2 \cdot \frac{1}{16} + 2 \cdot \frac{1}{4} + 2 \cdot \frac{9}{16} + 1} \right)} \\ &amp; {= \frac{11}{32}.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="3.23">
+      <problem>
+        <p>Use the trapezoidal rule with $$n = 2$$ to estimate $${\int_{1}^{2}{\frac{1}{x}dx}}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{17}{24}$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="Absolute and Relative Error">
+    <p>An important aspect of using these numerical approximation rules consists of calculating the error in using them for estimating the value of a definite integral. We first need to define absolute error and relative error.</p>
+    <note type="Definition">
+      <p>If $$B$$ is our estimate of some quantity having an actual value of $$A,$$ then the absolute error is given by $$\left| {A - B} \right|.$$ The relative error is the error as a percentage of the absolute value and is given by $$\left| \frac{A - B}{A} \right| = \left| \frac{A - B}{A} \right| \cdot 100\text{\%}.$$</p>
+    </note>
+    <example number="3.42">
+      <problem>
+        <title>Calculating Error in the Midpoint Rule</title>
+        <p>Calculate the absolute and relative error in the estimate of $$\int_{0}^{1}{x^{2}dx}$$ using the midpoint rule, found in Example 3.39.</p>
+      </problem>
+      <solution>
+        <p>The calculated value is $$\int_{0}^{1}{x^{2}dx = \frac{1}{3}}$$ and our estimate from the example is $$M_{4} = \frac{21}{64}.$$ Thus, the absolute error is given by $$\left| {\left( \frac{1}{3} \right) - \left( \frac{21}{64} \right)} \right| = \frac{1}{192} \approx 0.0052.$$ The relative error is</p>
+        <equation>$$\frac{1\text{/}192}{1\text{/}3} = \frac{1}{64} \approx 0.015625 \approx 1.6\text{\%}.$$</equation>
+      </solution>
+    </example>
+    <example number="3.43">
+      <problem>
+        <title>Calculating Error in the Trapezoidal Rule</title>
+        <p>Calculate the absolute and relative error in the estimate of $$\int_{0}^{1}{x^{2}dx}$$ using the trapezoidal rule, found in Example 3.41.</p>
+      </problem>
+      <solution>
+        <p>The calculated value is $$\int_{0}^{1}{x^{2}dx = \frac{1}{3}}$$ and our estimate from the example is $$T_{4} = \frac{11}{32}.$$ Thus, the absolute error is given by $$\left| {\frac{1}{3} - \frac{11}{32}} \right| = \frac{1}{96} \approx 0.0104.$$ The relative error is given by</p>
+        <equation>$$\frac{1\text{/}96}{1\text{/}3} = 0.03125 \approx 3.1\text{\%}.$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="3.24">
+      <problem>
+        <p>In an earlier checkpoint, we estimated $$\int_{1}^{2}{\frac{1}{x}dx}$$ to be $$\frac{24}{35}$$ using $$T_{2}.$$ The actual value of this integral is $$\text{ln}\mspace{2mu} 2.$$ Using $$\frac{24}{35} \approx 0.6857$$ and $$\text{ln}\mspace{2mu} 2 \approx 0.6931,$$ calculate the absolute error and the relative error.</p>
+      </problem>
+      <solution>
+        <p>0.0074, 1.1%</p>
+      </solution>
+    </checkpoint>
+    <p>In the two previous examples, we were able to compare our estimate of an integral with the actual value of the integral; however, we do not typically have this luxury. In general, if we are approximating an integral, we are doing so because we cannot compute the exact value of the integral itself easily. Therefore, it is often helpful to be able to determine an upper bound for the error in an approximation of an integral. The following theorem provides error bounds for the midpoint and trapezoidal rules. The theorem is stated without proof.</p>
+    <theorem number="3.5" title="Error Bounds for the Midpoint and Trapezoidal Rules">
+      <p>Let $$f(x)$$ be a continuous function over $$\left\lbrack {a,b} \right\rbrack,$$ having a second derivative $$f^{''}(x)$$ over this interval. If $$M$$ is the maximum value of $$\left| {f^{''}(x)} \right|$$ over $$\lbrack a,b\rbrack,$$ then the upper bounds for the error in using $$M_{n}$$ and $$T_{n}$$ to estimate $$\int_{a}^{b}{f(x)dx}$$ are</p>
+      <equation>$$\text{Error in}\ M_{n} \leq \frac{M\left( {b - a} \right)^{3}}{24n^{2}}$$</equation>
+      <p>and</p>
+      <equation>$$\text{Error in}\ T_{n} \leq \frac{M{(b - a)}^{3}}{12n^{2}}.$$</equation>
+    </theorem>
+    <p>We can use these bounds to determine the value of $$n$$ necessary to guarantee that the error in an estimate is less than a specified value.</p>
+    <example number="3.44">
+      <problem>
+        <title>Determining the Number of Intervals to Use</title>
+        <p>What value of $$n$$ should be used to guarantee that an estimate of $$\int_{0}^{1}{e^{x^{2}}dx}$$ is accurate to within 0.01 if we use the midpoint rule?</p>
+      </problem>
+      <solution>
+        <p>We begin by determining the value of $$M,$$ the maximum value of $$\left| {f^{''}(x)} \right|$$ over $$\lbrack 0,1\rbrack$$ for $$f(x) = e^{x^{2}}.$$ Since $$f^{\prime}(x) = 2xe^{x^{2}},$$ we have</p>
+        <equation>$$f^{\text{''}}(x) = 2e^{x^{2}} + 4x^{2}e^{x^{2}}.$$</equation>
+        <p>Thus,</p>
+        <equation>$$\left| {f^{''}(x)} \right| = 2e^{x^{2}}\left( {1 + 2x^{2}} \right) \leq 2 \cdot e \cdot 3 = 6e.$$</equation>
+        <p>From the error-bound Equation 3.12, we have</p>
+        <equation>$$\text{Error in}\ M_{n} \leq \frac{M\left( {b - a} \right)^{3}}{24n^{2}} \leq \frac{6e{(1 - 0)}^{3}}{24n^{2}} = \frac{6e}{24n^{2}}.$$</equation>
+        <p>Now we solve the following inequality for $$n\text{:}$$</p>
+        <equation>$$\frac{6e}{24n^{2}} \leq 0.01.$$</equation>
+        <p>Thus, $$n \geq \sqrt{\frac{600e}{24}} \approx 8.24.$$ Since $$n$$ must be an integer satisfying this inequality, a choice of $$n = 9$$ would guarantee that $$\left| {\int_{0}^{1}{e^{x^{2}}dx - M_{n}}} \right| &lt; 0.01.$$</p>
+      </solution>
+    </example>
+    <checkpoint number="3.25">
+      <problem>
+        <p>Use Equation 3.13 to find an upper bound for the error in using $$M_{4}$$ to estimate $${\int_{0}^{1}{x^{2}dx}}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{1}{192}$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="Simpson’s Rule">
+    <p>With the midpoint rule, we estimated areas of regions under curves by using rectangles. In a sense, we approximated the curve with piecewise constant functions. With the trapezoidal rule, we approximated the curve by using piecewise linear functions. What if we were, instead, to approximate a curve using piecewise quadratic functions? With Simpson’s rule, we do just this. We partition the interval into an even number of subintervals, each of equal width. Over the first pair of subintervals we approximate $$\int_{x_{0}}^{x_{2}}{f(x)dx}$$ with $$\int_{x_{0}}^{x_{2}}{p(x)dx,}$$ where $$p(x) = Ax^{2} + Bx + C$$ is the quadratic function passing through $$(x_{0},f\left( x_{0} \right)),$$ $$(x_{1},f\left( x_{1} \right)),$$ and $$(x_{2},f\left( x_{2} \right))$$ (Figure 3.16). Over the next pair of subintervals we approximate $$\int_{x_{2}}^{x_{4}}{f(x)dx}$$ with the integral of another quadratic function passing through $$(x_{2},f\left( x_{2} \right)),$$ $$(x_{3},f\left( x_{3} \right)),$$ and $$(x_{4},f\left( x_{4} \right)).$$ This process is continued with each successive pair of subintervals.</p>
+    <image alt="This figure has two graphs, both of the same non-negative function in the first quadrant. The function increases and decreases. The quadrant is divided into a grid. The first graph, beginning on the x-axis at the point labeled x sub 0, there are trapezoids shaded whose heights are represented by the function p(x), which is a curve following an approximate path of the original graph. The x-axis is scaled by increments of x sub 0, x sub 1, x sub 2. The second graph has on the x-axis at the point labeled x sub 0. There are shaded regions under the curve, divided by x sub 0, x sub 1, x sub 2, x sub 3, and x sub 4. The curve is sectioned into two different parts above the shaded areas. These two parts are labeled p sub 1(x) and p sub 2(x)." number="3.16" caption="With Simpson’s rule, we approximate a definite integral by integrating a piecewise quadratic function." />
+    <p>To understand the formula that we obtain for Simpson’s rule, we begin by deriving a formula for this approximation over the first two subintervals. As we go through the derivation, we need to keep in mind the following relationships:</p>
+    <equation>$$\begin{array}{l} {f\left( x_{0} \right) = p\left( x_{0} \right) = Ax_{0}{}^{2} + Bx_{0} + C} \\ {f\left( x_{1} \right) = p\left( x_{1} \right) = Ax_{1}{}^{2} + Bx_{1} + C} \\ {f\left( x_{2} \right) = p\left( x_{2} \right) = Ax_{2}{}^{2} + Bx_{2} + C} \end{array}$$</equation>
+    <p>$$x_{2} - x_{0} = 2\text{Δ}x,$$ where $$\text{Δ}x$$ is the length of a subinterval.</p>
+    <equation>$$x_{2} + x_{0} = 2x_{1},\ \text{since}\ x_{1} = \frac{(x_{2} + x_{0})}{2}.$$</equation>
+    <p>Thus,</p>
+    <equation>$$\begin{matrix} {\int_{x_{0}}^{x_{2}}{f(x)dx}} &amp; {\approx {\int_{x_{0}}^{x_{2}}{p(x)dx}}} &amp; &amp; &amp; \\ &amp; {= {\int_{x_{0}}^{x_{2}}{(Ax^{2} + Bx + C)dx}}} &amp; &amp; &amp; \\ &amp; {= \frac{A}{3}x^{3} + \frac{B}{2}x^{2} + Cx\left| \begin{matrix} {}^{x_{2}} \\ {}_{x_{0}} \end{matrix} \right.} &amp; &amp; &amp; \text{Find the antiderivative.} \\ &amp; {= \frac{A}{3}\left( {x_{2}{}^{3} - x_{0}{}^{3}} \right) + \frac{B}{2}\left( {x_{2}{}^{2} - x_{0}{}^{2}} \right) + C(x_{2} - x_{0})} &amp; &amp; &amp; \text{Evaluate the antiderivative.} \\ &amp; {= \frac{A}{3}\left( {x_{2} - x_{0}} \right)\left( {x_{2}{}^{2} + x_{2}x_{0} + x_{0}{}^{2}} \right)} &amp; &amp; &amp; \\ &amp; {+ \frac{B}{2}\left( {x_{2} - x_{0}} \right)\left( {x_{2} + x_{0}} \right) + C(x_{2} - x_{0})} &amp; &amp; &amp; \\ &amp; {= \frac{x_{2} - x_{0}}{6}\left( {2A\left( {x_{2}{}^{2} + x_{2}x_{0} + x_{0}{}^{2}} \right) + 3B(x_{2} + x_{0}) + 6C} \right)} &amp; &amp; &amp; {\text{Factor out}\ \frac{x_{2} - x_{0}}{6}.} \\ &amp; {= \frac{\text{Δ}x}{3}\left( {\left( {Ax_{2}{}^{2} + Bx_{2} + C} \right) + (Ax_{0}{}^{2} + Bx_{0} + C} \right)} &amp; &amp; &amp; \\ &amp; {+ A\left( {x_{2}{}^{2} + 2x_{2}x_{0} + x_{0}{}^{2}} \right) + 2B\left( {x_{2} + x_{0}} \right) + 4C)} &amp; &amp; &amp; \\ &amp; {= \frac{\text{Δ}x}{3}\left( {f\left( x_{2} \right) + f\left( x_{0} \right) + A\left( {x_{2} + x_{0}} \right)^{2} + 2B\left( {x_{2} + x_{0}} \right) + 4C} \right)} &amp; &amp; &amp; \text{Rearrange the terms.} \\ &amp; &amp; &amp; &amp; \begin{array}{l} \text{Factor and substitute.} \\ {f\left( x_{2} \right) = Ax_{2}{}^{2} + Bx_{2} + C\ \text{and}} \\ {f\left( x_{0} \right) = Ax_{0}{}^{2} + Bx_{0} + C.} \end{array} \\ &amp; {= \frac{\text{Δ}x}{3}\left( {f\left( x_{2} \right) + f\left( x_{0} \right) + A\left( {2x_{1}} \right)^{2} + 2B\left( {2x_{1}} \right) + 4C} \right)} &amp; &amp; &amp; {\text{Substitute}\ x_{2} + x_{0} = 2x_{1}.} \\ &amp; {= \frac{\text{Δ}x}{3}\left( {f\left( x_{2} \right) + 4f\left( x_{1} \right) + f\left( x_{0} \right)} \right).} &amp; &amp; &amp; \begin{array}{l} \text{Expand and substitute} \\ {f\left( x_{1} \right) = Ax_{1}{}^{2} + Bx_{1}\text{+}C.} \end{array} \end{matrix}$$</equation>
+    <p>If we approximate $$\int_{x_{2}}^{x_{4}}{f(x)dx}$$ using the same method, we see that we have</p>
+    <equation>$$\int_{x_{2}}^{x_{4}}{f(x)dx \approx \frac{\text{Δ}x}{3}\left( {f\left( x_{4} \right) + 4f\left( x_{3} \right) + f\left( x_{2} \right)} \right).}$$</equation>
+    <p>Combining these two approximations, we get</p>
+    <equation>$$\int_{x_{2}}^{x_{4}}{f(x)dx = \frac{\text{Δ}x}{3}\left( {f\left( x_{0} \right) + 4f\left( x_{1} \right) + 2f\left( x_{2} \right) + 4f\left( x_{3} \right) + f\left( x_{4} \right)} \right).}$$</equation>
+    <p>The pattern continues as we add pairs of subintervals to our approximation. The general rule may be stated as follows.</p>
+    <theorem number="3.6" title="Simpson’s Rule">
+      <p>Assume that $$f(x)$$ is continuous over $$\left\lbrack {a,b} \right\rbrack.$$ Let n be a positive even integer and $$\text{Δ}x = \frac{b - a}{n}.$$ Let $$\left\lbrack {a,b} \right\rbrack$$ be divided into $$n$$ subintervals, each of length $$\text{Δ}x,$$ with endpoints at $$P = \left\{ x_{0},x_{1},x_{2}\text{,…},x_{n} \right\}.$$ Set</p>
+      <equation>$$S_{n} = \frac{\text{Δ}x}{3}\left( {f\left( x_{0} \right) + 4f\left( x_{1} \right) + 2f\left( x_{2} \right) + 4f\left( x_{3} \right) + 2f\left( x_{4} \right) + \cdots + 2f\left( x_{n - 2} \right) + 4f\left( x_{n - 1} \right) + f\left( x_{n} \right)} \right).$$</equation>
+      <p>Then,</p>
+      <equation>$$\underset{n\rightarrow\text{+}\infty}{\text{lim}}S_{n} = {\int_{a}^{b}{f(x)dx.}}$$</equation>
+    </theorem>
+    <p>Just as the trapezoidal rule is the average of the left-hand and right-hand rules for estimating definite integrals, Simpson’s rule may be obtained from the midpoint and trapezoidal rules by using a weighted average. It can be shown that $$S_{2n} = \left( \frac{2}{3} \right)M_{n} + \left( \frac{1}{3} \right)T_{n}.$$</p>
+    <p>It is also possible to put a bound on the error when using Simpson’s rule to approximate a definite integral. The bound in the error is given by the following rule:</p>
+    <note type="Rule" title="Error Bound for Simpson’s Rule">
+      <p>Let $$f(x)$$ be a continuous function over $$\lbrack a,b\rbrack$$ having a fourth derivative, $$f^{(4)}(x),$$ over this interval. If $$M$$ is the maximum value of $$\left| {f^{(4)}(x)} \right|$$ over $$\lbrack a,b\rbrack,$$ then the upper bound for the error in using $$S_{n}$$ to estimate $$\int_{a}^{b}{f(x)dx}$$ is given by</p>
+      <equation>$$\text{Error in}\ S_{n} \leq \frac{M{(b - a)}^{5}}{180n^{4}}.$$</equation>
+    </note>
+    <example number="3.45">
+      <problem>
+        <title>Applying Simpson’s Rule 1</title>
+        <p>Use $$S_{2}$$ to approximate $${\int_{0}^{1}{x^{3}dx}}.$$ Estimate a bound for the error in $$S_{2}.$$</p>
+      </problem>
+      <solution>
+        <p>Since $$\lbrack 0,1\rbrack$$ is divided into two intervals, each subinterval has length $$\text{Δ}x = \frac{1 - 0}{2} = \frac{1}{2}.$$ The endpoints of these subintervals are $$\left\{ {0,\frac{1}{2},1} \right\}.$$ If we set $$f(x) = x^{3},$$ then</p>
+        <p>$$S_{4} = \frac{1}{3} \cdot \frac{1}{2}\left( {f(0) + 4f\left( \frac{1}{2} \right) + f(1)} \right) = \frac{1}{6}\left( {0 + 4 \cdot \frac{1}{8} + 1} \right) = \frac{1}{4}.$$ Since $$f^{(4)}(x) = 0$$ and consequently $$M = 0,$$ we see that</p>
+        <equation>$$\text{Error in}\ S_{2} \leq \frac{0{(1)}^{5}}{180 \cdot 2^{4}} = 0.$$</equation>
+        <p>This bound indicates that the value obtained through Simpson’s rule is exact. A quick check will verify that, in fact, $${\int_{0}^{1}{x^{3}dx = \frac{1}{4}}}.$$</p>
+      </solution>
+    </example>
+    <example number="3.46">
+      <problem>
+        <title>Applying Simpson’s Rule 2</title>
+        <p>Use $$S_{6}$$ to estimate the length of the curve $$y = \frac{1}{2}x^{2}$$ over $$\lbrack 1,4\rbrack.$$</p>
+      </problem>
+      <solution>
+        <p>The length of $$y = \frac{1}{2}x^{2}$$ over $$\lbrack 1,4\rbrack$$ is $${\int_{1}^{4}{\sqrt{1 + x^{2}}\mspace{2mu} dx}}.$$ If we divide $$\lbrack 1,4\rbrack$$ into six subintervals, then each subinterval has length $$\text{Δ}x = \frac{4 - 1}{6} = \frac{1}{2},$$ and the endpoints of the subintervals are $$\left\{ {1,\frac{3}{2},2,\frac{5}{2},3,\frac{7}{2},4} \right\}.$$ Setting $$f(x) = \sqrt{1 + x^{2}},$$</p>
+        <equation>$$S_{6} = \frac{1}{3} \cdot \frac{1}{2}\left( {f(1) + 4f\left( \frac{3}{2} \right) + 2f(2) + 4f\left( \frac{5}{2} \right) + 2f(3) + 4f\left( \frac{7}{2} \right) + f(4)} \right).$$</equation>
+        <p>After substituting, we have</p>
+        <equation>$$\begin{array}{cl} S_{6} &amp; {= \frac{1}{6}\left( {1.4142 + 4 \cdot 1.80278 + 2 \cdot 2.23607 + 4 \cdot 2.69258 + 2 \cdot 3.16228 + 4 \cdot 3.64005 + 4.12311} \right)} \\ &amp; {\approx 8.14594.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="3.26">
+      <problem>
+        <p>Use $$S_{2}$$ to estimate $${\int_{1}^{2}{\frac{1}{x}dx}}.$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{25}{36}$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <exercises title="Section 3.6 Exercises">
+    <exercise number="299" has_solution="true">
+      <problem>
+        <instruction>Approximate the following integrals using either the midpoint rule, trapezoidal rule, or Simpson’s rule as indicated. (Round answers to three decimal places.)</instruction>
+        <p>$${\int_{1}^{2}\frac{dx}{x}};$$ trapezoidal rule; $$n = 5$$</p>
+      </problem>
+      <solution>
+        <p>0.696</p>
+      </solution>
+    </exercise>
+    <exercise number="300" has_solution="false">
+      <problem>
+        <instruction>Approximate the following integrals using either the midpoint rule, trapezoidal rule, or Simpson’s rule as indicated. (Round answers to three decimal places.)</instruction>
+        <p>$${\int_{0}^{3}{\sqrt{4 + x^{3}}\mspace{2mu} dx}};$$ trapezoidal rule; $$n = 6$$</p>
+      </problem>
+    </exercise>
+    <exercise number="301" has_solution="true">
+      <problem>
+        <instruction>Approximate the following integrals using either the midpoint rule, trapezoidal rule, or Simpson’s rule as indicated. (Round answers to three decimal places.)</instruction>
+        <p>$${\int_{0}^{3}{\sqrt{4 + x^{3}}\mspace{2mu} dx}};$$ trapezoidal rule; $$n = 3$$</p>
+      </problem>
+      <solution>
+        <p>9.484</p>
+      </solution>
+    </exercise>
+    <exercise number="302" has_solution="false">
+      <problem>
+        <instruction>Approximate the following integrals using either the midpoint rule, trapezoidal rule, or Simpson’s rule as indicated. (Round answers to three decimal places.)</instruction>
+        <p>$${\int_{0}^{12}{x^{2}dx}};$$ midpoint rule; $$n = 6$$</p>
+      </problem>
+    </exercise>
+    <exercise number="303" has_solution="true">
+      <problem>
+        <instruction>Approximate the following integrals using either the midpoint rule, trapezoidal rule, or Simpson’s rule as indicated. (Round answers to three decimal places.)</instruction>
+        <p>$${\int_{0}^{1}{\text{sin}^{2}\left( {\pi x} \right)dx}};$$ midpoint rule; $$n = 3$$</p>
+      </problem>
+      <solution>
+        <p>0.5000</p>
+      </solution>
+    </exercise>
+    <exercise number="304" has_solution="false">
+      <problem>
+        <instruction>Approximate the following integrals using either the midpoint rule, trapezoidal rule, or Simpson’s rule as indicated. (Round answers to three decimal places.)</instruction>
+        <p>Use the midpoint rule with eight subdivisions to estimate $${\int_{2}^{4}{x^{2}dx}}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="305" has_solution="true">
+      <problem>
+        <instruction>Approximate the following integrals using either the midpoint rule, trapezoidal rule, or Simpson’s rule as indicated. (Round answers to three decimal places.)</instruction>
+        <p>Use the trapezoidal rule with four subdivisions to estimate $${\int_{2}^{4}{x^{2}dx}}.$$</p>
+      </problem>
+      <solution>
+        <p>$$T_{4} = 18.75$$</p>
+      </solution>
+    </exercise>
+    <exercise number="306" has_solution="false">
+      <problem>
+        <instruction>Approximate the following integrals using either the midpoint rule, trapezoidal rule, or Simpson’s rule as indicated. (Round answers to three decimal places.)</instruction>
+        <p>Find the exact value of $${\int_{2}^{4}{x^{2}dx}}.$$ Find the error of approximation between the exact value and the value calculated using the trapezoidal rule with four subdivisions. Draw a graph to illustrate.</p>
+      </problem>
+    </exercise>
+    <exercise number="307" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>$${\int_{0}^{1}{\text{sin}^{2}\left( {\pi x} \right)dx}};$$ trapezoidal rule; $$n = 6$$</p>
+      </problem>
+      <solution>
+        <p>0.500</p>
+      </solution>
+    </exercise>
+    <exercise number="308" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>$${\int_{0}^{3}{\frac{1}{1 + x^{3}}dx}};$$ trapezoidal rule; $$n = 6$$</p>
+      </problem>
+    </exercise>
+    <exercise number="309" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>$${\int_{0}^{3}{\frac{1}{1 + x^{3}}dx}};$$ trapezoidal rule; $$n = 3$$</p>
+      </problem>
+      <solution>
+        <p>1.129</p>
+      </solution>
+    </exercise>
+    <exercise number="310" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>$${\int_{0}^{0.8}{e^{\text{−}x^{2}}dx}};$$ trapezoidal rule; $$n = 4$$</p>
+      </problem>
+    </exercise>
+    <exercise number="311" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>$${\int_{0}^{0.8}{e^{\text{−}x^{2}}dx}};$$ Simpson’s rule; $$n = 4$$</p>
+      </problem>
+      <solution>
+        <p>0.6577</p>
+      </solution>
+    </exercise>
+    <exercise number="312" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>$${\int_{0}^{0.4}{\text{sin}(x^{2})dx}};$$ trapezoidal rule; $$n = 4$$</p>
+      </problem>
+    </exercise>
+    <exercise number="313" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>$${\int_{0}^{0.4}{\text{sin}(x^{2})dx}};$$ Simpson’s rule; $$n = 4$$</p>
+      </problem>
+      <solution>
+        <p>0.0213</p>
+      </solution>
+    </exercise>
+    <exercise number="314" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>$${\int_{0.1}^{0.5}{\frac{\text{cos}\mspace{2mu} x}{x}dx}};$$ trapezoidal rule; $$n = 4$$</p>
+      </problem>
+    </exercise>
+    <exercise number="315" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>$${\int_{0.1}^{0.5}{\frac{\text{cos}\mspace{2mu} x}{x}dx}};$$ Simpson’s rule; $$n = 4$$</p>
+      </problem>
+      <solution>
+        <p>1.5629</p>
+      </solution>
+    </exercise>
+    <exercise number="316" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Evaluate $$\int_{0}^{1}\frac{dx}{1 + x^{2}}$$ exactly and show that the result is $${\pi\text{/}4}.$$ Then, find the approximate value of the integral using the trapezoidal rule with $$n = 4$$ subdivisions. Use the result to approximate the value of $$\pi.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="317" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Approximate $$\int_{2}^{4}{\frac{1}{\text{ln}\mspace{2mu} x}dx}$$ using the midpoint rule with four subdivisions to four decimal places.</p>
+      </problem>
+      <solution>
+        <p>1.9133</p>
+      </solution>
+    </exercise>
+    <exercise number="318" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Approximate $$\int_{2}^{4}{\frac{1}{\text{ln}\mspace{2mu} x}dx}$$ using the trapezoidal rule with eight subdivisions to four decimal places.</p>
+      </problem>
+    </exercise>
+    <exercise number="319" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Use the trapezoidal rule with four subdivisions to estimate $$\int_{0}^{0.8}{x^{3}dx}$$ to four decimal places.</p>
+      </problem>
+      <solution>
+        <p>$$\text{T(4)} = 0.1088$$</p>
+      </solution>
+    </exercise>
+    <exercise number="320" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Use the trapezoidal rule with four subdivisions to estimate $${\int_{0}^{0.8}{x^{3}dx}}.$$ Compare this value with the exact value and find the error estimate.</p>
+      </problem>
+    </exercise>
+    <exercise number="321" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Using Simpson’s rule with four subdivisions, find $${\int_{0}^{\pi\text{/}2}{\text{cos}(x)dx}}.$$</p>
+      </problem>
+      <solution>
+        <p>1.0</p>
+      </solution>
+    </exercise>
+    <exercise number="322" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Show that the exact value of $$\int_{0}^{1}{xe^{\text{−}x}dx = 1 - \frac{2}{e}.}$$ Find the absolute error if you approximate the integral using the midpoint rule with 16 subdivisions.</p>
+      </problem>
+    </exercise>
+    <exercise number="323" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Given $$\int_{0}^{1}{xe^{\text{−}x}dx = 1 - \frac{2}{e},}$$ use the trapezoidal rule with 16 subdivisions to approximate the integral and find the absolute error.</p>
+      </problem>
+      <solution>
+        <p>Approximate error is 0.000325.</p>
+      </solution>
+    </exercise>
+    <exercise number="324" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Find an upper bound for the error in estimating $$\int_{0}^{3}{(5x + 4)dx}$$ using the trapezoidal rule with six steps.</p>
+      </problem>
+    </exercise>
+    <exercise number="325" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Find an upper bound for the error in estimating $$\int_{4}^{5}{\frac{1}{\left( {x - 1} \right)^{2}}dx}$$ using the trapezoidal rule with seven subdivisions.</p>
+      </problem>
+      <solution>
+        <p>$$\frac{1}{7938}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="326" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Find an upper bound for the error in estimating $$\int_{0}^{3}{(6x^{2} - 1)dx}$$ using Simpson’s rule with $$n = 10$$ steps.</p>
+      </problem>
+    </exercise>
+    <exercise number="327" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Find an upper bound for the error in estimating $$\int_{2}^{5}{\frac{1}{x - 1}dx}$$ using Simpson’s rule with $$n = 10$$ steps.</p>
+      </problem>
+      <solution>
+        <p>$$\frac{81}{25,000}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="328" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Find an upper bound for the error in estimating $$\int_{0}^{\pi}{2x\mspace{2mu}\text{cos}(x)dx}$$ using Simpson’s rule with four steps.</p>
+      </problem>
+    </exercise>
+    <exercise number="329" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Estimate the minimum number of subintervals needed to approximate the integral $$\int_{1}^{4}{\left( {5x^{2} + 8} \right)dx}$$ with an error magnitude of less than 0.0001 using the trapezoidal rule.</p>
+      </problem>
+      <solution>
+        <p>475</p>
+      </solution>
+    </exercise>
+    <exercise number="330" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Determine a value of n such that the trapezoidal rule will approximate $$\int_{0}^{1}{\sqrt{1 + x^{2}}\mspace{2mu} dx}$$ with an error of no more than 0.01.</p>
+      </problem>
+    </exercise>
+    <exercise number="331" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Estimate the minimum number of subintervals needed to approximate the integral $$\int_{2}^{3}{\left( {2x^{3} + 4x} \right)dx}$$ with an error of magnitude less than 0.0001 using the trapezoidal rule.</p>
+      </problem>
+      <solution>
+        <p>174</p>
+      </solution>
+    </exercise>
+    <exercise number="332" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Estimate the minimum number of subintervals needed to approximate the integral $$\int_{3}^{4}{\frac{1}{{(x - 1)}^{2}}dx}$$ with an error magnitude of less than 0.0001 using the trapezoidal rule.</p>
+      </problem>
+    </exercise>
+    <exercise number="333" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Use Simpson’s rule with four subdivisions to approximate the area under the probability density function $$y = \frac{1}{\sqrt{2\pi}}e^{{\text{−}x^{2}}\text{/}2}$$ from $$x = 0$$ to $$x = 0.4.$$</p>
+      </problem>
+      <solution>
+        <p>0.1544</p>
+      </solution>
+    </exercise>
+    <exercise number="334" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Use Simpson’s rule with $$n = 14$$ to approximate (to three decimal places) the area of the region bounded by the graphs of $$y = 0,$$ $$x = 0,$$ and $$x = {\pi\text{/}2}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="335" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>The length of one arch of the curve $$y = 3\mspace{2mu}\text{sin}(2x)$$ is given by $$L = {\int_{0}^{\pi\text{/}2}{\sqrt{1 + 36\mspace{2mu}\text{cos}^{2}(2x)}\mspace{2mu} dx}}.$$ Estimate L using the trapezoidal rule with $$n = 6.$$</p>
+      </problem>
+      <solution>
+        <p>6.2807</p>
+      </solution>
+    </exercise>
+    <exercise number="336" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>The length of the ellipse $$x = a\mspace{2mu}\text{cos}(t),y = b\mspace{2mu}\text{sin}(t),0 \leq t \leq 2\pi$$ is given by $$L = 4a{\int_{0}^{\pi\text{/}2}{\sqrt{1 - e^{2}\text{cos}^{2}(t)}\mspace{2mu} dt}},$$ where e is the eccentricity of the ellipse. Use Simpson’s rule with $$n = 6$$ subdivisions to estimate the length of the ellipse when $$a = 2$$ and $$e = 1\text{/}3.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="337" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Estimate the area of the surface generated by revolving the curve $$y = \text{cos}(2x),0 \leq x \leq \frac{\pi}{4}$$ about the x-axis. Use the trapezoidal rule with six subdivisions.</p>
+      </problem>
+      <solution>
+        <p>4.606</p>
+      </solution>
+    </exercise>
+    <exercise number="338" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Estimate the area of the surface generated by revolving the curve $$y = 2x^{2},$$ $$0 \leq x \leq 3$$ about the x-axis. Use Simpson’s rule with $$n = 6.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="339" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>The growth rate of a certain tree (in feet) is given by $$y = \frac{2}{t + 1} + e^{\text{−}t^{2}\text{/}2},$$ where t is time in years. Estimate the growth of the tree through the end of the second year by using Simpson’s rule, using two subintervals. (Round the answer to the nearest hundredth.)</p>
+      </problem>
+      <solution>
+        <p>3.41 ft</p>
+      </solution>
+    </exercise>
+    <exercise number="340" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>[T] Use a calculator to approximate $$\int_{0}^{1}{\text{sin}\left( {\pi x} \right)dx}$$ using the midpoint rule with 25 subdivisions. Compute the relative error of approximation.</p>
+      </problem>
+    </exercise>
+    <exercise number="341" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>[T] Given $${\int_{1}^{5}{\left( {3x^{2} - 2x} \right)dx}} = 100,$$ approximate the value of this integral using the trapezoidal rule with 16 subdivisions and determine the absolute error.</p>
+      </problem>
+      <solution>
+        <p>$$T_{16} = 100.125;$$ absolute error = 0.125</p>
+      </solution>
+    </exercise>
+    <exercise number="342" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Given that we know the Fundamental Theorem of Calculus, why would we want to develop numerical methods for definite integrals?</p>
+      </problem>
+    </exercise>
+    <exercise number="343" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>The table represents the coordinates $$\left( {x, y} \right)$$ that give the boundary of a lot. The units of measurement are meters. Use the trapezoidal rule to estimate the number of square meters of land that is in this lot.</p>
+        <table summary="This is a table with four columns and seven rows. The first row is a header row and is labeled “x,” “y,” “x,” “y.” The entries under the first column are 0, 100, 200, 300, 400, and 500. The entries in the second column are 125, 125, 120, 112, 90, and 90. The entries in the third column are 600, 700, 800, 900, 1000, and blank. The entries in the fourth column are 95, 88, 75, 35, 0, and blank.">
+          <thead>
+            <row>
+              <cell>x</cell>
+              <cell>y</cell>
+              <cell>x</cell>
+              <cell>y</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>0</cell>
+              <cell>125</cell>
+              <cell>600</cell>
+              <cell>95</cell>
+            </row>
+            <row>
+              <cell>100</cell>
+              <cell>125</cell>
+              <cell>700</cell>
+              <cell>88</cell>
+            </row>
+            <row>
+              <cell>200</cell>
+              <cell>120</cell>
+              <cell>800</cell>
+              <cell>75</cell>
+            </row>
+            <row>
+              <cell>300</cell>
+              <cell>112</cell>
+              <cell>900</cell>
+              <cell>35</cell>
+            </row>
+            <row>
+              <cell>400</cell>
+              <cell>90</cell>
+              <cell>1000</cell>
+              <cell>0</cell>
+            </row>
+            <row>
+              <cell>500</cell>
+              <cell>90</cell>
+              <cell />
+              <cell />
+            </row>
+          </tbody>
+        </table>
+      </problem>
+      <solution>
+        <p>about 89,250 m2</p>
+      </solution>
+    </exercise>
+    <exercise number="344" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>Choose the correct answer. When Simpson’s rule is used to approximate the definite integral, it is necessary that the number of partitions be____</p>
+        <list type="ol" style="a">
+          <item>an even number</item>
+          <item>odd number</item>
+          <item>either an even or an odd number</item>
+          <item>a multiple of 4</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="345" has_solution="true">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>The “Simpson” sum is based on the area under a ____.</p>
+      </problem>
+      <solution>
+        <p>parabola</p>
+      </solution>
+    </exercise>
+    <exercise number="346" has_solution="false">
+      <problem>
+        <instruction>Approximate the integral to three decimal places using the indicated rule.</instruction>
+        <p>The error formula for Simpson’s rule depends on___.</p>
+        <list type="ol" style="a">
+          <item>$$f(x)$$</item>
+          <item>$$f^{\prime}(x)$$</item>
+          <item>$$f^{(4)}(x)$$</item>
+          <item>the number of steps</item>
+        </list>
+      </problem>
+    </exercise>
+  </exercises>
+</section>

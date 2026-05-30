@@ -1,0 +1,311 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="3.7" title="Clock Arithmetic">
+  <image alt="Three hands are shown. Two are working on a single laptop while a third holds a credit card." number="3.40" caption="If a credit card number is entered incorrectly, error checking algorithms will often catch the mistake. (credit: modification of work “Senior couple at home checking finance on credit card from above” by Nenad Stojkovic/Flickr, CC BY 2.0)" />
+  <subsection title="Learning Objectives">
+    <p>After completing this section, you should be able to:</p>
+    <list type="ol" style="1">
+      <item>Add, subtract, and multiply using clock arithmetic.</item>
+      <item>Apply clock arithmetic to calculate real-world applications.</item>
+    </list>
+  </subsection>
+  <subsection title="Adding, Subtracting, and Multiplying Using Clock Arithmetic">
+    <p>When we do arithmetic, numbers can become larger and larger. But when we work with time, specifically with clocks, the numbers cycle back on themselves. It will never be 49 o’clock. Once 12 o’clock is reached, we go back to 1 and repeat the numbers. If it's 11 AM and someone says, “See you in four hours,” you know that 11 AM plus 4 hours is 3 PM, not 15 AM (ignoring military time for now). Math worked on the clock, where numbers restart after passing 12, is called clock arithmetic.</p>
+    <p>Clock arithmetic hinges on the number 12. Each cycle of 12 hours returns to the original time (Figure 3.41). Imagine going around the clock one full time. Twelve hours pass, but the time is the same. So, if it is 3:00, 14 hours later and two hours later both read the same on the clock, 5:00. Adding 14 hours and adding 2 hours are identical. As is adding 26 hours. And adding 38 hours.</p>
+    <image alt="An analog clock with the hour hand pointing to 3. A clockwise arrow around the clock is labeled 12 hours later." number="3.41" caption="Clock showing 3:00 with arrow going around the clock one full time, or 12 hours" />
+    <p>What do 2, 14, 26, and 38 have in common in relation to 12? When they are divided by 12, they each have a remainder of 2. That's the key. When you add a number of hours to a specific time on the clock, first divide the number of hours being added by 12 and determine the remainder. Add that remainder to the time on the clock to know what time it will be.</p>
+    <p>A good visualization is to wrap a number line around the clock, with the 0 at the starting time. Then each time 12 on the number line passes, the number line passes the starting spot on the clock. This is referred to as modulo 12 arithmetic. Even though the process says to divide the number being added by 12, first perform the addition; the result will be the same if you add the numbers first, and then divide by 12 and determine the remainder.</p>
+    <p>In general terms, let $$n$$ be a positive integer. Then $$n$$ modulo 12, written ($$n$$ mod 12), is the remainder when $$n$$ is divided by 12. If that remainder is $$x$$, we would write $$n = x$$ (mod 12).</p>
+    <note type="Checkpoint">
+      <p>Caution: 12 mod 12 is 0. So, if a mod 12 problem ends at 0, that would be 12 on the clock.</p>
+    </note>
+    <example number="3.101">
+      <problem>
+        <p>Find the value of the following numbers modulo 12:</p>
+        <list type="ol" style="1">
+          <item>34</item>
+          <item>539</item>
+          <item>156</item>
+        </list>
+      </problem>
+      <solution>
+        <p>To determine the value of a number modulo 12, divide the number by 12 and record the remainder.</p>
+        <list type="ol" style="1">
+          <item>To find the value 34 modulo 12:<p>Step 1: Determine the remainder when 34 is divided by 12 using long division. The largest multiple of 12 that is less than or equal to 34 is 24, which is the product of 12 and 2.</p>
+            <equation>$$\begin{matrix} {12\overset{2}{34}} \\ {\mspace{25mu}\underline{24}} \end{matrix}$$</equation>
+            <p>Step 2: Performing the subtraction yields 10.</p>
+            <equation>$$\begin{matrix} {12\overset{2}{34}} \\ {\mspace{25mu}\underline{24}} \\ {\mspace{25mu} 10} \end{matrix}$$</equation>
+            <p>Since that subtraction resulted in a number less than 12, that is the remainder, 10. The value of 34 modulo 12 is 10, or 34 = 10 (mod 12).</p>
+          </item>
+          <item>To find the value 539 modulo 12:<p>Step 1: Determine the remainder when 539 is divided by 12 using long division. We first look to the first two digits of 539, 53. The largest multiple of 12 that is less than or equal to 53 is 48, which is the product of 12 and 4.</p>
+            <equation>$$\begin{matrix} {12\overset{4}{539}} \\ {\mspace{12mu}\underline{48}} \end{matrix}$$</equation>
+            <p>Step 2: Performing the subtraction results in 5.</p>
+            <equation>$$\begin{matrix} {12\overset{4}{539}} \\ \underset{\mspace{27mu} 5}{\mspace{12mu}\underline{48}} \end{matrix}$$</equation>
+            <p>Step 3: Now, the 9 is brought down.</p>
+            <equation>$$\begin{matrix} {12\overset{4}{539}} \\ \underset{\mspace{43mu} 59}{\mspace{12mu}\underline{48}} \end{matrix}$$</equation>
+            <p>Step 4: The largest multiple of 12 that is less than or equal to 59 is once more 48 itself, which is $$12 \times 4$$.</p>
+            <equation>$$\begin{array}{r} \begin{array}{r} {12\overset{44}{539}} \\ \underset{\mspace{43mu} 59}{\mspace{14mu}\underline{48}} \end{array} \\ \underline{48\mspace{6mu}} \end{array}$$</equation>
+            <p>Step 5: Finishing the process, the 48 is subtracted from the 59, yielding 11.</p>
+            <equation>$$\begin{array}{r} \begin{array}{r} {12\overset{44}{539}} \\ \underset{\mspace{43mu} 59}{\mspace{14mu}\underline{48}} \end{array} \\ \underset{11\mspace{9mu}}{\underline{48\mspace{6mu}}} \end{array}$$</equation>
+            <p>We've used all the digits of 539, and the last subtraction resulted in a number less than 12, so that number, 11, is the remainder. The value of 539 modulo 12 is 11, or, 539 = 11 (mod 12).</p>
+          </item>
+          <item>To find the value 156 modulo 12:<p>Step 1: Determine the remainder when 156 is divided by 12 using long division. We first look to the first two digits of 156, 15. The largest multiple of 12 that is less than or equal to 15 is 12 itself, which is the product of 12 and 1.</p>
+            <equation>$$\begin{matrix} {12\overset{1}{156}} \\ {\mspace{14mu}\underline{12}} \end{matrix}$$</equation>
+            <p>Step 2: Performing the subtraction results in 3.</p>
+            <equation>$$\begin{matrix} {12\overset{1}{156}} \\ {\mspace{23mu}\underset{3}{\underline{12}\mspace{9mu}}} \end{matrix}$$</equation>
+            <p>Step 3: Now, the 6 is brought down.</p>
+            <equation>$$\begin{matrix} {12\overset{1}{156}} \\ {\mspace{32mu}\underset{36}{\underline{12}\mspace{15mu}}} \end{matrix}$$</equation>
+            <p>Step 4: The largest multiple of 12 that is less than or equal to 36 is 36 itself, which is $$12 \times 3$$.</p>
+            <equation>$$\begin{array}{r} \begin{array}{r} {12\overset{13}{156}} \\ {\mspace{24mu}\underset{36}{\underline{12}\mspace{12mu}}} \end{array} \\ {\underline{36}\mspace{9mu}} \end{array}$$</equation>
+            <p>Step 5: Finishing the process, the 36 is subtracted from the 36, yielding 0.</p>
+            <equation>$$\begin{array}{r} \begin{array}{r} {12\overset{13}{156}} \\ {\mspace{14mu}\underset{\mspace{22mu} 36}{\underline{12}}} \end{array} \\ {\underset{0}{\underline{36}}\mspace{9mu}} \end{array}$$</equation>
+          </item>
+        </list>
+        <p>We've used all the digits of 156, and the last subtraction resulted in a number less than 12, so that number, 0, is the remainder. The value of 156 modulo 12 is 0, or, 156 = 0 (mod 12).</p>
+        <p>We should note here that, had we been speaking of time, the 0 would be interpreted as 12:00.</p>
+      </solution>
+    </example>
+    <note type="Your Turn" number="3.101">
+      <p>93</p>
+      <p>387</p>
+    </note>
+    <note type="Tech Check">
+      <p>Desmos may be used to determine the value of a number modulo 12. It is flexible enough to find the value of a number modulo of any other integer you want. To determine the value of $$n$$ modulo 12, type mod($$\mathbf{n}$$,12) into Desmos. The result will be displayed immediately. This can be used to find 539 modulo 12, as shown in the Figure 3.42.</p>
+      <image alt="Desmos screen is displayed. It reads, 539 mod 12 equals 11." number="3.42" caption="Display of 539 modulo 12" />
+      <p>Clock arithmetic is modulo 12 arithmetic but applied to time. As time is divided into 12 hours that repeat a cycle, we use modulo 12 for clock arithmetic.</p>
+    </note>
+    <note type="Video">
+      <p>Clock Arithmetic</p>
+    </note>
+    <example number="3.102">
+      <problem>
+        <p>If it's 3:00, what time will it be in 89 hours?</p>
+      </problem>
+      <solution>
+        <p>To find that future time, we may determine the value of 89 (mod 12), either by long division or by using a calculator, such as Desmos. Then add the result to 3:00. Entering mod(89,12) in Desmos results in 5. Adding 5 hours, which was 89 (mod12), to 3:00 results in 8:00.</p>
+      </solution>
+    </example>
+    <note type="Your Turn" number="3.102">
+      <p>If it is 9:00 now, what time will it be in 43 hours?</p>
+    </note>
+    <p>Subtracting time on the clock works in much the same way as addition. Find the value of the number of hours being subtracted modulo 12, then subtract that from the original time.</p>
+    <example number="3.103">
+      <problem>
+        <p>If it is 4:00 now, what time was it 67 hours ago?</p>
+      </problem>
+      <solution>
+        <p>To find that past time, we may determine the value of 67 (mod 12), either by long division or by using a calculator, such as Desmos. Then subtract the result to 4:00. Entering mod(67,12) in Desmos results in 7. Subtracting 7 hours from 4:00 results in ‒3:00. We know, though, that time is not represented with negative times. This value, ‒3:00, indicates three hours before 12:00, which is 9:00. So, 67 hours before 4:00 was 9:00. We see this in the Figure 3.43.</p>
+        <image alt="An analog clock with the hour hand pointing to 4. A counterclockwise arrow around the clock is labeled negative 7 hours." number="3.43" caption="Clock showing 7 hours subtracted from 4:00" />
+      </solution>
+    </example>
+    <note type="Your Turn" number="3.103">
+      <p>If it is 7:00 now, what time was it 34 hours ago?</p>
+    </note>
+    <p>Recall that clock arithmetic was referred to as modulo 12 arithmetic. Multiplying in modulo 12 also relies on the remainder when dividing by 12. To multiply modulo 12 is just to multiply the two numbers, and then determine the remainder when divided by 12.</p>
+    <example number="3.104">
+      <problem>
+        <p>What is the product of 11 and 45 modulo 12?</p>
+      </problem>
+      <solution>
+        <p>We begin by multiplying 11 and 45, which is 495. Next, we find 495 modulo 12, either by dividing the result by 12 to determine the remainder, or by using a calculator. Entering mod(495,12) in Desmos yields 3. Had long division been used, the remainder would be 3. So $$11 \times 45 = 3$$ modulo 12.</p>
+      </solution>
+    </example>
+    <note type="Your Turn" number="3.104">
+      <p>What is the product of 4 and 19 modulo 12?</p>
+    </note>
+  </subsection>
+  <subsection title="Calculating Real-World Applications with Clock Arithmetic">
+    <example number="3.105">
+      <problem>
+        <p>Suppose it is 3:00, and you decide to check your email every 5 hours. What time will it be when you check your email the ninth time?</p>
+      </problem>
+      <solution>
+        <p>If you check your email every 5 hours nine times, that ninth check will occur 45 hours after 3:00, which is an addition of 45 hours to 3:00. So, we find 45 modulo 12, which is 9. Nine hours after 3:00 is 12:00. It will be 12:00 when you check your email the ninth time.</p>
+      </solution>
+    </example>
+    <note type="Your Turn" number="3.105">
+      <p>You have agreed to text your friend every 3 hours while driving across the country. You began your trip at 8 AM. What time will it be when you text your friend the 15th time?</p>
+    </note>
+    <p>Clock arithmetic processes can be applied to days of the week. Every 7 days the day of the week repeats, much like every 12 hours the time on the clock repeats. The only difference will be that we work with remainders after dividing by 7. In technical terms, this is referred to as modulo 7. More generally, let $$n$$ be a positive integer. Then $$n$$ modulo 7, written $$n$$ mod 7, is the remainder when $$n$$ is divided by 7. If that value is $$x$$, we may write $$n = x$$ (mod 7).</p>
+    <example number="3.106">
+      <problem>
+        <p>Your family has a cat, and no one wants to empty the litter box. However, it has to be done daily. The six of you agree to take turns, so everyone has to empty the litter box every 6 days. You empty the box on a Thursday. What day will you empty the box for the 10th time?</p>
+      </problem>
+      <solution>
+        <p>The first time you emptied the litter box was on a Thursday. So,the 10th time you empty the litter box will be 9 times later (you've already had your first turn, so 9 turns left!). This will happen 54 (9 times 6) days later. Finding the value of 54 modulo 7, using division to determine the remainder or using a calculator to find the value of 54 modulo 7 gives the answer 5. Five days after a Thursday is Tuesday.</p>
+      </solution>
+    </example>
+    <note type="Your Turn" number="3.106">
+      <p>Your family shares the cooking duties in the home. You've agreed to prepare the meal every 5 days. The last time you prepared dinner was a Tuesday. What day of the week will it be after you've prepared the meals 20 more times?</p>
+    </note>
+  </subsection>
+  <subsection title="Check Your Understanding">
+    <p>$$7 + 19$$</p>
+    <p>$$8 - 31$$</p>
+    <p>$$5 \times 37$$</p>
+    <p>Calene calls her mother every fourth day. She calls on a Monday. What day of the week will it be on Calene's eighth time calling after that?</p>
+  </subsection>
+  <exercises title="Section 3.7 Exercises">
+    <exercise number="1" has_solution="false">
+      <problem>
+        <p>Explain what modulo 12 means.</p>
+      </problem>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <p>Explain what modulo 7 means.</p>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="false">
+      <problem>
+        <p>What is 75 modulo 12?</p>
+      </problem>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <p>What is 139 modulo 12?</p>
+      </problem>
+    </exercise>
+    <exercise number="5" has_solution="false">
+      <problem>
+        <p>What is 38 modulo 7?</p>
+      </problem>
+    </exercise>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <p>What is 83 modulo 7?</p>
+      </problem>
+    </exercise>
+    <instruction>For the following exercises, use clock arithmetic (mod 12), to perform the indicated calculation.</instruction>
+    <exercise number="7" has_solution="false">
+      <problem>
+        <p>$$7 + 13$$</p>
+      </problem>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <p>$$8 + 19$$</p>
+      </problem>
+    </exercise>
+    <exercise number="9" has_solution="false">
+      <problem>
+        <p>$$4 + 27$$</p>
+      </problem>
+    </exercise>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <p>$$3 + 100$$</p>
+      </problem>
+    </exercise>
+    <exercise number="11" has_solution="false">
+      <problem>
+        <p>$$9 - 15$$</p>
+      </problem>
+    </exercise>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <p>$$6 - 27$$</p>
+      </problem>
+    </exercise>
+    <exercise number="13" has_solution="false">
+      <problem>
+        <p>$$4 \times 18$$</p>
+      </problem>
+    </exercise>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <p>$$7 \times 29$$</p>
+      </problem>
+    </exercise>
+    <exercise number="15" has_solution="false">
+      <problem>
+        <p>$$11 \times 38$$</p>
+      </problem>
+    </exercise>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <p>$$6 \times 23$$</p>
+      </problem>
+    </exercise>
+    <exercise number="17" has_solution="false">
+      <problem>
+        <p>It is 8:00. What time will it be in 70 hours?</p>
+      </problem>
+    </exercise>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <p>It is a Thursday. What day of the week will it be in 100 days?</p>
+      </problem>
+    </exercise>
+    <exercise number="19" has_solution="false">
+      <problem>
+        <p>It is Monday. What day of the week will it be in 58 days?</p>
+      </problem>
+    </exercise>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <p>It is 3:00. What time of the day will it be in 150 hours?</p>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="false">
+      <problem>
+        <p>It is 6:00. What time was it 34 hours ago?</p>
+      </problem>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <p>It is 2:00. What time was it 100 hours ago?</p>
+      </problem>
+    </exercise>
+    <exercise number="23" has_solution="false">
+      <problem>
+        <p>A trucker passes through Kokomo, Indiana, once every 9 days. They come through Kokomo on a Wednesday. What day of the week will the driver pass through Kokomo after 8 more visits?</p>
+      </problem>
+    </exercise>
+    <exercise number="24" has_solution="false">
+      <problem>
+        <p>Jason checks his email every 5 hours. He checks it at 6 PM one day. What time of the day will it be when he checks his mail the 50th time after that 6 PM check?</p>
+      </problem>
+    </exercise>
+    <exercise number="25" has_solution="false">
+      <problem>
+        <p>Mickey gets a new prescription of a drug that she needs to take every day. The prescription is for 250 days. She takes the first pill of the new bottle on a Friday. What day of the week will her prescription run out?</p>
+      </problem>
+    </exercise>
+    <exercise number="26" has_solution="false">
+      <problem>
+        <p>Zainab visits the nursing home every 5 days. She visits on a Sunday. What day of the week will it be when she visits it for the 7th time after that?</p>
+      </problem>
+    </exercise>
+    <exercise number="27" has_solution="false">
+      <problem>
+        <p>Micaela has to check in with her boss every 14 hours. If she checks in at 3:00, what time will it be when she checks in the 10th time after that?</p>
+      </problem>
+    </exercise>
+    <exercise number="28" has_solution="false">
+      <problem>
+        <p>Tracy has an alarm set for every 4 hours. It goes off at 3:00. What time will it be when the alarm goes off the 20th time after that?</p>
+      </problem>
+    </exercise>
+    <exercise number="29" has_solution="false">
+      <problem>
+        <p>Dejan  must check his blood sugar every 5 hours. He checks his blood sugar at 4:00. What time will it be when Dejan checks their his sugar the 40th time after that?</p>
+      </problem>
+    </exercise>
+    <exercise number="30" has_solution="false">
+      <problem>
+        <p>Latanjana is in the hospital, where her blood pressure is checked every 3 hours. If her blood pressure is checked at 5:00, what time will it be when her blood pressure is checked the 13th time after that?</p>
+      </problem>
+    </exercise>
+    <instruction>Months come in twelves, just as hours do. This means that months can be calculated using modulo 12, just like hours. For the following exercises, calculate what month it will be for each exercise.</instruction>
+    <exercise number="31" has_solution="false">
+      <problem>
+        <p>Micaela works for a sprinkler maintenance company and runs a routine check on the Harris's sprinkler system every third month. If Micaela checks the system in an April, what month will it be when Micaela returns to the Harris's for the 11th time after that?</p>
+      </problem>
+    </exercise>
+    <exercise number="32" has_solution="false">
+      <problem>
+        <p>Dana runs a half marathon every 5 months. She runs one in a May. What month will it be when she runs her 8th marathon after that?</p>
+      </problem>
+    </exercise>
+  </exercises>
+</section>

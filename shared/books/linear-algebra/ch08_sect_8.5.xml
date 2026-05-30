@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch08" chapter_number="8" unit_code="8.5">
+  <section number="8.5" title="Polytopes">
+    <metadata>
+      <source_pages count="6">
+        <page global_index="414" type="content"/>
+        <page global_index="415" type="content"/>
+        <page global_index="416" type="content"/>
+        <page global_index="417" type="content"/>
+        <page global_index="418" type="exercises"/>
+        <page global_index="419" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">8.5 Polytopes</heading>
+      <paragraph>This section studies geometric properties of an important class of compact convex sets called polytopes. These sets arise in all sorts of applications, including game theory, linear programming, and more general optimization problems, such as the design of feedback controls for engineering systems.</paragraph>
+      <paragraph>A polytope in <math display="inline">$\text{ℝ}^{n}$</math> is the convex hull of a finite set of points. In <math display="inline">$\text{ℝ}^{2}$</math>, a polytope is simply a polygon. In <math display="inline">$\text{ℝ}^{3}$</math>, a polytope is called a polyhedron. Important features of a polyhedron are its faces, edges, and vertices. For example, the cube has <math display="inline">$6$</math> square faces, <math display="inline">$12$</math> edges, and <math display="inline">$8$</math> vertices. The following definitions provide terminology for higher dimensions as well as <math display="inline">$\text{ℝ}^{2}$</math> and <math display="inline">$\text{ℝ}^{3}$</math>. Recall that the dimension of a set in <math display="inline">$\text{ℝ}^{n}$</math> is the dimension of the smallest flat that contains it. Also, note that a polytope is a special type of compact convex set, because a finite set in <math display="inline">$\text{ℝ}^{n}$</math> is compact and the convex hull of this set is compact, by the theorem in the topology terms and facts box in Section 8.4.</paragraph>
+      <note type="definition" title="Definition">
+          <heading level="2">Definition</heading>
+              <paragraph>Let <math display="inline">$S$</math> be a compact convex subset of <math display="inline">$\text{ℝ}^{n}$</math>. A nonempty subset <math display="inline">$F$</math> of <math display="inline">$S$</math> is called a (proper) <strong>face</strong> of <math display="inline">$S$</math> if <math display="inline">$F \neq S$</math> and there exists a hyperplane <math display="inline">$H = \lbrack f:d\rbrack$</math> such that <math display="inline">$F = S \cap H$</math> and either <math display="inline">$f(S) \leq d$</math> or <math display="inline">$f(S) \geq d.$</math> The hyperplane <math display="inline">$H$</math> is called a <strong/>supporting hyperplane to <math display="inline">$S$</math>. If the dimension of <math display="inline">$F$</math> is <math display="inline">$k$</math>, then <math display="inline">$F$</math> is called a <math display="inline">$\textit{\textbf{k}}\textbf{-face}$</math> of <math display="inline">$S$</math>.﻿</paragraph>
+              <paragraph>If <math display="inline">$P$</math> is a polytope of dimension <math display="inline">$k$</math>, then <math display="inline">$P$</math> is called a k-polytope. A <math display="inline">$\text{0-face}$</math> of <math display="inline">$P$</math> is called a <strong>vertex</strong> (plural: <strong>vertices</strong>), a <math display="inline">$\text{1-face}$</math> is an edge, and a <math display="inline">$(k - 1)$</math>-dimensional face is a <strong>facet</strong> of <math display="inline">$S$</math>.﻿</paragraph>
+        </note>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Suppose <math display="inline">$S$</math> is a cube in <math display="inline">$\text{ℝ}^{3}$</math>. When a plane <math display="inline">$H$</math> is translated through <math display="inline">$\text{ℝ}^{3}$</math> until it just touches (supports) the cube but does not cut through the interior of the cube, there are three possibilities for <math display="inline">$H \cap S$</math>, depending on the orientation of <math display="inline">$H$</math>. (See <strong>Figure 1</strong>.)</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+      {H \cap S\text{~may~be~a~2-dimensional~square~face~(facet)~of~the~cube}\text{.}} \\
+      {H \cap S\text{~may~be~a~1-dimensional~edge~of~the~cube}\text{.}} \\
+      {H \cap S\text{~may~be~a~0-dimensional~vertex~of~the~cube}\text{.}}
+      \end{array}$$</math></paragraph>
+          <figure caption="Figure 1">
+            <image alt="Three figures show the translation of plane H around a cube S."/>
+          </figure>
+        </example>
+      <paragraph>Most applications of polytopes involve the vertices in some way, because they have a special property that is identified in the following definition.</paragraph>
+      <note type="definition" title="﻿Definition">
+          <heading level="2">﻿Definition</heading>
+              <paragraph>Let <math display="inline">$S$</math> be a convex set. A point <math display="inline">$\textbf{p}$</math> in <math display="inline">$S$</math> is called an extreme point of <math display="inline">$S$</math> if <math display="inline">$\textbf{p}$</math> is not in the interior of any line segment that lies in <math display="inline">$S$</math>. More precisely, if <math display="inline">$\textbf{x}$</math>, <math display="inline">$\textbf{y} \in S$</math> and <math display="inline">$\textbf{p} \in \overset{‾}{\textbf{xy}}$</math>, then <math display="inline">$\textbf{p} = \textbf{x}$</math> or <math display="inline">$\textbf{p} = \textbf{y}$</math>. The set of all extreme points of <math display="inline">$S$</math> is called the <strong>profile</strong> of <math display="inline">$S$</math>.﻿</paragraph>
+        </note>
+      <paragraph>A vertex of any compact convex set <math display="inline">$S$</math> is automatically an extreme point of <math display="inline">$S$</math>. This fact is proved during the proof of <strong>Theorem 14</strong>. In working with a polytope, say <math display="inline">$P = \text{conv}\{\textbf{v}_{1},\ldots,\textbf{v}_{k}\}$</math> for <math display="inline">$\textbf{v}_{1},\ldots,\textbf{v}_{k}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>, it is usually helpful to know that <math display="inline">$\textbf{v}_{1},\ldots,\textbf{v}_{k}$</math> are the extreme points of <math display="inline">$P$</math>. However, such a list might contain extraneous points. For example, some vector <math display="inline">$\textbf{v}_{i}$</math> could be the midpoint of an edge of the polytope. Of course, in this case <math display="inline">$\textbf{v}_{i}$</math> is not really needed to generate the convex hull. The following definition describes the property of the vertices that will make them all extreme points.</paragraph>
+      <note type="definition" title="﻿Definition">
+          <heading level="2">﻿Definition</heading>
+              <paragraph>The set <math display="inline">$\{\textbf{v}_{1},\ldots,\textbf{v}_{k}\}$</math> is a minimal representation of the polytope <math display="inline">$P$</math> if <math display="inline">$P = \text{conv}\{\textbf{v}_{1},\ldots,\textbf{v}_{k}\}$</math> and for each <math display="inline">$i = 1,\ldots,k$</math>, <math display="inline">$\mathbf{v}_{i} \notin \text{conv\{}\mathbf{v}_{j}:j \neq i\text{\}}$</math>.﻿</paragraph>
+        </note>
+      <paragraph>Every polytope has a minimal representation. For if <math display="inline">$P = \text{conv}\{\textbf{v}_{1},\ldots,\textbf{v}_{k}\}$</math> and if some <math display="inline">$\textbf{v}_{i}$</math> is a convex combination of the other points, then <math display="inline">$\textbf{v}_{i}$</math> may be deleted from the set of points without changing the convex hull. This process may be repeated until the minimal representation is left. It can be shown that the minimal representation is unique.</paragraph>
+      <note type="procedure" title="Theorem ﻿14﻿">
+          <heading level="2">Theorem ﻿14﻿</heading>
+              <paragraph>Suppose <math display="inline">$M = \{\textbf{v}_{1},\ldots,\textbf{v}_{k}\}$</math> is the minimal representation of the polytope <math display="inline">$P$</math>. Then the following three statements are equivalent:</paragraph>
+          <list ordered="true">
+                  <item>p∈M.﻿</item>
+                  <item>p is a vertex of P.﻿</item>
+                  <item>p is an extreme point of P.﻿</item>
+          </list>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>(a) <math display="inline">$\Rightarrow$</math> (b) Suppose <math display="inline">$\textbf{p} \in M$</math> and let <math display="inline">$Q = \text{conv}\{\textbf{v}:\textbf{v} \in M$</math> and <math display="inline">$\left. \textbf{v} \neq \textbf{p} \right\}$</math>. It follows from the definition of <math display="inline">$M$</math> that <math display="inline">$\textbf{p~}\text{∉}\textbf{~}Q$</math>, and since <math display="inline">$Q$</math> is compact, Theorem 13 implies the existence of a hyperplane <math display="inline">$H\prime$</math> that strictly separates <math display="inline">$\{\textbf{p}\}$</math> and <math display="inline">$Q$</math>. Let <math display="inline">$H$</math> be the hyperplane through <math display="inline">$\textbf{p}$</math> parallel to <math display="inline">$H\prime$</math>. See <strong>Figure 2</strong>.</paragraph>
+      <figure caption="Figure 2">
+          <image alt="A figure shows two parallel vertical lines labeled H and H prime along with a shaded pentagon Q. The line H has a point labeled p at the midpoint. A shaded pentagon Q is seen next to the line H prime with its base facing the line."/>
+        </figure>
+      <paragraph>Then <math display="inline">$Q$</math> lies in one of the closed half-spaces <math display="inline">$H^{+}$</math> bounded by <math display="inline">$H$</math> and so <math display="inline">$P \subseteq H^{+}$</math>. Thus <math display="inline">$H$</math> supports <math display="inline">$P$</math> at <math display="inline">$\textbf{p}$</math>. Furthermore, <math display="inline">$\textbf{p}$</math> is the only point of <math display="inline">$P$</math> that can lie on <math display="inline">$H\text{,}$</math> so <math display="inline">$H \cap P = \{\textbf{p}\}$</math> and <math display="inline">$\textbf{p}$</math> is a vertex of <math display="inline">$P$</math>.﻿</paragraph>
+      <paragraph>(b) <math display="inline">$\Rightarrow$</math> (c) Let <math display="inline">$\textbf{p}$</math> be a vertex of <math display="inline">$\textbf{p}$</math>. Then there exists a hyperplane <math display="inline">$H = \lbrack f:d\rbrack$</math> such that <math display="inline">$H \cap P = \{\textbf{p}\}$</math> and <math display="inline">$f(P) \geq d$</math>. If <math display="inline">$\textbf{p}$</math> were not an extreme point, then there would exist distinct points <math display="inline">$\textbf{x}$</math> and <math display="inline">$\textbf{y}$</math> in <math display="inline">$P$</math> such that <math display="inline">$\textbf{p} = (1 - c)\textbf{x} + c\textbf{y}$</math> with <math display="inline">$0 &lt; c &lt; 1$</math>. That is,</paragraph>
+      <paragraph>
+        <math display="block">$$(1 - c)\mathbf{x} = \mathbf{p} - c\mathbf{y}~\text{and~}(1 - c)f\left( \mathbf{x} \right) = d - cf\left( \mathbf{y} \right)~\text{since~}f\left( \mathbf{p} \right) = d$$</math>
+      </paragraph>
+      <paragraph>It follows that</paragraph>
+      <paragraph>
+        <math display="block">$$f\text{(}\mathbf{x}\text{)} = \frac{d - cf\left( \mathbf{y} \right)}{1 - c} \geq d~\text{since~}f\text{(}\mathbf{x}\text{)} \geq d$$</math>
+      </paragraph>
+      <paragraph>But then <math display="inline">$d - cf(\textbf{y}) \geq d(1 - c)$</math> and <math display="inline">$cf\left( \textbf{y} \right) \leq d - d(1 - c) = cd$</math>, so <math display="inline">$f\left( \textbf{y} \right) \leq d$</math>. On the other hand, <math display="inline">$\textbf{y} \in P$</math>, so <math display="inline">$f(\textbf{y}) \geq d\text{.}$</math> It follows that <math display="inline">$f(\textbf{y}) = d$</math> and that <math display="inline">$\textbf{y} \in H \cap P$</math>. This contradicts the fact that <math display="inline">$\textbf{p}$</math> is a vertex. So <math display="inline">$\textbf{p}$</math> must be an extreme point. (Note that this part of the proof does not depend on <math display="inline">$P$</math> being a polytope. It holds for any compact convex set.)</paragraph>
+      <paragraph>(c) <math display="inline">$\Rightarrow$</math> (a) It is clear that any extreme point of <math display="inline">$P$</math> must be a member of <math display="inline">$M$</math>.﻿</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Recall that the profile of a set <math display="inline">$S$</math> is the set of extreme points of <math display="inline">$S$</math>. Theorem 14 shows that the profile of a polygon in <math display="inline">$\text{ℝ}^{2}$</math> is the set of vertices. (See <strong>Figure 3</strong>.) The profile of a closed ball is its boundary. An open set has no extreme points, so its profile is empty. A closed half-space has no extreme points, so its profile is empty.</paragraph>
+          <figure caption="Figure 3">
+            <image alt="An irregular pentagon, a solid circle, a circle with a dashed-line circumference, and a line with an irregular shape arranged from left to right."/>
+          </figure>
+        </example>
+      <paragraph>Exercise 24 asks you to show that a point <math display="inline">$\textbf{p}$</math> in a convex set <math display="inline">$S$</math> is an extreme point of <math display="inline">$S$</math> if and only if, when <math display="inline">$\textbf{p}$</math> is removed from <math display="inline">$S$</math>, the remaining points still form a convex set. It follows that if <math display="inline">$S^{\ast}$</math> is any subset of <math display="inline">$S$</math> such that <math display="inline">$\text{conv~}S^{\ast}$</math> is equal to <math display="inline">$S$</math>, then <math display="inline">$S^{\ast}$</math> must contain the profile of <math display="inline">$S$</math>. The sets in <strong>Example 2</strong> show that in general <math display="inline">$S^{\ast}$</math> may have to be larger than the profile of <math display="inline">$S$</math>. It is true, however, that when <math display="inline">$S$</math> is compact, we may actually take <math display="inline">$S^{\ast}$</math> to be the profile of <math display="inline">$S$</math>, as <strong>Theorem 15</strong> will show. Thus every nonempty compact convex set <math display="inline">$S$</math> has an extreme point, and the set of all extreme points is the smallest subset of <math display="inline">$S$</math> whose convex hull is equal to <math display="inline">$S$</math>.﻿</paragraph>
+      <note type="procedure" title="﻿﻿Theorem ﻿15﻿">
+          <heading level="2">﻿﻿Theorem ﻿15﻿</heading>
+              <paragraph>Let <math display="inline">$S$</math> be a nonempty compact convex set. Then <math display="inline">$S$</math> is the convex hull of its profile (the set of extreme points of <math display="inline">$S$</math>).</paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>The proof is by induction on the dimension of the set <math display="inline">$S$</math>.﻿1<sup/></paragraph>
+      <paragraph>One important application of Theorem 15 is the following theorem. It is one of the key theoretical results in the development of linear programming. Linear functionals are continuous, and continuous functions always attain their maximum and minimum on a compact set. The significance of <strong>Theorem 16</strong> is that for compact convex sets, the maximum (and minimum) is actually attained at an extreme point of <math display="inline">$S$</math>.﻿</paragraph>
+      <note type="procedure" title="﻿﻿Theorem 16﻿">
+          <heading level="2">﻿﻿Theorem 16﻿</heading>
+              <paragraph>Let <math display="inline">$f$</math> be a linear functional defined on a nonempty compact convex set <math display="inline">$S$</math>. Then there exist extreme points <math display="inline">$\widehat{\textbf{v}}$</math> and <math display="inline">$\widehat{\textbf{w}}$</math> of <math display="inline">$S$</math> such that</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      {f\text{(}\hat{\mathbf{v}}\text{)} = \max\limits_{\mathbf{V} \in S}f\text{(}\mathbf{v}\text{)}} &amp; \text{and} &amp; {f\text{(}\widehat{\textbf{w}}\text{)}\, = \max\limits_{\mathbf{V} \in S}f\text{(}\mathbf{v}\text{)}}
+      \end{array}$$</math></paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>Assume that <math display="inline">$f$</math> attains its maximum <math display="inline">$m$</math> on <math display="inline">$S$</math> at some point <math display="inline">$\textbf{v}^{\prime}$</math> in <math display="inline">$S$</math>. That is, <math display="inline">$f\text{(}\textbf{v}^{\prime}\text{)} = m$</math>. We wish to show that there exists an extreme point in <math display="inline">$S$</math> with the same property. By Theorem 15, <math display="inline">$\textbf{v}^{\prime}$</math> is a convex combination of the extreme points of <math display="inline">$S$</math>. That is, there exist extreme points <math display="inline">$\textbf{v}_{1},\ldots,\textbf{v}_{k}$</math> of <math display="inline">$S$</math> and nonnegative <math display="inline">$c_{1},\ldots,c_{k}$</math> such that</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+      {\mathbf{v^{\prime}} = c_{1}\mathbf{v}_{1} + \cdots + c_{k}\mathbf{v}_{k}} &amp; \text{with} &amp; {c_{1} + \cdots + c_{k} = 1}
+      \end{matrix}$$</math>
+      </paragraph>
+      <paragraph>If none of the extreme points of <math display="inline">$S$</math> satisfies <math display="inline">$f\left( \textbf{v} \right) = m$</math>, then</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{matrix}
+      {f\left( \mathbf{v}_{i} \right) &lt; m} &amp; \text{for} &amp; {i = 1,\ldots,k}
+      \end{matrix}$$</math>
+      </paragraph>
+      <paragraph>since <math display="inline">$m$</math> is the maximum of <math display="inline">$f$</math> on <math display="inline">$f\left( \textbf{v} \right) = m$</math>. But then, because <math display="inline">$f$</math> is linear,</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{lll}
+      m &amp; = &amp; {f\left( \mathbf{v}\prime\text{)} = f\left( c_{1}\mathbf{v}_{1} + \cdots + c_{k}\mathbf{v}_{k} \right) \right.} \\
+       &amp; = &amp; {c_{1}f\left( \mathbf{v}_{1} \right) + \cdots + c_{k}f\left( \mathbf{v}_{k} \right)} \\
+       &amp; &lt; &amp; {c_{1}m + \cdots + c_{k}m = m\left( c_{1} + \cdots + c_{k} \right) = m}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>This contradiction implies that some extreme point <math display="inline">$\widehat{\textbf{v}}$</math> of <math display="inline">$S$</math> must satisfy <math display="inline">$f\left( \widehat{\textbf{v}} \right) = m$</math>.﻿</paragraph>
+      <paragraph>The proof for <math display="inline">$\widehat{\textbf{w}}$</math> is similar.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Given points <math display="inline">$\textbf{p}_{1} = \left\lbrack \begin{array}{r}
+      {- 1} \\
+      0
+      \end{array} \right\rbrack\text{,}$</math> <math display="inline">$\textbf{p}_{2} = \left\lbrack \begin{array}{r}
+      3 \\
+      1
+      \end{array} \right\rbrack\text{,}$</math> and <math display="inline">$\textbf{p}_{3} = \left\lbrack \begin{array}{r}
+      1 \\
+      2
+      \end{array} \right\rbrack$</math> in <math display="inline">${\mathbb{R}}^{2}\text{,}$</math> let <math display="inline">$S = \text{conv}\{\textbf{p}_{1},\textbf{p}_{2},\textbf{p}_{3}\}\text{.}$</math> For each linear functional <math display="inline">$f\text{,}$</math> find the maximum value <math display="inline">$m$</math> of <math display="inline">$f$</math> on the set <math display="inline">$S\text{,}$</math> and find all points <math display="inline">$\textbf{x}$</math> in <math display="inline">$S$</math> at which <math display="inline">$f(\textbf{x}) = m\text{.}$</math></paragraph>
+          <list ordered="true">
+                  <item>f1(x1,x2)=x1+x2</item>
+                  <item>f2(x1,x2)=−3x1+x2</item>
+                  <item>f3(x1,x2)=x1+2x2</item>
+          </list>
+          <heading level="3">Solution</heading>
+              <paragraph>By Theorem 16, the maximum value is attained at one of the extreme points of <math display="inline">$S\text{.}$</math> So to find <math display="inline">$m\text{,}$</math> evaluate <math display="inline">$f$</math> at each extreme point and select the largest value.</paragraph>
+          <list ordered="true">
+                  <item>f1(p1)=−1, f1(p2)=4, and f1(p3)=3, so m1=4. Graph the line f1(x1,x2)=m1, that is, x1+x2=4, and note that x=p2 is the only point in S at which f1(x)=4. See Figure 4(a).</item>
+                  <item>f2(p1)=3, f2(p2)=−8, and f2(p3)=−1, so m2=3. Graph the line f2(x1,x2)=m2, that is, −3x1+x2=3, and note that x=p1 is the only point in S at which f2(x)=3. See Figure 4(b).</item>
+                  <item>f3(p1)=−1, f3(p2)=5, and f3(p3)=5, so m3=5. Graph the line f3(x1,x2)=m3, that is, x1+2x2=5. Here, f3 attains its maximum value at p2, at p3, and at every point in the convex hull of p2 and p3. See Figure 4(c).</item>
+          </list>
+          <figure caption="Figure 4">
+            <image alt="A graph shows a shaded triangle S along with a straight line passing through one of the vertices in the first quadrant."/>
+          </figure>
+          <figure caption="Figure 5">
+            <image alt="A graph shows a shaded triangle S along with a straight line passing through one of the vertices in the second quadrant."/>
+          </figure>
+          <figure>
+            <image alt="A graph shows a shaded triangle S along with a straight line passing through two of vertices in the first quadrant."/>
+          </figure>
+        </example>
+      <paragraph>The situation illustrated in <strong>Example 3</strong> for <math display="inline">$\text{ℝ}^{2}$</math> also applies in higher dimensions. The maximum value of a linear functional <math display="inline">$f$</math> on a polytope <math display="inline">$P$</math> occurs at the intersection of a supporting hyperplane and <math display="inline">$P\text{.}$</math> This intersection is either a single extreme point of <math display="inline">$P\text{,}$</math> or the convex hull of <math display="inline">$2$</math> or more extreme points of <math display="inline">$P\text{.}$</math> In either case, the intersection is a polytope, and its extreme points form a subset of the extreme points of <math display="inline">$P\text{.}$</math></paragraph>
+      <paragraph>By definition, a polytope is the convex hull of a finite set of points. This is an explicit representation of the polytope since it identifies points in the set. A polytope may also be represented implicitly as the intersection of a finite number of closed half-spaces. <strong>Example 4</strong> illustrates this in <math display="inline">$\text{ℝ}^{2}\text{.}$</math></paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Let</paragraph>
+              <paragraph><math display="block">$$\textbf{p}_{1} = \left\lbrack \begin{array}{r}
+      0 \\
+      1
+      \end{array} \right\rbrack,\quad\textbf{p}_{2} = \left\lbrack \begin{array}{r}
+      1 \\
+      0
+      \end{array} \right\rbrack,\quad\text{and}\quad\textbf{p}_{3} = \left\lbrack \begin{array}{r}
+      3 \\
+      2
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>in <math display="inline">$\text{ℝ}^{2}\text{,}$</math> and let <math display="inline">$S = \text{conv}\{\textbf{p}_{1},\textbf{p}_{2},\textbf{p}_{3}\}\text{.}$</math> Simple algebra shows that the line through <math display="inline">$\textbf{p}_{1}$</math> and <math display="inline">$\textbf{p}_{2}$</math> is given by <math display="inline">$x_{1} + x_{2} = 1\text{,}$</math> and <math display="inline">$S$</math> is on the side of this line where</paragraph>
+              <paragraph><math display="block">$$x_{1} + x_{2} \geq 1\quad\text{or, equivalently,}\quad - x_{1} - x_{2} \leq - 1.$$</math></paragraph>
+              <paragraph>Similarly, the line through <math display="inline">$\textbf{p}_{2}$</math> and <math display="inline">$\textbf{p}_{3}$</math> is <math display="inline">$x_{1} - x_{2} = 1\text{,}$</math> and <math display="inline">$S$</math> is on the side where</paragraph>
+              <paragraph><math display="block">$$x_{1} - x_{2} \leq 1$$</math></paragraph>
+              <paragraph>Also, the line through <math display="inline">$\textbf{p}_{3}$</math> and <math display="inline">$\textbf{p}_{1}$</math> is <math display="inline">$- x_{1} + 3x_{2} = 3\text{,}$</math> and <math display="inline">$S$</math> is on the side where</paragraph>
+              <paragraph><math display="block">$$- x_{1} + 3x_{2} \leq 3$$</math></paragraph>
+              <paragraph>See <strong>Figure 5</strong>. It follows that <math display="inline">$S$</math> can be described as the solution set of the system of linear inequalities</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      {- x_{1} - x_{2}} &amp; \leq &amp; {- 1} \\
+      {x_{1} - x_{2}} &amp; \leq &amp; 1 \\
+      {- x_{1} + 3x_{2}} &amp; \leq &amp; 3
+      \end{matrix}$$</math></paragraph>
+          <figure>
+            <image alt="A graph shows a shaded triangle S along with three straight lines passing along the sides of the triangle."/>
+          </figure>
+              <paragraph>This system may be written as <math display="inline">$A\textbf{x} \leq \textbf{b}\text{,}$</math> where</paragraph>
+              <paragraph><math display="block">$$A = {\left\lbrack \begin{array}{rr}
+      {- 1} &amp; {- 1} \\
+      1 &amp; {- 1} \\
+      {- 1} &amp; 3
+      \end{array} \right\rbrack,}~\mathbf{x} = \begin{bmatrix}
+      x_{1} \\
+      x_{2}
+      \end{bmatrix},\text{and}~\mathbf{b} = \left\lbrack \begin{array}{r}
+      {- 1} \\
+      1 \\
+      3
+      \end{array} \right\rbrack.$$</math></paragraph>
+              <paragraph>Note that an inequality between two vectors, such as <math display="inline">$A\textbf{x}$</math> and <math display="inline">$\textbf{b}$</math>, applies to each of the corresponding coordinates in those vectors.</paragraph>
+        </example>
+      <paragraph>In Chapter 9, it will be necessary to replace an implicit description of a polytope by a minimal representation of the polytope, listing all the extreme points of the polytope. In simple cases, a graphical solution is feasible. The following example shows how to handle the situation when several points of interest are too close to identify easily on a graph.</paragraph>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>Let <math display="inline">$P$</math> be the set of points in <math display="inline">$\text{ℝ}^{2}\text{,}$</math> that satisfy <math display="inline">$A\textbf{x} \leq \textbf{b}$</math>, where</paragraph>
+              <paragraph><math display="block">$$A = {\begin{bmatrix}
+      1 &amp; 3 \\
+      1 &amp; 1 \\
+      3 &amp; 2
+      \end{bmatrix}~}~\text{and}~\mathbf{b} = \left\lbrack \begin{array}{r}
+      18 \\
+      8 \\
+      21
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>and <math display="inline">$\textbf{x} \geq \textbf{0}\text{.}$</math> Find the minimal representation of <math display="inline">$P\text{.}$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The condition <math display="inline">$\textbf{x} \geq \textbf{0}$</math> places <math display="inline">$P$</math> in the first quadrant of <math display="inline">$\text{ℝ}^{2}$</math>, a typical condition in linear programming problems. The three inequalities in <math display="inline">$A\textbf{x} \leq \textbf{b}$</math> involve three boundary lines:</paragraph>
+              <paragraph><math display="block">$$(1)\quad x_{1} + 3x_{2} = 18\quad(2)\quad x_{1} + x_{2} = 8\quad(3)\quad 3x_{1} + 2x_{2} = 21$$</math></paragraph>
+              <paragraph>All three lines have negative slopes, so a general idea of the shape of <math display="inline">$P$</math> is easy to visualize. Even a rough sketch of the graphs of these lines will reveal that <math display="inline">$(0,0)\text{,}$</math> <math display="inline">$(7,0)\text{,}$</math> and <math display="inline">$(0,6)$</math> are vertices of the polytope <math display="inline">$P\text{.}$</math></paragraph>
+              <paragraph>What about the intersections of the lines (1), (2), and (3)? Sometimes it is clear from the graph which intersections to include. But if not, then the following algebraic procedure will work well:</paragraph>
+              <paragraph>When an intersection point is found that corresponds to two inequalities, test it in the other inequalities to see whether the point is in the polytope.</paragraph>
+              <paragraph>The intersection of (1) and (2) is <math display="inline">$\textbf{p}_{12} = (3,5)\text{.}$</math> Both coordinates are nonnegative, so <math display="inline">$\textbf{p}_{12}$</math> satisfies all inequalities except possibly the third inequality. Test this:</paragraph>
+              <paragraph><math display="block">$$3(3) + 2(5) = 19 &lt; 21$$</math></paragraph>
+              <paragraph>This intersection point satisfies the inequality for (3), so <math display="inline">$\textbf{p}_{12}$</math> is in the polytope.</paragraph>
+              <paragraph>The intersection of (2) and (3) is <math display="inline">$\textbf{p}_{23} = (5,3)\text{.}$</math> This satisfies all inequalities except possibly the inequality for (1). Test this:</paragraph>
+              <paragraph><math display="block">$$1(5) + 3(3) = 14 &lt; 18$$</math></paragraph>
+              <paragraph>This shows that <math display="inline">$\textbf{p}_{23}$</math> is in the polytope.</paragraph>
+              <paragraph>Finally, the intersection of (1) and (3) is <math display="inline">$\textbf{p}_{13} = \left( {\frac{27}{7},\frac{33}{7}} \right)\text{.}$</math> Test this in the inequality for (2):</paragraph>
+              <paragraph><math display="block">$$1\left( \frac{27}{7} \right)\, + \,1\left( \frac{33}{7} \right) = \frac{60}{7} \approx 8.6 &gt; 8$$</math></paragraph>
+              <paragraph>Thus <math display="inline">$\textbf{p}_{13}$</math> does <strong>not</strong> satisfy the second inequality, which shows that <math display="inline">$\textbf{p}_{13}$</math> is <strong>not</strong> in <math display="inline">$P\text{.}$</math> In conclusion, the minimal representation of the polytope <math display="inline">$P$</math> is</paragraph>
+              <paragraph><math display="block">$$\left\{ {\begin{bmatrix}
+      0 \\
+      0
+      \end{bmatrix},~\begin{bmatrix}
+      7 \\
+      0
+      \end{bmatrix},~\begin{bmatrix}
+      3 \\
+      5
+      \end{bmatrix},~\begin{bmatrix}
+      5 \\
+      3
+      \end{bmatrix},~\begin{bmatrix}
+      0 \\
+      6
+      \end{bmatrix}} \right\}.$$</math></paragraph>
+        </example>
+      <paragraph>The remainder of this section discusses the construction of two basic polytopes in <math display="inline">$\text{ℝ}^{3}$</math>, (and higher dimensions). The first appears in linear programming problems, the subject of Chapter 9. Both polytopes provide opportunities to visualize <math display="inline">$\text{ℝ}^{4}$</math> in a remarkable way.</paragraph>
+      <heading level="2">Simplex</heading>
+      <paragraph>A simplex is the convex hull of an affinely independent finite set of vectors. To construct a <math display="inline">$k$</math>-dimensional simplex (or <math display="inline">$k$</math>-simplex), proceed as follows:</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{ll}
+      {\text{0-simplex~}S^{\text{0}}\text{:}} &amp; {\text{a~single~point~\{}\mathbf{v}_{1}\text{\}}} \\
+      {\text{1-simplex~}S^{\text{1}}\text{:}} &amp; {\text{conv(}S^{0} \cup \text{\{}\mathbf{v}_{2}\text{\})},\text{with~}\mathbf{v}_{2}\text{not~in~aff~}S^{0}} \\
+      {\text{2-simplex~}S^{\text{2}}\text{:}} &amp; {\text{conv(}S^{1} \cup \text{\{}\mathbf{v}_{3}\text{\})},\text{with~}\mathbf{v}_{3}\text{not~in~aff~}S^{1}} \\
+      {     \vdots} &amp; \\
+      {\textit{k}\text{-simplex~}S^{\textit{k}}\text{:}} &amp; {\text{conv(}S^{k - 1} \cup \text{\{}\mathbf{v}_{k + 1}\text{\})},\text{with~}\mathbf{v}_{k + 1}\text{not~in~aff~}S^{k + 1}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>The simplex <math display="inline">$S^{1}$</math> is a line segment. The triangle <math display="inline">$S^{2}$</math> comes from choosing a point <math display="inline">$\textbf{v}_{3}$</math> that is not in the line containing <math display="inline">$S^{1}$</math> and then forming the convex hull with <math display="inline">$S^{1}$</math>. (See <strong>Figure 6</strong>.) The tetrahedron <math display="inline">$S^{3}$</math> is produced by choosing a point <math display="inline">$\textbf{v}_{4}$</math> not in the plane of <math display="inline">$S^{2}$</math> and then forming the convex hull with <math display="inline">$S^{2}$</math>.﻿</paragraph>
+      <figure caption="Figure 6">
+          <image alt="Four Simplex labeled S superscript 0, S superscript 1, S superscript 2, and S superscript 3 are arranged from left to right."/>
+        </figure>
+      <paragraph>Before continuing, consider some of the patterns that are appearing. The triangle <math display="inline">$S^{2}$</math> has three edges. Each of these edges is a line segment like <math display="inline">$S^{1}$</math>. Where do these three line segments come from? One of them is <math display="inline">$S^{1}$</math>. One of them comes by joining the endpoint <math display="inline">$\textbf{v}_{2}$</math> to the new point <math display="inline">$\textbf{v}_{3}$</math>. The third comes from joining the other endpoint <math display="inline">$\textbf{v}_{1}$</math> to <math display="inline">$\textbf{v}_{3}$</math>. You might say that each endpoint in <math display="inline">$S^{1}$</math> is stretched out into a line segment in <math display="inline">$S^{2}$</math>.﻿</paragraph>
+      <paragraph>The tetrahedron <math display="inline">$S^{3}$</math> in Figure 6 has four triangular faces. One of these is the original triangle <math display="inline">$S^{2}$</math>, and the other three come from stretching the edges of <math display="inline">$S^{2}$</math> out to the new point <math display="inline">$\textbf{v}_{4}$</math>. Notice too that the vertices of <math display="inline">$S^{2}$</math> get stretched out into edges in <math display="inline">$S^{3}$</math>. The other edges in <math display="inline">$S^{3}$</math> come from the edges in <math display="inline">$S^{2}$</math>. This suggests how to “visualize” the four-dimensional <math display="inline">$S^{4}$</math>.﻿</paragraph>
+      <paragraph>The construction of <math display="inline">$S^{4}$</math>, called a pentatope, involves forming the convex hull of <math display="inline">$S^{3}$</math> with a point <math display="inline">$\textbf{v}_{5}$</math> not in the <math display="inline">$\text{3-space}$</math> of <math display="inline">$S^{3}$</math>. A complete picture is impossible, of course, but <strong>Figure 7</strong> is suggestive: <math display="inline">$S^{4}$</math> has five vertices, and any four of the vertices determine a facet in the shape of a tetrahedron. For example, the figure emphasizes the facet with vertices <math display="inline">$\textbf{v}_{1}$</math>, <math display="inline">$\textbf{v}_{2}$</math>, <math display="inline">$\textbf{v}_{4}$</math>, and <math display="inline">$\textbf{v}_{5}$</math> and the facet with vertices <math display="inline">$\textbf{v}_{2}$</math>, <math display="inline">$\textbf{v}_{3}$</math>, <math display="inline">$\textbf{v}_{4}$</math>, and <math display="inline">$\textbf{v}_{5}$</math>. There are five such facets. Figure 7 identifies all ten edges of <math display="inline">$S^{4}$</math>, and these can be used to visualize the ten triangular faces.</paragraph>
+      <figure label="Figure 7" caption="The  4-dimensional simplex  S4 ﻿projected onto  ℝ2, with two tetrahedral facets emphasized">
+          <image alt="Three figures show 4-dimensional simplex S superscript 4 with tetrahedral facets."/>
+        </figure>
+      <paragraph><strong>Figure 8</strong> shows another representation of the 4-dimensional simplex <math display="inline">$S^{4}$</math>. This time the fifth vertex appears “inside” the tetrahedron <math display="inline">$S^{3}$</math>. The highlighted tetrahedral facets also appear to be “inside” <math display="inline">$S^{3}$</math>.﻿</paragraph>
+      <figure label="Figure 8" caption="The fifth vertex of  S4 is “inside”﻿  S3">
+          <image alt="Four figures show a tetrahedron with a fifth vertex from which tetrahedral facets are drawn."/>
+        </figure>
+      <heading level="2">Hypercube</heading>
+      <paragraph>Let <math display="inline">$I_{i} = \overset{‾}{\textbf{0}\textbf{e}_{i}}$</math> be the line segment from the origin <math display="inline">$\textbf{0}$</math> to the standard basis vector <math display="inline">$\textbf{e}_{i}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>. Then for <math display="inline">$k$</math> such that <math display="inline">$1 \leq k \leq n$</math>, the vector sum2<sup/></paragraph>
+      <paragraph>
+        <math display="block">$$C^{k} = I_{1} + I_{2} + \cdots + I_{k}$$</math>
+      </paragraph>
+      <paragraph>is called a <math display="inline">$k\text{-dimensional}$</math> <strong>hypercube</strong>.</paragraph>
+      <paragraph>To visualize the construction of <math display="inline">$C^{k}$</math>, start with the simple cases. The hypercube <math display="inline">$C^{1}$</math> is the line segment <math display="inline">$I_{1}$</math>. If <math display="inline">$C^{1}$</math> is translated by <math display="inline">$\textbf{e}_{2}$</math>, the convex hull of its initial and final positions describes a square <math display="inline">$C^{2}$</math>. (See <strong>Figure 9</strong>.) Translating <math display="inline">$C^{2}$</math> by <math display="inline">$\textbf{e}_{3}$</math> creates the cube <math display="inline">$C^{3}$</math>. A similar translation of <math display="inline">$C^{3}$</math> by the vector <math display="inline">$\textbf{e}_{4}$</math> yields the <math display="inline">$\text{4-dimensional}$</math> hypercube <math display="inline">$C^{4}$</math>.﻿</paragraph>
+      <figure label="Figure 9" caption="Constructing the cube  C3">
+          <image alt="Three figures show the construction of a cube."/>
+        </figure>
+      <paragraph>Again, this is hard to visualize, but <strong>Figure 10</strong> shows a <math display="inline">$\text{2-dimensional}$</math> projection of <math display="inline">$C^{4}$</math>. Each of the edges of <math display="inline">$C^{3}$</math> is stretched into a square facet of <math display="inline">$C^{4}$</math>. And each of the square faces of <math display="inline">$C^{3}$</math> is stretched into a cubic facet of <math display="inline">$C^{4}$</math>. <strong>Figure 11</strong> shows three facets of <math display="inline">$C^{4}$</math>. Part (a) highlights the cube that comes from the left square face of <math display="inline">$C^{3}$</math>. Part (b) shows the cube that comes from the front square face of <math display="inline">$C^{3}$</math>. And part (c) emphasizes the cube that comes from the top square face of <math display="inline">$C^{3}$</math>.﻿</paragraph>
+      <figure label="Figure 10" caption="C4 projected onto  ℝ2﻿">
+          <image alt="Two figures show a hexagonal prism with cubic facets. The first figure shows a hexagonal prism with a shaded cube made from the bottom three vertices of the prism. The second figure shows a hexagonal prism with no markings."/>
+        </figure>
+      <figure label="Figure 11" caption="Three of the cubic facets of   C4">
+          <image alt="Three figures show three of the cubic facets of C superscript 4. "/>
+        </figure>
+      <paragraph><strong>Figure 12</strong> shows another representation of <math display="inline">$C^{4}$</math> in which the translated cube is placed “inside” <math display="inline">$C^{3}$</math>. This makes it easier to visualize the cubic facets of <math display="inline">$C^{4}$</math>, since there is less distortion.</paragraph>
+      <figure label="Figure 12" caption="The translated image of  C3  is placed “inside” ﻿ C3 to obtain ﻿ C4">
+          <image alt="A figure shows a cube inside a cube with all of its corresponding vertices connected by dotted lines."/>
+        </figure>
+      <paragraph>Altogether, the 4-dimensional cube <math display="inline">$C^{4}$</math> has eight cubic facets. Two come from the original and translated images of <math display="inline">$C^{3}$</math>, and six come from the square faces of <math display="inline">$C^{3}$</math> that are stretched into cubes. The square 2-dimensional faces of <math display="inline">$C^{4}$</math> come from the square faces of <math display="inline">$C^{3}$</math> and its translate, and the edges of <math display="inline">$C^{3}$</math> that are stretched into squares. Thus there are <math display="inline">$2 \times 6 + 12 = 24$</math> square faces. To count the edges, take <math display="inline">$2$</math> times the number of edges in <math display="inline">$C^{3}$</math> and add the number of vertices in <math display="inline">$C^{3}$</math>. This makes <math display="inline">$2 \times 12 + 8 = 32$</math> edges in <math display="inline">$C^{4}$</math>. The vertices in <math display="inline">$C^{4}$</math> all come from <math display="inline">$C^{3}$</math> and its translate, so there are <math display="inline">$2 \times 8 = 16$</math> vertices.</paragraph>
+      <paragraph>One of the truly remarkable results in the study of polytopes is the following formula, first proved by Leonard Euler (1707–1783). It establishes a simple relationship between the number of faces of different dimensions in a polytope. To simplify the statement of the formula, let <math display="inline">$f_{k}(P)$</math> denote the number of <math display="inline">$k$</math>-dimensional faces of an <math display="inline">$n$</math>-dimensional polytope <math display="inline">$P$</math>.﻿3<sup/></paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{ll}
+      {\text{Euler}’\text{s}\text{formula:}} &amp; {\sum\limits_{k = 0}^{n - 1}{{( - 1)}^{k}f_{k}(P) = 1 + {( - 1)}^{n - 1}}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>In particular, when <math display="inline">$n = 3,v - e + f = 2$</math>, where <math display="inline">$v$</math>, <math display="inline">$e$</math>, and <math display="inline">$f$</math> denote the number of vertices, edges, and facets (respectively) of <math display="inline">$P$</math>.﻿</paragraph>
+      <note type="practice" title="Practice Problem">
+          <heading level="2">Practice Problem</heading>
+              <paragraph>Find the minimal representation of the polytope <math display="inline">$P$</math> defined by the inequalities <math display="inline">$A\textbf{x} \leq \textbf{b}$</math> and <math display="inline">$\textbf{x} \geq \textbf{0}$</math>, when <math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; 3 \\
+      1 &amp; 2 \\
+      2 &amp; 1
+      \end{bmatrix}$</math> and <math display="inline">$\mathbf{b} = \left\lbrack \begin{array}{r}
+      12 \\
+      9 \\
+      12
+      \end{array} \right\rbrack$</math>.﻿</paragraph>
+        </note>
+      <paragraph><sup>1</sup> The details may be found in Steven R. Lay, <em>Convex Sets and Their Applications</em> (New York: John Wiley &amp; Sons, 1982; Mineola, NY: Dover Publications, 2007), p. 43.</paragraph>
+      <paragraph><sup>2</sup>The vector sum of two sets <math display="inline">$A$</math> and <math display="inline">$B$</math> is defined by <math display="inline">$A + B = \left\{ \textbf{c}:\textbf{c} = \textbf{a} + \textbf{b} \right.$</math> for some <math display="inline">$\textbf{a} \in A$</math> and <math display="inline">$\left. \textbf{b} \in B \right\}$</math>.﻿</paragraph>
+      <paragraph><sup>3</sup>A proof when <math display="inline">$n = 3$</math> is presented in Steven R. Lay, <em>Convex Sets and Their Applications</em> (New York: John Wiley &amp; Sons, 1982; Mineola, NY: Dover Publications, 2007), p. 131.</paragraph>
+    </content>
+    <exercises title="8.5 Exercises">
+      <heading level="1">8.5 Exercises</heading>
+      <exercise_group start="1">
+            <problem number="1">
+              <statement>
+                          <paragraph>Given points <math display="inline">$\textbf{p}_{1} = \begin{bmatrix}
+      1 \\
+      0
+      \end{bmatrix}$</math>, <math display="inline">$\textbf{p}_{2} = \begin{bmatrix}
+      2 \\
+      3
+      \end{bmatrix}$</math>, and <math display="inline">$\textbf{p}_{3} = \left\lbrack \begin{array}{r}
+      {- 1} \\
+      2
+      \end{array} \right\rbrack$</math> in <math display="inline">$\text{ℝ}^{2}$</math>, let <math display="inline">$S = \text{conv}\left\{ \textbf{p}_{1},\textbf{p}_{2},\textbf{p}_{3} \right\}$</math>. For each linear functional <math display="inline">$f$</math>, find the maximum value <math display="inline">$m$</math> of <math display="inline">$f$</math> on the set <math display="inline">$S$</math>, and find all points <math display="inline">$\textbf{x}$</math> in <math display="inline">$S$</math> at which <math display="inline">$f\left( \textbf{x} \right) = m$</math>.﻿</paragraph>
+                <list ordered="true">
+                              <item>f(x1,x2)=x1−x2</item>
+                              <item>f(x1,x2)=x1+x2</item>
+                              <item>f(x1,x2)=−3x1+x2</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph>Given points <math display="inline">$\textbf{p}_{1} = \begin{bmatrix}
+      0 \\
+      {- 1}
+      \end{bmatrix}$</math>, <math display="inline">$\textbf{p}_{2} = \begin{bmatrix}
+      2 \\
+      1
+      \end{bmatrix}$</math>, and <math display="inline">$\textbf{p}_{3} = \left\lbrack \begin{array}{r}
+      1 \\
+      2
+      \end{array} \right\rbrack$</math> in <math display="inline">$\text{ℝ}^{2}$</math>, let <math display="inline">$S = \text{conv}\left\{ \textbf{p}_{1},\textbf{p}_{2},\textbf{p}_{3} \right\}$</math>. For each linear functional <math display="inline">$f$</math>, find the maximum value <math display="inline">$m$</math> of <math display="inline">$f$</math> on the set <math display="inline">$S$</math>, and find all points <math display="inline">$\textbf{x}$</math> in <math display="inline">$S$</math> at which <math display="inline">$f\left( \textbf{x} \right) = m$</math>.﻿</paragraph>
+                <list ordered="true">
+                              <item>f(x1,x2)=x1+x2</item>
+                              <item>f(x1,x2)=x1−x2</item>
+                              <item>f(x1,x2)=−2x1+x2</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph>Repeat Exercise 1 where <math display="inline">$m$</math> is the <em>minimum</em> value of <math display="inline">$f$</math> on <math display="inline">$S$</math> instead of the maximum value.</paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph>Repeat Exercise 2 where <math display="inline">$m$</math> is the <em>minimum</em> value of <math display="inline">$f$</math> on <math display="inline">$S$</math> instead of the maximum value.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="5">
+                  <instructions>In Exercises 5–8, find the minimal representation of the polytope defined by the inequalities <math display="inline">$A\textbf{x} \leq \textbf{b}$</math> and <math display="inline">$\textbf{x} \geq \textbf{0}$</math>﻿.</instructions>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$A = \begin{bmatrix}
+      1 &amp; 2 \\
+      3 &amp; 1
+      \end{bmatrix}$</math>, <math display="inline">$\textbf{b} = \begin{bmatrix}
+      10 \\
+      15
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$A = \begin{bmatrix}
+      2 &amp; 3 \\
+      4 &amp; 1
+      \end{bmatrix}$</math>, <math display="inline">$\textbf{b} = \begin{bmatrix}
+      18 \\
+      16
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="7">
+              <statement>
+                          <paragraph><math display="inline">$A = \,\,\begin{bmatrix}
+      1 &amp; 3 \\
+      1 &amp; 1 \\
+      4 &amp; 1
+      \end{bmatrix}\,$</math>, <math display="inline">$\textbf{b} = \,\,\begin{bmatrix}
+      18 \\
+      10 \\
+      28
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph><math display="inline">$A = \,\,\begin{bmatrix}
+      2 &amp; 1 \\
+      1 &amp; 1 \\
+      1 &amp; 2
+      \end{bmatrix}\,$</math>, <math display="inline">$\textbf{b} = \,\,\begin{bmatrix}
+      8 \\
+      6 \\
+      7
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph>Let <math display="inline">$S = \left\{ (x,y):x^{2} + (y - 1)^{2} \leq 1 \right\} \cup \left\{ (3,0) \right\}$</math>. Is the origin an extreme point of <math display="inline">$\text{conv~}S$</math>? Is the origin a vertex of <math display="inline">$\text{conv~}S$</math>?</paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph>Find an example of a closed convex set <math display="inline">$S$</math> in <math display="inline">$\text{ℝ}^{2}$</math> such that its profile <math display="inline">$P$</math> is nonempty but <math display="inline">$\text{conv~}P \neq S$</math>.﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph>Find an example of a bounded convex set <math display="inline">$S$</math> in <math display="inline">$\text{ℝ}^{2}$</math> such that its profile <math display="inline">$P$</math> is nonempty but <math display="inline">$\text{conv~}P \neq S$</math>.﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                <list ordered="true">
+                              <item>Determine the number of k-faces of the 5-dimensional simplex S5 for k=0,1,…,4. Verify that your answer satisfies Euler’s formula.</item>
+                              <item>Make a chart of the values of fk(Sn) for n=1,…,5 and k=0,1,…,4. Can you see a pattern? Guess a general formula for fk(Sn).﻿</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="13">
+              <statement>
+                <list ordered="true">
+                              <item>Determine the number of k-faces of the 5-dimensional hypercube C5 for k=0,1,…,4. Verify that your answer satisfies Euler’s formula.</item>
+                              <item>Make a chart of the values of fk(Cn) for n=1,…,5 and k=0,1,…,4. Can you see a pattern? Guess a general formula for fk(Cn).﻿</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph>Suppose <math display="inline">$\textbf{v}_{1},\ldots,\textbf{v}_{k}$</math> are linearly independent vectors in <math display="inline">$\text{ℝ}^{n}(1 \leq k \leq n)$</math>. Then the set <math display="inline">$X^{k} = \text{conv~\{} \pm \textbf{v}_{1},\ldots, \pm \textbf{v}_{k}\text{\}}$</math> is called a <strong><em>k</em></strong><strong>-crosspolytope</strong>.</paragraph>
+                <list ordered="true">
+                              <item>Sketch X1 and X2.﻿</item>
+                              <item>Determine the number of k-faces of the 3-dimensional crosspolytope X3 for k=0,1,2. What is another name for X3?</item>
+                              <item>Determine the number of k-faces of the 4-dimensional crosspolytope X4 for k=0,1,2,3. Verify that your answer satisfies Euler’s formula.</item>
+                              <item>Find a formula for fk(Xn), the number of k-faces of Xn, for 0≤k≤n−1.﻿</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph>A <math display="inline">$\mathbf{k}\textbf{-pyramid}$</math> <math display="inline">$P^{k}$</math> is the convex hull of a <math display="inline">$(k - 1)\text{-polytope}$</math> <math display="inline">$Q$</math> and a point <math display="inline">$\mathbf{x} \notin \text{aff~}Q$</math>. Find a formula for each of the following in terms of <math display="inline">$f_{j}(Q)$</math>, <math display="inline">$j = 0,\ldots,n - 1$</math>.﻿</paragraph>
+                <list ordered="true">
+                              <item>The number of vertices of Pn: f0(Pn).﻿</item>
+                              <item>The number of k-faces of Pn: fk(Pn), for 1≤k≤n−2.﻿</item>
+                              <item>The number of (n−1)-dimensional facets of Pn: fn−1(Pn).﻿</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="16">
+                  <instructions>In Exercises 16–23, mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
+            <problem number="16">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A polytope is the convex hull of a finite set of points.</paragraph>
+              </statement>
+            </problem>
+            <problem number="17">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A cube in <math display="inline">$\text{ℝ}^{3}$</math> has exactly five facets.</paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> Let <math display="inline">$\textbf{p}$</math> be an extreme point of a convex set <math display="inline">$S$</math>. If <math display="inline">$\textbf{u}$</math>, <math display="inline">$\textbf{v} \in S$</math>, <math display="inline">$\textbf{p} \in \overset{‾}{\textbf{uv}}$</math>, and <math display="inline">$\textbf{p} \neq \textbf{u}$</math>, then <math display="inline">$\textbf{p} = \textbf{v}$</math>.﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="19">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A point <math display="inline">$\textbf{p}$</math> is an extreme point of a polytope <math display="inline">$P$</math> if and only if <math display="inline">$\textbf{p}$</math> is a vertex of <math display="inline">$P$</math>.﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$S$</math> is a nonempty convex subset of <math display="inline">$\text{ℝ}^{n}$</math>, then <math display="inline">$S$</math> is the convex hull of its profile.</paragraph>
+              </statement>
+            </problem>
+            <problem number="21">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$S$</math> is a nonempty compact convex set and a linear functional attains its maximum at a point <math display="inline">$\textbf{p}$</math>, then <math display="inline">$\textbf{p}$</math> is an extreme point of <math display="inline">$S$</math>.﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The <math display="inline">$\text{4-dimensional}$</math> simplex <math display="inline">$S^{4}$</math> has exactly five facets, each of which is a <math display="inline">$\text{3-dimensional}$</math> tetrahedron.</paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> A <math display="inline">$\text{2-dimensional}$</math> polytope always has the same number of vertices and edges.</paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph>Let <math display="inline">$\textbf{v}$</math> be an element of the convex set <math display="inline">$S$</math>. Prove that <math display="inline">$\textbf{v}$</math> is an extreme point of <math display="inline">$S$</math> if and only if the set <math display="inline">$\{\textbf{x} \in S:\textbf{x} \neq \textbf{v}\}$</math> is convex.</paragraph>
+              </statement>
+            </problem>
+            <problem number="25">
+              <statement>
+                          <paragraph>If <math display="inline">$c \in \text{ℝ}$</math> and <math display="inline">$S$</math> is a set, define <math display="inline">$cS = \left\{ c\textbf{x}:\textbf{x} \in S \right\}$</math>. Let <math display="inline">$S$</math> be a convex set and suppose <math display="inline">$c &gt; 0$</math> and <math display="inline">$d &gt; 0$</math>. Prove that <math display="inline">$cS + dS = (c + d)S$</math>.﻿</paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph>Find an example to show that the convexity of <math display="inline">$S$</math> is necessary in Exercise 25.</paragraph>
+              </statement>
+            </problem>
+            <problem number="27">
+              <statement>
+                          <paragraph>If <math display="inline">$A$</math> and <math display="inline">$B$</math> are convex sets, prove that <math display="inline">$A + B$</math> is convex.</paragraph>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph>A polyhedron <math display="inline">$\text{(3-polytope)}$</math> is called <strong>regular</strong> if all its facets are congruent regular polygons and all the angles at the vertices are equal. Supply the details in the following proof that there are only five regular polyhedra.</paragraph>
+                <list ordered="true">
+                              <item>Suppose that a regular polyhedron has r facets, each of which is a k-sided regular polygon, and that s edges meet at each vertex. Letting v and e denote the numbers of vertices and edges in the polyhedron, explain why kr=2e and sv=2e.﻿</item>
+                              <item>Use Euler’s formula to show that 1s+1k=12+1e.﻿</item>
+                              <item>Find all the integral solutions of the equation in part (b) that satisfy the geometric constraints of the problem. (How small can k and s be?)</item>
+                </list>
+                          <paragraph>For your information, the five regular polyhedra are the tetrahedron <math display="inline">$(4,~6,~4)$</math>, the cube <math display="inline">$(8,~12,~6)$</math>, the octahedron <math display="inline">$(6,~12,~8)$</math>, the dodecahedron <math display="inline">$(20,~30,~12)$</math>, and the icosahedron <math display="inline">$(12,~30,~20)$</math>. (The numbers in parentheses indicate the numbers of vertices, edges, and faces, respectively.)</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

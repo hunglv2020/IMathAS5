@@ -1,0 +1,610 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="4.4" title="Tangent Planes and Linear Approximations">
+  <learning_objectives>
+    <objective number="4.4.1">Determine the equation of a plane tangent to a given surface at a point.</objective>
+    <objective number="4.4.2">Use the tangent plane to approximate a function of two variables at a point.</objective>
+    <objective number="4.4.3">Explain when a function of two variables is differentiable.</objective>
+    <objective number="4.4.4">Use the total differential to approximate the change in a function of two variables.</objective>
+  </learning_objectives>
+  <p>In this section, we consider the problem of finding the tangent plane to a surface, which is analogous to finding the equation of a tangent line to a curve when the curve is defined by the graph of a function of one variable, $$y = f(x).$$ The slope of the tangent line at the point $$x = a$$ is given by $$m = f\prime(a);$$ what is the slope of a tangent plane? We learned about the equation of a plane in Equations of Lines and Planes in Space; in this section, we see how it can be applied to the problem at hand.</p>
+  <subsection title="Tangent Planes">
+    <p>Intuitively, it seems clear that, in a plane, only one line can be tangent to a curve at a point. However, in three-dimensional space, many lines can be tangent to a given point. If these lines lie in the same plane, they determine the tangent plane at that point. A tangent plane at a regular point contains all of the lines tangent to that point. A more intuitive way to think of a tangent plane is to assume the surface is smooth at that point (no corners). Then, a tangent line to the surface at that point in any direction does not have any abrupt changes in slope because the direction changes smoothly.</p>
+    <note type="Definition">
+      <p>Let $$P_{0} = \left( {x_{0},y_{0},z_{0}} \right)$$ be a point on a surface $$S,$$ and let $$C$$ be any curve passing through $$P_{0}$$ and lying entirely in $$S.$$ If the tangent lines to all such curves $$C$$ at $$P_{0}$$ lie in the same plane, then this plane is called the tangent plane to $$S$$ at $$P_{0}$$ (Figure 4.27).</p>
+    </note>
+    <image alt="A surface S is shown with a point P0 = (x0, y0, z0). There are two intersecting curves shown on S that pass through P0. There are tangents drawn for each of these curves at P0, and these tangent lines create a plane, namely, the tangent plane at P0." number="4.27" caption="The tangent plane to a surface $$S$$ at a point $$P_{0}$$ contains all the tangent lines to curves in $$S$$ that pass through $$P_{0}.$$" />
+    <p>For a tangent plane to a surface to exist at a point on that surface, it is sufficient for the function that defines the surface to be differentiable at that point, defined later in this section. We define the term tangent plane here and then explore the idea intuitively.</p>
+    <note type="Definition">
+      <p>Let $$S$$ be a surface defined by a differentiable function $$z = f\left( {x,y} \right),$$ and let $$P_{0} = \left( {x_{0},y_{0}} \right)$$ be a point in the domain of $$f.$$ Then, the equation of the tangent plane to $$S$$ at $$P_{0}$$ is given by</p>
+      <equation>$$z = f\left( {x_{0},y_{0}} \right) + f_{x}\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y - y_{0}} \right).$$</equation>
+    </note>
+    <p>To see why this formula is correct, let’s first find two tangent lines to the surface $$S.$$ The equation of the tangent line to the curve that is represented by the intersection of $$S$$ with the vertical trace given by $$x = x_{0}$$ is $$z = f\left( {x_{0},y_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y - y_{0}} \right).$$ Similarly, the equation of the tangent line to the curve that is represented by the intersection of $$S$$ with the vertical trace given by $$y = y_{0}$$ is $$z = f\left( {x_{0},y_{0}} \right) + f_{x}\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right).$$ A parallel vector to the first tangent line is $$\mathbf{a} = \mathbf{j} + f_{y}\left( {x_{0},y_{0}} \right)\mathbf{k;}$$ a parallel vector to the second tangent line is $$\mathbf{b} = \mathbf{i} + f_{x}\left( {x_{0},y_{0}} \right)\mathbf{k}.$$ We can take the cross product of these two vectors:</p>
+    <equation>$$\begin{array}{cl} {\mathbf{a}\ \times \ \mathbf{b}} &amp; {= \left( {\mathbf{j} + f_{y}\left( {x_{0},y_{0}} \right)\mathbf{k}} \right)\ \times \ \left( {\mathbf{i} + f_{x}\left( {x_{0},y_{0}} \right)\mathbf{k}} \right)} \\ &amp; {= \left| \begin{array}{lll} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\ 0 &amp; 1 &amp; {f_{y}\left( {x_{0},y_{0}} \right)} \\ 1 &amp; 0 &amp; {f_{x}\left( {x_{0},y_{0}} \right)} \end{array} \right|} \\ &amp; {= f_{x}\left( {x_{0},y_{0}} \right)\mathbf{i} + f_{y}\left( {x_{0},y_{0}} \right)\mathbf{j} - \mathbf{k}.} \end{array}$$</equation>
+    <p>This vector is perpendicular to both lines and is therefore perpendicular to the tangent plane. We can use this vector as a normal vector to the tangent plane, along with the point $$P_{0} = \left( {x_{0},y_{0},f\left( {x_{0},y_{0}} \right)} \right)$$ in the equation for a plane:</p>
+    <equation>$$\begin{array}{rll} {\mathbf{n} \cdot \left( {\left( {x - x_{0}} \right)\mathbf{i} + \left( {y - y_{0}} \right)\mathbf{j} + \left( {z - f\left( {x_{0},y_{0}} \right)} \right)\mathbf{k}} \right)} &amp; = &amp; 0 \\ {\left( {f_{x}\left( {x_{0},y_{0}} \right)\mathbf{i} + f_{y}\left( {x_{0},y_{0}} \right)\mathbf{j}\text{-}\mathbf{k}} \right) \cdot \left( {\left( {x - x_{0}} \right)\mathbf{i} + \left( {y - y_{0}} \right)\mathbf{j} + \left( {z - f\left( {x_{0},y_{0}} \right)} \right)\mathbf{k}} \right)} &amp; = &amp; 0 \\ {f_{x}\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y - y_{0}} \right) - \left( {z - f\left( {x_{0},y_{0}} \right)} \right)} &amp; = &amp; {0.} \end{array}$$</equation>
+    <p>Solving this equation for $$z$$ gives Equation 4.24.</p>
+    <example number="4.21">
+      <problem>
+        <title>Finding a Tangent Plane</title>
+        <p>Find an equation of the tangent plane to the surface defined by the function $$f\left( {x,y} \right) = 2x^{2} - 3xy + 8y^{2} + 2x - 4y + 4$$ at point $$\left( {2,-1} \right).$$</p>
+      </problem>
+      <solution>
+        <p>First, we must calculate $$f_{x}\left( {x,y} \right)$$ and $$f_{y}\left( {x,y} \right),$$ then use Equation 4.24 with $$x_{0} = 2$$ and $$y_{0} = -1\text{:}$$</p>
+        <equation>$$\begin{array}{rll} {f_{x}\left( {x,y} \right)} &amp; = &amp; {4x - 3y + 2} \\ {f_{y}\left( {x,y} \right)} &amp; = &amp; {-3x + 16y - 4} \\ {f\left( {2,-1} \right)} &amp; = &amp; {2(2)^{2} - 3(2)(-1) + 8(-1)^{2} + 2(2) - 4(-1) + 4 = 34.} \\ {f_{x}\left( {2,-1} \right)} &amp; = &amp; {4(2) - 3(-1) + 2 = 13} \\ {f_{y}\left( {2,-1} \right)} &amp; = &amp; {-3(2) + 16(-1) - 4 = -26.} \end{array}$$</equation>
+        <p>Then Equation 4.24 becomes</p>
+        <equation>$$\begin{array}{l} {z = f\left( {x_{0},y_{0}} \right) + f_{x}\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y - y_{0}} \right)} \\ {z = 34 + 13\left( {x - 2} \right) - 26\left( {y - (-1)} \right)} \\ {z = 34 + 13x - 26 - 26y - 26} \\ {z = 13x - 26y - 18.} \end{array}$$</equation>
+        <p>(See the following figure).</p>
+        <image alt="A curved surface f(x, y) = 2x2 – 3xy + 8y2 + 2x + 4y + 4 with tangent plane z = 13x – 26y – 18 at point (2, –1, 34)." number="4.28" caption="Calculating the equation of a tangent plane to a given surface at a given point." />
+      </solution>
+    </example>
+    <checkpoint number="4.19">
+      <problem>
+        <p>Find an equation of the tangent plane to the surface defined by the function $$f\left( {x,y} \right) = x^{3} - x^{2}y + y^{2} - 2x + 3y - 2$$ at point $$\left( {-1,3} \right).$$</p>
+      </problem>
+      <solution>
+        <p>$$z = 7x + 8y - 3$$</p>
+      </solution>
+    </checkpoint>
+    <example number="4.22">
+      <problem>
+        <title>Finding Another Tangent Plane</title>
+        <p>Find an equation of the tangent plane to the surface defined by the function $$f\left( {x,y} \right) = \text{sin}\left( {2x} \right)\text{cos}\left( {3y} \right)$$ at the point $$\left( {{\pi\text{/}3},{\pi\text{/}4}} \right).$$</p>
+      </problem>
+      <solution>
+        <p>First, calculate $$f_{x}\left( {x,y} \right)$$ and $$f_{y}\left( {x,y} \right),$$ then use Equation 4.24 with $$x_{0} = {\pi\text{/}3}$$ and $$y_{0} = {\pi\text{/}4}\text{:}$$</p>
+        <equation>$$\begin{array}{rll} {f_{x}\left( {x,y} \right)} &amp; = &amp; {2\ \text{cos}\left( {2x} \right)\text{cos}\left( {3y} \right)} \\ {f_{y}\left( {x,y} \right)} &amp; = &amp; {-3\ \text{sin}\left( {2x} \right)\text{sin}\left( {3y} \right)} \\ {f\left( {\frac{\pi}{3},\frac{\pi}{4}} \right)} &amp; = &amp; {\text{sin}\left( {2\left( \frac{\pi}{3} \right)} \right)\text{cos}\left( {3\left( \frac{\pi}{4} \right)} \right) = \left( \frac{\sqrt{3}}{2} \right)\left( {- \frac{\sqrt{2}}{2}} \right) = - \frac{\sqrt{6}}{4}} \\ {f_{x}\left( {\frac{\pi}{3},\frac{\pi}{4}} \right)} &amp; = &amp; {2\ \text{cos}\left( {2\left( \frac{\pi}{3} \right)} \right)\text{cos}\left( {3\left( \frac{\pi}{4} \right)} \right) = 2\left( {- \frac{1}{2}} \right)\left( {- \frac{\sqrt{2}}{2}} \right) = \frac{\sqrt{2}}{2}} \\ {f_{y}\left( {\frac{\pi}{3},\frac{\pi}{4}} \right)} &amp; = &amp; {-3\ \text{sin}\left( {2\left( \frac{\pi}{3} \right)} \right)\text{sin}\left( {3\left( \frac{\pi}{4} \right)} \right) = -3\left( \frac{\sqrt{3}}{2} \right)\left( \frac{\sqrt{2}}{2} \right) = - \frac{3\sqrt{6}}{4}.} \end{array}$$</equation>
+        <p>Then Equation 4.24 becomes</p>
+        <equation>$$\begin{array}{l} \\ {z = f\left( {x_{0},y_{0}} \right) + f_{x}\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y - y_{0}} \right)} \\ \\ {z = - \frac{\sqrt{6}}{4} + \frac{\sqrt{2}}{2}\left( {x - \frac{\pi}{3}} \right) - \frac{3\sqrt{6}}{4}\left( {y - \frac{\pi}{4}} \right)} \\ {z = \frac{\sqrt{2}}{2}x - \frac{3\sqrt{6}}{4}y - \frac{\sqrt{6}}{4} - \frac{\pi\sqrt{2}}{6} + \frac{3\pi\sqrt{6}}{16}.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <p>A tangent plane to a surface does not always exist at every point on the surface. Consider the function</p>
+    <equation>$$f(x,y) = \begin{cases} \frac{xy}{\sqrt{x^{2} + y^{2}}} &amp; {\left( {x,y} \right) \neq \left( {0,0} \right)} \\ 0 &amp; {\left( {x,y} \right) = \left( {0,0} \right).} \end{cases}$$</equation>
+    <p>The graph of this function follows.</p>
+    <image alt="A curved surface that passes through (0, 0, 0) and that folds up on either side of the z axis." number="4.29" caption="Graph of a function that does not have a tangent plane at the origin." />
+    <p>If either $$x = 0$$ or $$y = 0,$$ then $$f\left( {x,y} \right) = 0,$$ so the value of the function does not change on either the x- or y-axis. Therefore, $$f_{x}\left( {x,0} \right) = f_{y}\left( {0,y} \right) = 0,$$ so as either $$x\ or\ y$$ approach zero, these partial derivatives stay equal to zero. Substituting them into Equation 4.24 gives $$z = 0$$ as the equation of the tangent line. However, if we approach the origin from a different direction, we get a different story. For example, suppose we approach the origin along the line $$y = x.$$ If we put $$y = x$$ into the original function, it becomes</p>
+    <equation>$$f\left( {x,x} \right) = \frac{x(x)}{\sqrt{x^{2} + (x)^{2}}} = \frac{x^{2}}{\sqrt{2x^{2}}} = \frac{|x|}{\sqrt{2}}.$$</equation>
+    <p>When $$x &gt; 0,$$ the slope of this curve is equal to $${\sqrt{2}\text{/}2};$$ when $$x &lt; 0,$$ the slope of this curve is equal to $$\text{−}\left( {\sqrt{2}\text{/}2} \right).$$ This presents a problem. In the definition of tangent plane, we presumed that all tangent lines through point $$P$$ (in this case, the origin) lay in the same plane. This is clearly not the case here. When we study differentiable functions, we will see that this function is not differentiable at the origin.</p>
+  </subsection>
+  <subsection title="Linear Approximations">
+    <p>Recall from Linear Approximations and Differentials that the formula for the linear approximation of a function $$f(x)$$ at the point $$x = a$$ is given by</p>
+    <equation>$$y \approx f(a) + f\prime(a)\left( {x - a} \right).$$</equation>
+    <p>The diagram for the linear approximation of a function of one variable appears in the following graph.</p>
+    <image alt="A curve in the xy plane with a point and a tangent to that point. The figure is marked tangent line approximation." number="4.30" caption="Linear approximation of a function in one variable." />
+    <p>The tangent line can be used as an approximation to the function $$f(x)$$ for values of $$x$$ reasonably close to $$x = a.$$ When working with a function of two variables, the tangent line is replaced by a tangent plane, but the approximation idea is much the same.</p>
+    <note type="Definition">
+      <p>Given a function $$z = f\left( {x,y} \right)$$ with continuous partial derivatives that exist at the point $$\left( {x_{0},y_{0}} \right),$$ the linear approximation of $$f$$ at the point $$\left( {x_{0},y_{0}} \right)$$ is given by the equation</p>
+      <equation>$$L\left( {x,y} \right) = f\left( {x_{0},y_{0}} \right) + f_{x}\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y - y_{0}} \right).$$</equation>
+    </note>
+    <p>Notice that this equation also represents the tangent plane to the surface defined by $$z = f\left( {x,y} \right)$$ at the point $$\left( {x_{0},y_{0}} \right).$$ The idea behind using a linear approximation is that, if there is a point $$\left( {x_{0},y_{0}} \right)$$ at which the precise value of $$f\left( {x,y} \right)$$ is known, then for values of $$\left( {x,y} \right)$$ reasonably close to $$\left( {x_{0},y_{0}} \right),$$ the linear approximation (i.e., tangent plane) yields a value that is also reasonably close to the exact value of $$f\left( {x,y} \right)$$ (Figure 4.31). Furthermore the plane that is used to find the linear approximation is also the tangent plane to the surface at the point $$\left( {x_{0},y_{0}} \right).$$</p>
+    <image alt="A paraboloid with surface z = f(x, y). There is a point given on the paraboloid P (x0, y0) with a tangent plane at that point. There is a point on the plane which is marked as the linear approximation L(x, y) to f(x0, y0), which is close to the corresponding point on the paraboloid." number="4.31" caption="Using a tangent plane for linear approximation at a point." />
+    <example number="4.23">
+      <problem>
+        <title>Using a Tangent Plane Approximation</title>
+        <p>Given the function $$f\left( {x,y} \right) = \sqrt{41 - 4x^{2} - y^{2}},$$ approximate $$f\left( {2.1,2.9} \right)$$ using point $$\left( {2,3} \right)$$ for $$\left( {x_{0},y_{0}} \right).$$ What is the approximate value of $$f\left( {2.1,2.9} \right)$$ to four decimal places?</p>
+      </problem>
+      <solution>
+        <p>To apply Equation 4.25, we first must calculate $$f\left( {x_{0},y_{0}} \right),$$ $$f_{x}\left( {x_{0},y_{0}} \right),$$ and $$f_{y}\left( {x_{0},y_{0}} \right)$$ using $$x_{0} = 2$$ and $$y_{0} = 3\text{:}$$</p>
+        <equation>$$\begin{array}{rll} {f\left( {x_{0},y_{0}} \right)} &amp; = &amp; {f\left( {2,3} \right) = \sqrt{41 - 4(2)^{2} - (3)^{2}} = \sqrt{41 - 16 - 9} = \sqrt{16} = 4} \\ {f_{x}\left( {x,y} \right)} &amp; = &amp; {- \frac{4x}{\sqrt{41 - 4x^{2} - y^{2}}}\ \text{so}\ f_{x}\left( {x_{0},y_{0}} \right) = - \frac{4(2)}{\sqrt{41 - 4(2)^{2} - (3)^{2}}} = -2} \\ {f_{y}\left( {x,y} \right)} &amp; = &amp; {- \frac{y}{\sqrt{41 - 4x^{2} - y^{2}}}\ \text{so}\ f_{y}\left( {x_{0},y_{0}} \right) = - \frac{3}{\sqrt{41 - 4(2)^{2} - (3)^{2}}} = - \frac{3}{4}.} \end{array}$$</equation>
+        <p>Now we substitute these values into Equation 4.25:</p>
+        <equation>$$\begin{array}{cl} {L\left( {x,y} \right)} &amp; {= f\left( {x_{0},y_{0}} \right) + f_{x}\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y - y_{0}} \right)} \\ &amp; {= 4 - 2\left( {x - 2} \right) - \frac{3}{4}\left( {y - 3} \right)} \\ &amp; {= \frac{41}{4} - 2x - \frac{3}{4}y.} \end{array}$$</equation>
+        <p>Last, we substitute $$x = 2.1$$ and $$y = 2.9$$ into $$L\left( {x,y} \right)\text{:}$$</p>
+        <equation>$$L\left( {2.1,2.9} \right) = \frac{41}{4} - 2(2.1) - \frac{3}{4}(2.9) = 10.25 - 4.2 - 2.175 = 3.875.$$</equation>
+        <p>The approximate value of $$f\left( {2.1,2.9} \right)$$ to four decimal places is</p>
+        <equation>$$f\left( {2.1,2.9} \right) = \sqrt{41 - 4(2.1)^{2} - (2.9)^{2}} = \sqrt{14.95} \approx 3.8665,$$</equation>
+        <p>which corresponds to a $$0.2\text{\%}$$ error in approximation.</p>
+      </solution>
+    </example>
+    <checkpoint number="4.20">
+      <problem>
+        <p>Given the function $$f\left( {x,y} \right) = e^{5 - 2x + 3y},$$ approximate $$f\left( {4.1,0.9} \right)$$ using point $$\left( {4,1} \right)$$ for $$\left( {x_{0},y_{0}} \right).$$ What is the approximate value of $$f\left( {4.1,0.9} \right)$$ to four decimal places?</p>
+      </problem>
+      <solution>
+        <p>$$L\left( {x,y} \right) = 6 - 2x + 3y,$$ so $$L\left( {4.1,0.9} \right) = 6 - 2(4.1) + 3(0.9) = 0.5$$ $$f\left( {4.1,0.9} \right) = e^{5 - 2{(4.1)} + 3{(0.9)}} = e^{-0.5} \approx 0.6065.$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="Differentiability">
+    <p>When working with a function $$y = f(x)$$ of one variable, the function is said to be differentiable at a point $$x = a$$ if $$f^{\prime}(a)$$ exists. Furthermore, if a function of one variable is differentiable at a point, the graph is “smooth” at that point (i.e., no corners exist) and a tangent line is well-defined at that point.</p>
+    <p>The idea behind differentiability of a function of two variables is connected to the idea of smoothness at that point. In this case, a surface is considered to be smooth at point $$P$$ if a tangent plane to the surface exists at that point. If a function is differentiable at a point, then a tangent plane to the surface exists at that point. Recall the formula for a tangent plane at a point $$\left( {x_{0},y_{0}} \right)$$ is given by</p>
+    <equation>$$z = f\left( {x_{0},y_{0}} \right) + f_{x}\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y - y_{0}} \right),$$</equation>
+    <p>For a tangent plane to exist at the point $$\left( {x_{0},y_{0}} \right),$$ the partial derivatives must therefore exist at that point. However, this is not a sufficient condition for smoothness, as was illustrated in Figure 4.29. In that case, the partial derivatives existed at the origin, but the function also had a corner on the graph at the origin.</p>
+    <note type="Definition">
+      <p>A function $$f\left( {x,y} \right)$$ is differentiable at a point $$P\left( {x_{0},y_{0}} \right)$$ if, for all points $$\left( {x,y} \right)$$ in a $$\delta$$ disk around $$P,$$ we can write</p>
+      <equation>$$f\left( {x,y} \right) = f\left( {x_{0},y_{0}} \right) + f_{x}\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right) + f_{y}\left( {x_{0},y_{0}} \right)\left( {y - y_{0}} \right) + E\left( {x,y} \right),$$</equation>
+      <p>where the error term $$E$$ satisfies</p>
+      <equation>$$\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\frac{E\left( {x,y} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}} = 0.$$</equation>
+    </note>
+    <p>The last term in Equation 4.26 is referred to as the error term and it represents how closely the tangent plane comes to the surface in a small neighborhood $$(\delta$$ disk) of point $$P.$$ For the function $$f$$ to be differentiable at $$P,$$ the function must be smooth—that is, the graph of $$f$$ must be close to the tangent plane for points near $$P.$$</p>
+    <example number="4.24">
+      <problem>
+        <title>Demonstrating Differentiability</title>
+        <p>Show that the function $$f\left( {x,y} \right) = 2x^{2} - 4y$$ is differentiable at point $$\left( {2,-3} \right).$$</p>
+      </problem>
+      <solution>
+        <p>First, we calculate $$f\left( {x_{0},y_{0}} \right),f_{x}\left( {x_{0},y_{0}} \right),\ \text{and}\ f_{y}\left( {x_{0},y_{0}} \right)$$ using $$x_{0} = 2$$ and $$y_{0} = -3,$$ then we use Equation 4.26:</p>
+        <equation>$$\begin{array}{rll} {f\left( {2,-3} \right)} &amp; = &amp; {2(2)^{2} - 4(-3) = 8 + 12 = 20} \\ {f_{x}\left( {2,-3} \right)} &amp; = &amp; {4(2) = 8} \\ {f_{y}\left( {2,-3} \right)} &amp; = &amp; -4. \end{array}$$</equation>
+        <p>Therefore $$m_{1} = 8$$ and $$m_{2} = -4,$$ and Equation 4.26 becomes</p>
+        <equation>$$\begin{array}{rll} {f\left( {x,y} \right)} &amp; = &amp; {f\left( {2,-3} \right) + f_{x}\left( {2,-3} \right)\left( {x - 2} \right) + f_{y}\left( {2,-3} \right)\left( {y + 3} \right) + E\left( {x,y} \right)} \\ {2x^{2} - 4y} &amp; = &amp; {20 + 8\left( {x - 2} \right) - 4\left( {y + 3} \right) + E\left( {x,y} \right)} \\ {2x^{2} - 4y} &amp; = &amp; {20 + 8x - 16 - 4y - 12 + E\left( {x,y} \right)} \\ {2x^{2} - 4y} &amp; = &amp; {8x - 4y - 8 + E\left( {x,y} \right)} \\ {E\left( {x,y} \right)} &amp; = &amp; {2x^{2} - 8x + 8.} \end{array}$$</equation>
+        <p>Next, we calculate $$\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\frac{E\left( {x,y} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}}\text{:}$$</p>
+        <equation>$$\begin{array}{cl} {\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\frac{E\left( {x,y} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}}} &amp; {= \underset{{({x,y})}\rightarrow{({2,-3})}}{\text{lim}}\frac{2x^{2} - 8x + 8}{\sqrt{\left( {x - 2} \right)^{2} + \left( {y + 3} \right)^{2}}}} \\ &amp; {= \underset{{({x,y})}\rightarrow{({2,-3})}}{\text{lim}}\frac{2\left( {x^{2} - 4x + 4} \right)}{\sqrt{\left( {x - 2} \right)^{2} + \left( {y + 3} \right)^{2}}}} \\ &amp; {= \underset{{({x,y})}\rightarrow{({2,-3})}}{\text{lim}}\frac{2\left( {x - 2} \right)^{2}}{\sqrt{\left( {x - 2} \right)^{2} + \left( {y + 3} \right)^{2}}}} \\ &amp; {\leq \underset{{({x,y})}\rightarrow{({2,-3})}}{\text{lim}}\frac{2\left( {\left( {x - 2} \right)^{2} + \left( {y + 3} \right)^{2}} \right)}{\sqrt{\left( {x - 2} \right)^{2} + \left( {y + 3} \right)^{2}}}} \\ &amp; {= \underset{{({x,y})}\rightarrow{({2,-3})}}{\text{lim}}2\sqrt{\left( {x - 2} \right)^{2} + \left( {y + 3} \right)^{2}}} \\ &amp; {= 0.} \end{array}$$</equation>
+        <p>Since $$E\left( {x,y} \right) \geq 0$$ for any value of $$x\ \text{or}\ y,$$ the original limit must be equal to zero. Therefore, $$f\left( {x,y} \right) = 2x^{2} - 4y$$ is differentiable at point $$\left( {2,-3} \right).$$</p>
+      </solution>
+    </example>
+    <checkpoint number="4.21">
+      <problem>
+        <p>Show that the function $$f\left( {x,y} \right) = 3x - 4y^{2}$$ is differentiable at point $$\left( {-1,2} \right).$$</p>
+      </problem>
+      <solution>
+        <p>$$f\left( {-1,2} \right) = -19,\quad f_{x}\left( {-1,2} \right) = 3,f_{y}\left( {-1,2} \right) = -16,E\left( {x,y} \right) = -4\left( {y - 2} \right)^{2}.$$</p>
+        <p>$$\begin{array}{cl} {\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\frac{E\left( {x,y} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}}} &amp; {= \underset{{({x,y})}\rightarrow{({-1,2})}}{\text{lim}}\frac{-4{(y - 2)}^{2}}{\sqrt{\left( {x + 1} \right)^{2} + \left( {y - 2} \right)^{2}}}} \\ &amp; {\leq \underset{{({x,y})}\rightarrow{({-1,2})}}{\text{lim}}\frac{-4\left( {\left( {x + 1} \right)^{2} + \left( {y - 2} \right)^{2}} \right)}{\sqrt{\left( {x + 1} \right)^{2} + \left( {y - 2} \right)^{2}}}} \\ &amp; {= \underset{{({x,y})}\rightarrow{({–1,2})}}{\text{lim}} - 4\sqrt{\left( {x + 1} \right)^{2} + \left( {y - 2} \right)^{2}}} \\ &amp; {= 0.} \end{array}$$</p>
+      </solution>
+    </checkpoint>
+    <p>The function $$f\left( {x,y} \right) = \begin{cases} \frac{xy}{\sqrt{x^{2} + y^{2}}} &amp; {\left( {x,y} \right) \neq \left( {0,0} \right)} \\ 0 &amp; {\left( {x,y} \right) = \left( {0,0} \right)} \end{cases}$$ is not differentiable at the origin. We can see this by calculating the partial derivatives. This function appeared earlier in the section, where we showed that $$f_{x}\left( {0,0} \right) = f_{y}\left( {0,0} \right) = 0.$$ Substituting this information into Equation 4.26 using $$x_{0} = 0$$ and $$y_{0} = 0,$$ we get</p>
+    <equation>$$\begin{array}{rll} {f\left( {x,y} \right)} &amp; = &amp; {f\left( {0,0} \right) + f_{x}\left( {0,0} \right)\left( {x - 0} \right) + f_{y}\left( {0,0} \right)\left( {y - 0} \right) + E\left( {x,y} \right)} \\ {E\left( {x,y} \right)} &amp; = &amp; {\frac{xy}{\sqrt{x^{2} + y^{2}}}.} \end{array}$$</equation>
+    <p>Calculating $$\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\frac{E\left( {x,y} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}}$$ gives</p>
+    <equation>$$\begin{array}{cl} {\underset{{({x,y})}\rightarrow{({x_{0},y_{0}})}}{\text{lim}}\frac{E\left( {x,y} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2}}}} &amp; {= \underset{{({x,y})}\rightarrow{({0,0})}}{\text{lim}}\frac{\frac{xy}{\sqrt{x^{2} + y^{2}}}}{\sqrt{x^{2} + y^{2}}}} \\ &amp; {= \underset{{({x,y})}\rightarrow{({0,0})}}{\text{lim}}\frac{xy}{x^{2} + y^{2}}.} \end{array}$$</equation>
+    <p>Depending on the path taken toward the origin, this limit takes different values. Therefore, the limit does not exist and the function $$f$$ is not differentiable at the origin as shown in the following figure.</p>
+    <image alt="A curved surface in xyz space that remains constant along the positive x axis and curves downward along the line y = –x in the second quadrant." number="4.32" caption="This function $$f(x,y)$$ is not differentiable at the origin." />
+    <p>Differentiability and continuity for functions of two or more variables are connected, the same as for functions of one variable. In fact, with some adjustments of notation, the basic theorem is the same.</p>
+    <theorem number="4.6" title="Differentiability Implies Continuity">
+      <p>Let $$z = f\left( {x,y} \right)$$ be a function of two variables with $$\left( {x_{0},y_{0}} \right)$$ in the domain of $$f.$$ If $$f\left( {x,y} \right)$$ is differentiable at $$\left( {x_{0},y_{0}} \right),$$ then $$f\left( {x,y} \right)$$ is continuous at $$\left( {x_{0},y_{0}} \right).$$</p>
+    </theorem>
+    <p>Differentiability Implies Continuity shows that if a function is differentiable at a point, then it is continuous there. However, if a function is continuous at a point, then it is not necessarily differentiable at that point. For example,</p>
+    <equation>$$f\left( {x,y} \right) = \begin{cases} \frac{xy}{\sqrt{x^{2} + y^{2}}} &amp; {\left( {x,y} \right) \neq \left( {0,0} \right)} \\ 0 &amp; {\left( {x,y} \right) = \left( {0,0} \right)} \end{cases}$$</equation>
+    <p>is continuous at the origin, but it is not differentiable at the origin. This observation is also similar to the situation in single-variable calculus.</p>
+    <p>Continuity of First Partials Implies Differentiability further explores the connection between continuity and differentiability at a point. This theorem says that if the function and its partial derivatives are continuous at a point, the function is differentiable.</p>
+    <theorem number="4.7" title="Continuity of First Partials Implies Differentiability">
+      <p>Let $$z = f\left( {x,y} \right)$$ be a function of two variables with $$\left( {x_{0},y_{0}} \right)$$ in the domain of $$f.$$ If $$f\left( {x,y} \right),$$ $$f_{x}\left( {x,y} \right),$$ and $$f_{y}\left( {x,y} \right)$$ all exist in a neighborhood of $$\left( {x_{0},y_{0}} \right)$$ and are continuous at $$\left( {x_{0},y_{0}} \right),$$ then $$f\left( {x,y} \right)$$ is differentiable there.</p>
+    </theorem>
+    <p>Recall that earlier we showed that the function</p>
+    <equation>$$f\left( {x,y} \right) = \begin{cases} \frac{xy}{\sqrt{x^{2} + y^{2}}} &amp; {\left( {x,y} \right) \neq \left( {0,0} \right)} \\ 0 &amp; {\left( {x,y} \right) = \left( {0,0} \right)} \end{cases}$$</equation>
+    <p>was not differentiable at the origin. Let’s calculate the partial derivatives $$f_{x}$$ and $$f_{y}\text{:}$$</p>
+    <equation>$$\frac{\partial f}{\partial x} = \frac{y^{3}}{\left( {x^{2} + y^{2}} \right)^{3\text{/}2}}\quad\text{and}\quad\frac{\partial f}{\partial y} = \frac{x^{3}}{\left( {x^{2} + y^{2}} \right)^{3\text{/}2}}.$$</equation>
+    <p>The contrapositive of the preceding theorem states that if a function is not differentiable, then at least one of the hypotheses must be false. Let’s explore the condition that $$f_{x}\left( {0,0} \right)$$ must be continuous. For this to be true, it must be true that $$\underset{{({x,y})}\rightarrow{({0,0})}}{\text{lim}}f_{x}\left( {0,0} \right) = f_{x}\left( {0,0} \right)\text{:}$$</p>
+    <equation>$$\underset{{({x,y})}\rightarrow{({0,0})}}{\text{lim}}f_{x}\left( {x,y} \right) = \underset{{({x,y})}\rightarrow{({0,0})}}{\text{lim}}\frac{y^{3}}{\left( {x^{2} + y^{2}} \right)^{3\text{/}2}}.$$</equation>
+    <p>Let $$x = ky.$$ Then</p>
+    <equation>$$\begin{array}{cl} {\underset{{({x,y})}\rightarrow{({0,0})}}{\text{lim}}\frac{y^{3}}{\left( {x^{2} + y^{2}} \right)^{3\text{/}2}}} &amp; {= \underset{y\rightarrow 0}{\text{lim}}\frac{y^{3}}{\left( {\left( {ky} \right)^{2} + y^{2}} \right)^{3\text{/}2}}} \\ &amp; {= \underset{y\rightarrow 0}{\text{lim}}\frac{y^{3}}{\left( {k^{2}y^{2} + y^{2}} \right)^{3\text{/}2}}} \\ &amp; {= \underset{y\rightarrow 0}{\text{lim}}\frac{y^{3}}{|y|^{3}\left( {k^{2} + 1} \right)^{3\text{/}2}}} \\ &amp; {= \frac{1}{\left( {k^{2} + 1} \right)^{3\text{/}2}}\underset{y\rightarrow 0}{\text{lim}}\frac{|y|}{y}.} \end{array}$$</equation>
+    <p>If $$y &gt; 0,$$ then this expression equals $${1\text{/}\left( {k^{2} + 1} \right)^{3\text{/}2}};$$ if $$y &lt; 0,$$ then it equals $$\text{−}\left( {1\text{/}\left( {k^{2} + 1} \right)^{3\text{/}2}} \right).$$ In either case, the value depends on $$k,$$ so the limit fails to exist.</p>
+  </subsection>
+  <subsection title="Differentials">
+    <p>In Linear Approximations and Differentials we first studied the concept of differentials. The differential of $$y,$$ written $$dy,$$ is defined as $$f^{\prime}(x)dx.$$ The differential is used to approximate $$\text{Δ}y = f\left( {x + \text{Δ}x} \right) - f(x),$$ where $$\text{Δ}x = dx.$$ Extending this idea to the linear approximation of a function of two variables at the point $$\left( {x_{0},y_{0}} \right)$$ yields the formula for the total differential for a function of two variables.</p>
+    <note type="Definition">
+      <p>Let $$z = f\left( {x,y} \right)$$ be a function of two variables with $$\left( {x_{0},y_{0}} \right)$$ in the domain of $$f,$$ and let $$\text{Δ}x$$ and $$\text{Δ}y$$ be chosen so that $$\left( {x_{0} + \text{Δ}x,y_{0} + \text{Δ}y} \right)$$ is also in the domain of $$f.$$ If $$f$$ is differentiable at the point $$\left( {x_{0},y_{0}} \right),$$ then the differentials $$dx$$ and $$dy$$ are defined as</p>
+      <equation>$$dx = \text{Δ}x\ \text{and}\ dy = \text{Δ}y.$$</equation>
+      <p>The differential $$dz,$$ also called the total differential of $$z = f\left( {x,y} \right)$$ at $$\left( {x_{0},y_{0}} \right),$$ is defined as</p>
+      <equation>$$dz = f_{x}\left( {x_{0},y_{0}} \right)dx + f_{y}\left( {x_{0},y_{0}} \right)dy.$$</equation>
+    </note>
+    <p>Notice that the symbol $$\partial$$ is not used to denote the total differential; rather, $$d$$ appears in front of $$z.$$ Now, let’s define $$\text{Δ}z = f\left( {x + \text{Δ}x,y + \text{Δ}y} \right) - f\left( {x,y} \right).$$ We use $$dz$$ to approximate $$\text{Δ}z,$$ so</p>
+    <equation>$$\text{Δ}z \approx dz = f_{x}\left( {x_{0},y_{0}} \right)dx + f_{y}\left( {x_{0},y_{0}} \right)dy.$$</equation>
+    <p>Therefore, the differential is used to approximate the change in the function $$z = f\left( {x_{0},y_{0}} \right)$$ at the point $$\left( {x_{0},y_{0}} \right)$$ for given values of $$\text{Δ}x$$ and $$\text{Δ}y.$$ Since $$\text{Δ}z = f\left( {x + \text{Δ}x,y + \text{Δ}y} \right) - f\left( {x,y} \right),$$ this can be used further to approximate $$f\left( {x + \text{Δ}x,y + \text{Δ}y} \right)\text{:}$$</p>
+    <equation>$$\begin{array}{cl} {f\left( {x + \text{Δ}x,y + \text{Δ}y} \right)} &amp; {= f\left( {x,y} \right) + \text{Δ}z} \\ &amp; {\approx f\left( {x,y} \right) + f_{x}\left( {x_{0},y_{0}} \right)\text{Δ}x + f_{y}\left( {x_{0},y_{0}} \right)\text{Δ}y.} \end{array}$$</equation>
+    <p>See the following figure.</p>
+    <image alt="A surface f in the xyz plane, with a tangent plane at the point (x, y, f(x, y)). On the (x, y) plane, there is a point marked (x + Δx, y + Δy). There is a dashed line to the corresponding point on the graph of f and the line then continues to the tangent plane; the distance to the graph of f is marked f(x + + Δx, y + Δy), and the distance to the tangent plane is marked as the linear approximation." number="4.33" caption="The linear approximation is calculated via the formula $$f\left( {x + \text{Δ}x,y + \text{Δ}y} \right) \approx f\left( {x,y} \right) + f_{x}\left( {x_{0},y_{0}} \right)\text{Δ}x + f_{y}\left( {x_{0},y_{0}} \right)\text{Δ}y.$$" />
+    <p>One such application of this idea is to determine error propagation. For example, if we are manufacturing a gadget and are off by a certain amount in measuring a given quantity, the differential can be used to estimate the error in the total volume of the gadget.</p>
+    <example number="4.25">
+      <problem>
+        <title>Approximation by Differentials</title>
+        <p>Find the differential $$dz$$ of the function $$f\left( {x,y} \right) = 3x^{2} - 2xy + y^{2}$$ and use it to approximate $$\text{Δ}z$$ at point $$\left( {2,-3} \right).$$ Use $$\text{Δ}x = 0.1$$ and $$\text{Δ}y = -0.05.$$ What is the exact value of $$\text{Δ}z?$$</p>
+      </problem>
+      <solution>
+        <p>First, we must calculate $$f\left( {x_{0},y_{0}} \right),f_{x}\left( {x_{0},y_{0}} \right),\ \text{and}\ f_{y}\left( {x_{0},y_{0}} \right)$$ using $$x_{0} = 2$$ and $$y_{0} = -3\text{:}$$</p>
+        <equation>$$\begin{array}{rll} {f\left( {x_{0},y_{0}} \right)} &amp; = &amp; {f\left( {2,-3} \right) = 3(2)^{2} - 2(2)(-3) + (-3)^{2} = 12 + 12 + 9 = 33} \\ {f_{x}\left( {x,y} \right)} &amp; = &amp; {6x - 2y} \\ {f_{y}\left( {x,y} \right)} &amp; = &amp; {-2x + 2y} \\ {f_{x}\left( {x_{0},y_{0}} \right)} &amp; = &amp; {f_{x}\left( {2,-3} \right) = 6(2) - 2(-3) = 12 + 6 = 18} \\ {f_{y}\left( {x_{0},y_{0}} \right)} &amp; = &amp; {f_{y}\left( {2,-3} \right) = -2(2) + 2(-3) = -4 - 6 = -10.} \end{array}$$</equation>
+        <p>Then, we substitute these quantities into Equation 4.27:</p>
+        <equation>$$\begin{array}{l} {dz = f_{x}\left( {x_{0},y_{0}} \right)dx + f_{y}\left( {x_{0},y_{0}} \right)dy} \\ {dz = 18(0.1) - 10(-0.05) = 1.8 + 0.5 = 2.3.} \end{array}$$</equation>
+        <p>This is the approximation to $$\text{Δ}z = f\left( {x_{0} + \text{Δ}x,y_{0} + \text{Δ}y} \right) - f\left( {x_{0},y_{0}} \right).$$ The exact value of $$\text{Δ}z$$ is given by</p>
+        <equation>$$\begin{array}{cl} {\text{Δ}z} &amp; {= f\left( {x_{0} + \text{Δ}x,y_{0} + \text{Δ}y} \right) - f\left( {x_{0},y_{0}} \right)} \\ &amp; {= f\left( {2 + 0.1,-3 - 0.05} \right) - f\left( {2,-3} \right)} \\ &amp; {= f\left( {2.1,-3.05} \right) - f\left( {2,-3} \right)} \\ &amp; {= 2.3425.} \end{array}$$</equation>
+      </solution>
+    </example>
+    <checkpoint number="4.22">
+      <problem>
+        <p>Find the differential $$dz$$ of the function $$f\left( {x,y} \right) = 4y^{2} + x^{2}y - 2xy$$ and use it to approximate $$\text{Δ}z$$ at point $$\left( {1,-1} \right).$$ Use $$\text{Δ}x = 0.03$$ and $$\text{Δ}y = -0.02.$$ What is the exact value of $$\text{Δ}z?$$</p>
+      </problem>
+      <solution>
+        <p>$$\begin{array}{rll} {dz} &amp; = &amp; 0.18 \\ {\text{Δ}z} &amp; = &amp; {f\left( {1.03,-1.02} \right) - f\left( {1,-1} \right) = 0.180682} \end{array}$$</p>
+      </solution>
+    </checkpoint>
+  </subsection>
+  <subsection title="Differentiability of a Function of Three Variables">
+    <p>All of the preceding results for differentiability of functions of two variables can be generalized to functions of three variables. First, the definition:</p>
+    <note type="Definition">
+      <p>A function $$f\left( {x,y,z} \right)$$ is differentiable at a point $$P\left( {x_{0},y_{0},z_{0}} \right)$$ if for all points $$\left( {x,y,z} \right)$$ in a $$\delta$$ disk around $$P$$ we can write</p>
+      <equation>$$\begin{array}{cl} {f\left( {x,y,z} \right)} &amp; {= f\left( {x_{0},y_{0},z_{0}} \right) + f_{x}\left( {x_{0},y_{0},z_{0}} \right)\left( {x - x_{0}} \right) + f_{y}\left( {x_{0},y_{0},z_{0}} \right)\left( {y - y_{0}} \right)} \\ &amp; {\mspace{9mu} + f_{z}\left( {x_{0},y_{0},z_{0}} \right)\left( {z - z_{0}} \right) + E\left( {x,y,z} \right),} \end{array}$$</equation>
+      <p>where the error term E satisfies</p>
+      <equation>$$\underset{{({x,y,z})}\rightarrow{({x_{0},y_{0},z_{0}})}}{\text{lim}}\frac{E\left( {x,y,z} \right)}{\sqrt{\left( {x - x_{0}} \right)^{2} + \left( {y - y_{0}} \right)^{2} + \left( {z - z_{0}} \right)^{2}}} = 0.$$</equation>
+    </note>
+    <p>If a function of three variables is differentiable at a point $$\left( {x_{0},y_{0},z_{0}} \right),$$ then it is continuous there. Furthermore, continuity of first partial derivatives at that point guarantees differentiability.</p>
+  </subsection>
+  <exercises title="Section 4.4 Exercises">
+    <exercise number="163" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find a unit normal vector to the surface at the indicated point.</instruction>
+        <p>$$z = {f(x,y) = x^{3},(2,-1,8)}$$</p>
+      </problem>
+      <solution>
+        <p>$$\left( \frac{\sqrt{145}}{145} \right)\left( {12\mathbf{i} - \mathbf{k}} \right)$$</p>
+      </solution>
+    </exercise>
+    <exercise number="164" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find a unit normal vector to the surface at the indicated point.</instruction>
+        <p>$$\text{ln}\left( \frac{x}{y - z} \right) = 0$$ when $$x = y = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="165" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, as a useful review for techniques used in this section, find a normal vector and a tangent vector at point $$P.$$</instruction>
+        <p>$$x^{2} + xy + y^{2} = 3,P(-1,-1)$$</p>
+      </problem>
+      <solution>
+        <p>Normal vector: $$\mathbf{i} + \mathbf{j},$$ tangent vector: $$\mathbf{i} - \mathbf{j}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="166" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, as a useful review for techniques used in this section, find a normal vector and a tangent vector at point $$P.$$</instruction>
+        <p>$$\left( {x^{2} + y^{2}} \right)^{2} = 9\left( {x^{2} - y^{2}} \right),P(\sqrt{2},1)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="167" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, as a useful review for techniques used in this section, find a normal vector and a tangent vector at point $$P.$$</instruction>
+        <p>$$xy^{2} - 2x^{2} + y + 5x = 6,P(4,2)$$</p>
+      </problem>
+      <solution>
+        <p>Normal vector: $$7\mathbf{i} - 17\mathbf{j},$$ tangent vector: $$17\mathbf{i} + 7\mathbf{j}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="168" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, as a useful review for techniques used in this section, find a normal vector and a tangent vector at point $$P.$$</instruction>
+        <p>$$2x^{3} - x^{2}y^{2} = 3x - y - 7,P(1,-2)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="169" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, as a useful review for techniques used in this section, find a normal vector and a tangent vector at point $$P.$$</instruction>
+        <p>$$ze^{x^{2} - y^{2}} - 3 = 0,$$ $$P(2,2,3)$$</p>
+      </problem>
+      <solution>
+        <p>$$\begin{matrix} \text{Normal~vector} &amp; {- 12\mathbf{i} + 12\mathbf{j} - \mathbf{k}} \\ \text{Tangent~vector} &amp; {0\mathbf{i} + \mathbf{j} + 12\mathbf{k}\text{~or~}0\mathbf{i} + \mathbf{j} - 12\mathbf{k}} \end{matrix}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="170" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$-8x - 3y - 7z = -19,P(1,-1,2)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="171" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$z = -9x^{2} - 3y^{2},P(2,1,-39)$$</p>
+      </problem>
+      <solution>
+        <p>$$-36x - 6y - z = -39$$</p>
+      </solution>
+    </exercise>
+    <exercise number="172" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$x^{2} + 10xyz + y^{2} + 8z^{2} = 0,P(-1,-1,-1)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="173" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$z = \text{ln}(10x^{2} + 2y^{2} + 1),P(0,0,0)$$</p>
+      </problem>
+      <solution>
+        <p>$$z = 0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="174" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$z = e^{7x^{2} + 4y^{2}},$$ $$P(0,0,1)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="175" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$xy + yz + zx = 11,P(1,2,3)$$</p>
+      </problem>
+      <solution>
+        <p>$$5x + 4y + 3z - 22 = 0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="176" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$x^{2} + 4y^{2} = z^{2},P(3,2,5)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="177" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$x^{3} + y^{3} = 3xyz,P\left( {1,2,\frac{3}{2}} \right)$$</p>
+      </problem>
+      <solution>
+        <p>$$4x - 5y + 4z = 0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="178" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$z = axy,P\left( {1,\frac{1}{a},1} \right)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="179" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$z = \text{sin}\ x + \text{sin}\ y + \text{sin}(x + y),P(0,0,0)$$</p>
+      </problem>
+      <solution>
+        <p>$$2x + 2y - z = 0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="180" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$z = {h(x,y) = \text{ln}\sqrt{x^{2} + y^{2}},P(3,4)}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="181" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find the equation for the tangent plane to the surface at the indicated point. (Hint: Solve for $$z$$ in terms of $$x$$ and $$y.)$$</instruction>
+        <p>$$z = x^{2} - 2xy + y^{2},P(1,2,1)$$</p>
+      </problem>
+      <solution>
+        <p>$$-2\left( {x - 1} \right) + 2\left( {y - 2} \right) - \left( {z - 1} \right) = 0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="182" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find parametric equations for the normal line to the surface at the indicated point. (Recall that to find the equation of a line in space, you need a point on the line, $$P_{0}\left( {x_{0,}y_{0},z_{0}} \right),$$ and a vector $$\mathbf{n} = \left\langle {a,b,c} \right\rangle$$ that is parallel to the line. Then the equation of the line is $$x - x_{0} = at,y - y_{0} = bt,z - z_{0} = ct.)$$</instruction>
+        <p>$$-3x + 9y + 4z = -4,P(1,-1,2)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="183" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find parametric equations for the normal line to the surface at the indicated point. (Recall that to find the equation of a line in space, you need a point on the line, $$P_{0}\left( {x_{0,}y_{0},z_{0}} \right),$$ and a vector $$\mathbf{n} = \left\langle {a,b,c} \right\rangle$$ that is parallel to the line. Then the equation of the line is $$x - x_{0} = at,y - y_{0} = bt,z - z_{0} = ct.)$$</instruction>
+        <p>$$z = 5x^{2} - 2y^{2},P(2,1,18)$$</p>
+      </problem>
+      <solution>
+        <p>$$x = 20t + 2,y = -4t + 1,z = \text{−}t + 18$$</p>
+      </solution>
+    </exercise>
+    <exercise number="184" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find parametric equations for the normal line to the surface at the indicated point. (Recall that to find the equation of a line in space, you need a point on the line, $$P_{0}\left( {x_{0,}y_{0},z_{0}} \right),$$ and a vector $$\mathbf{n} = \left\langle {a,b,c} \right\rangle$$ that is parallel to the line. Then the equation of the line is $$x - x_{0} = at,y - y_{0} = bt,z - z_{0} = ct.)$$</instruction>
+        <p>$$x^{2} - 8xyz + y^{2} + 6z^{2} = 0,P(1,1,1)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="185" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find parametric equations for the normal line to the surface at the indicated point. (Recall that to find the equation of a line in space, you need a point on the line, $$P_{0}\left( {x_{0,}y_{0},z_{0}} \right),$$ and a vector $$\mathbf{n} = \left\langle {a,b,c} \right\rangle$$ that is parallel to the line. Then the equation of the line is $$x - x_{0} = at,y - y_{0} = bt,z - z_{0} = ct.)$$</instruction>
+        <p>$$z = \text{ln}\left( {3x^{2} + 7y^{2} + 1} \right),P(0,0,0)$$</p>
+      </problem>
+      <solution>
+        <p>$$x = 0,y = 0,z = t$$</p>
+      </solution>
+    </exercise>
+    <exercise number="186" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find parametric equations for the normal line to the surface at the indicated point. (Recall that to find the equation of a line in space, you need a point on the line, $$P_{0}\left( {x_{0,}y_{0},z_{0}} \right),$$ and a vector $$\mathbf{n} = \left\langle {a,b,c} \right\rangle$$ that is parallel to the line. Then the equation of the line is $$x - x_{0} = at,y - y_{0} = bt,z - z_{0} = ct.)$$</instruction>
+        <p>$$z = e^{4x^{2} + 6y^{2}},P(0,0,1)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="187" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find parametric equations for the normal line to the surface at the indicated point. (Recall that to find the equation of a line in space, you need a point on the line, $$P_{0}\left( {x_{0,}y_{0},z_{0}} \right),$$ and a vector $$\mathbf{n} = \left\langle {a,b,c} \right\rangle$$ that is parallel to the line. Then the equation of the line is $$x - x_{0} = at,y - y_{0} = bt,z - z_{0} = ct.)$$</instruction>
+        <p>$$z = x^{2} - 2xy + y^{2}$$ at point $$P(1,2,1)$$</p>
+      </problem>
+      <solution>
+        <p>$$x - 1 = 2t;\ y - 2 = -2t;\ z - 1 = t$$</p>
+      </solution>
+    </exercise>
+    <exercise number="188" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use the figure shown here.</instruction>
+        <p>The length of line segment $$AC$$ is equal to what mathematical expression?</p>
+      </problem>
+    </exercise>
+    <exercise number="189" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use the figure shown here.</instruction>
+        <p>The length of line segment $$BC$$ is equal to what mathematical expression?</p>
+      </problem>
+      <solution>
+        <p>The differential of the function $$z(x,y) = dz = f_{x}dx + f_{y}dy$$</p>
+      </solution>
+    </exercise>
+    <exercise number="190" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use the figure shown here.</instruction>
+        <p>Using the figure, explain what the length of line segment $$AB$$ represents.</p>
+      </problem>
+    </exercise>
+    <exercise number="191" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>Show that $$f(x,y) = e^{xy}x$$ is differentiable at point $$(1,0).$$</p>
+      </problem>
+      <solution>
+        <p>Using the definition of differentiability, we have $$e^{xy}x \approx x + y.$$</p>
+      </solution>
+    </exercise>
+    <exercise number="192" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>Find the total differential of the function $$w = e^{y}\text{cos}(x) + z^{2}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="193" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>Show that $$f(x,y) = x^{2} + 3y$$ is differentiable at every point. In other words, show that $$\text{Δ}z = f(x + \text{Δ}x,y + \text{Δ}y) - f(x,y) = f_{x}\text{Δ}x + f_{y}\text{Δ}y + \varepsilon_{1}\text{Δ}x + \varepsilon_{2}\text{Δ}y,$$ where both $$\varepsilon_{1}$$ and $$\varepsilon_{2}$$ approach zero as $$\left( {\text{Δ}x,\text{Δ}y} \right)$$ approaches $$\left( {0,0} \right).$$</p>
+      </problem>
+      <solution>
+        <p>$$\text{Δ}z = 2x\text{Δ}x + 3\text{Δ}y + \left( {\text{Δ}x} \right)^{2}.$$ $${(\text{Δ}x)}^{2}\rightarrow 0$$ for small $$\text{Δ}x$$ and $$z$$ satisfies the definition of differentiability.</p>
+      </solution>
+    </exercise>
+    <exercise number="194" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>Find the total differential of the function $$z = \frac{xy}{y + x}$$ where $$x$$ changes from $$10\ \text{to}\ 10.5$$ and $$y$$ changes from $$15\ \text{to}\ 13.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="195" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>Let $$z = f(x,y) = xe^{y}.$$ Compute $$\text{Δ}z$$ from $$P(1,2)$$ to $$Q(1.05,2.1)$$ and then find the approximate change in $$z$$ from point $$P$$ to point $$Q.$$ Recall $$\text{Δ}z = f(x + \text{Δ}x,y + \text{Δ}y) - f(x,y),$$ and $$dz$$ and $$\text{Δ}z$$ are approximately equal.</p>
+      </problem>
+      <solution>
+        <p>$$\text{Δ}z \approx 1.185422$$ and $$dz \approx 1.108.$$ They are relatively close.</p>
+      </solution>
+    </exercise>
+    <exercise number="196" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>The volume of a right circular cylinder is given by $$V(r,h) = \pi r^{2}h.$$ Find the differential $$dV.$$ Interpret the formula geometrically.</p>
+      </problem>
+    </exercise>
+    <exercise number="197" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>See the preceding problem. Use differentials to estimate the volume of aluminum in an enclosed aluminum can with diameter $$8.0\ \text{cm}$$ and height $$12\ \text{cm}$$ if the aluminum is $$0.04$$ cm thick.</p>
+      </problem>
+      <solution>
+        <p>$$16$$ cm3</p>
+      </solution>
+    </exercise>
+    <exercise number="198" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>Use the differential $$dz$$ to approximate the change in $$z = \sqrt{4 - x^{2} - y^{2}}$$ as $$(x,y)$$ moves from point $$(1,1)$$ to point $$(1.01,0.97).$$ Compare this approximation with the actual change in the function.</p>
+      </problem>
+    </exercise>
+    <exercise number="199" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>Let $$z = f(x,y) = x^{2} + 3xy - y^{2}.$$ Find the exact change in the function and the approximate change in the function as $$x$$ changes from $$2.00\ \text{to}\ 2.05$$ and $$y$$ changes from $$3.00\ \text{to}\ 2.96.$$</p>
+      </problem>
+      <solution>
+        <p>$$\text{Δ}z =$$ exact change $$= 0.6449,$$ approximate change is $$dz = 0.65.$$ The two values are close.</p>
+      </solution>
+    </exercise>
+    <exercise number="200" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>The centripetal acceleration of a particle moving in a circle is given by $$a(r,v) = \frac{v^{2}}{r},$$ where $$v$$ is the velocity and $$r$$ is the radius of the circle. Approximate the maximum percent error in measuring the acceleration resulting from errors of $$3\text{\%}$$ in $$v$$ and $$2\text{\%}$$ in $$r.$$ (Recall that the percentage error is the ratio of the amount of error over the original amount. So, in this case, the percentage error in $$a$$ is given by $$\frac{da}{a}.)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="201" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>The radius $$r$$ and height $$h$$ of a right circular cylinder are measured with possible errors of $$4\text{\%}\ \text{and}\ 5\text{\%},$$ respectively. Approximate the maximum possible percentage error in measuring the volume (Recall that the percentage error is the ratio of the amount of error over the original amount. So, in this case, the percentage error in $$V$$ is given by $$\frac{dV}{V}.)$$</p>
+      </problem>
+      <solution>
+        <p>$$13\text{\%}\ \text{or}\ 0.13$$</p>
+      </solution>
+    </exercise>
+    <exercise number="202" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>The base radius and height of a right circular cone are measured as $$10$$ in. and $$25$$ in., respectively, with a possible error in measurement of as much as $$0.1$$ in. each. Use differentials to estimate the maximum error in the calculated volume of the cone.</p>
+      </problem>
+    </exercise>
+    <exercise number="203" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>The electrical resistance $$R$$ produced by wiring resistors $$R_{1}$$ and $$R_{2}$$ in parallel can be calculated from the formula $$\frac{1}{R} = \frac{1}{R_{1}} + \frac{1}{R_{2}}.$$ If $$R_{1}$$ and $$R_{2}$$ are measured to be $$7\text{Ω}$$ and $$6\text{Ω},$$ respectively, and if these measurements are accurate to within $$0.05\text{Ω},$$ estimate the maximum possible error in computing $$R.$$ (The symbol $$\text{Ω}$$ represents an ohm, the unit of electrical resistance.)</p>
+      </problem>
+      <solution>
+        <p>$$0.025$$</p>
+      </solution>
+    </exercise>
+    <exercise number="204" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>The area of an ellipse with axes of length $$2a$$ and $$2b$$ is given by the formula</p>
+        <p>$$A = \pi ab.$$ Approximate the percent change in the area when $$a$$ increases by $$2\text{\%}$$ and $$b$$ increases by $$1.5\text{\%}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="205" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>The period $$T$$ of a simple pendulum with small oscillations is calculated from the formula $$T = 2\pi\sqrt{\frac{L}{g}},$$ where $$L$$ is the length of the pendulum and $$g$$ is the acceleration resulting from gravity. Suppose that $$L$$ and $$g$$ have errors of, at most, $$0.5\text{\%}$$ and $$0.1\text{\%},$$ respectively. Use differentials to approximate the maximum percentage error in the calculated value of $$T.$$</p>
+      </problem>
+      <solution>
+        <p>$$0.3\text{\%}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="206" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, complete each task.</instruction>
+        <p>Electrical power $$P$$ is given by $$P = \frac{V^{2}}{R},$$ where $$V$$ is the voltage and $$R$$ is the resistance. Approximate the maximum percentage error in calculating power if $$120$$ $$V$$ is applied to a $$2000 - \text{Ω}$$ resistor and the possible percent errors in measuring $$V$$ and $$R$$ are $$3\text{\%}$$ and $$4\text{\%},$$ respectively.</p>
+      </problem>
+    </exercise>
+    <exercise number="207" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find the linear approximation of each function at the indicated point.</instruction>
+        <p>$$f(x,y) = x\sqrt{y},\quad P(1,4)$$</p>
+      </problem>
+      <solution>
+        <p>$$2x + \frac{1}{4}y - 1$$</p>
+      </solution>
+    </exercise>
+    <exercise number="208" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find the linear approximation of each function at the indicated point.</instruction>
+        <p>$$f(x,y) = e^{x}\text{cos}\ y;P(0,0)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="209" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find the linear approximation of each function at the indicated point.</instruction>
+        <p>$$f(x,y) = \text{arctan}(x + 2y),P(1,0)$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{1}{2}x + y + \frac{1}{4}\pi - \frac{1}{2}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="210" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find the linear approximation of each function at the indicated point.</instruction>
+        <p>$$f(x,y) = \sqrt{20 - x^{2} - 7y^{2}},\quad P(2,1)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="211" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find the linear approximation of each function at the indicated point.</instruction>
+        <p>$$f(x,y,z) = \sqrt{x^{2} + y^{2} + z^{2}},\quad P(3,2,6)$$</p>
+      </problem>
+      <solution>
+        <p>$$\frac{3}{7}x + \frac{2}{7}y + \frac{6}{7}z$$</p>
+      </solution>
+    </exercise>
+    <exercise number="212" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find the linear approximation of each function at the indicated point.</instruction>
+        <p>[T] Find an equation of the tangent plane to the surface $$f(x,y) = x^{2} + y^{2}$$ at point $$\left( {1,2,5} \right),$$ and graph the surface and the tangent plane at the point.</p>
+      </problem>
+    </exercise>
+    <exercise number="213" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, find the linear approximation of each function at the indicated point.</instruction>
+        <p>[T] Find the equation for the tangent plane to the surface at the indicated point, and graph the surface and the tangent plane: $$z = \text{ln}(10x^{2} + 2y^{2} + 1),P(0,0,0).$$</p>
+      </problem>
+      <solution>
+        <p>$$z = 0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="214" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, find the linear approximation of each function at the indicated point.</instruction>
+        <p>[T] Find an equation of the tangent plane to the surface $$z = f(x,y) = \text{sin}(x + y^{2})$$ at point $$\left( {\frac{\pi}{4},0,\frac{\sqrt{2}}{2}} \right),$$ and graph the surface and the tangent plane.</p>
+      </problem>
+    </exercise>
+  </exercises>
+</section>

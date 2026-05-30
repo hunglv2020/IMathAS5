@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch05" chapter_number="5" unit_code="5.3">
+  <section number="5.3" title="Diagonalization">
+    <metadata>
+      <source_pages count="5">
+        <page global_index="250" type="content"/>
+        <page global_index="251" type="content"/>
+        <page global_index="252" type="content"/>
+        <page global_index="253" type="exercises"/>
+        <page global_index="254" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">5.3 Diagonalization</heading>
+      <video title="Watch Video"/>
+      <paragraph>In many cases, the eigenvalue–eigenvector information contained within a matrix <math display="inline">$A$</math> can be displayed in a useful factorization of the form <math display="inline">$A = PDP^{- 1}$</math> where <math display="inline">$D$</math> is a diagonal matrix. In this section, the factorization enables us to compute <math display="inline">$A^{k}$</math> quickly for large values of <math display="inline">$k$</math>, a fundamental idea in several applications of linear algebra. Later, in Sections 5.6 and 5.7, the factorization will be used to analyze (and <em>decouple</em>) dynamical systems.</paragraph>
+      <paragraph>The following example illustrates that powers of a diagonal matrix are easy to compute.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>If <math display="inline">$D = \left\lbrack \begin{array}{rr}
+      5 &amp; 0 \\
+      0 &amp; 3
+      \end{array} \right\rbrack$</math>, then <math display="inline">$D^{2} = \left\lbrack \begin{array}{rr}
+      5 &amp; 0 \\
+      0 &amp; 3
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      5 &amp; 0 \\
+      0 &amp; 3
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
+      5^{2} &amp; 0 \\
+      0 &amp; 3^{2}
+      \end{array} \right\rbrack$</math> and</paragraph>
+              <paragraph><math display="block">$$D^{3} = DD^{2} = \begin{bmatrix}
+      5 &amp; 0 \\
+      0 &amp; 3
+      \end{bmatrix}\begin{bmatrix}
+      5^{2} &amp; 0 \\
+      0 &amp; 3^{2}
+      \end{bmatrix} = \begin{bmatrix}
+      5^{3} &amp; 0 \\
+      0 &amp; 3^{3}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>In general,</paragraph>
+              <paragraph><math display="block">$$D^{k} = \left\lbrack \begin{array}{rr}
+      5^{k} &amp; 0 \\
+      0 &amp; 3^{k}
+      \end{array} \right\rbrack\quad\text{for~}k \geq 1$$</math></paragraph>
+        </example>
+      <paragraph>If <math display="inline">$A = PDP^{- 1}$</math> for some invertible <math display="inline">$P$</math> and diagonal <math display="inline">$D$</math>, then <math display="inline">$A^{k}$</math> is also easy to compute, as the next example shows.</paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Let <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      7 &amp; 2 \\
+      {- 4} &amp; 1
+      \end{array} \right\rbrack$</math>. Find a formula for <math display="inline">$A^{k}$</math>, given that <math display="inline">$A = PDP^{- 1}$</math>, where</paragraph>
+              <paragraph><math display="block">$$P = \left\lbrack \begin{array}{rr}
+      1 &amp; 1 \\
+      {- 1} &amp; {- 2}
+      \end{array} \right\rbrack\quad\text{and}\quad D = \left\lbrack \begin{array}{rr}
+      5 &amp; 0 \\
+      0 &amp; 3
+      \end{array} \right\rbrack$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The standard formula for the inverse of a <math display="inline">$2 \times 2$</math> matrix yields</paragraph>
+              <paragraph><math display="block">$$P^{- 1} = \left\lbrack \begin{array}{rr}
+      2 &amp; 1 \\
+      {- 1} &amp; {- 1}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>Then, by associativity of matrix multiplication,</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      A^{2} &amp; = &amp; {(PDP^{- 1})(PDP^{- 1}) = PD\underset{I}{\underset{︸}{(P^{- 1}P)}}DP^{- 1} = PDDP^{- 1}} \\
+       &amp; = &amp; {PD^{2}P^{- 1} = \left\lbrack \begin{array}{rr}
+      1 &amp; 1 \\
+      {- 1} &amp; {- 2}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      5^{2} &amp; 0 \\
+      0 &amp; 3^{2}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      2 &amp; 1 \\
+      {- 1} &amp; {- 1}
+      \end{array} \right\rbrack}
+      \end{array}$$</math></paragraph>
+              <paragraph>Again,</paragraph>
+              <paragraph><math display="block">$$A^{3} = (PDP^{- 1})A^{2} = (PD\underset{I}{\underset{︸}{P^{- 1})P}}D^{2}P^{- 1} = PDD^{2}P^{- 1} = PD^{3}P^{- 1}$$</math></paragraph>
+              <paragraph>In general, for <math display="inline">$k \geq 1$</math>,</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      A^{k} &amp; {= PD^{k}P^{- 1} = \left\lbrack \begin{array}{rr}
+      1 &amp; 1 \\
+      {- 1} &amp; {- 2}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      5^{k} &amp; 0 \\
+      0 &amp; 3^{k}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      2 &amp; 1 \\
+      {- 1} &amp; {- 1}
+      \end{array} \right\rbrack} \\
+       &amp; {= \begin{bmatrix}
+      {2 \cdot 5^{k} - 3^{k}} &amp; {5^{k} - 3^{k}} \\
+      {2 \cdot 3^{k} - 2 \cdot 5^{k}} &amp; {2 \cdot 3^{k} - 5^{k}}
+      \end{bmatrix}}
+      \end{matrix}$$</math></paragraph>
+        </example>
+      <paragraph>A square matrix <math display="inline">$A$</math> is said to be diagonalizable if <math display="inline">$A$</math> is similar to a diagonal matrix, that is, if <math display="inline">$A = PDP^{- 1}$</math> for some invertible matrix <math display="inline">$P$</math> and some diagonal matrix <math display="inline">$D$</math>. The next theorem gives a characterization of diagonalizable matrices and tells how to construct a suitable factorization.</paragraph>
+      <note type="procedure" title="Theorem ﻿5">
+          <heading level="2">Theorem ﻿5</heading>
+          <heading level="3">The Diagonalization Theorem﻿</heading>
+              <paragraph>An <math display="inline">$n \times n$</math> matrix <math display="inline">$A$</math> is diagonalizable if and only if <math display="inline">$A$</math> has <math display="inline">$n$</math> linearly independent eigenvectors.</paragraph>
+              <paragraph>In fact, <math display="inline">$A = PDP^{- 1}$</math>, with <math display="inline">$D$</math> a diagonal matrix, if and only if the columns of <math display="inline">$P$</math> are <math display="inline">$n$</math> linearly independent eigenvectors of <math display="inline">$A$</math>. In this case, the diagonal entries of <math display="inline">$D$</math> are eigenvalues of <math display="inline">$A$</math> that correspond, respectively, to the eigenvectors in <math display="inline">$P$</math>.</paragraph>
+        </note>
+      <paragraph>In other words, <math display="inline">$A$</math> is diagonalizable if and only if there are enough eigenvectors to form a basis of <math display="inline">$\textbf{ℝ}^{n}$</math>. We call such a basis an eigenvector basis of <math display="inline">$\textbf{ℝ}^{n}$</math>.</paragraph>
+      <heading level="3">Proof</heading>
+      <paragraph>First, observe that if <math display="inline">$P$</math> is any <math display="inline">$n \times n$</math> matrix with columns <math display="inline">$\textbf{v}_{1},\ldots,\textbf{v}_{n}$</math>, and if <math display="inline">$D$</math> is any diagonal matrix with diagonal entries <math display="inline">$\text{λ}_{1},\ldots,\text{λ}_{n}$</math>, then</paragraph>
+      <paragraph>
+        <math display="block">$$AP = A\left\lbrack \begin{array}{rrrr}
+      \textbf{v}_{1} &amp; \textbf{v}_{2} &amp; \cdots &amp; \textbf{v}_{n}
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rrrr}
+      {A\textbf{v}_{1}} &amp; {A\textbf{v}_{2}} &amp; \cdots &amp; {A\textbf{v}_{n}}
+      \end{array} \right\rbrack$$</math>
+      </paragraph>
+      <paragraph>while</paragraph>
+      <paragraph>
+        <math display="block">$$PD = P\,\,\,\begin{bmatrix}
+      \text{λ}_{1} &amp; 0 &amp; \cdots &amp; 0 \\
+      0 &amp; \text{λ}_{2} &amp; \cdots &amp; 0 \\
+       \vdots &amp; \vdots &amp; &amp; \vdots \\
+      0 &amp; 0 &amp; \cdots &amp; \text{λ}_{n}
+      \end{bmatrix}\,\, = \,\,\begin{bmatrix}
+      {\text{λ}_{1}\textbf{v}_{1}} &amp; {\text{λ}_{2}\textbf{v}_{2}} &amp; \cdots &amp; {\text{λ}_{n}\textbf{v}_{n}}
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>Now suppose <math display="inline">$A$</math> is diagonalizable and <math display="inline">$A = PDP^{- 1}$</math>. Then right-multiplying this relation by <math display="inline">$P$</math>, we have <math display="inline">$AP = PD$</math>. In this case, equations (1) and (2) imply that</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{bmatrix}
+      {A\textbf{v}_{1}} &amp; {A\textbf{v}_{2}} &amp; \cdots &amp; {A\textbf{v}_{n}}
+      \end{bmatrix}\, = \,\,\begin{bmatrix}
+      {\text{λ}_{1}\textbf{v}_{1}} &amp; {\text{λ}_{2}\textbf{v}_{2}} &amp; \cdots &amp; {\text{λ}_{n}\textbf{v}_{n}}
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>Equating columns, we find that</paragraph>
+      <paragraph>
+        <math display="block">$$A\textbf{v}_{1} = \text{λ}_{1}\textbf{v}_{1},\quad A\textbf{v}_{2} = \text{λ}_{2}\textbf{v}_{2},\quad\ldots,\quad A\textbf{v}_{n} = \text{λ}_{n}\textbf{v}_{n}$$</math>
+      </paragraph>
+      <paragraph>Since <math display="inline">$P$</math> is invertible, its columns <math display="inline">$\textbf{v}_{1},\ldots,\textbf{v}_{n}$</math> must be linearly independent. Also, since these columns are nonzero, the equations in <strong>(4)</strong> show that <math display="inline">$\text{λ}_{1},\ldots,\text{λ}_{n}$</math> are eigenvalues and <math display="inline">$\textbf{v}_{1},\ldots,\textbf{v}_{n}$</math> are corresponding eigenvectors. This argument proves the “only if” parts of the first and second statements, along with the third statement, of the theorem.</paragraph>
+      <paragraph>Finally, given any <math display="inline">$n$</math> eigenvectors <math display="inline">$\textbf{v}_{1},\ldots,\textbf{v}_{n}$</math>, use them to construct the columns of <math display="inline">$P$</math> and use corresponding eigenvalues <math display="inline">$\text{λ}_{1},\ldots,\text{λ}_{n}$</math> to construct <math display="inline">$D$</math>. By <strong>equations (1)</strong>–<strong>(3)</strong>, <math display="inline">$AP = PD$</math>. This is true without any condition on the eigenvectors. If, in fact, the eigenvectors are linearly independent, then <math display="inline">$P$</math> is invertible (by the Invertible Matrix Theorem), and <math display="inline">$AP = PD$</math> implies that <math display="inline">$A = PDP^{- 1}$</math>.</paragraph>
+      <heading level="2">Diagonalizing Matrices</heading>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Diagonalize the following matrix, if possible.</paragraph>
+              <paragraph><math display="block">$$A = \,\,\begin{bmatrix}
+      1 &amp; 3 &amp; 3 \\
+      {- 3} &amp; {- 5} &amp; {- 3} \\
+      3 &amp; 3 &amp; 1
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>That is, find an invertible matrix <math display="inline">$P$</math> and a diagonal matrix <math display="inline">$D$</math> such that <math display="inline">$A = PDP^{- 1}$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>There are four steps to implement the description in Theorem 5.</paragraph>
+              <paragraph><strong><em>Step 1</em></strong><strong>.</strong> <em><strong>Find the eigenvalues of</strong></em><strong/><math display="inline">$\mathbf{A}$</math><strong>.</strong>As mentioned in Section 5.2, the mechanics of this step are appropriate for a computer when the matrix is larger than <math display="inline">$2 \times 2$</math>. To avoid unnecessary distractions, the text will usually supply information needed for this step. In the present case, the characteristic equation turns out to involve a cubic polynomial that can be factored:<math display="block">$$\begin{matrix}
+      {0 = \det\text{(}A~ - ~\lambda I\text{)}} &amp; = &amp; {- \lambda^{3} - 3\lambda^{2} + 4} \\
+       &amp; = &amp; {- \text{(}\lambda - 1\text{)}{\text{(}\lambda + 2\text{)}}^{2}}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>The eigenvalues are <math display="inline">$\text{λ} = 1$</math> and <math display="inline">$\text{λ} = - 2$</math>.</paragraph>
+              <paragraph><strong><em>Step 2</em></strong><strong>.</strong> <em><strong>Find three linearly independent eigenvectors of</strong></em><strong/><math display="inline">$\mathbf{A}$</math><strong>.</strong><em>Three</em> vectors are needed because <math display="inline">$A$</math> is a <math display="inline">$3 \times 3$</math> matrix. This is the critical step. If it fails, then Theorem 5 says that <math display="inline">$A$</math> cannot be diagonalized. The method in Section 5.1 produces a basis for each eigenspace:<math display="block">$$\begin{matrix}
+      {\text{Basis~for~}\lambda~} &amp; = &amp; {1;~v_{1} = ~\left\lbrack \begin{array}{r}
+      1 \\
+      {- 1} \\
+      1
+      \end{array} \right\rbrack} \\
+      {\text{Basis~for~}\lambda = - 2;~v_{2}} &amp; = &amp; {\left\lbrack \begin{array}{r}
+      {- 1} \\
+      0 \\
+      0
+      \end{array} \right\rbrack~\text{and~}v_{3} = ~\left\lbrack \begin{array}{r}
+      {- 1} \\
+      0 \\
+      1
+      \end{array} \right\rbrack}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>You can check that <math display="inline">$\{\textbf{v}_{1},\textbf{v}_{2},\textbf{v}_{3}\}$</math> is a linearly independent set.</paragraph>
+              <paragraph><strong><em>Step 3</em></strong><strong>.</strong> <em><strong>Construct</strong></em><math display="inline">$\mathbf{P}$</math><em><strong>from the vectors in step 2.</strong></em><strong/>The vectors may be listed in any order. Using the order chosen in step 2, form<math display="block">$$P~ = ~\begin{bmatrix}
+      \mathbf{v}_{1} &amp; \mathbf{v}_{2} &amp; \mathbf{v}_{3}
+      \end{bmatrix}~ = ~\begin{bmatrix}
+      {~~~1} &amp; {- 1} &amp; {- 1} \\
+      {- 1} &amp; {~~~1} &amp; {~~~0} \\
+      {~~~1} &amp; {~~~0} &amp; {~~~1}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph><strong><em>Step 4</em></strong><strong>.</strong> <em><strong>Construct</strong></em><math display="inline">$\mathbf{D}$</math><em><strong>from the corresponding eigenvalues</strong></em><strong>.</strong>In this step, it is essential that the order of the eigenvalues matches the order chosen for the columns of <math display="inline">$P$</math>. Use the eigenvalue <math display="inline">$\text{λ} = - 2$</math> twice, once for each of the eigenvectors corresponding to <math display="inline">$\text{λ} = - 2$</math>:<math display="block">$$D~ = ~\begin{bmatrix}
+      1 &amp; {~~~0} &amp; {~~~0} \\
+      0 &amp; {- 2} &amp; {~~~0} \\
+      0 &amp; {~~~0} &amp; {- 2}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>It is a good idea to check that <math display="inline">$P$</math> and <math display="inline">$D$</math> really work. To avoid computing <math display="inline">$P^{- 1}$</math>, simply verify that <math display="inline">$AP = PD$</math>. This is equivalent to <math display="inline">$A = PDP^{- 1}$</math> when <math display="inline">$P$</math> is invertible. (However, be sure that <math display="inline">$P$</math> is invertible!) Compute<math display="block">$$\begin{matrix}
+      {AP} &amp; = &amp; {\begin{bmatrix}
+      1 &amp; 3 &amp; 3 \\
+      {- 3} &amp; {- 5} &amp; {- 3} \\
+      3 &amp; 3 &amp; 1
+      \end{bmatrix}\begin{bmatrix}
+      1 &amp; {- 1} &amp; {- 1} \\
+      {- 1} &amp; {- 1} &amp; 0 \\
+      1 &amp; 0 &amp; 1
+      \end{bmatrix}~ = ~\begin{bmatrix}
+      1 &amp; 2 &amp; 2 \\
+      {- 1} &amp; {- 2} &amp; 0 \\
+      1 &amp; 0 &amp; {- 2}
+      \end{bmatrix}} \\
+      {PD} &amp; = &amp; {\begin{bmatrix}
+      1 &amp; {- 1} &amp; {- 1} \\
+      {- 1} &amp; 1 &amp; 0 \\
+      1 &amp; 0 &amp; 1
+      \end{bmatrix}\begin{bmatrix}
+      1 &amp; 0 &amp; 0 \\
+      0 &amp; {- 2} &amp; 0 \\
+      0 &amp; 0 &amp; {- 2}
+      \end{bmatrix}~ = ~\begin{bmatrix}
+      1 &amp; 2 &amp; 2 \\
+      {- 1} &amp; {- 2} &amp; 0 \\
+      1 &amp; 0 &amp; {- 2}
+      \end{bmatrix}}
+      \end{matrix}$$</math></paragraph>
+        </example>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>Diagonalize the following matrix, if possible.</paragraph>
+              <paragraph><math display="block">$$A~ = ~\begin{bmatrix}
+      2 &amp; 4 &amp; 3 \\
+      {- 4} &amp; {- 6} &amp; {- 3} \\
+      3 &amp; 3 &amp; 1
+      \end{bmatrix}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The characteristic equation of <math display="inline">$A$</math> turns out to be exactly the same as that in Example 3:</paragraph>
+              <paragraph><math display="block">$$0 = \det\,(A - \text{λ}I) = - \text{λ}^{3} - 3\text{λ}^{2} + 4 = - (\text{λ} - 1)(\text{λ} + 2)^{2}$$</math></paragraph>
+              <paragraph>The eigenvalues are <math display="inline">$\text{λ} = 1$</math> and <math display="inline">$\text{λ} = - 2$</math>. However, it is easy to verify that each eigenspace is only one-dimensional:</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \text{Basis for λ~} &amp; {= 1:} &amp; {\qquad\textbf{v}_{1}} &amp; {\text{~=~}~\left\lbrack \begin{array}{r}
+      1 \\
+      {- 1} \\
+      1
+      \end{array} \right\rbrack} \\
+      \text{Basis for λ~} &amp; {= - 2:} &amp; {\qquad\textbf{v}_{2}} &amp; {\text{~=~}~\left\lbrack \begin{array}{r}
+      {- 1} \\
+      1 \\
+      0
+      \end{array} \right\rbrack}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>There are no other eigenvalues, and every eigenvector of <math display="inline">$A$</math> is a multiple of either <math display="inline">$\textbf{v}_{1}$</math> or <math display="inline">$\textbf{v}_{2}$</math>. Hence it is impossible to construct a basis of <math display="inline">$\textbf{ℝ}^{3}$</math> using eigenvectors of <math display="inline">$A$</math>. By Theorem 5, <math display="inline">$A$</math> is <em>not</em> diagonalizable.</paragraph>
+        </example>
+      <paragraph>The following theorem provides a <em>sufficient</em> condition for a matrix to be diagonalizable.</paragraph>
+      <note type="procedure" title="Theorem 6">
+          <heading level="2">Theorem 6</heading>
+              <paragraph>An <math display="inline">$n \times n$</math> matrix with <math display="inline">$n$</math> distinct eigenvalues is diagonalizable.</paragraph>
+        </note>
+      <heading level="3">Proof﻿</heading>
+      <paragraph>Let <math display="inline">$\textbf{v}_{1},\ldots,\textbf{v}_{n}$</math> be eigenvectors corresponding to the <math display="inline">$n$</math> distinct eigenvalues of a matrix <math display="inline">$A$</math>. Then <math display="inline">$\{\textbf{v}_{1},\ldots,\textbf{v}_{n}\}$</math> is linearly independent, by Theorem 2 in Section 5.1. Hence <math display="inline">$A$</math> is diagonalizable, by Theorem 5.</paragraph>
+      <paragraph>It is not <em>necessary</em> for an <math display="inline">$n \times n$</math> matrix to have <math display="inline">$n$</math> distinct eigenvalues in order to be diagonalizable. The <math display="inline">$3 \times 3$</math> matrix in Example 3 is diagonalizable even though it has only two distinct eigenvalues.</paragraph>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>Determine if the following matrix is diagonalizable.</paragraph>
+              <paragraph><math display="block">$$A = \,\,\begin{bmatrix}
+      5 &amp; {- 8} &amp; 1 \\
+      0 &amp; 0 &amp; 7 \\
+      0 &amp; 0 &amp; {- 2}
+      \end{bmatrix}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>This is easy! Since the matrix is triangular, its eigenvalues are obviously <math display="inline">$5$</math>, <math display="inline">$0$</math>, and <math display="inline">$- 2$</math>. Since <math display="inline">$A$</math> is a <math display="inline">$3 \times 3$</math> matrix with three distinct eigenvalues, <math display="inline">$A$</math> is diagonalizable.</paragraph>
+        </example>
+      <heading level="2">Matrices Whose Eigenvalues Are Not Distinct</heading>
+      <paragraph>If an <math display="inline">$n \times n$</math> matrix <math display="inline">$A$</math> has <math display="inline">$n$</math> distinct eigenvalues, with corresponding eigenvectors <math display="inline">$\mathbf{v}_{1},\ldots,\mathbf{v}_{n},$</math> and if <math display="inline">$P = \left\lbrack \begin{array}{rrr}
+      \textbf{v}_{1} &amp; \cdots &amp; \textbf{v}_{n}
+      \end{array} \right\rbrack$</math>, then <math display="inline">$P$</math> is automatically invertible because its columns are linearly independent, by Theorem 2. When <math display="inline">$A$</math> is diagonalizable but has fewer than <math display="inline">$n$</math> distinct eigenvalues, it is still possible to build <math display="inline">$P$</math> in a way that makes <math display="inline">$P$</math> automatically invertible, as the next theorem shows.1<sup/></paragraph>
+      <note type="procedure" title="Theorem ﻿7﻿">
+          <heading level="2">Theorem ﻿7﻿</heading>
+              <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> matrix whose distinct eigenvalues are <math display="inline">$\text{λ}_{1},\ldots,\text{λ}_{p}$</math>.</paragraph>
+          <list ordered="true">
+                  <item>For 1≤k≤p, the dimension of the eigenspace for λk is less than or equal to the multiplicity of the eigenvalue λk.</item>
+                  <item>The matrix A is diagonalizable if and only if the sum of the dimensions of the eigenspaces equals n, and this happens if and only if (i) the characteristic polynomial factors completely into linear factors and (ii) the dimension of the eigenspace for each λk equals the multiplicity of λk.</item>
+                  <item>If A is diagonalizable and Bk is a basis for the eigenspace corresponding to λk for each k, then the total collection of vectors in the sets B1,…,Bp forms an eigenvector basis for ℝn.</item>
+          </list>
+        </note>
+      <example number="6">
+          <heading level="2">Example 6</heading>
+              <paragraph>Diagonalize the following matrix, if possible.</paragraph>
+              <paragraph><math display="block">$$A\,\, = \,\,\begin{bmatrix}
+      5 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 5 &amp; 0 &amp; 0 \\
+      1 &amp; 4 &amp; {- 3} &amp; 0 \\
+      {- 1} &amp; {- 2} &amp; 0 &amp; {- 3}
+      \end{bmatrix}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Since <math display="inline">$A$</math> is a triangular matrix, the eigenvalues are <math display="inline">$5$</math> and <math display="inline">$- 3$</math>, each with multiplicity <math display="inline">$2$</math>. Using the method in Section 5.1, we find a basis for each eigenspace.</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      {\text{Basis~for}\,\text{λ} = 5\text{:}} &amp; {\mathbf{v}_{1} = \,\,\left\lbrack \begin{array}{r}
+      {- 8} \\
+      4 \\
+      1 \\
+      0
+      \end{array} \right\rbrack} &amp; \begin{array}{ll}
+      \text{and} &amp; {\mathbf{v}_{2} = \,\,\left\lbrack \begin{array}{r}
+      {- 16} \\
+      4 \\
+      0 \\
+      1
+      \end{array} \right\rbrack}
+      \end{array} \\
+      {\text{Basis~for}\,\text{λ} = - 3\text{:}} &amp; {\mathbf{v}_{3} = \,\,\left\lbrack \begin{array}{r}
+      0 \\
+      0 \\
+      1 \\
+      0
+      \end{array} \right\rbrack} &amp; \begin{array}{ll}
+      \text{and} &amp; {\mathbf{v}_{4} = \,\,\left\lbrack \begin{array}{r}
+      0 \\
+      0 \\
+      0 \\
+      1
+      \end{array} \right\rbrack}
+      \end{array}
+      \end{array}$$</math></paragraph>
+              <paragraph>The set <math display="inline">$\{\textbf{v}_{1},\ldots,\textbf{v}_{4}\}$</math> is linearly independent, by Theorem 7. So the matrix <math display="inline">$P =$</math> <math display="inline">$\left\lbrack \begin{array}{rrr}
+      \textbf{v}_{1} &amp; \cdots &amp; \textbf{v}_{4}
+      \end{array} \right\rbrack$</math> is invertible, and <math display="inline">$A = PDP^{- 1}$</math>, where</paragraph>
+              <paragraph><math display="block">$$P = \,\,\begin{bmatrix}
+      {- 8} &amp; {- 16} &amp; 0 &amp; 0 \\
+      4 &amp; 4 &amp; 0 &amp; 0 \\
+      1 &amp; 0 &amp; 1 &amp; 0 \\
+      0 &amp; 1 &amp; 0 &amp; 1
+      \end{bmatrix}\quad\text{and}\quad D = \,\,\begin{bmatrix}
+      5 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 5 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; {- 3} &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; {- 3}
+      \end{bmatrix}$$</math></paragraph>
+        </example>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Compute A8, where A=4−32−1.</item>
+                  <item>Let A=−312−27, v1=31, and v2=21. Suppose you are told that v1 and v2 are eigenvectors of A. Use this information to diagonalize A.</item>
+                  <item>Let A be a 4×4 matrix with eigenvalues 5, 3, and −2, and suppose you know that the eigenspace for λ=3 is two-dimensional. Do you have enough information to determine if A is diagonalizable?</item>
+          </list>
+        </note>
+      <paragraph><sup>1</sup>The proof of Theorem 7 is somewhat lengthy but not difficult. For instance, see S. Friedberg, A. Insel, and L. Spence, <em>Linear Algebra</em>, 4th ed. (Englewood Cliffs, NJ: Prentice-Hall, 2002), Section 5.2.</paragraph>
+    </content>
+    <exercises title="5.3 Exercises">
+      <heading level="1">5.3 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>In Exercises 1 and 2, let <math display="inline">$A = P\mspace{-320mu} D\mspace{-270mu} P^{- 1}$</math> and compute <math display="inline">$A^{4}$</math>.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$P = \left\lbrack \begin{array}{rr}
+      5 &amp; 7 \\
+      2 &amp; 3
+      \end{array} \right\rbrack$</math>, <math display="inline">$D = \left\lbrack \begin{array}{rr}
+      2 &amp; 0 \\
+      0 &amp; 1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$P = \left\lbrack \begin{array}{rr}
+      2 &amp; {- 3} \\
+      {- 3} &amp; 5
+      \end{array} \right\rbrack$</math>, <math display="inline">$D = \left\lbrack \begin{array}{rr}
+      1 &amp; 0 \\
+      0 &amp; {- 1}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="3">
+                  <instructions>In Exercises 3 and 4, use the factorization <math display="inline">$A = P\mspace{-320mu} D\mspace{-270mu} P^{- 1}$</math> to compute <math display="inline">$A^{k}$</math>, where <math display="inline">$k$</math> represents an arbitrary positive integer.</instructions>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      a &amp; 0 \\
+      {3(a - b)} &amp; b
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
+      1 &amp; 0 \\
+      3 &amp; 1
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      a &amp; 0 \\
+      0 &amp; b
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      1 &amp; 0 \\
+      {- 3} &amp; 1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      {- 6} &amp; 8 \\
+      {- 4} &amp; 6
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
+      1 &amp; 2 \\
+      1 &amp; 1
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      2 &amp; 0 \\
+      0 &amp; {- 2}
+      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
+      {- 1} &amp; 2 \\
+      1 &amp; {- 1}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="5">
+                  <instructions>In Exercises 5 and 6, the matrix <math display="inline">$A$</math> is factored in the form <math display="inline">$P\mspace{-320mu} D\mspace{-270mu} P^{- 1}$</math>. Use the Diagonalization Theorem to find the eigenvalues of <math display="inline">$A$</math> and a basis for each eigenspace.</instructions>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      2 &amp; 2 &amp; 1 \\
+      1 &amp; 3 &amp; 1 \\
+      1 &amp; 2 &amp; 2
+      \end{bmatrix}~ = ~\begin{bmatrix}
+      1 &amp; 1 &amp; 2 \\
+      1 &amp; 0 &amp; {- 1} \\
+      1 &amp; {- 1} &amp; 0
+      \end{bmatrix}~~\begin{bmatrix}
+      5 &amp; 0 &amp; 0 \\
+      0 &amp; 1 &amp; 0 \\
+      0 &amp; 0 &amp; 1
+      \end{bmatrix}~~\begin{bmatrix}
+      {1\text{/}4} &amp; {1\text{/}2} &amp; {1\text{/}4} \\
+      {1\text{/}4} &amp; {1\text{/}2} &amp; {- 3\text{/}4} \\
+      {1\text{/}4} &amp; {- 1\text{/}2} &amp; {1\text{/}4}
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$\begin{bmatrix}
+      5 &amp; {- 2} &amp; {- 2} \\
+      1 &amp; 2 &amp; {- 1} \\
+      0 &amp; 0 &amp; 3
+      \end{bmatrix}~ = ~\begin{bmatrix}
+      2 &amp; {- 1} &amp; {- 2} \\
+      1 &amp; {- 1} &amp; {- 1} \\
+      1 &amp; 0 &amp; 0
+      \end{bmatrix}~~\begin{bmatrix}
+      3 &amp; 0 &amp; 0 \\
+      0 &amp; 3 &amp; 0 \\
+      0 &amp; 0 &amp; 4
+      \end{bmatrix}~~\begin{bmatrix}
+      0 &amp; 0 &amp; 1 \\
+      1 &amp; {- 2} &amp; 0 \\
+      {- 1} &amp; 1 &amp; 1
+      \end{bmatrix}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="7">
+                  <instructions>Diagonalize the matrices in Exercises 7–20, if possible. The eigenvalues for Exercises 11–16 are as follows: (11) <math display="inline">$\text{λ} = 1,2,3$</math>; (12) <math display="inline">$\text{λ} = 1,4$</math>; (13) <math display="inline">$\text{λ} = 5,1$</math>; (14) <math display="inline">$\text{λ} = 3,4$</math>; (15) <math display="inline">$\text{λ} = 3,1$</math>; (16) <math display="inline">$\text{λ} = 2,1$</math>. For Exercise 18, one eigenvalue is <math display="inline">$\text{λ} = 5$</math> and one eigenvector is <math display="inline">$( - 2,1,2)$</math>.</instructions>
+            <problem number="7">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      1 &amp; 0 \\
+      6 &amp; {- 1}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      5 &amp; 1 \\
+      0 &amp; 5
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      3 &amp; {- 1} \\
+      1 &amp; 5
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      2 &amp; 3 \\
+      4 &amp; 1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      {- 1} &amp; 4 &amp; {- 2} \\
+      {- 3} &amp; 4 &amp; 0 \\
+      {- 3} &amp; 1 &amp; 3
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      3 &amp; {- 1} &amp; {- 1} \\
+      {- 1} &amp; 3 &amp; {- 1} \\
+      {- 1} &amp; {- 1} &amp; 3
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="13">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      2 &amp; 2 &amp; {- 1} \\
+      1 &amp; 3 &amp; {- 1} \\
+      {- 1} &amp; {- 2} &amp; 2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      4 &amp; 0 &amp; 2 \\
+      2 &amp; 3 &amp; 4 \\
+      0 &amp; 0 &amp; 3
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="15">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      7 &amp; 4 &amp; 16 \\
+      2 &amp; 5 &amp; 8 \\
+      {- 2} &amp; {- 2} &amp; {- 5}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      0 &amp; {- 4} &amp; {- 6} \\
+      {- 1} &amp; 0 &amp; {- 3} \\
+      1 &amp; 2 &amp; 5
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="17">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      4 &amp; 0 &amp; 0 \\
+      1 &amp; 4 &amp; 0 \\
+      0 &amp; 0 &amp; 5
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      {- 7} &amp; {- 16} &amp; 4 \\
+      6 &amp; 13 &amp; {- 2} \\
+      12 &amp; 16 &amp; 1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="19">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      5 &amp; {- 3} &amp; 0 &amp; 9 \\
+      0 &amp; 3 &amp; 1 &amp; {- 2} \\
+      0 &amp; 0 &amp; 2 &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      2 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; 2 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 2 &amp; 0 \\
+      1 &amp; 0 &amp; 0 &amp; 2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="21">
+                  <instructions>In Exercises 21–28, <math display="inline">$A,P$</math>, and <math display="inline">$D$</math> are <math display="inline">$n \times n$</math> matrices. Mark each statement True or False <strong>(T/F)</strong>. Justify each answer. (Study Theorems 5 and 6 and the examples in this section carefully before you try these exercises.)</instructions>
+            <problem number="21">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> <math display="inline">$A$</math> is diagonalizable if <math display="inline">$A = PDP^{- 1}$</math> for some matrix <math display="inline">$D$</math> and some invertible matrix <math display="inline">$P$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\text{ℝ}^{n}$</math> has a basis of eigenvectors of <math display="inline">$A$</math>, then <math display="inline">$A$</math> is diagonalizable.</paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> <math display="inline">$A$</math> is diagonalizable if and only if <math display="inline">$A$</math> has <math display="inline">$n$</math> eigenvalues, counting multiplicities.</paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$A$</math> is diagonalizable, then <math display="inline">$A$</math> is invertible.</paragraph>
+              </statement>
+            </problem>
+            <problem number="25">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> <math display="inline">$A$</math> is diagonalizable if <math display="inline">$A$</math> has <math display="inline">$n$</math> eigenvectors.</paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$A$</math> is diagonalizable, then <math display="inline">$A$</math> has <math display="inline">$n$</math> distinct eigenvalues.</paragraph>
+              </statement>
+            </problem>
+            <problem number="27">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$AP = PD$</math>, with <math display="inline">$D$</math> diagonal, then the nonzero columns of <math display="inline">$P$</math> must be eigenvectors of <math display="inline">$A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$A$</math> is invertible, then <math display="inline">$A$</math> is diagonalizable.</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph><math display="inline">$A$</math> is a <math display="inline">$5 \times 5$</math> matrix with two eigenvalues. One eigenspace is three-dimensional, and the other eigenspace is two-dimensional. Is <math display="inline">$A$</math> diagonalizable? Why?</paragraph>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph><math display="inline">$A$</math> is a <math display="inline">$3 \times 3$</math> matrix with two eigenvalues. Each eigenspace is one-dimensional. Is <math display="inline">$A$</math> diagonalizable? Why?</paragraph>
+              </statement>
+            </problem>
+            <problem number="31">
+              <statement>
+                          <paragraph><math display="inline">$A$</math> is a <math display="inline">$4 \times 4$</math> matrix with three eigenvalues. One eigenspace is one-dimensional, and one of the other eigenspaces is two-dimensional. Is it possible that <math display="inline">$A$</math> is <em>not</em> diagonalizable? Justify your answer.</paragraph>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph><math display="inline">$A$</math> is a <math display="inline">$7 \times 7$</math> matrix with three eigenvalues. One eigenspace is two-dimensional, and one of the other eigenspaces is three-dimensional. Is it possible that <math display="inline">$A$</math> is <em>not</em> diagonalizable? Justify your answer.</paragraph>
+              </statement>
+            </problem>
+            <problem number="33">
+              <statement>
+                          <paragraph>Show that if <math display="inline">$A$</math> is both diagonalizable and invertible, then so is <math display="inline">$A^{- 1}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="34">
+              <statement>
+                          <paragraph>Show that if <math display="inline">$A$</math> has <math display="inline">$n$</math> linearly independent eigenvectors, then so does <math display="inline">$A^{T}$</math>. [<em>Hint:</em><strong/>Use the Diagonalization Theorem.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="35">
+              <statement>
+                          <paragraph><math display="inline">$A$</math> factorization <math display="inline">$A = P\mspace{-320mu} D\mspace{-270mu} P^{- 1}$</math> is not unique. Demonstrate this for the matrix <math display="inline">$A$</math> in Example 2. With <math display="inline">$D_{1} = \left\lbrack \begin{array}{rr}
+      3 &amp; 0 \\
+      0 &amp; 5
+      \end{array} \right\rbrack$</math>, use the information in Example 2 to find a matrix <math display="inline">$P_{1}$</math> such that <math display="inline">$A = P_{1}D_{1}P_{1}^{- 1}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="36">
+              <statement>
+                          <paragraph>With <math display="inline">$A$</math> and <math display="inline">$D$</math> as in Example 2, find an invertible <math display="inline">$P_{2}$</math> unequal to the <math display="inline">$P$</math> in Example 2, such that <math display="inline">$A = P_{2}D\mspace{-270mu} P_{2}^{- 1}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="37">
+              <statement>
+                          <paragraph>Construct a nonzero <math display="inline">$2 \times 2$</math> matrix that is invertible but not diagonalizable.</paragraph>
+              </statement>
+            </problem>
+            <problem number="38">
+              <statement>
+                          <paragraph>Construct a nondiagonal <math display="inline">$2 \times 2$</math> matrix that is diagonalizable but not invertible.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="39">
+                  <instructions>Diagonalize the matrices in Exercises 39–42. Use your matrix program’s eigenvalue command to find the eigenvalues, and then compute bases for the eigenspaces as in Section 5.1.</instructions>
+            <problem number="39">
+              <statement>
+                          <paragraph><strong>[T]</strong> <math display="inline">$\left\lbrack \begin{array}{rrrr}
+      {- 6} &amp; 4 &amp; 0 &amp; 9 \\
+      {- 3} &amp; 0 &amp; 1 &amp; 6 \\
+      {- 1} &amp; {- 2} &amp; 1 &amp; 0 \\
+      {- 4} &amp; 4 &amp; 0 &amp; 7
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="40">
+              <statement>
+                          <paragraph><strong>[T]</strong> <math display="inline">$\left\lbrack \begin{array}{rrrr}
+      0 &amp; 13 &amp; 8 &amp; 4 \\
+      4 &amp; 9 &amp; 8 &amp; 4 \\
+      8 &amp; 6 &amp; 12 &amp; 8 \\
+      0 &amp; 5 &amp; 0 &amp; {- 4}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="41">
+              <statement>
+                          <paragraph><strong>[T]</strong> <math display="inline">$\left\lbrack \begin{array}{rrrrr}
+      11 &amp; {- 6} &amp; 4 &amp; {- 10} &amp; {- 4} \\
+      {- 3} &amp; 5 &amp; {- 2} &amp; 4 &amp; 1 \\
+      {- 8} &amp; 12 &amp; {- 3} &amp; 12 &amp; 4 \\
+      1 &amp; 6 &amp; {- 2} &amp; 3 &amp; {- 1} \\
+      8 &amp; {- 18} &amp; 8 &amp; {- 14} &amp; {- 1}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="42">
+              <statement>
+                          <paragraph><strong>[T]</strong> <math display="inline">$\left\lbrack \begin{array}{rrrrr}
+      4 &amp; 4 &amp; 2 &amp; 3 &amp; {- 2} \\
+      0 &amp; 1 &amp; {- 2} &amp; {- 2} &amp; 2 \\
+      6 &amp; 12 &amp; 11 &amp; 2 &amp; {- 4} \\
+      9 &amp; 20 &amp; 10 &amp; 10 &amp; {- 6} \\
+      15 &amp; 28 &amp; 14 &amp; 5 &amp; {- 3}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

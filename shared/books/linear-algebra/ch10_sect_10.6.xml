@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch10" chapter_number="10" unit_code="10.6">
+  <section number="10.6" title="Markov Chains and Baseball Statistics">
+    <metadata>
+      <source_pages count="6">
+        <page global_index="484" type="content"/>
+        <page global_index="485" type="content"/>
+        <page global_index="486" type="content"/>
+        <page global_index="487" type="content"/>
+        <page global_index="488" type="exercises"/>
+        <page global_index="489" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">10.6 Markov Chains and Baseball Statistics</heading>
+      <paragraph>Markov chains are used to model a wide variety of systems. The examples and exercises in this chapter have shown how Markov chains may be used to model various situations. The final example to be explored is a model for how runners proceed around the bases in baseball. This model leads to useful measures of expected run production both for a team and for individual players.</paragraph>
+      <heading level="2">Baseball Modeled by a Markov Chain</heading>
+      <paragraph>Many baseball fans carefully study the statistics of their favorite teams. The teams themselves use baseball statistics for individual players to determine strategy during games, and to make hiring decisions.1 This section shows how a Markov chain is used to predict the number of earned runs a team will score and to compare the offensive abilities of different players. Some exercises suggest how to use Markov chains to investigate matters of baseball strategy, such as deciding whether to attempt a sacrifice or a steal.</paragraph>
+      <paragraph>The Markov chain in this section provides a way to analyze how runs are scored during one half-inning of a baseball game. The states of the chain are the various configurations of runners on bases and the number of outs. See <strong>Table</strong><strong>1</strong>.</paragraph>
+      <figure caption="Table 1﻿         The 28 States of a Baseball Markov Chain">
+          <image alt="A table lists the details of 28 States within a Baseball Markov Chain including bases occupied, outs, state, left on base, outs again, and subsequent state."/>
+        </figure>
+      <paragraph>The first state in the left column of Table 1 (“no bases occupied, <math display="inline">$0$</math> outs”) is the initial state of the chain, when the baseball half-inning begins (that is, when one team becomes the team “at bat”). The four states in the far right column describe the various ways the half-inning can end (when the third out occurs and the teams trade places). Physically, the half-inning is completed when the third out occurs. Mathematically, the Markov chain continues in one of the four “final” states. (The model only applies to a game in which each half-inning is completed.) So, each of these four states is an absorbing state of the chain. The other <math display="inline">$24$</math> states are transient states, because whenever an out is made, the states with fewer outs can never occur again.</paragraph>
+      <paragraph>The Markov chain moves from state to state because of the actions of the batters. The transition probabilities of the chain are the probabilities of possible outcomes of a batter’s action. For a Markov chain, the transition probabilities must remain the same from batter to batter, so the model does not allow for variations among batters. This assumption means that each batter for a team hits as an “average batter” for the team.2<sup/></paragraph>
+      <paragraph>The model also assumes that only the batter determines how the runners move around the bases. This means that stolen bases, wild pitches, and passed balls are not considered. Also, errors by the players in the field are not allowed, so the model only calculates earned runs—runs that are scored without the benefit of fielding errors. Finally, the model considers only seven possible outcomes at the plate: a single (arriving safely at first base and stopping there), a double (arriving safely at second base), a triple (arriving safely at third base), a home run, a walk (advancing to first base without hitting the ball), a hit batsman (a pitched ball hits the batter, and the batter advances to first base), and an “out.” Thus, the model allows no double or triple plays, no sacrifices, and no sacrifice flies. However, Markov chain models can be constructed that include some of these excluded events.3<sup/></paragraph>
+      <heading level="2">Constructing the Transition Matrix</heading>
+      <paragraph>The <math display="inline">$28 \times 28$</math> transition matrix for the Markov chain has the canonical form</paragraph>
+      <paragraph>
+        <math display="block">$$P = \begin{bmatrix}
+      I_{4} &amp; S \\
+      O &amp; Q
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>where <math display="inline">$I_{4}$</math> is the <math display="inline">$4 \times 4$</math> identity matrix (because the only recurrent states are the four absorbing states, one of which is entered when the third out occurs), <math display="inline">$S$</math> is a <math display="inline">$4 \times 24$</math> matrix, and <math display="inline">$Q$</math> is a <math display="inline">$24 \times 24$</math> substochastic matrix. The columns of <math display="inline">$S$</math> and <math display="inline">$Q$</math> correspond to the transient states, in the order shown in Table 1. The entries in <math display="inline">$S$</math> describe the transitions from the <math display="inline">$24$</math> transient states (with <math display="inline">$0$</math>, <math display="inline">$1$</math>, or <math display="inline">$2$</math> outs) to the absorbing states (with <math display="inline">$3$</math> outs). Note that the only way to enter an absorbing state is to come from a state with <math display="inline">$2$</math> outs. Let <math display="inline">$p_{O}$</math> denote the probability that the batter makes an out. Then <math display="inline">$S$</math> may be written in block form, with three <math display="inline">$4 \times 8$</math> blocks, as</paragraph>
+      <figure caption="Table 2         Assumptions about Advancing Runners">
+          <image alt="The figure illustrates the matrix S defining the matrix X."/>
+        </figure>
+      <paragraph>The matrix <math display="inline">$X$</math> describes the transitions from the transient states with <math display="inline">$2$</math> outs to the absorbing states with <math display="inline">$3$</math> outs. (For example, columns <math display="inline">$2$</math>, <math display="inline">$3$</math>, and <math display="inline">$4$</math> of <math display="inline">$X$</math> list the probabilities that the batter makes the third out when one runner is on one of the three bases.) The substochastic matrix <math display="inline">$Q$</math> has the following block form, with <math display="inline">$8 \times 8$</math> blocks,</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{l}
+      \begin{array}{lll}
+      {~~~~~~~~~~~0} &amp; {~1} &amp; 2
+      \end{array} \\
+      {Q = \left\lbrack \begin{array}{lll}
+      A &amp; O &amp; O \\
+      B &amp; A &amp; O \\
+      O &amp; B &amp; A
+      \end{array} \right\rbrack\begin{array}{l}
+      {~0} \\
+      {~1} \\
+      {~2}
+      \end{array}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>The labels on the rows and columns of <math display="inline">$Q$</math> represent the number of outs. The four zero blocks in <math display="inline">$Q$</math> reflect the facts that the number of outs cannot go from <math display="inline">$1$</math> to <math display="inline">$0$</math>, from <math display="inline">$2$</math> to <math display="inline">$0$</math> or <math display="inline">$1$</math>, or from <math display="inline">$0$</math> directly to <math display="inline">$2$</math> in one step. The matrix <math display="inline">$A$</math> describes how the various base configurations change when the number of outs does not change.</paragraph>
+      <paragraph>The entries in <math display="inline">$A$</math> and <math display="inline">$B$</math> depend on how the batter’s action at the plate affects any runners that may already be on base. The Markov chain model presented here makes the assumptions shown in <strong>Table 2</strong>. The exercises consider some alternative assumptions.</paragraph>
+      <figure caption="Table 3﻿         Atlanta Braves Batting Statistics—2002 Season">
+          <image alt="A table lists 6 batting events and their respective outcomes."/>
+        </figure>
+      <paragraph>The entries in the <math display="inline">$8 \times 8$</math> matrices <math display="inline">$A$</math> and <math display="inline">$B$</math> are constructed from the probabilities of the six batting events in Table 2. Denote these probabilities by <math display="inline">$p_{W}$</math>, <math display="inline">$p_{1}$</math>, <math display="inline">$p_{2}$</math>, <math display="inline">$p_{3}$</math>, <math display="inline">$p_{H}$</math>, and <math display="inline">$p_{O}$</math>, respectively. The notation <math display="inline">$p_{O}$</math> was introduced earlier during the construction of the matrix <math display="inline">$S$</math>.</paragraph>
+      <paragraph>The <math display="inline">$8 \times 8$</math> matrix <math display="inline">$B$</math> involves the change of state when the number of outs increases. In this case, the configuration of runners on the bases does not change (see Table 2). So</paragraph>
+      <paragraph>
+        <math display="block">$$B = p_{O}I$$</math>
+      </paragraph>
+      <paragraph>where <math display="inline">$I$</math> is the <math display="inline">$8 \times 8$</math> identity matrix.4<sup/></paragraph>
+      <paragraph>Matrix <math display="inline">$A$</math> concerns the situations in which the batter does not make an out and either succeeds in reaching one of the bases or hits a home run. The construction of <math display="inline">$A$</math> is discussed in <strong>Example 1</strong> and in the exercises. The labels on the rows and columns of <math display="inline">$A$</math> correspond to the states in Table 2. Here <math display="inline">$k$</math> is the fixed number of outs: either <math display="inline">$0$</math>, <math display="inline">$1$</math>, or <math display="inline">$2$</math>.</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{l}
+      {~~~~~~~~~\,\,\,~~\begin{array}{llllllll}
+      {0\text{:}k} &amp; {~~~~~ ~1\text{:}k} &amp; { \,\,2\text{:}k} &amp; {\,3\text{:}k \,\,\,} &amp; {12\text{:}k} &amp; {~ 13\text{:}k} &amp; {23\text{:}k} &amp; {~\,123\text{:}k}
+      \end{array}} \\
+      {A = \left\lbrack \begin{array}{llllllll}
+      p_{H} &amp; p_{H} &amp; p_{H} &amp; p_{H} &amp; p_{H} &amp; p_{H} &amp; p_{H} &amp; p_{H} \\
+      {p_{W} + p_{1}} &amp; 0 &amp; {.5p_{1}} &amp; p_{1} &amp; 0 &amp; 0 &amp; {.5p_{1}} &amp; 0 \\
+      p_{2} &amp; 0 &amp; p_{2} &amp; p_{2} &amp; 0 &amp; 0 &amp; p_{2} &amp; 0 \\
+      p_{3} &amp; p_{3} &amp; p_{3} &amp; p_{3} &amp; p_{3} &amp; p_{3} &amp; p_{3} &amp; p_{3} \\
+      0 &amp; {p_{W} + p_{1}} &amp; p_{W} &amp; 0 &amp; {.5p_{1}} &amp; p_{1} &amp; 0 &amp; {.5p_{1}} \\
+      0 &amp; 0 &amp; {.5p_{1}} &amp; p_{W} &amp; 0 &amp; 0 &amp; {.5p_{1}} &amp; 0 \\
+      0 &amp; p_{2} &amp; 0 &amp; 0 &amp; p_{2} &amp; p_{2} &amp; 0 &amp; p_{2} \\
+      0 &amp; 0 &amp; 0 &amp; 0 &amp; {p_{W} + .5p_{1}} &amp; p_{W} &amp; p_{W} &amp; {p_{W} + .5p_{1}}
+      \end{array} \right\rbrack\begin{array}{l}
+      {0\text{:}k} \\
+      {1\text{:}k} \\
+      {2\text{:}k} \\
+      {3\text{:}k} \\
+      {12\text{:}k} \\
+      {13\text{:}k} \\
+      {23\text{:}k} \\
+      {123\text{:}k}
+      \end{array}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>The analysis in Example 1 requires two facts from probability theory. If an event can occur in two mutually exclusive ways, with probabilities <math display="inline">$p_{1}$</math> and <math display="inline">$p_{2}$</math>, then the probability of the event is <math display="inline">$p_{1} + p_{2}$</math>. The probability that two independent events both occur is the product of the separate probabilities for each event.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+          <list ordered="true">
+                  <item>Justify the transition probabilities for the initial state “no bases occupied.”</item>
+                  <item>Justify the transition probabilities for the initial state “second base occupied.”</item>
+          </list>
+          <heading level="3">Solution</heading>
+          <list ordered="true">
+                  <item>For the first column of A, the batter either advances to one of the bases or hits a home run. So the probability that the bases remain unoccupied is pH. The batter advances to first base when the batter either walks (or is hit by a pitch) or hits a single. Since the desired outcome can be reached in two different ways, the probability of success is the sum of the two probabilities—namely, pW+p1. The probabilities of the batter advancing to second base or third base are, respectively, p2 and p3. All other outcomes are impossible, because there can be at most one runner on base after one batter when the starting state has no runners on base.</item>
+                  <item>This concerns the third column of A. The initial state is 2:k (a runner on second base, k outs). For entry (1,3) of A, the probability of a transition “to state 0:k” is required. Suppose that only second base is occupied and the batter does not make an out. Only a home run will empty the bases, so the (1,3)-entry is pH.</item>
+          </list>
+          <list ordered="false">
+                  <item>Entry (2,3): (“to state 1:k”) To leave a player only on first base, the batter must get to first base and the player on second base must reach home plate successfully.5 From Table 2, the probability of reaching home plate successfully from second base is .5. Now, assume that these two events are independent, because only the actions of the batter (and Table 2) influence the outcome. In this case, the probability of both events happening at the same time is the product of these two probabilities, so the (2,3)-entry is .5p1.</item>
+                  <item>Entry (3,3): (“to state 2:k”) To leave a player only on second base, the batter must reach second base (a “double”) and the runner on second base must score. The second condition, however, is automatically satisfied because of the assumption in Table 2. So the probability of success in this case is p2. This is the (3,3)-entry.</item>
+                  <item>Entry (4,3): (“to state 3:k”) By an argument similar to that for the (3,3)-entry, the (4,3)-entry is p3.</item>
+                  <item>Entry (5,3): (“to state 12:k”) To leave players on first base and second base, the batter must get to first base and the player on second base must remain there. However, from Table 2, if the batter hits a single, the runner on second base will at least get to third base. So, the only way for the desired outcome to occur is for the batter to get a walk or be hit by a pitch. The (5,3)-entry is thus pW.</item>
+                  <item>Entry (6,3): (“to state 13:k”) This concerns the batter getting to first base and the runner on second base advancing to third base. This can happen only if the batter hits a single, with probability p1, and the runner on second base stops at third base, which happens with probability .5 (by Table 2). Since both events are required, the (6,3)-entry is the product .5p1.</item>
+                  <item>Entry (7,3): (“to state 23:k”) To leave players on second base and third base, the batter must hit a double and the runner on second base must advance only to third base. Table 2 rules this out—when the batter hits a double, the runner on second base scores. Thus the (7,3)-entry is zero.</item>
+                  <item>Entry (8,3): The starting state has just one runner on base. The next state cannot have three runners on base, so the (8,3)-entry is zero.</item>
+          </list>
+        </example>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Batting statistics are often displayed as in <strong>Table</strong><strong>3</strong>. Use the data in Table 3 to obtain the transition probabilities for the 2002 Atlanta Braves.</paragraph>
+          <figure>
+            <image alt="A table lists Atlanta Braves batting statistics in 2002 season as walks: 558; Hit batsman: 54; singles: 959; doubles: 280; triples: 25; home runs: 164; and outs: 4067."/>
+          </figure>
+          <heading level="3">Solution</heading>
+              <paragraph>The sum of the entries in Table 3 is <math display="inline">$6107$</math>. This is the total number of times that Atlanta Braves players came to bat during the 2002 baseball season. From the first two columns, there are <math display="inline">$612$</math> walks or hit batsmen. So, <math display="inline">$p_{W} = 612/6107 = .1002$</math>. Of the <math display="inline">$6107$</math> times a player came to bat, a player hit a single <math display="inline">$959$</math> times, so <math display="inline">$p_{1} = 959/6107 = .1570$</math>. Similar calculations provide <math display="inline">$p_{2} = .0458$</math>, <math display="inline">$p_{3} = .0041$</math>, <math display="inline">$p_{H} = .0269$</math>, and <math display="inline">$p_{O} = .660$</math>. These values are placed in the matrices to produce the transition matrix for the Markov chain.</paragraph>
+        </example>
+      <heading level="2">Applying the Model</heading>
+      <paragraph>Now that the data for the stochastic matrix is available, Theorems 6 and 7 from Section 10.5 can provide information about how many earned runs to expect from the Atlanta Braves during a typical game. The goal is to calculate how many earned runs the Braves will score on average in each half-inning. First, observe that since three batters must make an out to finish one half-inning, the number of runs scored in that half-inning is given by</paragraph>
+      <paragraph>
+        <math display="block">$$\lbrack\text{\#~of~runs}\rbrack = \lbrack\text{\#~of~batters}\rbrack - \lbrack\text{\#~of~runners~left~on~base}\rbrack - 3$$</math>
+      </paragraph>
+      <paragraph>If <math display="inline">$R$</math> is the number of runs scored in the half-inning, <math display="inline">$B$</math> is the number of batters, and <math display="inline">$L$</math> is the number of runners left on base, Equation (4) becomes</paragraph>
+      <paragraph>
+        <math display="block">$$R = B - L - 3$$</math>
+      </paragraph>
+      <paragraph>The quantity of interest is <math display="inline">$E\lbrack R\rbrack$</math>, the expected number of earned runs scored. Properties of expected value indicate that</paragraph>
+      <paragraph>
+        <math display="block">$$E\lbrack R\rbrack = E\lbrack B\rbrack - E\lbrack L\rbrack - 3$$</math>
+      </paragraph>
+      <paragraph>Each batter moves the Markov chain ahead one step. So, the expected number of batters in a half-inning <math display="inline">$E\lbrack B\rbrack$</math> is the expected number of steps to absorption (at the third out) when the chain begins at the initial state “<math display="inline">$0$</math> bases occupied, <math display="inline">$0$</math> outs.” This initial state corresponds to the fifth column of the transition matrix</paragraph>
+      <paragraph>
+        <math display="block">$$P = \begin{bmatrix}
+      I_{4} &amp; S \\
+      O &amp; Q
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>In baseball terms, Theorem 6 shows that</paragraph>
+      <note type="procedure_box">
+              <paragraph>The expected number of players that bat in one half-inning is the sum of the entries in column <math display="inline">$1$</math> of the fundamental matrix <math display="inline">$M = (I - Q)^{- 1}$</math>.</paragraph>
+        </note>
+      <paragraph>Thus <math display="inline">$E\lbrack B\rbrack$</math> may be computed. The other quantity needed in Equation (6) is <math display="inline">$E\lbrack L\rbrack$</math>, the expected number of runners left on base in a typical half-inning. This is given by the following sum:</paragraph>
+      <paragraph>
+        <math display="block">$$E\lbrack L\rbrack = 0 \cdot P(L = 0) + 1 \cdot P(L = 1) + 2 \cdot P(L = 2) + 3 \cdot P(L = 3)$$</math>
+      </paragraph>
+      <paragraph>Theorem 7 can provide this information because the recurrent classes for the chain are just the four absorbing states (at the end of the half-inning). The probabilities needed in Equation (7) are the probabilities of absorption into the four final states of the half-inning given that the initial state of the system is “<math display="inline">$0$</math> bases occupied, <math display="inline">$0$</math> outs.” So the desired probabilities are in column <math display="inline">$1$</math> of the matrix <math display="inline">$SM$</math>, where <math display="inline">$M$</math> is the fundamental matrix of the chain and <math display="inline">$S = \begin{bmatrix}
+      O &amp; O &amp; X
+      \end{bmatrix}$</math> as in Equation (2). The probabilities can be used to calculate <math display="inline">$E\lbrack L\rbrack$</math> using Equation (7), and thus to find <math display="inline">$E\lbrack R\rbrack$</math>.</paragraph>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>When the Atlanta Braves data from Example 2 is used to construct the transition matrix (not shown here), it turns out that the sum of the first column of the fundamental matrix <math display="inline">$M$</math> is <math display="inline">$4.5048$</math>, and the first column of the matrix <math display="inline">$SM$</math> is</paragraph>
+              <paragraph><math display="block">$$\begin{bmatrix}
+      .3520 \\
+      .3309 \\
+      .2365 \\
+      .0805
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>Compute the number of earned runs the Braves can expect to score per inning based on their performance in 2002. How many earned runs does the model predict for the entire season, if the Braves play <math display="inline">$1443\frac{2}{3}$</math> innings, as they did in 2002?</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The first column of <math display="inline">$SM$</math> shows that, for example, the probability that the Braves left no runners on base is <math display="inline">$.3520$</math>. The expected number of runners left on base is</paragraph>
+              <paragraph><math display="block">$$E\lbrack L\rbrack = 0(.3520) + 1(.3309) + 2(.2365) + 3(.0805) = 1.0454$$</math></paragraph>
+              <paragraph>The expected number of batters is <math display="inline">$E\lbrack B\rbrack = 4.5048$</math>, the sum of the first column of <math display="inline">$M.$</math> From Equation (6), the expected number of earned runs <math display="inline">$E\lbrack R\rbrack$</math> is</paragraph>
+              <paragraph><math display="block">$$E\lbrack R\rbrack = E\lbrack B\rbrack - E\lbrack L\rbrack - 3 = 4.5048 - 1.0454 - 3 = .4594$$</math></paragraph>
+              <paragraph>The Markov chain model predicts that the Braves should average <math display="inline">$.4594$</math> earned run per inning. In <math display="inline">$1443\frac{2}{3}$</math> innings, the total number of earned runs expected is</paragraph>
+              <paragraph><math display="block">$$.4594 \times 1443.67 = 663.22$$</math></paragraph>
+              <paragraph>The actual number of earned runs for the Braves in 2002 was <math display="inline">$636$</math>, so the model’s error is <math display="inline">$27.22$</math> runs, or about <math display="inline">$4.3$</math>.</paragraph>
+        </example>
+      <paragraph>Mathematical models are used by some Major League teams to compare the offensive profiles of single players. To analyze a player using the Markov chain model, use the player’s batting statistics instead of a team’s statistics. Compute the expected number of earned runs that a team of such players would score in an inning. This number is generally multiplied by <math display="inline">$9$</math> to yield what has been termed an “offensive earned run average.”</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph><strong>Table</strong><strong>4</strong> shows the career batting statistics for Jose Oquendo, who played for the New York Mets and St. Louis Cardinals in the 1980s and 1990s. Compute his offensive earned run average.</paragraph>
+          <figure caption="Table 4﻿         Jose Oquendo Batting Statistics">
+            <image alt="A table lists Jose Oquendo batting statistics as walks: 448; Hit batsman: 5; singles: 679; doubles: 104; triples: 24; home runs: 14; and outs: 2381."/>
+          </figure>
+          <heading level="3">Solution</heading>
+              <paragraph>Construct the transition matrix from this data as described in Example 2, and then compute <math display="inline">$M$</math> and <math display="inline">$SM$</math>. The sum of the first column of <math display="inline">$M$</math> is <math display="inline">$4.6052$</math>, so a team entirely composed of Jose Oquendos would come to bat an average of <math display="inline">$4.6052$</math> times per inning. That is, <math display="inline">$E\lbrack B\rbrack = 4.6052$</math>. The first column of <math display="inline">$SM$</math> is</paragraph>
+              <paragraph><math display="block">$$\begin{bmatrix}
+      .2844 \\
+      .3161 \\
+      .2725 \\
+      .1270
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>so the expected number of runners left on base is</paragraph>
+              <paragraph><math display="block">$$E\lbrack L\rbrack = 0(.2844) + 1(.3161) + 2(.2725) + 3(.1270) = 1.2421$$</math></paragraph>
+              <paragraph>From Equation (6), the expected number of earned runs is</paragraph>
+              <paragraph><math display="block">$$E\lbrack R\rbrack = E\lbrack B\rbrack - E\lbrack L\rbrack - 3 = 4.6052 - 1.2421 - 3 = .3631$$</math></paragraph>
+              <paragraph>The offensive earned run average for Jose Oquendo is <math display="inline">$.3631 \times 9 = 3.2679$</math>. This compares with an offensive earned run average of about <math display="inline">$10$</math> for teams composed of the greatest hitters in baseball history. See the Exercises.</paragraph>
+        </example>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Let A be the matrix just before Example 1. Explain why entry (3,6) is zero.</item>
+                  <item>Explain why entry (6,3) of A is .5p1.﻿</item>
+          </list>
+        </note>
+      <paragraph><sup>1</sup> The use of statistical analysis in baseball is called <strong>sabermetrics</strong> as a tribute to SABR, the Society for American Baseball Research. An overview of sabermetrics can be found at http://en.wikipedia.org/wiki/Sabermetrics.</paragraph>
+      <paragraph><sup>2</sup> This unrealistic assumption can be overcome by using a more complicated model that uses different transition matrices for each batter. Nevertheless, the model presented here can lead to useful information about the team. Later in the section, the model will be used to evaluate individual players.</paragraph>
+      <paragraph><sup>3</sup> Other models use “play-by-play” data. The number of transitions between states are counted and scaled to produce a transition matrix. For these models it does not matter <em>how</em> the runners advance, merely that they do.</paragraph>
+      <paragraph><sup>4</sup> A batter can make an out in three ways—by striking out, by hitting a fly ball that is caught, or by hitting a ground ball that is thrown to first base before the batter arrives. When the second or third case occurs, a runner on a base sometimes can advance one base, but may also make an out and be removed from the bases. Table 2 excludes these possibilities.</paragraph>
+      <paragraph><sup>5</sup> The only other way to make the player on second base “disappear” would be for the player to be tagged out, but the model does not permit outs for runners on the bases.</paragraph>
+    </content>
+    <exercises title="10.6 Exercises">
+      <heading level="1">10.6 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>In Exercises 1–6, justify the transition probabilities for the given initial states. See Example 1.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph>First base occupied</paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph>Third base occupied</paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph>First and second bases occupied</paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph>First and third bases occupied</paragraph>
+              </statement>
+            </problem>
+            <problem number="5">
+              <statement>
+                          <paragraph>Second and third bases occupied</paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph>First, second, and third bases occupied</paragraph>
+              </statement>
+            </problem>
+            <problem number="7">
+              <statement>
+                          <paragraph>Major League batting statistics for the 2006 season are shown in <strong>Table 5</strong>. Compute the transition probabilities for this data as was done in Example 2, and find the matrix <math display="inline">$A$</math> for this data.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure caption="Table 5         Major League Batting Statistics—2006 Season">
+            <image alt="A table lists Major League batting statistics in 2006 season as walks: 15,847; Hit batsman: 1817; singles: 29,600; doubles: 9135; triples: 952; home runs: 5386; and outs: 122,268."/>
+          </figure>
+      <exercise_group start="8">
+            <problem number="8">
+              <statement>
+                          <paragraph>Find the complete transition matrix for the model using the Major League data in Table 5.</paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph>It can be shown that the sum of the first column of <math display="inline">$M$</math> for the 2006 Major League data is <math display="inline">$4.53933$</math>, and that the first column of <math display="inline">$SM$</math> for the 2006 Major League data is</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+                  <instructions><math display="block">$$\begin{bmatrix}
+      {.34973} \\
+      {.33414} \\
+      {.23820} \\
+      {.07793}
+      \end{bmatrix}$$</math></instructions>
+            <problem>
+              <statement>
+                          <paragraph>Find the expected number of earned runs per inning in a Major League game in 2006.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="10">
+            <problem number="10">
+              <statement>
+                          <paragraph>The number of innings batted in the Major Leagues in the 2006 season was <math display="inline">$43,257$</math>, and the number of earned runs scored was <math display="inline">$21,722$</math>. What is the total number of earned runs scored for the season predicted by the model, and how does it compare with the actual number of earned runs scored?</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="11">
+            <problem number="11">
+              <statement>
+                          <paragraph>Batting statistics for three of the greatest batters in Major League history are shown in <strong>Table 6</strong>. Compute the transition probabilities for this data for each player.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure caption="Table 6﻿         Batting Statistics for Leading Batters">
+            <image alt="A table lists three batters' names and their batting statistics including walks, hit batsman, singles, doubles, triples, home runs, and outs."/>
+          </figure>
+      <exercise_group start="12">
+            <problem number="12">
+              <statement>
+                          <paragraph>The sums of the first columns of <math display="inline">$M$</math> for the player data in Table 6 and the first columns of <math display="inline">$SM$</math> for the player data in Table 6 given in<strong>Table 7</strong>. Find and compare the offensive earned run averages of these players. Which batter does the model say was the best of these three?</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure caption="Table﻿ 7         Model Information for Batting Statistics">
+            <image alt="A table lists the names of three batsmen and the corresponding sum of the first columns of matrix M and the first column of the matrix S M."/>
+          </figure>
+      <exercise_group start="13">
+            <problem number="13">
+              <statement>
+                          <paragraph>Consider the second columns of the matrices <math display="inline">$M$</math> and <math display="inline">$SM$</math>, which correspond to the “Runner on first, none out” state.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+            <problem>
+              <statement>
+                <list ordered="true">
+                              <item>What information does the sum of the second column of M give?</item>
+                              <item>What value can you calculate using the second column of SM ?</item>
+                              <item>What would the calculation of expected runs scored using the data from the second columns mean?</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="14">
+                  <instructions>Exercises 14–18 show how the model for run production in the text can be used to determine baseball strategy. Suppose that you are managing a baseball team and have access to the matrices <math display="inline">$M$</math> and <math display="inline">$SM$</math> for your team.</instructions>
+            <problem number="14">
+              <statement>
+                          <paragraph>The sum of the column of <math display="inline">$M$</math> corresponding to the “Runner on first, none out” state is <math display="inline">$4.53933$</math>, and the column of <math display="inline">$SM$</math> corresponding to the “Runner on first, none out” state is</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+                  <instructions><math display="block">$$\begin{bmatrix}
+      {.06107} \\
+      {.35881} \\
+      {.41638} \\
+      {.16374}
+      \end{bmatrix}$$</math> ﻿</instructions>
+            <problem>
+              <statement>
+                          <paragraph>Your team now has a runner on first and no outs. How many earned runs do you expect your team to score this inning?</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="15">
+            <problem number="15">
+              <statement>
+                          <paragraph>The sum of the column of <math display="inline">$M$</math> corresponding to the “Runner on second, none out” state is <math display="inline">$4.53933$</math>, and the column of <math display="inline">$SM$</math> corresponding to the “Runner on second, none out” state is</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+                  <instructions><math display="block">$$\begin{bmatrix}
+      {.06107} \\
+      {.35881} \\
+      {.41638} \\
+      {.12018}
+      \end{bmatrix}$$</math></instructions>
+            <problem>
+              <statement>
+                          <paragraph>How many earned runs do you expect your team to score if there is a runner on second and no outs?</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="16">
+            <problem number="16">
+              <statement>
+                          <paragraph>The sum of the column of <math display="inline">$M$</math> corresponding to the “Bases empty, one out” state is <math display="inline">$3.02622$</math>, and the column of <math display="inline">$SM$</math> corresponding to the “Bases empty, one out” state is</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="1">
+                  <instructions><math display="block">$$\begin{bmatrix}
+      {.48513} \\
+      {.31279} \\
+      {.16060} \\
+      {.04148}
+      \end{bmatrix}$$</math></instructions>
+            <problem>
+              <statement>
+                          <paragraph>How many earned runs do you expect your team to score if the bases are empty and there is one out?</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="17">
+            <problem number="17">
+              <statement>
+                          <paragraph>Suppose that a runner for your team is on first base with no outs. You have to decide whether to tell the baserunner to attempt to steal second base. If the steal is successful, there will be a runner on second base and no outs. If the runner is caught stealing, the bases will be empty and there will be one out. Suppose further that the baserunner has a probability of <math display="inline">$p = .8$</math> of stealing successfully. Does attempting a steal in this circumstance increase or decrease the number of earned runs your team will score this inning?</paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph>In the previous exercise, let <math display="inline">$p$</math> be the probability that the baserunner steals second base successfully. For which values of <math display="inline">$p$</math> would you as manager call for an attempted steal?</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

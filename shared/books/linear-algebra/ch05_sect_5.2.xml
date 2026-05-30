@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch05" chapter_number="5" unit_code="5.2">
+  <section number="5.2" title="The Characteristic Equation">
+    <metadata>
+      <source_pages count="7">
+        <page global_index="243" type="content"/>
+        <page global_index="244" type="content"/>
+        <page global_index="245" type="content"/>
+        <page global_index="246" type="content"/>
+        <page global_index="247" type="content"/>
+        <page global_index="248" type="exercises"/>
+        <page global_index="249" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">5.2 The Characteristic Equation</heading>
+      <video title="Watch Video"/>
+      <paragraph>Useful information about the eigenvalues of a square matrix <math display="inline">$A$</math> is encoded in a special scalar equation called the characteristic equation of <math display="inline">$A$</math>. A simple example will lead to the general case.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Find the eigenvalues of <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      2 &amp; 3 \\
+      3 &amp; {- 6}
+      \end{array} \right\rbrack$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>We must find all scalars <math display="inline">$\text{λ}$</math> such that the matrix equation</paragraph>
+              <paragraph><math display="block">$$(A - \text{λ}I)\textbf{x} = \textbf{0}$$</math></paragraph>
+              <paragraph>has a nontrivial solution. By the Invertible Matrix Theorem in Section 2.3, this problem is equivalent to finding all <math display="inline">$\text{λ}$</math> such that the matrix <math display="inline">$A - \text{λ}I$</math> is <em>not</em> invertible, where</paragraph>
+              <paragraph><math display="block">$$A - \text{λ}I = \left\lbrack \begin{array}{rr}
+      2 &amp; 3 \\
+      3 &amp; {- 6}
+      \end{array} \right\rbrack - \left\lbrack \begin{array}{rr}
+      \text{λ} &amp; 0 \\
+      0 &amp; \text{λ}
+      \end{array} \right\rbrack = \begin{bmatrix}
+      {2 - \text{λ}} &amp; 3 \\
+      3 &amp; {- 6 - \text{λ}}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>By Theorem 4 in Section 2.2, this matrix fails to be invertible precisely when its determinant is zero. So the eigenvalues of <math display="inline">$A$</math> are the solutions of the equation</paragraph>
+              <paragraph><math display="block">$$\det\left( {A - \text{λ}I} \right) = \det\begin{bmatrix}
+      {2 - \text{λ}} &amp; 3 \\
+      3 &amp; {- 6 - \text{λ}}
+      \end{bmatrix} = 0$$</math></paragraph>
+              <paragraph>Recall that</paragraph>
+              <paragraph><math display="block">$$\text{det}\left\lbrack \begin{array}{rr}
+      a &amp; b \\
+      c &amp; d
+      \end{array} \right\rbrack = ad - bc$$</math></paragraph>
+              <paragraph>So</paragraph>
+              <paragraph><math display="block">$$\begin{array}{cl}
+      {\text{det}(A - \text{λ}I)} &amp; {= (2 - \text{λ})( - 6 - \text{λ}) - (3)(3)} \\
+       &amp; {= - 12 + 6\text{λ} - 2\text{λ} + \text{λ}^{2} - 9} \\
+       &amp; {= \text{λ}^{2} + 4\text{λ} - 21} \\
+       &amp; {= (\text{λ} - 3)(\text{λ} + 7)}
+      \end{array}$$</math></paragraph>
+              <paragraph>If <math display="inline">$\text{det}(A - \text{λ}I) = 0$</math>, then <math display="inline">$\text{λ} = 3$</math> or <math display="inline">$\text{λ} = - 7$</math>. So the eigenvalues of <math display="inline">$A$</math> are <math display="inline">$3$</math> and <math display="inline">$- 7$</math>.</paragraph>
+        </example>
+      <heading level="2">Determinants</heading>
+      <paragraph>The determinant in Example 1 transformed the matrix equation <math display="inline">$(A - \text{λ}l)\,\textbf{x} = \textbf{0}$</math>, which involves <em>two</em> unknowns <math display="inline">$\text{λ}$</math> and <math display="inline">$\textbf{x}$</math>, into the scalar equation <math display="inline">$\text{λ}^{2} + 4\text{λ} - 21 = 0$</math>, which involves only <em>one</em> unknown. The same idea works for <math display="inline">$n \times n$</math> matrices.</paragraph>
+      <paragraph>Before turning to larger matrices, recall from Section 3.1 that the matrix <math display="inline">$A_{ij}$</math> is obtained from <math display="inline">$A$</math> by deleting the <math display="inline">$i$</math>th row and <math display="inline">$j$</math>th column. The determinant of an <math display="inline">$n \times n$</math> matrix <math display="inline">$A$</math> can be computed by an expansion across any row or down any column. The expansion across the <math display="inline">$i$</math>th row is given by</paragraph>
+      <paragraph>
+        <math display="block">$$\text{det}\,A = ( - 1)^{i + 1}a_{i1}\det A_{i1} + ( - 1)^{i + 2}a_{i2}\det A_{i2} + \cdots + ( - 1)^{i + n}a_{in}\det A_{in}$$</math>
+      </paragraph>
+      <paragraph>The expansion down the <math display="inline">$j$</math>th column is given by</paragraph>
+      <paragraph>
+        <math display="block">$$\text{det}\,A = ( - 1)^{1 + j}a_{1j}\det A_{1j} + ( - 1)^{2 + j}a_{2j}\det A_{2j} + \cdots + ( - 1)^{n + j}a_{nj}\det A_{nj}$$</math>
+      </paragraph>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>Compute the determinant of</paragraph>
+              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rrr}
+      2 &amp; {~~3} &amp; 1 \\
+      4 &amp; {~~0} &amp; {- 1} \\
+      0 &amp; 2 &amp; 1
+      \end{array} \right\rbrack$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Any row or column can be chosen for the expansion. For example, expanding down the first column of <math display="inline">$A$</math> results in</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      {\det A} &amp; = &amp; {a_{11}\det A_{11} - a_{21}\det A_{21} + a_{31}\det A_{31}} \\
+       &amp; = &amp; {2\det\left\lbrack \begin{array}{rr}
+      0 &amp; {- 1} \\
+      2 &amp; 1
+      \end{array} \right\rbrack - 4\det\left\lbrack \begin{array}{rr}
+      3 &amp; 1 \\
+      2 &amp; 1
+      \end{array} \right\rbrack + 0\det\left\lbrack \begin{array}{rr}
+      3 &amp; 1 \\
+      0 &amp; {- 1}
+      \end{array} \right\rbrack} \\
+       &amp; = &amp; {2\left( 0 - ( - 2) \right) - 4(3 - 2) + 0( - 3 - 0) = 0}
+      \end{array}$$</math></paragraph>
+              <paragraph>The next theorem lists facts from Sections 3.1 and <strong/>3.2 and is included here for convenient reference.</paragraph>
+        </example>
+      <note type="procedure" title="Theorem ﻿3﻿">
+          <heading level="2">Theorem ﻿3﻿</heading>
+          <heading level="3">Properties of Determinants﻿</heading>
+              <paragraph>Let <math display="inline">$A$</math> and <math display="inline">$B$</math> be <math display="inline">$n \times n$</math> matrices.</paragraph>
+          <list ordered="true">
+                  <item>A is invertible if and only if det A≠0.</item>
+                  <item>det AB=(det A)(det B).</item>
+                  <item>det AT=det A.</item>
+                  <item>If A is triangular, then det A is the product of the entries on the main diagonal of A.</item>
+                  <item>A row replacement operation on A does not change the determinant. A row interchange changes the sign of the determinant. A row scaling also scales the determinant by the same scalar factor.</item>
+          </list>
+        </note>
+      <paragraph>Recall that <math display="inline">$A$</math> is invertible if and only if the equation <math display="inline">$A\textbf{x} = \textbf{0}$</math> has only the trivial solution. Notice that the number <math display="inline">$0$</math> is an eigenvalue of <math display="inline">$A$</math> if and only if there <em>is</em> a nonzero vector <math display="inline">$\textbf{x}$</math> such that <math display="inline">$A\textbf{x} = 0\textbf{x} = \textbf{0}$</math>, which happens if and only if <math display="inline">$0 = \det(A - 0I) = \det A$</math>. Hence <math display="inline">$A$</math> is invertible if and only if <math display="inline">$0$</math> is <em>not</em> an eigenvalue.</paragraph>
+      <note type="procedure" title="Theorem">
+          <heading level="2">Theorem</heading>
+          <heading level="3">The Invertible Matrix Theorem (continued)﻿</heading>
+              <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> matrix. Then <math display="inline">$A$</math> is invertible if and only if</paragraph>
+          <list ordered="true">
+                  <item>The number 0 is not an eigenvalue of A.</item>
+          </list>
+        </note>
+      <heading level="2">The Characteristic Equation</heading>
+      <paragraph>Theorem 3<strong>(a)</strong> shows how to determine when a matrix of the form <math display="inline">$A - \text{λ}I$</math> is <em>not</em> invertible. The scalar equation <math display="inline">$\text{det}(A - \text{λ}I) = 0$</math> is called the characteristic equation of <math display="inline">$A$</math>, and the argument in Example 1 justifies the following fact.</paragraph>
+      <note type="theorem_key">
+              <paragraph>A scalar <math display="inline">$\text{λ}$</math> is an eigenvalue of an <math display="inline">$n \times n$</math> matrix <math display="inline">$A$</math> if and only if <math display="inline">$\text{λ}$</math> satisfies the characteristic equation</paragraph>
+              <paragraph><math display="block">$$\text{det}(A - \text{λ}I) = 0$$</math></paragraph>
+        </note>
+      <example number="3">
+          <heading level="2">Example 3</heading>
+              <paragraph>Find the characteristic equation of</paragraph>
+              <paragraph><math display="block">$$A = \,\,\begin{bmatrix}
+      5 &amp; {- 2} &amp; 6 &amp; {- 1} \\
+      0 &amp; 3 &amp; {- 8} &amp; 0 \\
+      0 &amp; 0 &amp; 5 &amp; 4 \\
+      0 &amp; 0 &amp; 0 &amp; 1
+      \end{bmatrix}$$</math></paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Form <math display="inline">$A - \text{λ}I$</math>, and use Theorem 3<strong>(d)</strong>:</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      {\text{det}\left( A - \text{λ}I \right)} &amp; {= \det\,\,\begin{bmatrix}
+      {5 - \text{λ}} &amp; {- 2} &amp; 6 &amp; {- 1} \\
+      0 &amp; {3 - \text{λ}} &amp; {- 8} &amp; 0 \\
+      0 &amp; 0 &amp; {5 - \text{λ}} &amp; 4 \\
+      0 &amp; 0 &amp; 0 &amp; {1 - \text{λ}}
+      \end{bmatrix}} \\
+       &amp; {= \left( 5 - \text{λ} \right)\left( 3 - \text{λ} \right)\left( 5 - \text{λ} \right)\left( 1 - \text{λ} \right)}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>The characteristic equation is</paragraph>
+              <paragraph><math display="block">$$(5 - \text{λ})^{2}(3 - \text{λ})(1 - \text{λ}) = 0$$</math></paragraph>
+              <paragraph>or</paragraph>
+              <paragraph><math display="block">$$(\text{λ} - 5)^{2}(\text{λ} - 3)(\text{λ} - 1) = 0$$</math></paragraph>
+              <paragraph>Expanding the product, we can also write</paragraph>
+              <paragraph><math display="block">$$\text{λ}^{4} - 14\text{λ}^{3} + 68\text{λ}^{2} - 130\text{λ} + 75 = 0$$</math></paragraph>
+        </example>
+      <note type="warning" title="﻿﻿Reasonable Answers﻿">
+          <heading level="2">﻿﻿Reasonable Answers﻿</heading>
+              <paragraph>If you want to verify <math display="inline">$\text{λ}$</math> is an eigenvalue of <math display="inline">$A$</math>, row reduce <math display="inline">$A - \text{λ}I$</math>. If you get a pivot in every column, something is amiss—the scalar <math display="inline">$\text{λ}$</math> is not an eigenvalue of <math display="inline">$A$</math>. Looking back at <strong>Example 3</strong>, notice that <math display="inline">$A - 5I,A - 3I$</math>, and <math display="inline">$A - I$</math> all have at least one column without a pivot; however, if <math display="inline">$\text{λ}$</math> is chosen to be any number other than <math display="inline">$5$</math>, <math display="inline">$3$</math>, or <math display="inline">$1$</math>, the matrix <math display="inline">$A - \text{λ}I$</math> has a pivot in every column.</paragraph>
+        </note>
+      <paragraph>In Examples 1 and 3, <math display="inline">$\text{det}\,(A - \text{λ}I)$</math> is a polynomial in <math display="inline">$\text{λ}$</math>. It can be shown that if <math display="inline">$A$</math> is an <math display="inline">$n \times n$</math> matrix, then <math display="inline">$\text{det}\,(A - \text{λ}I)$</math> is a polynomial of degree <math display="inline">$n$</math> called the characteristic polynomial of <math display="inline">$A$</math>.</paragraph>
+      <paragraph>The eigenvalue <math display="inline">$5$</math> in Example 3 is said to have <em>multiplicity</em> <math display="inline">$2$</math> because <math display="inline">$(\text{λ} - 5)$</math> occurs two times as a factor of the characteristic polynomial. In general, the (algebraic) multiplicity of an eigenvalue <math display="inline">$\text{λ}$</math> is its multiplicity as a root of the characteristic equation.</paragraph>
+      <example number="4">
+          <heading level="2">Example 4</heading>
+              <paragraph>The characteristic polynomial of a <math display="inline">$6 \times 6$</math> matrix is <math display="inline">$\text{λ}^{6} - 4\text{λ}^{5} - 12\text{λ}^{4}$</math>. Find the eigenvalues and their multiplicities.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>Factor the polynomial</paragraph>
+              <paragraph><math display="block">$$\text{λ}^{6} - 4\text{λ}^{5} - 12\text{λ}^{4} = \text{λ}^{4}(\text{λ}^{2} - 4\text{λ} - 12) = \text{λ}^{4}(\text{λ} - 6)(\text{λ} + 2)$$</math></paragraph>
+              <paragraph>The eigenvalues are <math display="inline">$0$</math> (multiplicity <math display="inline">$4$</math>), <math display="inline">$6$</math> (multiplicity <math display="inline">$1$</math>), and <math display="inline">$- 2$</math> (multiplicity <math display="inline">$1$</math>).</paragraph>
+        </example>
+      <paragraph>We could also list the eigenvalues in <strong>Example 4</strong> as <math display="inline">$0,0,0,0,6$</math>, and <math display="inline">$- 2$</math>, so that the eigenvalues are repeated according to their multiplicities.</paragraph>
+      <paragraph>Because the characteristic equation for an <math display="inline">$n \times n$</math> matrix involves an <math display="inline">$n$</math>th-degree polynomial, the equation has exactly <math display="inline">$n$</math> roots, counting multiplicities, provided complex roots are allowed. Such complex roots, called <em>complex eigenvalues</em>, will be discussed in Section 5.5. Until then, we consider only real eigenvalues, and scalars will continue to be real numbers.</paragraph>
+      <paragraph>The characteristic equation is important for theoretical purposes. In practical work, however, eigenvalues of any matrix larger than <math display="inline">$2 \times 2$</math> should be found by a computer, unless the matrix is triangular or has other special properties. Although a <math display="inline">$3 \times 3$</math> characteristic polynomial is easy to compute by hand, factoring it can be difficult (unless the matrix is carefully chosen). See the Numerical Notes at the end of this section.</paragraph>
+      <note type="margin_note">
+              <paragraph><strong>STUDY GUIDE</strong> has advice on how to factor a polynomial.</paragraph>
+        </note>
+      <heading level="2">Similarity</heading>
+      <paragraph>The next theorem illustrates one use of the characteristic polynomial, and it provides the foundation for several iterative methods that <em>approximate</em> eigenvalues. If <math display="inline">$A$</math> and <math display="inline">$B$</math> are <math display="inline">$n \times n$</math> matrices, then <math display="inline">$A$</math> <strong>is similar to</strong> <math display="inline">$B$</math> if there is an invertible matrix <math display="inline">$P$</math> such that <math display="inline">$P^{- 1}AP = B$</math>, or, equivalently, <math display="inline">$A = PBP^{- 1}$</math>. Writing <math display="inline">$Q$</math> for <math display="inline">$P^{- 1}$</math>, we have <math display="inline">$Q^{- 1}BQ = A$</math>. So <math display="inline">$B$</math> is also similar to <math display="inline">$A$</math>, and we say simply that <math display="inline">$A$</math> and <math display="inline">$B$</math> <strong>are similar</strong>. Changing <math display="inline">$A$</math> into <math display="inline">$P^{- 1}AP$</math> is called a similarity transformation.</paragraph>
+      <note type="procedure" title="Theorem ﻿4﻿">
+          <heading level="2">Theorem ﻿4﻿</heading>
+              <paragraph>If <math display="inline">$n \times n$</math> matrices <math display="inline">$A$</math> and <math display="inline">$B$</math> are similar, then they have the same characteristic polynomial and hence the same eigenvalues (with the same multiplicities).</paragraph>
+        </note>
+      <heading level="3">Proof</heading>
+      <paragraph>If <math display="inline">$B = P^{- 1}AP$</math>, then</paragraph>
+      <paragraph>
+        <math display="block">$$B - \text{λ}I = P^{- 1}AP - \text{λ}P^{- 1}P = P^{- 1}(AP - \text{λ}P) = P^{- 1}(A - \text{λ}I)P$$</math>
+      </paragraph>
+      <paragraph>Using the multiplicative property (b) in Theorem 3, we compute</paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{ll}
+      {\det\left( B - \text{λ}I \right)} &amp; {= \det\left\lbrack P^{- 1}\text{(}A - \text{λ}I\text{)}P \right\rbrack} \\
+       &amp; {= \det\text{(}P^{- 1}\text{)} \cdot \det\text{(}A - \text{λ}I\text{)} \cdot \det\text{(}P\text{)}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>Since <math display="inline">$\text{det}(P^{- 1}) \cdot \det(P) = \det(P^{- 1}\! P) = \det I = 1$</math>, we see from equation (1) that <math display="inline">$\text{det}(B - \text{λ}I) =$</math> <math display="inline">$\text{det}\left( A - \text{λ}I \right).$</math></paragraph>
+      <paragraph>
+        <em>
+          <strong/>
+        </em>
+        <em>
+          <strong>Warnings:</strong>
+        </em>
+        <em>
+          <strong/>
+        </em>
+      </paragraph>
+      <list ordered="true">
+              <item>The matrices 2102 and 2002 ﻿are not similar even though they have the same eigenvalues.</item>
+              <item>Similarity is not the same as row equivalence. (If A is row equivalent to B, then B=EA for some invertible matrix E.) Row operations on a matrix usually change its eigenvalues.</item>
+        </list>
+      <heading level="2">Application to Dynamical Systems</heading>
+      <paragraph>Eigenvalues and eigenvectors hold the key to the discrete evolution of a dynamical system, as mentioned in the chapter introduction.</paragraph>
+      <example number="5">
+          <heading level="2">Example 5</heading>
+              <paragraph>Let <math display="inline">$A = \left\lbrack \begin{array}{rr}
+      .95 &amp; {\text{.}03} \\
+      .05 &amp; {\text{.}97}
+      \end{array} \right\rbrack$</math>. Analyze the long-term behavior (as <math display="inline">$k$</math> increases) of the dynamical system defined by <math display="inline">$\textbf{x}_{k + 1} = A\textbf{x}_{k}(k = 0,1,2,\ldots)$</math>, with <math display="inline">$\textbf{x}_{0} = \left\lbrack \begin{array}{r}
+      .6 \\
+      .4
+      \end{array} \right\rbrack$</math>.</paragraph>
+          <heading level="3">Solution</heading>
+              <paragraph>The first step is to find the eigenvalues of <math display="inline">$A$</math> and a basis for each eigenspace. The characteristic equation for <math display="inline">$A$</math> is</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      0 &amp; {= \det\begin{bmatrix}
+      {.95 - \text{λ}} &amp; {\text{.}03} \\
+      .05 &amp; {\text{.}97 - \text{λ}}
+      \end{bmatrix}\, = \,\text{(}.95 - \text{λ)(}.97 - \text{λ)} - \text{(}.03\text{)(}.05\text{)}} \\
+       &amp; {= \text{λ}^{2} - 1.92\text{λ} + .92}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>By the quadratic formula</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \text{λ} &amp; {= \frac{1.92 \pm \sqrt{( - 1.92)^{2} - 4(.92)}}{2} = \frac{1.92 \pm \sqrt{.0064}}{2}} \\
+       &amp; {= \frac{1.92 \pm .08}{2} = 1\quad\text{or}\quad.92}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>It is readily checked that eigenvectors corresponding to <math display="inline">$\text{λ} = 1$</math> and <math display="inline">$\text{λ} = .92$</math> are multiples of</paragraph>
+              <paragraph><math display="block">$$\textbf{v}_{1} = \left\lbrack \begin{array}{r}
+      3 \\
+      5
+      \end{array} \right\rbrack\quad\text{and}\quad\textbf{v}_{2} = \left\lbrack \begin{array}{r}
+      1 \\
+      {- 1}
+      \end{array} \right\rbrack$$</math></paragraph>
+              <paragraph>respectively.</paragraph>
+              <paragraph>The next step is to write the given <math display="inline">$\textbf{x}_{0}$</math> in terms of <math display="inline">$\textbf{v}_{1}$</math> and <math display="inline">$\textbf{v}_{2}$</math>. This can be done because <math display="inline">$\{\textbf{v}_{1},\textbf{v}_{2}\}$</math> is obviously a basis for <math display="inline">$\text{ℝ}^{2}$</math>. (Why?) So there exist weights <math display="inline">$c_{1}$</math> and <math display="inline">$c_{2}$</math> such that</paragraph>
+              <paragraph><math display="block">$$\textbf{x}_{0} = c_{1}\textbf{v}_{1} + c_{2}\textbf{v}_{2} = \begin{bmatrix}
+      \textbf{v}_{1} &amp; \textbf{v}_{2}
+      \end{bmatrix}\begin{bmatrix}
+      c_{1} \\
+      c_{2}
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>In fact,</paragraph>
+              <paragraph><math display="block">$$\begin{array}{lll}
+      \left\lbrack \begin{array}{l}
+      c_{1} \\
+      c_{2}
+      \end{array} \right\rbrack &amp; = &amp; {\left\lbrack \begin{array}{ll}
+      \mathbf{v}_{1} &amp; \mathbf{v}_{2}
+      \end{array} \right\rbrack^{- 1}\mathbf{x}_{0} = \left\lbrack \begin{array}{rr}
+      3 &amp; 1 \\
+      5 &amp; {- 1}
+      \end{array} \right\rbrack^{- 1}\left\lbrack \begin{array}{l}
+      .60 \\
+      .40
+      \end{array} \right\rbrack} \\
+       &amp; = &amp; {\frac{1}{- 8}\left\lbrack \begin{array}{rr}
+      {- 1} &amp; {- 1} \\
+      {- 5} &amp; 3
+      \end{array} \right\rbrack\left\lbrack \begin{array}{l}
+      .60 \\
+      .40
+      \end{array} \right\rbrack = \left\lbrack \begin{array}{l}
+      .125 \\
+      .225
+      \end{array} \right\rbrack}
+      \end{array}$$</math></paragraph>
+              <paragraph>Because <math display="inline">$\textbf{v}_{1}$</math> and <math display="inline">$\textbf{v}_{2}$</math> in <strong>(3)</strong> are eigenvectors of <math display="inline">$A$</math>, with <math display="inline">$A\textbf{v}_{1} = \textbf{v}_{1}$</math> and <math display="inline">$A\textbf{v}_{2} = .92\textbf{v}_{2}$</math>, we easily compute each <math display="inline">$\textbf{x}_{k}$</math>:</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      {\textbf{x}_{1} = A\textbf{x}_{0}} &amp; = &amp; {c_{1}A\textbf{v}_{1} + c_{2}A\textbf{v}_{2}} &amp; &amp; {\text{Using~linearity~of~}{\textbf{x}\mapsto A\textbf{x}}} \\
+       &amp; = &amp; {c_{1}\textbf{v}_{1} + c_{2}(.92)\textbf{v}_{2}} &amp; &amp; {\textbf{v}_{1}\text{~and~}\textbf{v}_{2}\text{~are~eigenvectors.}} \\
+      {\textbf{x}_{2} = A\textbf{x}_{1}} &amp; = &amp; {c_{1}A\textbf{v}_{1} + c_{2}(.92)A\textbf{v}_{2}} &amp; &amp; \\
+       &amp; = &amp; {c_{1}\textbf{v}_{1} + c_{2}(.92)^{2}\textbf{v}_{2}} &amp; &amp; 
+      \end{matrix}$$</math></paragraph>
+              <paragraph>and so on. In general,</paragraph>
+              <paragraph><math display="block">$$\textbf{x}_{k} = c_{1}\textbf{v}_{1} + c_{2}(.92)^{k}\textbf{v}_{2}\quad(k = 0,1,2,\ldots)$$</math></paragraph>
+              <paragraph>Using <math display="inline">$c_{1}$</math> and <math display="inline">$c_{2}$</math> from <strong>(</strong>4<strong>)</strong>,</paragraph>
+              <paragraph><math display="block">$$\textbf{x}_{k} = .125\begin{bmatrix}
+      3 \\
+      5
+      \end{bmatrix}~ + ~.225{\text{(}.92\text{)}}^{k}\left\lbrack \begin{array}{r}
+      1 \\
+      {- 1}
+      \end{array} \right\rbrack\quad\text{(}k = 0,1,2,\ldots\text{)}$$</math></paragraph>
+              <paragraph>This explicit formula for <math display="inline">$\textbf{x}_{k}$</math> gives the solution of the difference equation <math display="inline">$\textbf{x}_{k + 1} = A\textbf{x}_{k}$</math>. As <math display="inline">$k\rightarrow\text{∞}$</math>, <math display="inline">$(.92)^{k}$</math> tends to zero and <math display="inline">$\textbf{x}_{k}$</math> tends to <math display="inline">$\left\lbrack \begin{array}{r}
+      .375 \\
+      .625
+      \end{array} \right\rbrack = .125\textbf{v}_{1}$</math>.</paragraph>
+        </example>
+      <paragraph>The calculations in <strong>Example 5</strong> have an interesting application to a Markov chain discussed in Section 5.9. Those who read that section may recognize that matrix <math display="inline">$A$</math> in Example 5 above is the same as the migration matrix <math display="inline">$M$</math> in Section 5.9, <math display="inline">$\textbf{x}_{0}$</math> is the initial population distribution between city and suburbs, and <math display="inline">$\textbf{x}_{k}$</math> represents the population distribution after <math display="inline">$k$</math> years.</paragraph>
+      <note type="caution" title="Numerical Notes﻿">
+          <heading level="2">Numerical Notes﻿</heading>
+          <list ordered="true">
+                  <item>Computer software such as Mathematica and Maple can use symbolic calculations to find the characteristic polynomial of a moderate-sized matrix. But there is no formula or finite algorithm to solve the characteristic equation of a general n×n matrix for n≥5.</item>
+                  <item>The best numerical methods for finding eigenvalues avoid the characteristic polynomial entirely. In fact, MATLAB finds the characteristic polynomial of a matrix A by first computing the eigenvalues λ1,…,λn of A and then expanding the product (λ−λ1)(λ−λ2)⋯(λ−λn).</item>
+                  <item>Several common algorithms for estimating the eigenvalues of a matrix A are based on Theorem 4. The powerful QR algorithm is discussed in the exercises. Another technique, called Jacobi’s method, works when A=AT and computes a sequence of matrices of the form A1 = A and Ak+1 =Pk-1 Ak Pk (k=1,2,...)Each matrix in the sequence is similar to A and so has the same eigenvalues as A. The nondiagonal entries of Ak+1 tend to zero as k increases, and the diagonal entries tend to approach the eigenvalues of A.</item>
+                  <item>Other methods of estimating eigenvalues are discussed in Section 5.8.</item>
+          </list>
+        </note>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="false">
+                  <item>Find the characteristic equation and eigenvalues of A=1−442.</item>
+          </list>
+        </note>
+    </content>
+    <exercises title="5.2 Exercises">
+      <heading level="1">5.2 Exercises</heading>
+      <exercise_group start="1">
+                  <instructions>Find the characteristic polynomial and the eigenvalues of the matrices in Exercises 1–8.</instructions>
+            <problem number="1">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      2 &amp; 7 \\
+      7 &amp; 2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="2">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      5 &amp; 3 \\
+      3 &amp; 5
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      3 &amp; {- 2} \\
+      1 &amp; {- 1}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      4 &amp; {- 3} \\
+      {- 4} &amp; 2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="5">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      2 &amp; 1 \\
+      {- 1} &amp; 4
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      1 &amp; {- 4} \\
+      4 &amp; 6
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="7">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      5 &amp; 3 \\
+      {- 4} &amp; 4
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
+      7 &amp; {- 2} \\
+      2 &amp; 3
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="9">
+                  <instructions>Exercises 9–14 require techniques from Section 3.1. Find the characteristic polynomial of each matrix using expansion across a row or down a column. [<em>Note:</em><strong/>Finding the characteristic polynomial of a <math display="inline">$3 \times 3$</math> matrix is not easy to do with just row operations, because the variable <math display="inline">$\text{λ}$</math> is involved.]</instructions>
+            <problem number="9">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      1 &amp; 0 &amp; {- 1} \\
+      2 &amp; 3 &amp; {- 1} \\
+      0 &amp; 6 &amp; 0
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      0 &amp; 3 &amp; 1 \\
+      3 &amp; 0 &amp; 2 \\
+      1 &amp; 2 &amp; 0
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      4 &amp; 0 &amp; 0 \\
+      5 &amp; 3 &amp; 2 \\
+      {- 2} &amp; 0 &amp; 2
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="12">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      1 &amp; 0 &amp; 1 \\
+      {- 3} &amp; 6 &amp; 1 \\
+      0 &amp; 0 &amp; 4
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="13">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      6 &amp; {- 2} &amp; 0 \\
+      {- 2} &amp; 9 &amp; 0 \\
+      5 &amp; 8 &amp; 3
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="14">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
+      3 &amp; {- 2} &amp; 3 \\
+      0 &amp; {- 1} &amp; 0 \\
+      6 &amp; 7 &amp; {- 4}
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="15">
+                  <instructions>For the matrices in Exercises 15–17, list the eigenvalues, repeated according to their multiplicities.</instructions>
+            <problem number="15">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      4 &amp; {- 7} &amp; 0 &amp; 2 \\
+      0 &amp; 3 &amp; {- 4} &amp; 6 \\
+      0 &amp; 0 &amp; 3 &amp; {- 8} \\
+      0 &amp; 0 &amp; 0 &amp; 1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="16">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
+      5 &amp; 0 &amp; 0 &amp; 0 \\
+      8 &amp; {- 4} &amp; 0 &amp; 0 \\
+      0 &amp; 7 &amp; 1 &amp; 0 \\
+      1 &amp; {- 5} &amp; 2 &amp; 1
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="17">
+              <statement>
+                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrrr}
+      3 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+      {- 5} &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+      3 &amp; 8 &amp; 0 &amp; 0 &amp; 0 \\
+      0 &amp; {- 7} &amp; 2 &amp; 1 &amp; 0 \\
+      {- 4} &amp; 1 &amp; 9 &amp; {- 2} &amp; 3
+      \end{array} \right\rbrack$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="18">
+              <statement>
+                          <paragraph>It can be shown that the algebraic multiplicity of an eigenvalue <math display="inline">$\text{λ}$</math> is always greater than or equal to the dimension of the eigenspace corresponding to <math display="inline">$\text{λ}$</math>. Find <math display="inline">$h$</math> in the matrix <math display="inline">$A$</math> below such that the eigenspace for <math display="inline">$\text{λ} = 5$</math> is two-dimensional:<math display="block">$$A~ = ~\begin{bmatrix}
+      5 &amp; {- 2} &amp; {~~~6} &amp; {- 1} \\
+      0 &amp; {~~~3} &amp; {~~~h} &amp; {~~~0} \\
+      0 &amp; {~~~0} &amp; {~~~5} &amp; {~~~4} \\
+      0 &amp; {~~~0} &amp; {~~~0} &amp; {~~~1}
+      \end{bmatrix}$$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="19">
+              <statement>
+                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> matrix, and suppose <math display="inline">$A$</math> has <math display="inline">$n$</math> real eigenvalues, <math display="inline">$\text{λ}_{1},\ldots,\text{λ}_{n}$</math>, repeated according to multiplicities, so that <math display="inline">$\text{det}(A - \text{λ}I) = (\text{λ}_{1} - \text{λ})(\text{λ}_{2} - \text{λ})\cdots(\text{λ}_{n} - \text{λ})$</math></paragraph>
+                          <paragraph>Explain why <math display="inline">$\text{det}\,A$</math> is the product of the <math display="inline">$n$</math> eigenvalues of <math display="inline">$A$</math>. (This result is true for any square matrix when complex eigenvalues are considered.)</paragraph>
+              </statement>
+            </problem>
+            <problem number="20">
+              <statement>
+                          <paragraph>Use a property of determinants to show that <math display="inline">$A$</math> and <math display="inline">$A^{T}$</math> have the same characteristic polynomial.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="21">
+                  <instructions>In Exercises 21–30, <math display="inline">$A$</math> and <math display="inline">$B$</math> are <math display="inline">$n \times n$</math> matrices. Mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
+            <problem number="21">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$0$</math> is an eigenvalue of <math display="inline">$A$</math>, then <math display="inline">$A$</math> is invertible.</paragraph>
+              </statement>
+            </problem>
+            <problem number="22">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The zero vector is in the eigenspace of <math display="inline">$A$</math> associated with an eigenvalue <math display="inline">$\text{λ}$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="23">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The matrix <math display="inline">$A$</math> and its transpose, <math display="inline">$A^{T}$</math>, have different sets of eigenvalues.</paragraph>
+              </statement>
+            </problem>
+            <problem number="24">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The matrices <math display="inline">$A$</math> and <math display="inline">$B^{- 1}AB$</math> have the same sets of eigenvalues for every invertible matrix <math display="inline">$B.$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="25">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$2$</math> is an eigenvalue of <math display="inline">$A$</math>, then <math display="inline">$A - 2I$</math> is not invertible.</paragraph>
+              </statement>
+            </problem>
+            <problem number="26">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If two matrices have the same set of eigenvalues, then they are similar.</paragraph>
+              </statement>
+            </problem>
+            <problem number="27">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\text{λ} + 5$</math> is a factor of the characteristic polynomial of <math display="inline">$A$</math>, then <math display="inline">$5$</math> is an eigenvalue of <math display="inline">$A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="28">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The multiplicity of a root <math display="inline">$r$</math> of the characteristic equation of <math display="inline">$A$</math> is called the algebraic multiplicity of <math display="inline">$r$</math> as an eigenvalue of <math display="inline">$A$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="29">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The eigenvalue of the <math display="inline">$n \times n$</math> identity matrix is <math display="inline">$1$</math> with algebraic multiplicity <math display="inline">$n$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="30">
+              <statement>
+                          <paragraph><strong>(T/F)</strong> The matrix <math display="inline">$A$</math> can have more than <math display="inline">$n$</math> eigenvalues.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="31">
+                  <instructions>A widely used method for estimating eigenvalues of a general matrix <math display="inline">$A$</math> is the <math display="inline">$Q\mspace{-180mu} R$</math> <em>algorithm</em>. Under suitable conditions, this algorithm produces a sequence of matrices, all similar to <math display="inline">$A$</math>, that become almost upper triangular, with diagonal entries that approach the eigenvalues of <math display="inline">$A$</math>. The main idea is to factor <math display="inline">$A$</math> (or another matrix similar to <math display="inline">$A$</math>) in the form <math display="inline">$A = Q_{1}R_{1}$</math>, where <math display="inline">$Q_{1}^{T} = Q_{1}^{- 1}$</math> and <math display="inline">$R_{1}$</math> is upper triangular. The factors are interchanged to form <math display="inline">$A_{1} = R_{1}Q_{1}$</math>, which is again factored as <math display="inline">$A_{1} = Q_{2}R_{2}$</math>; then to form <math display="inline">$A_{2} = R_{2}Q_{2}$</math>, and so on. The similarity of <math display="inline">$A,A_{1},\ldots$</math> follows from the more general result in Exercise 31.</instructions>
+            <problem number="31">
+              <statement>
+                          <paragraph>Show that if <math display="inline">$A = Q\mspace{-180mu} R$</math> with <math display="inline">$Q$</math> invertible, then <math display="inline">$A$</math> is similar to <math display="inline">$A_{1} = RQ$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="32">
+              <statement>
+                          <paragraph>Show that if <math display="inline">$A$</math> and <math display="inline">$B$</math> are similar, then <math display="inline">$\text{det}\,A = \det B$</math>.</paragraph>
+              </statement>
+            </problem>
+            <problem number="33">
+              <statement>
+                          <paragraph><strong>[T]</strong> Construct a random integer-valued <math display="inline">$4 \times 4$</math> matrix <math display="inline">$A$</math>, and verify that <math display="inline">$A$</math> and <math display="inline">$A^{T}$</math> have the same characteristic polynomial (the same eigenvalues with the same multiplicities). Do <math display="inline">$A$</math> and <math display="inline">$A^{T}$</math> have the same eigenvectors? Make the same analysis of a <math display="inline">$5 \times 5$</math> matrix. Report the matrices and your conclusions.</paragraph>
+              </statement>
+            </problem>
+            <problem number="34">
+              <statement>
+                          <paragraph><strong>[T]</strong> Construct a random integer-valued <math display="inline">$4 \times 4$</math> matrix <math display="inline">$A$</math>.</paragraph>
+                <list ordered="true">
+                              <item>Reduce A to echelon form U with no row scaling, and compute det A. (If A happens to be singular, start over with a new random matrix.)</item>
+                              <item>Compute the eigenvalues of A and the product of these eigenvalues (as accurately as possible).</item>
+                              <item>List the matrix A, and, to four decimal places, list the pivots in U and the eigenvalues of A. Compute det A with your matrix program, and compare it with the products you found in (a) and (b).</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="35">
+              <statement>
+                          <paragraph>[<strong>T]</strong>Let <math display="inline">$A = \,\,\begin{bmatrix}
+      {- 6} &amp; 28 &amp; 21 \\
+      4 &amp; {- 15} &amp; {- 12} \\
+      {- 8} &amp; a &amp; 25
+      \end{bmatrix}$</math>. For each value of <math display="inline">$a$</math> in the set <math display="inline">$\{ 32,31.9,31.8,32.1,32.2\}$</math>, compute the characteristic polynomial of <math display="inline">$A$</math> and the eigenvalues. In each case, create a graph of the characteristic polynomial <math display="inline">$p(t) = \det\,(A - tI)$</math> for <math display="inline">$0 \leq t \leq 3$</math>. If possible, construct all graphs on one coordinate system. Describe how the graphs reveal the changes in the eigenvalues as <math display="inline">$a$</math> changes.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+    </exercises>
+  </section>
+</section_file>

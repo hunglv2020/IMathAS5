@@ -1,0 +1,361 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="8.5" title="Percentiles">
+  <image alt="A graduate's hand is holding a rolled certificate paper tied with a ribbon." number="8.31" caption="Two students graduating with the same class rank could be in different percentiles depending on the school population. (credit: &quot;graduation caps&quot; by John Walker/Flickr, CC BY 2.0)" />
+  <subsection title="Learning Objectives">
+    <p>After completing this section, you should be able to:</p>
+    <list type="ol">
+      <item>Compute percentiles.</item>
+      <item>Solve application problems involving percentiles.</item>
+    </list>
+  </subsection>
+  <subsection title="Finding Percentiles">
+    <p>There are some other terms that are related to "percentile" with meanings you may infer from their roots. Remember that the word percent means “per hundred.” This reflects that percentiles divide our data into 100 pieces. The word quartile has a root that means “four.” So, if a data value is at the first quantile of a dataset, that means that if you break the data into four parts (because of the quart-), this data value comes after the first of those four parts. In other words, it’s greater than 25% of the data, placing it at the 25th percentile. Quintile has a root meaning “five,” so a data value at the third quintile is greater than three-fifths of the data in the set. That would put it at the 60th percentile. The general term for these is quantiles (the root quant– means “number”).</p>
+    <p>In Mean, Median, and Mode, we defined the median as a number that is greater than no more than half of the data in a dataset and is less than no more than half of the data in the dataset. With our new term, we can more easily define it: The median is the value at the 50th percentile (or second quartile).</p>
+    <p>Let’s look at some examples.</p>
+    <example number="8.28">
+      <problem>
+        <p>Consider the dataset 5, 8, 12, 1, 2, 16, 2, 15, 20, 22.</p>
+        <list type="ol">
+          <item>At what percentile is the value 5?</item>
+          <item>What value is at the 60th percentile?</item>
+        </list>
+      </problem>
+      <solution>
+        <p>Before we can answer these two questions, we must put the data in increasing order: 1, 2, 2, 5, 8, 12, 15, 16, 20, 22.</p>
+        <list type="ol">
+          <item>There are three values (1, 2, and 2) in the set that are less than 5, and there are ten values in the set. Thus, 5 is at the $${\frac{3}{10} \times 100 = 30}\text{th}$$ percentile.</item>
+          <item>To find the value at the 60th percentile, we note that there are ten data values, and 60% of ten is six. Thus, the number we want is greater than exactly six of the data values. Thus, the 60th percentile is 15.</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="8.28">
+      <p>What value is at the 80th percentile?</p>
+      <p>At what percentile is the value 12?</p>
+    </note>
+    <p>In each of the examples above, the computations were made easier by the fact that the we were looking for percentiles that “came out evenly” with respect to the number of values in our dataset. Things don’t always work out so cleanly. Further, different sources will define the term percentile in different ways. In fact, Google Sheets has three built-in functions for finding percentiles, none of which uses our definition. Some of the definitions you’ll see differ in the inequality that is used. Ours uses “less than or equal to,” while others use “less than” (these correspond roughly to Google Sheets’ ‘PERCENTILE.INC’ and ‘PERCENTILE.EXC’). Some of them use different methods for interpolating values. (This is what we did when we first computed medians without technology; if there were an even number of data values in our dataset, found the mean of the two values in the middle. This is an example of interpolation. Most computerized methods use this technique.) Other definitions don’t interpolate at all, but instead choose the closest actual data value to the theoretical value. Fortunately, for large datasets, the differences among the different techniques become very small.</p>
+    <p>So, with all these different possible definitions in play, what will we use? For small datasets, if you’re asked to compute something involving percentiles  without technology
+  , use the technique we used in the previous example. In all other cases, we’ll keep things simple by using the built-in ‘PERCENTILE’ and ‘PERCENTRANK’ functions in Google Sheets (which do the same thing as the ‘PERCENTILE.INC’ and ‘PERCENTRANK.INC’ functions; they’re “inclusive, interpolating” definitions).</p>
+    <note type="Video">
+      <p>Using RANK, PERCENTRANK, and PERCENTILE in Google Sheets</p>
+    </note>
+    <example number="8.29">
+      <problem>
+        <p>The data in “AvgSAT” contains the average SAT score for students attending every institution of higher learning in the US for which data is available.</p>
+        <list type="ol">
+          <item>What score is at the 3rd quartile?</item>
+          <item>What score is at the 40th percentile?</item>
+          <item>At what percentile is Albion College in Michigan (average SAT: 1132)?</item>
+          <item>At what percentile is Oregon State University (average SAT: 1205)?</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol">
+          <item>The 3rd quartile is the 75th percentile, so we’ll use the PERCENTILE function. Click on an empty cell, and type “=PERCENTILE(“. Next, enter the data: click on the letter at the top of the column containing the average SAT scores. Then, tell the function which percentile we want; it needs to be entered as a decimal. So, type a comma (to separate the two pieces of information we’re giving this function), then type “0.75” and close the parentheses with “)”. The result should look like this (assuming the data are in column C): “=PERCENTILE(C:C, 0.75)”. When you hit the enter key, the formula will be replaced with the average SAT score at the 75th percentile: 1199.</item>
+          <item>Using the PERCENTILE function, we find that an average SAT of 1100 is at the 40th percentile.</item>
+          <item>Since we want to know the percentile for a particular score, we’ll use the PERCENTRANK function. Like the PERCENTILE function, we need to give PERCENTRANK two pieces of information: the data, and the value we care about. So, click on an empty cell, type “=PERCENTRANK(“, and then click on the letter at the top of the column containing the data. Next, type a comma and then the value we want to find the percentile for; in this case, we’ll type “, 1132”. Finally, close the parentheses with “)” and hit the enter key. The formula will be replaced with the information we want: an average SAT of 1132 is at the 54th percentile.</item>
+          <item>Using the PERCENTRANK function, an average SAT of 1205 is at the 76.1th percentile.</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="8.29">
+      <p>What score is at the 15th percentile?</p>
+      <p>What score is at the 90th percentile?</p>
+      <p>At what percentile is the University of Missouri (Columbia campus), whose average SAT score is 1244?</p>
+      <p>At what percentile is Rice University in Texas, whose average SAT score is 1513?</p>
+    </note>
+    <example number="8.30">
+      <problem>
+        <p>The dataset "InState" contains the in-state tuitions of every college and university in the country that reported that data to the Department of Education. Use that dataset to answer these questions.</p>
+        <list type="ol">
+          <item>What tuition is at the second quintile?</item>
+          <item>What tuition is at the 95th percentile?</item>
+          <item>At what percentile is Walla Walla University in Washington (in-state tuition: $28,035)?</item>
+          <item>At what percentile is the College of Saint Mary in Nebraska (in-state tuition: $20,350)?</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol">
+          <item>The second quintile is the 40th percentile; using PERCENTILE in Google Sheets, we get $8,400.</item>
+          <item>Using PERCENTILE again, we get $44,866.</item>
+          <item>Using PERCENTRANK, we get the 81.6th percentile.</item>
+          <item>Using PERCENTRANK, we get the 74.8th percentile.</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="8.30">
+      <p>What tuition is at the 10th percentile?</p>
+      <p>What tuition is at the fourth quintile?</p>
+      <p>At what percentile is the main campus of New Mexico State University (in-state tuition: $6,686)?</p>
+      <p>At what percentile is Bowdoin College in Maine (in-state tuition: $53,922)?</p>
+    </note>
+  </subsection>
+  <subsection title="Check Your Understanding">
+    <p>The value at the 30th percentile</p>
+    <p>The value at the first quintile</p>
+    <p>At what percentile 29 falls</p>
+    <p>At what percentile 24 falls</p>
+    <p>For the remainder of these problems, use the dataset "MLB2019," which gives the number of wins for each Major League Baseball team in the 2019 season. Use Google Sheets to compute your answers.</p>
+    <p>How many wins is at the 30th percentile?</p>
+    <p>How many wins is at the 90th percentile?</p>
+    <p>How many wins is at the first quartile?</p>
+    <p>At what percentile are the Chicago Cubs (CHC, 84 wins)?</p>
+    <p>At what percentile are the Tampa Bay Rays (TBR, 96 wins)?</p>
+    <p>At what percentile are the Toronto Blue Jays (TOR, 67 wins)?</p>
+  </subsection>
+  <exercises title="Section 8.5 Exercises">
+    <instruction>For the following exercises, use the following twenty data values to answer the questions without technology: 1, 4, 6, 7, 12, 15, 21, 25, 29, 30, 31, 33, 39, 43, 44, 45, 51, 55, 60, 63</instruction>
+    <exercise number="1" has_solution="false">
+      <problem>
+        <p>What data value is at the 10th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <p>What data value is at the 55th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="false">
+      <problem>
+        <p>What data value is at the 90th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <p>What data value is at the 30th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="5" has_solution="false">
+      <problem>
+        <p>What data value is at the first quartile?</p>
+      </problem>
+    </exercise>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <p>What data value is at the third quintile?</p>
+      </problem>
+    </exercise>
+    <exercise number="7" has_solution="false">
+      <problem>
+        <p>At what percentile is 29?</p>
+      </problem>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <p>At what percentile is 55?</p>
+      </problem>
+    </exercise>
+    <exercise number="9" has_solution="false">
+      <problem>
+        <p>At what percentile is 4?</p>
+      </problem>
+    </exercise>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <p>At what percentile is 51?</p>
+      </problem>
+    </exercise>
+    <instruction>For the following exercises, use the data in "TNSchools", which has data on many institutions of higher education in the state of Tennessee. Here are what the columns represent:
+
+
+
+Column Name
+Description
+
+
+
+
+AdmRate
+Proportion of applicants that are admitted
+
+
+UGEnr
+Number of undergraduate students
+
+
+PTUG
+Proportion of undergraduates who attend part-time
+
+
+InState
+Tuition and fees for in-state students
+
+
+OutState
+Tuition and fees for out-of-state students
+
+
+FacSal
+Mean monthly faculty salary
+
+
+Pell
+Proportion of students receiving Pell Grants
+
+
+MedDebt
+Median student loan debt at degree completion
+
+
+StartAge
+Mean age at the time of entry
+
+
+Female
+Proportion of students who identify as female
+
+
+
+ 
+ (source: https://data.ed.gov)</instruction>
+    <exercise number="11" has_solution="false">
+      <problem>
+        <p>What admission rate is at the second quintile?</p>
+      </problem>
+    </exercise>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <p>What admission rate is at the 80th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="13" has_solution="false">
+      <problem>
+        <p>What admission rate is at the 90th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <p>At what percentile is East Tennessee State University for admission rate?</p>
+      </problem>
+    </exercise>
+    <exercise number="15" has_solution="false">
+      <problem>
+        <p>At what percentile is Rhodes College for admission rate?</p>
+      </problem>
+    </exercise>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <p>At what percentile is Freed-Hardeman University for admission rate?</p>
+      </problem>
+    </exercise>
+    <exercise number="17" has_solution="false">
+      <problem>
+        <p>What proportion of part-time undergraduate enrollment is at the third quartile?</p>
+      </problem>
+    </exercise>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <p>What proportion of part-time undergraduate enrollment is at the 15th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="19" has_solution="false">
+      <problem>
+        <p>What proportion of part-time undergraduate enrollment is at the 40th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <p>At what percentile is Lee University for proportion of part-time undergraduate enrollment?</p>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="false">
+      <problem>
+        <p>At what percentile is Fisk University for proportion of part-time undergraduate enrollment?</p>
+      </problem>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <p>At what percentile is Middle Tennessee State University for proportion of part-time undergraduate enrollment?</p>
+      </problem>
+    </exercise>
+    <exercise number="23" has_solution="false">
+      <problem>
+        <p>What median student loan debt is at the 10th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="24" has_solution="false">
+      <problem>
+        <p>What median student loan debt is at the fourth quintile?</p>
+      </problem>
+    </exercise>
+    <exercise number="25" has_solution="false">
+      <problem>
+        <p>What median student loan debt is at the 85th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="26" has_solution="false">
+      <problem>
+        <p>At what percentile is Carson-Newman College for median student loan debt?</p>
+      </problem>
+    </exercise>
+    <exercise number="27" has_solution="false">
+      <problem>
+        <p>At what percentile is Austin Peay State University for median student loan debt?</p>
+      </problem>
+    </exercise>
+    <exercise number="28" has_solution="false">
+      <problem>
+        <p>At what percentile is Belmont University for median student loan debt?</p>
+      </problem>
+    </exercise>
+    <exercise number="29" has_solution="false">
+      <problem>
+        <p>What mean starting age is at the first quartile?</p>
+      </problem>
+    </exercise>
+    <exercise number="30" has_solution="false">
+      <problem>
+        <p>What mean starting age is at the 67th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="31" has_solution="false">
+      <problem>
+        <p>What mean starting age is at the 35th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="32" has_solution="false">
+      <problem>
+        <p>At what percentile is the University of the South for mean starting age?</p>
+      </problem>
+    </exercise>
+    <exercise number="33" has_solution="false">
+      <problem>
+        <p>At what percentile is Lincoln Memorial University for mean starting age?</p>
+      </problem>
+    </exercise>
+    <exercise number="34" has_solution="false">
+      <problem>
+        <p>At what percentile is the University of Tennessee-Chattanooga for mean starting age?</p>
+      </problem>
+    </exercise>
+    <exercise number="35" has_solution="false">
+      <problem>
+        <p>What proportion of students who identify as female is at the third quintile?</p>
+      </problem>
+    </exercise>
+    <exercise number="36" has_solution="false">
+      <problem>
+        <p>What proportion of students who identify as female is at the 12th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="37" has_solution="false">
+      <problem>
+        <p>What proportion of students who identify as female is at the 85th percentile?</p>
+      </problem>
+    </exercise>
+    <exercise number="38" has_solution="false">
+      <problem>
+        <p>At what percentile is Martin Methodist College for proportion of students who identify as female?</p>
+      </problem>
+    </exercise>
+    <exercise number="39" has_solution="false">
+      <problem>
+        <p>At what percentile is Tennessee Technological University for proportion of students who identify as female?</p>
+      </problem>
+    </exercise>
+    <exercise number="40" has_solution="false">
+      <problem>
+        <p>At what percentile is Maryville College for proportion of students who identify as female?</p>
+      </problem>
+    </exercise>
+  </exercises>
+</section>

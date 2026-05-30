@@ -1,0 +1,596 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="4.9" title="Newton’s Method">
+  <learning_objectives>
+    <objective number="4.9.1">Describe the steps of Newton’s method.</objective>
+    <objective number="4.9.2">Explain what an iterative process means.</objective>
+    <objective number="4.9.3">Recognize when Newton’s method does not work.</objective>
+    <objective number="4.9.4">Apply iterative processes to various situations.</objective>
+  </learning_objectives>
+  <p>In many areas of pure and applied mathematics, we are interested in finding solutions to an equation of the form $$f(x) = 0.$$ For most functions, however, it is difficult—if not impossible—to calculate their zeroes explicitly. In this section, we take a look at a technique that provides a very efficient way of approximating the zeroes of functions. This technique makes use of tangent line approximations and is behind the method used often by calculators and computers to find zeroes.</p>
+  <subsection title="Describing Newton’s Method">
+    <p>Consider the task of finding the solutions of $$f(x) = 0.$$ If $$f$$ is the first-degree polynomial $$f(x) = ax + b,$$ then the solution of $$f(x) = 0$$ is given by the formula $$x = - \frac{b}{a}.$$ If $$f$$ is the second-degree polynomial $$f(x) = ax^{2} + bx + c,$$ the solutions of $$f(x) = 0$$ can be found by using the quadratic formula. However, for polynomials of degree $$3$$ or more, finding roots of $$f$$ becomes more complicated. Although formulas exist for third- and fourth-degree polynomials, they are quite complicated. Also, if $$f$$ is a polynomial of degree $$5$$ or greater, it is known that no such formulas exist. For example, consider the function</p>
+    <equation>$$f(x) = x^{5} + 8x^{4} + 4x^{3} - 2x - 7.$$</equation>
+    <p>No formula exists that allows us to find the solutions of $$f(x) = 0.$$ Similar difficulties exist for nonpolynomial functions. For example, consider the task of finding solutions of $$\text{tan}(x) - x = 0.$$ No simple formula exists for the solutions of this equation. In cases such as these, we can use Newton’s method to approximate the roots.</p>
+    <p>Newton’s method makes use of the following idea to approximate the solutions of $$f(x) = 0.$$ By sketching a graph of $$f,$$ we can estimate a root of $$f(x) = 0.$$ Let’s call this estimate $$x_{0}.$$ We then draw the tangent line to $$f$$ at $$x_{0}.$$ If $$f^{\prime}\left( x_{0} \right) \neq 0,$$ this tangent line intersects the $$x$$-axis at some point $$\left( {x_{1},0} \right).$$ Now let $$x_{1}$$ be the next approximation to the actual root. Typically, $$x_{1}$$ is closer than $$x_{0}$$ to an actual root. Next we draw the tangent line to $$f$$ at $$x_{1}.$$ If $$f^{\prime}\left( x_{1} \right) \neq 0,$$ this tangent line also intersects the $$x$$-axis, producing another approximation, $$x_{2}.$$ We continue in this way, deriving a list of approximations: $$x_{0},x_{1},x_{2}\text{,…}.$$ Typically, the numbers $$x_{0},x_{1},x_{2}\text{,…}$$ quickly approach an actual root $$x*,$$ as shown in the following figure.</p>
+    <image alt="This function f(x) is drawn with points (x0, f(x0)), (x1, f(x1)), and (x2, f(x2)) marked on the function. From (x0, f(x0)), a tangent line is drawn, and it strikes the x axis at x1. From (x0, f(x0)), a tangent line is drawn, and it strikes the x axis at x2. If a tangent line were drawn from (x2, f(x2)), it appears that it would come very close to x*, which is the actual root. Each tangent line drawn in this order appears to get closer and closer to x*." number="4.77" caption="The approximations $$x_{0},x_{1},x_{2}\text{,…}$$ approach the actual root $$x*.$$ The approximations are derived by looking at tangent lines to the graph of $$f.$$" />
+    <p>Now let’s look at how to calculate the approximations $$x_{0},x_{1},x_{2}\text{,…}.$$ If $$x_{0}$$ is our first approximation, the approximation $$x_{1}$$ is defined by letting $$\left( {x_{1},0} \right)$$ be the $$x$$-intercept of the tangent line to $$f$$ at $$x_{0}.$$ The equation of this tangent line is given by</p>
+    <equation>$$y = f\left( x_{0} \right) + f^{\prime}\left( x_{0} \right)\left( {x - x_{0}} \right).$$</equation>
+    <p>Therefore, $$x_{1}$$ must satisfy</p>
+    <equation>$$f\left( x_{0} \right) + f^{\prime}\left( x_{0} \right)\left( {x_{1} - x_{0}} \right) = 0.$$</equation>
+    <p>Solving this equation for $$x_{1},$$ we conclude that</p>
+    <equation>$$x_{1} = x_{0} - \frac{f\left( x_{0} \right)}{f\prime\left( x_{0} \right)}.$$</equation>
+    <p>Similarly, the point $$\left( {x_{2},0} \right)$$ is the $$x$$-intercept of the tangent line to $$f$$ at $$x_{1}.$$ Therefore, $$x_{2}$$ satisfies the equation</p>
+    <equation>$$x_{2} = x_{1} - \frac{f\left( x_{1} \right)}{f\prime\left( x_{1} \right)}.$$</equation>
+    <p>In general, for $$n &gt; 0,x_{n}$$ satisfies</p>
+    <equation>$$x_{n} = x_{n - 1} - \frac{f\left( x_{n - 1} \right)}{f\prime\left( x_{n - 1} \right)}.$$</equation>
+    <p>Next we see how to make use of this technique to approximate the root of the polynomial $$f(x) = x^{3} - 3x + 1.$$</p>
+    <example number="4.46">
+      <problem>
+        <title>Finding a Root of a Polynomial</title>
+        <p>Use Newton’s method to approximate a root of $$f(x) = x^{3} - 3x + 1$$ in the interval $$\left\lbrack {1,2} \right\rbrack.$$ Let $$x_{0} = 2$$ and find $$x_{1},x_{2},x_{3},x_{4},$$ and $$x_{5}.$$</p>
+      </problem>
+      <solution>
+        <p>From Figure 4.78, we see that $$f$$ has one root over the interval $$\left( {1,2} \right).$$ Therefore $$x_{0} = 2$$ seems like a reasonable first approximation. To find the next approximation, we use Equation 4.8. Since $$f(x) = x^{3} - 3x + 1,$$ the derivative is $$f^{\prime}(x) = 3x^{2} - 3.$$ Using Equation 4.8 with $$n = 1$$ (and a calculator that displays $$10$$ digits), we obtain</p>
+        <equation>$$x_{1} = x_{0} - \frac{f\left( x_{0} \right)}{f\prime\left( x_{0} \right)} = 2 - \frac{f(2)}{f\prime(2)} = 2 - \frac{3}{9} \approx 1.666666667.$$</equation>
+        <p>To find the next approximation, $$x_{2},$$ we use Equation 4.8 with $$n = 2$$ and the value of $$x_{1}$$ stored on the calculator. We find that</p>
+        <equation>$$x_{2} = x_{1} - \frac{f\left( x_{1} \right)}{f\prime\left( x_{1} \right)} \approx 1.548611111.$$</equation>
+        <p>Continuing in this way, we obtain the following results:</p>
+        <equation>$$\begin{array}{l} {x_{1} \approx 1.666666667} \\ {x_{2} \approx 1.548611111} \\ {x_{3} \approx 1.532390162} \\ {x_{4} \approx 1.532088989} \\ {x_{5} \approx 1.532088886} \\ {x_{6} \approx 1.532088886.} \end{array}$$</equation>
+        <p>We note that we obtained the same value for $$x_{5}$$ and $$x_{6}.$$ Therefore, any subsequent application of Newton’s method will most likely give the same value for $$x_{n}.$$</p>
+        <image alt="The function f(x) = x3 – 3x + 1 is drawn. It has roots between −2 and −1, 0 and 1, and 1 and 2." number="4.78" caption="The function $$f(x) = x^{3} - 3x + 1$$ has one root over the interval $$\left\lbrack {1,2} \right\rbrack.$$" />
+      </solution>
+    </example>
+    <checkpoint number="4.45">
+      <problem>
+        <p>Letting $$x_{0} = 0,$$ let’s use Newton’s method to approximate the root of $$f(x) = x^{3} - 3x + 1$$ over the interval $$\left\lbrack {0,1} \right\rbrack$$ by calculating $$x_{1}$$ and $$x_{2}.$$</p>
+      </problem>
+      <solution>
+        <p>$$x_{1} \approx 0.33333333,x_{2} \approx 0.347222222$$</p>
+      </solution>
+    </checkpoint>
+    <p>Newton’s method can also be used to approximate square roots. Here we show how to approximate $$\sqrt{2}.$$ This method can be modified to approximate the square root of any positive number.</p>
+    <example number="4.47">
+      <problem>
+        <title>Finding a Square Root</title>
+        <p>Use Newton’s method to approximate $$\sqrt{2}$$ (Figure 4.79). Let $$f(x) = x^{2} - 2,$$ let $$x_{0} = 2,$$ and calculate $$x_{1},x_{2},x_{3},x_{4},x_{5}.$$ (We note that since $$f(x) = x^{2} - 2$$ has a zero at $$\sqrt{2},$$ the initial value $$x_{0} = 2$$ is a reasonable choice to approximate $$\sqrt{2}.)$$</p>
+      </problem>
+      <solution>
+        <p>For $$f(x) = x^{2} - 2,f^{\prime}(x) = 2x.$$ From Equation 4.8, we know that</p>
+        <equation>$$\begin{array}{cl} x_{n} &amp; {= x_{n - 1} - \frac{f\left( x_{n - 1} \right)}{f\prime\left( x_{n - 1} \right)}} \\ &amp; {= x_{n - 1} - \frac{x^{2}{}_{n - 1} - 2}{2x_{n - 1}}} \\ &amp; {= \frac{1}{2}x_{n - 1} + \frac{1}{x_{n - 1}}} \\ &amp; {= \frac{1}{2}\left( {x_{n - 1} + \frac{2}{x_{n - 1}}} \right).} \end{array}$$</equation>
+        <p>Therefore,</p>
+        <equation>$$\begin{array}{l} \\ \\ {x_{1} = \frac{1}{2}\left( {x_{0} + \frac{2}{x_{0}}} \right) = \frac{1}{2}\left( {2 + \frac{2}{2}} \right) = 1.5} \\ {x_{2} = \frac{1}{2}\left( {x_{1} + \frac{2}{x_{1}}} \right) = \frac{1}{2}\left( {1.5 + \frac{2}{1.5}} \right) \approx 1.416666667.} \end{array}$$</equation>
+        <p>Continuing in this way, we find that</p>
+        <equation>$$\begin{array}{l} {x_{1} = 1.5} \\ {x_{2} \approx 1.416666667} \\ {x_{3} \approx 1.414215686} \\ {x_{4} \approx 1.414213562} \\ {x_{5} \approx 1.414213562.} \end{array}$$</equation>
+        <p>Since we obtained the same value for $$x_{4}$$ and $$x_{5},$$ it is unlikely that the value $$x_{n}$$ will change on any subsequent application of Newton’s method. We conclude that $$\sqrt{2} \approx 1.414213562.$$</p>
+        <image alt="The function y = x2 – 2 is drawn. A dashed line comes up from x0 = 2, and a tangent line is drawn down from there. It touches x1 = 1.5, which is near x* = the square root of 2." number="4.79" caption="We can use Newton’s method to find $$\sqrt{2}.$$" />
+      </solution>
+    </example>
+    <checkpoint number="4.46">
+      <problem>
+        <p>Use Newton’s method to approximate $$\sqrt{3}$$ by letting $$f(x) = x^{2} - 3$$ and $$x_{0} = 3.$$ Find $$x_{1}$$ and $$x_{2}.$$</p>
+      </problem>
+      <solution>
+        <p>$$x_{1} = 2,x_{2} = 1.75$$</p>
+      </solution>
+    </checkpoint>
+    <p>When using Newton’s method, each approximation after the initial guess is defined in terms of the previous approximation by using the same formula. In particular, by defining the function $$F(x) = x - \left\lbrack \frac{f(x)}{f^{\prime}(x)} \right\rbrack,$$ we can rewrite Equation 4.8 as $$x_{n} = F\left( x_{n - 1} \right).$$ This type of process, where each $$x_{n}$$ is defined in terms of $$x_{n - 1}$$ by repeating the same function, is an example of an iterative process. Shortly, we examine other iterative processes. First, let’s look at the reasons why Newton’s method could fail to find a root.</p>
+  </subsection>
+  <subsection title="Failures of Newton’s Method">
+    <p>Typically, Newton’s method is used to find roots fairly quickly. However, things can go wrong. Some reasons why Newton’s method might fail include the following:</p>
+    <list type="ol" style="1">
+      <item>At one of the approximations $$x_{n},$$ the derivative $$f^{\prime}$$ is zero at $$x_{n},$$ but $$f\left( x_{n} \right) \neq 0.$$ As a result, the tangent line of $$f$$ at $$x_{n}$$ does not intersect the $$x$$-axis. Therefore, we cannot continue the iterative process.</item>
+      <item>The approximations $$x_{0},x_{1},x_{2}\text{,…}$$ may approach a different root. If the function $$f$$ has more than one root, it is possible that our approximations do not approach the one for which we are looking, but approach a different root (see Figure 4.80). This event most often occurs when we do not choose the approximation $$x_{0}$$ close enough to the desired root.</item>
+      <item>The approximations may fail to approach a root entirely. In Example 4.48, we provide an example of a function and an initial guess $$x_{0}$$ such that the successive approximations never approach a root because the successive approximations continue to alternate back and forth between two values.</item>
+    </list>
+    <image alt="A function is drawn with two roots, labeled root sought and root found. A point x0 is chosen such that when the tangent of x0 is taken, even though it is nearer to the root sought, the tangent points to the root found." number="4.80" caption="If the initial guess $$x_{0}$$ is too far from the root sought, it may lead to approximations that approach a different root." />
+    <example number="4.48">
+      <problem>
+        <title>When Newton’s Method Fails</title>
+        <p>Consider the function $$f(x) = x^{3} - 2x + 2.$$ Let $$x_{0} = 0.$$ Show that the sequence $$x_{1},x_{2}\text{,…}$$ fails to approach a root of $$f.$$</p>
+      </problem>
+      <solution>
+        <p>For $$f(x) = x^{3} - 2x + 2,$$ the derivative is $$f^{\prime}(x) = 3x^{2} - 2.$$ Therefore,</p>
+        <equation>$$x_{1} = x_{0} - \frac{f\left( x_{0} \right)}{f^{\prime}\left( x_{0} \right)} = 0 - \frac{f(0)}{f^{\prime}(0)} = - \frac{2}{-2} = 1.$$</equation>
+        <p>In the next step,</p>
+        <equation>$$x_{2} = x_{1} - \frac{f\left( x_{1} \right)}{f\prime\left( x_{1} \right)} = 1 - \frac{f(1)}{f^{\prime}(1)} = 1 - \frac{1}{1} = 0.$$</equation>
+        <p>Consequently, the numbers $$x_{0},x_{1},x_{2}\text{,…}$$ continue to bounce back and forth between $$0$$ and $$1$$ and never get closer to the root of $$f$$ which is over the interval $$\left\lbrack {-2,-1} \right\rbrack$$ (see Figure 4.81). Fortunately, if we choose an initial approximation $$x_{0}$$ closer to the actual root, we can avoid this situation.</p>
+        <image alt="The function f(x) = x3 – 2x + 2 is drawn, which has a root between −2 and −1. The tangent from x = 0 goes to x = 1, and the tangent from x = 1 goes to x = 0." number="4.81" caption="The approximations continue to alternate between $$0\ \text{and}\ 1$$ and never approach the root of $$f.$$" />
+      </solution>
+    </example>
+    <checkpoint number="4.47">
+      <problem>
+        <p>For $$f(x) = x^{3} - 2x + 2,$$ let $$x_{0} = -1.5$$ and find $$x_{1}$$ and $$x_{2}.$$</p>
+      </problem>
+      <solution>
+        <p>$$x_{1} \approx - 1.842105263,x_{2} \approx - 1.772826920$$</p>
+      </solution>
+    </checkpoint>
+    <p>From Example 4.48, we see that Newton’s method does not always work. However, when it does work, the sequence of approximations approaches the root very quickly. Discussions of how quickly the sequence of approximations approach a root found using Newton’s method are included in texts on numerical analysis.</p>
+  </subsection>
+  <subsection title="Other Iterative Processes">
+    <p>As mentioned earlier, Newton’s method is a type of iterative process. We now look at an example of a different type of iterative process.</p>
+    <p>Consider a function $$F$$ and an initial number $$x_{0}.$$ Define the subsequent numbers $$x_{n}$$ by the formula $$x_{n} = F\left( x_{n - 1} \right).$$ This process is an iterative process that creates a list of numbers $$x_{0},x_{1},x_{2}\text{,…},x_{n}\text{,…}.$$ This list of numbers may approach a finite number $$x*$$ as $$n$$ gets larger, or it may not. In Example 4.49, we see an example of a function $$F$$ and an initial guess $$x_{0}$$ such that the resulting list of numbers approaches a finite value.</p>
+    <example number="4.49">
+      <problem>
+        <title>Finding a Limit for an Iterative Process</title>
+        <p>Let $$F(x) = \frac{1}{2}x + 4$$ and let $$x_{0} = 0.$$ For all $$n \geq 1,$$ let $$x_{n} = F\left( x_{n - 1} \right).$$ Find the values $$x_{1},x_{2},x_{3},x_{4},x_{5}.$$ Make a conjecture about what happens to this list of numbers $$x_{1},x_{2},x_{3}\text{…},x_{n}\text{,…}$$ as $$n\rightarrow\infty.$$ If the list of numbers $$x_{1},x_{2},x_{3}\text{,…}$$ approaches a finite number $$x*,$$ then $$x*$$ satisfies $$x* = F\left( {x*} \right),$$ and $$x*$$ is called a fixed point of $$F.$$</p>
+      </problem>
+      <solution>
+        <p>If $$x_{0} = 0,$$ then</p>
+        <equation>$$\begin{array}{l} \\ \\ {x_{1} = \frac{1}{2}(0) + 4 = 4} \\ {x_{2} = \frac{1}{2}(4) + 4 = 6} \\ {x_{3} = \frac{1}{2}(6) + 4 = 7} \\ {x_{4} = \frac{1}{2}(7) + 4 = 7.5} \\ {x_{5} = \frac{1}{2}(7.5) + 4 = 7.75} \\ {x_{6} = \frac{1}{2}(7.75) + 4 = 7.875} \\ {x_{7} = \frac{1}{2}(7.875) + 4 = 7.9375} \\ {x_{8} = \frac{1}{2}(7.9375) + 4 = 7.96875} \\ {x_{9} = \frac{1}{2}(7.96875) + 4 = 7.984375.} \end{array}$$</equation>
+        <p>From this list, we conjecture that the values $$x_{n}$$ approach $$8.$$</p>
+        <p>Figure 4.82 provides a graphical argument that the values approach $$8$$ as $$n\rightarrow\infty.$$ Starting at the point $$\left( {x_{0},x_{0}} \right),$$ we draw a vertical line to the point $$\left( {x_{0},F\left( x_{0} \right)} \right).$$ The next number in our list is $$x_{1} = F\left( x_{0} \right).$$ We use $$x_{1}$$ to calculate $$x_{2}.$$ Therefore, we draw a horizontal line connecting $$\left( {x_{0},x_{1}} \right)$$ to the point $$\left( {x_{1},x_{1}} \right)$$ on the line $$y = x,$$ and then draw a vertical line connecting $$\left( {x_{1},x_{1}} \right)$$ to the point $$\left( {x_{1},F\left( x_{1} \right)} \right).$$ The output $$F\left( x_{1} \right)$$ becomes $$x_{2}.$$ Continuing in this way, we could create an infinite number of line segments. These line segments are trapped between the lines $$F(x) = \frac{x}{2} + 4$$ and $$y = x.$$ The line segments get closer to the intersection point of these two lines, which occurs when $$x = F(x).$$ Solving the equation $$x = \frac{x}{2} + 4,$$ we conclude they intersect at $$x = 8.$$ Therefore, our graphical evidence agrees with our numerical evidence that the list of numbers $$x_{0},x_{1},x_{2}\text{,…}$$ approaches $$x* = 8$$ as $$n\rightarrow\infty.$$</p>
+        <image alt="The function F(x) = (1/2)x + 4 is graphed along with y = x. From x0, which appears to be at the origin, a line is drawn to the function F(x) at x1 = F(x0). Then a line is drawn to the right from here to the line y = x, at which point a line is drawn up to x2 = F(x1). Then a line is drawn to the right from here to the line y = x, at which point a line is drawn up to x3 = F(x2). Continuing this process would converge on the two lines’ intersection point at x* = 8." number="4.82" caption="This iterative process approaches the value $$x* = 8.$$" />
+      </solution>
+    </example>
+    <checkpoint number="4.48">
+      <problem>
+        <p>Consider the function $$F(x) = \frac{1}{3}x + 6.$$ Let $$x_{0} = 0$$ and let $$x_{n} = F\left( x_{n - 1} \right)$$ for $$n \geq 2.$$ Find $$x_{1},x_{2},x_{3},x_{4},x_{5}.$$ Make a conjecture about what happens to the list of numbers $$x_{1},x_{2},x_{3}\text{,…}x_{n}\text{,…}$$ as $$n\rightarrow\infty.$$</p>
+      </problem>
+      <solution>
+        <p>$$x_{1} = 6,x_{2} = 8,x_{3} = \frac{26}{3},x_{4} = \frac{80}{9},x_{5} = \frac{242}{27};x* = 9$$</p>
+      </solution>
+    </checkpoint>
+    <note type="Student Project">
+      <p>Iterative processes can yield some very interesting behavior. In this section, we have seen several examples of iterative processes that converge to a fixed point. We also saw in Example 4.48 that the iterative process bounced back and forth between two values. We call this kind of behavior a $$2$$-cycle. Iterative processes can converge to cycles with various periodicities, such as $$2 - \text{cycles},\ 4 - \text{cycles}$$ (where the iterative process repeats a sequence of four values), 8-cycles, and so on.</p>
+      <p>Some iterative processes yield what mathematicians call chaos. In this case, the iterative process jumps from value to value in a seemingly random fashion and never converges or settles into a cycle. Although a complete exploration of chaos is beyond the scope of this text, in this project we look at one of the key properties of a chaotic iterative process: sensitive dependence on initial conditions. This property refers to the concept that small changes in initial conditions can generate drastically different behavior in the iterative process.</p>
+      <p>Probably the best-known example of chaos is the Mandelbrot set (see Figure 4.83), named after Benoit Mandelbrot (1924–2010), who investigated its properties and helped popularize the field of chaos theory. The Mandelbrot set is usually generated by computer and shows fascinating details on enlargement, including self-replication of the set. Several colorized versions of the set have been shown in museums and can be found online and in popular books on the subject.</p>
+      <image alt="A very complicated and organic looking fractal." number="4.83" caption="The Mandelbrot set is a well-known example of a set of points generated by the iterative chaotic behavior of a relatively simple function." />
+      <p>In this project we use the logistic map</p>
+      <equation>$$f(x) = rx\left( {1 - x} \right),\ \text{where}\ x \in \left\lbrack {0,1} \right\rbrack\ \text{and}\ r &gt; 0$$</equation>
+      <p>as the function in our iterative process. The logistic map is a deceptively simple function; but, depending on the value of $$r,$$ the resulting iterative process displays some very interesting behavior. It can lead to fixed points, cycles, and even chaos.</p>
+      <p>To visualize the long-term behavior of the iterative process associated with the logistic map, we will use a tool called a cobweb diagram. As we did with the iterative process we examined earlier in this section, we first draw a vertical line from the point $$\left( {x_{0},0} \right)$$ to the point $$\left( {x_{0},f\left( x_{0} \right)} \right) = \left( {x_{0},x_{1}} \right).$$ We then draw a horizontal line from that point to the point $$\left( {x_{1},x_{1}} \right),$$ then draw a vertical line to $$\left( {x_{1},f\left( x_{1} \right)} \right) = \left( {x_{1},x_{2}} \right),$$ and continue the process until the long-term behavior of the system becomes apparent. Figure 4.84 shows the long-term behavior of the logistic map when $$r = 3.55$$ and $$x_{0} = 0.2.$$ (The first $$100$$ iterations are not plotted.) The long-term behavior of this iterative process is an $$8$$-cycle.</p>
+      <image alt="In the first quadrant, f(x) = 3.55x(1 – x) is graphed as is y = x. From some point on the x axis, a line is drawn up to the line y = x, at which point it turns to be horizontal and continues until it touches the outside edge of f(x), at which point it turns again to be vertical until it each the line y = x. This process continues a number of times and creates an interesting series of boxes." number="4.84" caption="A cobweb diagram for $$f(x) = 3.55x\left( {1 - x} \right)$$ is presented here. The sequence of values results in an $$8$$-cycle." />
+      <list type="ol" style="1">
+        <item>Let $$r = 0.5$$ and choose $$x_{0} = 0.2.$$ Either by hand or by using a computer, calculate the first $$10$$ values in the sequence. Does the sequence appear to converge? If so, to what value? Does it result in a cycle? If so, what kind of cycle (for example, $$2 - \text{cycle},\ 4 - \text{cycle}.)?$$</item>
+        <item>What happens when $$r = 2?$$</item>
+        <item>For $$r = 3.2$$ and $$r = 3.5,$$ calculate the first $$100$$ sequence values. Generate a cobweb diagram for each iterative process. (Several free applets are available online that generate cobweb diagrams for the logistic map.) What is the long-term behavior in each of these cases?</item>
+        <item>Now let $$r = 4.$$ Calculate the first $$100$$ sequence values and generate a cobweb diagram. What is the long-term behavior in this case?</item>
+        <item>Repeat the process for $$r = 4,$$ but let $$x_{0} = 0.201.$$ How does this behavior compare with the behavior for $$x_{0} = 0.2?$$</item>
+      </list>
+    </note>
+  </subsection>
+  <exercises title="Section 4.9 Exercises">
+    <exercise number="406" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, write Newton’s formula as $$x_{n + 1} = F\left( x_{n} \right)$$ for solving $$f(x) = 0.$$</instruction>
+        <p>$$f(x) = x^{2} + 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="407" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, write Newton’s formula as $$x_{n + 1} = F\left( x_{n} \right)$$ for solving $$f(x) = 0.$$</instruction>
+        <p>$$f(x) = x^{3} + 2x + 1$$</p>
+      </problem>
+      <solution>
+        <p>$$F\left( x_{n} \right) = x_{n} - \frac{x_{n}{}^{3} + 2x_{n} + 1}{3x_{n}{}^{2} + 2}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="408" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, write Newton’s formula as $$x_{n + 1} = F\left( x_{n} \right)$$ for solving $$f(x) = 0.$$</instruction>
+        <p>$$f(x) = \text{sin}\mspace{2mu} x$$</p>
+      </problem>
+    </exercise>
+    <exercise number="409" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, write Newton’s formula as $$x_{n + 1} = F\left( x_{n} \right)$$ for solving $$f(x) = 0.$$</instruction>
+        <p>$$f(x) = e^{x}$$</p>
+      </problem>
+      <solution>
+        <p>$$F\left( x_{n} \right) = x_{n} - \frac{e^{x_{n}}}{e^{x_{n}}}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="410" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, write Newton’s formula as $$x_{n + 1} = F\left( x_{n} \right)$$ for solving $$f(x) = 0.$$</instruction>
+        <p>$$f(x) = x^{3} + 3xe^{x}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="411" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, solve $$f(x) = 0$$ using the iteration $$x_{n + 1} = x_{n} - cf\left( x_{n} \right),$$ which differs slightly from Newton’s method. Find a $$c$$ that works and a $$c$$ that fails to converge, with the exception of $$c = 0.$$</instruction>
+        <p>$$f(x) = x^{2} - 4,$$ with $$x_{0} = 0$$</p>
+      </problem>
+      <solution>
+        <p>$$|c| &gt; 0.5$$ fails, $$|c| \leq 0.5$$ works</p>
+      </solution>
+    </exercise>
+    <exercise number="412" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, solve $$f(x) = 0$$ using the iteration $$x_{n + 1} = x_{n} - cf\left( x_{n} \right),$$ which differs slightly from Newton’s method. Find a $$c$$ that works and a $$c$$ that fails to converge, with the exception of $$c = 0.$$</instruction>
+        <p>$$f(x) = x^{2} - 4x + 3,$$ with $$x_{0} = 2$$</p>
+      </problem>
+    </exercise>
+    <exercise number="413" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, solve $$f(x) = 0$$ using the iteration $$x_{n + 1} = x_{n} - cf\left( x_{n} \right),$$ which differs slightly from Newton’s method. Find a $$c$$ that works and a $$c$$ that fails to converge, with the exception of $$c = 0.$$</instruction>
+        <p>What is the value of $$\text{“}c\text{”}$$ for Newton’s method?</p>
+      </problem>
+      <solution>
+        <p>$$c = \frac{1}{f^{\prime}\left( x_{n} \right)}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="414" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, start at a. $$x_{0} = 0.6$$ and b. $$x_{0} = 2.$$ Compute $$x_{1}$$ and $$x_{2}$$ using the specified iterative method.</instruction>
+        <p>$$x_{n + 1} = x_{n}{}^{2} - \frac{1}{2}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="415" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, start at a. $$x_{0} = 0.6$$ and b. $$x_{0} = 2.$$ Compute $$x_{1}$$ and $$x_{2}$$ using the specified iterative method.</instruction>
+        <p>$$x_{n + 1} = 2x_{n}\left( {1 - x_{n}} \right)$$</p>
+      </problem>
+      <solution>
+        <p>a. $$x_{1} = \frac{12}{25},x_{2} = \frac{312}{625};$$ b. $$x_{1} = -4,x_{2} = -40$$</p>
+      </solution>
+    </exercise>
+    <exercise number="416" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, start at a. $$x_{0} = 0.6$$ and b. $$x_{0} = 2.$$ Compute $$x_{1}$$ and $$x_{2}$$ using the specified iterative method.</instruction>
+        <p>$$x_{n + 1} = \sqrt{x_{n}}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="417" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, start at a. $$x_{0} = 0.6$$ and b. $$x_{0} = 2.$$ Compute $$x_{1}$$ and $$x_{2}$$ using the specified iterative method.</instruction>
+        <p>$$x_{n + 1} = \frac{1}{\sqrt{x_{n}}}$$</p>
+      </problem>
+      <solution>
+        <p>a. $$x_{1} = 1.291,x_{2} = 0.8801;$$ b. $$x_{1} = 0.7071,x_{2} = 1.189$$</p>
+      </solution>
+    </exercise>
+    <exercise number="418" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, start at a. $$x_{0} = 0.6$$ and b. $$x_{0} = 2.$$ Compute $$x_{1}$$ and $$x_{2}$$ using the specified iterative method.</instruction>
+        <p>$$x_{n + 1} = 3x_{n}\left( {1 - x_{n}} \right)$$</p>
+      </problem>
+    </exercise>
+    <exercise number="419" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, start at a. $$x_{0} = 0.6$$ and b. $$x_{0} = 2.$$ Compute $$x_{1}$$ and $$x_{2}$$ using the specified iterative method.</instruction>
+        <p>$$x_{n + 1} = x_{n}{}^{2} + x_{n} - 2$$</p>
+      </problem>
+      <solution>
+        <p>a. $$x_{1} = - \frac{26}{25},x_{2} = - \frac{1224}{625};$$ b. $$x_{1} = 4,x_{2} = 18$$</p>
+      </solution>
+    </exercise>
+    <exercise number="420" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, start at a. $$x_{0} = 0.6$$ and b. $$x_{0} = 2.$$ Compute $$x_{1}$$ and $$x_{2}$$ using the specified iterative method.</instruction>
+        <p>$$x_{n + 1} = \frac{1}{2}x_{n} - 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="421" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, start at a. $$x_{0} = 0.6$$ and b. $$x_{0} = 2.$$ Compute $$x_{1}$$ and $$x_{2}$$ using the specified iterative method.</instruction>
+        <p>$$x_{n + 1} = \left| x_{n} \right|$$</p>
+      </problem>
+      <solution>
+        <p>a. $$x_{1} = \frac{6}{10},x_{2} = \frac{6}{10};$$ b. $$x_{1} = 2,x_{2} = 2$$</p>
+      </solution>
+    </exercise>
+    <exercise number="422" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, solve to four decimal places using Newton’s method and a computer or calculator. Choose any initial guess $$x_{0}$$ that is not the exact root.</instruction>
+        <p>$$x^{2} - 10 = 0$$</p>
+      </problem>
+    </exercise>
+    <exercise number="423" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, solve to four decimal places using Newton’s method and a computer or calculator. Choose any initial guess $$x_{0}$$ that is not the exact root.</instruction>
+        <p>$$x^{4} - 100 = 0$$</p>
+      </problem>
+      <solution>
+        <p>$$3.1623\ \text{or}\ - 3.1623$$</p>
+      </solution>
+    </exercise>
+    <exercise number="424" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, solve to four decimal places using Newton’s method and a computer or calculator. Choose any initial guess $$x_{0}$$ that is not the exact root.</instruction>
+        <p>$$x^{2} - x = 0$$</p>
+      </problem>
+    </exercise>
+    <exercise number="425" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, solve to four decimal places using Newton’s method and a computer or calculator. Choose any initial guess $$x_{0}$$ that is not the exact root.</instruction>
+        <p>$$x^{3} - x = 0$$</p>
+      </problem>
+      <solution>
+        <p>$$0,-1\ \text{or}\ 1$$</p>
+      </solution>
+    </exercise>
+    <exercise number="426" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, solve to four decimal places using Newton’s method and a computer or calculator. Choose any initial guess $$x_{0}$$ that is not the exact root.</instruction>
+        <p>$$x + 5\mspace{2mu}\text{cos}(x) = 0$$</p>
+      </problem>
+    </exercise>
+    <exercise number="427" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, solve to four decimal places using Newton’s method and a computer or calculator. Choose any initial guess $$x_{0}$$ that is not the exact root.</instruction>
+        <p>$$x + \text{tan}(x) = 0,$$ choose $$x_{0} \in \left( {- \frac{\pi}{2},\frac{\pi}{2}} \right)$$</p>
+      </problem>
+      <solution>
+        <p>$$0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="428" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, solve to four decimal places using Newton’s method and a computer or calculator. Choose any initial guess $$x_{0}$$ that is not the exact root.</instruction>
+        <p>$$\frac{1}{1 - x} = 2$$</p>
+      </problem>
+    </exercise>
+    <exercise number="429" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, solve to four decimal places using Newton’s method and a computer or calculator. Choose any initial guess $$x_{0}$$ that is not the exact root.</instruction>
+        <p>$$1 + x + x^{2} + x^{3} + x^{4} = 2$$</p>
+      </problem>
+      <solution>
+        <p>$$0.5188\ \text{or}\ - 1.2906$$</p>
+      </solution>
+    </exercise>
+    <exercise number="430" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, solve to four decimal places using Newton’s method and a computer or calculator. Choose any initial guess $$x_{0}$$ that is not the exact root.</instruction>
+        <p>$$x^{3} + \left( {x + 1} \right)^{3} = 10^{3}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="431" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, solve to four decimal places using Newton’s method and a computer or calculator. Choose any initial guess $$x_{0}$$ that is not the exact root.</instruction>
+        <p>$$x = \text{sin}^{2}(x)$$</p>
+      </problem>
+      <solution>
+        <p>$$0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="432" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the fixed points of the function where $$f(x) = x;$$ round to three decimals.</instruction>
+        <p>$$\text{sin}\mspace{2mu} x$$</p>
+      </problem>
+    </exercise>
+    <exercise number="433" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the fixed points of the function where $$f(x) = x;$$ round to three decimals.</instruction>
+        <p>$$\text{tan}(x)$$ on $$x = \left( {\frac{\pi}{2},\frac{3\pi}{2}} \right)$$</p>
+      </problem>
+      <solution>
+        <p>$$4.493$$</p>
+      </solution>
+    </exercise>
+    <exercise number="434" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the fixed points of the function where $$f(x) = x;$$ round to three decimals.</instruction>
+        <p>$$e^{x} - 2$$</p>
+      </problem>
+    </exercise>
+    <exercise number="435" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the fixed points of the function where $$f(x) = x;$$ round to three decimals.</instruction>
+        <p>$$\text{ln}(x) + 2$$</p>
+      </problem>
+      <solution>
+        <p>$$0.159,3.146$$</p>
+      </solution>
+    </exercise>
+    <exercise number="436" has_solution="false">
+      <problem>
+        <instruction>Newton’s method can be used to find maxima and minima of functions in addition to the roots. In this case apply Newton’s method to the derivative function $$f^{\prime}(x)$$ to find its roots, instead of the original function. For the following exercises, consider the formulation of the method.</instruction>
+        <p>To find candidates for maxima and minima, we need to find the critical points $$f^{\prime}(x) = 0.$$ Show that to solve for the critical points of a function $$f(x),$$ Newton’s method is given by $$x_{n + 1} = x_{n} - \frac{f^{\prime}\left( x_{n} \right)}{f^{''}\left( x_{n} \right)}.$$</p>
+      </problem>
+    </exercise>
+    <exercise number="437" has_solution="true">
+      <problem>
+        <instruction>Newton’s method can be used to find maxima and minima of functions in addition to the roots. In this case apply Newton’s method to the derivative function $$f^{\prime}(x)$$ to find its roots, instead of the original function. For the following exercises, consider the formulation of the method.</instruction>
+        <p>What additional restrictions are necessary on the function $$f?$$</p>
+      </problem>
+      <solution>
+        <p>We need $$f$$ to be twice continuously differentiable.</p>
+      </solution>
+    </exercise>
+    <exercise number="438" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the location of the local minima and/or maxima of the following functions; round to three decimals.</instruction>
+        <p>Minimum of $$f(x) = x^{2} + 2x + 4$$</p>
+      </problem>
+    </exercise>
+    <exercise number="439" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the location of the local minima and/or maxima of the following functions; round to three decimals.</instruction>
+        <p>Minimum of $$f(x) = 3x^{3} + 2x^{2} - 16$$</p>
+      </problem>
+      <solution>
+        <p>$$x = 0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="440" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the location of the local minima and/or maxima of the following functions; round to three decimals.</instruction>
+        <p>Minimum of $$f(x) = x^{2}e^{x}$$</p>
+      </problem>
+    </exercise>
+    <exercise number="441" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the location of the local minima and/or maxima of the following functions; round to three decimals.</instruction>
+        <p>Maximum of $$f(x) = x + \frac{1}{x}$$</p>
+      </problem>
+      <solution>
+        <p>$$x = -1$$</p>
+      </solution>
+    </exercise>
+    <exercise number="442" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the location of the local minima and/or maxima of the following functions; round to three decimals.</instruction>
+        <p>Maximum of $$f(x) = x^{3} + 10x^{2} + 15x - 2$$</p>
+      </problem>
+    </exercise>
+    <exercise number="443" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the location of the local minima and/or maxima of the following functions; round to three decimals.</instruction>
+        <p>Maximum of $$f(x) = \frac{\sqrt{x} - \sqrt[3]{x}}{x}$$</p>
+      </problem>
+      <solution>
+        <p>$$x = 5.619$$</p>
+      </solution>
+    </exercise>
+    <exercise number="444" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the location of the local minima and/or maxima of the following functions; round to three decimals.</instruction>
+        <p>Minimum of $$f(x) = x^{2}\text{sin}\mspace{2mu} x,$$ closest non-zero minimum to $$x = 0$$</p>
+      </problem>
+    </exercise>
+    <exercise number="445" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use Newton’s method to find the location of the local minima and/or maxima of the following functions; round to three decimals.</instruction>
+        <p>Minimum of $$f(x) = x^{4} + x^{3} + 3x^{2} + 12x + 6$$</p>
+      </problem>
+      <solution>
+        <p>$$x = -1.326$$</p>
+      </solution>
+    </exercise>
+    <exercise number="446" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use the specified method to solve the equation. If it does not work, explain why it does not work.</instruction>
+        <p>Newton’s method, $$x^{2} + 2 = 0$$</p>
+      </problem>
+    </exercise>
+    <exercise number="447" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use the specified method to solve the equation. If it does not work, explain why it does not work.</instruction>
+        <p>Newton’s method, $$0 = e^{x}$$</p>
+      </problem>
+      <solution>
+        <p>There is no solution to the equation.</p>
+      </solution>
+    </exercise>
+    <exercise number="448" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use the specified method to solve the equation. If it does not work, explain why it does not work.</instruction>
+        <p>Newton’s method, $$0 = 1 + x^{2}$$ starting at $$x_{0} = 0$$</p>
+      </problem>
+    </exercise>
+    <exercise number="449" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use the specified method to solve the equation. If it does not work, explain why it does not work.</instruction>
+        <p>Solving $$x_{n + 1} = \text{−}x_{n}{}^{3}$$ starting at $$x_{0} = -1$$</p>
+      </problem>
+      <solution>
+        <p>It enters a cycle.</p>
+      </solution>
+    </exercise>
+    <exercise number="450" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use the secant method, an alternative iterative method to Newton’s method. The formula is given by</instruction>
+        <p>Find a root to $$0 = x^{2} - x - 3$$ accurate to three decimal places.</p>
+      </problem>
+    </exercise>
+    <exercise number="451" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use the secant method, an alternative iterative method to Newton’s method. The formula is given by</instruction>
+        <p>Find a root to $$0 = \text{sin}\mspace{2mu} x + 3x$$ accurate to four decimal places.</p>
+      </problem>
+      <solution>
+        <p>$$0$$</p>
+      </solution>
+    </exercise>
+    <exercise number="452" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use the secant method, an alternative iterative method to Newton’s method. The formula is given by</instruction>
+        <p>Find a root to $$0 = e^{x} - 2$$ accurate to four decimal places.</p>
+      </problem>
+    </exercise>
+    <exercise number="453" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use the secant method, an alternative iterative method to Newton’s method. The formula is given by</instruction>
+        <p>Find a root to $$\text{ln}\left( {x + 2} \right) = \frac{1}{2}$$ accurate to four decimal places.</p>
+      </problem>
+      <solution>
+        <p>$$-0.3513$$</p>
+      </solution>
+    </exercise>
+    <exercise number="454" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use the secant method, an alternative iterative method to Newton’s method. The formula is given by</instruction>
+        <p>Why would you use the secant method over Newton’s method? What are the necessary restrictions on $$f?$$</p>
+      </problem>
+    </exercise>
+    <exercise number="455" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use both Newton’s method and the secant method to calculate a root for the following equations. Use a calculator or computer to calculate how many iterations of each are needed to reach within three decimal places of the exact answer. For the secant method, use the first guess from Newton’s method.</instruction>
+        <p>$$f(x) = x^{2} + 2x + 1,x_{0} = 1$$</p>
+      </problem>
+      <solution>
+        <p>Newton: $$11$$ iterations, secant: $$16$$ iterations</p>
+      </solution>
+    </exercise>
+    <exercise number="456" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use both Newton’s method and the secant method to calculate a root for the following equations. Use a calculator or computer to calculate how many iterations of each are needed to reach within three decimal places of the exact answer. For the secant method, use the first guess from Newton’s method.</instruction>
+        <p>$$f(x) = x^{2},x_{0} = 1$$</p>
+      </problem>
+    </exercise>
+    <exercise number="457" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use both Newton’s method and the secant method to calculate a root for the following equations. Use a calculator or computer to calculate how many iterations of each are needed to reach within three decimal places of the exact answer. For the secant method, use the first guess from Newton’s method.</instruction>
+        <p>$$f(x) = \text{sin}\mspace{2mu} x,x_{0} = 1$$</p>
+      </problem>
+      <solution>
+        <p>Newton: three iterations, secant: six iterations</p>
+      </solution>
+    </exercise>
+    <exercise number="458" has_solution="false">
+      <problem>
+        <instruction>For the following exercises, use both Newton’s method and the secant method to calculate a root for the following equations. Use a calculator or computer to calculate how many iterations of each are needed to reach within three decimal places of the exact answer. For the secant method, use the first guess from Newton’s method.</instruction>
+        <p>$$f(x) = e^{x} - 1,x_{0} = 2$$</p>
+      </problem>
+    </exercise>
+    <exercise number="459" has_solution="true">
+      <problem>
+        <instruction>For the following exercises, use both Newton’s method and the secant method to calculate a root for the following equations. Use a calculator or computer to calculate how many iterations of each are needed to reach within three decimal places of the exact answer. For the secant method, use the first guess from Newton’s method.</instruction>
+        <p>$$f(x) = x^{3} + 2x + 4,x_{0} = 0$$</p>
+      </problem>
+      <solution>
+        <p>Newton: five iterations, secant: eight iterations</p>
+      </solution>
+    </exercise>
+    <exercise number="460" has_solution="false">
+      <problem>
+        <instruction>In the following exercises, consider Kepler’s equation regarding planetary orbits, $$M = E - \varepsilon\mspace{2mu}\text{sin}(E),$$ where $$M$$ is the mean anomaly, $$E$$ is eccentric anomaly, and $$\varepsilon$$ measures eccentricity.</instruction>
+        <p>Use Newton’s method to solve for the eccentric anomaly $$E$$ when the mean anomaly $$M = \frac{\pi}{3}$$ and the eccentricity of the orbit $$\varepsilon = 0.25;$$ round to three decimals.</p>
+      </problem>
+    </exercise>
+    <exercise number="461" has_solution="true">
+      <problem>
+        <instruction>In the following exercises, consider Kepler’s equation regarding planetary orbits, $$M = E - \varepsilon\mspace{2mu}\text{sin}(E),$$ where $$M$$ is the mean anomaly, $$E$$ is eccentric anomaly, and $$\varepsilon$$ measures eccentricity.</instruction>
+        <p>Use Newton’s method to solve for the eccentric anomaly $$E$$ when the mean anomaly $$M = \frac{3\pi}{2}$$ and the eccentricity of the orbit $$\varepsilon = 0.8;$$ round to three decimals.</p>
+      </problem>
+      <solution>
+        <p>$$E = 4.071$$</p>
+      </solution>
+    </exercise>
+    <exercise number="462" has_solution="false">
+      <problem>
+        <instruction>The following two exercises consider a bank investment. The initial investment is $$\text{\$}10,000.$$ After $$25$$ years, the investment has tripled to $$\text{\$}30,000.$$</instruction>
+        <p>Use Newton’s method to determine the interest rate if the interest was compounded annually.</p>
+      </problem>
+    </exercise>
+    <exercise number="463" has_solution="true">
+      <problem>
+        <instruction>The following two exercises consider a bank investment. The initial investment is $$\text{\$}10,000.$$ After $$25$$ years, the investment has tripled to $$\text{\$}30,000.$$</instruction>
+        <p>Use Newton’s method to determine the interest rate if the interest was compounded continuously.</p>
+      </problem>
+      <solution>
+        <p>$$4.394\text{\%}$$</p>
+      </solution>
+    </exercise>
+    <exercise number="464" has_solution="false">
+      <problem>
+        <instruction>The following two exercises consider a bank investment. The initial investment is $$\text{\$}10,000.$$ After $$25$$ years, the investment has tripled to $$\text{\$}30,000.$$</instruction>
+        <p>The total cost for printing $$x$$ books can be given by the equation $$C(x) = 1000 + 12x + \left( \frac{1}{2} \right)x^{2\text{/}3}.$$ Use Newton’s method to find the break-even point if the printer sells each book for $$\text{\$}20.$$</p>
+      </problem>
+    </exercise>
+  </exercises>
+</section>

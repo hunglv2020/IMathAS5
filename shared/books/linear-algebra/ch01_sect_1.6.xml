@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch01" chapter_number="1" unit_code="1.6">
+  <section number="1.6" title="Applications of Linear Systems">
+    <metadata>
+      <source_pages count="5">
+        <page global_index="45" type="content"/>
+        <page global_index="46" type="content"/>
+        <page global_index="47" type="content"/>
+        <page global_index="48" type="content"/>
+        <page global_index="49" type="exercises"/>
+      </source_pages>
+    </metadata>
+    <content>
+      <heading level="1">1.6 Applications of Linear Systems</heading>
+      <video title="Watch Video"/>
+      <paragraph>You might expect that a real-life problem involving linear algebra would have only one solution, or perhaps no solution. The purpose of this section is to show how linear systems with many solutions can arise naturally. The applications here come from economics, chemistry, and network flow.</paragraph>
+      <heading level="2">A Homogeneous System in Economics</heading>
+      <paragraph>The system of <math display="inline">$500$</math> equations in <math display="inline">$500$</math> variables, mentioned in this chapter’s introduction, is now known as a Leontief “input–output” (or “production”) model.1<strong/>Section 2.6 will examine this model in more detail, when more theory and better notation are available. For now, we look at a simpler “exchange model,” also due to Leontief.</paragraph>
+      <paragraph>Suppose a nation’s economy is divided into many sectors, such as various manufacturing, communication, entertainment, and service industries. Suppose that for each sector we know its total output for one year and we know exactly how this output is divided or “exchanged” among the other sectors of the economy. Let the total dollar value of a sector’s output be called the price of that output. Leontief proved the following result.</paragraph>
+      <paragraph>There exist equilibrium prices that can be assigned to the total outputs of the various sectors in such a way that the income of each sector exactly balances its expenses.</paragraph>
+      <paragraph>The following example shows how to find the equilibrium prices.</paragraph>
+      <example number="1">
+          <heading level="2">Example 1</heading>
+              <paragraph>Suppose an economy consists of the Coal, Electric (power), and Steel sectors, and the output of each sector is distributed among the various sectors as shown in <strong>Table 1</strong>, where the entries in a column represent the fractional parts of a sector’s total output.</paragraph>
+          <figure caption="Table 1          A Simple Economy">
+            <image alt="A table shows the proportions of coal, electric, and steel distributed among different purchasers."/>
+          </figure>
+              <paragraph>The second column of Table 1, for instance, says that the total output of the Electric sector is divided as follows: <math display="inline">$40\%$</math> to Coal, <math display="inline">$50\%$</math> to Steel, and the remaining <math display="inline">$10\%$</math> to Electric. (Electric treats this <math display="inline">$10\%$</math> as an expense it incurs in order to operate its business.) Since all output must be taken into account, the decimal fractions in each column must sum to <math display="inline">$1$</math>.</paragraph>
+              <paragraph>Denote the prices (in dollar values) of the total annual outputs of the Coal, Electric, and Steel sectors by <math display="inline">$p_{\text{C}}$</math>, <math display="inline">$p_{\text{E}}$</math>, and <math display="inline">$p_{\text{S}}$</math>, respectively. If possible, find equilibrium prices that make each sector’s income match its expenditures.</paragraph>
+          <figure>
+            <image alt="A figure shows three blocks labeled electric, coal, and steel with a flow of arrows indicating the output distribution."/>
+          </figure>
+          <heading level="3">Solution</heading>
+              <paragraph>A sector looks down a column to see where its output goes, and it looks across a row to see what it needs as inputs. For instance, the first row of Table 1 says that Coal receives (and pays for) <math display="inline">$40\%$</math> of the Electric output and <math display="inline">$60\%$</math> of the Steel output. Since the respective values of the total outputs are <math display="inline">$p_{\text{E}}$</math> and <math display="inline">$p_{\text{S}}$</math>, Coal must spend <math display="inline">$.4p_{\text{E}}$</math> dollars for its share of Electric’s output and <math display="inline">$.6p_{\text{S}}$</math> for its share of Steel’s output. Thus Coal’s total expenses are <math display="inline">$.4p_{\text{E}} + .6p_{\text{S}}$</math>. To make Coal’s income, <math display="inline">$p_{\text{C}}$</math>, equal to its expenses, we want</paragraph>
+              <paragraph><math display="block">$$p_{\text{C}} = .4p_{\text{E}} + .6p_{\text{S}}$$</math></paragraph>
+              <paragraph>The second row of the exchange table shows that the Electric sector spends <math display="inline">$.6p_{\text{C}}$</math> for coal, <math display="inline">$.1p_{\text{E}}$</math> for electricity, and <math display="inline">$.2p_{\text{S}}$</math> for steel. Hence the income/expense requirement for Electric is</paragraph>
+              <paragraph><math display="block">$$p_{\text{E}} = .6p_{\text{C}} + .1p_{\text{E}} + .2p_{\text{S}}$$</math></paragraph>
+              <paragraph>Finally, the third row of the exchange table leads to the final requirement:</paragraph>
+              <paragraph><math display="block">$$p_{\text{S}} = .4p_{\text{C}} + .5p_{\text{E}} + .2p_{\text{S}}$$</math></paragraph>
+              <paragraph>To solve the system of equations (1), (2), and (3), move all the unknowns to the left sides of the equations and combine like terms. [For instance, on the left side of (2), write <math display="inline">$p_{\text{E}} - .1p_{\text{E}}$</math> as <math display="inline">$.9p_{\text{E}}$</math>.]</paragraph>
+              <paragraph><math display="block">$$\begin{array}{rrrrrrr}
+      p_{\text{C}} &amp; - &amp; {.4p_{\text{E}}} &amp; - &amp; {.6p_{\text{S}}} &amp; = &amp; 0 \\
+      {- .6p_{\text{C}}} &amp; + &amp; {.9p_{\text{E}}} &amp; - &amp; {.2p_{\text{S}}} &amp; = &amp; 0 \\
+      {- .4p_{\text{C}}} &amp; - &amp; {.5p_{\text{E}}} &amp; + &amp; {.8p_{\text{S}}} &amp; = &amp; 0
+      \end{array}$$</math></paragraph>
+              <paragraph>Row reduction is next. For simplicity here, decimals are rounded to two places.</paragraph>
+              <paragraph><math display="block">$$\begin{matrix}
+      \left\lbrack \begin{array}{rrrr}
+      1 &amp; {{- .}4} &amp; {{- .}6} &amp; 0 \\
+      {- .6} &amp; {.9} &amp; {{- .}2} &amp; 0 \\
+      {- .4} &amp; {{- .}5} &amp; {.8} &amp; 0
+      \end{array} \right\rbrack &amp; {\sim \operatorname{\,\,\,}\left\lbrack \begin{array}{rrrc}
+      1 &amp; {{- .}4} &amp; {{- .}6} &amp; 0 \\
+      0 &amp; {.66} &amp; {{- .}56} &amp; 0 \\
+      0 &amp; {{- .}66} &amp; {.56} &amp; 0
+      \end{array} \right\rbrack\operatorname{\,\,\,} \sim \operatorname{\,\,\,}\left\lbrack \begin{array}{rrrr}
+      1 &amp; {{- .}4} &amp; {{- .}6} &amp; 0 \\
+      0 &amp; {.66} &amp; {{- .}56} &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0
+      \end{array} \right\rbrack} \\
+       &amp; {\sim \operatorname{\,\,\,}\left\lbrack \begin{array}{rrrr}
+      1 &amp; {{- .}4} &amp; {{- .}6} &amp; 0 \\
+      0 &amp; 1 &amp; {{- .}85} &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0
+      \end{array} \right\rbrack\operatorname{\,\,\,} \sim \operatorname{\,\,\,}\left\lbrack \begin{array}{rrrr}
+      1 &amp; 0 &amp; {{- .}94} &amp; 0 \\
+      0 &amp; 1 &amp; {{- .}85} &amp; 0 \\
+      0 &amp; 0 &amp; 0 &amp; 0
+      \end{array} \right\rbrack}
+      \end{matrix}$$</math></paragraph>
+              <paragraph>The general solution is <math display="inline">$p_{\text{C}} = .94p_{\text{S}}$</math>, <math display="inline">$p_{\text{E}} = .85p_{\text{S}}$</math>, and <math display="inline">$p_{\text{S}}$</math> is free. The equilibrium price vector for the economy has the form</paragraph>
+              <paragraph><math display="block">$$\mathbf{p}\mspace{2mu} = \;\begin{bmatrix}
+      p_{\text{C}} \\
+      p_{\text{E}} \\
+      p_{\text{S}}
+      \end{bmatrix}\, = \,\,\begin{bmatrix}
+      {.94p_{\text{S}}} \\
+      {.85p_{\text{S}}} \\
+      p_{\text{S}}
+      \end{bmatrix}\  = \mspace{2mu} p_{\text{S}}\begin{bmatrix}
+      .94 \\
+      .85 \\
+      1
+      \end{bmatrix}$$</math></paragraph>
+              <paragraph>Any (nonnegative) choice for <math display="inline">$p_{\text{S}}$</math> results in a choice of equilibrium prices. For instance, if we take <math display="inline">$p_{\text{S}}$</math> to be <math display="inline">$100$</math> (or <math display="inline">$\text{\$</math>), then <math display="inline">$p_{\text{C}} = 94$</math> and <math display="inline">$p_{\text{E}} = 85$</math>. The incomes and expenditures of each sector will be equal if the output of Coal is priced at <math display="inline">$\text{\$</math>, that of Electric at <math display="inline">$\text{\$</math>, and that of Steel at <math display="inline">$\text{\$</math>.</paragraph>
+        </example>
+      <heading level="2">Balancing Chemical Equations</heading>
+      <paragraph>Chemical equations describe the quantities of substances consumed and produced by chemical reactions. For instance, when propane gas burns, the propane <math display="inline">$\left( {\text{C}_{3}\text{H}_{8}} \right)$</math> combines with oxygen <math display="inline">$\left( \text{O}_{2} \right)$</math> to form carbon dioxide <math display="inline">$\left( \text{CO}_{2} \right)$</math> and water <math display="inline">$\left( {\text{H}_{2}\text{O}} \right)$</math>, according to an equation of the form</paragraph>
+      <paragraph>
+        <math display="block">$$(x_{1})\text{C}_{3}\text{H}_{8} + (x_{2})\text{O}_{2}\rightarrow(x_{3}){\text{C}\text{O}}_{2} + (x_{4})\text{H}_{2}\text{O}$$</math>
+      </paragraph>
+      <paragraph>To “balance” this equation, a chemist must find whole numbers <math display="inline">$x_{1},\text{…},x_{4}$</math> such that the total numbers of carbon <math display="inline">$\left( \text{C} \right)$</math>, hydrogen <math display="inline">$\left( \text{H} \right)$</math>, and oxygen <math display="inline">$\left( \text{O} \right)$</math> atoms on the left match the corresponding numbers of atoms on the right (because atoms are neither destroyed nor created in the reaction).</paragraph>
+      <paragraph>A systematic method for balancing chemical equations is to set up a vector equation that describes the numbers of atoms of each type present in a reaction. Since equation (4) involves three types of atoms (carbon, hydrogen, and oxygen), construct a vector in <math display="inline">$\text{ℝ}^{3}$</math> for each reactant and product in (4) that lists the numbers of “atoms per molecule,” as follows:</paragraph>
+      <paragraph>
+        <math display="block">$$\text{C}_{3}\text{H}_{8}\text{:}{~\,\left\lbrack \begin{array}{r}
+      3 \\
+      8 \\
+      0
+      \end{array} \right\rbrack}\text{,~}\text{O}_{2}\text{:}~\begin{bmatrix}
+      0 \\
+      0 \\
+      2
+      \end{bmatrix}\text{,~}\text{CO}_{2}\text{:}{~\begin{bmatrix}
+      1 \\
+      0 \\
+      2
+      \end{bmatrix}}\text{,~}\text{H}_{2}\text{O}\text{:}~\begin{bmatrix}
+      0 \\
+      2 \\
+      1
+      \end{bmatrix}\begin{array}{l}
+      {\mspace{9mu}\text{←}\mspace{9mu}\text{Carbon}} \\
+      {\mspace{9mu}\text{←}\mspace{9mu}\text{Hydrogen}} \\
+      {\mspace{9mu}\text{←}\mspace{9mu}\text{Oxygen}}
+      \end{array}$$</math>
+      </paragraph>
+      <paragraph>To balance equation (4), the coefficients <math display="inline">$x_{1},\text{…},x_{4}$</math> must satisfy</paragraph>
+      <paragraph>
+        <math display="block">$$x_{1}\,\begin{bmatrix}
+      3 \\
+      8 \\
+      0
+      \end{bmatrix}~ + ~x_{2}\,\begin{bmatrix}
+      0 \\
+      0 \\
+      2
+      \end{bmatrix}~ = ~x_{3\,}\begin{bmatrix}
+      1 \\
+      0 \\
+      2
+      \end{bmatrix}~ + ~x_{4\,}\begin{bmatrix}
+      0 \\
+      2 \\
+      1
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>To solve, move all the terms to the left (changing the signs in the third and fourth vectors):</paragraph>
+      <paragraph>
+        <math display="block">$$x_{1}\,\begin{bmatrix}
+      3 \\
+      8 \\
+      0
+      \end{bmatrix}~ + ~x_{2}\,\begin{bmatrix}
+      0 \\
+      0 \\
+      2
+      \end{bmatrix}~ + ~x_{3}\,\left\lbrack \begin{array}{r}
+      {- 1} \\
+      0 \\
+      {- 2}
+      \end{array} \right\rbrack~ + ~x_{4}\,\left\lbrack \begin{array}{r}
+      0 \\
+      {- 2} \\
+      {- 1}
+      \end{array} \right\rbrack~ = ~\begin{bmatrix}
+      0 \\
+      0 \\
+      0
+      \end{bmatrix}$$</math>
+      </paragraph>
+      <paragraph>Row reduction of the augmented matrix for this equation leads to the general solution</paragraph>
+      <paragraph>
+        <math display="block">$$x_{1} = \frac{1}{4}x_{4}\text{,}~x_{2} = \frac{5}{4}x_{4}\text{,}~x_{3} = \frac{3}{4}x_{4}\text{,~}\mspace{9mu}\text{with~}x_{4}\text{~free}$$</math>
+      </paragraph>
+      <paragraph>Since the coefficients in a chemical equation must be integers, take <math display="inline">$x_{4} = 4$</math>, in which case <math display="inline">$x_{1} = 1$</math>, <math display="inline">$x_{2} = 5$</math>, and <math display="inline">$x_{3} = 3$</math>. The balanced equation is</paragraph>
+      <paragraph>
+        <math display="block">$$\text{C}_{3}\text{H}_{8} + 5\text{O}_{2}\rightarrow 3\text{C}\text{O}_{2} + 4\text{H}_{2}\text{O}$$</math>
+      </paragraph>
+      <paragraph>The equation would also be balanced if, for example, each coefficient were doubled. For most purposes, however, chemists prefer to use a balanced equation whose coefficients are the smallest possible whole numbers.</paragraph>
+      <heading level="2">Network Flow</heading>
+      <paragraph>Systems of linear equations arise naturally when scientists, engineers, or economists study the flow of some quantity through a network. For instance, urban planners and traffic engineers monitor the pattern of traffic flow in a grid of city streets. Electrical engineers calculate current flow through electrical circuits. Economists analyze the distribution of products from manufacturers to consumers through a network of wholesalers and retailers. For many networks, the systems of equations involve hundreds or even thousands of variables and equations.</paragraph>
+      <paragraph>A <em>network</em> consists of a set of points called <em>junctions</em>, or <em>nodes</em>, with lines or arcs called <em>branches</em> connecting some or all of the junctions. The direction of flow in each branch is indicated, and the flow amount (or rate) is either shown or is denoted by a variable.</paragraph>
+      <paragraph>The basic assumption of network flow is that the total flow into the network equals the total flow out of the network and that the total flow into a junction equals the total flow out of the junction. For example, <strong>Figure 1</strong> shows <math display="inline">$30$</math> units flowing into a junction through one branch, with <math display="inline">$x_{1}$</math> and <math display="inline">$x_{2}$</math> denoting the flows out of the junction through other branches. Since the flow is “conserved” at each junction, we must have <math display="inline">$x_{1} + x_{2} = 30$</math>. In a similar fashion, the flow at each junction is described by a linear equation. The problem of network analysis is to determine the flow in each branch when partial information (such as the flow into and out of the network) is known.</paragraph>
+      <figure label="Figure 1" caption="A junction or node">
+          <image alt="A figure shows a right arrow labeled 30 meeting at a junction or node from which it splits into two branches of right arrows labeled x subscript 1 and x subscript 2."/>
+        </figure>
+      <example number="2">
+          <heading level="2">Example 2</heading>
+              <paragraph>The network in <strong>Figure</strong><strong>2</strong> shows the traffic flow (in vehicles per hour) over several one-way streets in downtown Baltimore during a typical early afternoon. Determine the general flow pattern for the network.</paragraph>
+          <figure label="Figure 2" caption="Baltimore streets">
+            <image alt="A figure shows a traffic flow pattern in Baltimore streets."/>
+          </figure>
+          <heading level="3">Solution</heading>
+              <paragraph>Write equations that describe the flow, and then find the general solution of the system. Label the street intersections (junctions) and the unknown flows in the branches, as shown in Figure 2. At each intersection, set the flow in equal to the flow out.</paragraph>
+          <figure>
+            <image alt="A table shows flow-in and flow-out data for the intersections."/>
+          </figure>
+              <paragraph>Also, the total flow into the network <math display="inline">$(500 + 300 + 100 + 400)$</math> equals the total flow out of the network <math display="inline">$(300 + x_{3} + 600)$</math>, which simplifies to <math display="inline">$x_{3} = 400$</math>. Combine this equation with a rearrangement of the first four equations to obtain the following system of equations:</paragraph>
+              <paragraph><math display="block">$$\begin{array}{cccccccccrr}
+      x_{1} &amp; + &amp; x_{2} &amp; &amp; &amp; &amp; &amp; &amp; &amp; = &amp; 800 \\
+       &amp; &amp; x_{2} &amp; - &amp; x_{3} &amp; + &amp; x_{4} &amp; &amp; &amp; = &amp; 300 \\
+       &amp; &amp; &amp; &amp; &amp; &amp; x_{4} &amp; + &amp; x_{5} &amp; = &amp; 500 \\
+      x_{1} &amp; &amp; &amp; &amp; &amp; &amp; &amp; + &amp; x_{5} &amp; = &amp; 600 \\
+       &amp; &amp; &amp; &amp; x_{3} &amp; &amp; &amp; &amp; &amp; = &amp; 400
+      \end{array}$$</math></paragraph>
+              <paragraph>Row reduction of the associated augmented matrix leads to</paragraph>
+              <paragraph><math display="block">$$\begin{array}{clclclcccrr}
+      x_{1} &amp; &amp; &amp; &amp; &amp; &amp; &amp; + &amp; x_{5} &amp; = &amp; 600 \\
+       &amp; &amp; x_{2} &amp; &amp; &amp; &amp; &amp; - &amp; x_{5} &amp; = &amp; 200 \\
+       &amp; &amp; &amp; &amp; x_{3} &amp; &amp; &amp; &amp; &amp; = &amp; 400 \\
+       &amp; &amp; &amp; &amp; &amp; &amp; x_{4} &amp; + &amp; x_{5} &amp; = &amp; 500
+      \end{array}$$</math></paragraph>
+              <paragraph>The general flow pattern for the network is described by</paragraph>
+              <paragraph><math display="block">$$\begin{array}{l}
+       \\
+      \left\{ \begin{array}{l}
+      {x_{1} = 600 - x_{5}} \\
+      {x_{2} = 200 + x_{5}} \\
+      {x_{3} = 400} \\
+      {x_{4} = 500 - x_{5}} \\
+      {x_{5}\,\text{is}\,\text{free}}
+      \end{array} \right.
+      \end{array}$$</math></paragraph>
+              <paragraph>A negative flow in a network branch corresponds to flow in the direction opposite to that shown on the model. Since the streets in this problem are one way, none of the variables here can be negative. This fact leads to certain limitations on the possible values of the variables. For instance, <math display="inline">$x_{5} \leq 500$</math> because <math display="inline">$x_{4}$</math> cannot be negative. Other constraints on the variables are considered in <strong>Practice Problem 2</strong>.</paragraph>
+        </example>
+      <note type="practice" title="Practice Problems">
+          <heading level="2">Practice Problems</heading>
+          <list ordered="true">
+                  <item>Suppose an economy has three sectors: Agriculture, Mining, and Manufacturing. Agriculture sells 5% of its output to Mining and 30% to Manufacturing, and retains the rest. Mining sells 20% of its output to Agriculture and 70% to Manufacturing, and retains the rest. Manufacturing sells 20% of its output to Agriculture and 30% to Mining, and retains the rest. Determine the exchange table for this economy, where the columns describe how the output of each sector is exchanged among the three sectors.</item>
+                  <item>Consider the network flow studied in Example 2. Determine the possible range of values of x1 and x2. [Hint: The example showed that x5≤500. What does this imply about x1 and x2? Also, use the fact that x5≥0.]</item>
+          </list>
+        </note>
+      <paragraph><sup>1</sup> See Wassily W. Leontief, “Input–Output Economics,” <em>Scientific American</em>, October 1951, pp. 15–21.</paragraph>
+    </content>
+    <exercises title="1.6 Exercises">
+      <heading level="1">1.6 Exercises</heading>
+      <exercise_group start="1">
+            <problem number="1">
+              <statement>
+                          <paragraph>Suppose an economy has only two sectors, Goods and Services. Each year, Goods sells <math display="inline">$80\%$</math> of its output to Services and keeps the rest, while Services sells <math display="inline">$70\%$</math> of its output to Goods and retains the rest. Find equilibrium prices for the annual outputs of the Goods and Services sectors that make each sector’s income match its expenditures.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure>
+            <image alt="A figure shows two blocks labeled goods and services along with arrows indicating the distribution of output."/>
+          </figure>
+      <exercise_group start="2">
+            <problem number="2">
+              <statement>
+                          <paragraph>Find another set of equilibrium prices for the economy in Example 1. Suppose the same economy used Japanese yen instead of dollars to measure the value of the various sectors’ outputs. Would this change the problem in any way? Discuss.</paragraph>
+              </statement>
+            </problem>
+            <problem number="3">
+              <statement>
+                          <paragraph>Consider an economy with three sectors, Chemicals &amp; Metals, Fuels &amp; Power, and Machinery. Chemicals sells <math display="inline">$30\%$</math> of its output to Fuels and <math display="inline">$50\%$</math> to Machinery and retains the rest. Fuels sells <math display="inline">$80\%$</math> of its output to Chemicals and <math display="inline">$10\%$</math> to Machinery and retains the rest. Machinery sells <math display="inline">$40\%$</math> to Chemicals and <math display="inline">$40\%$</math> to Fuels and retains the rest.</paragraph>
+                <list ordered="true">
+                              <item>Construct the exchange table for this economy.</item>
+                              <item>Develop a system of equations that leads to prices at which each sector’s income matches its expenses. Then write the augmented matrix that can be row reduced to find these prices.</item>
+                              <item>[T] Find a set of equilibrium prices when the price for the Machinery output is 100 units.</item>
+                </list>
+              </statement>
+            </problem>
+            <problem number="4">
+              <statement>
+                          <paragraph>Suppose an economy has four sectors, Agriculture (A), Energy (E), Manufacturing (M), and Transportation (T). Sector A sells <math display="inline">$10\%$</math> of its output to E and <math display="inline">$25\%$</math> to M and retains the rest. Sector E sells <math display="inline">$30\%$</math> of its output to A, <math display="inline">$35\%$</math> to M, and <math display="inline">$25\%$</math> to T and retains the rest. Sector M sells <math display="inline">$30\%$</math> of its output to A, <math display="inline">$15\%$</math> to E, and <math display="inline">$40\%$</math> to T and retains the rest. Sector T sells <math display="inline">$20\%$</math> of its output to A, <math display="inline">$10\%$</math> to E, and <math display="inline">$30\%$</math> to M and retains the rest.</paragraph>
+                <list ordered="true">
+                              <item>Construct the exchange table for this economy.</item>
+                              <item>[T] Find a set of equilibrium prices for the economy.</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="5">
+                  <instructions>Balance the chemical equations in Exercises 5–10 using the vector equation approach discussed in this section.</instructions>
+            <problem number="5">
+              <statement>
+                          <paragraph>Boron sulfide reacts violently with water to form boric acid and hydrogen sulfide gas (the smell of rotten eggs). The unbalanced equation is<math display="block">$$\left. \text{B}_{2}\text{S}_{3} + \text{H}_{2}\text{O}\rightarrow\text{H}_{3}\text{BO}_{3} + \text{H}_{2}\text{S} \right.$$</math></paragraph>
+                          <paragraph>[For each compound, construct a vector that lists the numbers of atoms of boron, sulfur, hydrogen, and oxygen.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="6">
+              <statement>
+                          <paragraph>When solutions of sodium phosphate and barium nitrate are mixed, the result is barium phosphate (as a precipitate) and sodium nitrate. The unbalanced equation is<math display="block">$$\left. \text{Na}_{3}\text{PO}_{4} + \text{Ba}\left( \text{NO}_{3} \right)_{2}\rightarrow\text{Ba}_{3}\left( \text{PO}_{4} \right)_{2} + \text{NaNO}_{3} \right.$$</math></paragraph>
+                          <paragraph>[For each compound, construct a vector that lists the numbers of atoms of sodium <math display="inline">$\left( \text{Na} \right)$</math>, phosphorus, oxygen, barium, and nitrogen. For instance, barium nitrate corresponds to <math display="inline">$(0\text{,~}0\text{,~}6\text{,~}1\text{,~}2)$</math>.]</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <exercise_group start="7">
+            <problem number="7">
+              <statement>
+                          <paragraph>Alka-Seltzer contains sodium bicarbonate <math display="inline">$\left( \text{NaHCO}_{3} \right)$</math> and citric acid <math display="inline">$\left( {\text{H}_{3}\text{C}_{6}\text{H}_{5}\text{O}_{7}} \right)$</math>. When a tablet is dissolved in water, the following reaction produces sodium citrate, water, and carbon dioxide (gas):<math display="block">$$\left. \text{NaHCO}_{3} + \text{H}_{3}\text{C}_{6}\text{H}_{5}\text{O}_{7}\rightarrow\text{Na}_{3}\text{C}_{6}\text{H}_{5}\text{O}_{7} + \text{H}_{2}\text{O} + \text{CO}_{2} \right.$$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="8">
+              <statement>
+                          <paragraph>The following reaction between potassium permanganate <math display="inline">$\left( \text{KMnO}_{4} \right)$</math> and manganese sulfate in water produces manganese dioxide, potassium sulfate, and sulfuric acid:<math display="block">$$\left. \text{KMnO}_{4} + \text{MnSO}_{4} + \text{H}_{2}\text{O}\rightarrow\text{MnO}_{2} + \text{K}_{2}\text{SO}_{4} + \text{H}_{2}\text{SO}_{4} \right.$$</math></paragraph>
+                          <paragraph>[For each compound, construct a vector that lists the numbers of atoms of potassium <math display="inline">$\left( \text{K} \right)$</math>, manganese, oxygen, sulfur, and hydrogen.]</paragraph>
+              </statement>
+            </problem>
+            <problem number="9">
+              <statement>
+                          <paragraph><strong>[T]</strong> If possible, use exact arithmetic or rational format for calculations in balancing the following chemical reaction:<math display="block">$$\left. \text{PbN}_{6} + \text{CrMn}_{2}\text{O}_{8}\rightarrow\text{Pb}_{3}\text{O}_{4} + \text{Cr}_{2}\text{O}_{3} + \text{MnO}_{2} + \text{NO} \right.$$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="10">
+              <statement>
+                          <paragraph><strong>[T]</strong> The chemical reaction below can be used in some industrial processes, such as the production of arsene <math display="inline">$\left( \text{AsH}_{3} \right)$</math>. Use exact arithmetic or rational format for calculations to balance this equation.<math display="block">$$\left. \text{MnS} + \text{As}_{2}\text{Cr}_{10}\text{O}_{35} + \text{H}_{2}\text{SO}_{4}\rightarrow\text{HMnO}_{4} + \text{AsH}_{3} + \text{CrS}_{3}\text{O}_{12} + \text{H}_{2}\text{O} \right.$$</math></paragraph>
+              </statement>
+            </problem>
+            <problem number="11">
+              <statement>
+                          <paragraph>Find the general flow pattern of the network shown in the figure. Assuming that the flows are all nonnegative, what is the largest possible value for <math display="inline">$x_{3}\text{?}$</math></paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure>
+            <image alt="A figure shows an equilateral triangle with arrows flowing in all the vertices A, B, and C."/>
+          </figure>
+      <exercise_group start="12">
+            <problem number="12">
+              <statement>
+                <list ordered="true">
+                              <item>Find the general traffic pattern in the freeway network shown in the figure. (Flow rates are in cars/minute.)</item>
+                              <item>Describe the general traffic pattern when the road whose flow is x4 is closed.</item>
+                              <item>When x4=0, what is the minimum value of x1?</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure>
+            <image alt="A figure shows a freeway network in the form of a trapezoid with arrows flowing in and out of the vertices A, B, C, and D."/>
+          </figure>
+      <exercise_group start="13">
+            <problem number="13">
+              <statement>
+                <list ordered="true">
+                              <item>Find the general flow pattern in the network shown in the figure.</item>
+                              <item>Assuming that the flow must be in the directions indicated, find the minimum flows in the branches denoted by x2, x3, x4, and x5.</item>
+                </list>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure>
+            <image alt="A figure shows a network of five junctions labeled A, B, C, D, and E with arrows flowing between."/>
+          </figure>
+      <exercise_group start="14">
+            <problem number="14">
+              <statement>
+                          <paragraph>Intersections in England are often constructed as one-way “roundabouts,” such as the one shown in the figure. Assume that traffic must travel in the directions shown. Find the general solution of the network flow. Find the smallest possible value for <math display="inline">$x_{6}$</math>.</paragraph>
+              </statement>
+            </problem>
+          </exercise_group>
+      <figure>
+            <image alt="A network flow diagram showing the direction of traffic flow."/>
+          </figure>
+    </exercises>
+  </section>
+</section_file>

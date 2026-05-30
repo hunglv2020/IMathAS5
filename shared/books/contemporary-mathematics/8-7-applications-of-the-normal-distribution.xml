@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='utf-8'?>
+<section number="8.7" title="Applications of the Normal Distribution">
+  <image alt="A hand is holding a pencil and filling in the scantron sheet." number="8.63" caption="Standardized test results generally adhere to the normal distribution. (credit: “Taking a Test” by Marco Verch Professional Photographer/Flickr, CC BY 2.0)" />
+  <subsection title="Learning Objectives">
+    <p>After completing this section, you should be able to:</p>
+    <list type="ol">
+      <item>Apply the normal distribution to real-world scenarios.</item>
+    </list>
+  </subsection>
+  <subsection title="College Entrance Exams">
+    <p>There are two good ways to compare two data values from different groups: using $$z$$-scores and using percentiles. The two methods will always give consistent results (meaning that we won’t find, for example, that the first value is better using $$z$$-scores but the second value is better using percentiles), so use whichever method is more comfortable for you.</p>
+    <example number="8.41">
+      <problem>
+        <p>According to the Digest of Education Statistics, composite scores on the SAT have mean 1060 and standard deviation 195, while composite scores on the ACT have mean 21 and standard deviation 5.</p>
+        <list type="ol">
+          <item>At what percentile would an SAT score of 990 fall?</item>
+          <item>What is the z-score of an ACT score of 27?</item>
+          <item>Which is better: a score of 1450 on the SAT or 29 on the ACT?</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol">
+          <item>Using Google Sheets, we can answer this question with the formula “=NORM.DIST(990, 1060, 195, TRUE)”. A score of 990 would fall at the 36th percentile.</item>
+          <item>Using the formula $$z = \frac{x - µ}{s}$$, we get $$z = \frac{27 - 21}{5} = 1.2$$.</item>
+          <item>
+            <p>Let’s compare the values using both percentiles and $$z$$-values:</p>
+            <p>Percentiles: Using “=NORM.DIST(1450, 1060, 195, TRUE)” we find that an SAT score of 1450 is at the 98th percentile. Meanwhile, by entering “=NORM.DIST(29, 21, 5, TRUE)” we see that an ACT score of 29 is around the 95th percentile. Since it’s at a higher percentile, we can conclude that an SAT score of 1450 is better than an ACT score of 29.</p>
+            <p>$$\mathbf{z}$$-scores: Using the formula, we see that the $$z$$-score for an SAT score of 1450 is $$z = \frac{1450 - 1060}{195} = 2$$, while the $$z$$-score for an ACT score of 29 is $$z = \frac{29 - 21}{5} = 1.6$$. Since it has a higher $$z$$-score, an SAT score of 1450 is better than an ACT score of 29.</p>
+          </item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="8.41">
+      <p>According to  the Graduate Management Admission Council (GMAC), the mean score on the GMAT (an entrance exam for graduate schools in business management) is 565, with standard deviation 116. For the LSAT (an entrance exam for law schools),  Kaplan informs us that the mean score is 150 with standard deviation 10.</p>
+      <p>What is the $$z$$-score for a GMAT score of 715?</p>
+      <p>At what percentile is an LSAT score of 166?</p>
+      <p>Which is better: a GMAT score of 650 or an LSAT score of 161?</p>
+    </note>
+  </subsection>
+  <subsection title="Coin flipping">
+    <p>In the opening of The Normal Distribution, we saw that the number of heads we get when we flip a coin 100 times is distributed normally. It can be shown that if $$n$$ is the number of flips, then the mean of that distribution is $$\frac{n}{2}$$ and the standard deviation is $$\frac{\sqrt{n}}{2}$$ (as long as $$n \geq 20$$). So, for 100 flips, the mean of the distribution is 50 and the standard deviation is 5.
+          In that opening example, one of our early runs gave us 70 heads in 100 flips, which we noted seemed unusual. Using the normal distribution, we can identify exactly how unusual that really is. Using Google Sheets, the formula “=NORM.DIST(70, 50, 5, TRUE)” gives us 0.999968, which is the 99.997th percentile! How is that useful? Suppose you need to test whether a coin is fair, and so you flip it 100 times. While we might be suspicious if we get 70 heads out of the 100 flips, we now have a numerical measure for how unusual that is: If the coin were fair, we would expect to see 70 heads (or more) only $$100 - 99.9968 = 0.0032\%$$ of the time. That’s really unlikely! Analysis like this is related to hypothesis testing, an important application of statistics in the sciences and social sciences.</p>
+    <example number="8.42">
+      <problem>
+        <p>Let’s say we flip a coin 64 times and count the number of heads.</p>
+        <list type="ol">
+          <item>What would be the mean of the corresponding distribution?</item>
+          <item>What would be the standard deviation of the corresponding distribution?</item>
+          <item>Suppose we got 25 heads, which seems a little low. At what percentile would 25 heads fall?</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol">
+          <item>Since $$n = 64$$, the mean is $$\frac{64}{2} = 32$$.</item>
+          <item>Again using $$n = 64$$, we get a standard deviation of $$\frac{\sqrt{64}}{2} = 4$$.</item>
+          <item>Using “=NORM.DIST(25, 32, 4, TRUE)”, we see that 25 heads is at the 4th percentile. Reading and Interpreting Scatter Plots</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="8.42">
+      <p>What is the mean of the corresponding distribution?</p>
+      <p>What is the standard deviation of the corresponding distribution?</p>
+      <p>You flipped 81 heads. At what percentile does that fall?</p>
+    </note>
+  </subsection>
+  <subsection title="Analyzing Data That Are Normally Distributed">
+    <p>Whenever we’re working with a dataset that has a distribution that looks symmetric and bell-shaped, we can use techniques associated with the normal distribution to analyze the data.</p>
+    <example number="8.43">
+      <problem>
+        <p>The data in “AvgSAT” contains the average SAT score for students attending every institution of higher learning in the United States for which data is available. In Example 8.12, we created a histogram for these data:</p>
+        <image alt="A histogram titled, average SAT scores at US institutions. The horizontal axis representing average SAT ranges from 750 to 1600, in increments of 50. The vertical axis representing frequency ranges from 0 to 300, in increments of 100. The histogram infers the following data. 750 to 800: 4. 800 to 850: 5. 850 to 900: 15. 900 to 950: 25. 950 to 1000: 85. 1000 to 1050: 170. 1050 to 1100: 230. 1100 to 1150: 275. 1150 to 1200: 230. 1200 to 1250: 110. 1250 to 1300: 70. 1300 to 1350: 50. 1350 to 1400: 40. 1400 to 1450: 40. 1450 to 1500: 20. 1500 to 1550: 25. 1550 to 1600: 5. Note: all values are approximate." number="8.64" caption="(data source: https://data.ed.gov)" />
+        <p>This distribution is fairly symmetric (it’s just a little right-skewed) and bell-shaped, so we can use normal distribution techniques to analyze the data.</p>
+        <list type="ol">
+          <item>What is the mean of these average SAT scores?</item>
+          <item>What is the standard deviation of these SAT scores?</item>
+          <item>Using the answers to the previous two questions, use NORM.DIST in Google Sheets to estimate at what percentile the University at Buffalo in New York (average SAT: 1250) falls.</item>
+          <item>Use PERCENTRANK to find the actual percentile of the University at Buffalo, and see how close the estimate in the previous question came.</item>
+        </list>
+      </problem>
+      <solution>
+        <list type="ol">
+          <item>Using the AVERAGE function in Google Sheets, we find that the mean is 1141.174.</item>
+          <item>Using the STDEV function, we get that the standard deviation is 125.517.</item>
+          <item>Entering “=NORM.DIST(1250, 1141, 125.517, TRUE)” into Google Sheets, we estimate that the University at Buffalo is at the 81st percentile.</item>
+          <item>Using PERCENTRANK, we find that the actual percentile is the 84th. These are close!</item>
+        </list>
+      </solution>
+    </example>
+    <note type="Your Turn" number="8.43">
+      <p>Again using the data in “AvgSAT”, find the average SAT score of a school at the 35th percentile in two ways: using NORM.INV and using PERCENTILE.</p>
+    </note>
+    <note type="Who Knew?">
+      <p>The normal distribution pops up in some unusual places. Recently, a team at Duke University has been using statistics to help identify partisan gerrymandering, where electoral districts have been carefully drawn in a way that benefits one political party over another. In their analysis, they found that hypothetical election results in randomly drawn districts are normally distributed. By using techniques similar to the ones we used above, they can quantify precisely how biased a particular electoral map is by finding the percentile rank of the actual election result on the normal distribution of the hypothetical results. You can find out more about their work at the "Quantifying Gerrymandering" site here.</p>
+    </note>
+  </subsection>
+  <subsection title="Check Your Understanding">
+    <p>At what percentile would an SAT score of 940 fall? Round to the nearest whole number.</p>
+    <p>What score would be at the 67th percentile on the ACT?</p>
+    <p>Which is a better score: 1300 on the SAT or 27 on the ACT?</p>
+    <p>Suppose we flip a coin 120 times. What are the mean and standard deviation of the corresponding distribution of heads?</p>
+    <p>Let’s say you flip 70 heads in 120 flips. At what percentile would that fall?</p>
+    <p>How many heads would be at the 30th percentile? Round to the nearest whole number.</p>
+    <p>What tax revenue percentage falls at the third quartile? Answer this question using Google Sheets in two ways: using PERCENTILE and using NORM.INV.</p>
+    <p>What tax revenue percentage falls at the 20th percentile? Answer this question using Google Sheets in two ways: using PERCENTILE and using NORM.INV.</p>
+    <p>At what percentile does the United Kingdom (25.62%, found on row 46 in the spreadsheet) fall? Answer this question using Google Sheets in two ways: using PERCENTRANK and using NORM.DIST.</p>
+    <p>At what percentile does Kiribati (21.97%, found on row 62 in the spreadsheet) fall? Answer this question using Google Sheets in two ways: using PERCENTRANK and using NORM.DIST.</p>
+  </subsection>
+  <exercises title="Section 8.7 Exercises">
+    <instruction>For the following exercises, assume we’re looking at results from two different standardized tests. The first, called the ABC, has mean 250 and standard deviation 50. The second, called the XYZ, has mean 80 and standard deviation 10.</instruction>
+    <exercise number="1" has_solution="false">
+      <problem>
+        <p>What would be the $$z$$-score of a result of 322 on the ABC?</p>
+      </problem>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <p>What would be the $$z$$-score of a result of 57 on the XYZ?</p>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="false">
+      <problem>
+        <p>At what percentile would a result of 211 on the ABC fall? Round your answer to the nearest percentile.</p>
+      </problem>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <p>At what percentile would a result of 94 on the XYZ fall? Round your answer to the nearest percentile.</p>
+      </problem>
+    </exercise>
+    <exercise number="5" has_solution="false">
+      <problem>
+        <p>What score would fall at the first quartile on the ABC? Round your answer to the nearest whole number.</p>
+      </problem>
+    </exercise>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <p>What score would fall at the 60th percentile on the XYZ? Round your answer to the nearest whole number.</p>
+      </problem>
+    </exercise>
+    <exercise number="7" has_solution="false">
+      <problem>
+        <p>Which score is better: 202 on the ABC or 72 on the XYZ?</p>
+      </problem>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <p>Which score is better: 324 on the ABC or 94 on the XYZ?</p>
+      </problem>
+    </exercise>
+    <instruction>For the following exercises, recall that if we flip a coin at least 20 times, the distribution of the number of heads is approximately normal with mean equal to half the number of flips and standard deviation equal to half of the square root of the number of flips.</instruction>
+    <exercise number="9" has_solution="false">
+      <problem>
+        <p>What would be the mean and standard deviation for the number of heads in 80 coin flips?</p>
+      </problem>
+    </exercise>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <p>What would be the mean and standard deviation for the number of heads in 144 coin flips?</p>
+      </problem>
+    </exercise>
+    <exercise number="11" has_solution="false">
+      <problem>
+        <p>How many heads would be at the 80th percentile for 80 coin flips? Round your answer to the nearest whole number.</p>
+      </problem>
+    </exercise>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <p>How many heads would be at the 20th percentile for 144 coin flips? Round your answer to the nearest whole number.</p>
+      </problem>
+    </exercise>
+    <exercise number="13" has_solution="false">
+      <problem>
+        <p>What is the $$z$$-score for 51 heads in 80 coin flips? Round your answer to the nearest hundredth.</p>
+      </problem>
+    </exercise>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <p>What is the $$z$$-score for 87 heads in 144 coin flips? Round your answer to the nearest hundredth.</p>
+      </problem>
+    </exercise>
+    <exercise number="15" has_solution="false">
+      <problem>
+        <p>Which would be more unusual: flipping 51 heads in 80 tries or flipping 87 heads in 144 tries? How do you know?</p>
+      </problem>
+    </exercise>
+    <instruction>For the following exercises, use the data in “Wheat,” which gives the yield of wheat (in bushels) produced over several equally sized plots. (These data were collected as part of an experiment reported in “The experimental error of field trials” by W.B. Mercer and A.D. Hall).</instruction>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <p>Create a histogram of Yield to check that it’s approximately normally distributed.</p>
+      </problem>
+    </exercise>
+    <exercise number="17" has_solution="false">
+      <problem>
+        <p>Find the mean and standard deviation of Yield. Round answers to the nearest thousandth.</p>
+      </problem>
+    </exercise>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <p>What proportion of yields does the normal distribution predict should fall below 4.56? Round to the nearest thousandth.</p>
+      </problem>
+    </exercise>
+    <exercise number="19" has_solution="false">
+      <problem>
+        <p>At what percentile does the normal distribution predict a yield of 3.6 would fall? Round to the nearest whole number.</p>
+      </problem>
+    </exercise>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <p>What yield does the normal distribution estimate would fall at the 80th percentile? Round to the nearest hundredth.</p>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="false">
+      <problem>
+        <p>What yield does the normal distribution estimate would fall at the 95th percentile? Round to the nearest hundredth.</p>
+      </problem>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <p>If one of these plots yields 2.8 bushels, would that be a good or bad result? How do you know?</p>
+      </problem>
+    </exercise>
+  </exercises>
+</section>
