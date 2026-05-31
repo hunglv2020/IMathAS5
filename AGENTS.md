@@ -101,6 +101,7 @@ All paths in this document use `questions/qt-{id}/` as a placeholder. Replace `{
 | `generate-source-brief` | Generate `questions/qt-{id}/static/source_brief.xml` from books corpus |
 | `draft-static-question` | Draft `questions/qt-{id}/static/static_question*.txt` files |
 | `draft-static-solution` | Draft `questions/qt-{id}/static/static_solution*.txt` files |
+| `refine-static-solution` | Refine `questions/qt-{id}/static/static_solution*.txt` using current-unit and backward chapter context |
 | `generate-blueprint` | Generate `questions/qt-{id}/static/blueprint.txt` — parameterization design for author-imathas |
 | `write-imathas-x` | Core authoring: macro lookup, golden cases, topic guides |
 | `asciimath` | Convert LaTeX → AsciiMath (use before variable injection) |
