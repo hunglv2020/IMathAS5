@@ -1,6 +1,6 @@
 ---
 name: audit-coverage
-description: Coverage auditor for IMathAS dynamic templates. Checks whether the template adequately covers the source exercises in questions/qt-{id}/static/target_exercises.xml by preserving key ideas and assessment intent, including LMS-gradable adaptations of source framing/problem type. LLM-only — no rendering or CAS required. Writes a short report to reviews/.
+description: Coverage auditor for IMathAS dynamic templates. Checks whether the template adequately covers the source exercises in questions/qt-{id}/source/target_exercises.xml by preserving key ideas and assessment intent, including LMS-gradable adaptations of source framing/problem type. LLM-only — no rendering or CAS required. Writes a short report to reviews/.
 ---
 
 # Skill: audit-coverage
@@ -12,7 +12,7 @@ Operational contract for coverage verification of a dynamic IMathAS template aga
 ## When to Use
 
 - When a new template is created — verify it covers the source before accuracy check
-- When source exercises are updated in `questions/qt-{id}/static/target_exercises.xml`
+- When source exercises are updated in `questions/qt-{id}/source/target_exercises.xml`
 - When the template is significantly modified (question framing or technique changed)
 - On-demand: any time coverage alignment needs to be confirmed
 
@@ -38,7 +38,7 @@ Read the following files before proceeding:
 3. [questions/qt-{id}/imathas/solution.txt](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/solution.txt)
 4. [questions/qt-{id}/imathas/qtype.txt](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/qtype.txt)
 5. [questions/qt-{id}/static/source_brief.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/static/source_brief.xml) — pre-computed scope contract (**load if present**; skip silently if absent and derive all judgments from books)
-6. [questions/qt-{id}/static/target_exercises.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/static/target_exercises.xml) — source exercises (1 or many)
+6. [questions/qt-{id}/source/target_exercises.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/source/target_exercises.xml) — source exercises (1 or many)
 7. [context/active_qt.md](/home/jerry/project/IMathAS5/context/active_qt.md) — routing context; use it to locate the active `Book`, `Chapter`, `Unit`, and `Learning Objective`
 8. [shared/books/README.md](/home/jerry/project/IMathAS5/shared/books/README.md) — retrieval playbook for the authoritative textbook corpus
 9. `shared/books/{book_slug}/INDEX.md` — locate the relevant section files for concept-boundary and example lookup
@@ -72,7 +72,7 @@ No seeds or rendering required. Coverage is determined by static analysis and LL
 
 ## Step 1 — Parse Source Exercises
 
-Read `questions/qt-{id}/static/target_exercises.xml`. Extract each distinct source exercise as a unit:
+Read `questions/qt-{id}/source/target_exercises.xml`. Extract each distinct source exercise as a unit:
 - Exercise label or number (if present)
 - Routing metadata (`book_slug`, chapter, unit) when present
 - Source XML payload under `<source_xml>`
@@ -243,7 +243,7 @@ In each `[COV-NNN]` finding block: add `Score: ___/100` immediately after the `S
 Report policy:
 - Follow the exact section structure from `assets/report-template.md`.
 - The report must be self-contained; a reader should understand verdict, evidence, and next action without reading any other file.
-- If `questions/qt-{id}/static/target_exercises.xml` is missing or empty, set the overall verdict to `SOURCE_MISSING`, set `Result counts` to `PASS 0 | PARTIAL 0 | FAIL 0`, and explain the abort clearly in `Scope`, `Findings`, `Summary`, and `Summary (Vietnamese)`.
+- If `questions/qt-{id}/source/target_exercises.xml` is missing or empty, set the overall verdict to `SOURCE_MISSING`, set `Result counts` to `PASS 0 | PARTIAL 0 | FAIL 0`, and explain the abort clearly in `Scope`, `Findings`, `Summary`, and `Summary (Vietnamese)`.
 - In the `SOURCE_MISSING` case, do not fabricate `COV-001`; use the abort-note shape defined by the template instead.
 - `Summary` must be written in natural English.
 - `Summary (Vietnamese)` must appear immediately below `Summary`.

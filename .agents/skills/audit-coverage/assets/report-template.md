@@ -65,7 +65,7 @@ For `SOURCE_MISSING`, replace the per-source entries above with:
 
 [SOURCE_MISSING]
 Status    : SOURCE_MISSING
-Evidence  : `questions/qt-{id}/static/target_exercises.xml` was missing or empty, so coverage mapping could not be performed.
+Evidence  : `questions/qt-{id}/source/target_exercises.xml` was missing or empty, so coverage mapping could not be performed.
 Action    : Restore or supply the target exercises file, then rerun the coverage audit.
 
 ### Fix Tracker
@@ -90,4 +90,4 @@ Action    : Restore or supply the target exercises file, then rerun the coverage
 - Omit `Framing`, `Type`, and `Intent` from Findings only when all three are effectively MATCH/PRESERVED and the item is PASS.
 - Coverage fixes require template redesign, not text patches. Mark each Fix Tracker item with `(redesign)`. If no issues: `*(clean — no issues found)*`.
 - Each Fix Tracker item must be short (≤10 words) and self-contained — readable without opening the finding block.
-- If `questions/qt-{id}/static/target_exercises.xml` is missing or empty, use `SOURCE_MISSING` as the overall verdict, set `Result counts` to `PASS 0 | PARTIAL 0 | FAIL 0`, omit the `Scoring` section, and explain the abort in `Scope`, `Findings`, `Summary`, and `Summary (Vietnamese)`.
+- If `questions/qt-{id}/source/target_exercises.xml` is missing or empty, use `SOURCE_MISSING` as the overall verdict, set `Result counts` to `PASS 0 | PARTIAL 0 | FAIL 0`, omit the `Scoring` section, and explain the abort in `Scope`, `Findings`, `Summary`, and `Summary (Vietnamese)`.

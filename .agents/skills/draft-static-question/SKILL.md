@@ -4,11 +4,12 @@ description: >
   Draft or redraft static question files. Trigger keywords: draft question, create question,
   write question, generate question, static question, seed render, render seed, render imathas,
   question from imathas, tạo câu hỏi, viết câu hỏi, phác thảo câu hỏi, render seed,
-  câu hỏi static. Mode A: source-brief flow (three phases: Free → LMS → AsciiMath) producing
-  three files in static/. Mode B: seed render from existing questions/qt-{id}/imathas/ template.
+  câu hỏi static. Mode A: source-exercise flow grounded in target exercises, unit content,
+  and optional source_brief.xml, producing three files in static/. Mode B: seed render from
+  existing questions/qt-{id}/imathas/ template.
 metadata:
-  version: "2.0.0"
-  last_updated: "2026-05-27"
+  version: "2.1.0"
+  last_updated: "2026-05-31"
   status: active
   related_skills:
     - draft-static-solution
@@ -66,7 +67,7 @@ Evaluate at the very start, before any file reads.
 
 ---
 
-## MODE A — Source-Brief Flow
+## MODE A — Source-Exercise Flow
 
 ### When to Use
 
@@ -78,39 +79,68 @@ Evaluate at the very start, before any file reads.
 
 ### Prerequisites
 
-**Required — source_brief.xml OR books fallback:**
+**Required inputs for Mode A:**
 
-1. **Primary path:** `questions/qt-{id}/static/source_brief.xml` exists → proceed normally (full scope contract).
+1. `questions/qt-{id}/meta.xml`
+   - extract `creation_method`, `book_slug`, `chapter_title`, `unit_title`, `learning_objective_title`
 
-2. **Books fallback** (when source_brief.xml is absent):
-   a. Read `questions/qt-{id}/meta.xml` → extract `book_slug`, `chapter_title`, `unit_title`,
-      `learning_objective_title`.
-   b. Navigate `shared/books/{book_slug}/INDEX.md` → locate the chapter/section file(s).
-   c. Read the relevant XML section file(s) from `shared/books/{book_slug}/`.
-   d. Extract from book content:
-      - Primary method (the technique the section teaches)
-      - Notation conventions (exact symbols, variable names used in the book)
-      - KP types (derived from the section's exercise set and objectives)
-   e. Synthesize a minimal internal scope contract from (d). Use it exactly as you would
-      `source_brief.xml` — method gate, notation gate, KP coverage all apply.
-   f. Warn in the report:
-      ```
-      ⚠ source_brief.xml not found — drafting from books fallback.
-        Book  : {Book} / {Chapter} / {Section}
-        For higher fidelity, run generate-source-brief first.
-      ```
+2. `questions/qt-{id}/source/target_exercises.xml` **when** `<creation_method>from_target</creation_method>`
+   - this is the authoritative source-exercise anchor
+   - parse each `<exercise>` and extract:
+     - exact exercise statement
+     - shared exercise-group instructions
+     - routing metadata
+     - source XML payload
 
-3. **Hard stop** only when BOTH are missing:
+3. `shared/books/README.md`
+
+4. `shared/books/{book_slug}/INDEX.md`
+
+5. The relevant unit XML file(s) from `shared/books/{book_slug}/`
+   - unit content is mandatory in Mode A
+   - use it to calibrate notation, wording, terminology, method scope, and example style
+
+6. `questions/qt-{id}/static/source_brief.xml` if present
+   - use it as a scope-contract override/enrichment layer
+   - do not use it as a substitute for source exercises or unit content
+
+**Hard stop rules:**
+
+1. If `meta.xml` is missing or empty:
    ```
-   source_brief.xml not found AND questions/qt-{id}/meta.xml missing or empty.
-   Cannot proceed without a scope source.
+   questions/qt-{id}/meta.xml missing or empty.
+   Cannot proceed with Mode A without curriculum metadata.
+   ```
+
+2. If `<creation_method>from_target</creation_method>` and `questions/qt-{id}/source/target_exercises.xml` is missing or empty:
+   ```
+   creation_method=from_target but questions/qt-{id}/source/target_exercises.xml is missing or empty.
+   Cannot draft from the source exercise set.
 
    Needed:
-     questions/qt-{id}/meta.xml  — book_slug, chapter_title, unit_title must be filled
-     (then optionally) questions/qt-{id}/static/target_exercises.xml → run generate-source-brief
-
-   Run generate-source-brief or populate meta.xml first.
+     questions/qt-{id}/source/target_exercises.xml
    ```
+
+3. If the relevant unit XML cannot be located from `meta.xml` + `INDEX.md`:
+   ```
+   Could not locate the active unit content in shared/books/{book_slug}/.
+   Cannot proceed with Mode A without unit content for notation and method calibration.
+   ```
+
+**Scope synthesis fallback:**
+
+If `source_brief.xml` is absent, continue by synthesizing scope from:
+- `questions/qt-{id}/source/target_exercises.xml`
+- active unit content
+- surrounding book corpus only when cross-references or method-boundary checks require it
+
+Warn in the report:
+```
+⚠ source_brief.xml not found — scope synthesized from source exercises + unit content.
+  Book  : {Book} / {Chapter} / {Section}
+  Source: questions/qt-{id}/source/target_exercises.xml
+  For a reusable scope contract, run generate-source-brief first.
+```
 
 **Optional — read if present:**
 - `questions/qt-{id}/static/static_question_latex.txt` — understand previous LMS version
@@ -126,7 +156,31 @@ Evaluate at the very start, before any file reads.
 
 #### [LOAD]
 
-Read `questions/qt-{id}/static/source_brief.xml` (or the synthesized scope from books fallback). Extract and log:
+Read inputs in this order:
+
+1. `questions/qt-{id}/meta.xml`
+2. `questions/qt-{id}/source/target_exercises.xml` when `creation_method=from_target`
+3. `shared/books/README.md`
+4. `shared/books/{book_slug}/INDEX.md`
+5. the active unit XML file(s)
+6. `questions/qt-{id}/static/source_brief.xml` if present
+
+Build the internal context in three layers:
+
+**[LAYER 1 — SOURCE EXERCISE ANCHOR]**
+- exact exercise statement
+- shared exercise-group instructions
+- mathematical object / scenario in the source
+- problem type and explicit ask
+
+**[LAYER 2 — UNIT CONTENT CALIBRATION]**
+- notation conventions
+- method introduced / allowed in the unit
+- canonical terminology
+- example patterns usable as wording/task-framing anchors
+
+**[LAYER 3 — SOURCE BRIEF OVERRIDE]**
+- if `source_brief.xml` exists, extract and log:
 
 ```
 [SCOPE]
@@ -139,6 +193,12 @@ method.forbidden      : <list>
 notation_conventions  : <summary>
 structural_requirements: <any constraints>
 ```
+
+Precedence rules:
+- `source/target_exercises.xml` is the source anchor
+- unit content is the curriculum calibration layer
+- `source_brief.xml` is the scope-contract override layer
+- if `source_brief.xml` conflicts with the source exercise set, treat the source exercise set as the anchor and note the brief as stale
 
 If audit reports exist, read them and summarize:
 
@@ -162,11 +222,17 @@ then `questions/qt-{id}/static/static_question.txt`. Note the previous structure
 Read `assets/question-authoring-guide.md` before writing. Consult it for LaTeX notation
 rules, part structure rules, forbidden patterns, and the chat-vs-file boundary.
 
-**Active rules (from source_brief or books fallback scope):**
+**Active rules (from source exercise anchor + unit content + source_brief override):**
 - Cover all KPs with `must_cover: true`
 - Use only `method.primary`; never reference `method.forbidden`
 - Follow `notation_conventions`
 - Flat **(a)**, **(b)**, **(c)** structure — one answer action per part
+
+**Source exercise anchoring:**
+- The draft must be traceable to `questions/qt-{id}/source/target_exercises.xml`
+- Preserve the source exercise's key ask, problem type, and mathematical object family
+- Do not draft from unit/objective alone when `creation_method=from_target`
+- Use unit content to calibrate notation, wording, terminology, and allowed methods
 
 **Surface independence (per KP from source_brief):**
 
@@ -268,10 +334,11 @@ only). If the file already exists, overwrite without prompting.
    Ready for /author-imathas
 ```
 
-If books fallback was used:
+If scope synthesis fallback was used:
 ```
-⚠ source_brief.xml not found — drafted from books fallback.
+⚠ source_brief.xml not found — scope synthesized from source exercises + unit content.
   Book  : {Book} / {Chapter} / {Section}
+  Source: questions/qt-{id}/source/target_exercises.xml
   For higher fidelity, run generate-source-brief first.
 ```
 
@@ -328,6 +395,13 @@ The `questions/qt-{id}/imathas/` folder must exist and contain at minimum:
 > questions/qt-{id}/imathas/ template not found.
 > Mode B requires: questions/qt-{id}/imathas/qtype.txt, questions/qt-{id}/imathas/question.txt, questions/qt-{id}/imathas/control.php
 > ```
+
+Mode B does **not** read:
+- `questions/qt-{id}/meta.xml`
+- `questions/qt-{id}/source/target_exercises.xml`
+- unit content under `shared/books/`
+
+Mode B is a seed-render pipeline only. If notation, wording, method, or curriculum-scope review is needed, use a separate workflow after rendering.
 
 ---
 
@@ -449,9 +523,11 @@ Next: run draft-static-solution to generate a solution for this rendered questio
 
 | Rule | Mode A | Mode B |
 |---|---|---|
-| source_brief.xml | Primary; books fallback if absent | Not required |
-| Books fallback | Activated when source_brief.xml absent + active_qt.md present | Not applicable |
-| Hard stop | Only when source_brief.xml AND active_qt.md both missing | questions/qt-{id}/imathas/ folder missing |
+| Source anchor | `questions/qt-{id}/source/target_exercises.xml` when `creation_method=from_target` | Not used |
+| Unit content | Mandatory | Not used |
+| source_brief.xml | Override/enrichment only; optional | Not required |
+| Scope fallback | Source exercises + unit content synthesis when brief absent | Not applicable |
+| Hard stop | Missing `meta.xml`, missing source exercise set for `from_target`, or missing unit content | questions/qt-{id}/imathas/ folder missing |
 | Authoring guide | Applied in full | Not applied |
 | KP coverage | Enforced | Not enforced |
 | Paraphrase / surface independence | Enforced | Not enforced |

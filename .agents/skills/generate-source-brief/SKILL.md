@@ -26,7 +26,7 @@ in `shared/books/{book_slug}/`. Do not declare a method forbidden without book e
 ## When to Use
 
 - Before running `full-audit` — the brief must exist as a prerequisite
-- When target exercises change (new `questions/qt-{id}/static/target_exercises.xml`)
+- When target exercises change (new `questions/qt-{id}/source/target_exercises.xml`)
 - When the active unit changes (`context/active_qt.md` updated)
 - On demand: any time the scope contract needs refreshing
 
@@ -35,7 +35,7 @@ in `shared/books/{book_slug}/`. Do not declare a method forbidden without book e
 ## Prerequisites
 
 - `context/active_qt.md` — populated with Book, Chapter, Unit, Learning Objective
-- `questions/qt-{id}/static/target_exercises.xml` — contains one or more target exercises with labels
+- `questions/qt-{id}/source/target_exercises.xml` — contains one or more target exercises with labels
 - `shared/books/{book_slug}/` — textbook XML corpus (must exist)
 - `shared/books/{book_slug}/INDEX.md` — agent playbook for book navigation
 
@@ -54,7 +54,7 @@ in `shared/books/{book_slug}/`. Do not declare a method forbidden without book e
 Read:
 1. [`context/active_qt.md`](/home/jerry/project/IMathAS5/context/active_qt.md)
    → extract `Book`, `Chapter`, `Unit`, `Learning Objective`
-2. [`questions/qt-{id}/static/target_exercises.xml`](/home/jerry/project/IMathAS5/questions/qt-{id}/static/target_exercises.xml)
+2. [`questions/qt-{id}/source/target_exercises.xml`](/home/jerry/project/IMathAS5/questions/qt-{id}/source/target_exercises.xml)
    → parse all `<exercise>` elements; extract `label` attribute and `<source_xml>` content
 
 **Stop if either file is missing or empty.** Report which file is absent. Do not proceed.
