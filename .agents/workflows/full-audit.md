@@ -88,8 +88,8 @@ Proceed regardless of accuracy outcome.
 | File | Content |
 |---|---|
 | [questions/qt-{id}/reviews/coverage_report.md](/home/jerry/project/IMathAS5/questions/qt-{id}/reviews/coverage_report.md) | Coverage stage output |
-| [reviews/pedagogical_report.md](/home/jerry/project/IMathAS5/reviews/pedagogical_report.md) | Pedagogical stage output |
-| [reviews/accuracy_report_seed{N}.md](/home/jerry/project/IMathAS5/reviews/) | Accuracy stage output per seed |
+| [questions/qt-{id}/reviews/pedagogical_report.md](/home/jerry/project/IMathAS5/questions/qt-{id}/reviews/pedagogical_report.md) | Pedagogical stage output |
+| [questions/qt-{id}/reviews/accuracy_report_seed{N}.md](/home/jerry/project/IMathAS5/questions/qt-{id}/reviews/) | Accuracy stage output per seed |
 
 ---
 

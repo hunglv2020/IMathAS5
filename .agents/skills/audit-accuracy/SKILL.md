@@ -1,6 +1,6 @@
 ---
 name: audit-accuracy
-description: Accuracy auditor for IMathAS dynamic templates. Renders seeds, extracts and routes mathematical claims, runs SymPy/CAS deterministic checks, and writes a short report to reviews/ with a Fix Tracker. Applies fixes only on user request. Replaces the legacy static accuracy prompt.
+description: Accuracy auditor for IMathAS dynamic templates. Renders seeds, extracts and routes mathematical claims, runs SymPy/CAS deterministic checks, and writes a short report to questions/qt-{id}/reviews/ with a Fix Tracker. Applies fixes only on user request. Replaces the legacy static accuracy prompt.
 ---
 
 # Skill: audit-accuracy
@@ -208,7 +208,7 @@ Never silently downgrade a tool-checkable claim to a reasoned pass.
 
 ## Step 7 — Report
 
-Write a **short report** to [reviews/accuracy_report_seed{N}.md](/home/jerry/project/IMathAS5/reviews/accuracy_report_seed{N}.md).
+Write a **short report** to [questions/qt-{id}/reviews/accuracy_report_seed{N}.md](/home/jerry/project/IMathAS5/questions/qt-{id}/reviews/accuracy_report_seed{N}.md).
 
 Use the report template in [assets/report-template.md](/home/jerry/project/IMathAS5/.agents/skills/audit-accuracy/assets/report-template.md).
 
@@ -234,7 +234,7 @@ Report policy:
 
 When the user requests "fix [ACC-N]" or "fix all":
 
-1. Read [reviews/accuracy_report_seed{N}.md](/home/jerry/project/IMathAS5/reviews/accuracy_report_seed{N}.md).
+1. Read [questions/qt-{id}/reviews/accuracy_report_seed{N}.md](/home/jerry/project/IMathAS5/questions/qt-{id}/reviews/accuracy_report_seed{N}.md).
 2. For each requested code: find the Finding block, read `Root cause` and `Claim`.
 3. Open the target file in [questions/qt-{id}/imathas/](/home/jerry/project/IMathAS5/imathas/) and apply the minimal fix. Do not touch [static/](/home/jerry/project/IMathAS5/static/).
 4. If [questions/qt-{id}/imathas/control.php](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/control.php) was modified, run syntax guard before proceeding:
@@ -278,7 +278,7 @@ If nothing new to record: skip without comment.
 
 | File | Content |
 |---|---|
-| [reviews/accuracy_report_seed{N}.md](/home/jerry/project/IMathAS5/reviews/accuracy_report_seed{N}.md) | Accuracy report for seed N |
+| [questions/qt-{id}/reviews/accuracy_report_seed{N}.md](/home/jerry/project/IMathAS5/questions/qt-{id}/reviews/accuracy_report_seed{N}.md) | Accuracy report for seed N |
 | [.agents/experience/accuracy-check/lessons.md](/home/jerry/project/IMathAS5/.agents/experience/accuracy-check/lessons.md) | Experience log (updated on user request only) |
 
 ---

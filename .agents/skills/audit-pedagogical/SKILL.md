@@ -1,6 +1,6 @@
 ---
 name: audit-pedagogical
-description: Pedagogical and linguistic auditor for IMathAS dynamic templates. Reviews terminology, notation conventions, grammar, step clarity, and scope alignment using curriculum context plus direct textbook retrieval from books/. Writes a report to reviews/. Replaces the legacy pedagogical wording prompt.
+description: Pedagogical and linguistic auditor for IMathAS dynamic templates. Reviews terminology, notation conventions, grammar, step clarity, and scope alignment using curriculum context plus direct textbook retrieval from books/. Writes a report to questions/qt-{id}/reviews/. Replaces the legacy pedagogical wording prompt.
 ---
 
 # Skill: audit-pedagogical
@@ -233,7 +233,7 @@ The verdict is determined by the P1/P2 gate first; the total score informs sever
 
 ## Step 5 — Report
 
-Write report to [reviews/pedagogical_report.md](/home/jerry/project/IMathAS5/reviews/pedagogical_report.md).
+Write report to [questions/qt-{id}/reviews/pedagogical_report.md](/home/jerry/project/IMathAS5/questions/qt-{id}/reviews/pedagogical_report.md).
 
 Use the report template in [assets/report-template.md](/home/jerry/project/IMathAS5/.agents/skills/audit-pedagogical/assets/report-template.md).
 
@@ -262,7 +262,7 @@ Report policy:
 
 When the user requests "fix [PED-N]" or "fix all":
 
-1. Read [reviews/pedagogical_report.md](/home/jerry/project/IMathAS5/reviews/pedagogical_report.md).
+1. Read [questions/qt-{id}/reviews/pedagogical_report.md](/home/jerry/project/IMathAS5/questions/qt-{id}/reviews/pedagogical_report.md).
 2. For each requested code: find the Finding block, read `Location`, `Current`, and `Suggested`.
 3. Open the target file in [questions/qt-{id}/imathas/](/home/jerry/project/IMathAS5/imathas/) and apply the minimal exact-position fix. Do not touch [static/](/home/jerry/project/IMathAS5/static/).
 4. Update the checkbox in the report: `- [ ] [PED-N]` → `- [x] [PED-N]`. Do not modify any other section of the report.
@@ -291,7 +291,7 @@ If nothing new to record: skip without comment.
 
 | File | Content |
 |---|---|
-| [reviews/pedagogical_report.md](/home/jerry/project/IMathAS5/reviews/pedagogical_report.md) | Pedagogical and linguistic audit report |
+| [questions/qt-{id}/reviews/pedagogical_report.md](/home/jerry/project/IMathAS5/questions/qt-{id}/reviews/pedagogical_report.md) | Pedagogical and linguistic audit report |
 | [.agents/experience/pedagogical-check/lessons.md](/home/jerry/project/IMathAS5/.agents/experience/pedagogical-check/lessons.md) | Experience log (updated on user request only) |
 
 ---
