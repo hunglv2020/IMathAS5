@@ -53,39 +53,36 @@ Read all files below before doing anything else:
 6. [`.agents/experience/write-imathas-x/solution.md`](/home/jerry/project/IMathAS5/.agents/experience/write-imathas-x/solution.md) (if present)
 7. [`.agents/experience/write-imathas-x/qtype.md`](/home/jerry/project/IMathAS5/.agents/experience/write-imathas-x/qtype.md) (if present)
 
-**Stop early if:** `static/` files or `blueprint.md` are missing → report which files are absent, do not proceed.
+**Stop early if:** `static/` files or `blueprint.txt` are missing → report which files are absent, do not proceed.
 
 ---
 
-## [CONVERT] LaTeX → AsciiMath
+## [PREP] Use Static AsciiMath Directly
 
-**CRITICAL:** Run conversion on static files BEFORE injecting any PHP variables or `[ABi]` tags. The script will confuse `$var_name` with LaTeX `$` delimiters if injected first.
+**CRITICAL:** In IMathAS5, `static_question.txt` and `static_solution.txt` are the qualified
+AsciiMath source of truth. Do not run LaTeX conversion in Fresh Build mode.
 
 **Question:**
 
 ```
-IF questions/qt-{id}/static/static_question_with_answerboxes.txt exists (new format — static_question.txt is AsciiMath):
-  → cp questions/qt-{id}/static/static_question.txt questions/qt-{id}/imathas/question_temp.txt
-ELSE (legacy flat LaTeX file):
-  → uv run .agents/skills/asciimath/scripts/cli.py questions/qt-{id}/static/static_question.txt questions/qt-{id}/imathas/question_temp.txt
+cp questions/qt-{id}/static/static_question.txt questions/qt-{id}/imathas/question_temp.txt
 ```
 
 **Solution:**
 
 ```
-IF questions/qt-{id}/static/static_solution_latex.txt exists (new format — static_solution.txt is AsciiMath):
-  → cp questions/qt-{id}/static/static_solution.txt questions/qt-{id}/imathas/solution_temp.txt
-ELSE (legacy flat LaTeX file):
-  → uv run .agents/skills/asciimath/scripts/cli.py questions/qt-{id}/static/static_solution.txt questions/qt-{id}/imathas/solution_temp.txt
+cp questions/qt-{id}/static/static_solution.txt questions/qt-{id}/imathas/solution_temp.txt
 ```
 
-Stop if conversion errors occur. Read `question_temp.txt` and `solution_temp.txt` to confirm AsciiMath output before continuing.
+`static_question_latex.txt` and `static_solution_latex.txt` may exist as reference artifacts, but
+they are not inputs to this workflow. Stop if either copy fails. Read `question_temp.txt` and
+`solution_temp.txt` to confirm the AsciiMath source before continuing.
 
 ---
 
 ## [PARSE] Establish Organization and Answerbox Mapping
 
-- Read converted temp files. Find all `[ANSWERBOX]` tags.
+- Read the temp files copied from `static/`. Find all `[ANSWERBOX]` tags.
 - Consult `write-imathas-x` skill → [topics/answerbox/guide.md](/home/jerry/project/IMathAS5/.agents/skills/write-imathas-x/topics/answerbox/guide.md) to plan ZONE 4 arrays.
 - Overwrite `questions/qt-{id}/imathas/question.txt` and `questions/qt-{id}/imathas/solution.txt` with `[ABi]` structure. Preserve numbers and AsciiMath at this stage. Remove noisy content.
 - Delete temp files after overwrite is complete.
