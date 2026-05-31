@@ -118,6 +118,8 @@ uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control-
 
 **5. Inject variables** into `question.txt` and `solution.txt` via Search & Replace.
 
+**Injection default:** inline simple one-off expressions directly in `question.txt` / `solution.txt` using existing randomized scalars, instead of creating new ZONE 2 display vars. Add a display var only when the expression is reused, structurally fragile, or needs formatting normalization.
+
 **6. Text integrity check** (threshold 0.95):
 
 `questions/qt-{id}/static/static_question.txt` and `questions/qt-{id}/static/static_solution.txt` are already AsciiMath — compare directly:

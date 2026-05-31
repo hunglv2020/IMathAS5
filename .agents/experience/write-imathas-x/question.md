@@ -6,7 +6,7 @@ Each entry records a non-obvious lesson about question.txt authoring that is use
 ---
 
 ## Quick Index (AI-maintained)
-- VARIABLE_INJECTION: inject one preformatted $Cdisp/$ddisp instead of rebuilding structure from many scalars (2026-04-21) ← cross-ref: control.md
+- VARIABLE_INJECTION: inline simple one-off expressions; reserve preformatted vars like $Cdisp/$ddisp for structured or reused objects (2026-05-31) ← cross-ref: solution.md
 - AB_TAG: keep answerbox stem and [ABi] as separate tags in question.txt (2026-04-21)
 - DISPLAY_EDGE_CASE: AsciiMath bold vectors use bb(...) not bb{...}; choices options → $questions[i] in control.php (2026-04-20)
 - TEXTVAR_IN_QUESTION: use note block to narrow student syntax when symbolic answerbox is partially constrained (2026-04-21)
@@ -60,3 +60,9 @@ context (vs solution context), wording that degrades after substitution, and dis
 **Context:** Fresh-build linear algebra MCQ where the static source already contains four fully written interpretation statements
 **Lesson:** For `choices` answerboxes, keep only the prompt stem and `[ABi]` placeholder in `question.txt`, and place the full A–D option text in `$questions[i]` inside `control.php`. Duplicating the options in `question.txt` creates drift risk and fights the normal IMathAS `choices` pattern.
 **Applies to:** ANSWERBOX_MAPPING | VARIABLE_INJECTION | AB_TAG
+
+**Date:** 2026-05-31
+**Context:** Dynamic authoring review for simple limit/series templates with one-off algebra substitutions
+**Lesson:** Use inline injection in `question.txt` by default for simple one-use expressions built from existing randomized scalars. Reserve preformatted display vars such as `$Cdisp` or `$ddisp` for structured objects, reused expressions, or cases that truly need formatting normalization. Moving one-off algebra text into `control.php` without a display reason adds drift and makes the source harder to audit against the static wording.
+**Applies to:** VARIABLE_INJECTION | TEXTVAR_IN_QUESTION | DISPLAY_EDGE_CASE
+**cross-ref:** solution.md (2026-05-31 — same inline-first rule for solution steps)

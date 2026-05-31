@@ -159,7 +159,32 @@ ZONE 5   Grading config
          $variables[i], $domain[i], $requiretimes[i], $abstolerance[i], $showanswer[i]
 ```
 
-### 3.5 Interpolation Convention (MANDATORY)
+### 3.5 Inline-First Display Policy
+
+Do not reflexively move dynamic math text into ZONE 2 display variables.
+
+- Inline simple one-use expressions directly in `question.txt` / `solution.txt`.
+- Create a display var only when one of these applies:
+  - the expression is reused
+  - the object is structurally fragile inline (matrix, vector, long coordinated object)
+  - a formatting macro is needed
+  - the prose becomes materially less readable without a named display var
+
+Good default:
+
+```text
+`lim_(n->oo)((n+{$k})/n)/((sqrt(n^2+{$c}))/n)`
+```
+
+Avoid:
+
+```php
+$limitstep1disp = "lim_(n->oo)((n+{$k})/n)/((sqrt(n^2+{$c}))/n)";
+```
+
+when the value is injected only once and needs no normalization.
+
+### 3.6 Interpolation Convention (MANDATORY)
 
 All string assembly in ZONE 2§2A uses `{$var}` brace wrapping exclusively.
 

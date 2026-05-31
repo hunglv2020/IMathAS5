@@ -163,6 +163,30 @@ When writing or patching any of `control.php` / `question.txt` / `solution.txt`:
 
 ---
 
+### RULE A3.5 — Inline-First Injection Policy (HARD)
+
+Default to **inline injection in `question.txt` and `solution.txt`** for simple expressions that are used once.
+
+Prefer writing expressions directly in text, for example:
+
+```text
+`lim_(n->oo)((n+{$k})/n)/((sqrt(n^2+{$c}))/n)`
+```
+
+Do **not** create a new ZONE 2 display variable unless at least one of these is true:
+
+1. The same expression is reused in multiple places.
+2. The expression is a structured object whose punctuation/layout is fragile inline
+   (for example matrices, vectors, long piecewise-style displays, coordinated option sets).
+3. A formatting/normalization macro is actually needed.
+4. Keeping it inline would make the prose materially harder to read or maintain.
+
+**Anti-pattern:** moving one-off algebra lines such as `$limitstep1disp` into `control.php` when they are only injected once and need no normalization.
+
+**Why:** unnecessary display vars bloat `control.php`, reduce text-integrity against static sources, and obscure whether a value is true logic or just copied presentation.
+
+---
+
 ### RULE A4 — Banned Constructs (HARD)
 
 | Construct | Alternative |

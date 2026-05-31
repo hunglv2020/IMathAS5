@@ -18,6 +18,18 @@ _Candidate for promotion to `topics/cases/` when generalized enough to lose sess
 
 ---
 
+## Inline-First Algebra Injection
+**Promoted from:** question.md + solution.md (2026-05-31, simple limit/series authoring review)
+**Pattern:**
+1. Keep simple one-off algebra expressions inline in `question.txt` or `solution.txt`.
+2. Interpolate existing randomized scalars directly inside the backticked AsciiMath.
+3. Create a ZONE 2 display var only if the expression is reused, structurally fragile, or needs normalization by macro.
+4. Treat matrix/vector/piecewise/long coordinated displays as the main exceptions.
+**Applies to:** VARIABLE_INJECTION | STEP_FLOW | ASCIIMATH_DISPLAY
+**Skill promotion status:** Candidate → general authoring default
+
+---
+
 ## numfunc for Symbolic Matrix Answers
 **Promoted from:** control.md + qtype.md (2026-04-21, Leontief symbolic matrix)
 **Pattern:** When `numfunc` is used for matrix-style symbolic answers:

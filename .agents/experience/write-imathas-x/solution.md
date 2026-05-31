@@ -6,7 +6,7 @@ Each entry records a non-obvious lesson about solution.txt authoring that is use
 ---
 
 ## Quick Index (AI-maintained)
-- STEP_FLOW: inject whole-step display vars ($step5disp) not many entry-level scalars (2026-04-21) ← cross-ref: control.md
+- STEP_FLOW: inline simple one-use algebra lines; use step-level display vars only for structured/reused displays (2026-05-31) ← cross-ref: question.md
 - ASCIIMATH_DISPLAY: re-render seed immediately after replacing arrow tokens with prose (2026-04-21)
 - DEFINITION_FIRST: replace citation-only phrases (e.g., "By Definition ...") with the actual definition at point-of-use for student-facing coherence (2026-05-01)
 - MATRIX_PRESENTATION: avoid "first/second/third component" prose when step intent is matrix multiplication; show the vector result directly in matrix form (2026-05-01)
@@ -48,3 +48,9 @@ where the solution text became misleading or incorrect after parameterization.
 **Context:** Solution rewrite for matrix-equation conversion in Unit 1.4 (`Ax=b`) with readability constraints
 **Lesson:** For beginner-facing linear algebra flow, avoid citation-only wording like "By Definition 2.2.1" and write the definition explicitly at the step where it is used. When computing `vec b`, present the matrix product expansion directly as a column vector, rather than narrating separate first/second/third components.
 **Applies to:** STEP_FLOW | ASCIIMATH_DISPLAY | SOLUTION_COMPLETENESS
+
+**Date:** 2026-05-31
+**Context:** Dynamic authoring review for simple limit steps that were unnecessarily moved into ZONE 2 display vars
+**Lesson:** In `solution.txt`, keep simple one-off algebra lines inline when they are used once and need no normalization, for example `` `lim_(n->oo)((n+{$k})/n)/((sqrt(n^2+{$c}))/n)` ``. Use step-level display vars only when the line is reused, structurally fragile, or materially clearer as a named object. The older “whole-step display var” pattern is for matrix- and layout-heavy work, not a blanket rule for routine algebra steps.
+**Applies to:** STEP_FLOW | ASCIIMATH_DISPLAY | VARIABLE_INJECTION | SOLUTION_COMPLETENESS
+**cross-ref:** question.md (2026-05-31 — inline-first policy for question text)

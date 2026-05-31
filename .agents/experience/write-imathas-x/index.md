@@ -24,7 +24,7 @@ _After writing a new experience entry, update the relevant bullet below._
 - RANDOMIZER_GCD_GUARD: force each source column to contain at least one `±1` using `where ... || ...` to reduce scalar-factor false positives (2026-05-01)
 
 ## question.md
-- VARIABLE_INJECTION: inject one preformatted $Cdisp/$ddisp instead of rebuilding structure from many scalars (2026-04-21) ← cross-ref: control.md
+- VARIABLE_INJECTION: inline simple one-off expressions; reserve preformatted vars like $Cdisp/$ddisp for structured or reused objects (2026-05-31) ← cross-ref: solution.md
 - AB_TAG: keep answerbox stem and [ABi] as separate tags in question.txt (2026-04-21)
 - DISPLAY_EDGE_CASE: AsciiMath bold vectors use bb(...) not bb{...}; choices options → $questions[i] in control.php (2026-04-20)
 - TEXTVAR_IN_QUESTION: use note block to narrow student syntax when symbolic answerbox is partially constrained (2026-04-21)
@@ -32,7 +32,7 @@ _After writing a new experience entry, update the relevant bullet below._
 - MCQ_INTEGRITY: for `choices`, keep only the stem in question.txt and move full A–D option text into `$questions[i]` in control.php (2026-05-12)
 
 ## solution.md
-- STEP_FLOW: inject whole-step display vars ($step5disp) not many entry-level scalars (2026-04-21) ← cross-ref: control.md
+- STEP_FLOW: inline simple one-use algebra lines; use step-level display vars only for structured/reused displays (2026-05-31) ← cross-ref: question.md
 - ASCIIMATH_DISPLAY: re-render seed immediately after replacing arrow tokens with prose (2026-04-21)
 - DEFINITION_FIRST: replace citation-only wording with explicit definition at point-of-use (2026-05-01)
 - MATRIX_PRESENTATION: show matrix-product result directly in vector form instead of first/second/third-component prose (2026-05-01)
