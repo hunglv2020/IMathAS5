@@ -29,6 +29,8 @@ use the `calc` variant (`calcinterval` not `interval`, `calcntuple` not `ntuple`
 ## Numeric — `calculated`
 
 Use for **all numeric answers**: integers, fractions, radicals, π-based, powers.
+This is also the default for prompts that ask for a value **if it exists** and instruct
+students to enter `DNE` when no value exists, or when a series diverges.
 
 ```
 [ANSWERBOX:calculated::"1/3"]
@@ -36,9 +38,13 @@ Use for **all numeric answers**: integers, fractions, radicals, π-based, powers
 [ANSWERBOX:calculated::"2^10"]
 [ANSWERBOX:calculated::"pi/4"]
 [ANSWERBOX:calculated::"3/2"]
+[ANSWERBOX:calculated::"DNE"]
 ```
 
 In question: `$$k =$$ [ANSWERBOX:calculated::"sqrt(169)"]`
+
+For prompts such as "Find the sum if it converges. If the series diverges, enter DNE.",
+continue to use `calculated` rather than switching to `string`.
 
 ---
 
