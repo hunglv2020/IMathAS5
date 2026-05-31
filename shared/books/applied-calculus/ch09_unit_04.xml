@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section_file chapter="ch09" chapter_number="9" section="unit_04" section_number="4">
+  <section number="9.4" title="Approximate Solutions of Differential Equations">
+    <subsection title="Euler’s Method">
+      <paragraph>
+        As in the case of definite integrals, there are many differential equations whose exact solutions cannot be found by using any of the available methods. Here again, we resort to approximate solutions.
+      </paragraph>
+      <paragraph>
+        Many numerical methods have been developed for the efficient computation of approximate solutions to differential equations. In this section, we will look at a method for solving the problem
+      </paragraph>
+      <paragraph>
+        <math display="block">$$\frac{\mathit{dy}}{\mathit{dx}} = F\left( {x,y} \right)\qquad y\left( x_{0} \right) = y_{0}$$</math>
+      </paragraph>
+      <paragraph>
+        <term>Euler’s method</term> , named after Leonhard Euler (1707–1783), describes a way of finding an approximate solution of Equation (12). Basically, the technique calls for approximating the actual solution <math display="inline">$$y = f(x)$$</math> at certain selected values of <math display="inline">$$x$$</math> . The values of <math display="inline">$$f$$</math> between two adjacent values of <math display="inline">$$x$$</math> are then found by linear interpolation. This situation is depicted geometrically in Figure 13. Thus, in Euler’s method, the actual solution curve of the differential equation is approximated by a suitable polygonal curve.
+      </paragraph>
+      <figure number="13" caption="Using Euler’s method, the actual solution curve of the differential equation is approximated by a polygonal curve.">
+        <alt_text>Two curves are graphed in the x y coordinate plane. The x axis has five equidistant tick marks: x_0, x_1, x_, 2, x_3, and, x_4. From each of these marks, vertical lines rise up from the x axis, parallel to the y axis till the upper curve. The first curve begins directly above the mark x_0 with a marked point, descends to the right, concave up, reaches a low point directly above the mark x_1 and y is an unknown value. The curve then rises upward to the right, concave up, inflects above and a little to the right of the mark x_2, y is unknown, rises upward to the right, now concave down, bulges upward as it rises directly above the mark x_3, y is unknown and continues rising to the right and meet the line from x_4, y is unknown and continues into the first quadrant. Above the curve, the text, Actual solution y = f(x) appears. The second curve which is entirely below the other curve is a polygon curve and is made up of four connected line segments. This curve begins exactly at the same point as the upper curve, slopes downward linearly to the right till it meets the line from x_1 with a marked point, rises gradually upward to the right till it meets the line from x_2, and continues rising linearly more steeply, to the right, cuts the line from x_3 with a marked point and then meets the line from x_4 where it ends with a marked point. The third and fourth segments have the same slope. A text approximate solution appears near the curve with an arrow pointing towards it.</alt_text>
+      </figure>
+      <paragraph>
+        To describe the method, let <math display="inline">$$h$$</math> be a small positive number and let <math display="inline">$$x_{n} = x_{0} + nh$$</math> , where <math display="inline">$$n = 1,2,3,\ldots$$</math> ; that is,
+      </paragraph>
+      <paragraph>
+        <math display="block">$$x_{1} = x_{0} + h\qquad x_{2} = x_{0} + 2h\qquad x_{3} = x_{0} + 3h\qquad\ldots$$</math>
+      </paragraph>
+      <paragraph>
+        Thus, the points <math display="inline">$$x_{0},x_{1},x_{2},x_{3},\ldots$$</math> are spaced evenly apart, and the distance between any two adjacent points is <math display="inline">$$h$$</math> units.
+      </paragraph>
+      <paragraph>
+        We begin by finding an approximation <math display="inline">$$y_{1}$$</math> to the value of the actual solution, <math display="inline">$$f\left( x_{1} \right)$$</math> at <math display="inline">$$x = x_{1}$$</math> . Observe that the <em>initial</em> condition <math display="inline">$$y\left( x_{0} \right) = y_{0}$$</math> of <math display="inline">$$(12)$$</math> tells us that the point <math display="inline">$$\left( {x_{0},y_{0}} \right)$$</math> lies on the solution curve. Euler’s method calls for approximating the part of the graph of <math display="inline">$$f$$</math> on the interval <math display="inline">$$\left\lbrack {x_{0},x_{1}} \right\rbrack$$</math> by the straight-line segment that is tangent to the graph of <math display="inline">$$f$$</math> at <math display="inline">$$\left( {x_{0},y_{0}} \right)$$</math> . To find an equation of this straight-line segment, observe that the slope of this line segment is equal to <math display="inline">$$F\left( {x_{0},y_{0}} \right)$$</math> . So using the point-slope form of an equation of a line, we see that the required equation is
+      </paragraph>
+      <paragraph>
+        <math display="block">$$y - y_{0} = F\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right)$$</math>
+      </paragraph>
+      <paragraph>
+        or
+      </paragraph>
+      <paragraph>
+        <math display="block">$$y = y_{0} + F\left( {x_{0},y_{0}} \right)\left( {x - x_{0}} \right)$$</math>
+      </paragraph>
+      <note title="Algebra">
+        <paragraph>
+          See Example 6.
+        </paragraph>
+      </note>
+      <paragraph>
+        Therefore, the approximation <math display="inline">$$y_{1}$$</math> to <math display="inline">$$f\left( x_{1} \right)$$</math> is obtained by replacing <math display="inline">$$x$$</math> by <math display="inline">$$x_{1}$$</math> . Thus,
+      </paragraph>
+      <paragraph>
+        <math display="block">$$\begin{array}{l}
+  {y_{1} = {y_{0} + F\left( {x_{0},y_{0}} \right)\left( {x_{1} - x_{0}} \right)}} \\
+  {\phantom{y_{1}} = {y_{0} + F\left( {x_{0},y_{0}} \right)h}\qquad{{Since}x_{1} - x_{0} = h}}
+  \end{array}$$</math>
+      </paragraph>
+      <paragraph>
+        This situation is depicted in Figure 14.
+      </paragraph>
+      <figure number="14" caption="y 1 = y 0 + h F ( x 0 , y 0 ) is the number used to approximate f ( x 1 ) .">
+        <alt_text>A curve and a line segment are graphed in the first quadrant of the x y coordinate plane. The y axis is unmarked. The x axis has three equidistant tick marks x_0, x_1, and, x_2. From each of these marks, a vertical line rises upward from the x axis, meeting the curve. The curve begins with a marked point labeled (x_0, y_0) where the line from the mark x_0 meets the curve. The curve then descends to the right, concave up and reaches a low point at (x_1, f(x_1)) where the vertical line from x_1 meets the curve. The curve then rises upward to the right concave up, into the first quadrant meeting the vertical line from x_2 along its path. Above the curve, the text Actual solution y = f(x) appears. The line segment begins at the same point the curve does, descends linearly to the right, meeting the line from x_1 at a marked point labeled (x_1, y_1), a little below (x_1, f(x_1)).</alt_text>
+      </figure>
+      <paragraph>
+        Next, to find an approximation <math display="inline">$$y_{2}$$</math> to the value of the actual solution, <math display="inline">$$f\left( x_{2} \right)$$</math> , at <math display="inline">$$x = x_{2}$$</math> , we repeat the preceding procedure but this time we take the slope of the straight-line segment on <math display="inline">$$\left\lbrack {x_{1},x_{2}} \right\rbrack$$</math> to be <math display="inline">$$F\left( {x_{1},y_{1}} \right)$$</math> . We obtain
+      </paragraph>
+      <paragraph>
+        <math display="block">$$y_{2} = y_{1} + F\left( {x_{1},y_{1}} \right)h$$</math>
+      </paragraph>
+      <paragraph>
+        (See Figure 15.)
+      </paragraph>
+      <figure number="15" caption="y 2 = y 1 + h F ( x 1 , y 1 ) is the number used to approximate f ( x 2 ) .">
+        <alt_text>Two curves are graphed in the first quadrant of the x y coordinate plane. The x axis has three equidistant tick marks x_0, x_1, and, x_2. From each of these marks, a vertical line rises upward from the x axis, meeting the curve. The y axis is unmarked. The curve begins with a marked point where the line from the mark x_0 meets the curve. The curve then descends to the right, concave up and reaches a low point at (x_1, f(x_1)) where the vertical line from x_1 meets the curve. The curve then rises upward to the right concave up, passes through a marked point labeled (x_2, f(x_2)) where it meets the vertical line from x_2 at this point and then continues into the first quadrant. Above the curve, the text Actual solution y = f(x) appears. The second curve is a polygonal curve and is entirely below the first one. It begins at the same point the as the previous curve, descends linearly to the right, meeting the line from x_1 at a marked point labeled (x_1, y_1), a very small distance directly below (x_1, f(x_1)) and then ascends linearly to the right meeting the line from x_2 where it ends with a marked point labeled (x_2, y_2), a small distance directly below the point (x_2, f(x_2)).</alt_text>
+      </figure>
+      <paragraph>
+        Continuing in this manner, we see that <math display="inline">$$y_{1},y_{2},\ldots,y_{n}$$</math> can be found by the general formula
+      </paragraph>
+      <paragraph>
+        <math display="block">$$y_{n} = y_{n - 1} + hF\left( {x_{n - 1},y_{n - 1}} \right)\qquad\left( {n = 1,2,\ldots} \right)$$</math>
+      </paragraph>
+      <paragraph>
+        We now summarize this procedure.
+      </paragraph>
+      <note title="Euler’s Method">
+        <paragraph>
+          Suppose we are given the differential equation
+        </paragraph>
+        <paragraph>
+          subject to the initial condition <math display="inline">$$y\left( x_{0} \right) = y_{0}$$</math> and we wish to find an approximation of <math display="inline">$$y(b)$$</math> , where <math display="inline">$$b$$</math> is a number greater than <math display="inline">$$x_{0}$$</math> and <math display="inline">$$n$$</math> is a positive integer. Compute
+        </paragraph>
+        <paragraph>
+          and
+        </paragraph>
+        <paragraph>
+          Then <math display="inline">$$y_{n}$$</math> gives an approximation of the true value <math display="inline">$$y(b)$$</math> of the solution to the initial-value problem at <math display="inline">$$x = b$$</math> .
+        </paragraph>
+      </note>
+    </subsection>
+  </section>
+  <subsection title="Solving Differential Equations with Euler’s Method">
+    <example number="1">
+      <problem>
+        <paragraph>
+          Use Euler’s method with <math display="inline">$$n = 8$$</math> to obtain an approximation of the solution of the initial-value problem
+        </paragraph>
+        <paragraph>
+          <math display="block">$$y^{\prime} = x - y\qquad y(0) = 1$$</math>
+        </paragraph>
+        <paragraph>
+          when <math display="inline">$$x = 2$$</math> .
+        </paragraph>
+      </problem>
+      <solution>
+        <paragraph>
+          Here, <math display="inline">$$x_{0} = 0$$</math> and <math display="inline">$$b = 2$$</math> , so taking <math display="inline">$$n = 8$$</math> , we find
+        </paragraph>
+        <paragraph>
+          <math display="block">$$h = \frac{2 - 0}{8} = \frac{1}{4}$$</math>
+        </paragraph>
+        <paragraph>
+          and
+        </paragraph>
+        <paragraph>
+          <math display="block">$$x_{0} = 0\qquad x_{1} = \frac{1}{4}\qquad x_{2} = \frac{1}{2}\qquad x_{3} = \frac{3}{4}\qquad x_{4} = 1$$</math>
+        </paragraph>
+        <paragraph>
+          <math display="block">$$x_{5} = \frac{5}{4}\qquad x_{6} = \frac{3}{2}\qquad x_{7} = \frac{7}{4}\qquad x_{8} = b = 2$$</math>
+        </paragraph>
+        <paragraph>
+          Also,
+        </paragraph>
+        <paragraph>
+          <math display="block">$$F{\left( {x,y} \right) = x - y}$$</math>
+        </paragraph>
+        <paragraph>
+          and
+        </paragraph>
+        <paragraph>
+          <math display="block">$$y_{0} = y(0) = 1$$</math>
+        </paragraph>
+        <paragraph>
+          Therefore, the approximations of the actual solution at the points <math display="inline">$$x_{0},x_{1},x_{2},\ldots,x_{n} = b$$</math> are
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\begin{array}{rll}
+  y_{0} &amp; = &amp; {y(0) = 1} \\
+  y_{1} &amp; = &amp; {y_{0} + hF\left( {x_{0},y_{0}} \right) = 1 + \frac{1}{4}\left( {0 - 1} \right) = \frac{3}{4}} \\
+  y_{2} &amp; = &amp; {y_{1} + hF\left( {x_{1},y_{1}} \right) = \frac{3}{4} + \frac{1}{4}\left( {\frac{1}{4} - \frac{3}{4}} \right) = \frac{5}{8}} \\
+  y_{3} &amp; = &amp; {y_{2} + hF\left( {x_{2},y_{2}} \right) = \frac{5}{8} + \frac{1}{4}\left( {\frac{1}{2} - \frac{5}{8}} \right) = \frac{19}{32}} \\
+  y_{4} &amp; = &amp; {y_{3} + hF\left( {x_{3},y_{3}} \right) = \frac{19}{32} + \frac{1}{4}\left( {\frac{3}{4} - \frac{19}{32}} \right) = \frac{81}{128}} \\
+  y_{5} &amp; = &amp; {y_{4} + hF\left( {x_{4},y_{4}} \right) = \frac{81}{128} + \frac{1}{4}\left( {1 - \frac{81}{128}} \right) = \frac{371}{512}} \\
+  y_{6} &amp; = &amp; {y_{5} + hF\left( {x_{5},y_{5}} \right) = \frac{371}{512} + \frac{1}{4}\left( {\frac{5}{4} - \frac{371}{512}} \right) = \frac{1753}{2048}} \\
+  y_{7} &amp; = &amp; {y_{6} + hF\left( {x_{6},y_{6}} \right) = \frac{1753}{2048} + \frac{1}{4}\left( {\frac{3}{2} - \frac{1753}{2048}} \right) = \frac{8331}{8192}} \\
+  y_{8} &amp; = &amp; {y_{7} + hF\left( {x_{7},y_{7}} \right) = \frac{8331}{8192} + \frac{1}{4}\left( {\frac{7}{4} - \frac{8331}{8192}} \right) = \frac{39,329}{32,768}}
+  \end{array}$$</math>
+        </paragraph>
+        <paragraph>
+          Thus, the approximate value of <math display="inline">$$y(2)$$</math> is
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\frac{39,329}{32,768} \approx 1.2002$$</math>
+        </paragraph>
+      </solution>
+    </example>
+    <example number="2">
+      <problem>
+        <paragraph>
+          Use Euler’s method with
+        </paragraph>
+        <list ordered="false">
+          <item>
+            <paragraph>
+              <math display="inline">$$n = 5$$</math> and
+            </paragraph>
+          </item>
+          <item>
+            <paragraph>
+              <math display="inline">$$n = 10$$</math> to approximate the solution of the initial-value problem
+            </paragraph>
+          </item>
+        </list>
+        <paragraph>
+          <math display="block">$$y^{\prime} = - 2\mathit{xy}^{2}\qquad y(0) = 1$$</math>
+        </paragraph>
+        <paragraph>
+          on the interval <math display="inline">$$\lbrack 0,0.5\rbrack$$</math> . Find the actual solution of the initial-value problem. Finally, sketch the graphs of the approximate solutions and the actual solution for <math display="inline">$$0 \leq x \leq 0.5$$</math> on the same set of axes.
+        </paragraph>
+      </problem>
+      <solution>
+        <list ordered="true">
+          <item>
+            <paragraph>
+              Here, <math display="inline">$$x_{0} = 0$$</math> and <math display="inline">$$b = 0.5$$</math> . Taking <math display="inline">$$n = 5$$</math> , we find
+            </paragraph>
+            <paragraph>
+              <math display="block">$$h = \frac{0.5 - 0}{5} = 0.1$$</math>
+            </paragraph>
+            <paragraph>
+              and <math display="inline">$$x_{0} = 0$$</math> , <math display="inline">$$x_{1} = 0.1$$</math> , <math display="inline">$$x_{2} = 0.2$$</math> , <math display="inline">$$x_{3} = 0.3$$</math> , <math display="inline">$$x_{4} = 0.4$$</math> , and <math display="inline">$$x_{5} = b = 0.5$$</math> . Also,
+            </paragraph>
+            <paragraph>
+              <math display="block">$$F\left( {x,y} \right) = - 2\mathit{xy}^{2}$$</math>
+            </paragraph>
+            <paragraph>
+              and
+            </paragraph>
+            <paragraph>
+              <math display="block">$$y_{0} = y(0) = 1$$</math>
+            </paragraph>
+            <paragraph>
+              Therefore,
+            </paragraph>
+            <paragraph>
+              <math display="block">$$\begin{array}{rll}
+  y_{0} &amp; = &amp; {y(0) = 1} \\
+  y_{1} &amp; = &amp; {y_{0} + hF\left( {x_{0},y_{0}} \right) = 1 + 0.1\left( {- 2} \right)(0)(1)^{2} = 1} \\
+  y_{2} &amp; = &amp; {y_{1} + hF\left( {x_{1},y_{1}} \right) = 1 + 0.1\left( {- 2} \right)(0.1)(1)^{2} = 0.98} \\
+  y_{3} &amp; = &amp; {y_{2} + hF\left( {x_{2},y_{2}} \right) = 0.98 + 0.1\left( {- 2} \right)(0.2)(0.98)^{2} \approx 0.9416} \\
+  y_{4} &amp; = &amp; {y_{3} + hF\left( {x_{3},y_{3}} \right) = 0.9416 + 0.1\left( {- 2} \right)(0.3)(0.9416)^{2} \approx 0.8884} \\
+  y_{5} &amp; = &amp; {y_{4} + hF\left( {x_{4},y_{4}} \right) = 0.8884 + 0.1\left( {- 2} \right)(0.4)(0.8884)^{2} \approx 0.8253}
+  \end{array}$$</math>
+            </paragraph>
+          </item>
+          <item>
+            <paragraph>
+              Here, <math display="inline">$$x_{0} = 0$$</math> and <math display="inline">$$b = 0.5$$</math> . Taking <math display="inline">$$n = 10$$</math> , we find
+            </paragraph>
+            <paragraph>
+              <math display="block">$$h = \frac{0.5 - 0}{10}$$</math>
+            </paragraph>
+            <paragraph>
+              and <math display="inline">$$x_{0} = 0,x_{1} = 0.05,x_{2} = 0.10,\ldots,x_{9} = 0.45,$$</math> and <math display="inline">$$x_{10} = 0.5 = b$$</math> . Proceeding as in part (a), we obtain the approximate solutions listed in the following table:
+            </paragraph>
+            <table>
+              <tbody>
+                <row>
+                  <cell>
+                    <paragraph>
+                      <math display="inline">$$\mathbf{x}$$</math>
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.00
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.05
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.10
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.15
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.20
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.25
+                    </paragraph>
+                  </cell>
+                </row>
+                <row>
+                  <cell>
+                    <paragraph>
+                      <math display="inline">$$\mathbf{y}_{\mathbf{n}}$$</math>
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.0000
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.0000
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.9950
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.9851
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.9705
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.9517
+                    </paragraph>
+                  </cell>
+                </row>
+              </tbody>
+            </table>
+            <table>
+              <tbody>
+                <row>
+                  <cell>
+                    <paragraph>
+                      <math display="inline">$$\mathbf{x}$$</math>
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.30
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.35
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.40
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.45
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.50
+                    </paragraph>
+                  </cell>
+                </row>
+                <row>
+                  <cell>
+                    <paragraph>
+                      <math display="inline">$$\mathbf{y}_{\mathbf{n}}$$</math>
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.9291
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.9032
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.8746
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.8440
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.8119
+                    </paragraph>
+                  </cell>
+                </row>
+              </tbody>
+            </table>
+            <paragraph>
+              To obtain the actual solution of the differential equation, we separate variables, obtaining
+            </paragraph>
+            <paragraph>
+              <math display="block">$$\frac{\mathit{dy}}{y^{2}} = - 2x\mathit{dx}$$</math>
+            </paragraph>
+            <paragraph>
+              Integrating each side of the last equation with respect to the appropriate variable, we have
+            </paragraph>
+            <paragraph>
+              <math display="block">$${\int\frac{\mathit{dy}}{y^{2}}} = - {\int{2x\mathit{dx}}}$$</math>
+            </paragraph>
+            <paragraph>
+              or
+            </paragraph>
+            <paragraph>
+              <math display="block">$$\begin{array}{rll}
+  {- \frac{1}{y} + C_{1}} &amp; = &amp; {- x^{2} + C_{2}} \\
+  \frac{1}{y} &amp; = &amp; {{x^{2} + C}\qquad{C = C_{1} - C_{2}}} \\
+  y &amp; = &amp; \frac{1}{x^{2} + C}
+  \end{array}$$</math>
+            </paragraph>
+            <paragraph>
+              Using the condition <math display="inline">$$y(0) = 1$$</math> , we have
+            </paragraph>
+            <paragraph>
+              <math display="block">$$1 = \frac{1}{0 + C}$$</math>
+            </paragraph>
+            <paragraph>
+              or
+            </paragraph>
+            <paragraph>
+              <math display="block">$$C = 1$$</math>
+            </paragraph>
+            <paragraph>
+              Therefore, the required solution is given by
+            </paragraph>
+            <paragraph>
+              <math display="block">$$y = \frac{1}{x^{2} + 1}$$</math>
+            </paragraph>
+          </item>
+        </list>
+        <paragraph>
+          The graphs of the approximate solutions and the actual solution are sketched in Figure 16.
+        </paragraph>
+        <figure number="16" caption="The approximate solutions and the actual solution to an initial-value problem">
+          <alt_text>Three curves are graphed in the first quadrant of the x y coordinate plane. The x axis is marked from 0 to 0.5 in increments of 0.5. The y axis is marked from 0 to 1.0 in increments of 0.05. There is an axis breaker below the mark 0.8 on the y axis. The first curve, which is below the other two, is labeled actual solution. The curve begins at (0, 1.0) from the y axis, descends gradually to the right, concave down till around (0.5, 0.8). The second curve, labeled n = 10, is a polygonal curve made up of 10 line segments and is placed above the previous curve following almost the same path with a slightly lesser slope. The curve begins at the same point as the previous curve at (0, 1.0), slopes linearly and almost horizontally to the right till the marked point at around (0.05, 1.0). The second line segment descends to the right with a higher slope till (0.1, 0.99). The remaining line segments continue this pattern till it connects the rest of the marked points whose coordinates are approximately (0.15, 0.8), (0.2, 0.96), (0.25, 0.95), (0.3, 0.925), (0.35, 0.9), (0.4, 0.84), (0.5, 0.81). The third curve is also a polygonal curve and is placed above the other two. This curve, labeled n = 5, has 5 connected line segments starting from the marked point (0, 1.0) and connecting the points (0.1, 1.0), (0.2, 0.98), (0.3, 0.94), (0.4, 0.88), (0.5, 0.825) in a very similar manner as the n = 10 curve, with its slope increasing with each progressive line segment.</alt_text>
+        </figure>
+      </solution>
+    </example>
+  </subsection>
+  <subsection number="9.4" title="Self-Check Exercise">
+    <exercises>
+      <exercise_group>
+        <problem number="1">
+          <statement>
+            <paragraph>
+              Use Euler’s method with <math display="inline">$$n = 5$$</math> to obtain approximations to the solution of the initial-value problem
+            </paragraph>
+            <paragraph>
+              <math display="block">$$y^{\prime} = 2x + y\qquad y(0) = 1$$</math>
+            </paragraph>
+            <paragraph>
+              when <math display="inline">$$x = 1$$</math> .
+            </paragraph>
+          </statement>
+          <answer>
+            <paragraph>
+              Here, <math display="inline">$$x_{0} = 0$$</math> and <math display="inline">$$b = 1$$</math> so taking <math display="inline">$$n = 5$$</math> , we find
+            </paragraph>
+            <paragraph>
+              <math display="block">$$h = \frac{1 - 0}{5} = \frac{1}{5}$$</math>
+            </paragraph>
+            <paragraph>
+              and
+            </paragraph>
+            <paragraph>
+              <math display="block">$$\begin{matrix}
+  {x_{0} = 0} &amp; {x_{1} = \frac{1}{5}} &amp; {x_{2} = \frac{2}{5}} \\
+  {x_{3} = \frac{3}{5}} &amp; {x_{4} = \frac{4}{5}} &amp; {x_{5} = b = 1}
+  \end{matrix}$$</math>
+            </paragraph>
+            <paragraph>
+              Also,
+            </paragraph>
+            <paragraph>
+              <math display="block">$$F{({x,y})} = 2x + y$$</math>
+            </paragraph>
+            <paragraph>
+              and
+            </paragraph>
+            <paragraph>
+              <math display="block">$$y_{0} = y{(0)} = 1$$</math>
+            </paragraph>
+            <paragraph>
+              Therefore, the approximations to the actual solution at the points <math display="inline">$$x_{0},x_{1},x_{2},\ldots,x_{5} = 1$$</math> are
+            </paragraph>
+            <paragraph>
+              <math display="block">$$\begin{array}{lclcl}
+  y_{0} &amp; = &amp; {y{(0)} = 1} &amp; &amp; \\
+  y_{1} &amp; = &amp; {y_{0} + hF{({x_{0},y_{0}})}} &amp; = &amp; {1 + \frac{1}{5}{({0 + 1})} = \frac{6}{5}} \\
+  y_{2} &amp; = &amp; {y_{1} + hF{({x_{1},y_{1}})}} &amp; = &amp; {\frac{6}{5} + \frac{1}{5}\left( {\frac{2}{5} + \frac{6}{5}} \right) = \frac{38}{25}} \\
+  y_{3} &amp; = &amp; {y_{2} + hF{({x_{2},y_{2}})}} &amp; = &amp; {\frac{38}{25} + \frac{1}{5}\left( {\frac{4}{5} + \frac{38}{25}} \right) = \frac{248}{125}} \\
+  y_{4} &amp; = &amp; {y_{3} + hF{({x_{3},y_{3}})}} &amp; = &amp; {\frac{248}{125} + \frac{1}{5}\left( {\frac{6}{5} + \frac{248}{125}} \right) = \frac{1638}{625}} \\
+  y_{5} &amp; = &amp; {y_{4} + hF{({x_{4},y_{4}})}} &amp; = &amp; {\frac{1638}{625} + \frac{1}{5}\left( {\frac{8}{5} + \frac{1638}{625}} \right) = \frac{10,828}{3125}}
+  \end{array}$$</math>
+            </paragraph>
+            <paragraph>
+              Thus, the approximate value of <math display="inline">$$y{(1)}$$</math> is
+            </paragraph>
+            <paragraph>
+              <math display="block">$$\frac{10,828}{3125} \approx 3.4650$$</math>
+            </paragraph>
+          </answer>
+        </problem>
+      </exercise_group>
+    </exercises>
+  </subsection>
+  <subsection number="9.4" title="Concept Questions">
+    <exercises>
+      <exercise_group>
+        <problem number="1">
+          <statement>
+            <paragraph>
+              Describe the ideas behind Euler’s method for finding the approximations to the solution of the initial-value problem
+            </paragraph>
+            <paragraph>
+              <math display="block">$$\frac{\mathit{dy}}{\mathit{dx}} = F\left( {x,y} \right)\qquad y\left( x_{0} \right) = y_{0}$$</math>
+            </paragraph>
+            <paragraph>
+              in your own words.
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="2">
+          <statement>
+            <paragraph>
+              Give the procedure for Euler’s method.
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+    </exercises>
+  </subsection>
+  <subsection number="9.4" title="Exercises">
+    <exercises>
+      <exercise_group>
+        <instructions>
+          A calculator is recommended for this exercise set. In Exercises 1, 2, 3, 4, 5, 6, 7, 8, 9 and 10, use Euler’s method with
+        </instructions>
+        <problem number="1">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x + y$$</math> , <math display="inline">$$y(0) = 1$$</math> ; <math display="inline">$$b = 1$$</math>
+            </paragraph>
+          </statement>
+          <part id="a">
+            <statement>
+              <paragraph>
+                <math display="inline">$$y{(1)} = \frac{369}{128} \approx 2.8828$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="b">
+            <statement>
+              <paragraph>
+                <math display="inline">$$y{(1)} = \frac{70,993}{23,328} \approx 3.043$$</math>
+              </paragraph>
+            </statement>
+          </part>
+        </problem>
+        <problem number="2">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x - 2y$$</math> , <math display="inline">$$y(0) = 1$$</math> ; <math display="inline">$$b = 2$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="3">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = 2x - y + 1$$</math> , <math display="inline">$$y(0) = 2$$</math> ; <math display="inline">$$b = 2$$</math>
+            </paragraph>
+          </statement>
+          <part id="a">
+            <statement>
+              <paragraph>
+                <math display="inline">$$y{(2)} = \frac{51}{16} \approx 3.1875$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="b">
+            <statement>
+              <paragraph>
+                <math display="inline">$$y{(2)} = \frac{793}{243} \approx 3.2634$$</math>
+              </paragraph>
+            </statement>
+          </part>
+        </problem>
+        <problem number="4">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = 2xy$$</math> , <math display="inline">$$y(0) = 1$$</math> ; <math display="inline">$$b = 0.5$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="5">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = - 2\mathit{xy}^{2}$$</math> , <math display="inline">$$y(0) = 1$$</math> ; <math display="inline">$$b = 0.5$$</math>
+            </paragraph>
+          </statement>
+          <part id="a">
+            <statement>
+              <paragraph>
+                <math display="inline">$$y{(0.5)} \approx 0.8324$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="b">
+            <statement>
+              <paragraph>
+                <math display="inline">$$y{(0.5)} \approx 0.8207$$</math>
+              </paragraph>
+            </statement>
+          </part>
+        </problem>
+        <problem number="6">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x^{2} + y^{2}$$</math> , <math display="inline">$$y(0) = 1$$</math> ; <math display="inline">$$b = 1.5$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="7">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = \sqrt{x + y}$$</math> , <math display="inline">$$y(1) = 1$$</math> ; <math display="inline">$$b = 1.5$$</math>
+            </paragraph>
+          </statement>
+          <part id="a">
+            <statement>
+              <paragraph>
+                <math display="inline">$$y{(1.5)} \approx 1.7831$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="b">
+            <statement>
+              <paragraph>
+                <math display="inline">$$y{(1.5)} \approx 1.7920$$</math>
+              </paragraph>
+            </statement>
+          </part>
+        </problem>
+        <problem number="8">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = {({1 + x^{2}})}^{- 1}$$</math> , <math display="inline">$$y(0) = 0$$</math> ; <math display="inline">$$b = 1$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="9">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = \frac{x}{y}$$</math> , <math display="inline">$$y(0) = 1$$</math> ; <math display="inline">$$b = 1$$</math>
+            </paragraph>
+          </statement>
+          <part id="a">
+            <statement>
+              <paragraph>
+                <math display="inline">$$y{(1)} \approx 1.3390$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="b">
+            <statement>
+              <paragraph>
+                <math display="inline">$$y{(1)} \approx 1.3654$$</math>
+              </paragraph>
+            </statement>
+          </part>
+        </problem>
+        <problem number="10">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = \mathit{xy}^{1 \slash 3}$$</math> , <math display="inline">$$y(0) = 1$$</math> ; <math display="inline">$$b = 1$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          In Exercises 11, 12, 13, 14 and 15, use Euler’s method with <math display="inline">$$n = 5$$</math> to obtain approximations to the solution to the initial-value problem over the indicated interval.
+        </instructions>
+        <problem number="11">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = \frac{1}{2}xy$$</math> , <math display="inline">$$y(0) = 1$$</math> ; <math display="inline">$$0 \leq x \leq 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <table>
+              <tbody>
+                <row>
+                  <cell>
+                    <paragraph>
+                      <math display="inline">$$\mathbf{x}$$</math>
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.0
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.2
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.4
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.6
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.8
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1
+                    </paragraph>
+                  </cell>
+                </row>
+                <row>
+                  <cell>
+                    <paragraph>
+                      <math display="inline">$$\mathbf{y}_{\mathbf{n}}$$</math>
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.02
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.0608
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.1244
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.2144
+                    </paragraph>
+                  </cell>
+                </row>
+              </tbody>
+            </table>
+          </answer>
+        </problem>
+        <problem number="12">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x^{2}y$$</math> , <math display="inline">$$y(0) = 2$$</math> ; <math display="inline">$$0 \leq x \leq 0.6$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="13">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = 2x - y + 1$$</math> , <math display="inline">$$y(0) = 2$$</math> ; <math display="inline">$$0 \leq x \leq 1$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <table>
+              <tbody>
+                <row>
+                  <cell>
+                    <paragraph>
+                      <math display="inline">$$\mathbf{x}$$</math>
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.0
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.2
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.4
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.6
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.8
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1
+                    </paragraph>
+                  </cell>
+                </row>
+                <row>
+                  <cell>
+                    <paragraph>
+                      <math display="inline">$$\mathbf{y}_{\mathbf{n}}$$</math>
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      2
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.8
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.72
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.736
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.8288
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.9830
+                    </paragraph>
+                  </cell>
+                </row>
+              </tbody>
+            </table>
+          </answer>
+        </problem>
+        <problem number="14">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x + y^{2}$$</math> , <math display="inline">$$y(0) = 0$$</math> ; <math display="inline">$$0 \leq x \leq 0.5$$</math>
+            </paragraph>
+          </statement>
+        </problem>
+        <problem number="15">
+          <statement>
+            <paragraph>
+              <math display="inline">$$y^{\prime} = x^{2} + y$$</math> , <math display="inline">$$y(0) = 1$$</math> ; <math display="inline">$$0 \leq x \leq 0.5$$</math>
+            </paragraph>
+          </statement>
+          <answer>
+            <table>
+              <tbody>
+                <row>
+                  <cell>
+                    <paragraph>
+                      <math display="inline">$$\mathbf{x}$$</math>
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.0
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.1
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.2
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.3
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.4
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      0.5
+                    </paragraph>
+                  </cell>
+                </row>
+                <row>
+                  <cell>
+                    <paragraph>
+                      <math display="inline">$$\mathbf{y}_{\mathbf{n}}$$</math>
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.1
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.211
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.3361
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.4787
+                    </paragraph>
+                  </cell>
+                  <cell>
+                    <paragraph>
+                      1.6426
+                    </paragraph>
+                  </cell>
+                </row>
+              </tbody>
+            </table>
+          </answer>
+        </problem>
+      </exercise_group>
+      <exercise_group>
+        <problem number="16">
+          <statement>
+            <paragraph>
+              Growth of Service Industries It has been estimated that service industries, which currently make up <math display="inline">$$30\%$$</math> of the nonfarm workforce in a certain country, will continue to grow at the rate of
+            </paragraph>
+            <paragraph>
+              <math display="block">$$R(t) = 5e^{1 \slash {({t + 1})}}$$</math>
+            </paragraph>
+            <paragraph>
+              percent per decade <math display="inline">$$t$$</math> decades from now. Estimate the percentage of the nonfarm workforce in the service industries one decade from now.
+            </paragraph>
+            <paragraph>
+              Hint: Show that the desired answer is <math display="inline">$$P(1)$$</math> , where <math display="inline">$$P$$</math> is the solution of the initial-value problem
+            </paragraph>
+            <paragraph>
+              <math display="block">$$P^{\prime} = 5e^{1 \slash {({t + 1})}}\qquad P(0) = 30$$</math>
+            </paragraph>
+            <paragraph>
+              Then use Euler’s method with <math display="inline">$$n = 10$$</math> to approximate the solution.
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+    </exercises>
+  </subsection>
+</section_file>

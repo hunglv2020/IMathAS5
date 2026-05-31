@@ -1,2297 +1,886 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section_file chapter="ch06" chapter_number="6" section="unit_03" section_number="3">
-  <section number="7.3" title="Numerical Integration">
-    <subsection title="Approximating Definite Integrals">
+  <section number="6.3" title="Area and the Definite Integral">
+    <subsection title="An Intuitive Look">
       <paragraph>
-        One method of measuring cardiac output is to inject <math display="inline">$$5$$</math> to <math display="inline">$$10$$</math> milligrams (mg) of a dye into a vein leading to the heart. After making its way through the lungs, the dye returns to the heart and is pumped into the aorta, where its concentration is measured at equal time intervals. The graph of the function <math display="inline">$$c$$</math> in Figure 2 shows the concentration of dye in a person’s aorta, measured at <math display="inline">$$2$$</math>-second intervals after <math display="inline">$$5$$</math> mg of dye have been injected. The person’s cardiac output, measured in liters per minute (L/min), is computed by using the formula
+        Suppose a certain state’s annual rate of petroleum consumption over a <math display="inline">$$4$$</math>-year period is constant and is given by the function
       </paragraph>
       <paragraph>
-        <math display="block">$$R = \frac{60D}{\int_{0}^{28}‍c(t)dt}$$</math>
+        <math display="block">$$f(t) = 1.2\qquad(0 \leq t \leq 4)$$</math>
       </paragraph>
       <paragraph>
-        where <math display="inline">$$D$$</math> is the quantity of dye injected (see Exercise 54).
+        where <math display="inline">$$t$$</math> is measured in years and <math display="inline">$$f(t)$$</math> in millions of barrels per year. Then, the state’s total petroleum consumption over the period of time in question is
       </paragraph>
-      <figure number="2" caption="The function c gives the concentration of a dye measured at the aorta. The graph is constructed by drawing a smooth curve through a set of discrete points.">
-        <alt_text>A curve is graphed in a coordinate plane. The horizontal axis t ranges from 0 to 28 seconds and the vertical axis y labeled concentration ranges from 0 to 4 milligram per liter. The curve enters the first quadrant through the coordinate (2, 0), concave up, increasing to the right through the coordinates (4, 0.4), (6, 2.0), further inflects to reach the coordinate (8, 4.0), bends to the right to reach the coordinate (10, 4.4). Thereafter the curve concave up, decreasing to the right through the coordinates (12, 3.9), (14, 3.2), (16, 2.5), (18, 1.8), (20, 1.3), (22, 0.8), (24, 0.5), (26, 0.2) to reach (28, 0.1). Each coordinate all along the path of the curve is represented by a closed circle.</alt_text>
+      <paragraph>
+        <math display="block">$$(1.2)(4 - 0)\qquad{\text{Rate of consumption} \times \text{time elapsed}}$$</math>
+      </paragraph>
+      <paragraph>
+        or <math display="inline">$$4.8$$</math> million barrels. If you examine the graph of <math display="inline">$$f$$</math> shown in Figure 5, you will see that this total is just the area of the rectangular region bounded above by the graph of <math display="inline">$$f$$</math> , below by the <math display="inline">$$t$$</math> -axis, and to the left and right by the vertical lines <math display="inline">$$t = 0$$</math> (the <math display="inline">$$y$$</math> -axis) and <math display="inline">$$t = 4$$</math> , respectively.
+      </paragraph>
+      <figure number="5" caption="The total petroleum consumption is given by the area of the rectangular region.">
+        <alt_text>Two lines are graphed in the first quadrant of a coordinate plane. The horizontal axis t ranges from 0 to over 4 years and the vertical axis ranges from 0 to over 1.2 million barrels per year. The first line labeled t = 4 is graphed vertically upward from the coordinate (4, 0) and the second line labeled y = f (t) = 1.2 is graphed horizontally to the right from the coordinate (0, 1.2) to intersect the vertical line. The two perpendicular lines and the axes together enclose a shaded rectangular area.</alt_text>
       </figure>
       <paragraph>
-        Now, to use Formula (5), we need to evaluate the definite integral
+        Figure 6 shows the actual petroleum consumption of a certain New England state over a <math display="inline">$$4$$</math>-year period from 2008 <math display="inline">$$(t = 0)$$</math> to 2012 <math display="inline">$$(t = 4)$$</math> . Observe that the rate of consumption is not constant; that is, the function <math display="inline">$$f$$</math> is not a constant function. What is the state’s total petroleum consumption over this <math display="inline">$$4$$</math>-year period? It seems reasonable to conjecture that it is given by the “area” of the region bounded above by the graph of <math display="inline">$$f$$</math> , below by the <math display="inline">$$t$$</math> -axis, and to the left and right by the vertical lines <math display="inline">$$t = 0$$</math> and <math display="inline">$$t = 4$$</math> , respectively. We will show that this conjecture is justified at the end of this section.
       </paragraph>
+      <figure number="6" caption="The petroleum consumption is given by the “area” of the shaded region.">
+        <alt_text>A curve is graphed in the first quadrant of a coordinate plane. The horizontal axis t ranges from 0 to over 4 years and the vertical axis y ranges from 0 to 0.8 million barrels per year. The curve labeled y = f (t) enters the first quadrant through the coordinate (0, 0.8), slopes down along the vertical axis till the coordinate (0, 0.77), slopes down to the right, concave up decreasing to the right, inflects around (0.5, 0.7), concave down decreasing to the right, inflects around (1.5, 0.6), slopes down gradually to the right, concave up increasing to the right and slopes gradually upward to exit the first quadrant around the coordinate (4, 0.75). The region between the curve and the horizontal axis is shaded.</alt_text>
+      </figure>
       <paragraph>
-        <math display="block">$$\int_{0}^{28}{c(t)dt}$$</math>
-      </paragraph>
-      <paragraph>
-        But we do not have the algebraic rule defining the integrand <math display="inline">$$c$$</math> for all values of <math display="inline">$$t$$</math> in <math display="inline">$$\lbrack 0,28\rbrack$$</math> . In fact, we are given its values only at a set of discrete points in that interval. In situations such as this, the Fundamental Theorem of Calculus proves useless because we cannot find an antiderivative of <math display="inline">$$c$$</math> . (We will complete the solution to this problem in Example 4.)
-      </paragraph>
-      <paragraph>
-        Other situations also arise in which an integrable function has an antiderivative that cannot be found in terms of elementary functions (functions that can be expressed as a finite combination of algebraic, exponential, logarithmic, and trigonometric functions). Examples of such functions are
-      </paragraph>
-      <paragraph>
-        <math display="block">$$f(x) = e^{x^{2}}\qquad g(x) = x^{- 1 \slash 2}‍e^{x}\qquad h(x) = \frac{1}{\ln x}$$</math>
-      </paragraph>
-      <paragraph>
-        Riemann sums provide us with a good approximation of a definite integral, provided that the number of subintervals in the partitions is large enough. But there are better techniques and formulas, called <em>quadrature formulas</em>, that give a more efficient way of computing approximate values of definite integrals. In this section, we look at two rather simple but effective ways of approximating definite integrals.
-      </paragraph>
-    </subsection>
-  </section>
-  <subsection title="The Trapezoidal Rule">
-    <paragraph>
-      We assume that <math display="inline">$$f(x) \geq 0$$</math> on <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> to simplify the derivation of the Trapezoidal Rule, but the result is valid without this restriction. We begin by subdividing the interval <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> into <math display="inline">$$n$$</math> subintervals of equal length <math display="inline">$$\Delta x$$</math> , by means of the <math display="inline">$$\left( {n + 1} \right)$$</math> points <math display="inline">$$x_{0} = a,x_{1},x_{2},\ldots,x_{n} = b$$</math> , where <math display="inline">$$n$$</math> is a positive integer (Figure 3).
-    </paragraph>
-    <figure number="3" caption="The area under the curve is equal to the sum of the areas of the n subregions R 1 , R 2 , … , R n .">
-      <alt_text>A curve is graphed in the first quadrant of an x y coordinate plane. The horizontal axis x ranges from a to b with tick marks labeled a = x_0, x_1, x_2, x_3, ellipsis, x_n minus 1, x_n = b. the vertical axis y is unlabeled. The curve labeled y = f(x), starts at the top left of the viewing window away from the y axis, slopes downward, concave up, decreasing to the right, reaches its low point, slopes upward, inflects, concave down, increasing to the right, plateaus and continues to slope downward to the right to exit the first quadrant on the right of the viewing window. The region below the curve is segmented by the perpendiculars dropped from the path of the curve to the tick marks x_0, x_1, x_2, x_3, x_n minus 1, and x_n each in the x axis. The region between the tick marks a = x_0 and x_1 is labeled R_1, x_1 and x_2 is labeled R_2, x_2 and x_3 labeled is R_3, x_n minus 1 and x_n = b is labeled R_n.</alt_text>
-    </figure>
-    <paragraph>
-      Then the length of each subinterval is given by
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\Delta x = \frac{b - a}{n}$$</math>
-    </paragraph>
-    <paragraph>
-      Furthermore, as we saw earlier, we may view the definite integral
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\int_{a}^{b}{f(x)dx}$$</math>
-    </paragraph>
-    <paragraph>
-      as the area of the region <math display="inline">$$R$$</math> under the curve <math display="inline">$$y = f(x)$$</math> between <math display="inline">$$x = a$$</math> and <math display="inline">$$x = b$$</math> . This area is given by the sum of the areas of the <math display="inline">$$n$$</math> nonoverlapping subregions <math display="inline">$$R_{1},R_{2},\ldots,R_{n}$$</math> , where <math display="inline">$$R_{1}$$</math> represents the region under the curve <math display="inline">$$y = f(x)$$</math> from <math display="inline">$$x = x_{0}$$</math> to <math display="inline">$$x = x_{1}$$</math> , and so on.
-    </paragraph>
-    <paragraph>
-      The basis for the Trapezoidal Rule lies in the approximation of each region, <math display="inline">$$R_{1},R_{2},\ldots,R_{n}$$</math> by a suitable trapezoid. This often leads to a much better approximation than one obtained by means of rectangles (a Riemann sum).
-    </paragraph>
-    <paragraph>
-      Let’s consider the subregion <math display="inline">$$R_{1}$$</math> , shown magnified for the sake of clarity in Figure 4. Observe that the area of the region <math display="inline">$$R_{1}$$</math> may be approximated by the trapezoid of width <math display="inline">$$\Delta x$$</math> whose parallel sides are of lengths <math display="inline">$$f\left( x_{0} \right)$$</math> and <math display="inline">$$f\left( x_{1} \right)$$</math> . The area of the trapezoid is given by
-    </paragraph>
-    <paragraph>
-      <math display="block">$${\left\lbrack \frac{f\left( x_{0} \right) + f\left( x_{1} \right)}{2} \right\rbrack ‍\Delta x}\qquad{{Average\ of\ the\ lengths\ of\ the\ parallel\ sides} \times {width}}$$</math>
-    </paragraph>
-    <figure number="4" caption="The area of R 1 is approximated by the area of the trapezoid.">
-      <alt_text>A curve is graphed in the first quadrant of an x y coordinate plane. The horizontal axis x has two tick marks labeled x_0 and x_1. The vertical axis y is unlabeled. The curve enters from the top left of the viewing window, slope downward, concave up, deceasing to the right and exits on the right of the viewing window. Two perpendiculars are dropped from the path of the curve to the tick marks x_0 and x_1 with height f(x_0) and f(x_1) respectively. The region between the two perpendiculars with horizontal width of delta x is shaded and labeled R_1.</alt_text>
-    </figure>
-    <paragraph>
-      Similarly, the area of the region <math display="inline">$$R_{2}$$</math> may be approximated by the trapezoid of width <math display="inline">$$\Delta x$$</math> and sides of lengths <math display="inline">$$f\left( x_{1} \right)$$</math> and <math display="inline">$$f\left( x_{2} \right)$$</math> . The area of the trapezoid is given by
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\left\lbrack \frac{f\left( x_{1} \right) + f\left( x_{2} \right)}{2} \right\rbrack ‍\Delta x$$</math>
-    </paragraph>
-    <paragraph>
-      Continuing, we see that the area of the last (<math display="inline">$$n$$</math> th) approximating trapezoid is given by
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\left\lbrack \frac{f\left( x_{n - 1} \right) + f\left( x_{n} \right)}{2} \right\rbrack ‍\Delta x$$</math>
-    </paragraph>
-    <paragraph>
-      Then the area of the region <math display="inline">$$R$$</math> is approximated by the sum of the areas of the <math display="inline">$$n$$</math> trapezoids—that is,
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\begin{array}{l}
-  {\left\lbrack \frac{f{(x_{0})} + f{(x_{1})}}{2} \right\rbrack ‍\Delta x + \left\lbrack \frac{f{(x_{1})} + f{(x_{2})}}{2} \right\rbrack ‍\Delta x + \ldots + \left\lbrack \frac{f{(x_{n - 1})} + f{(x_{n})}}{2} \right\rbrack ‍\Delta x} \\
-  {\mspace{20mu} = \frac{\Delta x}{2}\left\lbrack {f{(x_{0})} + f{(x_{1})} + f{(x_{1})} + f{(x_{2})} + \ldots + f{(x_{n - 1})} + f{(x_{n})}} \right\rbrack} \\
-  {\mspace{20mu} = \frac{\Delta x}{2}\left\lbrack {f{(x_{0})} + 2f{(x_{1})} + 2f{(x_{2})} + \ldots + 2f{(x_{n - 1})} + f{(x_{n})}} \right\rbrack}
-  \end{array}$$</math>
-    </paragraph>
-    <paragraph>
-      Since the area of the region <math display="inline">$$R$$</math> is given by the value of the definite integral we wished to approximate, we are led to the following approximation formula, which is called the <strong>Trapezoidal Rule</strong>.
-    </paragraph>
-    <note title="Trapezoidal Rule">
-      <paragraph>
-        where <math display="inline">$$\Delta x = \frac{b - a}{n}$$</math> .
-      </paragraph>
-    </note>
-    <paragraph>
-      The approximation generally improves with larger values of <math display="inline">$$n$$</math> .
-    </paragraph>
-    <example number="1">
-      <problem>
-        <paragraph>
-          Approximate the value of
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\int_{1}^{2}{\frac{1}{x}dx}$$</math>
-        </paragraph>
-        <paragraph>
-          using the Trapezoidal Rule with <math display="inline">$$n = 10$$</math> . Compare this result with the exact value of the integral.
-        </paragraph>
-      </problem>
-      <solution>
-        <paragraph>
-          Here, <math display="inline">$$a = 1$$</math> , <math display="inline">$$b = 2$$</math> , and <math display="inline">$$n = 10$$</math> , so
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\Delta x = \frac{b - a}{n} = \frac{1}{10} = 0.1$$</math>
-        </paragraph>
-        <paragraph>
-          and
-        </paragraph>
-        <paragraph>
-          <math display="block">$${x_{0} = 1}\qquad{x_{1} = 1.1}\qquad{x_{2} = 1.2}\qquad{x_{3} = 1.3}\qquad\cdots\qquad{x_{9} = 1.9}\qquad{x_{10} = 2}$$</math>
-        </paragraph>
-        <paragraph>
-          The Trapezoidal Rule yields
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {{\int_{1}^{2}{\frac{1}{x}dx}} \approx {\frac{0.1}{2}\left\lbrack {1 + 2\left( \frac{1}{1.1} \right) + 2\left( \frac{1}{1.2} \right) + 2\left( \frac{1}{1.3} \right) + \cdots + 2\left( \frac{1}{1.9} \right) + \frac{1}{2}} \right\rbrack}} \\
-  {\phantom{\int_{1}^{2}{\frac{1}{x}dx}} \approx 0.693771}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          In this case, we can easily compute the actual value of the definite integral under consideration. In fact,
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {\left. \int_{1}^{2}{\frac{1}{x}‍dx} = \ln x \right|_{1}^{2} = \ln 2 - \ln 1 = \ln 2} \\
-  {\phantom{\int_{1}^{2}{\frac{1}{x}dx}} \approx 0.693147}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          Thus, the Trapezoidal Rule with <math display="inline">$$n = 10$$</math> yields a result with an error of <math display="inline">$$0.000624$$</math> to six decimal places.
-        </paragraph>
-      </solution>
-    </example>
-    <note title="Applied Example 2. Consumers’ Surplus">
-      <paragraph>
-        The demand function for a certain brand of perfume is given by
-      </paragraph>
-      <paragraph>
-        where <math display="inline">$$p$$</math> is the unit price in dollars and <math display="inline">$$x$$</math> is the quantity demanded each week, measured in ounces. Find the consumers’ surplus if the market price is set at <math display="inline">$$\$ 60$$</math> per ounce.
-      </paragraph>
-      <subsection title="Solution">
-        <paragraph>
-          When <math display="inline">$$p = 60$$</math> , we have
-        </paragraph>
-        <paragraph>
-          or <math display="inline">$$x = 800$$</math> since <math display="inline">$$x$$</math> must be nonnegative. Next, using the consumers’ surplus formula with <math display="inline">$$\overline{p} = 60$$</math> and <math display="inline">$$\overline{x} = 800$$</math> , we see that
-        </paragraph>
-        <paragraph>
-          It is not easy to evaluate this definite integral by finding an antiderivative of the integrand. Instead, let’s use the Trapezoidal Rule with <math display="inline">$$n = 10$$</math> .
-        </paragraph>
-        <paragraph>
-          With <math display="inline">$$a = 0$$</math> and <math display="inline">$$b = 800$$</math> , we find that
-        </paragraph>
-        <paragraph>
-          and
-        </paragraph>
-        <paragraph>
-          so
-        </paragraph>
-        <paragraph>
-          Therefore, the consumers’ surplus is approximately <math display="inline">$$70,294 - 48,000$$</math> , or <math display="inline">$$\$ 22,294$$</math> .
-        </paragraph>
-      </subsection>
-    </note>
-    <note title="Explore and Discuss">
-      <paragraph>
-        Explain how you would approximate the value of <math display="inline">$$\int_{0}^{2}{f(x)dx}$$</math> using the Trapezoidal Rule with <math display="inline">$$n = 10$$</math> , where
-      </paragraph>
-      <paragraph>
-        and find the value.
-      </paragraph>
-    </note>
-  </subsection>
-  <subsection title="Simpson’s Rule">
-    <paragraph>
-      Before stating Simpson’s Rule, let’s review the two rules we have used in approximating a definite integral. Let <math display="inline">$$f$$</math> be a continuous, nonnegative function defined on the interval <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> . Suppose the interval <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> is partitioned by means of the <math display="inline">$$n + 1$$</math> equally spaced points <math display="inline">$$x_{0} = a,x_{1},x_{2},\ldots,x_{n} = b$$</math> where <math display="inline">$$n$$</math> is a positive integer, so that the length of each subinterval is <math display="inline">$$\Delta x = {\left( {b - a} \right) \slash n}$$</math> (Figure 5).
-    </paragraph>
-    <figure number="5" caption="The area of the region under the curve is equal to the sum of the areas of the n subregions R 1 , R 2 , … , R n .">
-      <alt_text>A curve is graphed in the first quadrant of an x y coordinate plane. The horizontal axis x ranges from a to b with tick marks labeled a = x_0, x_1, x_2, x_3, ellipsis, x_n minus 1, x_n = b. The vertical axis y is unlabeled. The curve starts away from the origin between the axes, concave down, increasing to the right, inflects, concave up, increasing to the right, inflects steeply, concave down, increasing to the right, inflects, concave up, slopes to the right, concave down, decreasing to the right and exits the first quadrant at the top right of the viewing window. The region below the curve is segmented by the perpendiculars dropped from the path of the curve to the tick marks x_0, x_1, x_2, x_3, x_n minus 1, and x_n each in the x axis. The region between the tick marks a = x_0 and x_1 is labeled R_1, x_1 and x_2 is labeled R_2, x_2 and x_3 labeled is R_3, x_n minus 1 and x_n = b is labeled R_n.</alt_text>
-    </figure>
-    <paragraph>
-      Let’s concentrate on the portion of the graph of <math display="inline">$$y = f(x)$$</math> defined on the interval <math display="inline">$$\left\lbrack {x_{0},x_{2}} \right\rbrack$$</math> . When we use a Riemann sum to approximate the definite integral, we are in effect approximating the function <math display="inline">$$f(x)$$</math> on <math display="inline">$$\left\lbrack {x_{0},x_{1}} \right\rbrack$$</math> by the <em>constant</em> function <math display="inline">$$y = f\left( p_{1} \right)$$</math> , where <math display="inline">$$p_{1}$$</math> is chosen to be a point in <math display="inline">$$\left\lbrack {x_{0},x_{1}} \right\rbrack$$</math> ; and we are approximating the function <math display="inline">$$f(x)$$</math> on <math display="inline">$$\left\lbrack {x_{1},x_{2}} \right\rbrack$$</math> by the constant function <math display="inline">$$y = f\left( p_{2} \right)$$</math> , where <math display="inline">$$p_{2}$$</math> lies in <math display="inline">$$\left\lbrack {x_{1},x_{2}} \right\rbrack$$</math> . Using a Riemann sum, we see that the area of the region under the curve <math display="inline">$$y = f(x)$$</math> between <math display="inline">$$x = x_{0}$$</math> and <math display="inline">$$x = x_{2}$$</math> is approximated by the area of the region under the approximating “step” function (Figure 6a).
-    </paragraph>
-    <figure number="6">
-      <alt_text>Two graphs a and b plots a curve each in the first quadrant of the x y coordinate plane. In both the graphs, the horizontal axis x has three tick marks labeled x_0, x_1, and x_2 respectively from left to right. The horizontal axis y is unlabeled. The first graph a labeled the area of the region under the curve is approximated by the area of the rectangles. The horizontal axis has two tick marks labeled p_1 and p_2, which form the midpoint between the tick marks x_0 and x_1, x_1 and x_2 respectively. The curve starts in the first quadrant, slopes upward to the right, then the curve concaves down, increasing to the right, inflects, concave up, increasing to the right and exits the first quadrant at the top right of the viewing window. Two vertical rectangles are graphed in the region below the curve with the horizontal width of x_0 to x_1 and x_1 to x_2 respectively and vertical height of f (p_1) and f (p_2) respectively. The curve cuts the top left corner of the two rectangles, passes through the midpoint of the top width at (p_1, f (p_1)) and (p_2, f (p_2)). The region enclosed by the rectangles is shaded. The second graph b labeled the area of the region under the curve is approximated by the area of the trapezoids. The curve starts in the first quadrant, slopes upward to the right, reaches a closed circle at (x_0, f(x_0)), then the curve concaves down, increasing to the right, inflects at (x_1, f(x_1)), continues to slope upward, reaches another closed circle at the coordinate (x_2, f(x_2)). Thereafter the curve concave up, increasing to the right and exits the first quadrant at the top right of the viewing window. A perpendicular is dropped to the x axis from the coordinates (x_0, f(x_0)), (x_1, f(x_1)), and (x_2, f(x_2)) each to the x axis, forming two trapezoids in the region below the curve, with a horizontal width of x_0 to x_1 and x_1 to x_2 respectively. The region enclosed by the trapezoids is shaded.</alt_text>
-    </figure>
-    <paragraph>
-      When we use the Trapezoidal Rule, we are in effect approximating the function <math display="inline">$$f(x)$$</math> on the interval <math display="inline">$$\left\lbrack {x_{0},x_{1}} \right\rbrack$$</math> by a <em>linear</em> function through the two points <math display="inline">$$\left( {x_{0},f\left( x_{0} \right)} \right)$$</math> and <math display="inline">$$\left( {x_{1},f\left( x_{1} \right)} \right)$$</math> and the function <math display="inline">$$f(x)$$</math> on <math display="inline">$$\left\lbrack {x_{1},x_{2}} \right\rbrack$$</math> by a <em>linear</em> function through the two points <math display="inline">$$\left( {x_{1},f\left( x_{1} \right)} \right)$$</math> and <math display="inline">$$\left( {x_{2},f\left( x_{2} \right)} \right)$$</math> . Thus, the Trapezoidal Rule simply approximates the actual area of the region under the curve <math display="inline">$$y = f(x)$$</math> from <math display="inline">$$x = x_{0}$$</math> to <math display="inline">$$x = x_{2}$$</math> by the area of the region under the approximating polygonal curve (Figure 6b).
-    </paragraph>
-    <paragraph>
-      A natural extension of the preceding idea is to approximate portions of the graph of <math display="inline">$$y = f(x)$$</math> by means of portions of the graphs of second-degree polynomials (parts of parabolas). It can be shown that given any three noncollinear points, there is a unique parabola that passes through the given points. Choose the points <math display="inline">$$\left( {x_{0},f\left( x_{0} \right)} \right)$$</math> , <math display="inline">$$\left( {x_{1},f\left( x_{1} \right)} \right)$$</math> , and <math display="inline">$$\left( {x_{2},f\left( x_{2} \right)} \right)$$</math> corresponding to the first three points of the partition. Then we can approximate the function <math display="inline">$$f(x)$$</math> on <math display="inline">$$\left\lbrack {x_{0},x_{2}} \right\rbrack$$</math> by means of a quadratic function whose graph contains these three points (Figure 7).
-    </paragraph>
-    <figure number="7" caption="Simpson’s Rule approximates the area of the region under the curve by the area of the region under the parabola.">
-      <alt_text>An open upward parabola and a curve is graphed in a x y coordinate plane. The horizontal axis x has three tick marks labeled x_0, x_1, and x_2 respectively from left to right. The horizontal axis y is unlabeled. The parabola which is symmetrical about the tick mark x_0 in the x axis enters from the second quadrant cuts the y axis and opens up in the first quadrant. The curve starts in the first quadrant little away from the origin below the parabola, then concave down, increasing to the right, reaches an closed circle at labeled (x_0, f (x_0)), which forms the vertex of the parabola. The curve then inflects and slopes to the right, concave up, increasing to the right cuts the parabola at (x_1, f (x_1)), further the curve slopes upward above the parabola, inflects to cut the parabola at (x_2, f (x_2)) and continues to slope upward to the right away from the parabola. A perpendicular is dropped to the x axis from the coordinates (x_0, f(x_0)), (x_1, f(x_1)), and (x_2, f(x_2)) each to the x axis, forming two trapezoids in the region below the parabola, with a horizontal width of x_0 to x_1 and x_1 to x_2 respectively. The region enclosed by the trapezoids is shaded.</alt_text>
-    </figure>
-    <paragraph>
-      Although we will not do so here, it can be shown that the area of the region under the parabola between <math display="inline">$$x = x_{0}$$</math> and <math display="inline">$$x = x_{2}$$</math> is given by
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\frac{\Delta x}{3}\left\lbrack {f\left( x_{0} \right) + 4f\left( x_{1} \right) + f\left( x_{2} \right)} \right\rbrack$$</math>
-    </paragraph>
-    <paragraph>
-      Repeating this argument on the interval <math display="inline">$$\left\lbrack {x_{2},x_{4}} \right\rbrack$$</math> , we see that the area of the region under the curve between <math display="inline">$$x = x_{2}$$</math> and <math display="inline">$$x = x_{4}$$</math> is approximated by the area of the region under the parabola between <math display="inline">$$x_{2}$$</math> and <math display="inline">$$x_{4}$$</math> —that is, by
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\frac{\Delta x}{3}\left\lbrack {f\left( x_{2} \right) + 4f\left( x_{3} \right) + f\left( x_{4} \right)} \right\rbrack$$</math>
-    </paragraph>
-    <paragraph>
-      Proceeding, we conclude that if <math display="inline">$$n$$</math> is even (Why?), then the area of the region under the curve <math display="inline">$$y = f(x)$$</math> from <math display="inline">$$x = a$$</math> to <math display="inline">$$x = b$$</math> may be approximated by the sum of the areas of the regions under the <math display="inline">$$n \slash 2$$</math> approximating parabolas—that is,
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\begin{array}{l}
-  {\frac{\Delta x}{3}\left\lbrack {f\left( x_{0} \right) + 4f\left( x_{1} \right) + f\left( x_{2} \right)} \right\rbrack + \frac{\Delta x}{3}\left\lbrack {f\left( x_{2} \right) + 4f\left( x_{3} \right) + f\left( x_{4} \right)} \right\rbrack + \cdots + \frac{\Delta x}{3}\left\lbrack {f\left( x_{n - 2} \right) + 4f\left( x_{n - 1} \right) + f\left( x_{n} \right)} \right\rbrack} \\
-  {\quad = \frac{\Delta x}{3}\left\lbrack {f\left( x_{0} \right) + 4f\left( x_{1} \right) + f\left( x_{2} \right) + f\left( x_{2} \right) + 4f\left( x_{3} \right) + f\left( x_{4} \right) + \cdots + f\left( x_{n - 2} \right) + 4f\left( x_{n - 1} \right) + f\left( x_{n} \right)} \right\rbrack} \\
-  {\quad = \frac{\Delta x}{3}\left\lbrack {f\left( x_{0} \right) + 4f\left( x_{1} \right) + 2f\left( x_{2} \right) + 4f\left( x_{3} \right) + 2f\left( x_{4} \right) + \cdots + 4f\left( x_{n - 1} \right) + f\left( x_{n} \right)} \right\rbrack}
-  \end{array}$$</math>
-    </paragraph>
-    <paragraph>
-      The preceding is the derivation of the approximation formula known as <strong>Simpson’s Rule</strong>.
-    </paragraph>
-    <note title="Simpson’s Rule">
-      <paragraph>
-        where <math display="inline">$$\Delta x = \frac{b - a}{n}$$</math> and <math display="inline">$$n$$</math> is even.
-      </paragraph>
-    </note>
-    <paragraph>
-      In using Simpson’s Rule, remember that <math display="inline">$$n$$</math> must be even.
-    </paragraph>
-    <example number="3">
-      <problem>
-        <paragraph>
-          Find an approximation of
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\int_{1}^{2}{\frac{1}{x}dx}$$</math>
-        </paragraph>
-        <paragraph>
-          using Simpson’s Rule with <math display="inline">$$n = 10$$</math> . Compare this result with that of Example 1 and also with the exact value of the integral.
-        </paragraph>
-      </problem>
-      <solution>
-        <paragraph>
-          We have <math display="inline">$$a = 1$$</math> , <math display="inline">$$b = 2$$</math> , <math display="inline">$$f(x) = \frac{1}{x}$$</math> and <math display="inline">$$n = 10$$</math> , so
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\Delta x = \frac{b - a}{n} = \frac{1}{10} = 0.1$$</math>
-        </paragraph>
-        <paragraph>
-          and
-        </paragraph>
-        <paragraph>
-          <math display="block">$${x_{0} = 1}\qquad{x_{1} = 1.1}\qquad{x_{2} = 1.2}\qquad{x_{3} = 1.3}\qquad\ldots\qquad{x_{9} = 1.9}\qquad{x_{10} = 2}$$</math>
-        </paragraph>
-        <paragraph>
-          Simpson’s Rule yields
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {\int_{1}^{2}{\frac{1}{x}dx \approx \frac{0.1}{3}\left\lbrack {f(1) + 4f(1.1) + 2f(1.2) + \cdots + 4f(1.9) + f(2)} \right\rbrack}} \\
-  {\phantom{\int_{1}^{2}{\frac{1}{x}dx}} = \frac{0.1}{3}\left\lbrack {1 + 4\left( \frac{1}{1.1} \right) + 2\left( \frac{1}{1.2} \right) + 4\left( \frac{1}{1.3} \right) + 2\left( \frac{1}{1.4} \right) + 4\left( \frac{1}{1.5} \right) + 2\left( \frac{1}{1.6} \right) + 4\left( \frac{1}{1.7} \right) + 2\left( \frac{1}{1.8} \right) + 4\left( \frac{1}{1.9} \right) + \frac{1}{2}} \right\rbrack} \\
-  {\phantom{\int_{1}^{2}{\frac{1}{x}dx}} \approx 0.693150}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          The Trapezoidal Rule with <math display="inline">$$n = 10$$</math> yielded an approximation of <math display="inline">$$0.693771$$</math> , which is <math display="inline">$$0.000624$$</math> off the value of <math display="inline">$$\ln 2 \approx 0.693147$$</math> to six decimal places. Simpson’s Rule yields an approximation with an error of <math display="inline">$$0.000003$$</math> , a definite improvement over the Trapezoidal Rule.
-        </paragraph>
-      </solution>
-    </example>
-    <note title="Applied Example 4. Cardiac Output">
-      <paragraph>
-        Solve the problem posed at the beginning of this section. Recall that we wished to find a person’s cardiac output by using the formula
-      </paragraph>
-      <paragraph>
-        where <math display="inline">$$D$$</math> (the quantity of dye injected) is equal to <math display="inline">$$5$$</math> milligrams and the function <math display="inline">$$c$$</math> has the graph shown in Figure 8. Use Simpson’s Rule with <math display="inline">$$n = 14$$</math> to estimate the value of the integral.
-      </paragraph>
-      <subsection title="Solution">
-        <paragraph>
-          Using Simpson’s Rule with <math display="inline">$$n = 14$$</math> and <math display="inline">$$\Delta t = 2$$</math> so that
-        </paragraph>
-        <paragraph>
-          we obtain
-        </paragraph>
-        <paragraph>
-          Therefore, the person’s cardiac output is
-        </paragraph>
-        <paragraph>
-          or <math display="inline">$$6.0$$</math> liters per minute.
-        </paragraph>
-      </subsection>
-    </note>
-    <note title="Applied Example 5. Oil Spill">
-      <paragraph>
-        An oil spill off the coastline was caused by a ruptured tank in a grounded oil tanker. Using aerial photographs, the Coast Guard was able to obtain the dimensions of the oil spill (Figure 9). Using Simpson’s Rule with <math display="inline">$$n = 10$$</math> , estimate the area of the oil spill.
-      </paragraph>
-      <subsection title="Solution">
-        <paragraph>
-          We may think of the area affected by the oil spill as the area of the plane region bounded above by the graph of the function <math display="inline">$$f(x)$$</math> and below by the graph of the function <math display="inline">$$g(x)$$</math> between <math display="inline">$$x = 0$$</math> and <math display="inline">$$x = 1000$$</math> (Figure 9). Then the required area is given by
-        </paragraph>
-        <paragraph>
-          Using Simpson’s Rule with <math display="inline">$$n = 10$$</math> and <math display="inline">$$\Delta x = 100$$</math> , so that
-        </paragraph>
-        <paragraph>
-          we have
-        </paragraph>
-        <paragraph>
-          or approximately <math display="inline">$$580,667$$</math> square feet.
-        </paragraph>
-      </subsection>
-    </note>
-    <note title="Explore and Discuss">
-      <paragraph>
-        Explain how you would approximate the value of <math display="inline">$$\int_{0}^{2}{f(x)dx}$$</math> using Simpson’s Rule with <math display="inline">$$n = 10$$</math> , where
-      </paragraph>
-      <paragraph>
-        and find the value.
-      </paragraph>
-    </note>
-  </subsection>
-  <subsection title="Error Analysis">
-    <paragraph>
-      The following results give the bounds on the errors incurred when the Trapezoidal Rule and Simpson’s Rule are used to approximate a definite integral (proof omitted).
-    </paragraph>
-    <note title="Errors in the Trapezoidal and Simpson Approximations">
-      <paragraph>
-        Suppose the definite integral
-      </paragraph>
-      <paragraph>
-        is approximated with <math display="inline">$$n$$</math> subintervals.
+        This example raises two questions:
       </paragraph>
       <list ordered="true">
         <item>
           <paragraph>
-            The <em>maximum</em> error incurred in using the Trapezoidal Rule is
-          </paragraph>
-          <paragraph>
-            <math display="block">$$\frac{M\left( {b - a} \right)^{3}}{12n^{2}}$$</math>
-          </paragraph>
-          <paragraph>
-            where <math display="inline">$$M$$</math> is a number such that <math display="inline">$$\left| {f^{''}{(x)|}} \right. \leq M$$</math> for all <math display="inline">$$x$$</math> in <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> .
+            What is the “area” of the region shown in Figure 6?
           </paragraph>
         </item>
         <item>
           <paragraph>
-            The <em>maximum</em> error incurred in using Simpson’s Rule is
+            How do we compute this area?
           </paragraph>
+        </item>
+      </list>
+    </subsection>
+  </section>
+  <subsection title="The Area Problem">
+    <paragraph>
+      The preceding example touches on the second fundamental problem in calculus: Calculate the area of the region bounded by the graph of a nonnegative function <math display="inline">$$f$$</math> , the <math display="inline">$$x$$</math> -axis, and the vertical lines <math display="inline">$$x = a$$</math> and <math display="inline">$$x = b$$</math> where <math display="inline">$$a &lt; b$$</math> (Figure 7). This area is called the <strong>area of the region under the graph of</strong> <math display="inline">$$\mathbf{f}$$</math> on the interval <math display="inline">$$\lbrack a,b\rbrack$$</math> or from <math display="inline">$$a$$</math> to <math display="inline">$$b$$</math> .
+    </paragraph>
+    <figure number="7" caption="The area of the region under the graph of f on [ a , b ]">
+      <alt_text>A curve and two lines are graphed in the x y coordinate plane. The horizontal axis x has two tick marks a and b. A line labeled x = a raises vertically upward perpendicular to the tick mark a in the x axis. Another line labeled x = b is raised vertically upward perpendicular to the tick mark b in the x axis. The curve labeled y = f (x) enters from the second quadrant at an unmarked point slopes upward to the right, cuts the y axis to enter the first quadrant, inflects just after it cuts the y axis, rises upward to the right, now concave down, reaches a high point, then descends downward to the right, inflects again and now descends to the right, concave up reaching a low point. From here the curve rises upward to the right and continues into the first quadrant. The region bound by the curve, the horizontal axis, and the two vertical lines is shaded.</alt_text>
+    </figure>
+  </subsection>
+  <subsection title="Defining Area—Two Examples">
+    <paragraph>
+      Just as we used the slopes of secant lines (quantities that we could compute) to help us define the slope of the tangent line to a point on the graph of a function, we now adopt a parallel approach and use the areas of rectangles (quantities that we can compute) to help us define the area under the graph of a function. We begin by looking at a specific example.
+    </paragraph>
+    <example number="1">
+      <problem>
+        <paragraph>
+          Let <math display="inline">$$f(x) = x^{2}$$</math> and consider the region <math display="inline">$$R$$</math> under the graph of <math display="inline">$$f$$</math> on the interval <math display="inline">$$\lbrack 0,1\rbrack$$</math> (Figure 8a). To obtain an approximation of the area of <math display="inline">$$R$$</math> , let’s construct four nonoverlapping rectangles, except for their edges, as follows: Divide the interval <math display="inline">$$\lbrack 0,1\rbrack$$</math> into four subintervals
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\left\lbrack 0,\frac{1}{4} \right\rbrack,\quad\left\lbrack \frac{1}{4},\frac{1}{2} \right\rbrack,\quad\left\lbrack \frac{1}{2},\frac{3}{4} \right\rbrack,\quad\left\lbrack \frac{3}{4},1 \right\rbrack$$</math>
+        </paragraph>
+        <paragraph>
+          of equal length <math display="inline">$$\frac{1}{4}$$</math> . Next, construct four rectangles with these subintervals as bases and with heights given by the values of the function at the midpoints
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\frac{1}{8},\quad\frac{3}{8},\quad\frac{5}{8},\quad\frac{7}{8}$$</math>
+        </paragraph>
+        <paragraph>
+          of each subinterval. Then, each of these rectangles has width <math display="inline">$$\frac{1}{4}$$</math> and height
+        </paragraph>
+        <paragraph>
+          <math display="block">$$f\left( \frac{1}{8} \right),\quad f\left( \frac{3}{8} \right),\quad f\left( \frac{5}{8} \right),\quad f\left( \frac{7}{8} \right)$$</math>
+        </paragraph>
+        <paragraph>
+          respectively (Figure 8b).
+        </paragraph>
+        <figure number="8" caption="The area of the region under the graph of f on [ 0 , 1 ] in (a) is approximated by the sum of the areas of the four rectangles in (b).">
+          <alt_text>Two graphs a and b with graph a plotting a curve and graph b plotting the curve with 4 rectangles in the x y coordinate plane respectively. In the graph a, a curve is graphed in the x y coordinate plane. The horizontal axis x, ranges from 0 to over 1 and the vertical axis y ranges from 0 to over 1. The curve labeled y = x^2 enters the first quadrant from the origin, slopes upward to the right, concave up and exits the first quadrant through the coordinate (1,1) at the top right of the viewing window. A perpendicular dropped from the coordinate (1, 1) to the x axis. The region below the curve to the horizontal axis, till the line x = 1 is shaded and labeled R. In the graph b, a curve is graphed in the x y coordinate plane. The horizontal axis x, ranges from 0 to over 1 and the vertical axis y has tick marks at unequal intervals labeled f(1/8), f(3/8), f(5/8), and f(7/8). From each of these tick marks, a horizontal line runs parallel to the x axis and meets the curve and from each of these meeting points, a perpendicular is dropped to the x axis meeting it at 1/8, 3/8, 5/8 and 7/8 respectively. The curve labeled y = x^2 enters the first quadrant from the origin, slopes upward to the right, concave up and exits the first quadrant through the coordinate (1,1) at the top right of the viewing window. A perpendicular dropped from the coordinate (1, 1) to the x axis. The region below the curve is divided into 4 adjacent vertical rectangles with an equal width of 1/4 units and varying heights are drawn. The first vertical rectangle, with width 1/4 and height f(1/8) is located adjacent to the y axis. Its width runs along the x axis from the origin to the mark 1/4. Its left side runs along the y axis till the mark f(1/8). The graph cuts the top width of the rectangle at its midpoint and from this point of intersection a perpendicular is dropped to the x axis meeting it at the mark 1/8. The second rectangle is located adjacent to the first, its left side running along the right side of the previous rectangle. The bottom width of the second rectangle runs along the x axis from the mark 1/4 to the mark 1/2, thus spanning a width of 1/4 units. The horizontal line from the mark f(3/8) on the y axis, grazes the top width of the rectangle, indicating the height of the rectangle to be f(3/8). The curve cuts the top width at its midpoint and from this point of intersection a perpendicular is dropped to the x axis meeting it at the mark 3/8. The third rectangle is located adjacent to the second, its left side running along the right side of the previous rectangle. The bottom width of the third rectangle runs along the x axis from the mark 1/2 to the mark 3/4, thus spanning a width of 1/4 units. The horizontal line from the mark f(5/8) on the y axis, grazes the top width of the rectangle, indicating the height of the rectangle to be f(5/8). The curve cuts the top width at its midpoint and from this point of intersection a perpendicular is dropped to the x axis meeting it at the mark 5/8. The fourth rectangle is located adjacent to the third, its left side running along the right side of the previous rectangle. The bottom width of the fourth rectangle runs along the x axis from the mark 3/4 to the mark 1, thus spanning a width of 1/4 units. The horizontal line from the mark f(7/8) on the y axis, grazes the top width of the rectangle, indicating the height of the rectangle to be f(7/8). The curve cuts the top width at its midpoint and from this point of intersection a perpendicular is dropped to the x axis meeting it at the mark 7/8.</alt_text>
+        </figure>
+        <paragraph>
+          If we approximate the area <math display="inline">$$A$$</math> of <math display="inline">$$R$$</math> by the sum of the areas of the four rectangles, we obtain
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\begin{array}{l}
+  {A \approx \frac{1}{4}f\left( \frac{1}{8} \right) + \frac{1}{4}f\left( \frac{3}{8} \right) + \frac{1}{4}f\left( \frac{5}{8} \right) + \frac{1}{4}f\left( \frac{7}{8} \right)} \\
+  {\phantom{A} = \frac{1}{4}\left\lbrack {f\left( \frac{1}{8} \right) + f\left( \frac{3}{8} \right) + f\left( \frac{5}{8} \right) + f\left( \frac{7}{8} \right)} \right\rbrack} \\
+  {{\phantom{A} = \frac{1}{4}\left\lbrack {\left( \frac{1}{8} \right)^{2} + \left( \frac{3}{8} \right)^{2} + \left( \frac{5}{8} \right)^{2} + \left( \frac{7}{8} \right)^{2}} \right\rbrack}\qquad{\text{Recall that~}f{(x)} = x^{2}\text{.}}} \\
+  {\phantom{A} = \frac{1}{4}\left( {\frac{1}{64} + \frac{9}{64} + \frac{25}{64} + \frac{49}{64}} \right) = \frac{21}{64}}
+  \end{array}$$</math>
+        </paragraph>
+        <paragraph>
+          or approximately <math display="inline">$$0.328125$$</math> .
+        </paragraph>
+      </problem>
+    </example>
+    <paragraph>
+      Following the procedure of Example 1, we can obtain approximations of the area of the region <math display="inline">$$R$$</math> using any number <math display="inline">$$n$$</math> of rectangles (<math display="inline">$$n = 4$$</math> in Example 1). Figure 9a shows the approximation of the area <math display="inline">$$A$$</math> of <math display="inline">$$R$$</math> using <math display="inline">$$8$$</math> rectangles <math display="inline">$$(n = 8)$$</math> , and Figure 9b shows the approximation of the area <math display="inline">$$A$$</math> of <math display="inline">$$R$$</math> using <math display="inline">$$16$$</math> rectangles.
+    </paragraph>
+    <figure number="9" caption="As n increases, the number of rectangles increases, and the approximation improves.">
+      <alt_text>Two graphs a and b plots curves and rectangles in the x y coordinate plane. In the graph a labeled n = 8, a curve and 8 rectangles are graphed in the x y coordinate plane. The horizontal axis x, ranges from 0 to over 1 and the vertical axis y ranges from 0 to over 1. 8 vertical rectangles of varying heights are graphed on the x axis between the origin and the coordinate (1, 0) with equal intervals, which resembles the increasing step histogram from the left to the right. The area of all 8 rectangles is shaded. The curve labeled y = x^2 enters the first quadrant from the origin, slopes upward to the right, concave up increasing steeply to the right, cuts the top left corner of each vertical rectangles and exits the first quadrant through the coordinate (1,1) at the top right of the viewing window. A perpendicular dropped from the coordinate (1, 1) to the x axis. In the graph b labeled n = 16, a curve and 16 rectangles are graphed in the x y coordinate plane. The horizontal axis x, ranges from 0 to over 1 and the vertical axis y ranges from 0 to over 1. 8 vertical rectangles of varying heights are graphed on the x axis between the origin and the coordinate (1, 0) with equal intervals, which resembles the increasing step histogram from the left to the right. The area of all 8 rectangles is shaded. The curve labeled y = x^2 enters the first quadrant from the origin, slopes upward to the right, concave up increasing steeply to the right, cuts the top left corner of each vertical rectangles and exits the first quadrant through the coordinate (1,1) at the top right of the viewing window. A perpendicular dropped from the coordinate (1, 1) to the x axis.</alt_text>
+    </figure>
+    <paragraph>
+      These figures suggest that the approximations seem to get better as <math display="inline">$$n$$</math> increases. This is borne out by the results given in Table 1, which were obtained by using a computer.
+    </paragraph>
+    <table>
+      <tbody>
+        <row>
+          <cell>
+            <paragraph>
+              <strong>Number of Rectangles,</strong> <math display="inline">$$\mathbf{n}$$</math>
+            </paragraph>
+          </cell>
+          <cell>
+            4
+          </cell>
+          <cell>
+            8
+          </cell>
+          <cell>
+            16
+          </cell>
+          <cell>
+            32
+          </cell>
+          <cell>
+            64
+          </cell>
+          <cell>
+            100
+          </cell>
+          <cell>
+            200
+          </cell>
+        </row>
+        <row>
+          <cell>
+            <paragraph>
+              <strong>Approximation of</strong> <math display="inline">$$\mathbf{A}$$</math>
+            </paragraph>
+          </cell>
+          <cell>
+            0.328125
+          </cell>
+          <cell>
+            0.332031
+          </cell>
+          <cell>
+            0.333008
+          </cell>
+          <cell>
+            0.333252
+          </cell>
+          <cell>
+            0.333313
+          </cell>
+          <cell>
+            0.333325
+          </cell>
+          <cell>
+            0.333331
+          </cell>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>
+      Our computations seem to suggest that the approximations approach the number <math display="inline">$$\frac{1}{3}$$</math> as <math display="inline">$$n$$</math> gets larger and larger. This result suggests that we <em>define</em> the area of the region under the graph of <math display="inline">$$f(x) = x^{2}$$</math> on the interval <math display="inline">$$\lbrack 0,1\rbrack$$</math> to be <math display="inline">$$\frac{1}{3}$$</math> .
+    </paragraph>
+    <paragraph>
+      In Example 1, we chose the <em>midpoint</em> of each subinterval as the point at which to evaluate <math display="inline">$$f(x)$$</math> to obtain the height of the approximating rectangle. Let’s consider another example, this time choosing the <em>left endpoint</em> of each subinterval.
+    </paragraph>
+    <example number="2">
+      <problem>
+        <paragraph>
+          Let <math display="inline">$$R$$</math> be the region under the graph of <math display="inline">$$f(x) = 16 - x^{2}$$</math> on the interval <math display="inline">$$\lbrack 1,3\rbrack$$</math> . Find an approximation of the area <math display="inline">$$A$$</math> of <math display="inline">$$R$$</math> using four subintervals of <math display="inline">$$\lbrack 1,3\rbrack$$</math> of equal length and picking the left endpoint of each subinterval to evaluate <math display="inline">$$f(x)$$</math> to obtain the height of the approximating rectangle.
+        </paragraph>
+      </problem>
+      <solution>
+        <paragraph>
+          The graph of <math display="inline">$$f$$</math> is sketched in Figure 10a. Since the length of <math display="inline">$$\lbrack 1,3\rbrack$$</math> is <math display="inline">$$2$$</math> , we see that the length of each subinterval is <math display="inline">$$\frac{2}{4}$$</math> , or <math display="inline">$$\frac{1}{2}$$</math> . Therefore, the four subintervals are
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\left\lbrack 1,\frac{3}{2} \right\rbrack,\quad\left\lbrack \frac{3}{2},2 \right\rbrack,\quad\left\lbrack 2,\frac{5}{2} \right\rbrack,\quad\left\lbrack \frac{5}{2},3 \right\rbrack$$</math>
+        </paragraph>
+        <figure number="10" caption="The area of R in (a) is approximated by the sum of the areas of the four rectangles in (b).">
+          <alt_text>Two graphs a and b plots a curve and 4 rectangles in the x y coordinate plane respectively. In the graph a, a curve is graphed in the first quadrant of the x y coordinate plane. The horizontal axis x, ranges from 0 to over 4 and the vertical axis y ranges from 0 to over 16. The curve enters the first quadrant from the coordinate (0, 16), slopes downward to the right, concave down decreasing to reach the coordinate (4, 0) on the horizontal axis. A perpendicular is dropped from the path of the curve around the coordinate (1, 15) to the x axis and another perpendicular is dropped from the path of the curve around the coordinate (7, 15) to the x axis. The region below the curve to the x axis between coordinates (1, 0) and (3, 0) is shaded and labeled R. In the graph b, a curve is graphed in the x y coordinate plane. The horizontal axis x has tick marks at unequal intervals labeled 4, 8, f(5/2), f(2), f(3/2), and f(1) and the vertical axis y has tick marks at unequal intervals labeled 1, (3/2), 2, f(5/2), 3, and 4. The curve enters the first quadrant from the coordinate (0, 16), slopes downward to the right, concave down decreasing to reach the coordinate (4, 0) on the horizontal axis. The region below the curve between the tick marks labeled 1 and 3 is divided into 4 adjacent vertical rectangles with an equal width of 3/2 units and varying heights are drawn. The first vertical rectangle, with width 3/2 and height f(1) is located adjacent to the y axis. Its width runs along the x axis from the mark 1 to the mark 3/2. Its left side runs parallel to the y axis from the tick mark 1 in the x axis till the mark f(1) in the y axis. The second rectangle is located adjacent to the first, its left side running along the right side of the previous rectangle. The bottom width of the second rectangle runs along the x axis from the mark 3/2 to the mark 2, thus spanning a width of 3/2 units. The horizontal line from the mark f(3/2) on the y axis, grazes the top width of the rectangle, indicating the height of the rectangle to be f(3/2). The third rectangle is located adjacent to the second, its left side running along the right side of the previous rectangle. The bottom width of the third rectangle runs along the x axis from the mark 2 to the mark 5/2, thus spanning a width of 3/2 units. The horizontal line from the mark f(2) on the y axis, grazes the top width of the rectangle, indicating the height of the rectangle to be f(2). The fourth rectangle is located adjacent to the third, its left side running along the right side of the previous rectangle. The bottom width of the fourth rectangle runs along the x axis from the mark 5/2 to the mark 3, thus spanning a width of 3/2 units. The horizontal line from the mark f(5/2) on the y axis, grazes the top width of the rectangle, indicating the height of the rectangle to be f(5/2). The curve is superimposed on the rectangles, which cuts the top left corner of each rectangles and slopes down to cut the adjacent rectangles to reach the coordinate (4, 0) on the horizontal axis.</alt_text>
+        </figure>
+        <paragraph>
+          The left endpoints of these subintervals are <math display="inline">$$1$$</math> , <math display="inline">$$\frac{3}{2}$$</math> , <math display="inline">$$2$$</math> , and <math display="inline">$$\frac{5}{2}$$</math> , respectively, so the heights of the approximating rectangles are <math display="inline">$$f(1)$$</math> , <math display="inline">$$f\left( \frac{3}{2} \right)$$</math> , <math display="inline">$$f(2)$$</math> , and <math display="inline">$$f\left( \frac{5}{2} \right)$$</math> , respectively (Figure 10b). Therefore, the required approximation is
+        </paragraph>
+        <paragraph>
+          <math display="block">$$\begin{array}{lll}
+  A &amp; \approx &amp; {\frac{1}{2}f(1) + \frac{1}{2}f\left( \frac{3}{2} \right) + \frac{1}{2}f(2) + \frac{1}{2}f\left( \frac{5}{2} \right)} \\
+   &amp; = &amp; {\frac{1}{2}\left\lbrack {f(1) + f\left( \frac{3}{2} \right) + f(2) + f\left( \frac{5}{2} \right)} \right\rbrack} \\
+   &amp; = &amp; {\frac{1}{2}\left\{ \lbrack 16 - {{(1)}^{2}\rbrack + \left\lbrack 16 - \left( \frac{3}{2} \right)^{2} \right\rbrack} \right.} \\
+   &amp; &amp; {+ \lbrack 16 - {(2)}^{2}\rbrack + \left\lbrack 16 - \left( \frac{5}{2} \right)^{2} \right\rbrack\}\qquad{\text{Recall that~}f(x) = 16 - x^{2}\text{.}}} \\
+   &amp; = &amp; {\frac{1}{2}\left( {15 + \frac{55}{4} + 12 + \frac{39}{4}} \right) = \frac{101}{4}}
+  \end{array}$$</math>
+        </paragraph>
+        <paragraph>
+          or approximately <math display="inline">$$25.25$$</math> .
+        </paragraph>
+      </solution>
+    </example>
+    <paragraph>
+      Table 2 shows the approximations of the area <math display="inline">$$A$$</math> of the region <math display="inline">$$R$$</math> of Example 2 when <math display="inline">$$n$$</math> rectangles are used for the approximation and the heights of the approximating rectangles are found by evaluating <math display="inline">$$f(x)$$</math> at the left endpoints.
+    </paragraph>
+    <table>
+      <tbody>
+        <row>
+          <cell>
+            <paragraph>
+              <strong>Number of Rectangles,</strong> <math display="inline">$$\mathbf{n}$$</math>
+            </paragraph>
+          </cell>
+          <cell>
+            4
+          </cell>
+          <cell>
+            10
+          </cell>
+          <cell>
+            100
+          </cell>
+          <cell>
+            1,000
+          </cell>
+          <cell>
+            10,000
+          </cell>
+          <cell>
+            50,000
+          </cell>
+          <cell>
+            100,000
+          </cell>
+        </row>
+        <row>
+          <cell>
+            <paragraph>
+              <strong>Approximation of</strong> <math display="inline">$$\mathbf{A}$$</math>
+            </paragraph>
+          </cell>
+          <cell>
+            25.2500
+          </cell>
+          <cell>
+            24.1200
+          </cell>
+          <cell>
+            23.4132
+          </cell>
+          <cell>
+            23.3413
+          </cell>
+          <cell>
+            23.3341
+          </cell>
+          <cell>
+            23.3335
+          </cell>
+          <cell>
+            23.3334
+          </cell>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>
+      Once again, we see that the approximations seem to approach a unique number as <math display="inline">$$n$$</math> gets larger and larger. This time, the number is <math display="inline">$$23\frac{1}{2}$$</math> . This result suggests that we <em>define</em> the area of the region under the graph of <math display="inline">$$f(x) = 16 - x^{2}$$</math> on the interval <math display="inline">$$\lbrack 1,3\rbrack$$</math> to be <math display="inline">$$23\frac{1}{2}$$</math> .
+    </paragraph>
+  </subsection>
+  <subsection title="Defining Area—The General Case">
+    <paragraph>
+      Examples 1 and 2 point the way to defining the area <math display="inline">$$A$$</math> of the region <math display="inline">$$R$$</math> under the graph of an arbitrary but continuous, nonnegative function <math display="inline">$$f$$</math> on an interval <math display="inline">$$\lbrack a,b\rbrack$$</math> (Figure 11a).
+    </paragraph>
+    <figure number="11" caption="The area of the region under the graph of f on [ a , b ] in (a) is approximated by the sum of the areas of the n rectangles shown in (b).">
+      <alt_text>Two graphs a and b plots a curve and rectangles in the x y coordinate plane. In the graph a, a curve is graphed in the first quadrant of the x y coordinate. The horizontal axis x has two tick marks a and b. The curve starts from a point close to y axis and away from the origin, from where a perpendicular is dropped to the tick mark a in the x axis. The curve slopes upward, concave down, inflects, slopes downward gradually to the right, concave up increasing upward to the right, slopes upward to reach a point, from where a perpendicular is dropped to the tick mark b in the x axis and continues to slope upward to the right. The region below the curve to the horizontal axis, within the tick marks a and b is shaded and labeled R. In the graph b, a curve is graphed in the x y coordinate plane. The horizontal axis x has 7 tick marks at equal intervals, whereas the first and the last is labeled a and b respectively. The vertical axis y is unlabeled. The curve starts from a point close to y axis and away from the origin, from where a perpendicular is dropped to the tick mark a in the x axis. The curve slopes upward, concave down, inflects, slopes downward gradually to the right, concave up increasing upward to the right, slopes upward to reach a point, from where a perpendicular is dropped to the tick mark b in the x axis and continues to slope upward to the right. The region below the curve between the tick marks labeled a and b is divided into 6 adjacent vertical rectangles with an equal and varying heights are drawn. The horizontal width of the each rectangle has a sub interval representative point labeled x_1, x_2, x_3, x_4, ellipsis, x_n. The first vertical rectangle, with height f(x_1) is located adjacent to the y axis. Its width runs along the x axis from the mark a to the adjacent unlabeled tick mark. Its left side runs parallel to the y axis from the tick mark a in the x axis. The curve cuts the top width at a point close to its left side and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point x_1. The second rectangle with height f(x_2) higher than the first rectangle is located adjacent to the first, its left side running along the right side of the previous rectangle. The bottom width of the second rectangle runs along the x axis and it is as same as the width of the first rectangle. The curve cuts the top width at a point close to its left side and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point x_2. The third rectangle with height f(x_3 ) lower than the second rectangle is located adjacent to the second, its left side running along the right side of the previous rectangle. The bottom width of the third rectangle runs along the x axis and it is as same as the width of the previous rectangles. The curve cuts the top width at a point close to its right side and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point x_3. The fourth rectangle with height f(x_4) lower than the third rectangle is located adjacent to the third, its left side running along the right side of the previous rectangle. The bottom width of the fourth rectangle runs along the x axis and it is as same as the width of the previous rectangles. The curve cuts the top width at a point close to its right side and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point x_4. The fifth rectangle with height lower than the fourth rectangle is located adjacent to the fourth, its left side running along the right side of the previous rectangle. The bottom width of the fifth rectangle runs along the x axis and it is as same as the width of the previous rectangles. The curve cuts the top width at a point close to its left side and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point labeled with ellipsis. The sixth rectangle with height f(x_n) higher than the fifth rectangle is located adjacent to the fifth, its left side running along the right side of the previous rectangle. The bottom width of the sixth rectangle runs along the x axis and it is as same as the width of the previous rectangles. The curve cuts the top width at a point close to its right side and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point x_n.</alt_text>
+    </figure>
+    <paragraph>
+      Divide the interval <math display="inline">$$\lbrack a,b\rbrack$$</math> into <math display="inline">$$n$$</math> subintervals of equal length <math display="inline">$$\Delta x = {(b - a) \slash n}$$</math> . Next, pick <math display="inline">$$n$$</math> arbitrary points <math display="inline">$$x_{1},x_{2},\ldots,\text{and}x_{n}$$</math> , called <em>representative points,</em> from the first, second, <math display="inline">$$\ldots$$</math> , and <math display="inline">$$n$$</math>th subintervals, respectively (Figure 11b). Then, approximating the area <math display="inline">$$A$$</math> of the region <math display="inline">$$R$$</math> by the <math display="inline">$$n$$</math> rectangles of width <math display="inline">$$\Delta x$$</math> and heights <math display="inline">$$f\left( x_{1} \right),f\left( x_{2} \right),\ldots,f\left( x_{n} \right)$$</math> , so that the areas of the rectangles are <math display="inline">$$f\left( x_{1} \right)\Delta x,f\left( x_{2} \right)\Delta x,\ldots,f\left( x_{n} \right)\Delta x$$</math> , we have
+    </paragraph>
+    <paragraph>
+      <math display="block">$$A \approx f\left( x_{1} \right)\Delta x + f\left( x_{2} \right)\Delta x + \cdots + f\left( x_{n} \right)\Delta x$$</math>
+    </paragraph>
+    <paragraph>
+      The sum on the right-hand side of this expression is called a <term>Riemann sum</term> in honor of the German mathematician Bernhard Riemann (1826–1866). Now, as the earlier examples seem to suggest, the Riemann sum will approach a unique number as <math display="inline">$$n$$</math> becomes arbitrarily large.* We define this number to be the area <math display="inline">$$A$$</math> of the region <math display="inline">$$R$$</math> .
+    </paragraph>
+    <note title="The Area under the Graph of a Function">
+      <paragraph>
+        Let <math display="inline">$$f$$</math> be a nonnegative continuous function on <math display="inline">$$\lbrack a,b\rbrack$$</math> . Then, the area of the region under the graph of <math display="inline">$$f$$</math> is
+      </paragraph>
+      <paragraph>
+        where <math display="inline">$$x_{1},x_{2},\ldots,x_{n}$$</math> , are arbitrary points in the <math display="inline">$$n$$</math> subintervals of <math display="inline">$$\lbrack a,b\rbrack$$</math> of equal width <math display="inline">$$\Delta x = {(b - a) \slash n}$$</math> .
+      </paragraph>
+    </note>
+  </subsection>
+  <subsection title="The Definite Integral">
+    <paragraph>
+      As we have just seen, the area under the graph of a continuous <em>nonnegative</em> function <math display="inline">$$f$$</math> on an interval <math display="inline">$$\lbrack a,b\rbrack$$</math> is defined by the limit of the Riemann sum
+    </paragraph>
+    <paragraph>
+      <math display="block">$$\lim\limits_{n\rightarrow\infty}\left\lbrack {f\left( x_{1} \right)\Delta x + f\left( x_{2} \right)\Delta x + \cdots + f\left( x_{n} \right)\Delta x} \right\rbrack$$</math>
+    </paragraph>
+    <paragraph>
+      We now turn our attention to the study of limits of Riemann sums involving functions that are not necessarily nonnegative. Such limits arise in many applications of calculus.
+    </paragraph>
+    <paragraph>
+      For example, the calculation of the distance covered by a body traveling along a straight line involves evaluating a limit of this form. The computation of the total revenue realized by a company over a certain time period, the calculation of the total amount of electricity consumed in a typical home over a <math display="inline">$$24$$</math>-hour period, the average concentration of a drug in a body over a certain interval of time, and the volume of a solid—all involve limits of this type.
+    </paragraph>
+    <paragraph>
+      We begin with the following definition.
+    </paragraph>
+    <note title="The Definite Integral">
+      <paragraph>
+        Let <math display="inline">$$f$$</math> be a function defined on <math display="inline">$$\lbrack a,b\rbrack$$</math> . If
+      </paragraph>
+      <paragraph>
+        exists and is the same for all choices of representative points <math display="inline">$$x_{1},x_{2},\ldots,x_{n}$$</math> in the <math display="inline">$$n$$</math> subintervals of <math display="inline">$$\lbrack a,b\rbrack$$</math> of equal width <math display="inline">$$\Delta x = {(b - a) \slash n}$$</math> , then this limit is called the <term>definite integral</term> of <math display="inline">$$f$$</math> from <math display="inline">$$a$$</math> to <math display="inline">$$b$$</math> and is denoted by <math display="inline">$$\int_{a}^{b}f(x)\mathit{dx}$$</math> . Thus,
+      </paragraph>
+      <paragraph>
+        The number <math display="inline">$$a$$</math> is called the <term>lower limit of integration</term> , and the number <math display="inline">$$b$$</math> is called the <term>upper limit of integration</term> .
+      </paragraph>
+    </note>
+    <note title="Notes">
+      <list ordered="true">
+        <item>
           <paragraph>
-            <math display="block">$$\frac{M\left( {b - a} \right)^{5}}{180n^{4}}$$</math>
+            If <math display="inline">$$f$$</math> is nonnegative, then the limit in Equation (7) is the same as the limit in (6); therefore, the definite integral gives the area under the graph of <math display="inline">$$f$$</math> on <math display="inline">$$\lbrack a,b\rbrack$$</math> .
           </paragraph>
+        </item>
+        <item>
           <paragraph>
-            where <math display="inline">$$M$$</math> is a number such that <math display="inline">$$\left| {f^{(4)}\left. (x) \right|} \right. \leq M$$</math> for all <math display="inline">$$x$$</math> in <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> .
+            The limit in Equation (7) is denoted by the integral sign <math display="inline">$$\int$$</math> because, as we will see later, the definite integral and the antiderivative of a function <math display="inline">$$f$$</math> are related.
+          </paragraph>
+        </item>
+        <item>
+          <paragraph>
+            It is important to realize that the definite integral <math display="inline">$$\int_{a}^{b}f(x)\mathit{dx}$$</math> is a <em>number,</em> whereas the indefinite integral <math display="inline">$$\int f(x)\mathit{dx}$$</math> represents a <em>family of functions</em> (the antiderivatives of <math display="inline">$$f$$</math> ).
+          </paragraph>
+        </item>
+        <item>
+          <paragraph>
+            If the limit in Equation (7) exists, we say that <math display="inline">$$f$$</math> is <strong>integrable</strong> on the interval <math display="inline">$$\lbrack a,b\rbrack$$</math> .
           </paragraph>
         </item>
       </list>
     </note>
-    <note title="Note">
+  </subsection>
+  <subsection title="When Is a Function Integrable?">
+    <paragraph>
+      The following theorem, which we state without proof, guarantees that a continuous function is integrable.
+    </paragraph>
+    <note title="Integrability of a Function">
       <paragraph>
-        In many instances, the actual error is less than the upper error bounds given.
-      </paragraph>
-    </note>
-    <example number="6">
-      <problem>
-        <paragraph>
-          Find bounds on the errors incurred when
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\int_{1}^{2}{\frac{1}{x}dx}$$</math>
-        </paragraph>
-        <paragraph>
-          is approximated by using (a) the Trapezoidal Rule and (b) Simpson’s Rule with <math display="inline">$$n = 10$$</math> . Compare these with the actual errors found in Examples 1 and 3.
-        </paragraph>
-      </problem>
-      <solution>
-        <list ordered="true">
-          <item>
-            <paragraph>
-              Here, <math display="inline">$$a = 1$$</math> , <math display="inline">$$b = 2$$</math> , and <math display="inline">$$f(x) = 1 \slash x$$</math> Next, to find a value for <math display="inline">$$M$$</math> , we compute
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f^{\prime}(x) = - ‍\frac{1}{x^{2}}$$</math>
-            </paragraph>
-            <paragraph>
-              and
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f^{''}(x) = \frac{2}{x^{3}}$$</math>
-            </paragraph>
-            <paragraph>
-              Since <math display="inline">$$f^{''}(x)$$</math> is positive and decreasing on <math display="inline">$$(1,2)$$</math> (Why?), it attains its maximum value of <math display="inline">$$2$$</math> at <math display="inline">$$x = 1$$</math> , the left endpoint of the interval. Therefore, if we take <math display="inline">$$M = 2$$</math> , then <math display="inline">$$\left| {f^{''}{(x)|}} \right. \leq 2$$</math> . Using (8), we see that the maximum error incurred is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\frac{2\left( {2 - 1} \right)^{3}}{12(10)^{2}} = \frac{2}{1200} = 0.0016667$$</math>
-            </paragraph>
-            <paragraph>
-              The actual error found in Example 1, <math display="inline">$$0.000624$$</math> , is much less than the upper bound just found.
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              We compute
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f^{'''}(x) = \frac{- 6}{x^{4}}$$</math>
-            </paragraph>
-            <paragraph>
-              and
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f^{(4)}‍{(x)} = \frac{24}{x^{5}}$$</math>
-            </paragraph>
-            <paragraph>
-              Since <math display="inline">$$f^{(4)}‍(x)$$</math> is positive and decreasing on <math display="inline">$$(1,2)$$</math> (just look at <math display="inline">$$f^{(5)}$$</math> to verify this fact), it attains its maximum at the left endpoint of <math display="inline">$$\lbrack 1,2\rbrack$$</math> . Now,
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f^{(4)}(1) = 24$$</math>
-            </paragraph>
-            <paragraph>
-              so we may take <math display="inline">$$M = 24$$</math> . Using (9), we obtain the maximum error of
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\frac{24\left( {2 - 1} \right)^{5}}{180(10)^{4}} = 0.0000133$$</math>
-            </paragraph>
-            <paragraph>
-              The actual error is <math display="inline">$$0.000003$$</math> (see Example 3).
-            </paragraph>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <note title="Explore and Discuss">
-      <paragraph>
-        Refer to the Explore and Discuss in the section The Trapezoidal Rule. Explain how you would find the maximum error incurred in using the Trapezoidal Rule with <math display="inline">$$n = 10$$</math> to approximate <math display="inline">$$\int_{0}^{2}{f(x)dx}$$</math> .
+        Let <math display="inline">$$f$$</math> be continuous on <math display="inline">$$\lbrack a,b\rbrack$$</math> . Then, <math display="inline">$$f$$</math> is integrable on <math display="inline">$$\lbrack a,b\rbrack$$</math> ; that is, the definite integral <math display="inline">$$\int_{a}^{b}f(x)\mathit{dx}$$</math> exists.
       </paragraph>
     </note>
   </subsection>
-  <subsection number="7.3" title="Self-Check Exercises">
+  <subsection title="Geometric Interpretation of the Definite Integral">
+    <paragraph>
+      If <math display="inline">$$f$$</math> is nonnegative and integrable on <math display="inline">$$\lbrack a,b\rbrack$$</math> , then we have the following geometric interpretation of the definite integral <math display="inline">$$\int_{a}^{b}f(x)\mathit{dx}$$</math> .
+    </paragraph>
+    <note title="Geometric Interpretation of ∫ a b f ( x ) ⁢ dx for f ( x ) ≥ 0 on [ a , b ]">
+      <paragraph>
+        If <math display="inline">$$f$$</math> is nonnegative and continuous on <math display="inline">$$\lbrack a,b\rbrack$$</math> , then
+      </paragraph>
+      <paragraph>
+        is equal to the area of the region under the graph of <math display="inline">$$f$$</math> on <math display="inline">$$\lbrack a,b\rbrack$$</math> (Figure 12).
+      </paragraph>
+    </note>
+    <note title="Explore and Discuss">
+      <paragraph>
+        Suppose <math display="inline">$$f$$</math> is nonpositive [that is, <math display="inline">$$f(x) \leq 0$$</math> ] and continuous on <math display="inline">$$\lbrack a,b\rbrack$$</math> . Explain why the area of the region below the <math display="inline">$$x$$</math> -axis and above the graph of <math display="inline">$$f$$</math> is given by <math display="inline">$$- {\int_{a}^{b}{f(x)}}\mathit{dx}$$</math> .
+      </paragraph>
+    </note>
+    <paragraph>
+      Next, let’s extend our geometric interpretation of the definite integral to include the case where <math display="inline">$$f$$</math> assumes both positive and negative values on <math display="inline">$$\lbrack a,b\rbrack$$</math> . Consider a typical Riemann sum of the function <math display="inline">$$f$$</math> ,
+    </paragraph>
+    <paragraph>
+      <math display="block">$$f\left( x_{1} \right)\Delta x + f\left( x_{2} \right)\Delta x + \cdots + f\left( x_{n} \right)\Delta x$$</math>
+    </paragraph>
+    <paragraph>
+      corresponding to a partition of <math display="inline">$$\lbrack a,b\rbrack$$</math> into <math display="inline">$$n$$</math> subintervals of equal width <math display="inline">$$(b - a) \slash n$$</math> , where <math display="inline">$$x_{1},x_{2},\ldots,x_{n}$$</math> are representative points in the subintervals. The sum consists of <math display="inline">$$n$$</math> terms in which a positive term corresponds to the area of a rectangle of height <math display="inline">$$f\left( x_{k} \right)$$</math> (for some positive integer <math display="inline">$$k$$</math> ) lying above the <math display="inline">$$x$$</math> -axis and a negative term corresponds to the negative of the area of a rectangle of height <math display="inline">$$- f\left( x_{k} \right)$$</math> lying below the <math display="inline">$$x$$</math> -axis. (See Figure 13, which depicts a situation with <math display="inline">$$n = 6$$</math> .)
+    </paragraph>
+    <figure number="13" caption="The positive terms in the Riemann sum are associated with the areas of the rectangles that lie above the x -axis, and the negative terms are associated with the areas of those that lie below the x -axis.">
+      <alt_text>A curve is graphed in the x y coordinate plane. The horizontal axis x has 7 tick marks at equal intervals, whereas the first and the last is labeled a and b respectively. The vertical axis y is unlabeled. The curve labeled y = f (x) starts from a point close to the midpoint of the y axis and away from the origin, from where a perpendicular is dropped to the tick mark a in the x axis. The curve slopes upward to reach its highest peak, concave down decreasing steeply to the right, cuts the horizontal axis to enter the fourth quadrant, slopes downward to the right, inflects, concave up increasing to the right, cuts the horizontal axis to enter the first quadrant again, slopes upward steeply to the right to reach a point, from where a perpendicular is dropped to the tick mark b in the x axis. The region between the curve and the x axis in the first and the fourth quadrants with horizontal interval of a to b is divided into 6 adjacent vertical rectangles with an equal and varying heights are drawn. The horizontal width of the each rectangle has a sub interval representative point labeled x_1, x_2, x_3, x_4, x_5, x_6. The first vertical rectangle in the first quadrant with height f(x_1) is located adjacent to the y axis. Its width runs along the x axis from the mark a to the adjacent unlabeled tick mark. Its left side runs parallel to the y axis from the tick mark a in the x axis. The curve cuts the top width at a point close to its left side and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point x_1. The second rectangle in the first quadrant with height f(x_2) higher than the first rectangle is located adjacent to the first, its left side running along the right side of the previous rectangle. The bottom width of the second rectangle runs along the x axis and it is as same as the width of the first rectangle. The curve cuts the top width at the midpoint and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point x_2. The third rectangle in the first quadrant with height f(x_3 ) lower than the second rectangle is located adjacent to the second, its left side running along the right side of the previous rectangle. The bottom width of the third rectangle runs along the x axis and it is as same as the width of the previous rectangles. The curve cuts the top width at a point close to its left side and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point x_3. The fourth rectangle with height f(negative x_4) is located below the x axis in the fourth quadrant. The bottom width of the fourth rectangle runs along the x axis and it is as same as the width of the previous rectangles. The curve cuts the top width at a point close to its right side and from this point of intersection a perpendicular raises to the x axis meeting it at the representation point x_4. The fifth rectangle with height f(x_5) higher than the third rectangle is located in the first quadrant. The bottom width of the fifth rectangle runs along the x axis and it is as same as the width of the previous rectangles. The curve cuts the top width at a point close to its right side and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point x_5. The sixth rectangle with height f(x_6) higher than the fifth rectangle is located adjacent to the fourth, its left side running along the right side of the previous rectangle. The bottom width of the sixth rectangle runs along the x axis and it is as same as the width of the previous rectangles. The curve cuts the top width at the midpoint and from this point of intersection a perpendicular is dropped to the x axis meeting it at the representation point x_6.</alt_text>
+    </figure>
+    <paragraph>
+      As <math display="inline">$$n$$</math> gets larger and larger, the sums of the areas of the rectangles lying above the <math display="inline">$$x$$</math> -axis seem to give a better and better approximation of the area of the region lying above the <math display="inline">$$x$$</math> -axis (Figure 14). Similarly, the sums of the areas of those rectangles lying below the <math display="inline">$$x$$</math> -axis seem to give a better and better approximation of the area of the region lying below the <math display="inline">$$x$$</math> -axis.
+    </paragraph>
+    <figure number="14" caption="As n gets larger, the approximations get better. Here, n = 12 , and we are approximating with twice as many rectangles as in Figure 13.">
+      <alt_text>A curve is graphed in the x y coordinate plane. The horizontal axis x has 13 tick marks at equal intervals, whereas the first and the last is labeled a and b respectively. The vertical axis y is unlabeled. The curve labeled y = f (x) starts from a point close to the midpoint of the y axis and away from the origin, from where a perpendicular is dropped to the tick mark a in the x axis. The curve slopes upward to reach its highest peak, concave down decreasing steeply to the right, cuts the horizontal axis to enter the fourth quadrant, slopes downward to the right, inflects, concave up increasing to the right, cuts the horizontal axis to enter the first quadrant again, slopes upward steeply to the right to reach a point, from where a perpendicular is dropped to the tick mark b in the x axis. The region between the curve and the x axis in the first is divided into 8 adjacent vertical rectangles with an equal and varying heights are drawn. The region between the curve and the x axis in the fourth quadrant is divided into 4 adjacent vertical rectangles with an equal and varying heights are drawn.</alt_text>
+    </figure>
+    <paragraph>
+      These observations suggest the following geometric interpretation of the definite integral for an arbitrary continuous function on an interval <math display="inline">$$\lbrack a,b\rbrack$$</math> .
+    </paragraph>
+    <note title="Geometric Interpretation of ∫ a b f ( x ) ⁢ dx on [ a , b ]">
+      <paragraph>
+        If <math display="inline">$$f$$</math> is continuous on <math display="inline">$$\lbrack a,b\rbrack$$</math> , then
+      </paragraph>
+      <paragraph>
+        is equal to the area of the region above <math display="inline">$$\lbrack a,b\rbrack$$</math> minus the area of the region below <math display="inline">$$\lbrack a,b\rbrack$$</math> (Figure 15).
+      </paragraph>
+    </note>
+    <paragraph>
+      Finally, as promised at the beginning of the section, we will demonstrate that the total daily petroleum consumption of the New England state between 2008 and 2012 was given by the area under the graph of <math display="inline">$$f$$</math> between <math display="inline">$$t = 0$$</math> and <math display="inline">$$t = 4$$</math> .
+    </paragraph>
+    <paragraph>
+      We begin by dividing the time interval <math display="inline">$$\lbrack 0,4\rbrack$$</math> into <math display="inline">$$n$$</math> subintervals of equal length <math display="inline">$$\Delta t = 4 \slash n$$</math> , with endpoints <math display="inline">$$t_{0} = 0,t_{1} = \Delta t,t_{2} = 2\Delta t,\ldots,t_{n} = n\Delta t$$</math> . In the first subinterval, <math display="inline">$$\left\lbrack {t_{0},t_{1}} \right\rbrack$$</math> , we pick an arbitrary point <math display="inline">$$t_{1}^{*}$$</math> . Observe that because of the continuity of <math display="inline">$$f$$</math> , the values of <math display="inline">$$f$$</math> in <math display="inline">$$\left\lbrack {t_{0},t_{1}} \right\rbrack$$</math> do not vary appreciably from the constant value <math display="inline">$$f\left( t_{1}^{*} \right)$$</math> . So the consumption of petroleum over the period from <math display="inline">$$t = 0$$</math> to <math display="inline">$$t = \Delta t$$</math> is approximately <math display="inline">$$f\left( t_{1}^{*} \right)\Delta t$$</math> million barrels. Similarly, we see that the petroleum consumption over the period from <math display="inline">$$t = t_{1}$$</math> to <math display="inline">$$t = t_{2}$$</math> is approximately <math display="inline">$$f\left( t_{2}^{*} \right)\Delta t$$</math> , where <math display="inline">$$t_{2}^{*}$$</math> is an arbitrary point in the subinterval <math display="inline">$$\left\lbrack {t_{1},t_{2}} \right\rbrack$$</math> . Continuing, we see that the total petroleum consumption over the interval <math display="inline">$$\left\lbrack {0,4} \right\rbrack$$</math> is approximately
+    </paragraph>
+    <paragraph>
+      <math display="block">$$f\left( t_{1}^{*} \right)\Delta t + f\left( t_{2}^{*} \right)\Delta t + \cdots + f\left( t_{n}^{*} \right)\Delta t$$</math>
+    </paragraph>
+    <paragraph>
+      where <math display="inline">$$t_{1}^{*}$$</math> is an arbitrary point in the interval <math display="inline">$$\left\lbrack {t_{i - 1},t_{i}} \right\rbrack\left( {1 \leq i \leq n} \right)$$</math> . Intuitively, we see that as <math display="inline">$$n$$</math> gets larger and larger and the length of each subinterval gets smaller and smaller, the approximation gets better and better. Thus, as <math display="inline">$$n$$</math> becomes arbitrarily large, the sum approaches the limit that we take to be the total petroleum consumption on <math display="inline">$$\left\lbrack {0,4} \right\rbrack$$</math> . But the sum is just the Riemann sum of the nonnegative function on <math display="inline">$$\left\lbrack {0,4} \right\rbrack$$</math> , so its limit gives the area of the graph of <math display="inline">$$f$$</math> under <math display="inline">$$\left\lbrack {0,4} \right\rbrack$$</math> .
+    </paragraph>
+  </subsection>
+  <subsection number="6.3" title="Self-Check Exercises">
     <exercises>
       <exercise_group>
         <problem number="1">
           <statement>
             <paragraph>
-              Use the Trapezoidal Rule and Simpson’s Rule with <math display="inline">$$n = 8$$</math> to approximate the value of the definite integral
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\int_{0}^{2}{\frac{1}{\sqrt{1 + x^{2}}}dx}$$</math>
+              Find an approximation of the area of the region <math display="inline">$$R$$</math> under the graph of <math display="inline">$$f(x) = 2x^{2} + 1$$</math> on the interval <math display="inline">$$\left\lbrack {0,3} \right\rbrack$$</math> , using four subintervals of <math display="inline">$$\left\lbrack {0,3} \right\rbrack$$</math> of equal length and picking the midpoint of each subinterval as a representative point.
             </paragraph>
           </statement>
           <answer>
             <paragraph>
-              We have <math display="inline">$$a = 0$$</math> , <math display="inline">$$b = 2$$</math> and <math display="inline">$$n = 8$$</math> , so
+              The length of each subinterval is <math display="inline">$$\frac{3}{4}$$</math> . Therefore, the four subintervals are
             </paragraph>
             <paragraph>
-              <math display="block">$$\Delta x = \frac{b - a}{n} = \frac{2}{8} = 0.25$$</math>
+              <math display="block">$$\left\lbrack {0,\frac{3}{4}} \right\rbrack,\quad\left\lbrack {\frac{3}{4},\frac{3}{2}} \right\rbrack,\quad\left\lbrack {\frac{3}{2},\frac{9}{4}} \right\rbrack,\quad\left\lbrack {\frac{9}{4},3} \right\rbrack$$</math>
             </paragraph>
             <paragraph>
-              and <math display="inline">$$x_{0} = 0,x_{1} = 0.25,x_{2} = 0.50,x_{3} = 0.75,\ldots,x_{7} = 175$$</math> , and <math display="inline">$$x_{8} = 2$$</math> . The Trapezoidal Rule gives
+              The representative points are <math display="inline">$$\frac{3}{8}$$</math> , <math display="inline">$$\frac{9}{8}$$</math> , <math display="inline">$$\frac{15}{8}$$</math> , and <math display="inline">$$\frac{21}{8}$$</math> , respectively. Therefore, the required approximation is
             </paragraph>
             <paragraph>
-              <math display="block">$$\begin{array}{lll}
-  {\int_{0}^{2}{\frac{1}{\sqrt{1 + x^{2}}}dx}} &amp; \approx &amp; {\frac{0.25}{2}\left\lbrack {1 + \frac{2}{\sqrt{1 + (0.25)^{2}}} + \frac{2}{\sqrt{1 + (0.5)^{2}}}} \right.} \\
-   &amp; &amp; \left. {+ \ldots + \frac{2}{\sqrt{1 + (1.75)^{2}}} + \frac{1}{\sqrt{5}}} \right\rbrack \\
-   &amp; \approx &amp; {0.125\left( {1 + 1.9403 + 1.7889 + 1.6000 + 1.4142} \right.} \\
-   &amp; &amp; \left. {+ 1.2494 + 1.1094 + 0.9923 + 0.4472} \right) \\
-   &amp; \approx &amp; 1.4427
+              <math display="block">$$\begin{array}{l}
+  {A{= \frac{3}{4}f\left( \frac{3}{8} \right) + \frac{3}{4}f\left( \frac{9}{8} \right) + \frac{3}{4}f\left( \frac{15}{8} \right) + \frac{3}{4}f\left( \frac{21}{8} \right)}} \\
+  {\phantom{A}{= \frac{3}{4}\left\lbrack {f\left( \frac{3}{8} \right) + f\left( \frac{9}{8} \right) + f\left( \frac{15}{8} \right) + f\left( \frac{21}{8} \right)} \right\rbrack}} \\
+  {\phantom{A}\left. = \frac{3}{4}\left\{ \left\lbrack {2\left( \frac{3}{8} \right)^{2} + 1} \right\rbrack + \left\lbrack {2\left( \frac{9}{8} \right)^{2} + 1} \right\rbrack + \left\lbrack {2\left( \frac{15}{8} \right)^{2} + 1} \right\rbrack + \left\lbrack {2\left( \frac{21}{8} \right)^{2} + 1} \right\rbrack \right. \right\}} \\
+  {\phantom{A}{= \frac{3}{4}\left( {\frac{41}{32} + \frac{113}{32} + \frac{257}{32} + \frac{473}{32}} \right) = \frac{663}{32}}}
   \end{array}$$</math>
             </paragraph>
             <paragraph>
-              Using Simpson’s Rule with <math display="inline">$$n = 8$$</math> gives
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{lll}
-  {\int_{0}^{2}{\frac{1}{\sqrt{1 + x^{2}}}dx}} &amp; \approx &amp; {\frac{0.25}{3}\left\lbrack {1 + \frac{4}{\sqrt{1 + (0.25)^{2}}} + \frac{2}{\sqrt{1 + (0.5)^{2}}}} \right.} \\
-   &amp; &amp; \left. {+ \frac{4}{\sqrt{1 + (0.75)^{2}}} + \ldots + \frac{4}{\sqrt{1 + (1.75)^{2}}} + \frac{1}{\sqrt{5}}} \right\rbrack \\
-   &amp; \approx &amp; {\frac{0.25}{3}\left( {1 + 3.8806 + 1.7889 + 3.2000 + 1.4142} \right.} \\
-   &amp; &amp; \left. {+ 2.4988 + 1.1094 + 1.9846 + 0.4472} \right) \\
-   &amp; \approx &amp; 1.4436
-  \end{array}$$</math>
+              or approximately <math display="inline">$$20.72$$</math> .
             </paragraph>
           </answer>
+        </problem>
+      </exercise_group>
+    </exercises>
+  </subsection>
+  <subsection number="6.3" title="Concept Questions">
+    <exercises>
+      <exercise_group>
+        <problem number="1">
+          <statement>
+            <paragraph>
+              Explain how you would define the area of the region under the graph of a nonnegative continuous function <math display="inline">$$f$$</math> on the interval <math display="inline">$$\lbrack a,b\rbrack$$</math> .
+            </paragraph>
+          </statement>
         </problem>
         <problem number="2">
           <statement>
             <paragraph>
-              U.S. Consumption of Petroleum The graph in the accompanying figure shows the consumption of petroleum in the United States in millions of barrels per day, from 1996 to 2006. Using Simpson’s Rule with <math display="inline">$$n = 10$$</math> , estimate the average consumption during the <math display="inline">$$10$$</math>-year period.
+              Define the definite integral of a continuous function on the interval <math display="inline">$$\lbrack a,b\rbrack$$</math> . Give a geometric interpretation of
             </paragraph>
+            <paragraph>
+              <math display="block">$$\int_{a}^{b}{f(x)\mathit{dx}}$$</math>
+            </paragraph>
+            <paragraph>
+              for the case in which
+            </paragraph>
+            <list ordered="false">
+              <item>
+                <paragraph>
+                  <math display="inline">$$f$$</math> is nonnegative on <math display="inline">$$\lbrack a,b\rbrack$$</math> and
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  <math display="inline">$$f$$</math> assumes both positive and negative values on <math display="inline">$$\lbrack a,b\rbrack$$</math> .
+                </paragraph>
+              </item>
+            </list>
+            <paragraph>
+              Illustrate your answers graphically.
+            </paragraph>
+          </statement>
+        </problem>
+      </exercise_group>
+    </exercises>
+  </subsection>
+  <subsection number="6.3" title="Exercises">
+    <exercises>
+      <exercise_group>
+        <instructions>
+          In Exercises 1 and 2, find an approximation of the area of the region <math display="inline">$$R$$</math> under the graph of <math display="inline">$$f$$</math> by computing the Riemann sum of <math display="inline">$$f$$</math> corresponding to the partition of the interval into the subintervals shown in the accompanying figures. In each case, use the midpoints of the subintervals as the representative points.
+        </instructions>
+        <problem number="1">
+          <statement>
             <figure>
-              <alt_text>A curve is graphed in the first quadrant of the x y coordinate plane. The horizontal axis x marks from the year 1996 to 2006 and the vertical axis y ranges from 0 to over 21 million barrels per day. There is an axis breaker between the origin and the marking 18 in the y axis. The curve representing the consumption of petroleum in the United States in millions of barrels per day starts at (1996, 18.3) and passes through the following coordinates: (1997, 18.6), (1998, 18.9), (1999, 19.5), (2000, 19.7), (2001, 19.6), (2002, 19.8), (2003, 20.0), (2004, 20.7), (2005, 20.8), and (2006, 20.6). The region below the curve is divided into 10 segments by the perpendiculars dropped from above the curve to each tick mark on the x axis.</alt_text>
-              <credit>Source: BP Statistical Review of World Energy.</credit>
+              <alt_text>A curve y = f(x) is graphed in the first quadrant of the x y coordinate plane. The x axis is marked form 0 to 3 in increments of 1 unit. The y axis is unmarked. The curve begins at the top left at around (1, 2.4), descends to the right, concave up, reaching a low point at (1.5, 1.5), rises upward to the right, inflects at around (2, 2.1), rises upward to the right, now concave down, reaches a high point at (2.5, 2.7) and then descends to the right, concave down. The region below the curve between the tick marks labeled 1 and 3 is divided into 6 adjacent vertical rectangles with an equal width of 0.33 units and varying heights are drawn. A vertical line, the median, which dividing each rectangle into two equal halves rises up from the x axis to meet the curve where the y coordinates is mentioned. The first vertical rectangle, with width 0.33 units and vertical length of 1.9 is located adjacent to the y axis. Its width runs along the x axis from the mark 1 to the mark 1.33. Its left side runs adjacent to the y axis, vertically upward from the x axis from the tick mark 1 till the mark 1.9 in the y axis. Its median meets the curve at (1.16, 1.9). The second rectangle is located adjacent to the first, its left side running along the right side of the previous rectangle. The bottom width of the second rectangle runs along the x axis from the mark 1.33 to the mark 1.66, thus spanning a width of 0.33 units, vertical length of 1.5 units and its median meets the curve at (1.49, 1.5). The third rectangle is located adjacent to the second, its left side running along the right side of the previous rectangle. The bottom width of the third rectangle runs along the x axis from the mark 1.66 to the mark 2, thus spanning a width of 0.33 units, vertical length of 1.8 units and its median meets the curve at (1.82, 1.8). The fourth rectangle is located adjacent to the third, its left side running along the right side of the previous rectangle. The bottom width of the fourth rectangle runs along the x axis from the mark 2 to the mark 2.33, thus spanning a width of 0.33 units, vertical length of 2.4 units and its median meets the curve at (2.15, 2.4). The fifth rectangle is located adjacent to the fourth, its left side running along the right side of the previous rectangle. The bottom width of the fifth rectangle runs along the x axis from the mark 2.33 to the mark 2, thus spanning a width of 2.66 units, vertical length of 2.7 units and its median meets the curve at (2.48, 2.7). The sixth rectangle is located adjacent to the fifth, its left side running along the right side of the previous rectangle. The bottom width of the sixth rectangle runs along the x axis from the mark 2.66 to the mark 3, thus spanning a width of 0.33 units, vertical length of 2.5 units and its median meets the curve at (2.81, 2.5).</alt_text>
             </figure>
           </statement>
           <answer>
             <paragraph>
-              The average consumption of petroleum in millions of barrels per day during the <math display="inline">$$10$$</math>-year period is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\frac{1}{10}{\int_{0}^{10}{f(x)dx}}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$f$$</math> is the function describing the given graph. Using Simpson’s Rule with <math display="inline">$$a = 0$$</math> , <math display="inline">$$b = 10$$</math> , and <math display="inline">$$n = 10$$</math> so that <math display="inline">$$\Delta x = 1$$</math> and
-            </paragraph>
-            <paragraph>
-              <math display="block">$$x_{0} = 0\qquad x_{1} = 1\qquad x_{2} = 2\quad\cdots\quad x_{10} = 10$$</math>
-            </paragraph>
-            <paragraph>
-              we have
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{ll}
-  {\frac{1}{10}{\int_{0}^{10}{f(x)dx}}} &amp; {= \left( \frac{1}{10} \right)\left( \frac{1}{3} \right)\left\lbrack {f\left( x_{0} \right) + 4f\left( x_{1} \right) + 2f\left( x_{2} \right) + 4f\left( x_{3} \right)} \right.} \\
-   &amp; \left. {\quad + \cdot \cdot \cdot + 4f\left( x_{9} \right) + f\left( x_{10} \right)} \right\rbrack \\
-   &amp; {= \frac{1}{30}\left\lbrack {18.3 + 4(18.6) + 2(18.9) + 4(19.5) + 2(19.7) + 4(19.6)} \right.} \\
-   &amp; {\quad{+ \left. 2(19.8) + 4{(20.0) + 2(20.7) + 4(20.8) + 20.6} \right\rbrack}} \\
-   &amp; {\approx 19.7}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              or approximately <math display="inline">$$19.7{million}{barrels} \slash {day}$$</math> .
-            </paragraph>
-          </answer>
-        </problem>
-      </exercise_group>
-    </exercises>
-  </subsection>
-  <subsection number="7.3" title="Concept Questions">
-    <exercises>
-      <exercise_group>
-        <problem number="1">
-          <statement>
-            <paragraph>
-              Explain why <math display="inline">$$n$$</math> can be odd or even in the Trapezoidal Rule but must be even in Simpson’s Rule.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="2">
-          <statement>
-            <paragraph>
-              Explain, without alluding to the error formulas, why the Trapezoidal Rule gives the exact value of <math display="inline">$$\int_{a}^{b}{f(x)dx}$$</math> if <math display="inline">$$f$$</math> is a linear function and why Simpson’s Rule gives the exact value of the integral if <math display="inline">$$f$$</math> is a quadratic function.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="3">
-          <statement>
-            <paragraph>
-              Refer to Concept Question 2, and answer the questions using the error formulas for the Trapezoidal Rule and Simpson’s Rule.
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-    </exercises>
-  </subsection>
-  <subsection number="7.3" title="Exercises">
-    <exercises>
-      <exercise_group>
-        <instructions>
-          In Exercises 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 and 14, use the Trapezoidal Rule and Simpson’s Rule to approximate the value of each definite integral. Compare your result with the exact value of the integral. Express your answers correct to four decimal places.
-        </instructions>
-        <problem number="1">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\int_{0}^{2}{x^{2}dx}$$</math> ; <math display="inline">$$n = 6$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$2.7037$$</math> ; <math display="inline">$$2.6667$$</math> ; <math display="inline">$$\frac{8}{3}$$</math>
+              <math display="inline">$$4.27$$</math>
             </paragraph>
           </answer>
         </problem>
         <problem number="2">
           <statement>
-            <paragraph>
-              <math display="inline">$$\int_{1}^{3}{({x^{2} - 1})dx}$$</math> ; <math display="inline">$$n = 4$$</math>
-            </paragraph>
+            <figure>
+              <alt_text>A curve y = f(x) is graphed in the first quadrant of the x y coordinate plane. The x axis is marked form 0 to 2 in increments of 0.25 units. The y axis is unmarked. The curve begins from the origin, concave up, reaching a high point at (1.5, 8.5), then descends to the right, concave down and continues to slope down to the right and exits the first quadrant at the bottom left the viewing window. The region below the curve between the tick marks labeled 0 and 2 is divided into 8 adjacent vertical rectangles with an equal width of 0.25 units and varying heights are drawn. A vertical line, the median, which dividing each rectangle into two equal halves rises up from the x axis to meet the curve where the y coordinates is mentioned. The first vertical rectangle, with width 0.25 units and vertical length of 4.5 is located adjacent to the y axis. Its width runs along the x axis from the origin to the mark 0.25. Its left side runs along the y axis till the mark 4.5. Its median meets the curve at (0.13, 4.5). The second rectangle is located adjacent to the first, its left side running along the right side of the previous rectangle. The bottom width of the second rectangle runs along the x axis from the mark 0.25 to the mark 0.50, thus spanning a width of 0.25 units, vertical length of 8.0 units and its median meets the curve at (0.38, 8.0). The third rectangle is located adjacent to the second, its left side running along the right side of the previous rectangle. The bottom width of the third rectangle runs along the x axis from the mark 0.50 to the mark 0.75, thus spanning a width of 0.25 units, vertical length of 8.5 units and its median meets the curve at (0.63, 8.5). The fourth rectangle is located adjacent to the third, its left side running along the right side of the previous rectangle. The bottom width of the fourth rectangle runs along the x axis from the mark 0.75 to the mark 1, thus spanning a width of 0.25 units, vertical length of 6.0 units and its median meets the curve at (0.88, 6.0). The fifth rectangle is located adjacent to the fourth its left side running along the right side of the previous rectangle. The bottom width of the fifth rectangle runs along the x axis from the mark 1 to the mark 1.25, thus spanning a width of 0.25 units, vertical length of 4.0 units and its median meets the curve at (1.13, 4.0). The sixth rectangle is located adjacent to the fifth, its left side running along the right side of the previous rectangle. The bottom width of the sixth rectangle runs along the x axis from the mark 1.25 to the mark 1.50, thus spanning a width of 0.25 units, vertical length of 3.0 units and its median meets the curve at (1.38, 3.0). The seventh rectangle is located adjacent to the sixth, its left side running along the right side of the previous rectangle. The bottom width of the seventh rectangle runs along the x axis from the mark 1.50 to the mark 1.75, thus spanning a width of 0.25 units, vertical length of 2.5 units and its median meets the curve at (1.63, 2.5). The eighth rectangle is located adjacent to the seventh, its left side running along the right side of the previous rectangle. The bottom width of the eighth rectangle runs along the x axis from the mark 1.75 to the mark 2, thus spanning a width of 0.25 units, vertical length of 2.0 units and its median meets the curve at (1.88, 2.0).</alt_text>
+            </figure>
           </statement>
         </problem>
+      </exercise_group>
+      <exercise_group>
         <problem number="3">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{1}{x^{3}dx}$$</math> ; <math display="inline">$$n = 4$$</math>
+              Let <math display="inline">$$f(x) = 3x$$</math> .
             </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Sketch the region <math display="inline">$$R$$</math> under the graph of <math display="inline">$$f$$</math> on the interval <math display="inline">$$\left\lbrack {0,2} \right\rbrack$$</math> , and find its exact area using geometry.
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$6$$</math>
+                </paragraph>
+                <figure>
+                  <alt_text>A function is graphed in the first coordinate of the x y coordinate plane and the area under the curve is shaded. The horizontal axis x, ranges from 0 to over 2 and the vertical axis y ranges from 0 to over 6. A line y = 3x, starts from the origin, slopes upward slanting to the right to reach approximately (2, 6) from where a perpendicular is dropped to the x axis, enclosing a right triangle. The area under the line y = 3x, bound by the line itself, the horizontal axis and the perpendicular is shaded.</alt_text>
+                </figure>
+              </item>
+              <item>
+                <paragraph>
+                  Use a Riemann sum with four subintervals of equal length <math display="inline">$$(n = 4)$$</math> to approximate the area of <math display="inline">$$R$$</math> . Choose the representative points to be the left endpoints of the subintervals.
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$4.5$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Repeat part (b) with eight subintervals of equal length <math display="inline">$$(n = 8)$$</math> .
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$5.25$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Compare the approximations obtained in parts (b) and (c) with the exact area found in part (a). Do the approximations improve with larger <math display="inline">$$n$$</math> ?
+                </paragraph>
+                <paragraph>
+                  Yes
+                </paragraph>
+              </item>
+            </list>
           </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$0.2656$$</math> ; <math display="inline">$$0.2500$$</math> ; <math display="inline">$$\frac{1}{4}$$</math>
-            </paragraph>
-          </answer>
         </problem>
         <problem number="4">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{1}^{2}{x^{3}dx}$$</math> ; <math display="inline">$$n = 6$$</math>
+              Repeat Exercise 3, choosing the representative points to be the right endpoints of the subintervals.
             </paragraph>
           </statement>
         </problem>
         <problem number="5">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{1}^{2}{\frac{1}{x}dx}$$</math> ; <math display="inline">$$n = 4$$</math>
+              Let <math display="inline">$$f(x) = 4 - 2x$$</math> .
             </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Sketch the region <math display="inline">$$R$$</math> under the graph of <math display="inline">$$f$$</math> on the interval <math display="inline">$$\left\lbrack {0,2} \right\rbrack$$</math> , and find its exact area using geometry.
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$4$$</math>
+                </paragraph>
+                <figure>
+                  <alt_text>A function is graphed in the first coordinate of the x y coordinate plane and the area under the curve is shaded. The horizontal axis x, ranges from 0 to over 2 and the vertical axis y ranges from 0 to over 4. The line labeled y = 4 minus 2x, starts from the coordinate (0, 4), slopes downward, slanting right to reach the coordinate (2, 0) to enclose a right-angle triangle region with the axes. The area under the line y = 4 minus 2x, bound axes is shaded.</alt_text>
+                </figure>
+              </item>
+              <item>
+                <paragraph>
+                  Use a Riemann sum with five subintervals of equal length <math display="inline">$$(n = 5)$$</math> to approximate the area of <math display="inline">$$R$$</math> . Choose the representative points to be the left endpoints of the subintervals.
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$4.8$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Repeat part (b) with ten subintervals of equal length <math display="inline">$$(n = 10)$$</math> .
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$4.4$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Compare the approximations obtained in parts (b) and (c) with the exact area found in part (a). Do the approximations improve with larger <math display="inline">$$n$$</math> ?
+                </paragraph>
+                <paragraph>
+                  Yes
+                </paragraph>
+              </item>
+            </list>
           </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$0.6970$$</math> ; <math display="inline">$$0.6933$$</math> ; <math display="inline">$$\ln 2 \approx 0.6931$$</math>
-            </paragraph>
-          </answer>
         </problem>
         <problem number="6">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{1}^{2}{\frac{1}{x}dx}$$</math> ; <math display="inline">$$n = 8$$</math>
+              Repeat Exercise 5, choosing the representative points to be the right endpoints of the subintervals.
             </paragraph>
           </statement>
         </problem>
         <problem number="7">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{1}^{2}{\frac{1}{x^{2}}dx}$$</math> ; <math display="inline">$$n = 4$$</math>
+              Let <math display="inline">$$f(x) = x^{2}$$</math> , and compute the Riemann sum of <math display="inline">$$f$$</math> over the interval <math display="inline">$$\left\lbrack {2,4} \right\rbrack$$</math> , choosing the representative points to be the midpoints of the subintervals and using:
             </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Two subintervals of equal length <math display="inline">$$(n = 2)$$</math> .
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$18.5$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Five subintervals of equal length <math display="inline">$$(n = 5)$$</math> .
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$18.64$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Ten subintervals of equal length <math display="inline">$$(n = 10)$$</math> .
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$18.66$$</math>
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Can you guess at the area of the region under the graph of <math display="inline">$$f$$</math> on the interval <math display="inline">$$\left\lbrack {2,4} \right\rbrack$$</math> ?
+                </paragraph>
+                <paragraph>
+                  <math display="inline">$$\approx 18\frac{2}{3}$$</math>
+                </paragraph>
+              </item>
+            </list>
           </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$0.5090$$</math> ; <math display="inline">$$0.5004$$</math> ; <math display="inline">$$\frac{1}{2}$$</math>
-            </paragraph>
-          </answer>
         </problem>
         <problem number="8">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{1}{\frac{1}{1 + x}dx}$$</math> ; <math display="inline">$$n = 4$$</math>
+              Repeat Exercise 7, choosing the representative points to be the left endpoints of the subintervals.
             </paragraph>
           </statement>
         </problem>
         <problem number="9">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{4}{\sqrt{x}dx}$$</math> ; <math display="inline">$$n = 8$$</math>
+              Repeat Exercise 7, choosing the representative points to be the right endpoints of the subintervals.
             </paragraph>
           </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$5.2650$$</math> ; <math display="inline">$$5.3046$$</math> ; <math display="inline">$$\frac{16}{3}$$</math>
-            </paragraph>
-          </answer>
+          <part id="a">
+            <statement>
+              <paragraph>
+                <math display="inline">$$25$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="b">
+            <statement>
+              <paragraph>
+                <math display="inline">$$21.12$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="c">
+            <statement>
+              <paragraph>
+                <math display="inline">$$19.88$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="d">
+            <statement>
+              <paragraph>
+                <math display="inline">$$\approx 19.9$$</math>
+              </paragraph>
+            </statement>
+          </part>
         </problem>
         <problem number="10">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{2}{x\sqrt{2x^{2} + 1}dx}$$</math> ; <math display="inline">$$n = 6$$</math>
+              Let <math display="inline">$$f(x) = x^{3}$$</math> , and compute the Riemann sum of <math display="inline">$$f$$</math> over the interval <math display="inline">$$\left\lbrack {0,1} \right\rbrack$$</math> , choosing the representative points to be the midpoints of the subintervals and using
             </paragraph>
+            <list ordered="true">
+              <item>
+                <paragraph>
+                  Two subintervals of equal length <math display="inline">$$(n = 2)$$</math> .
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Five subintervals of equal length <math display="inline">$$(n = 5)$$</math> .
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Ten subintervals of equal length <math display="inline">$$(n = 10)$$</math> .
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  Can you guess at the area of the region under the graph of <math display="inline">$$f$$</math> on the interval <math display="inline">$$\left\lbrack {0,1} \right\rbrack$$</math> ?
+                </paragraph>
+              </item>
+            </list>
           </statement>
         </problem>
         <problem number="11">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{1}{e^{- x}dx}$$</math> ; <math display="inline">$$n = 6$$</math>
+              Repeat Exercise 10, choosing the representative points to be the left endpoints of the subintervals.
             </paragraph>
           </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$0.6336$$</math> ; <math display="inline">$$0.6321$$</math> ; <math display="inline">$${- e}^{- 1} + 1 \approx 0.6321$$</math>
-            </paragraph>
-          </answer>
+          <part id="a">
+            <statement>
+              <paragraph>
+                <math display="inline">$$0.0625$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="b">
+            <statement>
+              <paragraph>
+                <math display="inline">$$0.16$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="c">
+            <statement>
+              <paragraph>
+                <math display="inline">$$0.2025$$</math>
+              </paragraph>
+            </statement>
+          </part>
+          <part id="d">
+            <statement>
+              <paragraph>
+                <math display="inline">$$\approx 0.2$$</math>
+              </paragraph>
+            </statement>
+          </part>
         </problem>
         <problem number="12">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{1}{xe^{- x^{2}}dx}$$</math> ; <math display="inline">$$n = 6$$</math>
+              Repeat Exercise 10, choosing the representative points to be the right endpoints of the subintervals.
             </paragraph>
           </statement>
         </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          In Exercises 13, 14, 15 and 16, find an approximation of the area of the region <math display="inline">$$R$$</math> under the graph of the function <math display="inline">$$f$$</math> on the interval <math display="inline">$$\lbrack a,b\rbrack$$</math> . In each case, use <math display="inline">$$n$$</math> subintervals and choose the representative points as indicated.
+        </instructions>
         <problem number="13">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{1}^{2}{\ln xdx}$$</math> ; <math display="inline">$$n = 4$$</math>
+              <math display="inline">$$f(x) = x^{2} + 1$$</math> ; <math display="inline">$$\left\lbrack {0,2} \right\rbrack$$</math> ; <math display="inline">$$n = 5$$</math> ; midpoints
             </paragraph>
           </statement>
           <answer>
             <paragraph>
-              <math display="inline">$$0.3837$$</math> ; <math display="inline">$$0.3863$$</math> ; <math display="inline">$$2\ln 2 - 1 \approx 0.3863$$</math>
+              <math display="inline">$$4.64$$</math>
             </paragraph>
           </answer>
         </problem>
         <problem number="14">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{1}{x\ln{({x^{2} + 1})}dx}$$</math> ; <math display="inline">$$n = 8$$</math>
+              <math display="inline">$$f(x) = 4 - x^{2}$$</math> ; <math display="inline">$$\left\lbrack {- 1,2} \right\rbrack$$</math> ; <math display="inline">$$n = 6$$</math> ; left endpoints
             </paragraph>
           </statement>
         </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          In Exercises 15, 16, 17, 18, 19, 20, 21 and 22, use the Trapezoidal Rule and Simpson’s Rule to approximate the value of each definite integral. Express your answers correct to four decimal places.
-        </instructions>
         <problem number="15">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{1}{\sqrt{1 + x^{3}}dx}$$</math> ; <math display="inline">$$n = 4$$</math>
+              <math display="inline">$$f(x) = \frac{1}{x}$$</math> ; <math display="inline">$$\left\lbrack {1,3} \right\rbrack$$</math> ; <math display="inline">$$n = 4$$</math> ; right endpoints
             </paragraph>
           </statement>
           <answer>
             <paragraph>
-              <math display="inline">$$1.1170$$</math> ; <math display="inline">$$1.1114$$</math>
+              <math display="inline">$$0.95$$</math>
             </paragraph>
           </answer>
         </problem>
         <problem number="16">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{2}{x\sqrt{1 + x^{3}}dx}$$</math> ; <math display="inline">$$n = 4$$</math>
+              <math display="inline">$$f(x) = e^{x}$$</math> ; <math display="inline">$$\left\lbrack {0,3} \right\rbrack$$</math> ; <math display="inline">$$n = 5$$</math> ; midpoints
             </paragraph>
           </statement>
         </problem>
+      </exercise_group>
+      <exercise_group>
         <problem number="17">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{2}{\frac{1}{\sqrt{x^{3} + 1}}dx}$$</math> ; <math display="inline">$$n = 4$$</math>
+              Real Estate Figure (a) shows a vacant lot with a <math display="inline">$$100$$</math>-ft frontage in a development. To estimate its area, we introduce a coordinate system so that the <math display="inline">$$x$$</math> -axis coincides with the edge of the straight road forming the lower boundary of the property, as shown in Figure (b). Then, thinking of the upper boundary of the property as the graph of a continuous function <math display="inline">$$f$$</math> over the interval <math display="inline">$$\left\lbrack {0,100} \right\rbrack$$</math> , we see that the problem is mathematically equivalent to that of finding the area under the graph of <math display="inline">$$f$$</math> on <math display="inline">$$\left\lbrack {0,100} \right\rbrack$$</math> . To estimate the area of the lot using a Riemann sum, we divide the interval <math display="inline">$$\left\lbrack {0,100} \right\rbrack$$</math> into five equal subintervals of length <math display="inline">$$20$$</math> ft. Then, using surveyor’s equipment, we measure the distance from the midpoint of each of these subintervals to the upper boundary of the property. These measurements give the values of <math display="inline">$$f(x)$$</math> at <math display="inline">$$x = 10,30,50,70,\text{and}90$$</math> . What is the approximate area of the lot?
             </paragraph>
+            <figure>
+              <alt_text>An illustration labeled a, shows a horizontal double line representing a road. Two vertical lines, one each near the left and right side of the viewing window rise upward from the top line. A curve starts from the top of the vertical line on the left, from the left line, rises to the right, concave down, reaches a high point, slightly dips, or descends concave down, inflects, descends, concave up, reaches a low point, rises again, inflects, rises, reaches a peak (or absolute max), descends, inflects, descends to the right, concave up, (can also write bulges towards and away), inflects, descends, concave down, reaches the top of the vertical line on the right, which is little above the top of the vertical line on the left. The region between the road and the curve bound by the two vertical lines on the left and right respectively is shaded.</alt_text>
+            </figure>
+            <figure>
+              <alt_text>A graph labeled b plots a curve in the first quadrant of the x y coordinate plane. The horizontal axis x is marked form 0 to 100 feet in increments of 20 feet. The y axis is unmarked. The curve starts from the y axis at a unmarked point away from the origin, rises to the right, concave down, reaches a high point, slightly dips, or descends concave down, inflects, descends, concave up, reaches a low point, rises again, inflects, rises, reaches a peak (or absolute max), descends, inflects, descends to the right, concave up, (can also write bulges towards and away), inflects, descends, concave down and continues to slope downward to exit the first quadrant on the right of the viewing window. The region below the curve between the tick marks labeled 0 and 100 is divided into 5 adjacent vertical rectangles with an equal width of 20 feet and varying heights are drawn. A vertical line, the median, which dividing each rectangle into two equal halves rises up from the x axis to meet the curve where the y coordinates is mentioned. The first vertical rectangle, with width 20 feet and vertical length of 80 is located adjacent to the y axis. Its width runs along the x axis from the origin to the mark 20. Its left side runs along the y axis till the mark 80. Its median meets the curve at (10, 80). The second rectangle is located adjacent to the first, its left side running along the right side of the previous rectangle. The bottom width of the second rectangle runs along the x axis from the mark 20 to the mark 40, thus spanning a width of 20 feet, vertical length of 100 units and its median meets the curve at (30, 100). The third rectangle is located adjacent to the second, its left side running along the right side of the previous rectangle. The bottom width of the third rectangle runs along the x axis from the mark 40 to the mark 60, thus spanning a width of 20 feet, vertical length of 110 units and its median meets the curve at (110, 50). The fourth rectangle is located adjacent to the fifth, its left side running along the right side of the previous rectangle. The bottom width of the fourth rectangle runs along the x axis from the mark 60 to the mark 80, thus spanning a width of 20 feet, vertical length of 100 units and its median meets the curve at (70, 100). The fifth rectangle is located adjacent to the fourth, its left side running along the right side of the previous rectangle. The bottom width of the fifth rectangle runs along the x axis from the mark 80 to the mark 100, thus spanning a width of 20 feet, vertical length of 80 units and its median meets the curve at (90, 80).</alt_text>
+            </figure>
           </statement>
           <answer>
             <paragraph>
-              <math display="inline">$$1.3973$$</math> ; <math display="inline">$$1.4052$$</math>
+              <math display="inline">$$9400{ft}^{2}$$</math>
             </paragraph>
           </answer>
         </problem>
         <problem number="18">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{1}{\sqrt{1 - x^{2}}dx}$$</math> ; <math display="inline">$$n = 4$$</math>
+              Real Estate Use the technique of Exercise 17 to obtain an estimate of the area of the vacant lot shown in the accompanying figures.
             </paragraph>
+            <figure>
+              <alt_text>An illustration labeled a, shows a horizontal double line turning vertically upward on the right representing a road. A vertical line is raised from a point close to the left end of the road. A curve starts from the top of the vertical line, slopes steeply downward, concave up, slopes up gradually to the right, inflects and slopes downward to reach the vertical road on the right. The region below the curve to the horizontal road between the vertical line on the left and the vertical road on the right is shaded.</alt_text>
+            </figure>
+            <figure>
+              <alt_text>A graph labeled b plots a curve in the first quadrant of the x y coordinate plane. The horizontal axis x is marked form 0 to 100 feet in increments of 20 feet. The y axis is unmarked. The curve starts from the y axis at a unmarked point away from the origin, slopes steeply downward, concave up, slopes up gradually to the right, inflects and slopes downward to the right and continues to exits the first quadrant on the right of the viewing window. The region below the curve between the tick marks labeled 0 and 80 is divided into 4 adjacent vertical rectangles with an equal width of 20 feet and varying heights are drawn. A vertical line, the median, which dividing each rectangle into two equal halves rises up from the x axis to meet the curve where the y coordinates is mentioned. The first vertical rectangle, with width 20 feet and vertical length of 100 is located adjacent to the y axis. Its width runs along the x axis from the origin to the mark 20. Its left side runs along the y axis till the mark 80. Its median meets the curve at (10, 100). The second rectangle is located adjacent to the first, its left side running along the right side of the previous rectangle. The bottom width of the second rectangle runs along the x axis from the mark 20 to the mark 40, thus spanning a width of 20 feet, vertical length of 75 units and its median meets the curve at (30, 75). The third rectangle is located adjacent to the second, its left side running along the right side of the previous rectangle. The bottom width of the third rectangle runs along the x axis from the mark 40 to the mark 60, thus spanning a width of 20 feet, vertical length of 80 units and its median meets the curve at (50, 80). The fourth rectangle is located adjacent to the fifth, its left side running along the right side of the previous rectangle. The bottom width of the fourth rectangle runs along the x axis from the mark 60 to the mark 80, thus spanning a width of 20 feet, vertical length of 82.5 units and its median meets the curve at (70, 82.5).</alt_text>
+            </figure>
           </statement>
         </problem>
+      </exercise_group>
+      <exercise_group>
+        <instructions>
+          In Exercises 19 and 20, determine whether the statement is true or false. If it is true, explain why it is true. If it is false, give an example to show why it is false.
+        </instructions>
         <problem number="19">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{2}{e^{- x^{2}}dx}$$</math> ; <math display="inline">$$n = 4$$</math>
+              If <math display="inline">$$f$$</math> is continuous on <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> and <math display="inline">$$\int_{a}^{b}f(x)dx &gt; 0$$</math> , then <math display="inline">$$f(x) \geq 0$$</math> for all <math display="inline">$$x$$</math> in <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> .
             </paragraph>
+            <list ordered="false">
+              <item>
+                <paragraph>
+                  True
+                </paragraph>
+              </item>
+              <item>
+                <paragraph>
+                  False
+                </paragraph>
+              </item>
+            </list>
           </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$0.8806$$</math> ; <math display="inline">$$0.8818$$</math>
-            </paragraph>
-          </answer>
         </problem>
         <problem number="20">
           <statement>
             <paragraph>
-              <math display="inline">$$\int_{0}^{1}{e^{x^{2}}dx}$$</math> ; <math display="inline">$$n = 6$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="21">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\int_{1}^{2}{x^{- {1 \slash 2}}‍e^{x}dx}$$</math> ; <math display="inline">$$n = 4$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$3.7757$$</math> ; <math display="inline">$$3.7625$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="22">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\int_{2}^{4}\frac{\mathit{dx}}{\ln x}$$</math> ; <math display="inline">$$n = 6$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          In Exercises 23, 24, 25, 26, 27 and 28, find a bound on the error in approximating each definite integral using (a) the Trapezoidal Rule and (b) Simpson’s Rule with <math display="inline">$$n$$</math> intervals.
-        </instructions>
-        <problem number="23">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\int_{- 1}^{2}{x^{5}dx}$$</math> ; <math display="inline">$$n = 10$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$3.6$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0.0324$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="24">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\int_{0}^{1}{e^{- x}dx}$$</math> ; <math display="inline">$$n = 8$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="25">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\int_{1}^{3}{\frac{1}{x}dx}$$</math> ; <math display="inline">$$n = 10$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0.013$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0.00043$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="26">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\int_{1}^{3}{\frac{1}{x^{2}}dx}$$</math> ; <math display="inline">$$n = 8$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="27">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\int_{0}^{2}{\frac{1}{\sqrt{1 + x}}dx}$$</math> ; <math display="inline">$$n = 8$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0.0078125$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0.000285$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="28">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\int_{1}^{3}{\ln xdx}$$</math> ; <math display="inline">$$n = 10$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="29">
-          <statement>
-            <paragraph>
-              Trial Run of an Attack Submarine In a submerged trial run of an attack submarine, a reading of the sub’s velocity was made every quarter hour, as shown in the accompanying table. Use the Trapezoidal Rule to estimate the distance traveled by the submarine during the <math display="inline">$$2$$</math>-hr period.
-            </paragraph>
-            <table>
-              <tbody>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>Time, t (hr)</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      <math display="inline">$$\frac{1}{4}$$</math>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      <math display="inline">$$\frac{1}{2}$$</math>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      <math display="inline">$$\frac{3}{4}$$</math>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      1
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      <math display="inline">$$\frac{5}{4}$$</math>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      <math display="inline">$$\frac{3}{2}$$</math>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      <math display="inline">$$\frac{7}{4}$$</math>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    2
-                  </cell>
-                </row>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>Velocity, V(t) (mph)</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      19.5
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      24.3
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      34.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      40.5
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      38.4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      26.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      18
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      16
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      8
-                    </paragraph>
-                  </cell>
-                </row>
-              </tbody>
-            </table>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$52.84$$</math> mi
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="30">
-          <statement>
-            <paragraph>
-              Condominium Resort Complex Cooper Realty is considering development of a time-sharing condominium resort complex along the oceanfront property illustrated in the accompanying graph. To obtain an estimate of the area of this property, measurements of the distances from the edge of a straight road, which defines one boundary of the property, to the corresponding points on the shoreline are made at <math display="inline">$$100$$</math>-ft intervals. Using Simpson’s Rule with <math display="inline">$$n = 10$$</math> , estimate the area of the oceanfront property.
-            </paragraph>
-            <figure>
-              <alt_text>A curve is graphed in the first quadrant of the x y coordinate plane. The horizontal axis x ranges from 0 to over 1000 feet and the vertical axis y ranges from 0 to over 1500 feet. The path of curve representing the distance of the shore line from the edge of a straight road starts at (0, 1000) and passes through the following coordinates: (100, 900), (200, 1000), (300, 1000), (400, 1200), (500, 1400), (600, 1100), (700, 1100), (800, 1000), (900, 1200), and (1000, 1400). The region below the curve is segmented into 10 parts by the perpendiculars dropped from the above coordinates the tick marks at the interval of 100 feet in the x axis.</alt_text>
-            </figure>
-          </statement>
-        </problem>
-        <problem number="31">
-          <statement>
-            <paragraph>
-              Average Temperature The graph depicted in the following figure shows the daily mean temperatures recorded during one September in Cameron Highlands. Using (a) the Trapezoidal Rule and (b) Simpson’s Rule with <math display="inline">$$n = 10$$</math> , estimate the average temperature during that month.
-            </paragraph>
-            <figure>
-              <alt_text>A curve is graphed in the first quadrant of the x y coordinate plane. The horizontal axis x, ranges from 0 to over 30 days and the vertical axis y ranges from 0 to over 80 degrees Fahrenheit. There is an axis breaker between the origin and the marking 50 in the y axis. The path curve representing the daily mean temperatures starts at (0, 66) and passes through the following coordinates: (3, 68), (6, 72), (9, 72), (12, 70), (15, 64), (18, 60), (21, 62), (24, 62), (27, 56), and (30, 60). The region below the curve is segmented into 10 parts by the perpendiculars dropped from the above coordinates to the tick marks at the interval of 3 days in the x axis.</alt_text>
-            </figure>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$64.9‍{}_{}^{}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$64.7‍{}_{}^{}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="32">
-          <statement>
-            <paragraph>
-              Surface Area of the Jacqueline Kennedy Onassis Reservoir The reservoir located in Central Park in New York City has the shape depicted in the following figure. The measurements shown were taken at <math display="inline">$$206$$</math>-ft intervals. Use Simpson’s Rule with <math display="inline">$$n = 10$$</math> to estimate the surface area of the lake.
-            </paragraph>
-            <figure>
-              <alt_text>An illustration shows an irregular shape representing the reservoir located in Central Park in New York City. The surface area of the irregular closed shape is vertically segmented by double headed vertical arrows with horizontal interval of 206 feet from left to right. The vertical height of the arrows are as follows: 0 feet, 1030 feet, 1349 feet, 1498 feet, 1817 feet, 1910 feet, 1985 feet, 2304 feet, 2585 feet, 2323 feet, and 1592 feet.</alt_text>
-            </figure>
-            <paragraph>
-              <em>Source: Boston Globe</em>.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="33">
-          <statement>
-            <paragraph>
-              Fuel Consumption of Domestic Cars Thanks to smaller and more fuel-efficient models, American carmakers doubled their average fuel economy over a <math display="inline">$$13$$</math>-year period, from 1974 to 1987. The following figure gives the average fuel consumption in miles per gallon (mpg) of domestic-built cars over the period under consideration (<math display="inline">$$t = 0$$</math> corresponds to the beginning of 1974). Use the Trapezoidal Rule to estimate the average fuel consumption of the domestic cars built during this period.
-            </paragraph>
-            <paragraph>
-              Hint: Approximate the integral <math display="inline">$$\frac{1}{13}{\int_{0}^{13}{f(t)dt}}$$</math> .
-            </paragraph>
-            <figure>
-              <alt_text>A curve is graphed in the first quadrant of the x y coordinate plane. The horizontal axis x marks from the year 1974 to 1987 and the vertical axis y ranges from 13.2 to over 26.6 miles per gallon. The path curve representing average fuel consumption of domestic-built cars starts at (1974, 13.2) and passes through the following coordinates: (1975, 14.8), (1976, 16.6), (1977, 17.2), (1978, 18.7), (1979, 19.3), (1980, 22.6), (1981, 24.2), (1982, 25.0), (1983, 24.6), (1984, 25.6), (1985, 26.4), (1986, 26.6), and (1987, 26.6). The region below the curve is segmented into 10 parts by the perpendiculars dropped from the above coordinates to the tick marks at the interval of 1 year in the x axis.</alt_text>
-            </figure>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$21.65$$</math> mpg
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="34">
-          <statement>
-            <paragraph>
-              Water Flow in a River At a certain point, a river is <math display="inline">$$78$$</math> ft wide, and its depth, measured at <math display="inline">$$6$$</math>-ft intervals across the river, is recorded in the following table.
-            </paragraph>
-            <table>
-              <tbody>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>x (ft)</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      12
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      18
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      24
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      30
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      36
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      42
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      48
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      54
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      60
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      66
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      72
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      78
-                    </paragraph>
-                  </cell>
-                </row>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>y (ft)</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      2.6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      5.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      8.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      10.1
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      10.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      9.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      7.6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6.4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      5.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      3.9
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      2.4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      1.4
-                    </paragraph>
-                  </cell>
-                </row>
-              </tbody>
-            </table>
-            <paragraph>
-              Here, <math display="inline">$$x$$</math> denotes the distance (in feet) from one bank of the river and <math display="inline">$$y$$</math> (in feet) is the corresponding depth. If the average rate of flow through this section of the river is <math display="inline">$$4{ft} \slash \sec$$</math> , use the Trapezoidal Rule with <math display="inline">$$n = 13$$</math> to find the rate of the volume of flow of water in the river.
-            </paragraph>
-            <paragraph>
-              Hint: <math display="inline">$${Volume\ of\ flow} = {rate\ of\ flow} \times {area\ of\ cross\ section}$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="35">
-          <statement>
-            <paragraph>
-              Medical Costs for Veterans According to a study by Linda Bilmes of the Kennedy School of Government, the cost of medical treatment of veterans (in billions of dollars) is projected to be
-            </paragraph>
-            <paragraph>
-              <math display="block">$${C(t) = 0.0048t^{3} - 0.0091t^{2} + 0.3789t + 0.63}\qquad({1 \leq t \leq 9})$$</math>
-            </paragraph>
-            <paragraph>
-              in year <math display="inline">$$t$$</math> , where <math display="inline">$$t = 1$$</math> corresponds to 2006. Use the Trapezoidal Rule with <math display="inline">$$n = 8$$</math> to estimate the total projected cost of medical treatment of veterans over the years from 2006 through 2014.
-            </paragraph>
-            <paragraph>
-              <em>Source:</em> “Soldiers Returning from Iraq and Afghanistan” by Linda Bilmes, Kennedy School of Government.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\$ 25.9$$</math> billion
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="36">
-          <statement>
-            <paragraph>
-              Air Pollution The amount of nitrogen dioxide, a brown gas that impairs breathing, present in the atmosphere on a certain May day in the city of Long Beach has been approximated by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$A(t) = \frac{136}{1 + 0.25{(t - 4.5)}^{2}} + 28\qquad(0 \leq t \leq 11)$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$A(t)$$</math> is measured in pollutant standard index (PSI), and <math display="inline">$$t$$</math> is measured in hours, with <math display="inline">$$t = 0$$</math> corresponding to 7 a.m. Use the Trapezoidal Rule with <math display="inline">$$n = 10$$</math> to estimate the average PSI between 7 a.m. and noon.
-            </paragraph>
-            <paragraph>
-              Hint: The average value is given by <math display="inline">$$\frac{1}{5}{\int_{0}^{5}{A(t)dt}}$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="37">
-          <statement>
-            <paragraph>
-              U.S. Strategic Petroleum Reserves According to data from the American Petroleum Institute, the U.S. strategic petroleum reserves from the beginning of 2002 through the beginning of 2012 can be approximated by the function
-            </paragraph>
-            <paragraph>
-              <math display="block">$$S(t) = \frac{720t^{2} + 3480}{t^{2} + 6.3}\qquad(0 \leq t \leq 10)$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$S(t)$$</math> is measured in millions of barrels and <math display="inline">$$t$$</math> in years, with <math display="inline">$$t = 0$$</math> corresponding to the beginning of 2002. Using the Trapezoidal Rule with <math display="inline">$$n = 10$$</math> , estimate the average petroleum reserves from the beginning of 2002 through the beginning of 2012.
-            </paragraph>
-            <paragraph>
-              <em>Source:</em> American Petroleum Institute.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$664.27$$</math> million barrels
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="38">
-          <statement>
-            <paragraph>
-              Consumers’ Surplus Refer to Section 6.7. Before the launch of a new product, the company’s research department conducted a study to determine the demand for the product. The following table summarizes the data obtained by the researchers. Here, <math display="inline">$$p$$</math> denotes the unit selling price (in dollars) of the product, and <math display="inline">$$x$$</math> denotes the quantity demanded per week (in units of a thousand) at that price.
-            </paragraph>
-            <table>
-              <tbody>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>Quantity Demanded, x</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      1
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      3
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      5
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      7
-                    </paragraph>
-                  </cell>
-                </row>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>Unit Price, p</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      80.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      61.5
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      44.4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      32.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      23.5
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      17.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      13.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      11.0
-                    </paragraph>
-                  </cell>
-                </row>
-              </tbody>
-            </table>
-            <paragraph>
-              Use the Trapezoidal Rule with <math display="inline">$$n = 7$$</math> to estimate the consumers’ surplus if the unit selling price is set at <math display="inline">$$\$ 11$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="39">
-          <statement>
-            <paragraph>
-              Future Value of an Investment Ivan expects to deposit
-            </paragraph>
-            <paragraph>
-              <math display="block">$$R(t) = t^{1.5}‍e^{- 0.02t}$$</math>
-            </paragraph>
-            <paragraph>
-              thousand dollars/year for <math display="inline">$$5$$</math> years into a bank that pays interest at the rate of <math display="inline">$$4\% \slash {year}$$</math> , compounded continuously. Use the Trapezoidal Rule with <math display="inline">$$n = 10$$</math> to estimate the value of Ivan’s account at the end of <math display="inline">$$5$$</math> years.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\$ 22,134$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="40">
-          <statement>
-            <paragraph>
-              Consumers’ Surplus for Sports Watches Refer to Section 6.7. The demand equation for the Sicard sports watch is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$p = D(x) = \frac{50}{0.01x^{2} + 1}\qquad(0 \leq x \leq 20)$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$x$$</math> (measured in units of a thousand) is the quantity demanded per week and <math display="inline">$$p$$</math> is the unit price in dollars. Use (a) the Trapezoidal Rule and (b) Simpson’s Rule (take <math display="inline">$$n = 8$$</math> ) to estimate the consumers’ surplus if the market price is <math display="inline">$$\$ 25 \slash {watch}$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="41">
-          <statement>
-            <paragraph>
-              Producers’ Surplus for CDs Refer to Section 6.7. The supply function for the CD manufactured by Herald Records is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$p = S(x) = \sqrt{0.01x^{2} + 0.11x + 38}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$p$$</math> is the unit price in dollars and <math display="inline">$$x$$</math> stands for the quantity that will be made available in the market by the supplier, measured in units of a thousand. Use (a) the Trapezoidal Rule and (b) Simpson’s Rule (take <math display="inline">$$n = 8$$</math> ) to estimate the producers’ surplus if the price is <math display="inline">$$\$ 8 \slash {CD}$$</math> .
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$\$ 51,558$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$\$ 51,708$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="42">
-          <statement>
-            <paragraph>
-              Gini Index Refer to Section 6.7. The following table gives the values of the Lorenz function for the market income distribution in the United States for the year 2007.
-            </paragraph>
-            <table>
-              <tbody>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>x</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.1
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.3
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.5
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.7
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.9
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      1.0
-                    </paragraph>
-                  </cell>
-                </row>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>f(x)</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.00
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.01
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.02
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.05
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.09
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.15
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.21
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.31
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.40
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.56
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      1.00
-                    </paragraph>
-                  </cell>
-                </row>
-              </tbody>
-            </table>
-            <paragraph>
-              <em>Source:</em> U.S. Census Bureau.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="43">
-          <statement>
-            <paragraph>
-              Gini Index Refer to Section 6.7. The following table gives the values of the Lorenz function for the after-tax income distribution in the United States for the year 2007.
-            </paragraph>
-            <table>
-              <tbody>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>x</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.1
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.3
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.5
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.7
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.9
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      1.0
-                    </paragraph>
-                  </cell>
-                </row>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>f(x)</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.00
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.02
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.04
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.08
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.13
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.20
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.27
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.36
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.47
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.60
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      1.00
-                    </paragraph>
-                  </cell>
-                </row>
-              </tbody>
-            </table>
-            <paragraph>
-              <em>Source:</em> U.S. Census Bureau.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$0.48$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="44">
-          <statement>
-            <paragraph>
-              Growth of Service Industries It has been estimated that service industries, which currently make up <math display="inline">$$30\%$$</math> of the nonfarm workforce in a certain country, will continue to grow at the rate of
-            </paragraph>
-            <paragraph>
-              <math display="block">$$R(t) = 5e^{1 \slash {({t + 1})}}$$</math>
-            </paragraph>
-            <paragraph>
-              percent/decade, <math display="inline">$$t$$</math> decades from now. Estimate the percentage of the nonfarm workforce in the service industries one decade from now.
-            </paragraph>
-            <paragraph>
-              Hint: (a) Show that the answer is given by <math display="inline">$$30 + {\int_{0}^{1}{5e^{1 \slash {({t + 1})}}dt}}$$</math> and (b) use Simpson’s Rule with <math display="inline">$$n = 10$$</math> to approximate the definite integral.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="45">
-          <statement>
-            <paragraph>
-              Producers’ Surplus Refer to Section 6.7. Researchers at Market Research obtained the following data pertaining to a popular product. Here, <math display="inline">$$x$$</math> denotes the number of units of the product (in thousands) per week that the manufacturer will make available in the market if the price is <math display="inline">$$p$$</math> dollars.
-            </paragraph>
-            <table>
-              <tbody>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>Quantity Supplied, x</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      10
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      12
-                    </paragraph>
-                  </cell>
-                </row>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>Unit Price, p</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      20.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      21.5
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      25.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      31.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      40.3
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      53.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      69.7
-                    </paragraph>
-                  </cell>
-                </row>
-              </tbody>
-            </table>
-            <paragraph>
-              Use Simpson’s Rule with <math display="inline">$$n = 6$$</math> to estimate the producers’ surplus if the unit price is set at <math display="inline">$$\$ 69.70$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\$ 407,667$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="46">
-          <statement>
-            <paragraph>
-              Measuring Cardiac Output Eight milligrams of a dye are injected into a vein leading to an individual’s heart. The concentration of the dye in the aorta (in milligrams per liter) measured at <math display="inline">$$2$$</math>-sec intervals is shown in the accompanying table. Use Simpson’s Rule and the formula of Example 4 to estimate the person’s cardiac output.
-            </paragraph>
-            <table>
-              <tbody>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>t</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      10
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      12
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      14
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      16
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      18
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      20
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      22
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      24
-                    </paragraph>
-                  </cell>
-                </row>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>C(t)</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      2.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6.1
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      9.7
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      7.6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      4.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      3.7
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      1.9
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.3
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.1
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0
-                    </paragraph>
-                  </cell>
-                </row>
-              </tbody>
-            </table>
-          </statement>
-        </problem>
-        <problem number="47">
-          <statement>
-            <paragraph>
-              Estimating the Flow Rate of a River A stream is <math display="inline">$$120$$</math> ft wide. The following table gives the depths of the river measured across a section of the river in intervals of <math display="inline">$$6$$</math> ft. Here, <math display="inline">$$x$$</math> denotes the distance from one bank of the river, and <math display="inline">$$y$$</math> denotes the corresponding depth (in feet). The average rate of flow of the river across this section of the river is <math display="inline">$$4.2{ft} \slash \sec$$</math> . Use Simpson’s Rule with <math display="inline">$$n = 20$$</math> to estimate the rate of the volume of flow of the river.
-            </paragraph>
-            <table>
-              <tbody>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>x (ft)</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      12
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      18
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      24
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      30
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      36
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      42
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      48
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      54
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      60
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      66
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      72
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      78
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      84
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      90
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      96
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      102
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      108
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      114
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      120
-                    </paragraph>
-                  </cell>
-                </row>
-                <row>
-                  <cell>
-                    <paragraph>
-                      <strong>y (ft)</strong>
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      0.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      1.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      3.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      4.1
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      5.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6.6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      7.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      7.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      7.4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      7.8
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      7.6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      7.4
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      7.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6.6
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      6.0
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      5.1
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      4.3
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      3.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      2.2
-                    </paragraph>
-                  </cell>
-                  <cell>
-                    <paragraph>
-                      1.1
-                    </paragraph>
-                  </cell>
-                </row>
-              </tbody>
-            </table>
-            <paragraph>
-              Hint: <math display="inline">$${Volume\ of\ flow} = {rate\ of\ flow} \times {area\ of\ cross\ section}$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$2698.9{ft}^{3} \slash \sec$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="48">
-          <statement>
-            <paragraph>
-              Tread Life of Tires Under normal driving conditions, the percent of Super Titan radial tires expected to have a useful tread life of between <math display="inline">$$30,000$$</math> and <math display="inline">$$40,000$$</math> mi is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$P = 100{\int_{30,000}^{40,000}{\frac{1}{2000\sqrt{2\pi}}e^{- {({1 \slash 2})}{\lbrack{({x - 40,000}) \slash 2000}\rbrack}^{2}}}}dx$$</math>
-            </paragraph>
-            <paragraph>
-              Use Simpson’s Rule with <math display="inline">$$n = 10$$</math> to estimate <math display="inline">$$P$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="49">
-          <statement>
-            <paragraph>
-              Length of Infants at Birth Medical records of infants delivered at Kaiser Memorial Hospital show that the percentage of infants whose length at birth is between <math display="inline">$$19$$</math> and <math display="inline">$$21$$</math> in. is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$P = 100{\int_{19}^{21}{\frac{1}{2.6\sqrt{2\pi}}e^{- {({1 \slash 2})}{\lbrack{({x - 20}) \slash 2.6}\rbrack}^{2}}}}dx$$</math>
-            </paragraph>
-            <paragraph>
-              Use Simpson’s Rule with <math display="inline">$$n = 10$$</math> to estimate <math display="inline">$$P$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$30\%$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          In Exercises 50, 51, 52 and 53, determine whether the statement is true or false. It it is true, explain why it is true. If it is false, give an example to show why it is false.
-        </instructions>
-        <problem number="50">
-          <statement>
-            <paragraph>
-              In using the Trapezoidal Rule, the number of subintervals <math display="inline">$$n$$</math> must be even.
+              If <math display="inline">$$f$$</math> is continuous on <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> and <math display="inline">$$f(x) \neq 0$$</math> for all <math display="inline">$$x$$</math> in <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> , then <math display="inline">$$\int\left\lbrack {f(x)} \right\rbrack^{2}dx &gt; 0$$</math> .
             </paragraph>
             <list ordered="false">
               <item>
@@ -2305,90 +894,6 @@
                 </paragraph>
               </item>
             </list>
-          </statement>
-        </problem>
-        <problem number="51">
-          <statement>
-            <paragraph>
-              In using Simpson’s Rule, the number of subintervals <math display="inline">$$n$$</math> may be chosen to be odd or even.
-            </paragraph>
-            <list ordered="false">
-              <item>
-                <paragraph>
-                  True
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  False
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="52">
-          <statement>
-            <paragraph>
-              Simpson’s Rule is more accurate than the Trapezoidal Rule.
-            </paragraph>
-            <list ordered="false">
-              <item>
-                <paragraph>
-                  True
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  False
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="53">
-          <statement>
-            <paragraph>
-              If <math display="inline">$$f$$</math> is a polynomial function of degree less than or equal to <math display="inline">$$3$$</math> , then the approximation of <math display="inline">$$\int_{a}^{b}{f(x)dx}$$</math> using Simpson’s Rule is exact.
-            </paragraph>
-            <list ordered="false">
-              <item>
-                <paragraph>
-                  True
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  False
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="54">
-          <statement>
-            <paragraph>
-              Derive the formula
-            </paragraph>
-            <paragraph>
-              <math display="block">$$R = \frac{60D}{\int_{0}^{T}{c(t)dt}}$$</math>
-            </paragraph>
-            <paragraph>
-              for calculating the cardiac output of a person in liters per minute. Here, <math display="inline">$$c(t)$$</math> is the concentration of dye in the aorta (in milligrams per liter) at time <math display="inline">$$t$$</math> (in seconds) for <math display="inline">$$t$$</math> in <math display="inline">$$\left\lbrack {0,T} \right\rbrack$$</math> , and <math display="inline">$$D$$</math> is the amount of dye (in milligrams) injected into a vein leading to the heart.
-            </paragraph>
-            <paragraph>
-              Hint: Partition the interval <math display="inline">$$\left\lbrack {0,T} \right\rbrack$$</math> into <math display="inline">$$n$$</math> subintervals of equal length <math display="inline">$$\Delta t$$</math> . The amount of dye that flows past the measuring point in the aorta during the time interval <math display="inline">$$\left\lbrack {0,\Delta t} \right\rbrack$$</math> is approximately <math display="inline">$${c\left( t_{i} \right)\left( {R\Delta t} \right)} \slash 60$$</math> (concentration times volume). Therefore, the total amount of dye measured at the aorta is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\frac{\left\lbrack {c\left( t_{1} \right)R\Delta t + c\left( t_{2} \right)R\Delta t + \cdots + c\left( t_{n} \right)R\Delta t} \right\rbrack}{60} = D$$</math>
-            </paragraph>
-            <paragraph>
-              Take the limit of the Riemann sum to obtain
-            </paragraph>
-            <paragraph>
-              <math display="block">$$R = \frac{60D}{\int_{0}^{T}{c(t)dt}}$$</math>
-            </paragraph>
           </statement>
         </problem>
       </exercise_group>
