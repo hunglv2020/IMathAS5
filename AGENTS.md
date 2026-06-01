@@ -24,6 +24,7 @@ All paths in this document use `questions/qt-{id}/` as a placeholder. Replace `{
 - Treat `questions/qt-{id}/static/` as the confirmed static source unless the user explicitly asks to change it.
 - Treat `questions/qt-{id}/static/blueprint.txt` as design intent only (parameterization design), not executable IMathAS code.
 - Save audits, summaries, and investigation output in `questions/qt-{id}/reviews/` when a task generates review artifacts.
+- Refine-evidence artifacts may live under `questions/qt-{id}/reviews/refine-static-solution/`; these are review/support files, not canonical static inputs.
 - Treat `shared/books/` as the authoritative knowledge base for unit definitions, notation conventions, worked examples, exercises, and future-learning checks.
   - Read `shared/books/README.md` first.
   - Then read `shared/books/{book_slug}/INDEX.md` to locate the correct section files.
@@ -102,6 +103,7 @@ All paths in this document use `questions/qt-{id}/` as a placeholder. Replace `{
 | `draft-static-question` | Draft `questions/qt-{id}/static/static_question*.txt` files |
 | `draft-static-solution` | Draft `questions/qt-{id}/static/static_solution*.txt` files |
 | `refine-static-solution` | Refine `questions/qt-{id}/static/static_solution*.txt` using current-unit and backward chapter context |
+| `write-author-feedback-from-refine` | Synthesize bilingual author-facing feedback from refine evidence, IMathAS files, and audits |
 | `generate-blueprint` | Generate `questions/qt-{id}/static/blueprint.txt` — parameterization design for author-imathas |
 | `write-imathas-x` | Core authoring: macro lookup, golden cases, topic guides |
 | `asciimath` | Convert LaTeX → AsciiMath (use before variable injection) |

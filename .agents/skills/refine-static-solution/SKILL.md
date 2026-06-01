@@ -3,12 +3,11 @@ name: refine-static-solution
 description: >
   Refine an existing static solution into a fuller, better-scaffolded version while preserving
   the mathematical method and final answers unless the current solution is actually wrong.
-  Reads the current unit first, then expands backward into prior units in the same chapter when
-  that helps improve step granularity, theorem/test anchoring, prerequisite bridges, and pattern
-  exposition. Rewrites static_solution_latex.txt and regenerates static_solution.txt.
+  Writes the canonical refined static solution files and maintains one-time refine evidence plus
+  a rolling English draft report in reviews/.
 metadata:
-  version: "1.0.0"
-  last_updated: "2026-05-31"
+  version: "1.1.0"
+  last_updated: "2026-06-01"
   status: active
   related_skills:
     - draft-static-solution
@@ -17,20 +16,37 @@ metadata:
     - audit-pedagogical
     - audit-accuracy
     - asciimath
+    - write-author-feedback-from-refine
 ---
 
 # Skill: refine-static-solution
 
-Refines an existing static solution in `questions/qt-{id}/static/` and produces:
+Refines an existing static solution in `questions/qt-{id}/static/` while preserving the repo's
+canonical static-source contract.
+
+Canonical outputs:
 
 ```
 questions/qt-{id}/static/static_solution_latex.txt  — refined step-by-step solution in LaTeX
 questions/qt-{id}/static/static_solution.txt        — AsciiMath version of the refined solution
 ```
 
+Refine-evidence outputs in `reviews/`:
+
+```
+questions/qt-{id}/reviews/refine-static-solution/before_static_solution_latex.txt
+questions/qt-{id}/reviews/refine-static-solution/before_static_solution.txt
+questions/qt-{id}/reviews/refine-static-solution/refine_report_draft.md
+questions/qt-{id}/reviews/refine-static-solution/refine_report_final.md
+```
+
+**Source-of-truth rule:** `static_solution_latex.txt` and `static_solution.txt` remain the only
+canonical current static solution files. Do not create `*_refined.txt` files in `static/`.
+
 **Refinement rule:** If the user invokes this skill, refinement is mandatory. Do not spend time
-deciding whether the solution needs improvement. The only adaptive decision is how much backward
-curriculum context to load in order to refine well.
+deciding whether the solution needs improvement. The only adaptive decisions are:
+- how much backward curriculum context to load
+- whether to operate in `refine/update-draft` or `finalize-report` state
 
 **Format rule:** Follow the same house style as `draft-static-solution`:
 - plain-text step headers beginning with a strong verb
@@ -58,6 +74,7 @@ viết lại solution, làm chi tiết lời giải, tăng step cho solution
 | Check mathematical correctness across seeds | `audit-accuracy` |
 | Review terminology/notation/scope without rewriting | `audit-pedagogical` |
 | Draft or revise the static question | `draft-static-question` |
+| Write the final author-facing bilingual feedback file | `write-author-feedback-from-refine` |
 
 ---
 
@@ -68,6 +85,8 @@ viết lại solution, làm chi tiết lời giải, tăng step cho solution
 - When a solution needs stronger theorem/test anchoring
 - When a solution needs prerequisite bridges from earlier units in the same chapter
 - When a user asks to improve step granularity, pattern exposition, or pedagogical clarity
+- When a refined static solution should become the new canonical current solution while preserving
+  one-time baseline evidence for later author feedback
 
 ---
 
@@ -77,9 +96,40 @@ viết lại solution, làm chi tiết lời giải, tăng step cho solution
 |---|---|
 | Rewriting an existing static solution for better pedagogy and structure | Creating a brand-new solution when no base static solution exists |
 | Adding or splitting steps while preserving the method | Auditing randomized IMathAS render correctness |
-| Naming the relevant theorem/test in generic textbook-independent terms | Writing mandatory review reports in `reviews/` |
+| Writing one-time baseline evidence and rolling refine reports in `reviews/` | Changing canonical downstream consumers of `static_solution.txt` |
+| Finalizing a refine report after the user approves the refined solution | Writing the final bilingual author-facing feedback file |
 | Loading prior units in the same chapter when needed for refinement | Creating helper scripts or parsers in v1 |
-| Regenerating the AsciiMath companion file | Changing the static question unless the user explicitly asks |
+
+---
+
+## Operating States
+
+### `refine/update-draft`
+
+Use this state by default whenever the user asks to improve, expand, refine, scaffold, or
+strengthen the solution.
+
+Behavior:
+- On the first refine pass only, save the existing static baseline into:
+  - `reviews/refine-static-solution/before_static_solution_latex.txt`
+  - `reviews/refine-static-solution/before_static_solution.txt`
+- Rewrite canonical:
+  - `static/static_solution_latex.txt`
+  - `static/static_solution.txt`
+- Create or update:
+  - `reviews/refine-static-solution/refine_report_draft.md`
+
+### `finalize-report`
+
+Use this state only when the user explicitly confirms that the refined static solution is now
+acceptable and the refine evidence should be finalized.
+
+Behavior:
+- Do not rewrite the one-time `before_*` snapshot
+- Do not create any new refined branch in `static/`
+- Read current refined static files, current IMathAS files, and relevant existing audit reports
+- Write:
+  - `reviews/refine-static-solution/refine_report_final.md`
 
 ---
 
@@ -90,7 +140,8 @@ viết lại solution, làm chi tiết lời giải, tăng step cho solution
 - Static question file — defines what the solution must answer
 
   Reading priority: `questions/qt-{id}/static/static_question_latex.txt` if present; otherwise
-  `questions/qt-{id}/static/static_question.txt`; otherwise `questions/qt-{id}/static/static_question_no_answerboxes.txt`.
+  `questions/qt-{id}/static/static_question.txt`; otherwise
+  `questions/qt-{id}/static/static_question_no_answerboxes.txt`.
 
 - Existing static solution file — base text to refine
 
@@ -114,7 +165,9 @@ viết lại solution, làm chi tiết lời giải, tăng step cho solution
 **Optional — read if present:**
 - `questions/qt-{id}/static/source_brief.xml` — method/notation/structure hints; use as enrichment only
 - `questions/qt-{id}/static/static_solution.txt` — existing AsciiMath companion for comparison only
-- Relevant files in `questions/qt-{id}/reviews/` — use only when they clarify what is weak in the current solution
+- Relevant files in `questions/qt-{id}/reviews/` — especially `coverage_report.md`,
+  `pedagogical_report.md`, and `accuracy_report_seed*.md` when they clarify what is weak in the
+  current solution or should be reflected in final refine evidence
 
 ---
 
@@ -147,26 +200,18 @@ Do **not** load the full chapter by default.
 Do **not** create a helper script in v1.
 Use `INDEX.md`, targeted `rg`, and direct XML reads to decide what to inspect.
 
-### Typical Backward Triggers
-
-Expand backward when the current solution shows one or more of these:
-- compressed pattern recognition
-- compressed algebraic or limit derivation
-- theorem/test application stated too thinly
-- missing bridge between a prerequisite idea and the current unit target
-- weak part boundaries or answer transitions
-
 ---
 
 ## Refinement Principles
 
 1. Preserve the mathematical method and final answers unless the current solution is actually wrong.
 2. Improve step granularity, theorem/test anchoring, prerequisite bridges, and pattern exposition.
-3. Add or split steps when the current solution is too compressed.
-4. Use generic concept names such as `Test for Divergence`, not textbook numbering such as `Theorem 4`.
-5. When identifying a general term, prefer recognizing the pattern of the full expression over mechanically splitting numerator and denominator, unless the curriculum style clearly requires the split view.
-6. Add pedagogically necessary detail, not decorative prose.
-7. Stay anchored to the current unit's method even when using earlier-unit scaffolding.
+3. Add or split steps when the current text is too compressed.
+4. Use generic concept names rather than textbook numbering.
+5. Add pedagogically necessary detail, not decorative prose.
+6. Keep the refined static files canonical and current.
+7. Keep the refine report English-only; bilingual author feedback belongs to the downstream
+   `write-author-feedback-from-refine` skill.
 
 ---
 
@@ -210,25 +255,15 @@ If the current solution would benefit from prerequisite scaffolding, read prior 
 2. second-nearest prior unit
 3. remaining earlier units in the same chapter only if still needed
 
-Use prior units to strengthen:
-- pattern recognition steps
-- limit or algebra exposition
-- sequence/series bridges
-- other prerequisite concepts directly supporting the current unit
+#### Step D — Enrich from source_brief and audits
 
-Use earlier units to support the current unit, not to replace it.
+If present, use:
+- `static/source_brief.xml` for method/notation/structure hints
+- `reviews/coverage_report.md`, `reviews/pedagogical_report.md`, and `reviews/accuracy_report_seed*.md`
+  as supporting evidence for what should be strengthened or preserved in the refine evidence
 
-#### Step D — Enrich from source_brief (if present)
-
-If `questions/qt-{id}/static/source_brief.xml` exists, use it to enrich:
-- preferred method labels
-- notation conventions
-- must-mention items
-- must-not-skip structure
-
-If the brief conflicts with the textbook, treat the textbook as ground truth unless the user explicitly instructs otherwise.
-
----
+If the brief conflicts with the textbook, treat the textbook as ground truth unless the user
+explicitly instructs otherwise.
 
 ### [REFINEMENT TARGETS]
 
@@ -241,25 +276,8 @@ Before rewriting, identify which of these targets apply:
 - `weak_part_boundaries`
 - `answer_label_or_transition_thin`
 
-These tags are internal only. Do not print them in the output files.
-
----
-
-### [MODE]
-
-#### Default: Full Rewrite Refinement
-
-Rewrite the full `static_solution_latex.txt` by default.
-
-Use this mode whenever the user asks to improve, expand, refine, scaffold, or strengthen the solution.
-
-#### Optional: Patch-Only Refinement
-
-Use patch-only refinement **only if the user explicitly asks** to preserve most of the current wording and adjust a limited set of steps.
-
-Do not infer patch-only mode from reports or from the size of the issue.
-
----
+These tags are internal only. Do not print them in the static solution files. You may summarize
+them in the draft/final refine report if useful.
 
 ### [REWRITE]
 
@@ -271,28 +289,35 @@ When rewriting:
 1. Keep the existing correct mathematical path unless correction is necessary.
 2. Add or split steps where the current text is too compressed.
 3. State the relevant theorem/test/procedure clearly enough to support the conclusion.
-4. Use generic concept names rather than textbook numbering.
-5. Preserve answer labels by question part.
-6. Keep prose purposeful and short; the goal is scaffolding, not verbosity.
+4. Preserve answer labels by question part.
+5. Keep prose purposeful and short; the goal is scaffolding, not verbosity.
 
-### Refinement Patterns
+### [EVIDENCE WRITE]
 
-Apply these patterns when relevant:
+In `refine/update-draft` state:
 
-- **Pattern exposition:** show indexed terms first, then infer the general term
-- **Limit exposition:** unpack a long one-line limit into smaller transformations when the current unit or prior units model that pacing
-- **Theorem/test anchoring:** state the criterion before applying it
-- **Prerequisite bridge:** explicitly connect the earlier idea to the current unit target when that bridge helps students follow the method
+1. Ensure `questions/qt-{id}/reviews/refine-static-solution/` exists.
+2. If `before_static_solution_latex.txt` does not exist, copy the pre-refine
+   `static_solution_latex.txt` into it.
+3. If `before_static_solution.txt` does not exist and `static/static_solution.txt` exists, copy the
+   pre-refine AsciiMath solution into it.
+4. Overwrite canonical:
+   - `static/static_solution_latex.txt`
+   - `static/static_solution.txt`
+5. Create or update `reviews/refine-static-solution/refine_report_draft.md` using
+   `assets/report-template.md`.
 
-### Anti-Patterns
+In `finalize-report` state:
 
-Do not:
-- mention textbook numbering like `Theorem 4`
-- replace the current unit method with a different later-chapter method
-- add ornamental commentary unrelated to the mathematical move
-- drift into proof style when the question only needs a direct worked solution
-
----
+1. Read:
+   - `static/static_solution_latex.txt`
+   - `static/static_solution.txt`
+   - `imathas/control.php`
+   - `imathas/question.txt`
+   - `imathas/solution.txt`
+   - relevant review artifacts if present
+2. Write `reviews/refine-static-solution/refine_report_final.md` using the same template structure,
+   but set status to final and include implementation implications grounded in IMathAS.
 
 ### [ASCIIMATH CONVERSION]
 
@@ -312,21 +337,28 @@ If the conversion command requires cache access outside the sandbox, rerun with 
 
 ## Output and Chat Contract
 
-### Files to Write
+### Canonical files to write
 
 - `questions/qt-{id}/static/static_solution_latex.txt`
 - `questions/qt-{id}/static/static_solution.txt`
 
-Do not mutate any other repo-tracked files unless the user explicitly requests it.
+### Review files to write
+
+In `refine/update-draft` state:
+- `questions/qt-{id}/reviews/refine-static-solution/before_static_solution_latex.txt` (first pass only)
+- `questions/qt-{id}/reviews/refine-static-solution/before_static_solution.txt` (first pass only, if available)
+- `questions/qt-{id}/reviews/refine-static-solution/refine_report_draft.md`
+
+In `finalize-report` state:
+- `questions/qt-{id}/reviews/refine-static-solution/refine_report_final.md`
 
 ### Chat Status
 
 After completion, report succinctly:
 - which unit context was read
 - whether backward-local or backward-chapter expansion was needed
-- what kinds of improvements were made
-
-No mandatory review report is produced in v1.
+- whether the skill operated in `refine/update-draft` or `finalize-report`
+- what kinds of improvements or evidence updates were made
 
 ---
 
@@ -334,24 +366,12 @@ No mandatory review report is produced in v1.
 
 The skill should handle these cases correctly:
 
-1. A correct but too-short solution gets a fuller rewrite with unchanged answers.
-2. A one-line “The pattern gives ...” step becomes an indexed-term pattern explanation.
-3. A thin “apply the test” step becomes a generic theorem/test statement plus application.
-4. Prior-unit context is used to add a bridge without replacing the current unit target.
-5. A solution that only needs a small theorem/test improvement stays at current-unit scope.
+1. A first refine pass writes canonical refined static files, creates one-time `before` snapshots,
+   and writes `refine_report_draft.md`.
+2. A second refine pass does not replace `before` snapshots but updates the draft report.
+3. A finalize pass reads current IMathAS files and existing audits, then writes
+   `refine_report_final.md`.
+4. A correct but too-short solution gets a fuller rewrite with unchanged answers.
+5. A one-line “The pattern gives ...” step becomes an indexed-term pattern explanation.
+6. A thin “apply the test” step becomes a unit-aligned theorem/test statement plus application.
 
----
-
-## Future Extensions
-
-This v1 intentionally avoids:
-- helper scripts
-- mandatory reports
-- structured refinement finding files
-- automatic experience updates
-
-Future versions may add:
-- optional report mode in `reviews/`
-- richer context-loading heuristics
-- a helper script for locating current/prior units
-- structured refinement tags for downstream workflows
