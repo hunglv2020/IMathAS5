@@ -121,7 +121,7 @@ These rules apply to **all** `control.php` code. Violating them causes fatal run
 
 Before writing any non-trivial snippet to `control.php`, run:
 ```bash
-uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control '<snippet>'
+python3 scripts/test_control.py --control '<snippet>'
 ```
 If `errors` is non-empty → fix the snippet, re-validate, **then** write.
 

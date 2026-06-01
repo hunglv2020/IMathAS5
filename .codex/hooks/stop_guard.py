@@ -17,8 +17,8 @@ if state.get("control_edited") and not state.get("control_validated"):
         {
             "decision": "block",
             "reason": (
-                "Run `uv run .agents/skills/validate-control-syntax/scripts/test_control.py "
-                "--control-file questions/qt-{id}/imathas/control.php` now, then continue the task."
+                "Run `python3 scripts/test_control.py --control-file "
+                "questions/qt-{id}/imathas/control.php` now, then continue the task."
             ),
         }
     )

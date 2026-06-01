@@ -107,13 +107,13 @@ For any known constraint (fraction, root, loop with condition, non-zero denomina
 
 **3. Write `control.php` zone-by-zone** (ZONE 0 → ZONE 5). After each major logic block (array operations, conditional branching, first use of a new macro):
 ```bash
-uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control '<snippet>'
+python3 scripts/test_control.py --control '<snippet>'
 ```
 Non-empty `errors` → fix immediately, do not continue writing.
 
 **4. Pre-flight full file:**
 ```bash
-uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
+python3 scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
 ```
 
 **5. Inject variables** into `question.txt` and `solution.txt` via Search & Replace.
@@ -263,7 +263,7 @@ All authoring policy, macro lookup, zone order, cross-cutting rules:
 
 Validation and quality tools:
 - [`.agents/skills/asciimath/SKILL.md`](/home/jerry/project/IMathAS5/.agents/skills/asciimath/SKILL.md)
-- [`.agents/skills/validate-control-syntax/SKILL.md`](/home/jerry/project/IMathAS5/.agents/skills/validate-control-syntax/SKILL.md)
+- [`scripts/test_control.py`](/home/jerry/project/IMathAS5/scripts/test_control.py)
 - [`.agents/skills/audit-text-integrity/SKILL.md`](/home/jerry/project/IMathAS5/.agents/skills/audit-text-integrity/SKILL.md)
 - [`.agents/skills/audit-variable-distribution/SKILL.md`](/home/jerry/project/IMathAS5/.agents/skills/audit-variable-distribution/SKILL.md)
 - [`.agents/skills/verify-imathas-batch/SKILL.md`](/home/jerry/project/IMathAS5/.agents/skills/verify-imathas-batch/SKILL.md)
@@ -316,12 +316,12 @@ Apply only the declared scope. All rules from `RULES.md` (RULE 1–5) are active
 
 After each non-trivial `control.php` block:
 ```bash
-uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control '<snippet>'
+python3 scripts/test_control.py --control '<snippet>'
 ```
 
 After all patches, run full file check:
 ```bash
-uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
+python3 scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
 ```
 
 If text files were changed, run text integrity audit vs static sources:

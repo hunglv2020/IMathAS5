@@ -96,7 +96,7 @@ def contains_latex(text: str) -> bool:
 
 def is_control_validation_command(command: str) -> bool:
     return (
-        "validate-control-syntax/scripts/test_control.py" in command
+        "scripts/test_control.py" in command
         and "--control-file" in command
         and bool(re.search(r"questions/qt-\d+/imathas/control\.php", command))
     )
@@ -108,7 +108,8 @@ def is_project_safe_command(command: str) -> bool:
         "uv run .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py",
         "uv run .agents/skills/write-imathas-x/scripts/search_cases.py",
         "uv run .agents/skills/write-imathas-x/scripts/check.py",
-        "uv run .agents/skills/validate-control-syntax/scripts/test_control.py",
+        "uv run scripts/test_control.py",
+        "python3 scripts/test_control.py",
         "uv run .agents/skills/audit-text-integrity/scripts/audit_text.py",
         "uv run .agents/skills/verify-imathas-batch/scripts/verify.py",
         "uv run .agents/skills/audit-variable-distribution/scripts/audit.py",

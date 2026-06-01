@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
-# Usage examples:
-#   uv run scripts/test_control.py --control '$a = rand(2,4)'
-#   uv run scripts/test_control.py --control-file sample_control.md
-#   echo '$a = rand(2,4)' | uv run scripts/test_control.py --stdin
-#   uv run scripts/test_control.py --control '$a = rand(2,4)' --raw
+"""Validate IMathAS control code through the local IMathAS-CusAPI renderer."""
+
 import argparse
 import json
 import os
 import sys
 import urllib.error
 import urllib.request
-
 from pathlib import Path
 
 DEFAULT_BASE_URL = "http://localhost:38080/IMathAS-CusAPI"
@@ -73,14 +69,8 @@ def build_parser():
         description="Test IMathAS control syntax via question_renderings.php.",
     )
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument(
-        "--control",
-        help="Control string to test.",
-    )
-    group.add_argument(
-        "--control-file",
-        help="Path to file containing control code.",
-    )
+    group.add_argument("--control", help="Control string to test.")
+    group.add_argument("--control-file", help="Path to file containing control code.")
     group.add_argument(
         "--stdin",
         action="store_true",

@@ -228,7 +228,7 @@ Confirm:
 Before writing any non-trivial snippet to `control.php`, run:
 
 ```bash
-uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control '<snippet>'
+python3 scripts/test_control.py --control '<snippet>'
 ```
 
 If `errors` is non-empty, fix the snippet and re-validate before writing.
@@ -238,7 +238,7 @@ If `errors` is non-empty, fix the snippet and re-validate before writing.
 After patching `control.php`, run:
 
 ```bash
-uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
+python3 scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
 ```
 
 ### RULE V3 — Minimum Post-Edit Verification (HARD)

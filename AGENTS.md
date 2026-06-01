@@ -105,7 +105,6 @@ All paths in this document use `questions/qt-{id}/` as a placeholder. Replace `{
 | `generate-blueprint` | Generate `questions/qt-{id}/static/blueprint.txt` — parameterization design for author-imathas |
 | `write-imathas-x` | Core authoring: macro lookup, golden cases, topic guides |
 | `asciimath` | Convert LaTeX → AsciiMath (use before variable injection) |
-| `validate-control-syntax` | Fast in-loop validator for control.php snippets |
 | `audit-coverage` | Check template coverage against source exercises |
 | `audit-pedagogical` | Review terminology, notation, scope |
 | `audit-accuracy` | Render seeds, verify math via SymPy |
@@ -138,13 +137,13 @@ When modifying `control.php` or other IMathAS source files:
 
 Before writing any non-trivial snippet to `control.php`, run:
 ```bash
-uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control '<snippet>'
+python3 scripts/test_control.py --control '<snippet>'
 ```
 If `errors` is non-empty → fix the snippet, re-validate, **then** write. Never write a failing snippet to file.
 
 After the full file is written, run a final check:
 ```bash
-uv run .agents/skills/validate-control-syntax/scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
+python3 scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
 ```
 
 ### Variables zone update

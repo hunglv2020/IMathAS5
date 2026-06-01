@@ -239,7 +239,7 @@ When the user requests "fix [ACC-N]" or "fix all":
 3. Open the target file in [questions/qt-{id}/imathas/](/home/jerry/project/IMathAS5/imathas/) and apply the minimal fix. Do not touch [static/](/home/jerry/project/IMathAS5/static/).
 4. If [questions/qt-{id}/imathas/control.php](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/control.php) was modified, run syntax guard before proceeding:
    ```bash
-   uv run /home/jerry/project/IMathAS5/.agents/skills/validate-control-syntax/scripts/test_control.py \
+   python3 /home/jerry/project/IMathAS5/scripts/test_control.py \
      --control-file /home/jerry/project/IMathAS5/questions/qt-{id}/imathas/control.php
    ```
 5. Re-render the affected seed and re-run SymPy checks to confirm the fix.

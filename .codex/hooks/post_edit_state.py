@@ -14,8 +14,7 @@ if patch_touches_imathas_file(patch, "imathas/control.php") and session_id and t
         {
             "continue": False,
             "systemMessage": (
-                "`control.php` was modified. Run "
-                "`uv run .agents/skills/validate-control-syntax/scripts/test_control.py "
+                "`control.php` was modified. Run `python3 scripts/test_control.py "
                 "--control-file questions/qt-{id}/imathas/control.php` before finishing this turn."
             ),
             **hook_output(
