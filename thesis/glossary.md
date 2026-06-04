@@ -107,6 +107,12 @@ Mức độ bao quát nội dung: template có yêu cầu student áp dụng đ�
 ### Coverage perspective rule
 Audit coverage đánh giá từ góc nhìn **student**: chỉ nhìn thấy question text và answerbox. Không phải từ solution.
 
+### Near-copy (coverage)
+Template chỉ đổi context, tên đối tượng, hoặc hằng số nhưng vẫn giữ nguyên setup nhận diện được của bài gốc. Với applied-modeling tasks, việc tiếp tục cho sẵn cùng họ hàm ở dạng ký hiệu trực tiếp thường vẫn là near-copy.
+
+### Visual proxy
+Proxy chấm tự động cho một source task mang tính trực quan/đồ thị. Hợp lệ khi student vẫn phải vẽ hoặc phân biệt hình dạng đồ thị bằng hình ảnh/plot; prose-only MCQ không được tính là visual proxy.
+
 ---
 
 ## Thuật ngữ về sư phạm

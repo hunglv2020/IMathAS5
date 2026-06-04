@@ -98,6 +98,10 @@ If `source_brief.xml` is present, use `<method.primary>` as the expected concept
 
 Treat **generalization sufficiency** as part of coverage judgment. A dynamic template must not merely restate the source with cosmetic edits. If the template keeps the same canonical form, nearly the same wording/structure, or only swaps trivial constants while preserving the source's exact recognizable setup, then it has not adequately generalized the source.
 
+Applied-modeling rule:
+- If the source's core modeling move is to construct one or more governing functions from contextual data, a template that simply exposes the same functions directly in symbolic form with renamed context or changed constants is still a near-copy.
+- For these tasks, acceptable generalization normally requires at least one meaningful surface redesign such as prose/data/table clues from which the student must deduce the function, rather than reading the same ready-made formulas off the page.
+
 If `source_brief.xml` declares an equivalence family, evaluate framing through that family before
 calling it a mismatch. For `monotone_threshold`, an upper-threshold/latest-time framing and a
 lower-threshold/earliest-time framing are equivalent only when the same monotonicity argument, the
@@ -126,6 +130,10 @@ Examples of framing requirements:
 Framing is **preserved** if the template's question wording encodes the same requirement, even if the exact words differ.
 
 Framing is **acceptably adapted** if a source format that is not practical to grade automatically, such as free-form proof or T/F-with-justification, is converted into a machine-gradable structure that still requires evidence of the same reasoning. Do not require a literal T/F or free-text format when the LMS adaptation preserves assessment intent.
+
+Visual-task rule:
+- If the source explicitly asks students to sketch, identify, or compare a graph/plot, a prose-only qualitative multiple-choice rewrite does **not** preserve framing by itself.
+- Acceptable LMS adaptations for a sketch task include a `draw` answerbox or machine-gradable selection among plotted graph options that keep the visual discrimination task active.
 
 Family rule — `monotone_threshold`:
 - Treat upper-threshold/latest-time and lower-threshold/earliest-time statements as acceptable
@@ -159,6 +167,9 @@ A template **does not preserve the key idea** if:
 - The template tests a special case that avoids the core technique
 - The template keeps only the inequality surface but removes the monotonicity/equality/`ln`
   reasoning required by the equivalence family
+- In an applied-modeling exercise, the source expects students to infer the governing function(s)
+  from contextual data but the template instead gives the same function family explicitly with only
+  cosmetic context changes
 - The template mirrors the source too literally and fails the generalization principle "Only keep the main idea to solve the problem"
 
 ### Level 3 — Problem Type
@@ -173,6 +184,10 @@ Does the structural form match?
 
 Problem type is **acceptably adapted** when a mismatch is driven by LMS grading constraints and the replacement answer structure still requires a gradable proxy for the source intent. Examples include converting a proof/explanation source into multipart choices, matrix entries, matching, or other answer boxes that force the same theorem, inverse construction, case distinction, or reasoning step.
 
+Visual-task rule:
+- For source tasks centered on graph sketching or visual graph recognition, acceptable adaptation must preserve a visual answer modality.
+- A prose-only choice item about graph behavior is not an acceptable type match for a sketch/plot task, even if the prose statement is mathematically correct.
+
 ### Level 4 — Assessment Intent
 
 Does the template still measure the source's intended student action?
@@ -182,6 +197,10 @@ Assessment intent is preserved if the template requires either:
 - A machine-gradable proxy that demonstrates the same reasoning (e.g., choosing the inverse operation, identifying the theorem, constructing an inverse matrix, selecting the correct justification)
 
 Assessment intent is weakened if the adaptation reduces a source proof/justification/decision task to shallow recognition or guessing, such as a single fixed-choice answer with no required reasoning proxy.
+
+Visual-task rule:
+- When the source assesses graph sketching or visual interpretation, the proxy must still require the student to discriminate among visual graph shapes or construct a graph.
+- Replacing that task with prose-only recognition of verbal graph descriptions counts as weakened intent at best, and can be a FAIL when the visual action was central to the source.
 
 For `monotone_threshold`, use these anchors:
 - `PASS`: upper/lower threshold inversion is allowed, the question still requires monotonicity,

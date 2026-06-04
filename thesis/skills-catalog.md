@@ -162,6 +162,8 @@ _Last updated: 2026-06-04_
 - Method boundary (`check_term.py`) không cần cho coverage — coverage hỏi "kỹ thuật có đúng không?", không hỏi "đã học chưa?"
 - `source_brief.xml` sẽ bị loại khỏi coverage workflow — mọi thông tin có thể lấy từ `meta.xml` + `target_exercises.xml` + books trực tiếp
 - L5 chỉ được scored khi `exercise_analysis.xml` tồn tại và đã human-validated
+- Với bài applied modeling, đổi context đơn thuần nhưng vẫn cho sẵn cùng họ hàm ở dạng ký hiệu trực tiếp được xem là near-copy → FAIL generalization
+- Với bài sketch/graph, prose-only MCQ không phải visual proxy hợp lệ; coverage chỉ chấp nhận `draw` hoặc lựa chọn giữa các plot/graph được vẽ sẵn
 
 **Vấn đề đã phát hiện — False positive nguy hiểm:**
 Template đúng kỹ thuật nhưng phá hủy "Ẩn ý" của bài (Discovery mechanism) → hiện tại PASS, sau refactor sẽ bị L5 bắt → PARTIAL/FAIL.
