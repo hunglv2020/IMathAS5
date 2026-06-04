@@ -22,11 +22,23 @@ _Candidate for promotion to `topics/cases/` when generalized enough to lose sess
 **Promoted from:** question.md + solution.md (2026-05-31, simple limit/series authoring review)
 **Pattern:**
 1. Keep simple one-off algebra expressions inline in `question.txt` or `solution.txt`.
-2. Interpolate existing randomized scalars directly inside the backticked AsciiMath.
+2. Interpolate existing randomized scalars directly inside the backticked AsciiMath, using `{$var}` by default when a token boundary could be ambiguous.
 3. Create a ZONE 2 display var only if the expression is reused, structurally fragile, or needs normalization by macro.
 4. Treat matrix/vector/piecewise/long coordinated displays as the main exceptions.
 **Applies to:** VARIABLE_INJECTION | STEP_FLOW | ASCIIMATH_DISPLAY
 **Skill promotion status:** Candidate → general authoring default
+
+---
+
+## Boundary-Safe Inline Injection
+**Promoted from:** question.md + solution.md (2026-06-04, linear algebra dynamicization review)
+**Pattern:**
+1. When an inline injected variable touches adjacent letters, digits, or math tokens, wrap it as `{$var}`.
+2. Prefer `{$var}` over ad-hoc parentheses like `($var)` when the goal is only to keep boundaries explicit.
+3. Only introduce a new display var if the expression is reused, structurally fragile, or needs formatting or normalization beyond boundary safety.
+4. Keep structured objects such as full matrices, vectors, and long coordinated displays as legitimate display-var exceptions.
+**Applies to:** VARIABLE_INJECTION | ASCIIMATH_DISPLAY | STEP_FLOW
+**Skill promotion status:** Candidate → cross-cutting authoring default
 
 ---
 

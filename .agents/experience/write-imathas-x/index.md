@@ -24,6 +24,7 @@ _After writing a new experience entry, update the relevant bullet below._
 - RANDOMIZER_GCD_GUARD: force each source column to contain at least one `±1` using `where ... || ...` to reduce scalar-factor false positives (2026-05-01)
 
 ## question.md
+- BOUNDARY_SAFE_INJECTION: wrap inline injected vars as `{$var}` before creating a display var to solve token-boundary ambiguity (2026-06-04) ← cross-ref: solution.md
 - VARIABLE_INJECTION: inline simple one-off expressions; reserve preformatted vars like $Cdisp/$ddisp for structured or reused objects (2026-05-31) ← cross-ref: solution.md
 - AB_TAG: keep answerbox stem and [ABi] as separate tags in question.txt (2026-04-21)
 - DISPLAY_EDGE_CASE: AsciiMath bold vectors use bb(...) not bb{...}; choices options → $questions[i] in control.php (2026-04-20)
@@ -32,6 +33,7 @@ _After writing a new experience entry, update the relevant bullet below._
 - MCQ_INTEGRITY: for `choices`, keep only the stem in question.txt and move full A–D option text into `$questions[i]` in control.php (2026-05-12)
 
 ## solution.md
+- BOUNDARY_SAFE_INJECTION: wrap inline injected vars as `{$var}` before escalating to a display var for token-boundary safety (2026-06-04) ← cross-ref: question.md
 - STEP_FLOW: inline simple one-use algebra lines; use step-level display vars only for structured/reused displays (2026-05-31) ← cross-ref: question.md
 - ASCIIMATH_DISPLAY: re-render seed immediately after replacing arrow tokens with prose (2026-04-21)
 - DEFINITION_FIRST: replace citation-only wording with explicit definition at point-of-use (2026-05-01)
@@ -43,5 +45,6 @@ _After writing a new experience entry, update the relevant bullet below._
 
 ## patterns.md
 - Matrix Display Pipeline: build ZONE 1 → format ZONE 2 → inject question + solution (2026-04-21)
+- Boundary-Safe Inline Injection: use `{$var}` in backticked AsciiMath before inventing a new display var for token-boundary safety (2026-06-04)
 - numfunc symbolic matrix workaround: pragmatic pattern with showanswer + requiretimes (2026-04-21)
 - Multipart Matrix Input Robustness: `qtype=multipart` + per-part `calcmatrix` + bare answerbox tags + column anti-factor `where` guards (2026-05-01)

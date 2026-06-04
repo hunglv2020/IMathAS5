@@ -187,6 +187,25 @@ Do **not** create a new ZONE 2 display variable unless at least one of these is 
 
 ---
 
+### RULE A3.6 — Boundary-Safe Variable Injection in Text Files (HARD)
+
+Inside backticked AsciiMath in `question.txt` and `solution.txt`, default to `{$var}` wrapping for injected variables.
+
+Use `{$var}` especially when the variable touches letters, digits, braces, or adjacent math tokens that could merge visually or lexically.
+
+| Form | Status |
+|---|---|
+| `` `bb{c}_2={$c}bb{c}_1` `` | **CORRECT** |
+| `` `text(Nul)MsubeRR^{$cols}` `` | **CORRECT** |
+| `` `p={$cols}` `` | **CORRECT** |
+| `` `bb{c}_2=$cbb{c}_1` `` | **BANNED** — ambiguous token boundary |
+| `` `text(Nul)MsubeRR^$cols` `` | **BANNED** — ambiguous token boundary |
+| `` `bb{c}_2=($c)bb{c}_1` `` | **AVOID** — use `{$c}` when the goal is only boundary safety |
+
+If a line becomes boundary-safe by switching to `{$var}`, do that before creating a new ZONE 2 display variable.
+
+---
+
 ### RULE A4 — Banned Constructs (HARD)
 
 | Construct | Alternative |

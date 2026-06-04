@@ -46,7 +46,8 @@ Read the following files before proceeding:
 11. [.agents/experience/coverage-check/index.md](/home/jerry/project/IMathAS5/.agents/experience/coverage-check/index.md) — Quick scan; read patterns.md before Step 3–4.
 12. [.agents/experience/coverage-check/patterns.md](/home/jerry/project/IMathAS5/.agents/experience/coverage-check/patterns.md) (always load — cross-case rules supersede defaults; load before Step 3–4)
 13. [.agents/experience/coverage-check/lessons.md](/home/jerry/project/IMathAS5/.agents/experience/coverage-check/lessons.md) (if present — load for session-specific lessons)
-14. [.agents/skills/audit-coverage/assets/scoring-rubric.md](/home/jerry/project/IMathAS5/.agents/skills/audit-coverage/assets/scoring-rubric.md) — rubric template; copy the per-SRC-N block and fill it in Step 4a
+14. [questions/qt-{id}/source/exercise_analysis.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/source/exercise_analysis.xml) — pedagogical contract with `must_preserve` checklist (**load if present**; if absent, L5 is inactive — skip L5 scoring entirely)
+15. [.agents/skills/audit-coverage/assets/scoring-rubric.md](/home/jerry/project/IMathAS5/.agents/skills/audit-coverage/assets/scoring-rubric.md) — rubric template; copy the per-SRC-N block and fill it in Step 4a
 
 If `target_exercises.xml` is missing or empty → stop. Report `SOURCE_MISSING`. Do not proceed.
 
@@ -191,6 +192,18 @@ For `monotone_threshold`, use these anchors:
 - `FAIL`: the task family changes, the monotonicity-boundary argument is removed, the equality step
   is removed, or the rewritten scenario remains a near-copy.
 
+### Level 5 — Pedagogical Contract (only when exercise_analysis.xml is present)
+
+**Skip this level entirely if `exercise_analysis.xml` is absent.**
+
+For each `must_preserve` item in `exercise_analysis.xml`:
+- Read the item as a binary, testable constraint.
+- Check by static reading of `question.txt` and `control.php`: does the template satisfy this constraint?
+- Mark: SATISFIED or VIOLATED, with specific evidence from the template files.
+- If an item genuinely cannot be verified by static reading alone, flag it and treat as SATISFIED for scoring.
+
+Score = (satisfied items ÷ total items) × 15, rounded to nearest integer.
+
 As you analyze each level, record raw evidence inline — you will transfer this directly to the rubric in Step 4a.
 
 ---
@@ -203,8 +216,9 @@ For each SRC-N, copy the per-SRC-N rubric block from [assets/scoring-rubric.md](
 2. Score L2.2 (generalization) first, then apply the **Coupling Rule**: if L2.2 = 0, set L2.1 = 0.
 3. Score L4.1, then L4.2. If the template uses a direct format (not a proxy), mark L4.2 as N/A and score 10/10.
 4. Score L1.1 and L3.1.
-5. Sum to Grand Total.
-6. If this SRC-N has `must_cover=true` in `source_brief.xml` and Grand Total < 85: escalate verdict to FAIL regardless of PARTIAL threshold.
+5. **If `exercise_analysis.xml` is present:** Score L5 by checking each `must_preserve` item against `question.txt` and `control.php`. Score = (satisfied ÷ total) × 15, rounded. Grand Total becomes ___/115.
+6. Sum to Grand Total.
+7. If this SRC-N has `must_cover=true` in `source_brief.xml` and base Grand Total (L1–L4 only, excl. L5) < 85: escalate verdict to FAIL regardless of PARTIAL threshold.
 
 The filled rubric will be written to the `Scoring` section of the report in Step 5.
 

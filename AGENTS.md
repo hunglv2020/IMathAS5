@@ -82,6 +82,7 @@ All paths in this document use `questions/qt-{id}/` as a placeholder. Replace `{
 - A visible line break inside the rendered text should use `<br/>` according to surrounding file style.
 - A blank line separates larger text blocks and corresponds to a double break in the rendered result.
 - Do not casually rewrite prose. Preserve the narrative skeleton unless the user explicitly requests rewording.
+- For injected variables inside backticked math, default to `{$var}` instead of bare `$var` so token boundaries stay explicit. If a scalar can be written inline safely with `{$var}`, do that instead of creating a new display var in `control.php`.
 - In patch operations, `question.txt` is READ-ONLY unless the user explicitly requests changes to it.
 - Any `$variable` referenced in text must exist in `control.php`.
 

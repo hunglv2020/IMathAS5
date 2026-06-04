@@ -32,6 +32,12 @@ questions/qt-{id}/static/static_question.txt                 — AsciiMath versi
 **Structure rule (Mode A):** flat **(a)**, **(b)**, **(c)** only — no nesting, no bold section
 headers between parts, no "Part 1 / Part 2" groupings. Each part maps to exactly one ANSWERBOX.
 
+**Answerbox authority rule:** For this skill, `assets/answerbox-reference.md` is the complete
+local whitelist of allowed ANSWERBOX types. Do not import or infer additional answerbox types
+from other skills, repo-wide IMathAS docs, or audit-only references. If the required response
+cannot be represented faithfully with this whitelist, stop and report the mismatch instead of
+introducing an unlisted type.
+
 ---
 
 ## Trigger Conditions
@@ -266,8 +272,13 @@ Input: the `[PHASE FREE]` text just written.
 **Transform rules:**
 - Keep all question prose intact — minimal change, add ANSWERBOX only
 - One ANSWERBOX per part, placed at the answer position
-- ANSWERBOX type: consult `assets/answerbox-reference.md`; decide based on the
-  mathematical nature of the answer unless the user has already specified
+- ANSWERBOX type: select only from `assets/answerbox-reference.md`; this file is the
+  complete whitelist for this skill
+- Do not consult or reuse answerbox types from other skills or broader IMathAS references
+- If no whitelisted type can represent the required response faithfully, stop and report the
+  mismatch instead of introducing an unlisted type
+- Within the whitelist, decide based on the mathematical nature of the answer unless the user
+  has already specified a listed type
 - LMS parseability: explicit `*` for multiplication, `:vars=` for non-x variables,
   no `\nabla`/`\mathbf`/`\vec` inside `correct_answer`
 

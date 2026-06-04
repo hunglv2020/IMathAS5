@@ -78,6 +78,25 @@ Score L2.2 first, then apply coupling rule before scoring L2.1.
 
 ---
 
+### Level 5 — Pedagogical Contract [15 pts]
+
+**Skip entirely if `exercise_analysis.xml` is absent. Set L5 = N/A, Grand Total remains /100.**
+
+For each `must_preserve` item in `exercise_analysis.xml`, check by static reading of `question.txt` and `control.php`:
+
+- [ ] **MP-1** ___ — SATISFIED / VIOLATED
+      Evidence: ___
+- [ ] **MP-2** ___ — SATISFIED / VIOLATED
+      Evidence: ___
+- [ ] **MP-3** ___ — SATISFIED / VIOLATED
+      Evidence: ___
+*(Add or remove rows to match the number of `must_preserve` items in `exercise_analysis.xml`)*
+
+Score: (satisfied items ÷ total items) × 15, rounded to nearest integer
+**L5 Total: ___/15**
+
+---
+
 ### Grand Total
 
 | Level | Score |
@@ -86,17 +105,23 @@ Score L2.2 first, then apply coupling rule before scoring L2.1.
 | L4 Assessment Intent | ___/25 |
 | L1 Framing | ___/15 |
 | L3 Problem Type | ___/10 |
-| **Grand Total** | **___/100** |
+| L5 Pedagogical Contract | ___/15 or N/A |
+| **Grand Total** | **___/100** (or /115 if L5 active) |
 
-> **must_cover note:** If this SRC-N has `must_cover=true` in `source_brief.xml` and Grand Total < 85,
+> **must_cover note:** If this SRC-N has `must_cover=true` in `source_brief.xml` and base Grand Total (L1–L4 only) < 85,
 > escalate the verdict to **FAIL** regardless of PARTIAL threshold.
 
 ### Verdict
 
+Use percentage of max — thresholds are identical whether L5 is active or not:
+
 | Score | Verdict |
 |---|---|
-| ≥ 85 | PASS |
-| 60–84 | PARTIAL |
-| < 60 | FAIL |
+| ≥ 85% of max | PASS |
+| 60–84% of max | PARTIAL |
+| < 60% of max | FAIL |
+
+*Without L5 (/100): PASS ≥85, PARTIAL 60–84, FAIL <60.*
+*With L5 (/115): PASS ≥98, PARTIAL 69–97, FAIL <69.*
 
 **SRC-{N} Verdict: ___**

@@ -219,3 +219,6 @@ placeholder square `□` or blank line for the same answer in the prose above it
 - [ ] (LMS phase) One ANSWERBOX per part; CAS syntax in `correct_answer`
 - [ ] (LMS phase) ANSWERBOX `correct_answer` uses explicit `*` for multiplication
 - [ ] (LMS phase) `calc` variant used unless answer is provably plain integer; no redundant blank in prose
+- [ ] (LMS phase) Every ANSWERBOX type is listed in `assets/answerbox-reference.md`
+- [ ] (LMS phase) No answerbox type was imported from other skill docs or general IMathAS references
+- [ ] (LMS phase) If a required response cannot be represented with the whitelist, the mismatch was reported instead of introducing an unlisted type

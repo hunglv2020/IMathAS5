@@ -6,6 +6,7 @@ Each entry records a non-obvious lesson about question.txt authoring that is use
 ---
 
 ## Quick Index (AI-maintained)
+- BOUNDARY_SAFE_INJECTION: in backticked AsciiMath, wrap injected variables as `{$var}` before considering a new display var (2026-06-04) ← cross-ref: solution.md
 - VARIABLE_INJECTION: inline simple one-off expressions; reserve preformatted vars like $Cdisp/$ddisp for structured or reused objects (2026-05-31) ← cross-ref: solution.md
 - AB_TAG: keep answerbox stem and [ABi] as separate tags in question.txt (2026-04-21)
 - DISPLAY_EDGE_CASE: AsciiMath bold vectors use bb(...) not bb{...}; choices options → $questions[i] in control.php (2026-04-20)
@@ -66,3 +67,9 @@ context (vs solution context), wording that degrades after substitution, and dis
 **Lesson:** Use inline injection in `question.txt` by default for simple one-use expressions built from existing randomized scalars. Reserve preformatted display vars such as `$Cdisp` or `$ddisp` for structured objects, reused expressions, or cases that truly need formatting normalization. Moving one-off algebra text into `control.php` without a display reason adds drift and makes the source harder to audit against the static wording.
 **Applies to:** VARIABLE_INJECTION | TEXTVAR_IN_QUESTION | DISPLAY_EDGE_CASE
 **cross-ref:** solution.md (2026-05-31 — same inline-first rule for solution steps)
+
+**Date:** 2026-06-04
+**Context:** Linear algebra dynamicization review where a scalar coefficient was moved into `control.php` only to avoid token-boundary ambiguity in inline AsciiMath
+**Lesson:** In `question.txt`, if a bare variable would collide with adjacent math text, first wrap it as `{$var}` inside the backticked AsciiMath before creating any new display var. For example, prefer `` `bb{c}_2={$c}bb{c}_1` `` over introducing `$colreldisp` solely to avoid `$cbb` ambiguity. New display vars remain appropriate for structured objects like full matrices or vectors, not for one-line scalar relations.
+**Applies to:** VARIABLE_INJECTION | TEXTVAR_IN_QUESTION | DISPLAY_EDGE_CASE
+**cross-ref:** solution.md (2026-06-04 — same boundary-safe inline rule for solution text)

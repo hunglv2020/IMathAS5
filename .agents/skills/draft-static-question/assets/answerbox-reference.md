@@ -6,6 +6,19 @@ Format: `[ANSWERBOX:<type>:<spec>:<correct_answer>]`
 
 `<spec>` is type-specific (see below). Use `""` when there is no spec field.
 
+## Scope Boundary
+
+This file is the complete allowed ANSWERBOX whitelist for `draft-static-question`.
+
+Do not introduce answerbox types that are documented elsewhere in the repo but are not listed
+in this file.
+
+Forbidden for this skill unless this file is explicitly updated:
+- `essay`
+- `file`
+- audit-only legacy types
+- any answerbox type imported from other skills or broader IMathAS references
+
 ---
 
 ## Decision Guide — Which Type?

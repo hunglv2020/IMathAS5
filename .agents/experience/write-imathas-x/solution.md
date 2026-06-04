@@ -6,6 +6,7 @@ Each entry records a non-obvious lesson about solution.txt authoring that is use
 ---
 
 ## Quick Index (AI-maintained)
+- BOUNDARY_SAFE_INJECTION: in backticked AsciiMath, wrap injected variables as `{$var}` before escalating to a display var (2026-06-04) ← cross-ref: question.md
 - STEP_FLOW: inline simple one-use algebra lines; use step-level display vars only for structured/reused displays (2026-05-31) ← cross-ref: question.md
 - ASCIIMATH_DISPLAY: re-render seed immediately after replacing arrow tokens with prose (2026-04-21)
 - DEFINITION_FIRST: replace citation-only phrases (e.g., "By Definition ...") with the actual definition at point-of-use for student-facing coherence (2026-05-01)
@@ -54,3 +55,9 @@ where the solution text became misleading or incorrect after parameterization.
 **Lesson:** In `solution.txt`, keep simple one-off algebra lines inline when they are used once and need no normalization, for example `` `lim_(n->oo)((n+{$k})/n)/((sqrt(n^2+{$c}))/n)` ``. Use step-level display vars only when the line is reused, structurally fragile, or materially clearer as a named object. The older “whole-step display var” pattern is for matrix- and layout-heavy work, not a blanket rule for routine algebra steps.
 **Applies to:** STEP_FLOW | ASCIIMATH_DISPLAY | VARIABLE_INJECTION | SOLUTION_COMPLETENESS
 **cross-ref:** question.md (2026-05-31 — inline-first policy for question text)
+
+**Date:** 2026-06-04
+**Context:** Solution-dynamicization patch where a scalar coefficient relation in linear algebra (`bb{c}_2 = c bb{c}_1`) tempted the agent to add a one-off display var
+**Lesson:** In `solution.txt`, boundary safety comes before new display vars: if the only issue is that a scalar like `$c` would visually or lexically run into adjacent math tokens, rewrite the line with `{$c}` inline, e.g. `` `bb{c}_2={$c}bb{c}_1` ``. Do not create a ZONE 2 helper such as `$colreldisp` unless the whole expression is reused, structurally fragile, or needs macro normalization.
+**Applies to:** STEP_FLOW | ASCIIMATH_DISPLAY | VARIABLE_INJECTION | SOLUTION_COMPLETENESS
+**cross-ref:** question.md (2026-06-04 — same boundary-safe inline rule for question text)

@@ -184,6 +184,8 @@ $limitstep1disp = "lim_(n->oo)((n+{$k})/n)/((sqrt(n^2+{$c}))/n)";
 
 when the value is injected only once and needs no normalization.
 
+Structured exceptions stay valid: matrices, vectors, piecewise objects, and other punctuation-heavy displays may still deserve a named display var.
+
 ### 3.6 Interpolation Convention (MANDATORY)
 
 All string assembly in ZONE 2§2A uses `{$var}` brace wrapping exclusively.
@@ -195,6 +197,30 @@ All string assembly in ZONE 2§2A uses `{$var}` brace wrapping exclusively.
 | `"$a x^2 + $b"` | **BANNED** — bare `$var` |
 
 **Exception:** `$answer[i]` is a raw numeric expression — no braces: `$answer[0] = $y1;`
+
+### 3.7 Boundary-Safe Injection in `question.txt` / `solution.txt` (MANDATORY)
+
+Inside backticked AsciiMath, default to `{$var}` for injected variables, not bare `$var`.
+
+This is separate from ZONE 2: the same boundary-safety rule also applies when writing inline math directly in `question.txt` or `solution.txt`.
+
+Use:
+
+```text
+`bb{c}_2={$c}bb{c}_1`
+`text(Nul)MsubeRR^{$cols}`
+`p={$cols}`, `q={$rows}`
+```
+
+Avoid:
+
+```text
+`bb{c}_2=$cbb{c}_1`
+`text(Nul)MsubeRR^$cols`
+`bb{c}_2=($c)bb{c}_1`
+```
+
+If switching to `{$var}` is enough to make an inline line safe, keep it inline. Do not create a ZONE 2 display var only to solve token-boundary ambiguity.
 
 ### 4. Answerbox Quick Lookup
 

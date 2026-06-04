@@ -120,6 +120,8 @@ python3 scripts/test_control.py --control-file questions/qt-{id}/imathas/control
 
 **Injection default:** inline simple one-off expressions directly in `question.txt` / `solution.txt` using existing randomized scalars, instead of creating new ZONE 2 display vars. Add a display var only when the expression is reused, structurally fragile, or needs formatting normalization.
 
+**Boundary-safe normalization:** before inventing any new display var, convert bare inline injections to `{$var}` where needed to protect token boundaries. If that resolves the issue, keep the expression inline.
+
 **6. Text integrity check** (threshold 0.95):
 
 `questions/qt-{id}/static/static_question.txt` and `questions/qt-{id}/static/static_solution.txt` are already AsciiMath — compare directly:
@@ -389,13 +391,14 @@ Produce a mapping table before writing any code:
 Draft value | Maps to $var       | Status
 -2          | $y3                | existing
 3           | $y1                | existing
-0.5         | $M23               | existing — needs $M23disp in ZONE 2A
+0.5         | $M23               | existing — inject inline as `{$M23}` if boundary-safe
 [(1,0,3)]   | (new) $step4disp   | new display var needed in ZONE 2A
 ```
 
 Rules:
 - Prefer existing `$vars` over creating new ones.
 - If a hardcoded value has no matching `$var`: determine if it needs a new randomized var (ZONE 1) or a new derived/display var (ZONE 2).
+- First attempt the smallest safe inline replacement in `solution.txt` using `{$var}` wrapping before creating any new ZONE 2 display var.
 - For display strings: add ZONE 2A vars using `{$var}` interpolation (RULE 2 from `RULES.md`).
 
 ---
@@ -408,6 +411,7 @@ Rules:
 - Validate each new block before writing to file.
 
 **Phase 2 — Write `solution.txt`:**
+- Run a light normalization pass first: any inline injected variable that is bare or only parenthesized for boundary safety should be rewritten as `{$var}`.
 - Replace each hardcoded value in the draft with its mapped `$var` or display var.
 - Preserve all prose from the draft **exactly** — do not rephrase.
 - `question.txt` is NOT modified.
