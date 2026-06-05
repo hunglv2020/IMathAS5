@@ -25,7 +25,7 @@ textbook corpus relative to a given section.
 ## Script
 
 ```bash
-uv run .agents/skills/check-future-learning/scripts/check_term.py \
+   uv run python .agents/skills/check-future-learning/scripts/check_term.py \
   --book <book-slug> \
   --current-section <section-code> \
   --term "<term or method name>" \

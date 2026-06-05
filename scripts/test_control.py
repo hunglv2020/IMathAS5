@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Validate IMathAS control code through the local IMathAS-CusAPI renderer."""
 
 import argparse

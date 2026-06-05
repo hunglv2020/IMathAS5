@@ -274,19 +274,19 @@ forbidden prose patterns, and answer label conventions.
 Convert `questions/qt-{id}/static/static_solution_latex.txt` to AsciiMath.
 
 ```bash
-uv run .agents/skills/asciimath/scripts/cli.py --stdin < questions/qt-{id}/static/static_solution_latex.txt
+uv run python .agents/skills/asciimath/scripts/cli.py --stdin < questions/qt-{id}/static/static_solution_latex.txt
 ```
 
 Or from a shell variable when not yet written to file:
 
 ```bash
-echo "$STATIC_SOLUTION_CONTENT" | uv run .agents/skills/asciimath/scripts/cli.py --stdin
+echo "$STATIC_SOLUTION_CONTENT" | uv run python .agents/skills/asciimath/scripts/cli.py --stdin
 ```
 
 Spot-check individual expressions as needed:
 
 ```bash
-uv run .agents/skills/asciimath/scripts/cli.py -e '$\frac{p_1^2 - p_2^2}{x_2^2 - x_1^2}$'
+uv run python .agents/skills/asciimath/scripts/cli.py -e '$\frac{p_1^2 - p_2^2}{x_2^2 - x_1^2}$'
 ```
 
 Applies to all inline and display math in the solution prose. Answer label `Answer to (a):`

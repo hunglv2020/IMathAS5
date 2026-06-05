@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 audit-variable-distribution
 ============================
@@ -7,7 +7,7 @@ using parallel HTTP requests. Detects bad $answer values (NaN, INF, null, "")
 and PHP runtime errors without writing any JSON files to disk.
 
 Usage:
-  uv run .agents/skills/audit-variable-distribution/scripts/audit.py \\
+  uv run python .agents/skills/audit-variable-distribution/scripts/audit.py \\
          --dir imathas \\
          --count 2000 \\
          --workers 30

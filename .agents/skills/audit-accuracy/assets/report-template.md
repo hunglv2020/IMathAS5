@@ -57,3 +57,4 @@ Root cause: {only if FAIL — file/logic source}
 - Each Fix Tracker item must be short (≤10 words) and self-contained — readable without opening the finding block.
 - PASS findings are optional unless they justify a repaired failure, a theorem chain, or a non-obvious verification route.
 - Treat claim-table compression as a reporting choice only. Do not omit the `Findings` section itself.
+- If render output is usable but `errors` is non-empty, keep the overall verdict at `FAIL` while still reporting any realized-instance math that was `TOOL_VERIFIED`.

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # /// script
 # requires-python = ">=3.10"
 # ///
@@ -9,8 +9,8 @@ Outputs one <lo> element per line — flat, grep-friendly, fully self-contained:
   <lo id="N" [alias="..."] book="slug" ch="Chapter Title" unit="Unit Title">LO title</lo>
 
 Usage:
-    uv run .agents/skills/tag-learning-objective/scripts/fetch_book_map.py
-    uv run .agents/skills/tag-learning-objective/scripts/fetch_book_map.py --book-slug calc-1
+    uv run python .agents/skills/tag-learning-objective/scripts/fetch_book_map.py
+    uv run python .agents/skills/tag-learning-objective/scripts/fetch_book_map.py --book-slug calc-1
 """
 
 from __future__ import annotations

@@ -30,7 +30,7 @@ false negatives where the right LO is filtered out before the agent sees it.
 `resources/book_map.xml` must exist. Create or refresh it with:
 
 ```bash
-uv run .agents/skills/tag-learning-objective/scripts/fetch_book_map.py
+uv run python .agents/skills/tag-learning-objective/scripts/fetch_book_map.py
 ```
 
 This writes `resources/book_map.xml` — one `<lo>` per line, flat, self-contained.

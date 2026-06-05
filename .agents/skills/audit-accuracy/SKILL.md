@@ -79,7 +79,9 @@ Capture from each per-seed entry in the result:
 
 Remaining keys are user-defined variables — bind these into your SymPy scripts when verifying parameterized claims.
 
-**If `errors` is non-empty:** Abort. Report the render error as a P1 Critical finding.
+**Render-error policy:** If `errors` is non-empty, always record the render error as a P1 Critical finding and keep the overall seed verdict at `FAIL`.
+
+**Continue-audit rule:** If the render result still contains usable `question_*`, `solution_*`, `variable_values`, or `answer_config` fields, continue the mathematical audit on that realized rendered instance as normal. Do not make this complicated: keep auditing, but do not clear the FAIL caused by the render error. Only stop completely if the render payload is unusable for claim extraction.
 
 ---
 
@@ -136,6 +138,14 @@ Routes `ARITHMETIC` through `ANSWER_CONFIG_FACT` are **tool-checkable**. These r
 > It must be `TOOL_VERIFIED` or marked `UNCERTAIN_TOOL_FAILED`.
 
 **Run Python/SymPy** for all tool-checkable routes.
+Default runtime:
+
+```bash
+uv run python ...
+```
+
+The repo-local `.venv` is the default runtime behind `uv run python`. Use `uv run --with <package> python ...` only for explicit ad-hoc overlays when a package is intentionally outside the base repo environment.
+
 See [.agents/skills/audit-accuracy/references/sympy-cookbook.md](/home/jerry/project/IMathAS5/.agents/skills/audit-accuracy/references/sympy-cookbook.md) for patterns.
 
 **Use Context7 MCP** when:
@@ -196,11 +206,12 @@ C6: Therefore the sequence converges.  →  PASS | REASONED_THEOREM (based on C5
 If a SymPy script fails:
 
 1. Check for syntax, parsing, or assumption errors.
-2. Consult Context7 for the correct SymPy API pattern.
-3. Retry with corrected script.
-4. If corrected check **confirms**: `PASS | TOOL_VERIFIED`
-5. If corrected check **disproves**: `FAIL | TOOL_VERIFIED`
-6. If still unresolvable: `UNCERTAIN | UNCERTAIN_TOOL_FAILED`
+2. If SymPy is missing unexpectedly, repair the repo environment or rerun using `uv run --with sympy python ...`. If that requires sandbox/network approval, request escalation immediately.
+3. Consult Context7 for the correct SymPy API pattern only when API usage is the blocker.
+4. Retry with corrected script.
+5. If corrected check **confirms**: `PASS | TOOL_VERIFIED`
+6. If corrected check **disproves**: `FAIL | TOOL_VERIFIED`
+7. If still unresolvable: `UNCERTAIN | UNCERTAIN_TOOL_FAILED`
 
 Never silently downgrade a tool-checkable claim to a reasoned pass.
 
@@ -227,6 +238,7 @@ Report policy:
 - If there are no FAIL or UNCERTAIN findings, keep `Findings` concise as allowed by the template.
 - Treat claim-table compression as a reporting choice only; do not omit the `Findings` section itself.
 - Do not update experience automatically. Only when the user explicitly requests it.
+- If render output is usable but `errors` is non-empty, the report should state both facts clearly: realized mathematics may be `TOOL_VERIFIED`, but overall verdict remains `FAIL` because generation is unstable.
 
 ## Step 8 — Apply User-Requested Fixes
 
@@ -239,7 +251,7 @@ When the user requests "fix [ACC-N]" or "fix all":
 3. Open the target file in [questions/qt-{id}/imathas/](/home/jerry/project/IMathAS5/imathas/) and apply the minimal fix. Do not touch [static/](/home/jerry/project/IMathAS5/static/).
 4. If [questions/qt-{id}/imathas/control.php](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/control.php) was modified, run syntax guard before proceeding:
    ```bash
-   python3 /home/jerry/project/IMathAS5/scripts/test_control.py \
+   uv run python /home/jerry/project/IMathAS5/scripts/test_control.py \
      --control-file /home/jerry/project/IMathAS5/questions/qt-{id}/imathas/control.php
    ```
 5. Re-render the affected seed and re-run SymPy checks to confirm the fix.

@@ -15,7 +15,7 @@ Provides an automated mechanism to "harden" IMathAS questions. Scans the content
 Run the audit script:
 
 ```bash
-uv run .agents/skills/write-imathas-x/scripts/check.py path/to/questions/qt-{id}/imathas/control.php
+uv run python .agents/skills/write-imathas-x/scripts/check.py path/to/questions/qt-{id}/imathas/control.php
 ```
 
 ## 📖 AUDIT LOGIC (What the script checks)

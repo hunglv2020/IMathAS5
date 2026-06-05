@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Fetch imathas macro language data from Odoo and write to imathas_lang.xml.
 
 Output: .agents//skills/write-imathas-x/resources/imathas_lang.xml
 
 Usage:
-    uv run update_imathas_lang.py           # fetch and write
-    uv run update_imathas_lang.py --dry-run # show stats only
+    uv run python update_imathas_lang.py           # fetch and write
+    uv run python update_imathas_lang.py --dry-run # show stats only
 """
 
 from __future__ import annotations
@@ -128,7 +128,7 @@ def build_xml(
 
     lines: list[str] = [
         '<?xml version="1.0" encoding="utf-8"?>\n',
-        f'<!-- Generated: {now} — uv run update_imathas_lang.py -->\n',
+        f'<!-- Generated: {now} — uv run python update_imathas_lang.py -->\n',
         '<!-- Source: Odoo imathas.macro + imathas.library. Do NOT edit manually. -->\n',
         f'<imathas_lang generated="{now}">\n',
         '\n  <libraries>\n',

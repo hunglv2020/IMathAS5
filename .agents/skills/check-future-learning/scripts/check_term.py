@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # /// script
 # requires-python = ">=3.10"
 # ///
@@ -9,7 +9,7 @@ Determines whether the term's first formal definition appears BEFORE (PRIOR),
 AT (ACTIVE), or AFTER (FUTURE) the given current section in book order.
 
 Usage:
-    uv run .agents/skills/check-future-learning/scripts/check_term.py \
+    uv run python .agents/skills/check-future-learning/scripts/check_term.py \
         --book linear-algebra \
         --current-section 2.6 \
         --term "eigenvalue decomposition" \

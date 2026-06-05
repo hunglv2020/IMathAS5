@@ -3,7 +3,7 @@
 Quick reference patterns for claim verification. If a pattern here is unclear
 or fails, consult Context7 MCP for up-to-date SymPy API documentation.
 
-> **Runtime:** Always run SymPy scripts with `uv run python`, never `python3`.
+> **Runtime:** Always run SymPy scripts with `uv run python`, never the bare system interpreter.
 > Example: `uv run python -c "import sympy as sp; print(sp.limit(...))"`
 > Or write to a temp file and run: `uv run python /tmp/check.py`
 

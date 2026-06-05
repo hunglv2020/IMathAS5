@@ -324,7 +324,7 @@ In `finalize-report` state:
 After writing the refined LaTeX solution, regenerate:
 
 ```bash
-uv run .agents/skills/asciimath/scripts/cli.py --stdin < questions/qt-{id}/static/static_solution_latex.txt
+uv run python .agents/skills/asciimath/scripts/cli.py --stdin < questions/qt-{id}/static/static_solution_latex.txt
 ```
 
 Write the result to:
@@ -374,4 +374,3 @@ The skill should handle these cases correctly:
 4. A correct but too-short solution gets a fuller rewrite with unchanged answers.
 5. A one-line “The pattern gives ...” step becomes an indexed-term pattern explanation.
 6. A thin “apply the test” step becomes a unit-aligned theorem/test statement plus application.
-

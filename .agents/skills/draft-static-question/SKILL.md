@@ -304,13 +304,13 @@ Convert `questions/qt-{id}/static/static_question_latex.txt` to AsciiMath.
 Pipe the file through the asciimath script:
 
 ```bash
-uv run .agents/skills/asciimath/scripts/cli.py --stdin < questions/qt-{id}/static/static_question_latex.txt
+uv run python .agents/skills/asciimath/scripts/cli.py --stdin < questions/qt-{id}/static/static_question_latex.txt
 ```
 
 Or from a shell variable when not yet written to file:
 
 ```bash
-echo "$LATEX_CONTENT" | uv run .agents/skills/asciimath/scripts/cli.py --stdin
+echo "$LATEX_CONTENT" | uv run python .agents/skills/asciimath/scripts/cli.py --stdin
 ```
 
 **ANSWERBOX `correct_answer` fields are NOT converted** — they use CAS expression syntax,
@@ -319,7 +319,7 @@ not AsciiMath. Only convert display and inline math in the question prose.
 Spot-check individual expressions if conversion output looks wrong:
 
 ```bash
-uv run .agents/skills/asciimath/scripts/cli.py -e '$\frac{x+1}{x-1}$'
+uv run python .agents/skills/asciimath/scripts/cli.py -e '$\frac{x+1}{x-1}$'
 ```
 
 Common post-conversion manual fixes:

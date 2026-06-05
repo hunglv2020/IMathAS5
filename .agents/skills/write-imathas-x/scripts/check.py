@@ -114,6 +114,6 @@ def analyze_control_php(file_path):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: uv run check.py <path_to_control.php>")
+        print("Usage: uv run python .agents/skills/write-imathas-x/scripts/check.py <path_to_control.php>")
     else:
         analyze_control_php(sys.argv[1])

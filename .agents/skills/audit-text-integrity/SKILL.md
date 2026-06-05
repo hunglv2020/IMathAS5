@@ -19,7 +19,7 @@ explicitly allows broader generalization.
 Use the accompanying Python script to compare the original raw files with the new package files.
 
 ```bash
-uv run .agents/skills/audit-text-integrity/scripts/audit_text.py \
+uv run python .agents/skills/audit-text-integrity/scripts/audit_text.py \
   --original questions/qt-{id}/static/static_question.txt \
   --current questions/qt-{id}/imathas/question.txt \
   --threshold 0.95

@@ -59,16 +59,16 @@ When the source material is in LaTeX, use the script instead of converting manua
 ### File mode — bulk conversion
 
 ```bash
-uv run .agents/skills/asciimath/scripts/cli.py <input_file> <output_file>
+uv run python .agents/skills/asciimath/scripts/cli.py <input_file> <output_file>
 ```
 
 ```bash
 # Convert static sources to temp files before parameterization
-uv run .agents/skills/asciimath/scripts/cli.py questions/qt-{id}/static/static_question.txt questions/qt-{id}/imathas/question_temp.txt
-uv run .agents/skills/asciimath/scripts/cli.py questions/qt-{id}/static/static_solution.txt questions/qt-{id}/imathas/solution_temp.txt
+uv run python .agents/skills/asciimath/scripts/cli.py questions/qt-{id}/static/static_question.txt questions/qt-{id}/imathas/question_temp.txt
+uv run python .agents/skills/asciimath/scripts/cli.py questions/qt-{id}/static/static_solution.txt questions/qt-{id}/imathas/solution_temp.txt
 
 # Overwrite in place
-uv run .agents/skills/asciimath/scripts/cli.py questions/qt-{id}/imathas/solution.txt questions/qt-{id}/imathas/solution.txt
+uv run python .agents/skills/asciimath/scripts/cli.py questions/qt-{id}/imathas/solution.txt questions/qt-{id}/imathas/solution.txt
 ```
 
 ### Stdin mode — convert a text block without a file
@@ -77,10 +77,10 @@ Use when you have a section of text in a shell variable (e.g., extracted from a 
 
 ```bash
 # Pipe a variable through the converter
-echo "$SECTION_CONTENT" | uv run .agents/skills/asciimath/scripts/cli.py --stdin
+echo "$SECTION_CONTENT" | uv run python .agents/skills/asciimath/scripts/cli.py --stdin
 
 # Heredoc form (safe for multiline content with special characters)
-uv run .agents/skills/asciimath/scripts/cli.py --stdin <<'EOF'
+uv run python .agents/skills/asciimath/scripts/cli.py --stdin <<'EOF'
 Find $k$ such that $\frac{a}{b} = \sqrt{c^2 + d^2}$.
 EOF
 ```
@@ -88,7 +88,7 @@ EOF
 Output is written to stdout. Capture it with `$(...)` or redirect to a file:
 
 ```bash
-ASCIIMATH_TEXT=$(echo "$LATEX_TEXT" | uv run .agents/skills/asciimath/scripts/cli.py --stdin)
+ASCIIMATH_TEXT=$(echo "$LATEX_TEXT" | uv run python .agents/skills/asciimath/scripts/cli.py --stdin)
 ```
 
 **Typical use:** converting a `[STATIC_QUESTION_WITH_ANSWERBOXES]` section to produce `[STATIC_QUESTION_WITH_ANSWERBOXES_ASCIIMATH]` without touching the whole file.
@@ -96,18 +96,18 @@ ASCIIMATH_TEXT=$(echo "$LATEX_TEXT" | uv run .agents/skills/asciimath/scripts/cl
 ### Expression mode — spot-check a single expression
 
 ```bash
-uv run .agents/skills/asciimath/scripts/cli.py -e '<latex expression>'
+uv run python .agents/skills/asciimath/scripts/cli.py -e '<latex expression>'
 ```
 
 ```bash
 # Check what a specific LaTeX expression converts to
-uv run .agents/skills/asciimath/scripts/cli.py -e '$\frac{x+1}{x-1}$'
+uv run python .agents/skills/asciimath/scripts/cli.py -e '$\frac{x+1}{x-1}$'
 # → `(x+1)/(x-1)`
 
-uv run .agents/skills/asciimath/scripts/cli.py -e '$\int_a^b f(x)\,dx$'
+uv run python .agents/skills/asciimath/scripts/cli.py -e '$\int_a^b f(x)\,dx$'
 # → `int_a^b f(x)d x`
 
-uv run .agents/skills/asciimath/scripts/cli.py -e '$$\sum_{n=1}^{\infty} \frac{1}{n^2}$$'
+uv run python .agents/skills/asciimath/scripts/cli.py -e '$$\sum_{n=1}^{\infty} \frac{1}{n^2}$$'
 # → `sum_(n=1)^(oo) (1)/(n^2)`
 ```
 

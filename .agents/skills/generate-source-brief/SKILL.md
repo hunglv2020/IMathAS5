@@ -90,7 +90,7 @@ for method classification — exact section lookup is done on-demand via check-f
 Run the extraction script to get exercise statements with their group instructions:
 
 ```bash
-uv run .agents/skills/generate-source-brief/scripts/get_exercise_context.py \
+uv run python .agents/skills/generate-source-brief/scripts/get_exercise_context.py \
   --book {Book} \
   --section {section_code} \
   --labels {label1} {label2} ...
@@ -144,7 +144,7 @@ Identify all methods and concepts required to solve the target exercises.
 For each method/concept candidate, classify using the check-future-learning skill:
 
 ```bash
-uv run .agents/skills/check-future-learning/scripts/check_term.py \
+uv run python .agents/skills/check-future-learning/scripts/check_term.py \
   --book {Book} \
   --current-section {section_code} \
   --term "{method_name}"

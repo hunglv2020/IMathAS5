@@ -95,25 +95,25 @@ Use `write-imathas-x` skill throughout this step.
 
 **1. Macro lookup:**
 ```bash
-uv run .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py <macro1> <macro2> ...
+uv run python .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py <macro1> <macro2> ...
 ```
 Add required `loadlibrary(...)` calls to ZONE 0. Read signatures and edge case notes carefully.
 
 **2. Golden case search:**
 ```bash
-uv run .agents/skills/write-imathas-x/scripts/search_cases.py <keyword>
+uv run python .agents/skills/write-imathas-x/scripts/search_cases.py <keyword>
 ```
 For any known constraint (fraction, root, loop with condition, non-zero denominator...). Do not recreate existing algorithms.
 
 **3. Write `control.php` zone-by-zone** (ZONE 0 → ZONE 5). After each major logic block (array operations, conditional branching, first use of a new macro):
 ```bash
-python3 scripts/test_control.py --control '<snippet>'
+uv run python scripts/test_control.py --control '<snippet>'
 ```
 Non-empty `errors` → fix immediately, do not continue writing.
 
 **4. Pre-flight full file:**
 ```bash
-python3 scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
+uv run python scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
 ```
 
 **5. Inject variables** into `question.txt` and `solution.txt` via Search & Replace.
@@ -127,10 +127,10 @@ python3 scripts/test_control.py --control-file questions/qt-{id}/imathas/control
 `questions/qt-{id}/static/static_question.txt` and `questions/qt-{id}/static/static_solution.txt` are already AsciiMath — compare directly:
 
 ```bash
-uv run .agents/skills/audit-text-integrity/scripts/audit_text.py \
+uv run python .agents/skills/audit-text-integrity/scripts/audit_text.py \
   --original questions/qt-{id}/static/static_question.txt --current questions/qt-{id}/imathas/question.txt --threshold 0.95
 
-uv run .agents/skills/audit-text-integrity/scripts/audit_text.py \
+uv run python .agents/skills/audit-text-integrity/scripts/audit_text.py \
   --original questions/qt-{id}/static/static_solution.txt --current questions/qt-{id}/imathas/solution.txt --threshold 0.95
 ```
 
@@ -138,7 +138,7 @@ Score < 0.95 → restore narrative, re-run audit before continuing.
 
 **7. Robustness audit:**
 ```bash
-uv run .agents/skills/write-imathas-x/scripts/check.py questions/qt-{id}/imathas/control.php
+uv run python .agents/skills/write-imathas-x/scripts/check.py questions/qt-{id}/imathas/control.php
 ```
 Add `$domain`, `$requiretimes`, `$abstolerance` to ZONE 5 per suggestions.
 
@@ -167,7 +167,7 @@ Proceed? (yes / corrections)
 ## [STRESS] Stress-Test Variable Distribution
 
 ```bash
-uv run .agents/skills/audit-variable-distribution/scripts/audit.py --dir questions/qt-{id}/imathas --count 2000 --workers 30
+uv run python .agents/skills/audit-variable-distribution/scripts/audit.py --dir questions/qt-{id}/imathas --count 2000 --workers 30
 ```
 
 Any FAILED seed → read variable snapshot → fix domain constraint in `control.php` (add `where $b != 0`, use `nonzerorand()`, guard `$delta >= 0`...) → re-run. Repeat until ALL SEEDS PASSED.
@@ -193,7 +193,7 @@ questions/qt-{id}/imathas/ source ready. Approve? (yes / review seed N)
 ## [VERIFY] Final Verification
 
 ```bash
-uv run .agents/skills/verify-imathas-batch/scripts/verify.py --dir questions/qt-{id}/imathas 11 15 42 77 99
+uv run python .agents/skills/verify-imathas-batch/scripts/verify.py --dir questions/qt-{id}/imathas 11 15 42 77 99
 ```
 
 PASSED → `questions/qt-{id}/imathas/` source ready for audit pipeline.
@@ -318,19 +318,19 @@ Apply only the declared scope. All rules from `RULES.md` (RULE 1–5) are active
 
 After each non-trivial `control.php` block:
 ```bash
-python3 scripts/test_control.py --control '<snippet>'
+uv run python scripts/test_control.py --control '<snippet>'
 ```
 
 After all patches, run full file check:
 ```bash
-python3 scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
+uv run python scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
 ```
 
 If text files were changed, run text integrity audit vs static sources:
 ```bash
-uv run .agents/skills/audit-text-integrity/scripts/audit_text.py \
+uv run python .agents/skills/audit-text-integrity/scripts/audit_text.py \
   --original questions/qt-{id}/static/static_question.txt --current questions/qt-{id}/imathas/question.txt --threshold 0.95
-uv run .agents/skills/audit-text-integrity/scripts/audit_text.py \
+uv run python .agents/skills/audit-text-integrity/scripts/audit_text.py \
   --original questions/qt-{id}/static/static_solution.txt --current questions/qt-{id}/imathas/solution.txt --threshold 0.95
 ```
 
@@ -422,7 +422,7 @@ Rules:
 
 **Step 1 — Text integrity** (compare against user's draft as the reference, threshold 0.92):
 ```bash
-uv run .agents/skills/audit-text-integrity/scripts/audit_text.py \
+uv run python .agents/skills/audit-text-integrity/scripts/audit_text.py \
   --original <path-to-draft> --current questions/qt-{id}/imathas/solution.txt --threshold 0.92
 ```
 Score < 0.92 → restore prose from draft, fix only the variable injection points.

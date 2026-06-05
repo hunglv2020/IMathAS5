@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # /// script
 # requires-python = ">=3.10"
 # ///
@@ -14,7 +14,7 @@ For each requested label:
   - Returns a grouped XML snippet
 
 Usage:
-    uv run .agents/skills/generate-source-brief/scripts/get_exercise_context.py \
+    uv run python .agents/skills/generate-source-brief/scripts/get_exercise_context.py \
         --book linear-algebra \
         --section 2.6 \
         --labels 1 2

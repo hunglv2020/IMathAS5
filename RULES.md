@@ -229,8 +229,8 @@ If a line becomes boundary-safe by switching to `{$var}`, do that before creatin
 Never use a macro without first verifying it exists and checking its signature:
 
 ```bash
-uv run .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py <macro1> <macro2>
-uv run .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py -s <keyword>
+uv run python .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py <macro1> <macro2>
+uv run python .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py -s <keyword>
 ```
 
 Confirm:
@@ -242,12 +242,19 @@ Confirm:
 
 ## Verification
 
+### Python Runtime Rule
+
+- Run repo Python commands via `uv run python ...`.
+- Assume the repo-local `.venv` exists and is the runtime used by `uv run python`.
+- Do not use the bare system Python interpreter in normal repo instructions.
+- Use `uv run --with <package> python ...` only for ad-hoc overlays.
+
 ### RULE V1 — Validate Non-Trivial `control.php` Snippets (HARD)
 
 Before writing any non-trivial snippet to `control.php`, run:
 
 ```bash
-python3 scripts/test_control.py --control '<snippet>'
+uv run python scripts/test_control.py --control '<snippet>'
 ```
 
 If `errors` is non-empty, fix the snippet and re-validate before writing.
@@ -257,7 +264,7 @@ If `errors` is non-empty, fix the snippet and re-validate before writing.
 After patching `control.php`, run:
 
 ```bash
-python3 scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
+uv run python scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
 ```
 
 ### RULE V3 — Minimum Post-Edit Verification (HARD)
@@ -305,6 +312,6 @@ Before every write to an IMathAS file, confirm:
 | Topic | File |
 |---|---|
 | AsciiMath syntax inside backticks | [`.agents/skills/asciimath/SKILL.md`](.agents/skills/asciimath/SKILL.md) |
-| Macro signatures & library lookup | `uv run .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py` |
+| Macro signatures & library lookup | `uv run python .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py` |
 | Zone details + topic guides | `.agents/skills/write-imathas-x/SKILL.md` |
 | Session-specific experience & patterns | `.agents/experience/write-imathas-x/index.md` |

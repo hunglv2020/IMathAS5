@@ -42,8 +42,16 @@ All paths in this document use `questions/qt-{id}/` as a placeholder. Replace `{
 - Do not assume normal PHP builtins are available.
 - Do not invent macro names.
 - Prefer IMathAS idioms such as `for ($i=a..b)`, `{$x = rand(...)} where condition`, `randfrom(...)`, `diffrands(...)`, `nonzerorand(...)`, etc.
-- For any non-trivial macro or unfamiliar function, verify first with `uv run .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py`.
-- For difficult algorithmic constraints, consult `uv run .agents/skills/write-imathas-x/scripts/search_cases.py` before inventing custom logic.
+- For any non-trivial macro or unfamiliar function, verify first with `uv run python .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py`.
+- For difficult algorithmic constraints, consult `uv run python .agents/skills/write-imathas-x/scripts/search_cases.py` before inventing custom logic.
+
+## Python Runtime Rule
+
+- Run repo Python commands via `uv run python ...`.
+- Assume the repo-local `.venv` exists and is the runtime behind `uv run python`.
+- Do not ask the user which Python runtime to use for repo scripts.
+- Do not use the bare system Python interpreter in repo guidance or normal workflow instructions.
+- Use `uv run --with <package> python ...` only for explicit ad-hoc overlays.
 
 ---
 
@@ -140,13 +148,13 @@ When modifying `control.php` or other IMathAS source files:
 
 Before writing any non-trivial snippet to `control.php`, run:
 ```bash
-python3 scripts/test_control.py --control '<snippet>'
+uv run python scripts/test_control.py --control '<snippet>'
 ```
 If `errors` is non-empty → fix the snippet, re-validate, **then** write. Never write a failing snippet to file.
 
 After the full file is written, run a final check:
 ```bash
-python3 scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
+uv run python scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
 ```
 
 ### Variables zone update

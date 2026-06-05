@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # /// script
 # requires-python = ">=3.10"
 # ///
@@ -10,8 +10,8 @@ switches to main, applies the diff, commits, and returns to the original branch.
 Only .agents/ is touched — nothing else.
 
 Usage:
-    uv run sync_agents.py            # sync .agents/ to main
-    uv run sync_agents.py --dry-run  # preview what would change, no commit
+    uv run python sync_agents.py            # sync .agents/ to main
+    uv run python sync_agents.py --dry-run  # preview what would change, no commit
 """
 
 from __future__ import annotations

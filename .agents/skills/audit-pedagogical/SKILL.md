@@ -83,7 +83,7 @@ Future-learning rule:
 1. **If `source_brief.xml` is present:** check its `<method.forbidden>` list first. If the term/method is listed there, use the `<reason>` field's book file citation directly — no additional lookup needed.
 2. **If the term is not in the brief's forbidden list, or the brief is absent:** run the `check-future-learning` script to locate the earliest formal definition:
    ```bash
-   uv run .agents/skills/check-future-learning/scripts/check_term.py \
+   uv run python .agents/skills/check-future-learning/scripts/check_term.py \
      --book {Book} \
      --current-section {section_code} \
      --term "{term}"

@@ -1,7 +1,7 @@
 # Skills Catalog
 
 _Cập nhật mỗi khi thêm, sửa, hoặc xóa một skill._
-_Last updated: 2026-06-04_
+_Last updated: 2026-06-05_
 
 ---
 
@@ -225,7 +225,9 @@ Ví dụ: bài eigenvalue sensitivity (Exercise 35, Section 5.2) — template ch
 | **Seeds** | 1, 2, 3, 4, 123 (default) |
 | **Inputs** | `imathas/*.txt`, `static/static_solution.txt` (nếu có), MCP render_seeds |
 | **Outputs** | `reviews/accuracy_report_seed{N}.md` |
-| **Tools** | `content-workbench` MCP (render_seeds), SymPy/CAS |
+| **Tools** | `content-workbench` MCP (render_seeds), `uv run python`, SymPy/CAS |
+| **Runtime policy** | Repo Python chuẩn qua `uv run python`; tránh bare system interpreter; chỉ dùng `uv run --with <package> python` cho ad-hoc overlays |
+| **Render-error policy** | Nếu render có `errors` nhưng output còn usable, tiếp tục audit toán trên realized instance; verdict tổng vẫn `FAIL` |
 | **SKILL.md** | `.agents/skills/audit-accuracy/SKILL.md` |
 
 ---
@@ -258,7 +260,7 @@ Ví dụ: bài eigenvalue sensitivity (Exercise 35, Section 5.2) — template ch
 | **Status** | Stable |
 | **Trigger** | Sau khi hoàn thiện control.php — kiểm tra không crash/PHP error |
 | **Không dùng để** | Debug chi tiết (dùng render_seeds MCP cho debug) |
-| **Script** | `uv run .agents/skills/verify-imathas-batch/scripts/verify.py --dir questions/qt-{id}/imathas <seeds>` |
+| **Script** | `uv run python .agents/skills/verify-imathas-batch/scripts/verify.py --dir questions/qt-{id}/imathas <seeds>` |
 | **SKILL.md** | `.agents/skills/verify-imathas-batch/SKILL.md` |
 
 ---

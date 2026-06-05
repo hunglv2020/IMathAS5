@@ -16,14 +16,14 @@ This skill runs your entire dynamic PHP + Text generation through the actual IMa
 Use the CLI tool provided in this skill's scripts directory internally:
 
 ```bash
-uv run .agents/skills/verify-imathas-batch/scripts/verify.py --dir <directory_containing_code> <seeds>
+uv run python .agents/skills/verify-imathas-batch/scripts/verify.py --dir <directory_containing_code> <seeds>
 ```
 
 **Practical Example:**
 If we want to verify 5 random Seeds locally within the `imathas` package to ensure it's safe for students to use:
 
 ```bash
-uv run .agents/skills/verify-imathas-batch/scripts/verify.py --dir questions/qt-{id}/imathas 11 15 42 77 99
+uv run python .agents/skills/verify-imathas-batch/scripts/verify.py --dir questions/qt-{id}/imathas 11 15 42 77 99
 ```
 
 **Result Analysis:**

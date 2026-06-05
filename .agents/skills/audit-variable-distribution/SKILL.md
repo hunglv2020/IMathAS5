@@ -23,7 +23,7 @@ This skill is a **proactive quality gate** run *before* sending code to an exter
 
 ## HOW TO USE
 ```bash
-uv run .agents/skills/audit-variable-distribution/scripts/audit.py --dir <package_dir> [options]
+uv run python .agents/skills/audit-variable-distribution/scripts/audit.py --dir <package_dir> [options]
 ```
 
 ### Options
@@ -38,7 +38,7 @@ uv run .agents/skills/audit-variable-distribution/scripts/audit.py --dir <packag
 
 ### Practical Example
 ```bash
-uv run .agents/skills/audit-variable-distribution/scripts/audit.py \
+uv run python .agents/skills/audit-variable-distribution/scripts/audit.py \
     --dir questions/qt-{id}/imathas \
     --count 2000 \
     --workers 30

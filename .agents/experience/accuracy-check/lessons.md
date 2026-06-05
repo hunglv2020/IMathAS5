@@ -8,7 +8,7 @@ Each entry records a non-obvious lesson from a specific run that is useful for f
 ## Quick Index (AI-maintained)
 - VERIFY: use $C from variable_values.arrays for matrix CAS — do not reconstruct from $Cvals/$Cdisp (2026-04-21)
 - VERIFY: convergence arrays readable from render dump but run CAS independently anyway (2026-04-21)
-- VERIFY: run SymPy with `uv run python`, not bare `python3` — system Python may lack SymPy (2026-04-22)
+- VERIFY: run SymPy with `uv run python`, not the bare system interpreter — system Python may lack SymPy (2026-04-22)
 - RENDER: remove unnecessary `loadlibrary(...)` calls if `render_seeds` returns a library-load error, even when syntax validation passes (2026-04-22)
 - VERIFY: parse IMathAS implicit multiplication (`2/3x^2`) using SymPy implicit-multiplication transforms (2026-04-23)
 - VERIFY: parse AsciiMath powers with `convert_xor` so `^` is treated as exponent, not XOR (2026-04-23)
@@ -40,7 +40,7 @@ Each entry records a non-obvious lesson from a specific run that is useful for f
 
 **Date:** 2026-04-22
 **Context:** Trig substitution antiderivative / FTC template; seed 12 — `a x^(k-1) sin(x^k)` with exact FTC evaluation to `root(k)(p pi)`.
-**Lesson:** In this workspace, deterministic CAS verification should be run with `uv run python`, not bare `python3`; the system Python may not have SymPy available even though the repo workflow expects SymPy-based checks. This matters for enforcing the no-reasoning-only rule on tool-checkable claims.
+**Lesson:** In this workspace, deterministic CAS verification should be run with `uv run python`, not the bare system interpreter; the system Python may not have SymPy available even though the repo workflow expects SymPy-based checks. This matters for enforcing the no-reasoning-only rule on tool-checkable claims.
 **Applies to:** VERIFY — SymPy execution environment
 
 ---

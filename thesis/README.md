@@ -1,7 +1,7 @@
 # System Thesis — IMathAS5 Agent Workspace
 
 _Living document. Update via the `update-thesis` skill whenever skills, workflows, or artifacts change._
-_Last updated: 2026-06-04_
+_Last updated: 2026-06-05_
 
 ---
 
@@ -143,7 +143,7 @@ Một số bước yêu cầu human review trước khi Agent tiếp tục — �
 | `generate-blueprint` | Stable v1.0.0 | |
 | `audit-coverage` | Under review | Đang nghiên cứu refactor — xem `context/research_audit_refactor.md` |
 | `audit-pedagogical` | Under review | Đang nghiên cứu refactor |
-| `audit-accuracy` | Stable | |
+| `audit-accuracy` | Stable | Repo Python chuẩn qua `uv run python`; render lỗi nhưng output usable thì vẫn audit tiếp, verdict vẫn FAIL |
 | `generate-source-brief` | Stable (role đang được xem xét lại) | Có thể deprecated một phần sau refactor audit skills |
 | `analyze_source_vi` | **Odoo persona** | Render trong Odoo → copy XML → lưu `source/exercise_analysis.xml` — không phải IMathAS5 skill |
 
