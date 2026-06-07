@@ -63,6 +63,43 @@ current paragraph. Go straight to the next operation.
 
 ---
 
+## Theorem Citation Rule
+
+If a step relies on a theorem, definition, lemma, test, or named formula from the book:
+
+- Prefer the concept name over textbook numbering
+- State the source content actually needed for the step
+- Treat numbering as optional secondary metadata only
+- Keep the source logic intact; do not replace the theorem with a free summary
+- After the sourced statement, specialize notation for the current problem in a separate clause if needed
+
+**Do:**
+```
+Apply the Orthogonal Decomposition Theorem: each y in R^n can be written uniquely as y_hat + z, with y_hat in W and z in W^perp; if {u_1,...,u_p} is an orthogonal basis of W, then ...
+```
+```
+Use the Chain Rule, which states that (f(g(x)))' = f'(g(x))g'(x):
+```
+
+**Do not:**
+```
+By Theorem 8, ...
+```
+```
+By Definition 2, ...
+```
+```
+The theorem says projection is linear, so ...
+```
+
+If the source has no explicit concept name, use a generic concept label plus the sourced statement:
+
+```
+Apply the orthogonal projection formula for an orthogonal basis: if {u_1,...,u_p} is an orthogonal basis of W, then ...
+```
+
+---
+
 ## Answer Labels
 
 Place the answer label immediately after the concluding computation of each part.
@@ -166,6 +203,9 @@ Before finalizing, scan every step for these patterns and remove them:
 - [ ] Restating the previous result as setup: "Since we found X in the previous step..."
 - [ ] Multi-sentence assertion (more than one WHY sentence before the LaTeX)
   — split into two steps instead
+- [ ] Bare textbook-number citations such as `Theorem 8`, `Definition 2`, `Lemma 4`
+- [ ] Theorem references that name a concept but omit the sourced content actually needed
+- [ ] Free paraphrases that change or compress the source theorem's logic beyond notation-level specialization
 
 ---
 
@@ -209,3 +249,5 @@ Before finalizing, verify against `source_brief.xml`:
 - [ ] Answer labels match question parts: `Answer to (a):` / `Final answer:` — plain text
 - [ ] method.primary used throughout; method.forbidden absent
 - [ ] notation_conventions respected
+- [ ] Any invoked theorem/definition is understandable without the source book's numbering
+- [ ] Any sourced theorem/definition statement keeps the source logic intact

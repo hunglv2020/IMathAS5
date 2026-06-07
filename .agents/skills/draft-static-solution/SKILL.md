@@ -8,8 +8,8 @@ description: >
   Derives method and notation directly from books — source_brief.xml is optional enrichment.
   Requires only a static question file and active_qt.md.
 metadata:
-  version: "3.0.0"
-  last_updated: "2026-05-27"
+  version: "3.1.0"
+  last_updated: "2026-06-07"
   status: active
   related_skills:
     - draft-static-question
@@ -132,12 +132,29 @@ method       : <primary procedure taught — from <procedure> or <theorem_key> b
 notation     : <exact symbols from <example> solutions — variable names, delimiters, formats>
 key_steps    : <steps in the procedure that must appear in a complete solution>
 worked_examples : <note any worked examples in the section relevant to question type>
+theorem_anchors : <for each theorem/definition actually used: concept name if present, source statement needed here, source numbering as metadata only>
 ```
 
 Focus on:
 - `<note type="procedure">` — step-by-step algorithms → these become `must_not_skip` steps
 - `<note type="theorem_key">` and `<note type="definition">` — theoretical anchors
 - `<example>` blocks — ground truth for notation and solution style
+
+If the solution will invoke a theorem, definition, lemma, test, or named formula from the
+book, silently capture:
+
+```
+[ANCHOR]
+anchor_name            : <preferred concept name from heading/title, if present>
+anchor_type            : theorem / definition / lemma / test / formula / property / procedure
+anchor_core_statement  : <the exact source content actually needed in the solution>
+anchor_section         : <section/unit location>
+anchor_number_in_source: <optional metadata only>
+```
+
+Rule: textbook numbering is never sufficient by itself. In the final solution, theorem
+numbers are optional metadata only and must not replace the concept name or the sourced
+statement.
 
 #### Step C — Enrich from source_brief (if present)
 
@@ -227,10 +244,14 @@ forbidden prose patterns, and answer label conventions.
    using the method identified in [LOAD]. Follow the section's procedure step sequence.
    Note worked examples in the section as style reference.
 
-3. **Drafting:** Write each part as a sequence of prose paragraphs. Each paragraph:
-   - Starts with one assertion sentence naming the operation or theorem being applied (WHY)
-   - Followed immediately by LaTeX computation (WHAT)
-   - No `**Step N:**` header before it
+3. **Drafting:** Write each part as a sequence of step-by-step paragraphs. Each step:
+   - Uses a plain-text step header
+   - Starts with one assertion sentence naming the operation, property, or theorem being applied (WHY)
+   - If a theorem/definition is invoked, cite it by concept name if present and state the sourced content actually used
+   - Treat theorem numbering as optional metadata only, never as the main citation
+   - Do not write bare references such as `By Theorem 8`, `By Definition 2`, or `By Lemma 4`
+   - Do not freely paraphrase a sourced theorem statement; only notation-level specialization is allowed after the sourced statement is given
+   - Follow immediately with LaTeX computation (WHAT)
 
 4. **Python verification:** For every numerical result, compute internally and log:
    ```
@@ -247,6 +268,9 @@ forbidden prose patterns, and answer label conventions.
    - Step headers are plain text, verb-first, no markdown bold/italic
    - Answer labels match question parts: `Answer to (a):` / `Final answer:` — no markdown formatting
    - Notation matches book examples exactly
+   - Any invoked theorem/definition is understandable without the source book's numbering
+   - No bare textbook-number citations such as `Theorem 8` or `Definition 2`
+   - Any sourced theorem/definition statement preserves the source logic and is not replaced by free summary prose
 
    Log: `[CERTIFICATION: PASS]` or `[CERTIFICATION: FAIL — <reason>]`
    Fix any FAIL before proceeding.
@@ -319,6 +343,7 @@ Chat status after write:
 | meta.xml | Required — entry point for book navigation (`book_slug`, `chapter_title`, `unit_title`) |
 | Python verification | Required for every numerical result |
 | Bullets | Never — no `- * +` in solution body |
+| Theorem citation | Use concept name + sourced statement needed for the step; theorem numbering is optional metadata only, never the primary citation |
 | Patch Mode trigger | `static_solution_latex.txt` + audit reports both present |
 | Patch scope | Only steps flagged in audit — everything else frozen |
 | meta.xml absent | Stop — cannot navigate books without book_slug/chapter_title/unit_title |

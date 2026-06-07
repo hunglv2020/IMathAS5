@@ -1,7 +1,7 @@
 # System Thesis — IMathAS5 Agent Workspace
 
 _Living document. Update via the `update-thesis` skill whenever skills, workflows, or artifacts change._
-_Last updated: 2026-06-05_
+_Last updated: 2026-06-07_
 
 ---
 
@@ -139,7 +139,7 @@ Một số bước yêu cầu human review trước khi Agent tiếp tục — �
 |---|---|---|
 | `write-imathas-x` | Stable | Skill chính để code IMathAS; policy đã siết inline-first + boundary-safe injection |
 | `draft-static-question` | Stable v2.1.0 | |
-| `draft-static-solution` | Stable v3.0.0 | |
+| `draft-static-solution` | Stable v3.1.0 | Theorem citations now require concept name + sourced statement; numbering is optional metadata only |
 | `generate-blueprint` | Stable v1.0.0 | |
 | `audit-coverage` | Under review | Đang nghiên cứu refactor — xem `context/research_audit_refactor.md` |
 | `audit-pedagogical` | Under review | Đang nghiên cứu refactor |

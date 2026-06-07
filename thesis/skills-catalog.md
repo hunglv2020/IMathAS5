@@ -1,7 +1,7 @@
 # Skills Catalog
 
 _Cập nhật mỗi khi thêm, sửa, hoặc xóa một skill._
-_Last updated: 2026-06-05_
+_Last updated: 2026-06-07_
 
 ---
 
@@ -27,13 +27,14 @@ _Last updated: 2026-06-05_
 | Thuộc tính | Giá trị |
 |---|---|
 | **Role** | Tạo lời giải tĩnh step-by-step từ static question |
-| **Version** | 3.0.0 |
+| **Version** | 3.1.0 |
 | **Status** | Stable |
 | **Trigger** | "draft solution", "tạo lời giải", "solve", "giải bài" |
 | **Mode** | Full (tạo mới) hoặc Patch (sửa bước cụ thể) |
 | **Inputs** | `static/static_question.txt`, `meta.xml`, books XML, `source_brief.xml` (optional enrichment) |
 | **Outputs** | `static/static_solution_latex.txt`, `static/static_solution.txt` |
 | **Books** | Ground truth cho method, notation, scope |
+| **Theorem citation rule** | Nếu dùng theorem/definition từ sách: cite theo concept name + sourced statement; numbering chỉ là metadata phụ |
 | **SKILL.md** | `.agents/skills/draft-static-solution/SKILL.md` |
 
 ---
