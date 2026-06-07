@@ -18,12 +18,13 @@ qt-{mathgpt_id}/
 │   ├── solution.txt         ← HTML lời giải / explanation
 │   └── qtype.txt            ← loại câu hỏi (vd: multipart===)
 ├── source/
-│   └── target_exercises.xml ← (optional) bài tập nguồn từ sách
+│   ├── target_exercises.xml ← (optional) bài tập nguồn từ sách
+│   └── exercise_analysis.xml← (optional) phân tích sư phạm sâu, dùng cho audit context
 ├── static/
 │   ├── static_question.txt  ← câu hỏi tĩnh (không random)
 │   ├── static_solution.txt  ← lời giải tĩnh
 │   ├── blueprint.txt        ← blueprint params
-│   ├── source_brief.xml     ← (optional) brief tổng hợp từ sách giáo khoa
+│   ├── source_brief.xml     ← (optional/legacy) brief tổng hợp từ sách giáo khoa
 ├── reviews/
 │   └── .gitkeep             ← audit / feedback do AI agent tạo
 └── meta.xml                 ← metadata: mathgpt_id, curriculum location
