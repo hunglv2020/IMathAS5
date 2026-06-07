@@ -108,7 +108,7 @@ All paths in this document use `questions/qt-{id}/` as a placeholder. Replace `{
 
 | Skill | When to invoke |
 |---|---|
-| `generate-source-brief` | Generate `questions/qt-{id}/static/source_brief.xml` from books corpus |
+| `generate-source-brief` | Generate `questions/qt-{id}/static/source_brief.xml` as authoring enrichment / legacy brief |
 | `draft-static-question` | Draft `questions/qt-{id}/static/static_question*.txt` files |
 | `draft-static-solution` | Draft `questions/qt-{id}/static/static_solution*.txt` files |
 | `refine-static-solution` | Refine `questions/qt-{id}/static/static_solution*.txt` using current-unit and backward chapter context |
@@ -122,6 +122,7 @@ All paths in this document use `questions/qt-{id}/` as a placeholder. Replace `{
 | `audit-text-integrity` | Compare narrative between static and dynamic (threshold 0.95) |
 | `audit-variable-distribution` | Stress-test 2000+ seeds, detect NaN/INF |
 | `verify-imathas-batch` | Batch verify seeds 11, 15, 42, 77, 99 |
+| `analyze_source_vi` | Odoo persona producing `questions/qt-{id}/source/exercise_analysis.xml` for deeper audit context |
 | `check-future-learning` | Classify method as PRIOR/ACTIVE/FUTURE |
 | `tag-learning-objective` | Tag LO from books curriculum |
 | `write-macro-rationale` | Generate rationale text for IMathAS macros |

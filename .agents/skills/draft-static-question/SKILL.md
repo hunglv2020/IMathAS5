@@ -4,16 +4,15 @@ description: >
   Draft or redraft static question files. Trigger keywords: draft question, create question,
   write question, generate question, static question, seed render, render seed, render imathas,
   question from imathas, tạo câu hỏi, viết câu hỏi, phác thảo câu hỏi, render seed,
-  câu hỏi static. Mode A: source-exercise flow grounded in target exercises, unit content,
-  and optional source_brief.xml, producing three files in static/. Mode B: seed render from
+  câu hỏi static. Mode A: source-exercise flow grounded in target exercises and unit content,
+  producing three files in static/. Mode B: seed render from
   existing questions/qt-{id}/imathas/ template.
 metadata:
-  version: "2.1.0"
-  last_updated: "2026-05-31"
+  version: "2.2.0"
+  last_updated: "2026-06-05"
   status: active
   related_skills:
     - draft-static-solution
-    - generate-source-brief
     - write-imathas-x
     - asciimath
     - audit-coverage
@@ -46,10 +45,10 @@ introducing an unlisted type.
 
 **English**: draft question, create question, write question, generate question, question draft,
 redraft question, static question, seed render, render seed, render imathas, question from imathas,
-from source brief, Mode A, Mode B
+Mode A, Mode B
 
 **Tiếng Việt**: tạo câu hỏi, viết câu hỏi, phác thảo câu hỏi, tạo static question, render seed,
-câu hỏi từ imathas, câu hỏi từ brief
+câu hỏi từ imathas
 
 ### Does NOT Trigger
 
@@ -58,7 +57,6 @@ câu hỏi từ imathas, câu hỏi từ brief
 | Draft or iterate the solution | `draft-static-solution` |
 | Fix errors in imathas source code | `write-imathas-x` |
 | Audit question for KP coverage | `audit-coverage` |
-| Generate the source brief first | `generate-source-brief` |
 
 ---
 
@@ -69,7 +67,7 @@ Evaluate at the very start, before any file reads.
 | Signal in request | Mode |
 |---|---|
 | Mentions seed number / "render" / "imathas" / "seed render" / "Mode B" | **Mode B** |
-| Anything else (draft, redraft, from brief, iterate, etc.) | **Mode A** |
+| Anything else (draft, redraft, iterate, etc.) | **Mode A** |
 
 ---
 
@@ -106,10 +104,6 @@ Evaluate at the very start, before any file reads.
    - unit content is mandatory in Mode A
    - use it to calibrate notation, wording, terminology, method scope, and example style
 
-6. `questions/qt-{id}/static/source_brief.xml` if present
-   - use it as a scope-contract override/enrichment layer
-   - do not use it as a substitute for source exercises or unit content
-
 **Hard stop rules:**
 
 1. If `meta.xml` is missing or empty:
@@ -133,21 +127,6 @@ Evaluate at the very start, before any file reads.
    Cannot proceed with Mode A without unit content for notation and method calibration.
    ```
 
-**Scope synthesis fallback:**
-
-If `source_brief.xml` is absent, continue by synthesizing scope from:
-- `questions/qt-{id}/source/target_exercises.xml`
-- active unit content
-- surrounding book corpus only when cross-references or method-boundary checks require it
-
-Warn in the report:
-```
-⚠ source_brief.xml not found — scope synthesized from source exercises + unit content.
-  Book  : {Book} / {Chapter} / {Section}
-  Source: questions/qt-{id}/source/target_exercises.xml
-  For a reusable scope contract, run generate-source-brief first.
-```
-
 **Optional — read if present:**
 - `questions/qt-{id}/static/static_question_latex.txt` — understand previous LMS version
 - `questions/qt-{id}/static/static_question_no_answerboxes.txt` — understand previous free draft
@@ -169,9 +148,8 @@ Read inputs in this order:
 3. `shared/books/README.md`
 4. `shared/books/{book_slug}/INDEX.md`
 5. the active unit XML file(s)
-6. `questions/qt-{id}/static/source_brief.xml` if present
 
-Build the internal context in three layers:
+Build the internal context in two layers:
 
 **[LAYER 1 — SOURCE EXERCISE ANCHOR]**
 - exact exercise statement
@@ -185,26 +163,10 @@ Build the internal context in three layers:
 - canonical terminology
 - example patterns usable as wording/task-framing anchors
 
-**[LAYER 3 — SOURCE BRIEF OVERRIDE]**
-- if `source_brief.xml` exists, extract and log:
-
-```
-[SCOPE]
-KPs (must_cover=true): <list>
-  Per KP — underlying_skill       : <the general cognitive/mathematical operation>
-  Per KP — surface_specificity    : <fixed | flexible>
-  Per KP — valid_surface_variations: <what can change, or "None" if fixed>
-method.primary        : <value>
-method.forbidden      : <list>
-notation_conventions  : <summary>
-structural_requirements: <any constraints>
-```
-
 Precedence rules:
 - `source/target_exercises.xml` is the source anchor
 - unit content is the curriculum calibration layer
-- `source_brief.xml` is the scope-contract override layer
-- if `source_brief.xml` conflicts with the source exercise set, treat the source exercise set as the anchor and note the brief as stale
+- surrounding book corpus is consulted only when cross-references or method-boundary checks require it
 
 If audit reports exist, read them and summarize:
 
@@ -228,10 +190,10 @@ then `questions/qt-{id}/static/static_question.txt`. Note the previous structure
 Read `assets/question-authoring-guide.md` before writing. Consult it for LaTeX notation
 rules, part structure rules, forbidden patterns, and the chat-vs-file boundary.
 
-**Active rules (from source exercise anchor + unit content + source_brief override):**
-- Cover all KPs with `must_cover: true`
-- Use only `method.primary`; never reference `method.forbidden`
-- Follow `notation_conventions`
+**Active rules (from source exercise anchor + unit content):**
+- Cover all source-exercise asks and preserve the intended student action depth
+- Use only methods introduced and allowed by the active unit
+- Follow the unit's notation conventions
 - Flat **(a)**, **(b)**, **(c)** structure — one answer action per part
 
 **Source exercise anchoring:**
@@ -240,19 +202,14 @@ rules, part structure rules, forbidden patterns, and the chat-vs-file boundary.
 - Do not draft from unit/objective alone when `creation_method=from_target`
 - Use unit content to calibrate notation, wording, terminology, and allowed methods
 
-**Surface independence (per KP from source_brief):**
+**Surface independence:**
 
-| `surface_specificity` | Action |
-|---|---|
-| `flexible` | Create a **new** mathematical object (matrix, function, scenario) guided by `valid_surface_variations`. Do NOT reproduce the source object. The `underlying_skill` defines what the new surface must exercise. |
-| `fixed` | Keep the source object exactly. Apply prose independence only to any surrounding context text. |
-
-For `flexible` KPs with no scenario prose (pure computation), the new mathematical object IS
-the primary change — write different matrix entries, different function, different parameters.
-The `valid_surface_variations` field specifies the constraints the new object must satisfy
-(e.g., "requires at least 2 projection steps", "columns must be linearly independent but not
-orthogonal"). If `valid_surface_variations` is absent or `"None"` but `surface_specificity`
-is `flexible`, treat as: same type and size of object, different specific values.
+- Preserve the source exercise's mathematical object family and task type.
+- Rewrite the surface so the draft is not a verbatim copy of the source exercise.
+- When the source is pure computation, vary the specific object values while keeping the same
+  level of difficulty and the same underlying skill demand.
+- When the source surface is itself mathematically essential, keep that object and only
+  paraphrase the surrounding prose.
 
 **Suspended in this phase:**
 - ANSWERBOX requirement — fully lifted; write plain LaTeX question text only
@@ -344,16 +301,6 @@ only). If the file already exists, overwrite without prompting.
    static_question.txt (AsciiMath)     ✓
    Ready for /author-imathas
 ```
-
-If scope synthesis fallback was used:
-```
-⚠ source_brief.xml not found — scope synthesized from source exercises + unit content.
-  Book  : {Book} / {Chapter} / {Section}
-  Source: questions/qt-{id}/source/target_exercises.xml
-  For higher fidelity, run generate-source-brief first.
-```
-
----
 
 ### Post-Completion Changes (Mode A)
 
@@ -471,28 +418,28 @@ From the result for the requested seed, extract:
 
 ```
 [MODE B — SEED RENDER]
-This file was not produced by the source-brief authoring flow (Mode A).
+This file was not produced by the source-exercise authoring flow (Mode A).
 It is a placeholder created alongside static_question.txt for structural consistency.
 
 Seed     : <N>
 Template : questions/qt-{id}/imathas/question.txt
 qtype    : <value>
 
-To replace with a properly authored version, run this skill with a source brief (Mode A).
+To replace with a properly authored version, run this skill in Mode A from source exercises.
 ```
 
 **`questions/qt-{id}/static/static_question_no_answerboxes.txt`** — create/overwrite with note:
 
 ```
 [MODE B — SEED RENDER]
-This file was not produced by the source-brief authoring flow (Mode A).
+This file was not produced by the source-exercise authoring flow (Mode A).
 It is a placeholder created alongside static_question.txt for structural consistency.
 
 Seed     : <N>
 Template : questions/qt-{id}/imathas/question.txt
 qtype    : <value>
 
-To replace with a properly authored version, run this skill with a source brief (Mode A).
+To replace with a properly authored version, run this skill in Mode A from source exercises.
 ```
 
 ---
@@ -536,8 +483,8 @@ Next: run draft-static-solution to generate a solution for this rendered questio
 |---|---|---|
 | Source anchor | `questions/qt-{id}/source/target_exercises.xml` when `creation_method=from_target` | Not used |
 | Unit content | Mandatory | Not used |
-| source_brief.xml | Override/enrichment only; optional | Not required |
-| Scope fallback | Source exercises + unit content synthesis when brief absent | Not applicable |
+| source_brief.xml | Not used | Not required |
+| Scope fallback | Source exercises + unit content synthesis | Not applicable |
 | Hard stop | Missing `meta.xml`, missing source exercise set for `from_target`, or missing unit content | questions/qt-{id}/imathas/ folder missing |
 | Authoring guide | Applied in full | Not applied |
 | KP coverage | Enforced | Not enforced |

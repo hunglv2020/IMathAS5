@@ -1,7 +1,7 @@
 # Workflows Catalog
 
 _Định nghĩa các quy trình multi-skill._
-_Last updated: 2026-06-04_
+_Last updated: 2026-06-05_
 
 ---
 
@@ -74,7 +74,7 @@ meta.xml                                                     — phải có
 shared/books/{book_slug}/                                    — phải có
 context/active_qt.md                                         — phải populated
 content-workbench MCP                                        — phải running (cho accuracy)
-static/source_brief.xml                                      — optional (shortcut cho audit skills)
+source/exercise_analysis.xml                                 — optional (human-validated deep audit context)
 ```
 
 ### Pipeline
@@ -151,7 +151,6 @@ static/source_brief.xml                                      — optional (short
 | `generate-blueprint` | Authoring (step 3) | Standalone hoặc trong author workflow |
 | `write-imathas-x` | `author-imathas` | Entry point chính của author workflow |
 | `verify-imathas-batch` | `author-imathas` (VERIFY step) | Chạy sau khi code xong |
-| `generate-source-brief` | Pre-`full-audit` | Optional prerequisite |
 | `audit-coverage` | `full-audit` (Stage 1) | Có thể chạy standalone |
 | `audit-pedagogical` | `full-audit` (Stage 2) | Có thể chạy standalone |
 | `audit-accuracy` | `full-audit` (Stage 3) | Cần MCP `render_seeds` |
@@ -175,5 +174,4 @@ static/source_brief.xml                                      — optional (short
 | "check accuracy", "audit accuracy" | `audit-accuracy` |
 | "full audit", "kiểm định toàn bộ" | `full-audit` workflow |
 | "verify batch", "check seeds" | `verify-imathas-batch` |
-| "tạo brief", "generate brief" | `generate-source-brief` |
 | "update thesis", "refactor skill" | `update-thesis` |

@@ -133,7 +133,7 @@ Một số bước yêu cầu human review trước khi Agent tiếp tục — �
 
 ---
 
-## 5. Trạng thái hệ thống (2026-06-03)
+## 5. Trạng thái hệ thống (2026-06-05)
 
 | Thành phần | Trạng thái | Ghi chú |
 |---|---|---|
@@ -144,7 +144,6 @@ Một số bước yêu cầu human review trước khi Agent tiếp tục — �
 | `audit-coverage` | Under review | Đang nghiên cứu refactor — xem `context/research_audit_refactor.md` |
 | `audit-pedagogical` | Under review | Đang nghiên cứu refactor |
 | `audit-accuracy` | Stable | Repo Python chuẩn qua `uv run python`; render lỗi nhưng output usable thì vẫn audit tiếp, verdict vẫn FAIL |
-| `generate-source-brief` | Stable (role đang được xem xét lại) | Có thể deprecated một phần sau refactor audit skills |
 | `analyze_source_vi` | **Odoo persona** | Render trong Odoo → copy XML → lưu `source/exercise_analysis.xml` — không phải IMathAS5 skill |
 
 ---

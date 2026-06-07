@@ -71,19 +71,20 @@ $$\text{Basis} =$$ [ANSWERBOX:...]
 
 ---
 
-## Source Brief Compliance
+## Source Exercise Compliance
 
-Before drafting, extract from `questions/qt-{id}/static/source_brief.xml`:
+Before drafting, extract from `questions/qt-{id}/source/target_exercises.xml` and the active
+unit content in `shared/books/{book_slug}/...`:
 
-| Field | Constraint |
+| Source | Constraint |
 |---|---|
-| `method.primary` | Only this method may appear in the question |
-| `method.forbidden` | Never reference these — not even as context |
-| `notation_conventions` | Only these symbols; do not introduce new variable names |
-| `KPs (must_cover: true)` | Every such KP must require genuine student action |
+| Source exercise ask | Preserve the key task, problem type, and action depth |
+| Unit-allowed methods | Only methods introduced and allowed in the unit may appear |
+| Unit notation conventions | Reuse these symbols; do not introduce conflicting variable names |
+| Source exercise coverage | Every meaningful ask from the source set must require genuine student action |
 
-**KP coverage test:** Each KP must require a non-trivial computation or reasoning step,
-not just recognition. "State the name of X" does not cover a computation KP.
+**Coverage test:** Each preserved ask must require a non-trivial computation or reasoning step,
+not just recognition. "State the name of X" does not cover a computation ask.
 
 ---
 
@@ -168,8 +169,8 @@ Before finalizing, scan every part for:
 - [ ] Any `**bold**` formatting in question text — never bold in question prose
 - [ ] Subparts `(a)(i)`, `(a1)`, nested bullets
 - [ ] More than one distinct answer action per part
-- [ ] Variables or symbols not defined in `notation_conventions`
-- [ ] Reference to `method.forbidden` — even indirect ("before using calculus...")
+- [ ] Variables or symbols not supported by the unit's notation conventions
+- [ ] Reference to methods beyond the active unit scope — even indirect ("before using calculus...")
 - [ ] Hint patterns: giving the formula, scaffolding steps, explaining the method in the question
 - [ ] Added context not in the textbook: `"so that Col A = Span{...}"`, `"explain that..."`
 - [ ] Instruction language that reveals the path: `"Your work must..."`, `"Be sure to..."`
@@ -209,9 +210,9 @@ placeholder square `□` or blank line for the same answer in the prose above it
 - [ ] No `[ANALYSIS]` or `[DRAFT_QUESTION_FREE]` in the file content
 - [ ] Single-answer question → no `**(a)**` label; multi-answer → flat (a)(b)(c) only
 - [ ] No subparts, no bold headers between parts
-- [ ] All `must_cover: true` KPs require genuine student computation
-- [ ] Only `method.primary` referenced; `method.forbidden` absent
-- [ ] Only `notation_conventions` symbols used
+- [ ] All preserved source asks require genuine student computation
+- [ ] Only methods introduced and allowed in the active unit are referenced
+- [ ] Only unit-consistent notation symbols are used
 - [ ] No hint patterns — question states WHAT, not HOW
 - [ ] No `"Verify that..."` / `"Show that..."` — converted to computable task
 - [ ] Prose paraphrased — ≤5 common words (excl. math terms) shared with source

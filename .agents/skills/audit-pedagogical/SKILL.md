@@ -39,7 +39,7 @@ Read the following files before proceeding:
 2. [questions/qt-{id}/imathas/question.txt](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/question.txt) — student-facing question template
 3. [questions/qt-{id}/imathas/solution.txt](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/solution.txt) — worked solution template
 4. [context/active_qt.md](/home/jerry/project/IMathAS5/context/active_qt.md) — routing file that identifies the active `Book`, `Chapter`, `Unit`, and `Learning Objective`
-5. [questions/qt-{id}/static/source_brief.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/static/source_brief.xml) — pre-computed scope contract (**load if present**; skip silently if absent and fall back to books for all checks below)
+5. [questions/qt-{id}/source/exercise_analysis.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/source/exercise_analysis.xml) — human-validated pedagogical analysis (**load if present**; skip silently if absent and use books alone for all checks below)
 6. [shared/books/README.md](/home/jerry/project/IMathAS5/shared/books/README.md) — retrieval playbook for the textbook corpus
 7. `shared/books/{book_slug}/INDEX.md` — locate the current unit file and neighboring sections
 8. Relevant `shared/books/{book_slug}/*.xml` files — authoritative source for terminology, notation conventions, definitions, worked examples, and future-learning checks
@@ -47,18 +47,18 @@ Read the following files before proceeding:
 10. [.agents/experience/pedagogical-check/lessons.md](/home/jerry/project/IMathAS5/.agents/experience/pedagogical-check/lessons.md) (if present — load relevant entries)
 11. [.agents/skills/audit-pedagogical/assets/scoring-rubric.md](/home/jerry/project/IMathAS5/.agents/skills/audit-pedagogical/assets/scoring-rubric.md) — rubric; work through internally in Step 4a
 
-**How to use `source_brief.xml` when present:**
+**How to use `exercise_analysis.xml` when present:**
 
-| Brief element | Use in this skill |
+| Analysis element | Use in this skill |
 |---|---|
-| `<method.forbidden>` entries (with `<reason>` citing book file) | First-look source for `FUTURE_LEARNING` evidence — use the cited book file directly; do not re-derive from books unless the term being checked is not in the brief's forbidden list |
-| `<notation_conventions>` | Primary reference for `notation` dimension — supplement with books only when the brief does not cover the notation in question |
-| `<method.primary>` + `<method.forbidden>` | Anchor for `scope_alignment` and `METHOD_REJECT` / `WORDING_REJECT` checks |
-| `<structural_requirements>` (`must_mention`, `must_not_skip`) | Anchor for `step_clarity` checks |
-| `<pedagogical_notes>` | Understand intentional pedagogical choices before flagging as issues |
-| `<equivalence>` | Family-level wording/scope exception; use its constraints before treating a reframing as pedagogical drift |
+| `<solution_summary>` | Quick human-readable recap of the source exercise before auditing the dynamic template |
+| `<core_technique>` + `<question_type>` + `<answer_format>` | Supplemental context for checking whether the template's exposition still matches the intended instructional target |
+| `<hidden_intent>` | Context for whether wording/solution framing has weakened the deeper pedagogical aim |
+| `<discovery_mechanism>` | Supplemental context for step-clarity and scope-alignment judgments |
+| `<must_preserve>` | Non-book checklist of source-specific constraints that should survive adaptation |
+| `<surface_variations>` | Helps distinguish allowed reframing from pedagogically harmful drift |
 
-**Fallback rule:** If `source_brief.xml` is absent, or a specific term/method is not covered by the brief, fall back to direct book reading as described in items 7–8 above. Books remain ground truth; the brief is a pre-computed shortcut over them.
+**Fallback rule:** If `exercise_analysis.xml` is absent, or a specific term/method/scope issue is not covered by it, fall back to direct book reading as described in items 7–8 above. Books remain ground truth; `exercise_analysis.xml` is supplemental context, not authority for curriculum boundaries.
 
 ---
 
@@ -80,8 +80,7 @@ Then use `shared/books/{book_slug}/INDEX.md` plus the relevant XML files to sile
 - Neighboring and later-section evidence needed for future-learning checks
 
 Future-learning rule:
-1. **If `source_brief.xml` is present:** check its `<method.forbidden>` list first. If the term/method is listed there, use the `<reason>` field's book file citation directly — no additional lookup needed.
-2. **If the term is not in the brief's forbidden list, or the brief is absent:** run the `check-future-learning` script to locate the earliest formal definition:
+1. Run the `check-future-learning` script to locate the earliest formal definition:
    ```bash
    uv run python .agents/skills/check-future-learning/scripts/check_term.py \
      --book {Book} \
@@ -89,14 +88,7 @@ Future-learning rule:
      --term "{term}"
    ```
    If status is `FUTURE` → classify as out of scope. If `NOT_LOCATED` → fall back to direct grep in `shared/books/{book_slug}/` (see [check-future-learning/SKILL.md](/home/jerry/project/IMathAS5/.agents/skills/check-future-learning/SKILL.md) for fallback procedure).
-3. A term that is not found anywhere in the book corpus after both script and grep is **not declared forbidden** — note as `evidence_missing` and do not penalize.
-
-Equivalence-family exception:
-- If the brief declares `<equivalence><family>monotone_threshold</family>`, do not treat an
-  upper-threshold/latest-time vs lower-threshold/earliest-time inversion as `WORDING_REJECT` or
-  `METHOD_REJECT` by itself.
-- In that family, the gate is whether the wording still teaches the monotonicity-based threshold
-  argument and stays inside the unit's exponential/logarithmic scope.
+2. A term that is not found anywhere in the book corpus after both script and grep is **not declared forbidden** — note as `evidence_missing` and do not penalize.
 
 Do not output these extractions. Use them only to inform the review.
 
@@ -173,15 +165,9 @@ Backtick policy: do not grade mathematics inside backticks, but do scan for conc
 
 - P1: term, method, or concept formally introduced only after the current unit — `FUTURE_LEARNING`; cite evidence from the lookup chain (S1)
 - P1: textbook for the active unit explicitly uses a different term — `WORDING_REJECT`; cite textbook section (S2)
-- P1: unit's primary method is replaced by a method from a later or unrelated section — `METHOD_REJECT`; cite `<method.primary>` + books (S3)
+- P1: unit's primary method is replaced by a method from a later or unrelated section — `METHOD_REJECT`; cite books directly, and use `exercise_analysis.xml` only as supplemental source-intent context (S3)
 - P2: light reference to an ahead-of-scope concept that may confuse students but is not central to the task (S4)
 - P2: unit's central method is absent as primary approach and no prerequisite path explicitly reconnects back to the unit target (S5). S5 is the scope verdict — "is a reconnect present at all?". C3 checks the quality of that reconnect; do not double-penalize.
-
-Family exception:
-- Under `<equivalence><family>monotone_threshold</family>`, do not raise `WORDING_REJECT` merely
-  because the template swaps "must not exceed / maximum time" for "reach at least / minimum time".
-- Still raise `WORDING_REJECT` or `METHOD_REJECT` if that swap changes the task away from the same
-  threshold reasoning contract or introduces a different method family.
 
 ### Method-Preference Rule
 

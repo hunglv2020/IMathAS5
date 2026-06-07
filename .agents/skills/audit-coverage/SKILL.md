@@ -37,8 +37,8 @@ Read the following files before proceeding:
 2. [questions/qt-{id}/imathas/question.txt](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/question.txt)
 3. [questions/qt-{id}/imathas/solution.txt](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/solution.txt)
 4. [questions/qt-{id}/imathas/qtype.txt](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/qtype.txt)
-5. [questions/qt-{id}/static/source_brief.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/static/source_brief.xml) — pre-computed scope contract (**load if present**; skip silently if absent and derive all judgments from books)
-6. [questions/qt-{id}/source/target_exercises.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/source/target_exercises.xml) — source exercises (1 or many)
+5. [questions/qt-{id}/source/target_exercises.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/source/target_exercises.xml) — source exercises (1 or many)
+6. [questions/qt-{id}/source/exercise_analysis.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/source/exercise_analysis.xml) — pedagogical contract with `must_preserve` checklist (**load if present**; if absent, L5 is inactive — skip L5 scoring entirely)
 7. [context/active_qt.md](/home/jerry/project/IMathAS5/context/active_qt.md) — routing context; use it to locate the active `Book`, `Chapter`, `Unit`, and `Learning Objective`
 8. [shared/books/README.md](/home/jerry/project/IMathAS5/shared/books/README.md) — retrieval playbook for the authoritative textbook corpus
 9. `shared/books/{book_slug}/INDEX.md` — locate the relevant section files for concept-boundary and example lookup
@@ -46,28 +46,25 @@ Read the following files before proceeding:
 11. [.agents/experience/coverage-check/index.md](/home/jerry/project/IMathAS5/.agents/experience/coverage-check/index.md) — Quick scan; read patterns.md before Step 3–4.
 12. [.agents/experience/coverage-check/patterns.md](/home/jerry/project/IMathAS5/.agents/experience/coverage-check/patterns.md) (always load — cross-case rules supersede defaults; load before Step 3–4)
 13. [.agents/experience/coverage-check/lessons.md](/home/jerry/project/IMathAS5/.agents/experience/coverage-check/lessons.md) (if present — load for session-specific lessons)
-14. [questions/qt-{id}/source/exercise_analysis.xml](/home/jerry/project/IMathAS5/questions/qt-{id}/source/exercise_analysis.xml) — pedagogical contract with `must_preserve` checklist (**load if present**; if absent, L5 is inactive — skip L5 scoring entirely)
-15. [.agents/skills/audit-coverage/assets/scoring-rubric.md](/home/jerry/project/IMathAS5/.agents/skills/audit-coverage/assets/scoring-rubric.md) — rubric template; copy the per-SRC-N block and fill it in Step 4a
+14. [.agents/skills/audit-coverage/assets/scoring-rubric.md](/home/jerry/project/IMathAS5/.agents/skills/audit-coverage/assets/scoring-rubric.md) — rubric template; copy the per-SRC-N block and fill it in Step 4a
 
 If `target_exercises.xml` is missing or empty → stop. Report `SOURCE_MISSING`. Do not proceed.
 
 No seeds or rendering required. Coverage is determined by static analysis and LLM reasoning.
 
-**How to use `source_brief.xml` when present:**
+**How to use `exercise_analysis.xml` when present:**
 
-| Brief element | Use in this skill |
+| Analysis element | Use in this skill |
 |---|---|
-| `<kp>` entries matched via `source_ref` (e.g. `Ex 17`) | Primary anchor for each SRC-N: defines what "key idea" and "assessment intent" mean for that exercise |
-| `<kp.underlying_skill>` | Exact definition of "key idea" for Level 2 judgment — use this instead of re-deriving from books |
-| `<kp.surface_specificity>` + `<kp.valid_surface_variations>` | Criteria for generalization sufficiency in Level 2 |
-| `<kp.question_type>` | Ground truth for Level 3 "problem type" |
-| `<kp.must_cover=true>` | These KPs cannot be PARTIAL or FAIL |
-| `<method.primary>` | The correct concept family for the exercise set — if template's key idea uses a different method family, that is a FAIL |
-| `<method.forbidden>` entries | If the template's primary approach relies on a forbidden method → coverage FAIL (wrong concept boundary) |
-| `<equivalence>` | Family-level framing/generalization policy; apply its constraints before treating source wording as literal |
-| `<extension_areas>` | Template covering extension areas beyond `must_cover` KPs is acceptable; do not penalize |
+| `<solution_summary>` | Quick source recap before mapping the template to the exercise |
+| `<core_technique>` | Supplemental anchor for Level 2 key-idea judgment |
+| `<question_type>` + `<answer_format>` | Supplemental anchor for Level 3 problem-type judgment |
+| `<hidden_intent>` | Context for whether a high-level adaptation preserved the exercise's instructional purpose |
+| `<discovery_mechanism>` | Context for distinguishing meaningful generalization from a shallow rewrite |
+| `<must_preserve>` | Direct input for Level 5 scoring |
+| `<surface_variations>` | Evidence for what reframing is acceptable without harming coverage |
 
-**Fallback rule:** If `source_brief.xml` is absent, or a specific SRC-N has no matching KP in the brief, fall back to deriving key idea and assessment intent directly from `target_exercises.xml` and books.
+**Fallback rule:** If `exercise_analysis.xml` is absent, or a specific SRC-N has no matching analysis block, derive key idea and assessment intent directly from `target_exercises.xml` and books.
 
 ---
 
@@ -94,7 +91,7 @@ From the `questions/qt-{id}/imathas/` files, identify:
 3. **Problem type** — structural category (e.g., single numeric answer, pool-based T/F selection, multi-part, etc.)
 4. **Generalization** — how does the template differ from a direct copy? (e.g., changed degree, added parameter, changed function family)
 
-If `source_brief.xml` is present, use `<method.primary>` as the expected concept family anchor. If the template's key idea belongs to a different method family than `<method.primary>`, note that as a candidate FAIL at this step before proceeding to per-exercise mapping.
+If `exercise_analysis.xml` is present, use `<core_technique>` as a supplemental concept-family anchor. If the template's key idea appears to belong to a different method family than the source/book evidence, note that as a candidate FAIL at this step before proceeding to per-exercise mapping.
 
 Treat **generalization sufficiency** as part of coverage judgment. A dynamic template must not merely restate the source with cosmetic edits. If the template keeps the same canonical form, nearly the same wording/structure, or only swaps trivial constants while preserving the source's exact recognizable setup, then it has not adequately generalized the source.
 
@@ -102,14 +99,9 @@ Applied-modeling rule:
 - If the source's core modeling move is to construct one or more governing functions from contextual data, a template that simply exposes the same functions directly in symbolic form with renamed context or changed constants is still a near-copy.
 - For these tasks, acceptable generalization normally requires at least one meaningful surface redesign such as prose/data/table clues from which the student must deduce the function, rather than reading the same ready-made formulas off the page.
 
-If `source_brief.xml` declares an equivalence family, evaluate framing through that family before
-calling it a mismatch. For `monotone_threshold`, an upper-threshold/latest-time framing and a
-lower-threshold/earliest-time framing are equivalent only when the same monotonicity argument, the
-same equality-at-boundary step, and the same `ln`-based exponential solve remain required.
-
 Use `active_qt.md` only to locate the active textbook context, then use `shared/books/{book_slug}/INDEX.md` and the relevant XML files to calibrate the **concept boundary** at the task-design level. If the template's core concept belongs to a different unit or is introduced only in a later section, classify that as a key-idea / assessment-intent failure here. Detailed wording, terminology, chapter-boundary, and method-label checks belong to `audit-pedagogical` and should not be duplicated in this skill.
 
-**Fallback:** If `source_brief.xml` is absent, derive key idea and concept boundary entirely from `target_exercises.xml` and books as above.
+**Fallback:** If `exercise_analysis.xml` is absent, derive key idea and concept boundary entirely from `target_exercises.xml` and books as above.
 
 ---
 
@@ -148,14 +140,13 @@ Does the template exercise the same core mathematical idea as the source?
 Apply the generalization principle from [.agents/skills/audit-coverage/references/create-dynamic-ques-guide.md](/home/jerry/project/IMathAS5/.agents/skills/audit-coverage/references/create-dynamic-ques-guide.md):
 > *"Only keep the main idea to solve the problem."*
 
-**If `source_brief.xml` is present:** use the KP matched to this SRC-N (via `source_ref`) as the primary anchor:
-- `kp.underlying_skill` defines "key idea" for this exercise — the template must require this specific cognitive/mathematical operation
-- `kp.surface_specificity=flexible` + `kp.valid_surface_variations` define what surface changes are acceptable while preserving the key idea
-- If `method.forbidden` lists the method the template primarily relies on → FAIL (wrong concept boundary)
-- If `<equivalence>` is present, its constraints are mandatory parts of the key-idea match.
-- **Fallback:** If no KP matches this SRC-N in the brief, fall back to the general rules below.
+**If `exercise_analysis.xml` is present:** use the matching analysis block for this SRC-N as a supplemental anchor:
+- `<core_technique>` helps define the intended key idea for this exercise
+- `<discovery_mechanism>` and `<surface_variations>` help distinguish acceptable adaptation from a near-copy or concept drift
+- `<hidden_intent>` can confirm whether the template still teaches the same deeper lesson
+- **Fallback:** If no analysis block clearly matches this SRC-N, fall back to the general rules below.
 
-**Without brief (or no matching KP):** A template **preserves the key idea** if:
+**Without analysis (or no matching block):** A template **preserves the key idea** if:
 - The same underlying theorem, identity, or algorithm is required to solve it
 - Increased complexity (e.g., higher degree, more iterations) uses the same principle — not a different one
 - Changed context (different function, different numbers) does not change the solution method
@@ -179,8 +170,8 @@ Does the structural form match?
 - Cardinality (single answer vs pool selection)
 - Number of answer boxes
 
-**If `source_brief.xml` is present:** use the KP's `kp.question_type` as the expected problem type for this SRC-N. Use `source_brief.xml` → `<answer_format>` to verify answer box count and types.
-**Fallback:** If brief is absent or no matching KP exists, derive expected type from `target_exercises.xml` directly.
+**If `exercise_analysis.xml` is present:** use `<question_type>` and `<answer_format>` as supplemental cues for the expected problem type of this SRC-N.
+**Fallback:** If analysis is absent or no matching block exists, derive expected type from `target_exercises.xml` directly.
 
 Problem type is **acceptably adapted** when a mismatch is driven by LMS grading constraints and the replacement answer structure still requires a gradable proxy for the source intent. Examples include converting a proof/explanation source into multipart choices, matrix entries, matching, or other answer boxes that force the same theorem, inverse construction, case distinction, or reasoning step.
 
@@ -237,7 +228,6 @@ For each SRC-N, copy the per-SRC-N rubric block from [assets/scoring-rubric.md](
 4. Score L1.1 and L3.1.
 5. **If `exercise_analysis.xml` is present:** Score L5 by checking each `must_preserve` item against `question.txt` and `control.php`. Score = (satisfied ÷ total) × 15, rounded. Grand Total becomes ___/115.
 6. Sum to Grand Total.
-7. If this SRC-N has `must_cover=true` in `source_brief.xml` and base Grand Total (L1–L4 only, excl. L5) < 85: escalate verdict to FAIL regardless of PARTIAL threshold.
 
 The filled rubric will be written to the `Scoring` section of the report in Step 5.
 
@@ -250,8 +240,6 @@ For each SRC-N, derive verdict from Grand Total:
 | ≥ 85 | `PASS` |
 | 60–84 | `PARTIAL` |
 | < 60 | `FAIL` |
-
-Apply `must_cover` escalation from Step 4a instruction 6 if applicable.
 
 **Overall template verdict:**
 

@@ -1,7 +1,7 @@
 # Glossary — Thuật ngữ hệ thống
 
 _Định nghĩa chuẩn. Dùng nhất quán trong mọi skill, workflow, và thesis._
-_Last updated: 2026-06-04_
+_Last updated: 2026-06-05_
 
 ---
 
@@ -132,6 +132,11 @@ Insight toán học quan trọng nhất mà bài toán muốn student nắm đư
 ### Source brief / KP (Key Point)
 Trong `source_brief.xml`, mỗi `<kp>` element mô tả key idea của một exercise: underlying_skill, question_type, must_cover.
 
+### Exercise analysis
+Artifact `exercise_analysis.xml` chứa lớp phân tích sư phạm sâu đã được human validate cho từng source exercise:
+`solution_summary`, `core_technique`, `hidden_intent`, `discovery_mechanism`, `must_preserve`, và
+`surface_variations`.
+
 ---
 
 ## Thuật ngữ về file và artifacts
@@ -143,8 +148,8 @@ Trong `source_brief.xml`, mỗi `<kp>` element mô tả key idea của một exe
 | `static_question.txt` | Static version câu hỏi (AsciiMath) |
 | `static_solution.txt` | Static version lời giải (AsciiMath) |
 | `blueprint.txt` | Thiết kế parameterization |
-| `source_brief.xml` | Pre-computed scope contract (optional shortcut) |
-| `exercise_analysis.xml` | Phân tích sư phạm sâu (proposed) |
+| `source_brief.xml` | Legacy scope-contract artifact; chỉ còn là enrichment tùy chọn cho một số skills nếu file đã tồn tại |
+| `exercise_analysis.xml` | Phân tích sư phạm sâu (active) |
 | `control.php` | IMathAS variable generation + answer config |
 | `question.txt` | IMathAS question template (AsciiMath) |
 | `solution.txt` | IMathAS solution template (AsciiMath) |

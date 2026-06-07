@@ -1,7 +1,7 @@
 # Artifacts Catalog
 
 _Tất cả data artifacts trong hệ thống: ai tạo ra, ai dùng, schema cơ bản._
-_Last updated: 2026-06-03_
+_Last updated: 2026-06-05_
 
 ---
 
@@ -37,7 +37,7 @@ Schema:
 |---|---|
 | **Path** | `questions/qt-{id}/source/target_exercises.xml` |
 | **Producer** | Tạo thủ công / scrape từ sách nguồn |
-| **Consumers** | `draft-static-question`, `audit-coverage`, `generate-source-brief` |
+| **Consumers** | `draft-static-question`, `audit-coverage`, `analyze_source_vi` (indirect source input) |
 | **Role** | Danh sách bài tập nguồn cần được covered, bao gồm embedded exercise content |
 
 Schema (per exercise):
@@ -129,17 +129,15 @@ Schema (per exercise):
 | Thuộc tính | Giá trị |
 |---|---|
 | **Path** | `questions/qt-{id}/static/source_brief.xml` |
-| **Producer** | `generate-source-brief` |
-| **Consumers (hiện tại)** | `audit-coverage` (optional shortcut), `audit-pedagogical` (shortcut), `full-audit` workflow |
-| **Consumers (sau refactor)** | `draft-static-question`, `draft-static-solution` (enrichment) — **audit skills sẽ không dùng nữa** |
+| **Producer** | Legacy/manual artifact — có thể còn tồn tại từ phiên bản cũ hoặc do người dùng tự thêm |
+| **Consumers** | `draft-static-solution`, `generate-blueprint`, `refine-static-solution` (enrichment only, nếu file tồn tại) |
 | **Role** | Pre-computed scope contract: key ideas, methods, notation, equivalence family |
-| **Status** | ⚠️ Sẽ bị loại khỏi audit workflow sau refactor — xem [audit-skills-refactor.md](audit-skills-refactor.md) |
+| **Status** | Legacy — không còn producer chính thức trong IMathAS5, và không còn là input của audit workflow |
 
-**Lý do loại khỏi audit workflow:**
-- 50–60% nội dung không được audit nào dùng
-- Tạo coupling: audit phải đợi brief
-- Nguy cơ stale: tạo một lần, không auto-update
-- Mọi thông tin audit cần đều có thể lấy từ source gốc (`meta.xml`, `target_exercises.xml`, books)
+**Ghi chú:**
+- File này có thể vẫn được đọc như lớp enrichment tùy chọn cho một số authoring skills, nhưng không còn được `draft-static-question` sử dụng.
+- Hệ thống hiện tại không còn skill nội bộ nào tạo ra file này.
+- Audit workflow chuẩn không phụ thuộc vào artifact này nữa.
 
 Key fields (vẫn relevant cho draft skills):
 - `<kp>` — key point per exercise (underlying_skill, question_type, must_cover)
@@ -278,7 +276,7 @@ Schema đầy đủ:
 |---|---|
 | **Role** | Textbook content — section files với definitions, examples, exercises |
 | **Authority** | Ground truth cho method, notation, scope |
-| **Consumers** | `draft-static-*`, `audit-*`, `generate-source-brief` |
+| **Consumers** | `draft-static-*`, `audit-*`, `check-future-learning`, `analyze_source_vi` (through Odoo-side prompt preparation) |
 
 ---
 
@@ -316,7 +314,7 @@ Schema đầy đủ:
 meta.xml ──────────────────────────────────────────► [mọi skill]
 target_exercises.xml ──────────────────────────────► draft-static-question
                                                       audit-coverage
-                                                      generate-source-brief (optional)
+                                                      analyze_source_vi (Odoo input)
 
 static_question.txt ───────────────────────────────► draft-static-solution
                                                       generate-blueprint
@@ -328,9 +326,9 @@ imathas/*.txt ──────────────────────
                                                       verify-imathas-batch
                                                       render_seeds MCP
 
-source_brief.xml ──────────────────────────────────► draft-static-question (enrichment)
-                                                      draft-static-solution (enrichment)
-                    ⚠️ Sẽ bị LOẠI khỏi audit workflow sau refactor (xem audit-skills-refactor.md)
+source_brief.xml ──────────────────────────────────► draft-static-solution (enrichment if present)
+                                                      generate-blueprint (enrichment if present)
+                    legacy/manual artifact — không còn producer chính thức
 
 UNIT_CONTENT + TARGET_EXERCISES ───────────────────► [Odoo: analyze_source_vi]
 (nhập vào Odoo)                                        │ human validates Part 1

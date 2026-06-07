@@ -43,7 +43,7 @@
 ## [S] Scope Alignment [25 pts]
 
 > Evidence is required for every S1/S2/S3 finding. Use the lookup chain:
-> `source_brief.xml <method.forbidden>` → `check_term.py` → direct grep → evidence_missing (do not penalize).
+> `check_term.py` → direct grep → evidence_missing (do not penalize).
 
 - **S1** FUTURE_LEARNING: no term or concept that is formally introduced only after the current section.
   _(P1. Cite first-match evidence from the lookup chain. Tag: `FUTURE_LEARNING`)_
@@ -52,7 +52,7 @@
   _(P1. Cite the textbook section. Tag: `WORDING_REJECT`)_
 
 - **S3** METHOD_REJECT: the unit's primary method is not replaced by a method belonging to a later or unrelated section.
-  _(P1. Cite `source_brief.xml <method.primary>` and books. Tag: `METHOD_REJECT`)_
+  _(P1. Cite books directly; `exercise_analysis.xml` may be used only as supplemental source-intent context. Tag: `METHOD_REJECT`)_
 
 - **S4** Light ahead-of-scope: no incidental reference to a concept slightly outside scope that could confuse students without being central to the task.
   _(P2)_

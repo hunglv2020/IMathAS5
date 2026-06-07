@@ -13,7 +13,6 @@ metadata:
   status: active
   related_skills:
     - draft-static-question
-    - generate-source-brief
     - write-imathas-x
     - asciimath
     - audit-accuracy

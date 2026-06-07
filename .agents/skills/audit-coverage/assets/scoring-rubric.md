@@ -108,9 +108,6 @@ Score: (satisfied items ÷ total items) × 15, rounded to nearest integer
 | L5 Pedagogical Contract | ___/15 or N/A |
 | **Grand Total** | **___/100** (or /115 if L5 active) |
 
-> **must_cover note:** If this SRC-N has `must_cover=true` in `source_brief.xml` and base Grand Total (L1–L4 only) < 85,
-> escalate the verdict to **FAIL** regardless of PARTIAL threshold.
-
 ### Verdict
 
 Use percentage of max — thresholds are identical whether L5 is active or not:

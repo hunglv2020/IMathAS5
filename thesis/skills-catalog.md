@@ -16,7 +16,7 @@ _Last updated: 2026-06-05_
 | **Trigger** | "draft question", "tạo câu hỏi", "render seed", "static question" |
 | **Mode A** | Source-exercise flow: từ target exercises + sách → static files |
 | **Mode B** | Seed render: từ IMathAS template hiện có → in ra static version |
-| **Inputs** | `target_exercises.xml`, `meta.xml`, books XML, `source_brief.xml` (optional) |
+| **Inputs** | `target_exercises.xml`, `meta.xml`, books XML |
 | **Outputs** | `static/static_question_no_answerboxes.txt`, `static/static_question_latex.txt`, `static/static_question.txt` |
 | **Không làm** | Draft solution, fix code IMathAS, audit |
 | **SKILL.md** | `.agents/skills/draft-static-question/SKILL.md` |
@@ -79,19 +79,6 @@ _Last updated: 2026-06-05_
 ---
 
 ## Nhóm: Pre-processing / Support
-
-### `generate-source-brief`
-| Thuộc tính | Giá trị |
-|---|---|
-| **Role** | Tạo `source_brief.xml` — pre-computed scope contract tổng hợp từ exercises + sách |
-| **Status** | Stable (role đang xem xét lại) |
-| **Trigger** | "generate brief", "tạo brief", trước khi chạy full-audit |
-| **Inputs** | `target_exercises.xml`, `meta.xml`, books XML (`get_exercise_context.py`, `check_term.py`) |
-| **Outputs** | `static/source_brief.xml` |
-| **Note** | ⚠️ Đang nghiên cứu giảm phụ thuộc vào file này. Xem `context/research_audit_refactor.md` |
-| **SKILL.md** | `.agents/skills/generate-source-brief/SKILL.md` |
-
----
 
 ### `analyze_source_vi` _(Odoo persona — không phải IMathAS5 skill)_
 

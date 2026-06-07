@@ -15,8 +15,8 @@ Runs all three checks in order, stopping early on coverage failure.
 ## Prerequisites
 
 - [questions/qt-{id}/imathas/control.php](/home/jerry/project/IMathAS5/questions/qt-{id}/imathas/control.php), `question.txt`, `solution.txt`, `qtype.txt` are present
-- `questions/qt-{id}/static/source_brief.xml` is present and non-empty (per-session input — create before running). If the brief declares an equivalence family, downstream audits must apply that family-level policy before treating source wording as literal.
-- `questions/qt-{id}/static/target_exercises.xml` is present and non-empty (per-session input — create before running)
+- `questions/qt-{id}/source/target_exercises.xml` is present and non-empty
+- `questions/qt-{id}/source/exercise_analysis.xml` is optional. If present, treat it as the human-validated pedagogical contract for deeper coverage/pedagogical checks.
 - [context/active_qt.md](/home/jerry/project/IMathAS5/context/active_qt.md) is populated with `Book`, `Chapter`, `Unit`, and `Learning Objective`
 - The matching `shared/books/{book_slug}/INDEX.md` and section XML files exist
 - `content-workbench` MCP server is running (required for accuracy step)
@@ -44,9 +44,8 @@ Runs all three checks in order, stopping early on coverage failure.
 
 Execute the [audit-coverage](/home/jerry/project/IMathAS5/.agents/skills/audit-coverage/SKILL.md) skill.
 
-Coverage must read any family-level policy from `source_brief.xml` first. Example: a declared
-`monotone_threshold` family can allow upper/lower threshold framing inversions without treating
-them as automatic mismatches.
+Coverage should load `exercise_analysis.xml` when present and activate L5 scoring from its
+`must_preserve` checklist. If the file is absent, coverage runs with L1-L4 only.
 
 **Gate rule:**
 - If overall verdict is `FAIL` → **stop immediately**. The coverage report already written to [questions/qt-{id}/reviews/coverage_report.md](/home/jerry/project/IMathAS5/questions/qt-{id}/reviews/coverage_report.md) is the final output. Do not proceed to Stage 2.
@@ -60,8 +59,9 @@ them as automatic mismatches.
 
 Execute the [audit-pedagogical](/home/jerry/project/IMathAS5/.agents/skills/audit-pedagogical/SKILL.md) skill.
 
-Pedagogical review must also honor any equivalence-family exception declared in `source_brief.xml`
-before raising wording/scope rejects tied only to source framing.
+Pedagogical review should load `exercise_analysis.xml` when present as supplemental context for
+hidden intent, discovery mechanism, and must-preserve expectations. Scope and terminology evidence
+still comes from `shared/books/`.
 
 Do not auto-patch. Issues are listed in the Fix Tracker of the pedagogical report for user review.
 
