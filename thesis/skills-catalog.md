@@ -27,14 +27,16 @@ _Last updated: 2026-06-07_
 | Thuộc tính | Giá trị |
 |---|---|
 | **Role** | Tạo lời giải tĩnh step-by-step từ static question |
-| **Version** | 3.1.0 |
+| **Version** | 3.2.0 |
 | **Status** | Stable |
 | **Trigger** | "draft solution", "tạo lời giải", "solve", "giải bài" |
 | **Mode** | Full (tạo mới) hoặc Patch (sửa bước cụ thể) |
 | **Inputs** | `static/static_question.txt`, `meta.xml`, books XML, `source_brief.xml` (optional enrichment) |
 | **Outputs** | `static/static_solution_latex.txt`, `static/static_solution.txt` |
 | **Books** | Ground truth cho method, notation, scope |
-| **Theorem citation rule** | Nếu dùng theorem/definition từ sách: cite theo concept name + sourced statement; numbering chỉ là metadata phụ |
+| **Recall contract** | Bất kỳ recall nào cũng dùng concept name nếu có + sourced statement + immediate application; mặc định giữ recall và application trong cùng step |
+| **Literal blank fidelity** | Nếu bài yêu cầu điền một biểu thức hiển thị, answer line giữ đúng biểu thức thiếu trừ khi prompt yêu cầu biến đổi |
+| **Theorem citation rule** | Nếu dùng theorem/definition từ sách: numbering chỉ là metadata phụ; current-unit anchor có thể đi cùng later prerequisite recalls |
 | **SKILL.md** | `.agents/skills/draft-static-solution/SKILL.md` |
 
 ---

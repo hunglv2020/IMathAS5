@@ -100,6 +100,46 @@ Apply the orthogonal projection formula for an orthogonal basis: if {u_1,...,u_p
 
 ---
 
+## General Recall Rule
+
+This recall rule applies to any recalled theorem, definition, lemma, test, property, rule,
+formula, or prior result from the book.
+
+- Give the concept name if the source provides one
+- State the sourced content actually needed for the current step
+- Apply or specialize it immediately to the current variables
+- Keep recall and application in the same step by default
+- Split recall into its own step only when the recall needs a separate pedagogical pause,
+  multiple logical clauses, or substantial setup before application
+
+If a current-unit theorem or formula directly powers the step, use it as the main anchor
+before later prerequisite recalls such as algebraic properties or dot-product rules.
+
+---
+
+## Literal Blank Fidelity
+
+If the question asks the student to complete a displayed expression, the answer label should
+match the missing expression literally unless the prompt explicitly asks for simplification,
+equivalent rewriting, or verification.
+
+Do:
+```
+Question blank: (y+z)·u_i
+Answer to (b): (y+z)·u_i
+```
+
+Do not:
+```
+Question blank: (y+z)·u_i
+Answer to (b): y·u_i + z·u_i
+```
+
+Equivalent transformed expressions may appear in the derivation, but they should not replace
+the literal blank target in the answer line.
+
+---
+
 ## Answer Labels
 
 Place the answer label immediately after the concluding computation of each part.
@@ -206,6 +246,9 @@ Before finalizing, scan every step for these patterns and remove them:
 - [ ] Bare textbook-number citations such as `Theorem 8`, `Definition 2`, `Lemma 4`
 - [ ] Theorem references that name a concept but omit the sourced content actually needed
 - [ ] Free paraphrases that change or compress the source theorem's logic beyond notation-level specialization
+- [ ] Recalled properties or rules that appear without sourced content and immediate application
+- [ ] Recall split into a separate step without a real pedagogical reason
+- [ ] Literal blank answers replaced by merely equivalent transformed expressions
 
 ---
 
@@ -249,5 +292,7 @@ Before finalizing, verify against `source_brief.xml`:
 - [ ] Answer labels match question parts: `Answer to (a):` / `Final answer:` — plain text
 - [ ] method.primary used throughout; method.forbidden absent
 - [ ] notation_conventions respected
-- [ ] Any invoked theorem/definition is understandable without the source book's numbering
-- [ ] Any sourced theorem/definition statement keeps the source logic intact
+- [ ] Any recalled theorem/definition/property/rule/test/formula is understandable without the source book's numbering
+- [ ] Any sourced recall statement keeps the source logic intact
+- [ ] Recall and application stay in the same step unless a pedagogical split is justified
+- [ ] Literal blank answers match the displayed missing expressions when applicable

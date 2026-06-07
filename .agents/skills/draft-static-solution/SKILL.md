@@ -8,7 +8,7 @@ description: >
   Derives method and notation directly from books — source_brief.xml is optional enrichment.
   Requires only a static question file and active_qt.md.
 metadata:
-  version: "3.1.0"
+  version: "3.2.0"
   last_updated: "2026-06-07"
   status: active
   related_skills:
@@ -133,6 +133,7 @@ notation     : <exact symbols from <example> solutions — variable names, delim
 key_steps    : <steps in the procedure that must appear in a complete solution>
 worked_examples : <note any worked examples in the section relevant to question type>
 theorem_anchors : <for each theorem/definition actually used: concept name if present, source statement needed here, source numbering as metadata only>
+recall_anchors  : <for each recalled theorem/definition/property/rule/test/formula: concept name if present, source statement needed here, immediate application target>
 ```
 
 Focus on:
@@ -140,8 +141,8 @@ Focus on:
 - `<note type="theorem_key">` and `<note type="definition">` — theoretical anchors
 - `<example>` blocks — ground truth for notation and solution style
 
-If the solution will invoke a theorem, definition, lemma, test, or named formula from the
-book, silently capture:
+If the solution will invoke a theorem, definition, lemma, test, named formula, property, or
+rule from the book, silently capture:
 
 ```
 [ANCHOR]
@@ -150,11 +151,13 @@ anchor_type            : theorem / definition / lemma / test / formula / propert
 anchor_core_statement  : <the exact source content actually needed in the solution>
 anchor_section         : <section/unit location>
 anchor_number_in_source: <optional metadata only>
+anchor_application     : <the current step where this recalled result will be used>
 ```
 
-Rule: textbook numbering is never sufficient by itself. In the final solution, theorem
-numbers are optional metadata only and must not replace the concept name or the sourced
-statement.
+Rule: textbook numbering is never sufficient by itself. In the final solution, recalled
+results use concept name if available, sourced statement actually needed, and immediate
+application. Theorem numbers are optional metadata only and must not replace the concept name
+or the sourced statement.
 
 #### Step C — Enrich from source_brief (if present)
 
@@ -242,15 +245,20 @@ forbidden prose patterns, and answer label conventions.
 
 2. **Strategy (internal only — not in output):** For each part, plan the solution path
    using the method identified in [LOAD]. Follow the section's procedure step sequence.
-   Note worked examples in the section as style reference.
+   Note worked examples in the section as style reference. If a current-unit theorem or
+   formula directly powers a step, use it as that step's main anchor before later
+   prerequisite recalls such as algebra or dot-product properties.
 
 3. **Drafting:** Write each part as a sequence of step-by-step paragraphs. Each step:
    - Uses a plain-text step header
    - Starts with one assertion sentence naming the operation, property, or theorem being applied (WHY)
-   - If a theorem/definition is invoked, cite it by concept name if present and state the sourced content actually used
+   - If any theorem/definition/property/rule/test/formula is recalled, cite it by concept name if present and state the sourced content actually used
    - Treat theorem numbering as optional metadata only, never as the main citation
    - Do not write bare references such as `By Theorem 8`, `By Definition 2`, or `By Lemma 4`
    - Do not freely paraphrase a sourced theorem statement; only notation-level specialization is allowed after the sourced statement is given
+   - Keep recall and its immediate application in the same step by default; split into a separate step only when the recall needs its own pedagogical pause or multiple clauses
+   - Let current-unit anchors and later prerequisite recalls coexist when both are pedagogically useful
+   - If the prompt asks to complete a displayed expression, preserve the literal blank target in the answer line unless simplification is explicitly requested
    - Follow immediately with LaTeX computation (WHAT)
 
 4. **Python verification:** For every numerical result, compute internally and log:
@@ -268,9 +276,11 @@ forbidden prose patterns, and answer label conventions.
    - Step headers are plain text, verb-first, no markdown bold/italic
    - Answer labels match question parts: `Answer to (a):` / `Final answer:` — no markdown formatting
    - Notation matches book examples exactly
-   - Any invoked theorem/definition is understandable without the source book's numbering
+   - Any recalled theorem/definition/property/rule/test/formula is understandable without the source book's numbering
    - No bare textbook-number citations such as `Theorem 8` or `Definition 2`
-   - Any sourced theorem/definition statement preserves the source logic and is not replaced by free summary prose
+   - Any sourced recall statement preserves the source logic and is not replaced by free summary prose
+   - Recall and application stay in the same step unless a pedagogical split is justified
+   - Literal blank answers match the displayed missing expressions when applicable
 
    Log: `[CERTIFICATION: PASS]` or `[CERTIFICATION: FAIL — <reason>]`
    Fix any FAIL before proceeding.
@@ -343,7 +353,10 @@ Chat status after write:
 | meta.xml | Required — entry point for book navigation (`book_slug`, `chapter_title`, `unit_title`) |
 | Python verification | Required for every numerical result |
 | Bullets | Never — no `- * +` in solution body |
-| Theorem citation | Use concept name + sourced statement needed for the step; theorem numbering is optional metadata only, never the primary citation |
+| Recall policy | Any recalled theorem/definition/property/rule/test/formula uses concept name if available + sourced statement needed for the step + immediate application |
+| Recall structure | Keep recall and immediate application in the same step by default; split only for a justified pedagogical pause |
+| Theorem citation | Theorem numbering is optional metadata only, never the primary citation |
+| Literal blank fidelity | If the question asks to complete a displayed expression, the answer line keeps the literal missing expression unless simplification is explicitly requested |
 | Patch Mode trigger | `static_solution_latex.txt` + audit reports both present |
 | Patch scope | Only steps flagged in audit — everything else frozen |
 | meta.xml absent | Stop — cannot navigate books without book_slug/chapter_title/unit_title |

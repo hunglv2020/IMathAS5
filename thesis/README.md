@@ -139,7 +139,7 @@ Một số bước yêu cầu human review trước khi Agent tiếp tục — �
 |---|---|---|
 | `write-imathas-x` | Stable | Skill chính để code IMathAS; policy đã siết inline-first + boundary-safe injection |
 | `draft-static-question` | Stable v2.1.0 | |
-| `draft-static-solution` | Stable v3.1.0 | Theorem citations now require concept name + sourced statement; numbering is optional metadata only |
+| `draft-static-solution` | Stable v3.2.0 | Recall contract now requires sourced recall at any step, same-step default, and literal blank fidelity |
 | `generate-blueprint` | Stable v1.0.0 | |
 | `audit-coverage` | Under review | Đang nghiên cứu refactor — xem `context/research_audit_refactor.md` |
 | `audit-pedagogical` | Under review | Đang nghiên cứu refactor |
