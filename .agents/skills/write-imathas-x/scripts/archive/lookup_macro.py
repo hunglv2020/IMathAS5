@@ -54,15 +54,18 @@ def load_xml(xml_path: Path) -> tuple[dict, dict]:
     Parse imathas_lang.xml.
     Returns (macros, libraries) where:
       macros:    {key: {library, signature, description, example, gotcha}}
-      libraries: {key: name}
+      libraries: {key: {name, require_loadlibrary}}
     """
     root = ET.parse(xml_path).getroot()
 
-    libraries: dict[str, str] = {}
+    libraries: dict[str, dict] = {}
     for lib in root.findall("libraries/library"):
         k = lib.get("key", "")
         if k:
-            libraries[k] = lib.get("name", k)
+            libraries[k] = {
+                "name": lib.get("name", k),
+                "require_loadlibrary": lib.get("require_loadlibrary", "0") == "1",
+            }
 
     macros: dict[str, dict] = {}
     for m in root.findall("macros/macro"):
@@ -142,7 +145,7 @@ def search_macros(query: str, macros: dict) -> list[str]:
 def print_lookup_results(
     found: dict[str, dict],
     not_found: dict[str, list[str]],
-    libraries: dict[str, str],
+    libraries: dict[str, dict],
 ) -> None:
     print(SEPARATOR)
     print(" 🛠  IMATHAS MACROS LOOKUP RESULTS")
@@ -159,7 +162,10 @@ def print_lookup_results(
         print("-> Use '-s <keyword>' to search for alternatives.")
 
     # Libraries to load
-    libs_needed = sorted({info["library"] for info in found.values() if info.get("library")})
+    libs_needed = sorted({
+        info["library"] for info in found.values()
+        if info.get("library") and libraries.get(info["library"], {}).get("require_loadlibrary")
+    })
     if libs_needed:
         print("\n⚠️  LIBRARIES NEED TO BE LOADED (insert at top of ZONE 0):")
         for lib in libs_needed:
@@ -234,7 +240,7 @@ def main() -> None:
                                 if info.get("library")})
             print(f"\nAvailable Libraries ({len(lib_keys)}):")
             for lk in lib_keys:
-                name = libraries.get(lk, lk)
+                name = libraries.get(lk, {}).get("name", lk)
                 print(f"  - {lk:<28} ({name})")
         else:
             cats = sorted({info.get("_category", "") for info in macros.values()})
@@ -261,7 +267,7 @@ def main() -> None:
             for r in results:
                 info = macros[r]
                 lib = info.get("library") or info.get("_category", "")
-                lib_display = libraries.get(lib, lib) if lib else "built-in"
+                lib_display = libraries.get(lib, {}).get("name", lib) if lib else "built-in"
                 print(f"  - {r:<32} | {lib_display}")
         print(f"\nUse 'lookup_macro.py <macro_name>' for detailed documentation.")
         print(SEPARATOR)
