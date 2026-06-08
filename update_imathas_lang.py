@@ -115,6 +115,7 @@ def build_xml(
     libs: list[dict[str, Any]],
     macros: list[dict[str, Any]],
     lib_key_by_id: dict[int, str],
+    lib_require_by_key: dict[str, bool],
 ) -> str:
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -135,7 +136,9 @@ def build_xml(
     ]
 
     for lib in libs:
-        lines.append(f'    <library key="{attr(lib.get("key"))}" name="{attr(lib.get("name"))}"/>\n')
+        lib_key_val = attr(lib.get("key"))
+        req = "1" if lib_require_by_key.get(lib_key_val) else "0"
+        lines.append(f'    <library key="{lib_key_val}" name="{attr(lib.get("name"))}" require_loadlibrary="{req}"/>\n')
     lines.append('  </libraries>\n\n  <macros>\n')
 
     for macro in macros:
@@ -143,8 +146,7 @@ def build_xml(
         lib_res_id = m2o_id(macro.get("library_id"))
         lib_key = attr(lib_key_by_id.get(lib_res_id, "") if lib_res_id else "")
         sig = attr(macro.get("signature"))
-        req_lib = "1" if macro.get("require_loadlibrary") else "0"
-        lines.append(f'    <macro key="{key}" library="{lib_key}" signature="{sig}" require_loadlibrary="{req_lib}">\n')
+        lines.append(f'    <macro key="{key}" library="{lib_key}" signature="{sig}">\n')
         lines.append(text_el("description", macro.get("description")))
         lines.append(text_el("example", macro.get("example")))
         lines.append(text_el("gotcha", macro.get("gotcha")))
@@ -191,21 +193,24 @@ def main() -> int:
         libs = client.search_read(
             model="imathas.library",
             domain=[],
-            fields=["id", "key", "name"],
+            fields=["id", "key", "name", "require_loadlibrary"],
             order="name",
         )
         lib_key_by_id: dict[int, str] = {
             r["id"]: (r.get("key") or "") for r in libs if r.get("id")
         }
+        lib_require_by_key: dict[str, bool] = {
+            r["key"]: bool(r.get("require_loadlibrary")) for r in libs if r.get("key")
+        }
 
         macros = client.search_read(
             model="imathas.macro",
             domain=[["active", "=", True]],
-            fields=["key", "library_id", "signature", "description", "example", "gotcha", "require_loadlibrary"],
+            fields=["key", "library_id", "signature", "description", "example", "gotcha"],
             order="library_id, key",
         )
 
-        xml_content = build_xml(libs, macros, lib_key_by_id)
+        xml_content = build_xml(libs, macros, lib_key_by_id, lib_require_by_key)
 
         if args.dry_run:
             print(f"Libraries: {len(libs)}, Macros: {len(macros)}")

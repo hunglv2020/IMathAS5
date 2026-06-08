@@ -89,14 +89,17 @@ def build_client(env: dict[str, str]) -> OdooClient:
     return OdooClient(base_url=base_url, api_key=api_key, db_name=db_name, timeout=timeout)
 
 
-def load_xml(xml_path: Path) -> tuple[dict[str, dict[str, str]], dict[str, str]]:
+def load_xml(xml_path: Path) -> tuple[dict[str, dict[str, str]], dict[str, dict[str, Any]]]:
     root = ET.parse(xml_path).getroot()
 
-    libraries: dict[str, str] = {}
+    libraries: dict[str, dict[str, Any]] = {}
     for lib in root.findall("libraries/library"):
         key = lib.get("key", "").strip()
         if key:
-            libraries[key] = lib.get("name", key).strip()
+            libraries[key] = {
+                "name": lib.get("name", key).strip(),
+                "require_loadlibrary": lib.get("require_loadlibrary", "0") == "1",
+            }
 
     macros: dict[str, dict[str, str]] = {}
     for macro in root.findall("macros/macro"):
@@ -233,7 +236,7 @@ def build_output_xml(
         {
             info.get("library", "")
             for info in found.values()
-            if info.get("library")
+            if info.get("library") and libraries.get(info["library"], {}).get("require_loadlibrary")
         }
     )
     libs_needed_el = ET.SubElement(root, "libraries_to_load")
@@ -242,7 +245,7 @@ def build_output_xml(
             libs_needed_el,
             "library",
             key=lib_key,
-            name=libraries.get(lib_key, lib_key),
+            name=libraries.get(lib_key, {}).get("name", lib_key),
         )
         lib_el.text = f'loadlibrary("{lib_key}");'
 
@@ -290,7 +293,7 @@ def build_output_xml(
             macro_el,
             "library",
             key=local.get("library", ""),
-            name=libraries.get(local.get("library", ""), local.get("library", "")),
+            name=libraries.get(local.get("library", ""), {}).get("name", local.get("library", "")),
         )
         add_text_element(macro_el, "signature", local.get("signature", ""))
         add_text_element(macro_el, "description", local.get("description", ""))
@@ -361,7 +364,7 @@ def main() -> int:
         lib_keys = sorted({info.get("library", "") for info in local_macros.values() if info.get("library")})
         print(f"\nAvailable Libraries ({len(lib_keys)}):")
         for lib_key in lib_keys:
-            print(f"  - {lib_key:<28} ({libraries.get(lib_key, lib_key)})")
+            print(f"  - {lib_key:<28} ({libraries.get(lib_key, {}).get('name', lib_key)})")
         return 0
 
     if args.search:
@@ -379,7 +382,7 @@ def main() -> int:
             for result in results:
                 info = local_macros[result]
                 lib_key = info.get("library", "")
-                lib_display = libraries.get(lib_key, lib_key) if lib_key else "built-in"
+                lib_display = libraries.get(lib_key, {}).get("name", lib_key) if lib_key else "built-in"
                 print(f"  - {result:<32} | {lib_display}")
         print("\nUse 'lookup_macro_with_goldens.py <macro_name>' for detailed XML lookup with golden examples.")
         print(SEPARATOR)
