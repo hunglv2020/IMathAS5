@@ -41,6 +41,22 @@ _Last updated: 2026-06-07_
 
 ---
 
+### `snapshot-seed`
+| Thuộc tính | Giá trị |
+|---|---|
+| **Role** | Chụp snapshot toàn bộ render output của một seed vào `seeds/{N}/` folder |
+| **Version** | 1.0.0 |
+| **Status** | Stable |
+| **Trigger** | "snapshot seed", "seed snapshot", "render snapshot", "chụp seed", "snapshot từ seed" |
+| **Inputs** | `context/active_qt.md`, `questions/qt-{id}/imathas/` template files |
+| **Outputs** | `questions/qt-{id}/seeds/{N}/question_asciimath.txt`, `question_md.txt`, `solution_asciimath.txt`, `solution_md.txt`, `variable_values.txt` |
+| **Không làm** | Viết vào `static/`, authoring, curriculum scope check |
+| **Render errors** | Không hard stop — lưu vào `errors.txt` / `warnings.txt` trong seed folder |
+| **Default seed** | 1 |
+| **SKILL.md** | `.agents/skills/snapshot-seed/SKILL.md` |
+
+---
+
 ### `generate-blueprint`
 | Thuộc tính | Giá trị |
 |---|---|
