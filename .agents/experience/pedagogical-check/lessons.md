@@ -6,6 +6,7 @@ Each entry records a non-obvious lesson from a specific run that is useful for f
 ---
 
 ## Quick Index (AI-maintained)
+- REVIEW: `T(e_1), T(e_2)` reframing can reduce source overlap but may import prerequisite notation into a later-unit task (2026-06-18)
 - REVIEW: u-form antiderivative with x-bounds → step_clarity issue, not accuracy (2026-04-22)
 - REVIEW: solution should keep derivative notation consistent and make rule transitions explicit (2026-04-23)
 - REVIEW: tangent-by-discriminant needs a one-intersection bridge, not a scope flag (2026-04-23)
@@ -70,3 +71,10 @@ Each entry records a non-obvious lesson from a specific run that is useful for f
 **Context:** Applied Calculus §8.3 maximizing-revenue template (Case 13): revenue optimization via partial derivatives.
 **Lesson:** In a multivariable-extrema unit, wording like "set `R_u=0` and `R_v=0` to locate the relative maximum" is a pedagogical red flag. Solving the first-order system identifies the critical point only; the solution must add an explicit classification bridge, typically the second derivative test or a clear concavity argument, before claiming a maximum. Route this as `step_clarity` P1 rather than a scope complaint.
 **Applies to:** REVIEW — step clarity and method framing in optimization solutions
+
+---
+
+**Date:** 2026-06-18
+**Context:** Linear Algebra §5.6 discrete dynamical systems static question; copyright-driven surface rewrite away from direct matrix-statement wording.
+**Lesson:** Reframing a matrix dynamical-system prompt as a linear transformation specified by `T(e_1)` and `T(e_2)` is mathematically valid and can materially reduce surface overlap with the source problem, but it imports prerequisite notation from Chapter 1 into a Chapter 5 task. Treat this as a pedagogical tradeoff, not an automatic win: if using the reframing, define `e_1` and `e_2` explicitly and check whether the unit-facing question still reads more naturally than a direct `A`-matrix statement.
+**Applies to:** REVIEW and PATCH — copyright-driven surface changes in linear algebra questions
