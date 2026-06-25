@@ -1,683 +1,226 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="7.8" title="Solving Systems with Cramer's Rule">
-  <learning_objectives>
-    <objective number="" />
-    <objective number="" />
-    <objective number="" />
-    <objective number="" />
-    <objective number="" />
-  </learning_objectives>
-  <p>We have learned how to solve systems of equations in two variables and three variables, and by multiple methods: substitution, addition, Gaussian elimination, using the inverse of a matrix, and graphing. Some of these methods are easier to apply than others and are more appropriate in certain situations. In this section, we will study two more strategies for solving systems of equations.</p>
-  <subsection title="Evaluating the Determinant of a 2×2 Matrix">
-    <p>A determinant is a real number that can be very useful in mathematics because it has multiple applications, such as calculating area, volume, and other quantities. Here, we will use determinants to reveal whether a matrix is invertible by using the entries of a square matrix to determine whether there is a solution to the system of equations. Perhaps one of the more interesting applications, however, is their use in cryptography. Secure signals or messages are sometimes sent encoded in a matrix. The data can only be decrypted with an invertible matrix and the determinant. For our purposes, we focus on the determinant as an indication of the invertibility of the matrix. Calculating the determinant of a matrix involves following the specific patterns that are outlined in this section.</p>
-    <note type="Find the Determinant of a 2 × 2 Matrix">
-      <p>The determinant of a $$2 \times 2$$ matrix, given</p>
-      <equation>$$A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix}$$</equation>
-      <p>is defined as</p>
-      <p>Notice the change in notation. There are several ways to indicate the determinant, including $$\det(A)$$ and replacing the brackets in a matrix with straight lines, $$|A|.$$</p>
-    </note>
-    <example number="1">
-      <problem>
-        <title>Finding the Determinant of a 2 × 2 Matrix</title>
-        <p>Find the determinant of the given matrix.</p>
-        <equation>$$A = \begin{bmatrix} 5 &amp; 2 \\ {- 6} &amp; 3 \end{bmatrix}$$</equation>
-      </problem>
-      <solution>
-        <equation>$$\begin{array}{l} {\det(A) = \left| \begin{array}{ll} 5 &amp; 2 \\ {- 6} &amp; 3 \end{array} \right|} \\ {= 5(3) - (-6)(2)} \\ {= 27} \end{array}$$</equation>
-      </solution>
-    </example>
-  </subsection>
-  <subsection title="Using Cramer’s Rule to Solve a System of Two Equations in Two Variables">
-    <p>We will now introduce a final method for solving systems of equations that uses determinants. Known as Cramer’s Rule, this technique dates back to the middle of the 18th century and is named for its innovator, the Swiss mathematician Gabriel Cramer (1704-1752), who introduced it in 1750 in Introduction à l'Analyse des lignes Courbes algébriques. Cramer’s Rule is a viable and efficient method for finding solutions to systems with an arbitrary number of unknowns, provided that we have the same number of equations as unknowns.</p>
-    <p>Cramer’s Rule will give us the unique solution to a system of equations, if it exists. However, if the system has no solution or an infinite number of solutions, this will be indicated by a determinant of zero. To find out if the system is inconsistent or dependent, another method, such as elimination, will have to be used.</p>
-    <p>To understand Cramer’s Rule, let’s look closely at how we solve systems of linear equations using basic row operations. Consider a system of two equations in two variables.</p>
-    <equation>$$\begin{matrix} {a_{1}x + b_{1}y = c_{1}\mspace{9mu}(1)} \\ {a_{2}x + b_{2}y = c_{2}\mspace{9mu}(2)} \end{matrix}$$</equation>
-    <p>We eliminate one variable using row operations and solve for the other. Say that we wish to solve for $$x.$$ If equation (2) is multiplied by the opposite of the coefficient of $$y$$ in equation (1), equation (1) is multiplied by the coefficient of $$y$$ in equation (2), and we add the two equations, the variable $$y$$ will be eliminated.</p>
-    <equation>$$\begin{array}{l} \underset{\operatorname{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}{\begin{array}{llll} &amp; &amp; &amp; \\ {b_{2}a_{1}x + b_{2}b_{1}y = b_{2}c_{1}} &amp; &amp; &amp; {\text{Multiply~}R_{1}\mspace{9mu}\text{by~}b_{2}} \\ {- b_{1}a_{2}x - b_{1}b_{2}y = - b_{1}c_{2}} &amp; &amp; &amp; {\text{Multiply~}R_{2}\mspace{9mu}\text{by} - b_{1}} \end{array}} \\ \begin{array}{ll} {~b_{2}a_{1}x - b_{1}a_{2}x = b_{2}c_{1} - b_{1}c_{2}} &amp; \end{array} \end{array}$$</equation>
-    <p>Now, solve for $$x.$$</p>
-    <equation>$$\begin{array}{l} {b_{2}a_{1}x - b_{1}a_{2}x = b_{2}c_{1} - b_{1}c_{2}} \\ {x(b_{2}a_{1} - b_{1}a_{2}) = b_{2}c_{1} - b_{1}c_{2}} \\ {\text{~~~~~~~~~~~~~~~~~~~~~~}x = \frac{b_{2}c_{1} - b_{1}c_{2}}{b_{2}a_{1} - b_{1}a_{2}} = \frac{\left| \begin{array}{ll} c_{1} &amp; b_{1} \\ c_{2} &amp; b_{2} \end{array} \right|}{\left| \begin{array}{ll} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{array} \right|}} \end{array}$$</equation>
-    <p>Similarly, to solve for $$y,$$ we will eliminate $$x.$$</p>
-    <equation>$$\begin{array}{l} \underset{\operatorname{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}{\begin{array}{llll} &amp; &amp; &amp; \\ {a_{2}a_{1}x + a_{2}b_{1}y = a_{2}c_{1}} &amp; &amp; &amp; {\text{Multiply~}R_{1}\mspace{9mu}\text{by~}a_{2}} \\ {- a_{1}a_{2}x - a_{1}b_{2}y = - a_{1}c_{2}} &amp; &amp; &amp; {\text{Multiply~}R_{2}\mspace{9mu}\text{by} - a_{1}} \end{array}} \\ \begin{array}{ll} {a_{2}b_{1}y - a_{1}b_{2}y = a_{2}c_{1} - a_{1}c_{2}} &amp; \end{array} \end{array}$$</equation>
-    <p>Solving for $$y$$ gives</p>
-    <equation>$$\begin{array}{l} {a_{2}b_{1}y - a_{1}b_{2}y = a_{2}c_{1} - a_{1}c_{2}} \\ {y(a_{2}b_{1} - a_{1}b_{2}) = a_{2}c_{1} - a_{1}c_{2}} \\ {\text{~~~~~~~~~~~~~~~~~~~~~~~}y = \frac{a_{2}c_{1} - a_{1}c_{2}}{a_{2}b_{1} - a_{1}b_{2}} = \frac{a_{1}c_{2} - a_{2}c_{1}}{a_{1}b_{2} - a_{2}b_{1}} = \frac{\left| \begin{array}{ll} a_{1} &amp; c_{1} \\ a_{2} &amp; c_{2} \end{array} \right|}{\left| \begin{array}{ll} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{array} \right|}} \end{array}$$</equation>
-    <p>Notice that the denominator for both $$x$$ and $$y$$ is the determinant of the coefficient matrix.</p>
-    <p>We can use these formulas to solve for $$x$$ and $$y,$$ but Cramer’s Rule also introduces new notation:</p>
-    <list type="ul">
-      <item>$$D:$$ determinant of the coefficient matrix</item>
-      <item>determinant of the numerator in the solution of<equation>$$D_{x}:$$</equation>
-        <equation>$$x$$</equation>
-        <equation>$$x = \frac{D_{x}}{D}$$</equation>
-      </item>
-      <item>determinant of the numerator in the solution of<equation>$$D_{y}:$$</equation>
-        <equation>$$y$$</equation>
-        <equation>$$y = \frac{D_{y}}{D}$$</equation>
-      </item>
-    </list>
-    <p>The key to Cramer’s Rule is replacing the variable column of interest with the constant column and calculating the determinants. We can then express $$x$$ and $$y$$ as a quotient of two determinants.</p>
-    <note type="Cramer’s Rule for 2×2 Systems">
-      <p>Cramer’s Rule is a method that uses determinants to solve systems of equations that have the same number of equations as variables.</p>
-      <p>Consider a system of two linear equations in two variables.</p>
-      <equation>$$\begin{matrix} {a_{1}x + b_{1}y = c_{1}} \\ {a_{2}x + b_{2}y = c_{2}} \end{matrix}$$</equation>
-      <p>The solution using Cramer’s Rule is given as</p>
-      <equation>$$x = \frac{D_{x}}{D} = \frac{\left| \begin{matrix} c_{1} &amp; b_{1} \\ c_{2} &amp; b_{2} \end{matrix} \right|}{\left| \begin{matrix} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{matrix} \right|},\mspace{9mu} D \neq 0;\mspace{9mu}\mspace{9mu} y = \frac{D_{y}}{D} = \frac{\left| \begin{matrix} a_{1} &amp; c_{1} \\ a_{2} &amp; c_{2} \end{matrix} \right|}{\left| \begin{matrix} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{matrix} \right|},\mspace{9mu} D \neq 0.$$</equation>
-      <p>If we are solving for $$x,$$ the $$x$$ column is replaced with the constant column. If we are solving for $$y,$$ the $$y$$ column is replaced with the constant column.</p>
-    </note>
-    <example number="2">
-      <problem>
-        <title>Using Cramer’s Rule to Solve a 2 × 2 System</title>
-        <p>Solve the following $$2 \times 2$$ system using Cramer’s Rule.</p>
-        <equation>$$\begin{matrix} {12x + 3y = 15} \\ {\ 2x - 3y = 13} \end{matrix}$$</equation>
-      </problem>
-      <solution>
-        <p>Solve for $$x.$$</p>
-        <equation>$$x = \frac{D_{x}}{D} = \frac{\left| \begin{array}{rr} 15 &amp; 3 \\ 13 &amp; {- 3} \end{array} \right|}{\left| \begin{array}{rr} 12 &amp; 3 \\ 2 &amp; {- 3} \end{array} \right|} = \frac{- 45 - 39}{- 36 - 6} = \frac{- 84}{- 42} = 2$$</equation>
-        <p>Solve for $$y.$$</p>
-        <equation>$$y = \frac{D_{y}}{D} = \frac{\left| \begin{array}{rr} 12 &amp; 15 \\ 2 &amp; 13 \end{array} \right|}{\left| \begin{array}{rr} 12 &amp; 3 \\ 2 &amp; {- 3} \end{array} \right|} = \frac{156 - 30}{- 36 - 6} = - \frac{126}{42} = -3$$</equation>
-        <p>The solution is $$\left( {2,-3} \right).$$</p>
-      </solution>
-    </example>
-    <note type="Try It" number="#1">
-      <p>Use Cramer’s Rule to solve the 2 × 2 system of equations.</p>
-      <equation>$$\begin{array}{l} {\ x + 2y = -11} \\ {- 2x + y = -13} \end{array}$$</equation>
-    </note>
-  </subsection>
-  <subsection title="Evaluating the Determinant of a 3 × 3 Matrix">
-    <p>Finding the determinant of a 2×2 matrix is straightforward, but finding the determinant of a 3×3 matrix is more complicated. One method is to augment the 3×3 matrix with a repetition of the first two columns, giving a 3×5 matrix. Then we calculate the sum of the products of entries down each of the three diagonals (upper left to lower right), and subtract the products of entries up each of the three diagonals (lower left to upper right). This is more easily understood with a visual and an example.</p>
-    <p>Find the determinant of the 3×3 matrix.</p>
-    <equation>$$A = \begin{bmatrix} a_{1} &amp; b_{1} &amp; c_{1} \\ a_{2} &amp; b_{2} &amp; c_{2} \\ a_{3} &amp; b_{3} &amp; c_{3} \end{bmatrix}$$</equation>
-    <list type="ol" style="1">
-      <item>Augmentwith the first two columns.<equation>$$A$$</equation>
-        <equation>$$\det(A) = \left| {\begin{matrix} a_{1} &amp; b_{1} &amp; c_{1} \\ a_{2} &amp; b_{2} &amp; c_{2} \\ a_{3} &amp; b_{3} &amp; c_{3} \end{matrix}\left| \begin{matrix} a_{1} \\ a_{2} \\ a_{3} \end{matrix} \right.\begin{matrix} b_{1} \\ b_{2} \\ b_{3} \end{matrix}} \right|$$</equation>
-      </item>
-      <item>From upper left to lower right: Multiply the entries down the first diagonal. Add the result to the product of entries down the second diagonal. Add this result to the product of the entries down the third diagonal.</item>
-      <item>From lower left to upper right: Subtract the product of entries up the first diagonal. From this result subtract the product of entries up the second diagonal. From this result, subtract the product of entries up the third diagonal.</item>
-    </list>
-    <p>The algebra is as follows:</p>
-    <equation>$$|A| = a_{1}b_{2}c_{3} + b_{1}c_{2}a_{3} + c_{1}a_{2}b_{3} - a_{3}b_{2}c_{1} - b_{3}c_{2}a_{1} - c_{3}a_{2}b_{1}$$</equation>
-    <example number="3">
-      <problem>
-        <title>Finding the Determinant of a 3 × 3 Matrix</title>
-        <p>Find the determinant of the 3 × 3 matrix given</p>
-        <equation>$$A = \begin{bmatrix} 0 &amp; 2 &amp; 1 \\ 3 &amp; {- 1} &amp; 1 \\ 4 &amp; 0 &amp; 1 \end{bmatrix}$$</equation>
-      </problem>
-      <solution>
-        <p>Augment the matrix with the first two columns and then follow the formula. Thus,</p>
-        <equation>$$\begin{array}{l} {|A| = \left| {\begin{array}{lll} 0 &amp; 2 &amp; 1 \\ 3 &amp; {- 1} &amp; 1 \\ 4 &amp; 0 &amp; 1 \end{array}\left| \begin{array}{l} 0 \\ 3 \\ 4 \end{array} \right.\begin{array}{l} 2 \\ {- 1} \\ 0 \end{array}} \right|} \\ {= 0\left( {- 1} \right)(1) + 2(1)(4) + 1(3)(0) - 4\left( {- 1} \right)(1) - 0(1)(0) - 1(3)(2)} \\ {= 0 + 8 + 0 + 4 - 0 - 6} \\ {= 6} \end{array}$$</equation>
-      </solution>
-    </example>
-    <note type="Try It" number="#2">
-      <p>Find the determinant of the 3 × 3 matrix.</p>
-      <equation>$$\det(A) = \left| \begin{matrix} 1 &amp; {- 3} &amp; 7 \\ 1 &amp; 1 &amp; 1 \\ 1 &amp; {- 2} &amp; 3 \end{matrix} \right|$$</equation>
-    </note>
-    <note type="Q&amp;A">
-      <p>Can we use the same method to find the determinant of a larger matrix?</p>
-      <p>No, this method only works for $$2 \times 2$$ and $$\text{3} \times 3$$ matrices. For larger matrices it is best to use a graphing utility or computer software.</p>
-    </note>
-  </subsection>
-  <subsection title="Using Cramer’s Rule to Solve a System of Three Equations in Three Variables">
-    <p>Now that we can find the determinant of a 3 × 3 matrix, we can apply Cramer’s Rule to solve a system of three equations in three variables. Cramer’s Rule is straightforward, following a pattern consistent with Cramer’s Rule for 2 × 2 matrices. As the order of the matrix increases to 3 × 3, however, there are many more calculations required.</p>
-    <p>When we calculate the determinant to be zero, Cramer’s Rule gives no indication as to whether the system has no solution or an infinite number of solutions. To find out, we have to perform elimination on the system.</p>
-    <p>Consider a 3 × 3 system of equations.</p>
-    <equation>$$x = \frac{D_{x}}{D},y = \frac{D_{y}}{D},z = \frac{D_{z}}{D},D \neq 0$$</equation>
-    <p>where</p>
-    <p>If we are writing the determinant $$D_{x},$$ we replace the $$x$$ column with the constant column. If we are writing the determinant $$D_{y},$$ we replace the $$y$$ column with the constant column. If we are writing the determinant $$D_{z},$$ we replace the $$z$$ column with the constant column. Always check the answer.</p>
-    <example number="4">
-      <problem>
-        <title>Solving a 3 × 3 System Using Cramer’s Rule</title>
-        <p>Find the solution to the given 3 × 3 system using Cramer’s Rule.</p>
-        <equation>$$\begin{matrix} {x + y - z = 6} \\ {3x - 2y + z = -5} \\ {x + 3y - 2z = 14} \end{matrix}$$</equation>
-      </problem>
-      <solution>
-        <p>Use Cramer’s Rule.</p>
-        <equation>$$D = \left| \begin{matrix} 1 &amp; 1 &amp; {- 1} \\ 3 &amp; {- 2} &amp; 1 \\ 1 &amp; 3 &amp; {- 2} \end{matrix} \right|,D_{x} = \left| \begin{matrix} 6 &amp; 1 &amp; {- 1} \\ {- 5} &amp; {- 2} &amp; 1 \\ 14 &amp; 3 &amp; {- 2} \end{matrix} \right|,D_{y} = \left| \begin{matrix} 1 &amp; 6 &amp; {- 1} \\ 3 &amp; {- 5} &amp; 1 \\ 1 &amp; 14 &amp; {- 2} \end{matrix} \right|,D_{z} = \left| \begin{matrix} 1 &amp; 1 &amp; 6 \\ 3 &amp; {- 2} &amp; {- 5} \\ 1 &amp; 3 &amp; 14 \end{matrix} \right|$$</equation>
-        <p>Then,</p>
-        <equation>$$\begin{array}{l} {x = \frac{D_{x}}{D} = \frac{- 3}{- 3} = 1} \\ {y = \frac{D_{y}}{D} = \frac{- 9}{- 3} = 3} \\ {z = \frac{D_{z}}{D} = \frac{6}{- 3} = - 2} \end{array}$$</equation>
-        <p>The solution is $$\left( {1,3,-2} \right).$$</p>
-      </solution>
-    </example>
-    <note type="Try It" number="#3">
-      <p>Use Cramer’s Rule to solve the 3 × 3 matrix.</p>
-      <equation>$$\begin{array}{r} {x - 3y + 7z = 13} \\ {x + y + z = 1} \\ {x - 2y + 3z = 4} \end{array}$$</equation>
-    </note>
-    <example number="5">
-      <problem>
-        <title>Using Cramer’s Rule to Solve an Inconsistent System</title>
-        <p>Solve the system of equations using Cramer’s Rule.</p>
-        <equation>$$\begin{array}{l} {3x - 2y = 4\quad(1)} \\ {6x - 4y = 0\quad(2)} \end{array}$$</equation>
-      </problem>
-      <solution>
-        <p>We begin by finding the determinants $$D,D_{x},\text{and~}D_{y}.$$</p>
-        <equation>$$D = \left| \begin{matrix} 3 &amp; {- 2} \\ 6 &amp; {- 4} \end{matrix} \right| = 3\left( {- 4} \right) - 6\left( {- 2} \right) = 0$$</equation>
-        <p>We know that a determinant of zero means that either the system has no solution or it has an infinite number of solutions. To see which one, we use the process of elimination. Our goal is to eliminate one of the variables.</p>
-        <list type="ol" style="1">
-          <item>Multiply equation (1) by $$-2.$$</item>
-          <item>Add the result to equation $$(2).$$</item>
-        </list>
-        <equation>$$\begin{array}{l} \underset{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}{\begin{array}{l} \begin{array}{l} \\ {-6x+4y\mspace{9mu}=-8} \end{array} \\ {6x-4y=0} \end{array}} \\ {0 = -8} \end{array}$$</equation>
-        <p>We obtain the equation $$0 = -8,$$ which is false. Therefore, the system has no solution. Graphing the system reveals two parallel lines. See Figure 1.</p>
-        <image alt="Two parallel lines are graphed on an xy-plane. The blue line represents y = (3/2)x and passes through the origin. The orange line represents y = (3/2)x - 2, with a y-intercept of -2." number="1" />
-      </solution>
-    </example>
-    <example number="6">
-      <problem>
-        <title>Use Cramer’s Rule to Solve a Dependent System</title>
-        <p>Solve the system with an infinite number of solutions.</p>
-        <equation>$$\begin{array}{rr} {x - 2y + 3z = 0} &amp; {(1)} \\ {3x + y - 2z = 0} &amp; {(2)} \\ {2x - 4y + 6z = 0} &amp; {(3)} \end{array}$$</equation>
-      </problem>
-      <solution>
-        <p />
-        <p>Let’s find the determinant first. Set up a matrix augmented by the first two columns.</p>
-        <equation>$$\left| {\begin{array}{rrr} 1 &amp; -2 &amp; 3 \\ 3 &amp; 1 &amp; -2 \\ 2 &amp; -4 &amp; 6 \end{array}\text{~~}\left| {\text{~~}\begin{array}{rr} 1 &amp; -2 \\ 3 &amp; 1 \\ 2 &amp; -4 \end{array}} \right.} \right|$$</equation>
-        <p>Then,</p>
-        <equation>$$1(1)(6) + \left( {- 2} \right)\left( {- 2} \right)(2) + 3(3)\left( {- 4} \right) - 2(1)(3) - \left( {- 4} \right)\left( {- 2} \right)(1) - 6(3)\left( {- 2} \right) = 0$$</equation>
-        <p>As the determinant equals zero, there is either no solution or an infinite number of solutions. We have to perform elimination to find out.</p>
-        <list type="ol" style="1">
-          <item>Multiply equation (1) byand add the result to equation (3):<equation>$$-2$$</equation>
-            <equation>$$\frac{\begin{array}{r} {- 2x + 4y - 6z = 0} \\ {2x - 4y + 6z = 0} \end{array}}{0 = 0}$$</equation>
-          </item>
-          <item>Obtaining an answer of $$0 = 0,$$ a statement that is always true, means that the system has an infinite number of solutions. Graphing the system, we can see that two of the planes are the same and they both intersect the third plane on a line. See Figure 2.</item>
-        </list>
-        <image alt="A blue and a green strip overlap to form an X-shape. Three linear equations are presented: x - 2y + 3z = 0 and 2x - 4y + 6z = 0 are in blue text, while 3x + y + 2z = 0 is in green text. The two blue equations are equivalent, defining a single plane associated with the blue strip. The green equation defines a second, distinct plane associated with the green strip. The intersection of these two planes is represented by the overlapping region of the strips, and a horizontal double-headed arrow spans a portion of this intersection." number="2" />
-      </solution>
-    </example>
-  </subsection>
-  <subsection title="Understanding Properties of Determinants">
-    <p>There are many properties of determinants. Listed here are some properties that may be helpful in calculating the determinant of a matrix.</p>
-    <note type="Properties of Determinants">
-      <list type="ol" style="1">
-        <item>If the matrix is in upper triangular form, the determinant equals the product of entries down the main diagonal.</item>
-        <item>When two rows are interchanged, the determinant changes sign.</item>
-        <item>If either two rows or two columns are identical, the determinant equals zero.</item>
-        <item>If a matrix contains either a row of zeros or a column of zeros, the determinant equals zero.</item>
-        <item>The determinant of an inverse matrix $$A^{- 1}$$ is the reciprocal of the determinant of the matrix $$A.$$</item>
-        <item>If any row or column is multiplied by a constant, the determinant is multiplied by the same factor.</item>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">7.8 Solving Systems with Cramer's Rule</heading>
+  <heading level="2">Learning Objectives</heading>
+  <list type="unordered">
+    <item>Evaluate 2 × 2 determinants.</item>
+    <item>Use Cramer’s Rule to solve a system of equations in two variables.</item>
+    <item>Evaluate 3 × 3 determinants.</item>
+    <item>Use Cramer’s Rule to solve a system of three equations in three variables.</item>
+    <item>Know the properties of determinants.</item>
+  </list>
+  <paragraph>We have learned how to solve systems of equations in two variables and three variables, and by multiple methods: substitution, addition, Gaussian elimination, using the inverse of a matrix, and graphing. Some of these methods are easier to apply than others and are more appropriate in certain situations. In this section, we will study two more strategies for solving systems of equations.</paragraph>
+  <heading level="2">Evaluating the Determinant of a 2×2 Matrix</heading>
+  <paragraph>A determinant is a real number that can be very useful in mathematics because it has multiple applications, such as calculating area, volume, and other quantities. Here, we will use determinants to reveal whether a matrix is invertible by using the entries of a square matrix to determine whether there is a solution to the system of equations. Perhaps one of the more interesting applications, however, is their use in cryptography. Secure signals or messages are sometimes sent encoded in a matrix. The data can only be decrypted with an invertible matrix and the determinant. For our purposes, we focus on the determinant as an indication of the invertibility of the matrix. Calculating the determinant of a matrix involves following the specific patterns that are outlined in this section.</paragraph>
+  <note type="rule" source_type="Find the Determinant of a 2 × 2 Matrix" title="Find the Determinant of a 2 × 2 Matrix">
+    <paragraph>The determinant of a $$2 \times 2$$ matrix, given</paragraph>
+    <paragraph math="block">$$A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix}$$</paragraph>
+    <paragraph>is defined as</paragraph>
+    <paragraph>Notice the change in notation. There are several ways to indicate the determinant, including $$\det(A)$$ and replacing the brackets in a matrix with straight lines, $$|A|.$$</paragraph>
+  </note>
+  <example number="1" title="Finding the Determinant of a 2 × 2 Matrix">
+    <problem>
+      <paragraph>Find the determinant of the given matrix.</paragraph>
+      <paragraph math="block">$$A = \begin{bmatrix} 5 &amp; 2 \\ {- 6} &amp; 3 \end{bmatrix}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph math="block">$$\begin{array}{l} {\det(A) = \left| \begin{array}{ll} 5 &amp; 2 \\ {- 6} &amp; 3 \end{array} \right|} \\ {= 5(3) - (-6)(2)} \\ {= 27} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Using Cramer’s Rule to Solve a System of Two Equations in Two Variables</heading>
+  <paragraph>We will now introduce a final method for solving systems of equations that uses determinants. Known as Cramer’s Rule, this technique dates back to the middle of the 18th century and is named for its innovator, the Swiss mathematician Gabriel Cramer (1704-1752), who introduced it in 1750 in Introduction à l'Analyse des lignes Courbes algébriques. Cramer’s Rule is a viable and efficient method for finding solutions to systems with an arbitrary number of unknowns, provided that we have the same number of equations as unknowns.</paragraph>
+  <paragraph>Cramer’s Rule will give us the unique solution to a system of equations, if it exists. However, if the system has no solution or an infinite number of solutions, this will be indicated by a determinant of zero. To find out if the system is inconsistent or dependent, another method, such as elimination, will have to be used.</paragraph>
+  <paragraph>To understand Cramer’s Rule, let’s look closely at how we solve systems of linear equations using basic row operations. Consider a system of two equations in two variables.</paragraph>
+  <paragraph math="block">$$\begin{matrix} {a_{1}x + b_{1}y = c_{1}(1)} \\ {a_{2}x + b_{2}y = c_{2}(2)} \end{matrix}$$</paragraph>
+  <paragraph>We eliminate one variable using row operations and solve for the other. Say that we wish to solve for $$x.$$ If equation (2) is multiplied by the opposite of the coefficient of $$y$$ in equation (1), equation (1) is multiplied by the coefficient of $$y$$ in equation (2), and we add the two equations, the variable $$y$$ will be eliminated.</paragraph>
+  <paragraph math="block">$$\begin{array}{l} \underset{ \text{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_} }{\begin{array}{llll} &amp; &amp; &amp; \\ {b_{2}a_{1}x + b_{2}b_{1}y = b_{2}c_{1}} &amp; &amp; &amp; { \text{Multiply} R_{1} \text{by} b_{2}} \\ {- b_{1}a_{2}x - b_{1}b_{2}y = - b_{1}c_{2}} &amp; &amp; &amp; { \text{Multiply} R_{2} \text{by} - b_{1}} \end{array}} \\ \begin{array}{ll} { b_{2}a_{1}x - b_{1}a_{2}x = b_{2}c_{1} - b_{1}c_{2}} &amp; \end{array} \end{array}$$</paragraph>
+  <paragraph>Now, solve for $$x.$$</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {b_{2}a_{1}x - b_{1}a_{2}x = b_{2}c_{1} - b_{1}c_{2}} \\ {x(b_{2}a_{1} - b_{1}a_{2}) = b_{2}c_{1} - b_{1}c_{2}} \\ {x = \frac{b_{2}c_{1} - b_{1}c_{2}}{b_{2}a_{1} - b_{1}a_{2}} = \frac{\left| \begin{array}{ll} c_{1} &amp; b_{1} \\ c_{2} &amp; b_{2} \end{array} \right|}{\left| \begin{array}{ll} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{array} \right|}} \end{array}$$</paragraph>
+  <paragraph>Similarly, to solve for $$y,$$ we will eliminate $$x.$$</paragraph>
+  <paragraph math="block">$$\begin{array}{l} \underset{ \text{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_} }{\begin{array}{llll} &amp; &amp; &amp; \\ {a_{2}a_{1}x + a_{2}b_{1}y = a_{2}c_{1}} &amp; &amp; &amp; { \text{Multiply} R_{1} \text{by} a_{2}} \\ {- a_{1}a_{2}x - a_{1}b_{2}y = - a_{1}c_{2}} &amp; &amp; &amp; { \text{Multiply} R_{2} \text{by} - a_{1}} \end{array}} \\ \begin{array}{ll} {a_{2}b_{1}y - a_{1}b_{2}y = a_{2}c_{1} - a_{1}c_{2}} &amp; \end{array} \end{array}$$</paragraph>
+  <paragraph>Solving for $$y$$ gives</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {a_{2}b_{1}y - a_{1}b_{2}y = a_{2}c_{1} - a_{1}c_{2}} \\ {y(a_{2}b_{1} - a_{1}b_{2}) = a_{2}c_{1} - a_{1}c_{2}} \\ {y = \frac{a_{2}c_{1} - a_{1}c_{2}}{a_{2}b_{1} - a_{1}b_{2}} = \frac{a_{1}c_{2} - a_{2}c_{1}}{a_{1}b_{2} - a_{2}b_{1}} = \frac{\left| \begin{array}{ll} a_{1} &amp; c_{1} \\ a_{2} &amp; c_{2} \end{array} \right|}{\left| \begin{array}{ll} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{array} \right|}} \end{array}$$</paragraph>
+  <paragraph>Notice that the denominator for both $$x$$ and $$y$$ is the determinant of the coefficient matrix.</paragraph>
+  <paragraph>We can use these formulas to solve for $$x$$ and $$y,$$ but Cramer’s Rule also introduces new notation:</paragraph>
+  <list type="unordered">
+    <item>$$D:$$ determinant of the coefficient matrix</item>
+    <item>$$D_{x}:$$ determinant of the numerator in the solution of $$x$$ $$x = \frac{D_{x}}{D}$$</item>
+    <item>$$D_{y}:$$ determinant of the numerator in the solution of $$y$$ $$y = \frac{D_{y}}{D}$$</item>
+  </list>
+  <paragraph>The key to Cramer’s Rule is replacing the variable column of interest with the constant column and calculating the determinants. We can then express $$x$$ and $$y$$ as a quotient of two determinants.</paragraph>
+  <note type="rule" source_type="Cramer’s Rule for 2×2 Systems" title="Cramer’s Rule for 2×2 Systems">
+    <paragraph>Cramer’s Rule is a method that uses determinants to solve systems of equations that have the same number of equations as variables.</paragraph>
+    <paragraph>Consider a system of two linear equations in two variables.</paragraph>
+    <paragraph math="block">$$\begin{matrix} {a_{1}x + b_{1}y = c_{1}} \\ {a_{2}x + b_{2}y = c_{2}} \end{matrix}$$</paragraph>
+    <paragraph>The solution using Cramer’s Rule is given as</paragraph>
+    <paragraph math="block">$$x = \frac{D_{x}}{D} = \frac{\left| \begin{matrix} c_{1} &amp; b_{1} \\ c_{2} &amp; b_{2} \end{matrix} \right|}{\left| \begin{matrix} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{matrix} \right|}, D \neq 0; y = \frac{D_{y}}{D} = \frac{\left| \begin{matrix} a_{1} &amp; c_{1} \\ a_{2} &amp; c_{2} \end{matrix} \right|}{\left| \begin{matrix} a_{1} &amp; b_{1} \\ a_{2} &amp; b_{2} \end{matrix} \right|}, D \neq 0.$$</paragraph>
+    <paragraph>If we are solving for $$x,$$ the $$x$$ column is replaced with the constant column. If we are solving for $$y,$$ the $$y$$ column is replaced with the constant column.</paragraph>
+  </note>
+  <example number="2" title="Using Cramer’s Rule to Solve a 2 × 2 System">
+    <problem>
+      <paragraph>Solve the following $$2 \times 2$$ system using Cramer’s Rule.</paragraph>
+      <paragraph math="block">$$\begin{matrix} {12x + 3y = 15} \\ { 2x - 3y = 13} \end{matrix}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Solve for $$x.$$</paragraph>
+      <paragraph math="block">$$x = \frac{D_{x}}{D} = \frac{\left| \begin{array}{rr} 15 &amp; 3 \\ 13 &amp; {- 3} \end{array} \right|}{\left| \begin{array}{rr} 12 &amp; 3 \\ 2 &amp; {- 3} \end{array} \right|} = \frac{- 45 - 39}{- 36 - 6} = \frac{- 84}{- 42} = 2$$</paragraph>
+      <paragraph>Solve for $$y.$$</paragraph>
+      <paragraph math="block">$$y = \frac{D_{y}}{D} = \frac{\left| \begin{array}{rr} 12 &amp; 15 \\ 2 &amp; 13 \end{array} \right|}{\left| \begin{array}{rr} 12 &amp; 3 \\ 2 &amp; {- 3} \end{array} \right|} = \frac{156 - 30}{- 36 - 6} = - \frac{126}{42} = -3$$</paragraph>
+      <paragraph>The solution is $$\left( {2,-3} \right).$$</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="#1">
+    <paragraph>Use Cramer’s Rule to solve the 2 × 2 system of equations.</paragraph>
+    <paragraph math="block">$$\begin{array}{l} { x + 2y = -11} \\ {- 2x + y = -13} \end{array}$$</paragraph>
+  </note>
+  <heading level="2">Evaluating the Determinant of a 3 × 3 Matrix</heading>
+  <paragraph>Finding the determinant of a 2×2 matrix is straightforward, but finding the determinant of a 3×3 matrix is more complicated. One method is to augment the 3×3 matrix with a repetition of the first two columns, giving a 3×5 matrix. Then we calculate the sum of the products of entries down each of the three diagonals (upper left to lower right), and subtract the products of entries up each of the three diagonals (lower left to upper right). This is more easily understood with a visual and an example.</paragraph>
+  <paragraph>Find the determinant of the 3×3 matrix.</paragraph>
+  <paragraph math="block">$$A = \begin{bmatrix} a_{1} &amp; b_{1} &amp; c_{1} \\ a_{2} &amp; b_{2} &amp; c_{2} \\ a_{3} &amp; b_{3} &amp; c_{3} \end{bmatrix}$$</paragraph>
+  <list type="ordered">
+    <item>Augment $$A$$ with the first two columns. $$\det(A) = \left| {\begin{matrix} a_{1} &amp; b_{1} &amp; c_{1} \\ a_{2} &amp; b_{2} &amp; c_{2} \\ a_{3} &amp; b_{3} &amp; c_{3} \end{matrix}\left| \begin{matrix} a_{1} \\ a_{2} \\ a_{3} \end{matrix} \right.\begin{matrix} b_{1} \\ b_{2} \\ b_{3} \end{matrix}} \right|$$</item>
+    <item>From upper left to lower right: Multiply the entries down the first diagonal. Add the result to the product of entries down the second diagonal. Add this result to the product of the entries down the third diagonal.</item>
+    <item>From lower left to upper right: Subtract the product of entries up the first diagonal. From this result subtract the product of entries up the second diagonal. From this result, subtract the product of entries up the third diagonal.</item>
+  </list>
+  <paragraph>The algebra is as follows:</paragraph>
+  <paragraph math="block">$$|A| = a_{1}b_{2}c_{3} + b_{1}c_{2}a_{3} + c_{1}a_{2}b_{3} - a_{3}b_{2}c_{1} - b_{3}c_{2}a_{1} - c_{3}a_{2}b_{1}$$</paragraph>
+  <example number="3" title="Finding the Determinant of a 3 × 3 Matrix">
+    <problem>
+      <paragraph>Find the determinant of the 3 × 3 matrix given</paragraph>
+      <paragraph math="block">$$A = \begin{bmatrix} 0 &amp; 2 &amp; 1 \\ 3 &amp; {- 1} &amp; 1 \\ 4 &amp; 0 &amp; 1 \end{bmatrix}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Augment the matrix with the first two columns and then follow the formula. Thus,</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {|A| = \left| {\begin{array}{lll} 0 &amp; 2 &amp; 1 \\ 3 &amp; {- 1} &amp; 1 \\ 4 &amp; 0 &amp; 1 \end{array}\left| \begin{array}{l} 0 \\ 3 \\ 4 \end{array} \right.\begin{array}{l} 2 \\ {- 1} \\ 0 \end{array}} \right|} \\ {= 0\left( {- 1} \right)(1) + 2(1)(4) + 1(3)(0) - 4\left( {- 1} \right)(1) - 0(1)(0) - 1(3)(2)} \\ {= 0 + 8 + 0 + 4 - 0 - 6} \\ {= 6} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="#2">
+    <paragraph>Find the determinant of the 3 × 3 matrix.</paragraph>
+    <paragraph math="block">$$\det(A) = \left| \begin{matrix} 1 &amp; {- 3} &amp; 7 \\ 1 &amp; 1 &amp; 1 \\ 1 &amp; {- 2} &amp; 3 \end{matrix} \right|$$</paragraph>
+  </note>
+  <note type="sidebar" source_type="Q&amp;A" title="Q&amp;A">
+    <paragraph>Can we use the same method to find the determinant of a larger matrix?</paragraph>
+    <paragraph>No, this method only works for $$2 \times 2$$ and $$\text{3} \times 3$$ matrices. For larger matrices it is best to use a graphing utility or computer software.</paragraph>
+  </note>
+  <heading level="2">Using Cramer’s Rule to Solve a System of Three Equations in Three Variables</heading>
+  <paragraph>Now that we can find the determinant of a 3 × 3 matrix, we can apply Cramer’s Rule to solve a system of three equations in three variables. Cramer’s Rule is straightforward, following a pattern consistent with Cramer’s Rule for 2 × 2 matrices. As the order of the matrix increases to 3 × 3, however, there are many more calculations required.</paragraph>
+  <paragraph>When we calculate the determinant to be zero, Cramer’s Rule gives no indication as to whether the system has no solution or an infinite number of solutions. To find out, we have to perform elimination on the system.</paragraph>
+  <paragraph>Consider a 3 × 3 system of equations.</paragraph>
+  <paragraph math="block">$$x = \frac{D_{x}}{D},y = \frac{D_{y}}{D},z = \frac{D_{z}}{D},D \neq 0$$</paragraph>
+  <paragraph>where</paragraph>
+  <paragraph>If we are writing the determinant $$D_{x},$$ we replace the $$x$$ column with the constant column. If we are writing the determinant $$D_{y},$$ we replace the $$y$$ column with the constant column. If we are writing the determinant $$D_{z},$$ we replace the $$z$$ column with the constant column. Always check the answer.</paragraph>
+  <example number="4" title="Solving a 3 × 3 System Using Cramer’s Rule">
+    <problem>
+      <paragraph>Find the solution to the given 3 × 3 system using Cramer’s Rule.</paragraph>
+      <paragraph math="block">$$\begin{matrix} {x + y - z = 6} \\ {3x - 2y + z = -5} \\ {x + 3y - 2z = 14} \end{matrix}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Use Cramer’s Rule.</paragraph>
+      <paragraph math="block">$$D = \left| \begin{matrix} 1 &amp; 1 &amp; {- 1} \\ 3 &amp; {- 2} &amp; 1 \\ 1 &amp; 3 &amp; {- 2} \end{matrix} \right|,D_{x} = \left| \begin{matrix} 6 &amp; 1 &amp; {- 1} \\ {- 5} &amp; {- 2} &amp; 1 \\ 14 &amp; 3 &amp; {- 2} \end{matrix} \right|,D_{y} = \left| \begin{matrix} 1 &amp; 6 &amp; {- 1} \\ 3 &amp; {- 5} &amp; 1 \\ 1 &amp; 14 &amp; {- 2} \end{matrix} \right|,D_{z} = \left| \begin{matrix} 1 &amp; 1 &amp; 6 \\ 3 &amp; {- 2} &amp; {- 5} \\ 1 &amp; 3 &amp; 14 \end{matrix} \right|$$</paragraph>
+      <paragraph>Then,</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {x = \frac{D_{x}}{D} = \frac{- 3}{- 3} = 1} \\ {y = \frac{D_{y}}{D} = \frac{- 9}{- 3} = 3} \\ {z = \frac{D_{z}}{D} = \frac{6}{- 3} = - 2} \end{array}$$</paragraph>
+      <paragraph>The solution is $$\left( {1,3,-2} \right).$$</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="#3">
+    <paragraph>Use Cramer’s Rule to solve the 3 × 3 matrix.</paragraph>
+    <paragraph math="block">$$\begin{array}{r} {x - 3y + 7z = 13} \\ {x + y + z = 1} \\ {x - 2y + 3z = 4} \end{array}$$</paragraph>
+  </note>
+  <example number="5" title="Using Cramer’s Rule to Solve an Inconsistent System">
+    <problem>
+      <paragraph>Solve the system of equations using Cramer’s Rule.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {3x - 2y = 4 (1)} \\ {6x - 4y = 0 (2)} \end{array}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>We begin by finding the determinants $$D,D_{x}, \text{and} D_{y}.$$</paragraph>
+      <paragraph math="block">$$D = \left| \begin{matrix} 3 &amp; {- 2} \\ 6 &amp; {- 4} \end{matrix} \right| = 3\left( {- 4} \right) - 6\left( {- 2} \right) = 0$$</paragraph>
+      <paragraph>We know that a determinant of zero means that either the system has no solution or it has an infinite number of solutions. To see which one, we use the process of elimination. Our goal is to eliminate one of the variables.</paragraph>
+      <list type="ordered">
+        <item>Multiply equation (1) by $$-2.$$</item>
+        <item>Add the result to equation $$(2).$$</item>
       </list>
-    </note>
-    <example number="7">
-      <problem>
-        <title>Illustrating Properties of Determinants</title>
-        <p>Illustrate each of the properties of determinants.</p>
-      </problem>
-      <solution>
-        <p>Property 1 states that if the matrix is in upper triangular form, the determinant is the product of the entries down the main diagonal.</p>
-        <equation>$$A = \left\lbrack \begin{array}{rrr} 1 &amp; 2 &amp; 3 \\ 0 &amp; 2 &amp; 1 \\ 0 &amp; 0 &amp; {- 1} \end{array} \right\rbrack$$</equation>
-        <p>Augment $$A$$ with the first two columns.</p>
-        <equation>$$A = \left\lbrack {\begin{matrix} 1 &amp; 2 &amp; 3 \\ 0 &amp; 2 &amp; 1 \\ 0 &amp; 0 &amp; {- 1} \end{matrix}\left| \begin{matrix} 1 \\ 0 \\ 0 \end{matrix} \right.\begin{matrix} 2 \\ 2 \\ 0 \end{matrix}} \right\rbrack$$</equation>
-        <p>Then</p>
-        <equation>$$\begin{array}{l} {\det(A) = 1(2)(-1) + 2(1)(0) + 3(0)(0) - 0(2)(3) - 0(1)(1) + 1(0)(2)} \\ {= -2} \end{array}$$</equation>
-        <p>Property 2 states that interchanging rows changes the sign. Given</p>
-        <equation>$$\begin{array}{l} \begin{array}{l} \\ {A = \left\lbrack \begin{array}{ll} -1 &amp; 5 \\ 4 &amp; -3 \end{array} \right\rbrack,\mspace{9mu}\det(A) = (-1)(-3) - (4)(5) = 3 - 20 = -17} \end{array} \\ \\ {B = \left\lbrack \begin{array}{ll} 4 &amp; {- 3} \\ {- 1} &amp; 5 \end{array} \right\rbrack,\mspace{9mu}\det(B) = (4)(5) - (-1)(-3) = 20 - 3 = 17} \end{array}$$</equation>
-        <p>Property 3 states that if two rows or two columns are identical, the determinant equals zero.</p>
-        <equation>$$\begin{array}{l} {A = \left\lbrack {\begin{array}{lll} 1 &amp; 2 &amp; 2 \\ 2 &amp; 2 &amp; 2 \\ -1 &amp; 2 &amp; 2 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{l} 1 \\ 2 \\ -1 \end{array}~\begin{array}{l} 2 \\ 2 \\ 2 \end{array}} \right.} \right\rbrack} \\ \\ {\det(A) = 1(2)(2) + 2(2)(-1) + 2(2)(2) + 1(2)(2) - 2(2)(1) - 2(2)(2)} \\ {= 4 - 4 + 8 + 4 - 4 - 8 = 0} \end{array}$$</equation>
-        <p>Property 4 states that if a row or column equals zero, the determinant equals zero. Thus,</p>
-        <equation>$$A = \begin{bmatrix} 1 &amp; 2 \\ 0 &amp; 0 \end{bmatrix},\mspace{9mu}\det(A) = 1(0) - 2(0) = 0$$</equation>
-        <p>Property 5 states that the determinant of an inverse matrix $$A^{- 1}$$ is the reciprocal of the determinant $$A.$$ Thus,</p>
-        <equation>$$\begin{array}{l} {A = \left\lbrack \begin{array}{ll} 1 &amp; 2 \\ 3 &amp; 4 \end{array} \right\rbrack,\det(A) = 1(4) - 3(2) = -2} \\ \\ {A^{- 1} = \left\lbrack \begin{array}{ll} {- 2} &amp; 1 \\ \frac{3}{2} &amp; {- \frac{1}{2}} \end{array} \right\rbrack,\det\left( A^{- 1} \right) = - 2\left( {- \frac{1}{2}} \right) - \left( \frac{3}{2} \right)(1) = - \frac{1}{2}} \end{array}$$</equation>
-        <p>Property 6 states that if any row or column of a matrix is multiplied by a constant, the determinant is multiplied by the same factor. Thus,</p>
-        <equation>$$\begin{array}{l} {A = \left\lbrack \begin{array}{ll} 1 &amp; 2 \\ 3 &amp; 4 \end{array} \right\rbrack,\det(A) = 1(4) - 2(3) = -2} \\ \\ {B = \left\lbrack \begin{array}{ll} {2(1)} &amp; {2(2)} \\ 3 &amp; 4 \end{array} \right\rbrack,\det(B) = 2(4) - 3(4) = -4} \end{array}$$</equation>
-      </solution>
-    </example>
-    <example number="8">
-      <problem>
-        <title>Using Cramer’s Rule and Determinant Properties to Solve a System</title>
-        <p>Find the solution to the given 3 × 3 system.</p>
-        <equation>$$\begin{array}{ll} {2x + 4y + 4z = 2} &amp; {(1)} \\ {3x + 7y + 7z = -5} &amp; {(2)} \\ {\ x + 2y + 2z = 4} &amp; {(3)} \end{array}$$</equation>
-      </problem>
-      <solution>
-        <p>Using Cramer’s Rule, we have</p>
-        <equation>$$D = \left| \begin{matrix} 2 &amp; 4 &amp; 4 \\ 3 &amp; 7 &amp; 7 \\ 1 &amp; 2 &amp; 2 \end{matrix} \right|$$</equation>
-        <p>Notice that the second and third columns are identical. According to Property 3, the determinant will be zero, so there is either no solution or an infinite number of solutions. We have to perform elimination to find out.</p>
-        <list type="ol" style="1">
-          <item>Multiply equation (3) by –2 and add the result to equation (1).<equation>$$\frac{\begin{array}{l} {- 2x - 4y - 4x = - 8} \\ {\mspace{9mu}\text{~~}2x + 4y + 4z = 2\mspace{9mu}} \end{array}}{\mspace{9mu} 0 = - 6}$$</equation>
-          </item>
-        </list>
-        <p>Obtaining a statement that is a contradiction means that the system has no solution.</p>
-      </solution>
-    </example>
-    <note type="Media">
-      <p>Access these online resources for additional instruction and practice with Cramer’s Rule.</p>
-      <list type="ul">
-        <item>Solve a System of Two Equations Using Cramer's Rule</item>
-        <item>Solve a Systems of Three Equations using Cramer's Rule</item>
+      <paragraph math="block">$$\begin{array}{l} \underset{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}{\begin{array}{l} \begin{array}{l} \\ {-6x+4y=-8} \end{array} \\ {6x-4y=0} \end{array}} \\ {0 = -8} \end{array}$$</paragraph>
+      <paragraph>We obtain the equation $$0 = -8,$$ which is false. Therefore, the system has no solution. Graphing the system reveals two parallel lines. See Figure 1.</paragraph>
+      <figure number="1">
+        <image alt="Two parallel lines are graphed on an xy-plane. The blue line represents y = (3/2)x and passes through the origin. The orange line represents y = (3/2)x - 2, with a y-intercept of -2."/>
+      </figure>
+    </solution>
+  </example>
+  <example number="6" title="Use Cramer’s Rule to Solve a Dependent System">
+    <problem>
+      <paragraph>Solve the system with an infinite number of solutions.</paragraph>
+      <paragraph math="block">$$\begin{array}{rr} {x - 2y + 3z = 0} &amp; {(1)} \\ {3x + y - 2z = 0} &amp; {(2)} \\ {2x - 4y + 6z = 0} &amp; {(3)} \end{array}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let’s find the determinant first. Set up a matrix augmented by the first two columns.</paragraph>
+      <paragraph math="block">$$\left| {\begin{array}{rrr} 1 &amp; -2 &amp; 3 \\ 3 &amp; 1 &amp; -2 \\ 2 &amp; -4 &amp; 6 \end{array}\left| {\begin{array}{rr} 1 &amp; -2 \\ 3 &amp; 1 \\ 2 &amp; -4 \end{array}} \right.} \right|$$</paragraph>
+      <paragraph>Then,</paragraph>
+      <paragraph math="block">$$1(1)(6) + \left( {- 2} \right)\left( {- 2} \right)(2) + 3(3)\left( {- 4} \right) - 2(1)(3) - \left( {- 4} \right)\left( {- 2} \right)(1) - 6(3)\left( {- 2} \right) = 0$$</paragraph>
+      <paragraph>As the determinant equals zero, there is either no solution or an infinite number of solutions. We have to perform elimination to find out.</paragraph>
+      <list type="ordered">
+        <item>Multiply equation (1) by $$-2$$ and add the result to equation (3): $$\frac{\begin{array}{r} {- 2x + 4y - 6z = 0} \\ {2x - 4y + 6z = 0} \end{array}}{0 = 0}$$</item>
+        <item>Obtaining an answer of $$0 = 0,$$ a statement that is always true, means that the system has an infinite number of solutions. Graphing the system, we can see that two of the planes are the same and they both intersect the third plane on a line. See Figure 2.</item>
       </list>
-    </note>
-  </subsection>
-  <exercises title="7.8 Section Exercises">
-    <exercise number="1" has_solution="true">
-      <problem>
-        <p>Explain why we can always evaluate the determinant of a square matrix.</p>
-      </problem>
-      <solution>
-        <p>A determinant is the sum and products of the entries in the matrix, so you can always evaluate that product—even if it does end up being 0.</p>
-      </solution>
-    </exercise>
-    <exercise number="2" has_solution="false">
-      <problem>
-        <p>Examining Cramer’s Rule, explain why there is no unique solution to the system when the determinant of your matrix is 0. For simplicity, use a $$2 \times 2$$ matrix.</p>
-      </problem>
-    </exercise>
-    <exercise number="3" has_solution="true">
-      <problem>
-        <p>Explain what it means in terms of an inverse for a matrix to have a 0 determinant.</p>
-      </problem>
-      <solution>
-        <p>The inverse does not exist.</p>
-      </solution>
-    </exercise>
-    <exercise number="4" has_solution="false">
-      <problem>
-        <p>The determinant of $$2 \times 2$$ matrix $$A$$ is 3. If you switch the rows and multiply the first row by 6 and the second row by 2, explain how to find the determinant and provide the answer.</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, find the determinant.</instruction>
-    <exercise number="5" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{matrix} 1 &amp; 2 \\ 3 &amp; 4 \end{matrix} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{39}\left\lbrack \begin{array}{rrrr} 3 &amp; 2 &amp; 1 &amp; {- 7} \\ 18 &amp; {- 53} &amp; 32 &amp; 10 \\ 24 &amp; {- 36} &amp; 21 &amp; 9 \\ {- 9} &amp; 46 &amp; {- 16} &amp; {- 5} \end{array} \right\rbrack$$</p>
-      </solution>
-    </exercise>
-    <exercise number="6" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{array}{rr} {- 1} &amp; 2 \\ 3 &amp; {- 4} \end{array} \right|$$</p>
-      </problem>
-    </exercise>
-    <exercise number="7" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{array}{rr} 2 &amp; {- 5} \\ {- 1} &amp; 6 \end{array} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$\left\lbrack \begin{array}{rrrrrr} 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ {- 1} &amp; {- 1} &amp; {- 1} &amp; {- 1} &amp; {- 1} &amp; 1 \end{array} \right\rbrack$$</p>
-      </solution>
-    </exercise>
-    <exercise number="8" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{matrix} {- 8} &amp; 4 \\ {- 1} &amp; 5 \end{matrix} \right|$$</p>
-      </problem>
-    </exercise>
-    <exercise number="9" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{array}{rr} 1 &amp; 0 \\ 3 &amp; {- 4} \end{array} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$- 2$$</p>
-      </solution>
-    </exercise>
-    <exercise number="10" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{array}{rr} 10 &amp; 20 \\ 0 &amp; {- 10} \end{array} \right|$$</p>
-      </problem>
-    </exercise>
-    <exercise number="11" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{matrix} 10 &amp; 0.2 \\ 5 &amp; 0.1 \end{matrix} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$7$$</p>
-      </solution>
-    </exercise>
-    <exercise number="12" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{array}{rr} 6 &amp; {- 3} \\ 8 &amp; 4 \end{array} \right|$$</p>
-      </problem>
-    </exercise>
-    <exercise number="13" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{array}{rr} {- 2} &amp; {- 3} \\ 3.1 &amp; {4,000} \end{array} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$- 4$$</p>
-      </solution>
-    </exercise>
-    <exercise number="14" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{array}{rr} {- 1.1} &amp; 0.6 \\ 7.2 &amp; {- 0.5} \end{array} \right|$$</p>
-      </problem>
-    </exercise>
-    <exercise number="15" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{array}{rrr} {- 1} &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; {- 3} \end{array} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$0$$</p>
-      </solution>
-    </exercise>
-    <exercise number="16" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{array}{rrr} {- 1} &amp; 4 &amp; 0 \\ 0 &amp; 2 &amp; 3 \\ 0 &amp; 0 &amp; {- 3} \end{array} \right|$$</p>
-      </problem>
-    </exercise>
-    <exercise number="17" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{matrix} 1 &amp; 0 &amp; 1 \\ 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 0 \end{matrix} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$- 7,990.7$$</p>
-      </solution>
-    </exercise>
-    <exercise number="18" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{array}{rrr} 2 &amp; {- 3} &amp; 1 \\ 3 &amp; {- 4} &amp; 1 \\ {- 5} &amp; 6 &amp; 1 \end{array} \right|$$</p>
-      </problem>
-    </exercise>
-    <exercise number="19" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{array}{rrr} {- 2} &amp; 1 &amp; 4 \\ {- 4} &amp; 2 &amp; {- 8} \\ 2 &amp; {- 8} &amp; {- 3} \end{array} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$3$$</p>
-      </solution>
-    </exercise>
-    <exercise number="20" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{array}{rrr} 6 &amp; {- 1} &amp; 2 \\ {- 4} &amp; {- 3} &amp; 5 \\ 1 &amp; 9 &amp; {- 1} \end{array} \right|$$</p>
-      </problem>
-    </exercise>
-    <exercise number="21" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{array}{rrr} 5 &amp; 1 &amp; {- 1} \\ 2 &amp; 3 &amp; 1 \\ 3 &amp; {- 6} &amp; {- 3} \end{array} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$- 1$$</p>
-      </solution>
-    </exercise>
-    <exercise number="22" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{array}{rrr} 1.1 &amp; 2 &amp; {- 1} \\ {- 4} &amp; 0 &amp; 0 \\ 4.1 &amp; {- 0.4} &amp; 2.5 \end{array} \right|$$</p>
-      </problem>
-    </exercise>
-    <exercise number="23" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{array}{rrr} 2 &amp; {- 1.6} &amp; 3.1 \\ 1.1 &amp; 3 &amp; {- 8} \\ {- 9.3} &amp; 0 &amp; 2 \end{array} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$224$$</p>
-      </solution>
-    </exercise>
-    <exercise number="24" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{matrix} {- \frac{1}{2}} &amp; \frac{1}{3} &amp; \frac{1}{4} \\ \frac{1}{5} &amp; {- \frac{1}{6}} &amp; \frac{1}{7} \\ 0 &amp; 0 &amp; \frac{1}{8} \end{matrix} \right|$$</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, solve the system of linear equations using Cramer’s Rule.</instruction>
-    <exercise number="25" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {2x - 3y = -1} \\ {4x + 5y = 9} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$15$$</p>
-      </solution>
-    </exercise>
-    <exercise number="26" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{r} {5x - 4y = 2} \\ {- 4x + 7y = 6} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="27" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {6x - 3y = 2} \\ {- 8x + 9y = -1} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$- 17.03$$</p>
-      </solution>
-    </exercise>
-    <exercise number="28" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {2x + 6y = 12} \\ {5x - 2y = 13} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="29" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {4x + 3y = 23} \\ {2x - y = -1} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {1,1} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="30" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {10x - 6y = 2} \\ {- 5x + 8y = -1} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="31" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {4x - 3y = -3} \\ {2x + 6y = -4} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {\frac{1}{2},\frac{1}{3}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="32" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{r} {4x - 5y = 7} \\ {- 3x + 9y = 0} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="33" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {4x + 10y = 180} \\ {- 3x - 5y = -105} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {2,5} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="34" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {8x - 2y = -3} \\ {- 4x + 6y = 4} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, solve the system of linear equations using Cramer’s Rule.</instruction>
-    <exercise number="35" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {x + 2y - 4z = - 1} \\ {7x + 3y + 5z = 26} \\ {- 2x - 6y + 7z = - 6} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {- 1, - \frac{1}{3}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="36" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {- 5x + 2y - 4z = - 47} \\ {4x - 3y - z = - 94} \\ {3x - 3y + 2z = 94} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="37" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {4x + 5y - z = -7} \\ {-2x - 9y + 2z = 8} \\ {5y + 7z = 21} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {15,12} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="38" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{r} {4x - 3y + 4z = 10} \\ {5x - 2z = - 2} \\ {3x + 2y - 5z = - 9} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="39" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {4x - 2y + 3z = 6} \\ {- 6x + y = - 2} \\ {2x + 7y + 8z = 24} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {1,3,2} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="40" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{r} {5x + 2y - z = 1} \\ {- 7x - 8y + 3z = 1.5} \\ {6x - 12y + z = 7} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="41" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {13x - 17y + 16z = 73} \\ {- 11x + 15y + 17z = 61} \\ {46x + 10y - 30z = - 18} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {- 1,0,3} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="42" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} \\ {- 4x - 3y - 8z = - 7} \\ {2x - 9y + 5z = 0.5} \\ {5x - 6y - 5z = - 2} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="43" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {4x - 6y + 8z = 10} \\ {- 2x + 3y - 4z = - 5} \\ {x + y + z = 1} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>Infinite solutions</p>
-      </solution>
-    </exercise>
-    <exercise number="44" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{r} {4x - 6y + 8z = 10} \\ {- 2x + 3y - 4z = - 5} \\ {12x + 18y - 24z = - 30} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, use the determinant function on a graphing utility.</instruction>
-    <exercise number="45" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{array}{rrrr} 1 &amp; 0 &amp; 8 &amp; 9 \\ 0 &amp; 2 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 3 &amp; 0 \\ 0 &amp; 2 &amp; 4 &amp; 3 \end{array} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {\frac{1}{2},1,2} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="46" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{array}{rrrr} 1 &amp; 0 &amp; 2 &amp; 1 \\ 0 &amp; -9 &amp; 1 &amp; 3 \\ 3 &amp; 0 &amp; -2 &amp; -1 \\ 0 &amp; 1 &amp; 1 &amp; -2 \end{array} \right|$$</p>
-      </problem>
-    </exercise>
-    <exercise number="47" has_solution="true">
-      <problem>
-        <p>$$\left| \begin{array}{rrrr} \frac{1}{2} &amp; 1 &amp; 7 &amp; 4 \\ 0 &amp; \frac{1}{2} &amp; 100 &amp; 5 \\ 0 &amp; 0 &amp; 2 &amp; 2,000 \\ 0 &amp; 0 &amp; 0 &amp; 2 \end{array} \right|$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {2,1,4} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="48" has_solution="false">
-      <problem>
-        <p>$$\left| \begin{array}{rrrr} 1 &amp; 0 &amp; 0 &amp; 0 \\ 2 &amp; 3 &amp; 0 &amp; 0 \\ 4 &amp; 5 &amp; 6 &amp; 0 \\ 7 &amp; 8 &amp; 9 &amp; 0 \end{array} \right|$$</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, create a system of linear equations to describe the behavior. Then, calculate the determinant. Will there be a unique solution? If so, find the unique solution.</instruction>
-    <exercise number="49" has_solution="true">
-      <problem>
-        <p>Two numbers add up to 56. One number is 20 less than the other.</p>
-      </problem>
-      <solution>
-        <p>Yes; 18, 38</p>
-      </solution>
-    </exercise>
-    <exercise number="50" has_solution="false">
-      <problem>
-        <p>Two numbers add up to 104. If you add two times the first number plus two times the second number, your total is 208</p>
-      </problem>
-    </exercise>
-    <exercise number="51" has_solution="true">
-      <problem>
-        <p>Three numbers add up to 106. The first number is 3 less than the second number. The third number is 4 more than the first number.</p>
-      </problem>
-      <solution>
-        <p>Yes; 33, 36, 37</p>
-      </solution>
-    </exercise>
-    <exercise number="52" has_solution="false">
-      <problem>
-        <p>Three numbers add to 216. The sum of the first two numbers is 112. The third number is 8 less than the first two numbers combined.</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, create a system of linear equations to describe the behavior. Then, solve the system for all solutions using Cramer’s Rule.</instruction>
-    <exercise number="53" has_solution="true">
-      <problem>
-        <p>You invest $10,000 into two accounts, which receive 8% interest and 5% interest. At the end of a year, you had $10,710 in your combined accounts. How much was invested in each account?</p>
-      </problem>
-      <solution>
-        <p>$7,000 in first account, $3,000 in second account.</p>
-      </solution>
-    </exercise>
-    <exercise number="54" has_solution="false">
-      <problem>
-        <p>You invest $80,000 into two accounts, $22,000 in one account, and $58,000 in the other account. At the end of one year, assuming simple interest, you have earned $2,470 in interest. The second account receives half a percent less than twice the interest on the first account. What are the interest rates for your accounts?</p>
-      </problem>
-    </exercise>
-    <exercise number="55" has_solution="true">
-      <problem>
-        <p>A theater needs to know how many adult tickets and children tickets were sold out of the 1,200 total tickets. If children’s tickets are $5.95, adult tickets are $11.15, and the total amount of revenue was $12,756, how many children’s tickets and adult tickets were sold?</p>
-      </problem>
-      <solution>
-        <p>120 children, 1,080 adult</p>
-      </solution>
-    </exercise>
-    <exercise number="56" has_solution="false">
-      <problem>
-        <p>A concert venue sells single tickets for $40 each and couple’s tickets for $65. If the total revenue was $18,090 and the 321 tickets were sold, how many single tickets and how many couple’s tickets were sold?</p>
-      </problem>
-    </exercise>
-    <exercise number="57" has_solution="true">
-      <problem>
-        <p>You decide to paint your kitchen green. You create the color of paint by mixing yellow and blue paints. You cannot remember how many gallons of each color went into your mix, but you know there were 10 gal total. Additionally, you kept your receipt, and know the total amount spent was $29.50. If each gallon of yellow costs $2.59, and each gallon of blue costs $3.19, how many gallons of each color go into your green mix?</p>
-      </problem>
-      <solution>
-        <p>4 gal yellow, 6 gal blue</p>
-      </solution>
-    </exercise>
-    <exercise number="58" has_solution="false">
-      <problem>
-        <p>You sold two types of scarves at a farmers’ market and would like to know which one was more popular. The total number of scarves sold was 56, the yellow scarf cost $10, and the purple scarf cost $11. If you had total revenue of $583, how many yellow scarves and how many purple scarves were sold?</p>
-      </problem>
-    </exercise>
-    <exercise number="59" has_solution="true">
-      <problem>
-        <p>Your garden produced two types of tomatoes, one green and one red. The red weigh 10 oz, and the green weigh 4 oz. You have 30 tomatoes, and a total weight of 13 lb, 14 oz. How many of each type of tomato do you have?</p>
-      </problem>
-      <solution>
-        <p>13 green tomatoes, 17 red tomatoes</p>
-      </solution>
-    </exercise>
-    <exercise number="60" has_solution="false">
-      <problem>
-        <p>At a market, the three most popular vegetables make up 53% of vegetable sales. Corn has 4% higher sales than broccoli, which has 5% more sales than onions. What percentage does each vegetable have in the market share?</p>
-      </problem>
-    </exercise>
-    <exercise number="61" has_solution="true">
-      <problem>
-        <p>At the same market, the three most popular fruits make up 37% of the total fruit sold. Strawberries sell twice as much as oranges, and kiwis sell one more percentage point than oranges. For each fruit, find the percentage of total fruit sold.</p>
-      </problem>
-      <solution>
-        <p>Strawberries 18%, oranges 9%, kiwi 10%</p>
-      </solution>
-    </exercise>
-    <exercise number="62" has_solution="false">
-      <problem>
-        <p>Three artists performed at a concert venue. The first one charged $15 per ticket, the second artist charged $45 per ticket, and the final one charged $22 per ticket. There were 510 tickets sold, for a total of $12,700. If the first band had 40 more audience members than the second band, how many tickets were sold for each band?</p>
-      </problem>
-    </exercise>
-    <exercise number="63" has_solution="true">
-      <problem>
-        <p>A movie theatre sold tickets to three movies. The tickets to the first movie were $5, the tickets to the second movie were $11, and the third movie was $12. 100 tickets were sold to the first movie. The total number of tickets sold was 642, for a total revenue of $6,774. How many tickets for each movie were sold?</p>
-      </problem>
-      <solution>
-        <p>100 for movie 1, 230 for movie 2, 312 for movie 3</p>
-      </solution>
-    </exercise>
-    <instruction>For the following exercises, use this scenario: A health-conscious company decides to make a trail mix out of almonds, dried cranberries, and chocolate-covered cashews. The nutritional information for these items is shown in Table 1.</instruction>
-    <exercise number="64" has_solution="false">
-      <problem>
-        <p>For the special “low-carb”trail mix, there are 1,000 pieces of mix. The total number of carbohydrates is 425 g, and the total amount of fat is 570.2 g. If there are 200 more pieces of cashews than cranberries, how many of each item is in the trail mix?</p>
-      </problem>
-    </exercise>
-    <exercise number="65" has_solution="true">
-      <problem>
-        <p>For the “hiking” mix, there are 1,000 pieces in the mix, containing 390.8 g of fat, and 165 g of protein. If there is the same amount of almonds as cashews, how many of each item is in the trail mix?</p>
-      </problem>
-      <solution>
-        <p>300 almonds, 400 cranberries, 300 cashews</p>
-      </solution>
-    </exercise>
-    <exercise number="66" has_solution="false">
-      <problem>
-        <p>For the “energy-booster” mix, there are 1,000 pieces in the mix, containing 145 g of protein and 625 g of carbohydrates. If the number of almonds and cashews summed together is equivalent to the amount of cranberries, how many of each item is in the trail mix?</p>
-      </problem>
-    </exercise>
-  </exercises>
+      <figure number="2">
+        <image alt="A blue and a green strip overlap to form an X-shape. Three linear equations are presented: x - 2y + 3z = 0 and 2x - 4y + 6z = 0 are in blue text, while 3x + y + 2z = 0 is in green text. The two blue equations are equivalent, defining a single plane associated with the blue strip. The green equation defines a second, distinct plane associated with the green strip. The intersection of these two planes is represented by the overlapping region of the strips, and a horizontal double-headed arrow spans a portion of this intersection."/>
+      </figure>
+    </solution>
+  </example>
+  <heading level="2">Understanding Properties of Determinants</heading>
+  <paragraph>There are many properties of determinants. Listed here are some properties that may be helpful in calculating the determinant of a matrix.</paragraph>
+  <note type="rule" source_type="Properties of Determinants" title="Properties of Determinants">
+    <list type="ordered">
+      <item>If the matrix is in upper triangular form, the determinant equals the product of entries down the main diagonal.</item>
+      <item>When two rows are interchanged, the determinant changes sign.</item>
+      <item>If either two rows or two columns are identical, the determinant equals zero.</item>
+      <item>If a matrix contains either a row of zeros or a column of zeros, the determinant equals zero.</item>
+      <item>The determinant of an inverse matrix $$A^{- 1}$$ is the reciprocal of the determinant of the matrix $$A.$$</item>
+      <item>If any row or column is multiplied by a constant, the determinant is multiplied by the same factor.</item>
+    </list>
+  </note>
+  <example number="7" title="Illustrating Properties of Determinants">
+    <problem>
+      <paragraph>Illustrate each of the properties of determinants.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Property 1 states that if the matrix is in upper triangular form, the determinant is the product of the entries down the main diagonal.</paragraph>
+      <paragraph math="block">$$A = \left\lbrack \begin{array}{rrr} 1 &amp; 2 &amp; 3 \\ 0 &amp; 2 &amp; 1 \\ 0 &amp; 0 &amp; {- 1} \end{array} \right\rbrack$$</paragraph>
+      <paragraph>Augment $$A$$ with the first two columns.</paragraph>
+      <paragraph math="block">$$A = \left\lbrack {\begin{matrix} 1 &amp; 2 &amp; 3 \\ 0 &amp; 2 &amp; 1 \\ 0 &amp; 0 &amp; {- 1} \end{matrix}\left| \begin{matrix} 1 \\ 0 \\ 0 \end{matrix} \right.\begin{matrix} 2 \\ 2 \\ 0 \end{matrix}} \right\rbrack$$</paragraph>
+      <paragraph>Then</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {\det(A) = 1(2)(-1) + 2(1)(0) + 3(0)(0) - 0(2)(3) - 0(1)(1) + 1(0)(2)} \\ {= -2} \end{array}$$</paragraph>
+      <paragraph>Property 2 states that interchanging rows changes the sign. Given</paragraph>
+      <paragraph math="block">$$\begin{array}{l} \begin{array}{l} \\ {A = \left\lbrack \begin{array}{ll} -1 &amp; 5 \\ 4 &amp; -3 \end{array} \right\rbrack,\det(A) = (-1)(-3) - (4)(5) = 3 - 20 = -17} \end{array} \\ \\ {B = \left\lbrack \begin{array}{ll} 4 &amp; {- 3} \\ {- 1} &amp; 5 \end{array} \right\rbrack,\det(B) = (4)(5) - (-1)(-3) = 20 - 3 = 17} \end{array}$$</paragraph>
+      <paragraph>Property 3 states that if two rows or two columns are identical, the determinant equals zero.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {A = \left\lbrack {\begin{array}{lll} 1 &amp; 2 &amp; 2 \\ 2 &amp; 2 &amp; 2 \\ -1 &amp; 2 &amp; 2 \end{array} \left| { \begin{array}{l} 1 \\ 2 \\ -1 \end{array} \begin{array}{l} 2 \\ 2 \\ 2 \end{array}} \right.} \right\rbrack} \\ \\ {\det(A) = 1(2)(2) + 2(2)(-1) + 2(2)(2) + 1(2)(2) - 2(2)(1) - 2(2)(2)} \\ {= 4 - 4 + 8 + 4 - 4 - 8 = 0} \end{array}$$</paragraph>
+      <paragraph>Property 4 states that if a row or column equals zero, the determinant equals zero. Thus,</paragraph>
+      <paragraph math="block">$$A = \begin{bmatrix} 1 &amp; 2 \\ 0 &amp; 0 \end{bmatrix},\det(A) = 1(0) - 2(0) = 0$$</paragraph>
+      <paragraph>Property 5 states that the determinant of an inverse matrix $$A^{- 1}$$ is the reciprocal of the determinant $$A.$$ Thus,</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {A = \left\lbrack \begin{array}{ll} 1 &amp; 2 \\ 3 &amp; 4 \end{array} \right\rbrack,\det(A) = 1(4) - 3(2) = -2} \\ \\ {A^{- 1} = \left\lbrack \begin{array}{ll} {- 2} &amp; 1 \\ \frac{3}{2} &amp; {- \frac{1}{2}} \end{array} \right\rbrack,\det\left( A^{- 1} \right) = - 2\left( {- \frac{1}{2}} \right) - \left( \frac{3}{2} \right)(1) = - \frac{1}{2}} \end{array}$$</paragraph>
+      <paragraph>Property 6 states that if any row or column of a matrix is multiplied by a constant, the determinant is multiplied by the same factor. Thus,</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {A = \left\lbrack \begin{array}{ll} 1 &amp; 2 \\ 3 &amp; 4 \end{array} \right\rbrack,\det(A) = 1(4) - 2(3) = -2} \\ \\ {B = \left\lbrack \begin{array}{ll} {2(1)} &amp; {2(2)} \\ 3 &amp; 4 \end{array} \right\rbrack,\det(B) = 2(4) - 3(4) = -4} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example number="8" title="Using Cramer’s Rule and Determinant Properties to Solve a System">
+    <problem>
+      <paragraph>Find the solution to the given 3 × 3 system.</paragraph>
+      <paragraph math="block">$$\begin{array}{ll} {2x + 4y + 4z = 2} &amp; {(1)} \\ {3x + 7y + 7z = -5} &amp; {(2)} \\ { x + 2y + 2z = 4} &amp; {(3)} \end{array}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Using Cramer’s Rule, we have</paragraph>
+      <paragraph math="block">$$D = \left| \begin{matrix} 2 &amp; 4 &amp; 4 \\ 3 &amp; 7 &amp; 7 \\ 1 &amp; 2 &amp; 2 \end{matrix} \right|$$</paragraph>
+      <paragraph>Notice that the second and third columns are identical. According to Property 3, the determinant will be zero, so there is either no solution or an infinite number of solutions. We have to perform elimination to find out.</paragraph>
+      <list type="ordered">
+        <item>Multiply equation (3) by –2 and add the result to equation (1). $$\frac{\begin{array}{l} {- 2x - 4y - 4x = - 8} \\ {2x + 4y + 4z = 2} \end{array}}{ 0 = - 6}$$</item>
+      </list>
+      <paragraph>Obtaining a statement that is a contradiction means that the system has no solution.</paragraph>
+    </solution>
+  </example>
+  <note type="sidebar" source_type="Media" title="Media">
+    <paragraph>Access these online resources for additional instruction and practice with Cramer’s Rule.</paragraph>
+    <list type="unordered">
+      <item>Solve a System of Two Equations Using Cramer's Rule</item>
+      <item>Solve a Systems of Three Equations using Cramer's Rule</item>
+    </list>
+  </note>
 </section>

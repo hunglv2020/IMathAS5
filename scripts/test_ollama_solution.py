@@ -1,5 +1,5 @@
 """
-Benchmark: draft-static-solution via Ollama local LLM.
+Benchmark: step-by-step solution generation via Ollama local LLM.
 
 Hard-coded question: qt-228632 (rational function increasing/decreasing)
 Outputs structured JSON with model response + inference timing.

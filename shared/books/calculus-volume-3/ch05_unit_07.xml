@@ -1,791 +1,367 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="5.7" title="Change of Variables in Multiple Integrals">
-  <learning_objectives>
-    <objective number="5.7.1">Determine the image of a region under a given transformation of variables.</objective>
-    <objective number="5.7.2">Compute the Jacobian of a given transformation.</objective>
-    <objective number="5.7.3">Evaluate a double integral using a change of variables.</objective>
-    <objective number="5.7.4">Evaluate a triple integral using a change of variables.</objective>
-  </learning_objectives>
-  <p>Recall from Substitution Rule the method of integration by substitution. When evaluating an integral such as $$\int_{2}^{3}{x{(x^{2} - 4)}^{5}dx,}$$ we substitute $$u = g(x) = x^{2} - 4.$$ Then $$du = 2x\ dx$$ or $$x\ dx = \frac{1}{2}du$$ and the limits change to $$u = g(2) = 2^{2} - 4 = 0$$ and $$u = g(3) = 9 - 4 = 5.$$ Thus the integral becomes $$\int_{0}^{5}{\frac{1}{2}u^{5}du}$$ and this integral is much simpler to evaluate. In other words, when solving integration problems, we make appropriate substitutions to obtain an integral that becomes much simpler than the original integral.</p>
-  <p>We also used this idea when we transformed double integrals in rectangular coordinates to polar coordinates and transformed triple integrals in rectangular coordinates to cylindrical or spherical coordinates to make the computations simpler. More generally,</p>
-  <equation>$${\int\limits_{a}^{b}{f(x)dx =}}{\int\limits_{c}^{d}{f\left( {g(u)} \right)}}g\prime(u)du,$$</equation>
-  <p>Where $$x = g(u),dx = g\prime(u)du,$$ and $$u = c$$ and $$u = d$$ satisfy $$c = g^{- 1}(a)$$ and $$d = g^{- 1}(b).$$</p>
-  <p>A similar result occurs in double integrals when we substitute $$x = h\left( {r,\theta} \right) = r\ \text{cos}\ \theta,$$ $$y = g\left( {r,\theta} \right) = r\ \text{sin}\ \theta,$$ and $$dA = dx\ dy = r\ dr\ d\theta.$$ Then we get</p>
-  <equation>$${\iint\limits_{R}{f\left( {x,y} \right)}}dA = {\iint\limits_{S}{f\left( {r\ \text{cos}\ \theta,r\ \text{sin}\ \theta} \right)r\ dr\ d\theta}}$$</equation>
-  <p>where the domain $$R$$ is replaced by the domain $$S$$ in polar coordinates. Generally, the function that we use to change the variables to make the integration simpler is called a transformation or mapping.</p>
-  <subsection title="Planar Transformations">
-    <p>A planar transformation $$T$$ is a function that transforms a region $$G$$ in one plane into a region $$R$$ in another plane by a change of variables. Both $$G$$ and $$R$$ are subsets of $$\mathbb{R}^{2}.$$ For example, Figure 5.71 shows a region $$G$$ in the $$uv\text{-plane}$$ transformed into a region $$R$$ in the $$xy\text{-plane}$$ by the change of variables $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right),$$ or sometimes we write $$x = x\left( {u,v} \right)$$ and $$y = y\left( {u,v} \right).$$ We shall typically assume that each of these functions has continuous first partial derivatives, which means $$g_{u},g_{v},h_{u},$$ and $$h_{v}$$ exist and are also continuous. The need for this requirement will become clear soon.</p>
-    <image alt="On the left-hand side of this figure, there is a region G with point (u, v) given in the Cartesian u v-plane. Then there is an arrow from this graph to the right-hand side of the figure marked with x = g(u, v) and y = h(u, v). On the right-hand side of this figure there is a region R with point (x, y) given in the Cartesian xy- plane." number="5.71" caption="The transformation of a region $$G$$ in the $$uv\text{-plane}$$ into a region $$R$$ in the $$xy\text{-plane}.$$" />
-    <note type="Definition">
-      <p>A transformation $$T\text{:}\ G\rightarrow R,$$ defined as $$T\left( {u,v} \right) = \left( {x,y} \right),$$ is said to be a one-to-one transformation if no two points map to the same image point.</p>
-    </note>
-    <p>To show that $$T$$ is a one-to-one transformation, we assume $$T\left( {u_{1},v_{1}} \right) = T\left( {u_{2},v_{2}} \right)$$ and show that as a consequence we obtain $$\left( {u_{1},v_{1}} \right) = \left( {u_{2},v_{2}} \right).$$ If the transformation $$T$$ is one-to-one in the domain $$G,$$ then the inverse $$T^{-1}$$ exists with the domain $$R$$ such that $$T^{-1} \circ T$$ and $$T \circ T^{-1}$$ are identity functions.</p>
-    <p>Figure 5.71 shows the mapping $$T\left( {u,v} \right) = \left( {x,y} \right)$$ where $$x$$ and $$y$$ are related to $$u$$ and $$v$$ by the equations $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right).$$ The region $$G$$ is the domain of $$T$$ and the region $$R$$ is the range of $$T,$$ also known as the image of $$G$$ under the transformation $$T.$$</p>
-    <example number="5.65">
-      <problem>
-        <title>Determining How the Transformation Works</title>
-        <p>Suppose a transformation $$T$$ is defined as $$T\left( {r,\theta} \right) = \left( {x,y} \right)$$ where $$x = r\ \text{cos}\ \theta,y = r\ \text{sin}\ \theta.$$ Find the image of the polar rectangle $$G = \left\{ {\left. \left( {r,\theta} \right) \right|0 &lt; r \leq 1,0 \leq \theta \leq \pi\text{/}2} \right\}$$ in the $$r\theta\text{-plane}$$ to a region $$R$$ in the $$xy\text{-plane}\text{.}$$ Show that $$T$$ is a one-to-one transformation in $$G$$ and find $$T^{-1}\left( {x,y} \right).$$</p>
-      </problem>
-      <solution>
-        <p>Since $$r$$ varies from 0 to 1 in the $$r\theta\text{-plane},$$ we have a circular disc of radius 0 to 1 in the $$xy\text{-plane}\text{.}$$ Because $$\theta$$ varies from 0 to $$\pi\text{/2}$$ in the $$r\theta\text{-plane},$$ we end up getting a quarter circle of radius $$1$$ in the first quadrant of the $$xy\text{-plane}$$ (Figure 5.72). Hence $$R$$ is a quarter circle bounded by $$x^{2} + y^{2} = 1$$ in the first quadrant.</p>
-        <image alt="On the left-hand side of this figure, there is a rectangle G with a marked subrectangle given in the first quadrant of the Cartesian r theta-plane. Then there is an arrow from this graph to the right-hand side of the figure marked with x = r cos theta and y = r sin theta. On the right-hand side of this figure there is a quarter circle R with a marked subannulus (analogous to the rectangle in the other graph) given in the Cartesian x y-plane." number="5.72" caption="A rectangle in the $$r\theta\text{-plane}$$ is mapped into a quarter circle in the $$xy\text{-plane}\text{.}$$" />
-        <p>In order to show that $$T$$ is a one-to-one transformation, assume $$T\left( {r_{1},\theta_{1}} \right) = T\left( {r_{2},\theta_{2}} \right)$$ and show as a consequence that $$\left( {r_{1},\theta_{1}} \right) = \left( {r_{2},\theta_{2}} \right).$$ In this case, we have</p>
-        <equation>$$\begin{matrix} {T\left( r_{1},\theta_{1} \right)} &amp; = &amp; {T\left( r_{2},\theta_{2} \right),} \\ \left( x_{1},y_{1} \right) &amp; = &amp; {\left( x_{2},y_{2} \right),} \\ \left( r_{1}\text{cos}\ \theta_{1},r_{1}\text{sin}\ \theta_{1} \right) &amp; = &amp; {\left( r_{2}\text{cos}\ \theta_{2},r_{2}\text{sin}\ \theta_{2} \right),} \\ {r_{1}\text{cos}\ \theta_{1}} &amp; = &amp; {r_{2}\text{cos}\ \theta_{2}} \\ {r_{1}\text{sin}\ \theta_{1}} &amp; = &amp; {r_{2}\text{sin}\ \theta_{2}} \end{matrix}$$</equation>
-        <p>Dividing, we obtain</p>
-        <equation>$$\begin{array}{rll} \frac{r_{1}\text{cos}\ \theta_{1}}{r_{1}\text{sin}\ \theta_{1}} &amp; = &amp; \frac{r_{2}\text{cos}\ \theta_{2}}{r_{2}\text{sin}\ \theta_{2}} \\ \frac{\text{cos}\ \theta_{1}}{\text{sin}\ \theta_{1}} &amp; = &amp; \frac{\text{cos}\ \theta_{2}}{\text{sin}\ \theta_{2}} \\ {\text{cot}\ \theta_{1}} &amp; = &amp; {\text{cot}\ \theta_{2}} \\ \theta_{1} &amp; = &amp; \theta_{2} \end{array}$$</equation>
-        <p>since the cotangent function is one-one function in the interval $$0 \leq \theta \leq \pi\text{/}2.$$ Also, since $$0 &lt; r \leq 1,$$ we have $$r_{1} = r_{2},\theta_{1} = \theta_{2}.$$ Therefore, $$\left( {r_{1},\theta_{1}} \right) = \left( {r_{2},\theta_{2}} \right)$$ and $$T$$ is a one-to-one transformation from $$G$$ into $$R.$$</p>
-        <p>To find $$T^{-1}\left( {x,y} \right)$$ solve for $$r,\theta$$ in terms of $$x,y.$$ We already know that $$r^{2} = x^{2} + y^{2}$$ and $$\text{tan}\ \theta = \frac{y}{x}.$$ Thus $$T^{-1}\left( {x,y} \right) = \left( {r,\theta} \right)$$ is defined as $$r = \sqrt{x^{2} + y^{2}}$$ and $$\theta = \text{tan}^{-1}\left( \frac{y}{x} \right).$$</p>
-      </solution>
-    </example>
-    <example number="5.66">
-      <problem>
-        <title>Finding the Image underTT</title>
-        <p>Let the transformation $$T$$ be defined by $$T\left( {u,v} \right) = \left( {x,y} \right)$$ where $$x = u^{2} - v^{2}$$ and $$y = uv.$$ Find the image of the triangle in the $$uv\text{-plane}$$ with vertices $$\left( {0,0} \right),\left( {0,1} \right),$$ and $$\left( {1,1} \right).$$</p>
-      </problem>
-      <solution>
-        <p>The triangle and its image are shown in Figure 5.73. To understand how the sides of the triangle transform, call the side that joins $$\left( {0,0} \right)$$ and $$\left( {0,1} \right)$$ side $$A,$$ the side that joins $$\left( {0,0} \right)$$ and $$\left( {1,1} \right)$$ side $$B,$$ and the side that joins $$\left( {1,1} \right)$$ and $$\left( {0,1} \right)$$ side $$C.$$</p>
-        <image alt="On the left-hand side of this figure, there is a triangular region given in the Cartesian uv-plane with boundaries A, B, and C represented by the v axis, the line u = v, and the line v = 1, respectively. Then there is an arrow from this graph to the right-hand side of the figure marked with x = u squared minus v squared and y = u v. On the right-hand side of this figure there is a complex region given in the Cartesian x y-plane with boundaries A’, B’, and C’ given by the x axis, y axis, and a line curving from (negative 1, 0) through (0, 1), namely x = y squared minus 1, respectively." number="5.73" caption="A triangular region in the $$uv\text{-plane}$$ is transformed into an image in the $$xy\text{-plane}\text{.}$$" />
-        <p>For the side $$A\text{:}\ u = 0,0 \leq v \leq 1$$ transforms to $$x = \text{−}v^{2},y = 0$$ so this is the side $$A\prime$$ that joins $$\left( {-1,0} \right)$$ and $$\left( {0,0} \right).$$</p>
-        <p>For the side $$B\text{:}\ u = v,0 \leq u \leq 1$$ transforms to $$x = 0,y = u^{2}$$ so this is the side $$B^{\prime}$$ that joins $$\left( {0,0} \right)$$ and $$\left( {0,1} \right).$$</p>
-        <p>For the side $$C\text{:}\ 0 \leq u \leq 1,v = 1$$ transforms to $$x = u^{2} - 1,y = u$$ (hence $$x = y^{2} - 1)$$ so this is the side $$C^{\prime}$$ that makes the upper half of the parabolic arc joining $$\left( {-1,0} \right)$$ and $$\left( {0,1} \right).$$</p>
-        <p>All the points in the entire region of the triangle in the $$uv\text{-plane}$$ are mapped inside the parabolic region in the $$xy\text{-plane}\text{.}$$</p>
-      </solution>
-    </example>
-    <checkpoint number="5.43">
-      <problem>
-        <p>Let a transformation $$T$$ be defined as $$T\left( {u,v} \right) = \left( {x,y} \right)$$ where $$x = u + v,y = 3v.$$ Find the image of the rectangle $$G = \left\{ {\left( {u,v} \right)\text{:}\ 0 \leq u \leq 1,0 \leq v \leq 2} \right\}$$ from the $$uv\text{-plane}$$ after the transformation into a region $$R$$ in the $$xy\text{-plane}\text{.}$$ Show that $$T$$ is a one-to-one transformation and find $$T^{-1}\left( {x,y} \right).$$</p>
-      </problem>
-      <solution>
-        <p>$$T^{-1}(x,y) = (u,v)$$ where $$u = \frac{3x - y}{3}$$ and $$v = \frac{y}{3}$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Jacobians">
-    <p>Recall that we mentioned near the beginning of this section that each of the component functions must have continuous first partial derivatives, which means that $$g_{u},g_{v},h_{u},$$ and $$h_{v}$$ exist and are also continuous. A transformation that has this property is called a $$C^{1}$$ transformation (here $$C$$ denotes continuous). Let $$T\left( {u,v} \right) = \left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right),$$ where $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right),$$ be a one-to-one $$C^{1}$$ transformation. We want to see how it transforms a small rectangular region $$S,$$ $$\text{Δ}u$$ units by $$\text{Δ}v$$ units, in the $$uv\text{-plane}$$ (see the following figure).</p>
-    <image alt="On the left-hand side of this figure, there is a region S with lower right corner point (u sub 0, v sub 0), height Delta v, and length Delta u given in the Cartesian u v-plane. Then there is an arrow from this graph to the right-hand side of the figure marked with T. On the right-hand side of this figure there is a region R with point (x sub 0, y sub 0) given in the Cartesian x y-plane with sides r(u, v sub 0) along the bottom and r(u sub 0, v) along the left." number="5.74" caption="A small rectangle $$S$$ in the $$uv\text{-plane}$$ is transformed into a region $$R$$ in the $$xy\text{-plane}\text{.}$$" />
-    <p>Since $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right),$$ we have the position vector $$\mathbf{r}\left( {u,v} \right) = g\left( {u,v} \right)\mathbf{i} + h\left( {u,v} \right)\mathbf{j}$$ of the image of the point $$\left( {u,v} \right).$$ Suppose that $$\left( {u_{0},v_{0}} \right)$$ is the coordinate of the point at the lower left corner that mapped to $$\left( {x_{0},y_{0}} \right) = T\left( {u_{0},v_{0}} \right).$$ The line $$v = v_{0}$$ maps to the image curve with vector function $$\text{r}\left( {u,v_{0}} \right),$$ and the tangent vector at $$\left( {x_{0},y_{0}} \right)$$ to the image curve is</p>
-    <equation>$$\mathbf{r}_{u} = g_{u}\left( {u_{0},v_{0}} \right)\mathbf{i} + h_{u}\left( {u_{0},v_{0}} \right)\mathbf{j} = \frac{\partial x}{\partial u}\mathbf{i} + \frac{\partial y}{\partial u}\mathbf{j}.$$</equation>
-    <p>Similarly, the line $$u = u_{0}$$ maps to the image curve with vector function $$\mathbf{r}\left( {u_{0},v} \right),$$ and the tangent vector at $$\left( {x_{0},y_{0}} \right)$$ to the image curve is</p>
-    <equation>$$\mathbf{r}_{v} = g_{v}\left( {u_{0},v_{0}} \right)\mathbf{i} + h_{v}\left( {u_{0},v_{0}} \right)\mathbf{j} = \frac{\partial x}{\partial v}\mathbf{i} + \frac{\partial y}{\partial v}\mathbf{j}.$$</equation>
-    <p>Now, note that</p>
-    <equation>$$\mathbf{r}_{u} = \underset{\text{Δ}u\rightarrow 0}{\text{lim}}\frac{\mathbf{r}\left( {u_{0} + \text{Δ}u,v_{0}} \right) - \mathbf{r}\left( {u_{0},v_{0}} \right)}{\text{Δ}u}\ \text{so}\ \mathbf{r}\left( {u_{0} + \text{Δ}u,v_{0}} \right) - \mathbf{r}\left( {u_{0},v_{0}} \right) \approx \text{Δ}u\mathbf{r}_{u}.$$</equation>
-    <p>Similarly,</p>
-    <equation>$$\mathbf{r}_{v} = \underset{\text{Δ}v\rightarrow 0}{\text{lim}}\frac{\mathbf{r}\left( {u_{0},v_{0} + \text{Δ}v} \right) - \mathbf{r}\left( {u_{0},v_{0}} \right)}{\text{Δ}v}\ \text{so}\ \mathbf{r}\left( {u_{0},v_{0} + \text{Δ}v} \right) - \mathbf{r}\left( {u_{0},v_{0}} \right) \approx \text{Δ}v\mathbf{r}_{v}.$$</equation>
-    <p>This allows us to estimate the area $$\text{Δ}A$$ of the image $$R$$ by finding the area of the parallelogram formed by the sides $$\text{Δ}v\mathbf{r}_{v}$$ and $$\text{Δ}u\mathbf{r}_{u}.$$ By using the cross product of these two vectors by adding the k component as $$0,$$ the area $$\text{Δ}A$$ of the image $$R$$ (refer to The Cross Product) is approximately $$\mathbf{\left. ||{\text{Δ}{ur}_{u}\ \times \ \text{Δ}{vr}_{v}} \right.||} = \mathbf{\left. ||{r_{u}\ \times \ r_{v}} \right.||}\text{Δ}u\text{Δ}v.$$ In determinant form, the cross product is</p>
-    <equation>$$\mathbf{r}_{u}\ \times \ \mathbf{r}_{v} = \left| \begin{matrix} \mathbf{i} &amp; &amp; \mathbf{j} &amp; &amp; \mathbf{k} \\ \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial y}{\partial u} &amp; &amp; 0 \\ \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial y}{\partial v} &amp; &amp; 0 \end{matrix} \right| = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial y}{\partial u} \\ \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right|\mathbf{k} = \left( {\frac{\partial x}{\partial u}\ \frac{\partial y}{\partial v} - \frac{\partial x}{\partial v}\ \frac{\partial y}{\partial u}} \right)\mathbf{k}.$$</equation>
-    <p>Since $$\mathbf{\left. ||k \right.||} = 1,$$ we have $$\text{Δ}A \approx \mathbf{\left. ||{r_{u}\ \times \ r_{v}} \right.||}\text{Δ}u\text{Δ}v = \left( \frac{\partial x}{\partial u}\ \frac{\partial y}{\partial v} - \frac{\partial x}{\partial v}\ \frac{\partial y}{\partial u} \right)\text{Δ}u\text{Δ}v.$$</p>
-    <note type="Definition">
-      <p>The Jacobian of the $$C^{1}$$ transformation $$T\left( {u,v} \right) = \left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right)$$ is denoted by $$J\left( {u,v} \right)$$ and is defined by the $$2\ \times \ 2$$ determinant</p>
-      <equation>$$J\left( {u,v} \right) = \left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right| = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial y}{\partial u} \\ \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left( {\frac{\partial x}{\partial u}\ \frac{\partial y}{\partial v} - \frac{\partial x}{\partial v}\ \frac{\partial y}{\partial u}} \right).$$</equation>
-    </note>
-    <p>Using the definition, we have</p>
-    <equation>$$\text{Δ}A \approx J\left( {u,v} \right)\text{Δ}u\text{Δ}v = \left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right|\text{Δ}u\text{Δ}v.$$</equation>
-    <p>Note that the Jacobian is frequently denoted simply by</p>
-    <equation>$$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)}.$$</equation>
-    <p>Note also that</p>
-    <equation>$$\left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial y}{\partial u} \\ \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left( {\frac{\partial x}{\partial u}\ \frac{\partial y}{\partial v} - \frac{\partial x}{\partial v}\ \frac{\partial y}{\partial u}} \right) = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right|.$$</equation>
-    <p>Hence the notation $$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)}$$ suggests that we can write the Jacobian determinant with partials of $$x$$ in the first row and partials of $$y$$ in the second row.</p>
-    <example number="5.67">
-      <problem>
-        <title>Finding the Jacobian</title>
-        <p>Find the Jacobian of the transformation given in Example 5.65.</p>
-      </problem>
-      <solution>
-        <p>The transformation in the example is $$T\left( {r,\theta} \right) = \left( {r\ \text{cos}\ \theta,r\ \text{sin}\ \theta} \right)$$ where $$x = r\ \text{cos}\ \theta$$ and $$y = r\ \text{sin}\ \theta.$$ Thus the Jacobian is</p>
-        <equation>$$\begin{array}{cl} {J\left( {r,\theta} \right)} &amp; {= \frac{\partial\left( {x,y} \right)}{\partial\left( {r,\theta} \right)} = \left| \begin{array}{lll} \frac{\partial x}{\partial r} &amp; &amp; \frac{\partial x}{\partial\theta} \\ \frac{\partial y}{\partial r} &amp; &amp; \frac{\partial y}{\partial\theta} \end{array} \right| = \left| \begin{array}{llr} {\text{cos}\ \theta} &amp; &amp; {- r\ \text{sin}\ \theta} \\ {\text{sin}\ \theta} &amp; &amp; {r\ \text{cos}\ \theta} \end{array} \right|} \\ &amp; {= r\ \text{cos}^{2}\theta + r\ \text{sin}^{2}\theta = r\left( {\text{cos}^{2}\theta + \text{sin}^{2}\theta} \right) = r.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <example number="5.68">
-      <problem>
-        <title>Finding the Jacobian</title>
-        <p>Find the Jacobian of the transformation given in Example 5.66.</p>
-      </problem>
-      <solution>
-        <p>The transformation in the example is $$T\left( {u,v} \right) = \left( {u^{2} - v^{2},uv} \right)$$ where $$x = u^{2} - v^{2}$$ and $$y = uv.$$ Thus the Jacobian is</p>
-        <equation>$$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left| \begin{array}{lll} {2u} &amp; &amp; v \\ {- 2v} &amp; &amp; u \end{array} \right| = 2u^{2} + 2v^{2}.$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="5.44">
-      <problem>
-        <p>Find the Jacobian of the transformation: $$T\left( {u,v} \right) = \left( {u + v,2v} \right).$$</p>
-      </problem>
-      <solution>
-        <p>$$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left| \begin{array}{lll} 1 &amp; &amp; 1 \\ 0 &amp; &amp; 2 \end{array} \right| = 2$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Change of Variables for Double Integrals">
-    <p>We have already seen that, under the change of variables $$T\left( {u,v} \right) = \left( {x,y} \right)$$ where $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right),$$ a small region $$\text{Δ}A$$ in the $$xy\text{-plane}$$ is related to the area formed by the product $$\text{Δ}u\text{Δ}v$$ in the $$uv\text{-plane}$$ by the approximation</p>
-    <equation>$$\text{Δ}A \approx J\left( {u,v} \right)\text{Δ}u,\text{Δ}v.$$</equation>
-    <p>Now let’s go back to the definition of double integral for a minute:</p>
-    <equation>$${\iint\limits_{R}{f\left( {x,y} \right)dA = \underset{m,n\rightarrow\infty}{\text{lim}}{\sum\limits_{i = 1}^{m}{\sum\limits_{j = 1}^{n}{f\left( {x_{ij},y_{ij}} \right)}}}}}\text{Δ}A.$$</equation>
-    <p>Referring to Figure 5.75, observe that we divided the region $$S$$ in the $$uv\text{-plane}$$ into small subrectangles $$S_{ij}$$ and we let the subrectangles $$R_{ij}$$ in the $$xy\text{-plane}$$ be the images of $$S_{ij}$$ under the transformation $$T\left( {u,v} \right) = \left( {x,y} \right).$$</p>
-    <image alt="On the left-hand side of this figure, there is a rectangle S with an inscribed red oval and a subrectangle with lower right corner point (u sub ij, v sub ij), height Delta v, and length Delta u given in the Cartesian u v-plane. Then there is an arrow from this graph to the right-hand side of the figure marked with T. On the right-hand side of this figure there is a region R with inscribed (deformed) red oval and a subrectangle R sub ij with corner point (x sub ij, y sub ij) given in the Cartesian x y-plane. The subrectangle is blown up and shown with vectors pointing along the edge from the corner point." number="5.75" caption="The subrectangles $$S_{ij}$$ in the $$uv\text{-plane}$$ transform into subrectangles $$R_{ij}$$ in the $$xy\text{-plane}\text{.}$$" />
-    <p>Then the double integral becomes</p>
-    <equation>$${\iint\limits_{R}{f\left( {x,y} \right)dA = \underset{m,n\rightarrow\infty}{\text{lim}}{\sum\limits_{i = 1}^{m}{\sum\limits_{j = 1}^{n}{f\left( {x_{ij},y_{ij}} \right)}}}}}\text{Δ}A = \underset{m,n\rightarrow\infty}{\text{lim}}{\sum\limits_{i = 1}^{m}{\sum\limits_{j = 1}^{n}{f\left( {g\left( {u_{ij},v_{ij}} \right),h\left( {u_{ij},v_{ij}} \right)} \right)}}}\left| {J\left( {u_{ij},v_{ij}} \right)} \right|\text{Δ}u\text{Δ}v.$$</equation>
-    <p>Notice this is exactly the double Riemann sum for the integral</p>
-    <equation>$${\iint\limits_{S}{f\left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right)}}\left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right|du\ dv.$$</equation>
-    <theorem number="5.14" title="Change of Variables for Double Integrals">
-      <p>Let $$T\left( {u,v} \right) = \left( {x,y} \right)$$ where $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right)$$ be a one-to-one $$C^{1}$$ transformation, with a nonzero Jacobian on the interior of the region $$S$$ in the $$uv\text{-plane;}$$ it maps $$S$$ into the region $$R$$ in the $$xy\text{-plane}\text{.}$$ If $$f$$ is continuous on $$R,$$ then</p>
-      <equation>$${\iint\limits_{R}{f\left( {x,y} \right)}}dA = {\iint\limits_{S}{f\left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right)}}\left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right|du\ dv.$$</equation>
-    </theorem>
-    <p>With this theorem for double integrals, we can change the variables from $$\left( {x,y} \right)$$ to $$\left( {u,v} \right)$$ in a double integral simply by replacing</p>
-    <equation>$$dA = dx\ dy = \left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right|du\ dv$$</equation>
-    <p>when we use the substitutions $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right)$$ and then change the limits of integration accordingly. This change of variables often makes any computations much simpler.</p>
-    <example number="5.69">
-      <problem>
-        <title>Changing Variables from Rectangular to Polar Coordinates</title>
-        <p>Consider the integral</p>
-        <equation>$${\int\limits_{0}^{2}\ {\int\limits_{0}^{\sqrt{2x - x^{2}}}{\sqrt{x^{2} + y^{2}}\ dy\ dx}}}.$$</equation>
-        <p>Use the change of variables $$x = r\ \text{cos}\ \theta$$ and $$y = r\ \text{sin}\ \theta,$$ and find the resulting integral.</p>
-      </problem>
-      <solution>
-        <p>First we need to find the region of integration. This region is bounded below by $$y = 0$$ and above by $$y = \sqrt{2x - x^{2}}$$ (see the following figure).</p>
-        <image alt="A semicircle in the first quadrant of the xy plane with radius 1 and center (1, 0). The equation for this curve is given as y = the square root of (2x minus x squared)" number="5.76" caption="Changing a region from rectangular to polar coordinates." />
-        <p>Squaring and collecting terms, we find that the region is the upper half of the circle $$x^{2} + y^{2} - 2x = 0,$$ that is, $$y^{2} + \left( {x - 1} \right)^{2} = 1.$$ In polar coordinates, the circle is $$r = 2\ \text{cos}\ \theta$$ so the region of integration in polar coordinates is bounded by $$0 \leq r \leq 2~\text{cos}\ \theta$$ and $$0 \leq \theta \leq \frac{\pi}{2}.$$</p>
-        <p>The Jacobian is $$J\left( {r,\theta} \right) = r,$$ as shown in Example 5.67. Since $$r \geq 0,$$ we have $$\left| {J\left( {r,\theta} \right)} \right| = r.$$</p>
-        <p>The integrand $$\sqrt{x^{2} + y^{2}}$$ changes to $$r$$ in polar coordinates, so the double iterated integral is</p>
-        <equation>$${\int\limits_{0}^{2}\ {\int\limits_{0}^{\sqrt{2x - x^{2}}}\sqrt{x^{2} + y^{2}}}}dy\ dx = {\int\limits_{0}^{\pi\text{/}2}\ {\int\limits_{0}^{2\ \text{cos}\ \theta}{r\left| {J\left( {r,\theta} \right)} \right|}}}dr\ d\theta = {\int\limits_{0}^{\pi\text{/}2}\ {\int\limits_{0}^{2\ \text{cos}\ \theta}r^{2}}}dr\ d\theta.$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="5.45">
-      <problem>
-        <p>Considering the integral $${\int\limits_{0}^{1}\ {\int\limits_{0}^{\sqrt{1 - x^{2}}}\left( {x^{2} + y^{2}} \right)}}dy\ dx,$$ use the change of variables $$x = r\ \text{cos}\ \theta$$ and $$y = r\ \text{sin}\ \theta,$$ and find the resulting integral.</p>
-      </problem>
-      <solution>
-        <p>$$\int\limits_{0}^{\pi\text{/}2}\ {\int\limits_{0}^{1}{r^{3}dr\ d\theta}}$$</p>
-      </solution>
-    </checkpoint>
-    <p>Notice in the next example that the region over which we are to integrate may suggest a suitable transformation for the integration. This is a common and important situation.</p>
-    <example number="5.70">
-      <problem>
-        <title>Changing Variables</title>
-        <p>Consider the integral $${\iint\limits_{R}\left( {x - y} \right)}dy\ dx,$$ where $$R$$ is the parallelogram joining the points $$\left( {1,2} \right),$$ $$\left( {3,4} \right),\left( {4,3} \right),$$ and $$\left( {6,5} \right)$$ (Figure 5.77). Make appropriate changes of variables, and write the resulting integral.</p>
-        <image alt="A parallelogram R with corners (1, 2), (3, 4), (6, 5), and (4, 3)." number="5.77" caption="The region of integration for the given integral." />
-      </problem>
-      <solution>
-        <p>First, we need to understand the region over which we are to integrate. The sides of the parallelogram are $$x - y + 1 = 0,x - y - 1 = 0,$$ $$x - 3y + 5 = 0,\text{and}\ x - 3y + 9 = 0$$ (Figure 5.78). Another way to look at them is $$x - y = -1,x - y = 1,$$ $$x - 3y = -5,$$ and $$x - 3y = - 9.$$</p>
-        <p>Clearly the parallelogram is bounded by the lines $$y = x + 1,y = x - 1,y = \frac{1}{3}\left( {x + 5} \right),$$ and $$y = \frac{1}{3}\left( {x + 9} \right).$$</p>
-        <p>Notice that if we were to make $$u = x - y$$ and $$v = x - 3y,$$ then the limits on the integral would be $$-1 \leq u \leq 1$$ and $$-9 \leq v \leq - 5.$$</p>
-        <p>To solve for $$x$$ and $$y,$$ we multiply the first equation by $$3$$ and subtract the second equation, $$3u - v = \left( {3x - 3y} \right) - \left( {x - 3y} \right) = 2x.$$ Then we have $$x = \frac{3u - v}{2}.$$ Moreover, if we simply subtract the second equation from the first, we get $$u - v = \left( {x - y} \right) - \left( {x - 3y} \right) = 2y$$ and $$y = \frac{u - v}{2}.$$</p>
-        <image alt="A parallelogram R with corners (1, 2), (3, 4), (6, 5), and (4, 3) formed by the lines y = x + 1, y = x minus 1, y = (x + 9)/3, and y = (x + 5)/3." number="5.78" caption="A parallelogram in the $$xy\text{-plane}$$ that we want to transform by a change in variables." />
-        <p>Thus, we can choose the transformation</p>
-        <equation>$$T\left( {u,v} \right) = \left( {\frac{3u - v}{2},\frac{u - v}{2}} \right)$$</equation>
-        <p>and compute the Jacobian $$J\left( {u,v} \right).$$ We have</p>
-        <equation>$$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left| \begin{array}{lll} {3\text{/}2} &amp; &amp; {- 1\text{/}2} \\ {1\text{/}2} &amp; &amp; {- 1\text{/}2} \end{array} \right| = - \frac{3}{4} + \frac{1}{4} = - \frac{1}{2}.$$</equation>
-        <p>Therefore, $$\left| {J\left( {u,v} \right)} \right| = \frac{1}{2}.$$ Also, the original integrand becomes</p>
-        <equation>$$x - y = \frac{1}{2}\left\lbrack {3u - v - u + v} \right\rbrack = \frac{1}{2}\left\lbrack {3u - u} \right\rbrack = \frac{1}{2}\left\lbrack {2u} \right\rbrack = u.$$</equation>
-        <p>Therefore, by the use of the transformation $$T,$$ the integral changes to</p>
-        <equation>$${\iint\limits_{R}{\left( {x - y} \right)dy\ dx = {\int\limits_{-9}^{-5}\ {\int\limits_{-1}^{1}{J\left( {u,v} \right)u\ du\ dv = {\int\limits_{-9}^{-5}\ {\int\limits_{-1}^{1}\left( \frac{1}{2} \right)}}}}}}}u\ du\ dv,$$</equation>
-        <p>which is much simpler to compute. In fact, it is easily found to be zero. And this is just one example of why we transform integrals like this.</p>
-      </solution>
-    </example>
-    <checkpoint number="5.46">
-      <problem>
-        <p>Make appropriate changes of variables in the integral $${\iint\limits_{R}\frac{4}{\left( {x - y} \right)^{2}}}dy\ dx,$$ where $$R$$ is the trapezoid bounded by the lines $$x - y = 2,x - y = 4,x = 0,\text{and}\ y = 0.$$ Write the resulting integral.</p>
-      </problem>
-      <solution>
-        <p>$$x = \frac{1}{2}\left( {v + u} \right)$$ and $$y = \frac{1}{2}\left( {v - u} \right)$$ and $${\int\limits_{2}^{4}\ {\int\limits_{-u}^{u}{\frac{4}{u^{2}}\left( \frac{1}{2} \right)}}}dv\ du.$$</p>
-      </solution>
-    </checkpoint>
-    <p>We are ready to give a problem-solving strategy for change of variables.</p>
-    <note type="Problem-Solving Strategy">
-      <list type="ol" style="1">
-        <item>Sketch the region given by the problem in the $$xy\text{-plane}$$ and then write the equations of the curves that form the boundary.</item>
-        <item>Depending on the region or the integrand, choose the transformations $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right).$$</item>
-        <item>Determine the new limits of integration in the $$uv\text{-plane}\text{.}$$</item>
-        <item>Find the Jacobian $$J\left( {u,v} \right).$$</item>
-        <item>In the integrand, replace the variables to obtain the new integrand.</item>
-        <item>Replace $$dy\ dx$$ or $$dx\ dy,$$ whichever occurs, by $$J\left( {u,v} \right)du\ dv.$$</item>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">5.7 Change of Variables in Multiple Integrals</heading>
+  <heading level="2">Learning Objectives</heading>
+  <list type="unordered">
+    <item>Determine the image of a region under a given transformation of variables.</item>
+    <item>Compute the Jacobian of a given transformation.</item>
+    <item>Evaluate a double integral using a change of variables.</item>
+    <item>Evaluate a triple integral using a change of variables.</item>
+  </list>
+  <paragraph>Recall from Substitution Rule the method of integration by substitution. When evaluating an integral such as $$\int_{2}^{3}{x{(x^{2} - 4)}^{5}dx,}$$ we substitute $$u = g(x) = x^{2} - 4.$$ Then $$du = 2x dx$$ or $$x dx = \frac{1}{2}du$$ and the limits change to $$u = g(2) = 2^{2} - 4 = 0$$ and $$u = g(3) = 9 - 4 = 5.$$ Thus the integral becomes $$\int_{0}^{5}{\frac{1}{2}u^{5}du}$$ and this integral is much simpler to evaluate. In other words, when solving integration problems, we make appropriate substitutions to obtain an integral that becomes much simpler than the original integral.</paragraph>
+  <paragraph>We also used this idea when we transformed double integrals in rectangular coordinates to polar coordinates and transformed triple integrals in rectangular coordinates to cylindrical or spherical coordinates to make the computations simpler. More generally,</paragraph>
+  <paragraph math="block">$${\int\limits_{a}^{b}{f(x)dx =}}{\int\limits_{c}^{d}{f\left( {g(u)} \right)}}g\prime(u)du,$$</paragraph>
+  <paragraph>Where $$x = g(u),dx = g\prime(u)du,$$ and $$u = c$$ and $$u = d$$ satisfy $$c = g^{- 1}(a)$$ and $$d = g^{- 1}(b).$$</paragraph>
+  <paragraph>A similar result occurs in double integrals when we substitute $$x = h\left( {r,\theta} \right) = r \cos \theta,$$ $$y = g\left( {r,\theta} \right) = r \sin \theta,$$ and $$dA = dx dy = r dr d\theta.$$ Then we get</paragraph>
+  <paragraph math="block">$${\iint\limits_{R}{f\left( {x,y} \right)}}dA = {\iint\limits_{S}{f\left( {r \cos \theta,r \sin \theta} \right)r dr d\theta}}$$</paragraph>
+  <paragraph>where the domain $$R$$ is replaced by the domain $$S$$ in polar coordinates. Generally, the function that we use to change the variables to make the integration simpler is called a transformation or mapping.</paragraph>
+  <heading level="2">Planar Transformations</heading>
+  <paragraph>A planar transformation $$T$$ is a function that transforms a region $$G$$ in one plane into a region $$R$$ in another plane by a change of variables. Both $$G$$ and $$R$$ are subsets of $$\mathbb{R}^{2}.$$ For example, Figure 5.71 shows a region $$G$$ in the $$uv \text{-plane}$$ transformed into a region $$R$$ in the $$xy \text{-plane}$$ by the change of variables $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right),$$ or sometimes we write $$x = x\left( {u,v} \right)$$ and $$y = y\left( {u,v} \right).$$ We shall typically assume that each of these functions has continuous first partial derivatives, which means $$g_{u},g_{v},h_{u},$$ and $$h_{v}$$ exist and are also continuous. The need for this requirement will become clear soon.</paragraph>
+  <figure number="5.71">
+    <image alt="On the left-hand side of this figure, there is a region G with point (u, v) given in the Cartesian u v-plane. Then there is an arrow from this graph to the right-hand side of the figure marked with x = g(u, v) and y = h(u, v). On the right-hand side of this figure there is a region R with point (x, y) given in the Cartesian xy- plane."/>
+    <caption>The transformation of a region $$G$$ in the $$uv \text{-plane}$$ into a region $$R$$ in the $$xy \text{-plane} .$$</caption>
+  </figure>
+  <note type="definition" source_type="Definition" title="Definition">
+    <paragraph>A transformation $$T: G\rightarrow R,$$ defined as $$T\left( {u,v} \right) = \left( {x,y} \right),$$ is said to be a one-to-one transformation if no two points map to the same image point.</paragraph>
+  </note>
+  <paragraph>To show that $$T$$ is a one-to-one transformation, we assume $$T\left( {u_{1},v_{1}} \right) = T\left( {u_{2},v_{2}} \right)$$ and show that as a consequence we obtain $$\left( {u_{1},v_{1}} \right) = \left( {u_{2},v_{2}} \right).$$ If the transformation $$T$$ is one-to-one in the domain $$G,$$ then the inverse $$T^{-1}$$ exists with the domain $$R$$ such that $$T^{-1} \circ T$$ and $$T \circ T^{-1}$$ are identity functions.</paragraph>
+  <paragraph>Figure 5.71 shows the mapping $$T\left( {u,v} \right) = \left( {x,y} \right)$$ where $$x$$ and $$y$$ are related to $$u$$ and $$v$$ by the equations $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right).$$ The region $$G$$ is the domain of $$T$$ and the region $$R$$ is the range of $$T,$$ also known as the image of $$G$$ under the transformation $$T.$$</paragraph>
+  <example number="5.65" title="Determining How the Transformation Works">
+    <problem>
+      <paragraph>Suppose a transformation $$T$$ is defined as $$T\left( {r,\theta} \right) = \left( {x,y} \right)$$ where $$x = r \cos \theta,y = r \sin \theta.$$ Find the image of the polar rectangle $$G = \left\{ {\left. \left( {r,\theta} \right) \right|0 &lt; r \leq 1,0 \leq \theta \leq \pi/2} \right\}$$ in the $$r\theta \text{-plane}$$ to a region $$R$$ in the $$xy \text{-plane} .$$ Show that $$T$$ is a one-to-one transformation in $$G$$ and find $$T^{-1}\left( {x,y} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Since $$r$$ varies from 0 to 1 in the $$r\theta \text{-plane} ,$$ we have a circular disc of radius 0 to 1 in the $$xy \text{-plane} .$$ Because $$\theta$$ varies from 0 to $$\pi \text{/2}$$ in the $$r\theta \text{-plane} ,$$ we end up getting a quarter circle of radius $$1$$ in the first quadrant of the $$xy \text{-plane}$$ (Figure 5.72). Hence $$R$$ is a quarter circle bounded by $$x^{2} + y^{2} = 1$$ in the first quadrant.</paragraph>
+      <figure number="5.72">
+        <image alt="On the left-hand side of this figure, there is a rectangle G with a marked subrectangle given in the first quadrant of the Cartesian r theta-plane. Then there is an arrow from this graph to the right-hand side of the figure marked with x = r cos theta and y = r sin theta. On the right-hand side of this figure there is a quarter circle R with a marked subannulus (analogous to the rectangle in the other graph) given in the Cartesian x y-plane."/>
+        <caption>A rectangle in the $$r\theta \text{-plane}$$ is mapped into a quarter circle in the $$xy \text{-plane} .$$</caption>
+      </figure>
+      <paragraph>In order to show that $$T$$ is a one-to-one transformation, assume $$T\left( {r_{1},\theta_{1}} \right) = T\left( {r_{2},\theta_{2}} \right)$$ and show as a consequence that $$\left( {r_{1},\theta_{1}} \right) = \left( {r_{2},\theta_{2}} \right).$$ In this case, we have</paragraph>
+      <paragraph math="block">$$\begin{matrix} {T\left( r_{1},\theta_{1} \right)} &amp; = &amp; {T\left( r_{2},\theta_{2} \right),} \\ \left( x_{1},y_{1} \right) &amp; = &amp; {\left( x_{2},y_{2} \right),} \\ \left( r_{1}\cos \theta_{1},r_{1}\sin \theta_{1} \right) &amp; = &amp; {\left( r_{2}\cos \theta_{2},r_{2}\sin \theta_{2} \right),} \\ {r_{1}\cos \theta_{1}} &amp; = &amp; {r_{2}\cos \theta_{2}} \\ {r_{1}\sin \theta_{1}} &amp; = &amp; {r_{2}\sin \theta_{2}} \end{matrix}$$</paragraph>
+      <paragraph>Dividing, we obtain</paragraph>
+      <paragraph math="block">$$\begin{array}{rll} \frac{r_{1}\cos \theta_{1}}{r_{1}\sin \theta_{1}} &amp; = &amp; \frac{r_{2}\cos \theta_{2}}{r_{2}\sin \theta_{2}} \\ \frac{\cos \theta_{1}}{\sin \theta_{1}} &amp; = &amp; \frac{\cos \theta_{2}}{\sin \theta_{2}} \\ {\cot \theta_{1}} &amp; = &amp; {\cot \theta_{2}} \\ \theta_{1} &amp; = &amp; \theta_{2} \end{array}$$</paragraph>
+      <paragraph>since the cotangent function is one-one function in the interval $$0 \leq \theta \leq \pi/2.$$ Also, since $$0 &lt; r \leq 1,$$ we have $$r_{1} = r_{2},\theta_{1} = \theta_{2}.$$ Therefore, $$\left( {r_{1},\theta_{1}} \right) = \left( {r_{2},\theta_{2}} \right)$$ and $$T$$ is a one-to-one transformation from $$G$$ into $$R.$$</paragraph>
+      <paragraph>To find $$T^{-1}\left( {x,y} \right)$$ solve for $$r,\theta$$ in terms of $$x,y.$$ We already know that $$r^{2} = x^{2} + y^{2}$$ and $$\tan \theta = \frac{y}{x}.$$ Thus $$T^{-1}\left( {x,y} \right) = \left( {r,\theta} \right)$$ is defined as $$r = \sqrt{x^{2} + y^{2}}$$ and $$\theta = \tan^{-1}\left( \frac{y}{x} \right).$$</paragraph>
+    </solution>
+  </example>
+  <example number="5.66" title="Finding the Image under TT">
+    <problem>
+      <paragraph>Let the transformation $$T$$ be defined by $$T\left( {u,v} \right) = \left( {x,y} \right)$$ where $$x = u^{2} - v^{2}$$ and $$y = uv.$$ Find the image of the triangle in the $$uv \text{-plane}$$ with vertices $$\left( {0,0} \right),\left( {0,1} \right),$$ and $$\left( {1,1} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The triangle and its image are shown in Figure 5.73. To understand how the sides of the triangle transform, call the side that joins $$\left( {0,0} \right)$$ and $$\left( {0,1} \right)$$ side $$A,$$ the side that joins $$\left( {0,0} \right)$$ and $$\left( {1,1} \right)$$ side $$B,$$ and the side that joins $$\left( {1,1} \right)$$ and $$\left( {0,1} \right)$$ side $$C.$$</paragraph>
+      <figure number="5.73">
+        <image alt="On the left-hand side of this figure, there is a triangular region given in the Cartesian uv-plane with boundaries A, B, and C represented by the v axis, the line u = v, and the line v = 1, respectively. Then there is an arrow from this graph to the right-hand side of the figure marked with x = u squared minus v squared and y = u v. On the right-hand side of this figure there is a complex region given in the Cartesian x y-plane with boundaries A’, B’, and C’ given by the x axis, y axis, and a line curving from (negative 1, 0) through (0, 1), namely x = y squared minus 1, respectively."/>
+        <caption>A triangular region in the $$uv \text{-plane}$$ is transformed into an image in the $$xy \text{-plane} .$$</caption>
+      </figure>
+      <paragraph>For the side $$A: u = 0,0 \leq v \leq 1$$ transforms to $$x = -v^{2},y = 0$$ so this is the side $$A\prime$$ that joins $$\left( {-1,0} \right)$$ and $$\left( {0,0} \right).$$</paragraph>
+      <paragraph>For the side $$B: u = v,0 \leq u \leq 1$$ transforms to $$x = 0,y = u^{2}$$ so this is the side $$B^{\prime}$$ that joins $$\left( {0,0} \right)$$ and $$\left( {0,1} \right).$$</paragraph>
+      <paragraph>For the side $$C: 0 \leq u \leq 1,v = 1$$ transforms to $$x = u^{2} - 1,y = u$$ (hence $$x = y^{2} - 1)$$ so this is the side $$C^{\prime}$$ that makes the upper half of the parabolic arc joining $$\left( {-1,0} \right)$$ and $$\left( {0,1} \right).$$</paragraph>
+      <paragraph>All the points in the entire region of the triangle in the $$uv \text{-plane}$$ are mapped inside the parabolic region in the $$xy \text{-plane} .$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="5.43">
+    <problem>
+      <paragraph>Let a transformation $$T$$ be defined as $$T\left( {u,v} \right) = \left( {x,y} \right)$$ where $$x = u + v,y = 3v.$$ Find the image of the rectangle $$G = \left\{ {\left( {u,v} \right): 0 \leq u \leq 1,0 \leq v \leq 2} \right\}$$ from the $$uv \text{-plane}$$ after the transformation into a region $$R$$ in the $$xy \text{-plane} .$$ Show that $$T$$ is a one-to-one transformation and find $$T^{-1}\left( {x,y} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$T-1(x,y)=(u,v)T-1(x,y)=(u,v)$$ where $$u=3x-y3u=3x-y3$$ and $$v=y3v=y3$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Jacobians</heading>
+  <paragraph>Recall that we mentioned near the beginning of this section that each of the component functions must have continuous first partial derivatives, which means that $$g_{u},g_{v},h_{u},$$ and $$h_{v}$$ exist and are also continuous. A transformation that has this property is called a $$C^{1}$$ transformation (here $$C$$ denotes continuous). Let $$T\left( {u,v} \right) = \left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right),$$ where $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right),$$ be a one-to-one $$C^{1}$$ transformation. We want to see how it transforms a small rectangular region $$S,$$ $$\text{Δ} u$$ units by $$\text{Δ} v$$ units, in the $$uv \text{-plane}$$ (see the following figure).</paragraph>
+  <figure number="5.74">
+    <image alt="On the left-hand side of this figure, there is a region S with lower right corner point (u sub 0, v sub 0), height Delta v, and length Delta u given in the Cartesian u v-plane. Then there is an arrow from this graph to the right-hand side of the figure marked with T. On the right-hand side of this figure there is a region R with point (x sub 0, y sub 0) given in the Cartesian x y-plane with sides r(u, v sub 0) along the bottom and r(u sub 0, v) along the left."/>
+    <caption>A small rectangle $$S$$ in the $$uv \text{-plane}$$ is transformed into a region $$R$$ in the $$xy \text{-plane} .$$</caption>
+  </figure>
+  <paragraph>Since $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right),$$ we have the position vector $$\mathbf{r}\left( {u,v} \right) = g\left( {u,v} \right)\mathbf{i} + h\left( {u,v} \right)\mathbf{j}$$ of the image of the point $$\left( {u,v} \right).$$ Suppose that $$\left( {u_{0},v_{0}} \right)$$ is the coordinate of the point at the lower left corner that mapped to $$\left( {x_{0},y_{0}} \right) = T\left( {u_{0},v_{0}} \right).$$ The line $$v = v_{0}$$ maps to the image curve with vector function $$\text{r} \left( {u,v_{0}} \right),$$ and the tangent vector at $$\left( {x_{0},y_{0}} \right)$$ to the image curve is</paragraph>
+  <paragraph math="block">$$\mathbf{r}_{u} = g_{u}\left( {u_{0},v_{0}} \right)\mathbf{i} + h_{u}\left( {u_{0},v_{0}} \right)\mathbf{j} = \frac{\partial x}{\partial u}\mathbf{i} + \frac{\partial y}{\partial u}\mathbf{j}.$$</paragraph>
+  <paragraph>Similarly, the line $$u = u_{0}$$ maps to the image curve with vector function $$\mathbf{r}\left( {u_{0},v} \right),$$ and the tangent vector at $$\left( {x_{0},y_{0}} \right)$$ to the image curve is</paragraph>
+  <paragraph math="block">$$\mathbf{r}_{v} = g_{v}\left( {u_{0},v_{0}} \right)\mathbf{i} + h_{v}\left( {u_{0},v_{0}} \right)\mathbf{j} = \frac{\partial x}{\partial v}\mathbf{i} + \frac{\partial y}{\partial v}\mathbf{j}.$$</paragraph>
+  <paragraph>Now, note that</paragraph>
+  <paragraph math="block">$$\mathbf{r}_{u} = \underset{ \text{Δ} u\rightarrow 0}{\lim }\frac{\mathbf{r}\left( {u_{0} + \text{Δ} u,v_{0}} \right) - \mathbf{r}\left( {u_{0},v_{0}} \right)}{ \text{Δ} u} \text{so} \mathbf{r}\left( {u_{0} + \text{Δ} u,v_{0}} \right) - \mathbf{r}\left( {u_{0},v_{0}} \right) \approx \text{Δ} u\mathbf{r}_{u}.$$</paragraph>
+  <paragraph>Similarly,</paragraph>
+  <paragraph math="block">$$\mathbf{r}_{v} = \underset{ \text{Δ} v\rightarrow 0}{\lim }\frac{\mathbf{r}\left( {u_{0},v_{0} + \text{Δ} v} \right) - \mathbf{r}\left( {u_{0},v_{0}} \right)}{ \text{Δ} v} \text{so} \mathbf{r}\left( {u_{0},v_{0} + \text{Δ} v} \right) - \mathbf{r}\left( {u_{0},v_{0}} \right) \approx \text{Δ} v\mathbf{r}_{v}.$$</paragraph>
+  <paragraph>This allows us to estimate the area $$\text{Δ} A$$ of the image $$R$$ by finding the area of the parallelogram formed by the sides $$\text{Δ} v\mathbf{r}_{v}$$ and $$\text{Δ} u\mathbf{r}_{u}.$$ By using the cross product of these two vectors by adding the k component as $$0,$$ the area $$\text{Δ} A$$ of the image $$R$$ (refer to The Cross Product) is approximately $$\mathbf{\left. ||{ \text{Δ} {ur}_{u} \times \text{Δ} {vr}_{v}} \right.||} = \mathbf{\left. ||{r_{u} \times r_{v}} \right.||} \text{Δ} u \text{Δ} v.$$ In determinant form, the cross product is</paragraph>
+  <paragraph math="block">$$\mathbf{r}_{u} \times \mathbf{r}_{v} = \left| \begin{matrix} \mathbf{i} &amp; &amp; \mathbf{j} &amp; &amp; \mathbf{k} \\ \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial y}{\partial u} &amp; &amp; 0 \\ \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial y}{\partial v} &amp; &amp; 0 \end{matrix} \right| = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial y}{\partial u} \\ \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right|\mathbf{k} = \left( {\frac{\partial x}{\partial u} \frac{\partial y}{\partial v} - \frac{\partial x}{\partial v} \frac{\partial y}{\partial u}} \right)\mathbf{k}.$$</paragraph>
+  <paragraph>Since $$\mathbf{\left. ||k \right.||} = 1,$$ we have $$\text{Δ} A \approx \mathbf{\left. ||{r_{u} \times r_{v}} \right.||} \text{Δ} u \text{Δ} v = \left( \frac{\partial x}{\partial u} \frac{\partial y}{\partial v} - \frac{\partial x}{\partial v} \frac{\partial y}{\partial u} \right) \text{Δ} u \text{Δ} v.$$</paragraph>
+  <note type="definition" source_type="Definition" title="Definition">
+    <paragraph>The Jacobian of the $$C^{1}$$ transformation $$T\left( {u,v} \right) = \left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right)$$ is denoted by $$J\left( {u,v} \right)$$ and is defined by the $$2 \times 2$$ determinant</paragraph>
+    <paragraph math="block">$$J\left( {u,v} \right) = \left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right| = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial y}{\partial u} \\ \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left( {\frac{\partial x}{\partial u} \frac{\partial y}{\partial v} - \frac{\partial x}{\partial v} \frac{\partial y}{\partial u}} \right).$$</paragraph>
+  </note>
+  <paragraph>Using the definition, we have</paragraph>
+  <paragraph math="block">$$\text{Δ} A \approx J\left( {u,v} \right) \text{Δ} u \text{Δ} v = \left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right| \text{Δ} u \text{Δ} v.$$</paragraph>
+  <paragraph>Note that the Jacobian is frequently denoted simply by</paragraph>
+  <paragraph math="block">$$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)}.$$</paragraph>
+  <paragraph>Note also that</paragraph>
+  <paragraph math="block">$$\left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial y}{\partial u} \\ \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left( {\frac{\partial x}{\partial u} \frac{\partial y}{\partial v} - \frac{\partial x}{\partial v} \frac{\partial y}{\partial u}} \right) = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right|.$$</paragraph>
+  <paragraph>Hence the notation $$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)}$$ suggests that we can write the Jacobian determinant with partials of $$x$$ in the first row and partials of $$y$$ in the second row.</paragraph>
+  <example number="5.67" title="Finding the Jacobian">
+    <problem>
+      <paragraph>Find the Jacobian of the transformation given in Example 5.65.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The transformation in the example is $$T\left( {r,\theta} \right) = \left( {r \cos \theta,r \sin \theta} \right)$$ where $$x = r \cos \theta$$ and $$y = r \sin \theta.$$ Thus the Jacobian is</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} {J\left( {r,\theta} \right)} &amp; {= \frac{\partial\left( {x,y} \right)}{\partial\left( {r,\theta} \right)} = \left| \begin{array}{lll} \frac{\partial x}{\partial r} &amp; &amp; \frac{\partial x}{\partial\theta} \\ \frac{\partial y}{\partial r} &amp; &amp; \frac{\partial y}{\partial\theta} \end{array} \right| = \left| \begin{array}{llr} {\cos \theta} &amp; &amp; {- r \sin \theta} \\ {\sin \theta} &amp; &amp; {r \cos \theta} \end{array} \right|} \\ &amp; {= r \cos^{2}\theta + r \sin^{2}\theta = r\left( {\cos^{2}\theta + \sin^{2}\theta} \right) = r.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example number="5.68" title="Finding the Jacobian">
+    <problem>
+      <paragraph>Find the Jacobian of the transformation given in Example 5.66.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The transformation in the example is $$T\left( {u,v} \right) = \left( {u^{2} - v^{2},uv} \right)$$ where $$x = u^{2} - v^{2}$$ and $$y = uv.$$ Thus the Jacobian is</paragraph>
+      <paragraph math="block">$$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left| \begin{array}{lll} {2u} &amp; &amp; v \\ {- 2v} &amp; &amp; u \end{array} \right| = 2u^{2} + 2v^{2}.$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="5.44">
+    <problem>
+      <paragraph>Find the Jacobian of the transformation: $$T\left( {u,v} \right) = \left( {u + v,2v} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$J ( u , v ) = \partial ( x , y ) \partial ( u , v ) = | \partial x \partial u \partial x \partial v \partial y \partial u \partial y \partial v | = | 1 1 0 2 | = 2 J ( u , v ) = \partial ( x , y ) \partial ( u , v ) = | \partial x \partial u \partial x \partial v \partial y \partial u \partial y \partial v | = | 1 1 0 2 | = 2$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Change of Variables for Double Integrals</heading>
+  <paragraph>We have already seen that, under the change of variables $$T\left( {u,v} \right) = \left( {x,y} \right)$$ where $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right),$$ a small region $$\text{Δ} A$$ in the $$xy \text{-plane}$$ is related to the area formed by the product $$\text{Δ} u \text{Δ} v$$ in the $$uv \text{-plane}$$ by the approximation</paragraph>
+  <paragraph math="block">$$\text{Δ} A \approx J\left( {u,v} \right) \text{Δ} u, \text{Δ} v.$$</paragraph>
+  <paragraph>Now let’s go back to the definition of double integral for a minute:</paragraph>
+  <paragraph math="block">$${\iint\limits_{R}{f\left( {x,y} \right)dA = \underset{m,n\rightarrow\infty}{\lim }{\sum\limits_{i = 1}^{m}{\sum\limits_{j = 1}^{n}{f\left( {x_{ij},y_{ij}} \right)}}}}} \text{Δ} A.$$</paragraph>
+  <paragraph>Referring to Figure 5.75, observe that we divided the region $$S$$ in the $$uv \text{-plane}$$ into small subrectangles $$S_{ij}$$ and we let the subrectangles $$R_{ij}$$ in the $$xy \text{-plane}$$ be the images of $$S_{ij}$$ under the transformation $$T\left( {u,v} \right) = \left( {x,y} \right).$$</paragraph>
+  <figure number="5.75">
+    <image alt="On the left-hand side of this figure, there is a rectangle S with an inscribed red oval and a subrectangle with lower right corner point (u sub ij, v sub ij), height Delta v, and length Delta u given in the Cartesian u v-plane. Then there is an arrow from this graph to the right-hand side of the figure marked with T. On the right-hand side of this figure there is a region R with inscribed (deformed) red oval and a subrectangle R sub ij with corner point (x sub ij, y sub ij) given in the Cartesian x y-plane. The subrectangle is blown up and shown with vectors pointing along the edge from the corner point."/>
+    <caption>The subrectangles $$S_{ij}$$ in the $$uv \text{-plane}$$ transform into subrectangles $$R_{ij}$$ in the $$xy \text{-plane} .$$</caption>
+  </figure>
+  <paragraph>Then the double integral becomes</paragraph>
+  <paragraph math="block">$${\iint\limits_{R}{f\left( {x,y} \right)dA = \underset{m,n\rightarrow\infty}{\lim }{\sum\limits_{i = 1}^{m}{\sum\limits_{j = 1}^{n}{f\left( {x_{ij},y_{ij}} \right)}}}}} \text{Δ} A = \underset{m,n\rightarrow\infty}{\lim }{\sum\limits_{i = 1}^{m}{\sum\limits_{j = 1}^{n}{f\left( {g\left( {u_{ij},v_{ij}} \right),h\left( {u_{ij},v_{ij}} \right)} \right)}}}\left| {J\left( {u_{ij},v_{ij}} \right)} \right| \text{Δ} u \text{Δ} v.$$</paragraph>
+  <paragraph>Notice this is exactly the double Riemann sum for the integral</paragraph>
+  <paragraph math="block">$${\iint\limits_{S}{f\left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right)}}\left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right|du dv.$$</paragraph>
+  <note type="theorem_key" source_type="theorem" number="5.14" title="Change of Variables for Double Integrals">
+    <heading level="4">Change of Variables for Double Integrals</heading>
+    <paragraph>Let $$T\left( {u,v} \right) = \left( {x,y} \right)$$ where $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right)$$ be a one-to-one $$C^{1}$$ transformation, with a nonzero Jacobian on the interior of the region $$S$$ in the $$uv \text{-plane;}$$ it maps $$S$$ into the region $$R$$ in the $$xy \text{-plane} .$$ If $$f$$ is continuous on $$R,$$ then</paragraph>
+    <paragraph math="block">$${\iint\limits_{R}{f\left( {x,y} \right)}}dA = {\iint\limits_{S}{f\left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right)}}\left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right|du dv.$$</paragraph>
+  </note>
+  <paragraph>With this theorem for double integrals, we can change the variables from $$\left( {x,y} \right)$$ to $$\left( {u,v} \right)$$ in a double integral simply by replacing</paragraph>
+  <paragraph math="block">$$dA = dx dy = \left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right|du dv$$</paragraph>
+  <paragraph>when we use the substitutions $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right)$$ and then change the limits of integration accordingly. This change of variables often makes any computations much simpler.</paragraph>
+  <example number="5.69" title="Changing Variables from Rectangular to Polar Coordinates">
+    <problem>
+      <paragraph>Consider the integral</paragraph>
+      <paragraph math="block">$${\int\limits_{0}^{2} {\int\limits_{0}^{\sqrt{2x - x^{2}}}{\sqrt{x^{2} + y^{2}} dy dx}}}.$$</paragraph>
+      <paragraph>Use the change of variables $$x = r \cos \theta$$ and $$y = r \sin \theta,$$ and find the resulting integral.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First we need to find the region of integration. This region is bounded below by $$y = 0$$ and above by $$y = \sqrt{2x - x^{2}}$$ (see the following figure).</paragraph>
+      <figure number="5.76">
+        <image alt="A semicircle in the first quadrant of the xy plane with radius 1 and center (1, 0). The equation for this curve is given as y = the square root of (2x minus x squared)"/>
+        <caption>Changing a region from rectangular to polar coordinates.</caption>
+      </figure>
+      <paragraph>Squaring and collecting terms, we find that the region is the upper half of the circle $$x^{2} + y^{2} - 2x = 0,$$ that is, $$y^{2} + \left( {x - 1} \right)^{2} = 1.$$ In polar coordinates, the circle is $$r = 2 \cos \theta$$ so the region of integration in polar coordinates is bounded by $$0 \leq r \leq 2 \cos \theta$$ and $$0 \leq \theta \leq \frac{\pi}{2}.$$</paragraph>
+      <paragraph>The Jacobian is $$J\left( {r,\theta} \right) = r,$$ as shown in Example 5.67. Since $$r \geq 0,$$ we have $$\left| {J\left( {r,\theta} \right)} \right| = r.$$</paragraph>
+      <paragraph>The integrand $$\sqrt{x^{2} + y^{2}}$$ changes to $$r$$ in polar coordinates, so the double iterated integral is</paragraph>
+      <paragraph math="block">$${\int\limits_{0}^{2} {\int\limits_{0}^{\sqrt{2x - x^{2}}}\sqrt{x^{2} + y^{2}}}}dy dx = {\int\limits_{0}^{\pi/2} {\int\limits_{0}^{2 \cos \theta}{r\left| {J\left( {r,\theta} \right)} \right|}}}dr d\theta = {\int\limits_{0}^{\pi/2} {\int\limits_{0}^{2 \cos \theta}r^{2}}}dr d\theta.$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="5.45">
+    <problem>
+      <paragraph>Considering the integral $${\int\limits_{0}^{1} {\int\limits_{0}^{\sqrt{1 - x^{2}}}\left( {x^{2} + y^{2}} \right)}}dy dx,$$ use the change of variables $$x = r \cos \theta$$ and $$y = r \sin \theta,$$ and find the resulting integral.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$\int 0 \pi / 2 \int 0 1 r 3 d r d \theta \int 0 \pi / 2 \int 0 1 r 3 d r d \theta$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>Notice in the next example that the region over which we are to integrate may suggest a suitable transformation for the integration. This is a common and important situation.</paragraph>
+  <example number="5.70" title="Changing Variables">
+    <problem>
+      <paragraph>Consider the integral $${\iint\limits_{R}\left( {x - y} \right)}dy dx,$$ where $$R$$ is the parallelogram joining the points $$\left( {1,2} \right),$$ $$\left( {3,4} \right),\left( {4,3} \right),$$ and $$\left( {6,5} \right)$$ (Figure 5.77). Make appropriate changes of variables, and write the resulting integral.</paragraph>
+      <figure number="5.77">
+        <image alt="A parallelogram R with corners (1, 2), (3, 4), (6, 5), and (4, 3)."/>
+        <caption>The region of integration for the given integral.</caption>
+      </figure>
+    </problem>
+    <solution>
+      <paragraph>First, we need to understand the region over which we are to integrate. The sides of the parallelogram are $$x - y + 1 = 0,x - y - 1 = 0,$$ $$x - 3y + 5 = 0, \text{and} x - 3y + 9 = 0$$ (Figure 5.78). Another way to look at them is $$x - y = -1,x - y = 1,$$ $$x - 3y = -5,$$ and $$x - 3y = - 9.$$</paragraph>
+      <paragraph>Clearly the parallelogram is bounded by the lines $$y = x + 1,y = x - 1,y = \frac{1}{3}\left( {x + 5} \right),$$ and $$y = \frac{1}{3}\left( {x + 9} \right).$$</paragraph>
+      <paragraph>Notice that if we were to make $$u = x - y$$ and $$v = x - 3y,$$ then the limits on the integral would be $$-1 \leq u \leq 1$$ and $$-9 \leq v \leq - 5.$$</paragraph>
+      <paragraph>To solve for $$x$$ and $$y,$$ we multiply the first equation by $$3$$ and subtract the second equation, $$3u - v = \left( {3x - 3y} \right) - \left( {x - 3y} \right) = 2x.$$ Then we have $$x = \frac{3u - v}{2}.$$ Moreover, if we simply subtract the second equation from the first, we get $$u - v = \left( {x - y} \right) - \left( {x - 3y} \right) = 2y$$ and $$y = \frac{u - v}{2}.$$</paragraph>
+      <figure number="5.78">
+        <image alt="A parallelogram R with corners (1, 2), (3, 4), (6, 5), and (4, 3) formed by the lines y = x + 1, y = x minus 1, y = (x + 9)/3, and y = (x + 5)/3."/>
+        <caption>A parallelogram in the $$xy \text{-plane}$$ that we want to transform by a change in variables.</caption>
+      </figure>
+      <paragraph>Thus, we can choose the transformation</paragraph>
+      <paragraph math="block">$$T\left( {u,v} \right) = \left( {\frac{3u - v}{2},\frac{u - v}{2}} \right)$$</paragraph>
+      <paragraph>and compute the Jacobian $$J\left( {u,v} \right).$$ We have</paragraph>
+      <paragraph math="block">$$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left| \begin{array}{lll} {3/2} &amp; &amp; {- 1/2} \\ {1/2} &amp; &amp; {- 1/2} \end{array} \right| = - \frac{3}{4} + \frac{1}{4} = - \frac{1}{2}.$$</paragraph>
+      <paragraph>Therefore, $$\left| {J\left( {u,v} \right)} \right| = \frac{1}{2}.$$ Also, the original integrand becomes</paragraph>
+      <paragraph math="block">$$x - y = \frac{1}{2}\left\lbrack {3u - v - u + v} \right\rbrack = \frac{1}{2}\left\lbrack {3u - u} \right\rbrack = \frac{1}{2}\left\lbrack {2u} \right\rbrack = u.$$</paragraph>
+      <paragraph>Therefore, by the use of the transformation $$T,$$ the integral changes to</paragraph>
+      <paragraph math="block">$${\iint\limits_{R}{\left( {x - y} \right)dy dx = {\int\limits_{-9}^{-5} {\int\limits_{-1}^{1}{J\left( {u,v} \right)u du dv = {\int\limits_{-9}^{-5} {\int\limits_{-1}^{1}\left( \frac{1}{2} \right)}}}}}}}u du dv,$$</paragraph>
+      <paragraph>which is much simpler to compute. In fact, it is easily found to be zero. And this is just one example of why we transform integrals like this.</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="5.46">
+    <problem>
+      <paragraph>Make appropriate changes of variables in the integral $${\iint\limits_{R}\frac{4}{\left( {x - y} \right)^{2}}}dy dx,$$ where $$R$$ is the trapezoid bounded by the lines $$x - y = 2,x - y = 4,x = 0, \text{and} y = 0.$$ Write the resulting integral.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$x=12(v+u)x=12(v+u)$$ and $$y=12(v-u)y=12(v-u)$$ and $$\int 24\int -uu4u2(12)dvdu.\int 24\int -uu4u2(12)dvdu.$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>We are ready to give a problem-solving strategy for change of variables.</paragraph>
+  <note type="procedure" source_type="Problem-Solving Strategy" title="Problem-Solving Strategy">
+    <heading level="4">Change of Variables</heading>
+    <list type="ordered">
+      <item>Sketch the region given by the problem in the $$xy \text{-plane}$$ and then write the equations of the curves that form the boundary.</item>
+      <item>Depending on the region or the integrand, choose the transformations $$x = g\left( {u,v} \right)$$ and $$y = h\left( {u,v} \right).$$</item>
+      <item>Determine the new limits of integration in the $$uv \text{-plane} .$$</item>
+      <item>Find the Jacobian $$J\left( {u,v} \right).$$</item>
+      <item>In the integrand, replace the variables to obtain the new integrand.</item>
+      <item>Replace $$dy dx$$ or $$dx dy,$$ whichever occurs, by $$J\left( {u,v} \right)du dv.$$</item>
+    </list>
+  </note>
+  <paragraph>In the next example, we find a substitution that makes the integrand much simpler to compute.</paragraph>
+  <example number="5.71" title="Evaluating an Integral">
+    <problem>
+      <paragraph>Using the change of variables $$u = x - y$$ and $$v = x + y,$$ evaluate the integral</paragraph>
+      <paragraph math="block">$${\iint\limits_{R}{\left( {x - y} \right)e^{x^{2} - y^{2}}dA}},$$</paragraph>
+      <paragraph>where $$R$$ is the region bounded by the lines $$x + y = 1$$ and $$x + y = 3$$ and the curves $$x^{2} - y^{2} = -1$$ and $$x^{2} - y^{2} = 1$$ (see the first region in Figure 5.79).</paragraph>
+    </problem>
+    <solution>
+      <paragraph>As before, first find the region $$R$$ and picture the transformation so it becomes easier to obtain the limits of integration after the transformations are made (Figure 5.79).</paragraph>
+      <figure number="5.79">
+        <image alt="On the left-hand side of this figure, there is a complex region R in the Cartesian x y-plane bounded by x squared minus y squared = negative 1, x squared minus y squared = 1, x + y = 3, and x + y = 1. Then there is an arrow from this graph to the right-hand side of the figure marked with x = (u + v)/2 and y = (v minus u)/2. On the right-hand side of this figure there is a simpler region S in the Cartesian u v-plane bounded by u v = negative 1, u v = 1, v = 1, and v = 3."/>
+        <caption>Transforming the region $$R$$ into the region $$S$$ to simplify the computation of an integral.</caption>
+      </figure>
+      <paragraph>Given $$u = x - y$$ and $$v = x + y,$$ we have $$x = \frac{u + v}{2}$$ and $$y = \frac{v - u}{2}$$ and hence the transformation to use is $$T\left( {u,v} \right) = \left( {\frac{u + v}{2},\frac{v - u}{2}} \right).$$ The lines $$x + y = 1$$ and $$x + y = 3$$ become $$v = 1$$ and $$v = 3,$$ respectively. The curves $$x^{2} - y^{2} = 1$$ and $$x^{2} - y^{2} = -1$$ become $$uv = 1$$ and $$uv = -1,$$ respectively.</paragraph>
+      <paragraph>Thus we can describe the region $$S$$ (see the second region Figure 5.79) as</paragraph>
+      <paragraph math="block">$$S = \left\{ {\left. \left( {u,v} \right) \right|1 \leq v \leq 3,\frac{-1}{v} \leq u \leq \frac{1}{v}} \right\}.$$</paragraph>
+      <paragraph>The Jacobian for this transformation is</paragraph>
+      <paragraph math="block">$$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left| \begin{array}{lll} {1/2} &amp; &amp; {- 1/2} \\ {1/2} &amp; &amp; {1/2} \end{array} \right| = \frac{1}{2}.$$</paragraph>
+      <paragraph>Therefore, by using the transformation $$T,$$ the integral changes to</paragraph>
+      <paragraph math="block">$${\iint\limits_{R}\left( {x - y} \right)}e^{x^{2} - y^{2}}dA = \frac{1}{2}{\int\limits_{1}^{3} {\int\limits_{-1/v}^{1/v}{ue^{uv}du dv}}}.$$</paragraph>
+      <paragraph>Doing the evaluation, we have</paragraph>
+      <paragraph math="block">$$\frac{1}{2}{\int\limits_{1}^{3} {\int\limits_{-1/v}^{1/v}{ue^{uv}du dv}}} = \frac{2}{3e} \approx 0.245.$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="5.47">
+    <problem>
+      <paragraph>Using the substitutions $$x = v$$ and $$y = \sqrt{u + v},$$ evaluate the integral $${\iint\limits_{R}{y \sin \left( {y^{2} - x} \right)}}dA$$ where $$R$$ is the region bounded by the lines $$y = \sqrt{x},x = 2, \text{and} y = 0.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$1 2 ( sin 2 - 2 ) 1 2 ( sin 2 - 2 )$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Change of Variables for Triple Integrals</heading>
+  <paragraph>Changing variables in triple integrals works in exactly the same way. Cylindrical and spherical coordinate substitutions are special cases of this method, which we demonstrate here.</paragraph>
+  <paragraph>Suppose that $$G$$ is a region in $$uvw \text{-space}$$ and is mapped to $$D$$ in $$xyz \text{-space}$$ (Figure 5.80) by a one-to-one $$C^{1}$$ transformation $$T\left( {u,v,w} \right) = \left( {x,y,z} \right)$$ where $$x = g\left( {u,v,w} \right),$$ $$y = h\left( {u,v,w} \right),$$ and $$z = k\left( {u,v,w} \right).$$</paragraph>
+  <figure number="5.80">
+    <image alt="On the left-hand side of this figure, there is a region G in u v w space. Then there is an arrow from this graph to the right-hand side of the figure marked with x = g(u, v, w), y = h(u, v, w), and z = k(u, v, w). On the right-hand side of this figure there is a region D in xyz space."/>
+    <caption>A region $$G$$ in $$uvw \text{-space}$$ mapped to a region $$D$$ in $$xyz \text{-space} .$$</caption>
+  </figure>
+  <paragraph>Then any function $$F\left( {x,y,z} \right)$$ defined on $$D$$ can be thought of as another function $$H\left( {u,v,w} \right)$$ that is defined on $$G:$$</paragraph>
+  <paragraph math="block">$$F\left( {x,y,z} \right) = F\left( {g\left( {u,v,w} \right),h\left( {u,v,w} \right),k\left( {u,v,w} \right)} \right) = H\left( {u,v,w} \right).$$</paragraph>
+  <paragraph>Now we need to define the Jacobian for three variables.</paragraph>
+  <note type="definition" source_type="Definition" title="Definition">
+    <paragraph>The Jacobian determinant $$J\left( {u,v,w} \right)$$ in three variables is defined as follows:</paragraph>
+    <paragraph math="block">$$J(u,v,w) = \left| \begin{array}{lclcl} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial z}{\partial u} \\ \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial y}{\partial v} &amp; &amp; \frac{\partial z}{\partial v} \\ \frac{\partial x}{\partial w} &amp; &amp; \frac{\partial y}{\partial w} &amp; &amp; \frac{\partial z}{\partial w} \end{array} \right|.$$</paragraph>
+    <paragraph>This is also the same as</paragraph>
+    <paragraph math="block">$$J(u,v,w) = \left| \begin{array}{lclcl} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial x}{\partial w} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} &amp; &amp; \frac{\partial y}{\partial w} \\ \frac{\partial z}{\partial u} &amp; &amp; \frac{\partial z}{\partial v} &amp; &amp; \frac{\partial z}{\partial w} \end{array} \right|.$$</paragraph>
+    <paragraph>The Jacobian can also be simply denoted as $$\frac{\partial\left( {x,y,z} \right)}{\partial\left( {u,v,w} \right)}.$$</paragraph>
+  </note>
+  <paragraph>With the transformations and the Jacobian for three variables, we are ready to establish the theorem that describes change of variables for triple integrals.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="5.15" title="Change of Variables for Triple Integrals">
+    <heading level="4">Change of Variables for Triple Integrals</heading>
+    <paragraph>Let $$T\left( {u,v,w} \right) = \left( {x,y,z} \right)$$ where $$x = g\left( {u,v,w} \right),y = h\left( {u,v,w} \right),$$ and $$z = k\left( {u,v,w} \right),$$ be a one-to-one $$C^{1}$$ transformation, with a nonzero Jacobian, that maps the region $$G$$ in the $$uvw \text{-space}$$ into the region $$R$$ in the $$xyz \text{-space} .$$ As in the two-dimensional case, if $$F$$ is continuous on $$R,$$ then</paragraph>
+    <paragraph math="block">$$\begin{array}{cl} {\iiint\limits_{R}{F\left( {x,y,z} \right)dV}} &amp; {= {\iiint\limits_{G}{F\left( {g\left( {u,v,w} \right),h\left( {u,v,w} \right),k\left( {u,v,w} \right)} \right)\left| \frac{\partial\left( {x,y,z} \right)}{\partial\left( {u,v,w} \right)} \right|}}du dv dw} \\ &amp; {= {\iiint\limits_{G}{H\left( {u,v,w} \right)}}\left| {J\left( {u,v,w} \right)} \right|du dv dw.} \end{array}$$</paragraph>
+  </note>
+  <paragraph>Let us now see how changes in triple integrals for cylindrical and spherical coordinates are affected by this theorem. We expect to obtain the same formulas as in Triple Integrals in Cylindrical and Spherical Coordinates.</paragraph>
+  <example number="5.72" title="Obtaining Formulas in Triple Integrals for Cylindrical and Spherical Coordinates">
+    <problem>
+      <paragraph>Derive the formula in triple integrals for</paragraph>
+      <list type="ordered">
+        <item>cylindrical and</item>
+        <item>spherical coordinates.</item>
       </list>
-    </note>
-    <p>In the next example, we find a substitution that makes the integrand much simpler to compute.</p>
-    <example number="5.71">
-      <problem>
-        <title>Evaluating an Integral</title>
-        <p>Using the change of variables $$u = x - y$$ and $$v = x + y,$$ evaluate the integral</p>
-        <equation>$${\iint\limits_{R}{\left( {x - y} \right)e^{x^{2} - y^{2}}dA}},$$</equation>
-        <p>where $$R$$ is the region bounded by the lines $$x + y = 1$$ and $$x + y = 3$$ and the curves $$x^{2} - y^{2} = -1$$ and $$x^{2} - y^{2} = 1$$ (see the first region in Figure 5.79).</p>
-      </problem>
-      <solution>
-        <p>As before, first find the region $$R$$ and picture the transformation so it becomes easier to obtain the limits of integration after the transformations are made (Figure 5.79).</p>
-        <image alt="On the left-hand side of this figure, there is a complex region R in the Cartesian x y-plane bounded by x squared minus y squared = negative 1, x squared minus y squared = 1, x + y = 3, and x + y = 1. Then there is an arrow from this graph to the right-hand side of the figure marked with x = (u + v)/2 and y = (v minus u)/2. On the right-hand side of this figure there is a simpler region S in the Cartesian u v-plane bounded by u v = negative 1, u v = 1, v = 1, and v = 3." number="5.79" caption="Transforming the region $$R$$ into the region $$S$$ to simplify the computation of an integral." />
-        <p>Given $$u = x - y$$ and $$v = x + y,$$ we have $$x = \frac{u + v}{2}$$ and $$y = \frac{v - u}{2}$$ and hence the transformation to use is $$T\left( {u,v} \right) = \left( {\frac{u + v}{2},\frac{v - u}{2}} \right).$$ The lines $$x + y = 1$$ and $$x + y = 3$$ become $$v = 1$$ and $$v = 3,$$ respectively. The curves $$x^{2} - y^{2} = 1$$ and $$x^{2} - y^{2} = -1$$ become $$uv = 1$$ and $$uv = -1,$$ respectively.</p>
-        <p>Thus we can describe the region $$S$$ (see the second region Figure 5.79) as</p>
-        <equation>$$S = \left\{ {\left. \left( {u,v} \right) \right|1 \leq v \leq 3,\frac{-1}{v} \leq u \leq \frac{1}{v}} \right\}.$$</equation>
-        <p>The Jacobian for this transformation is</p>
-        <equation>$$J\left( {u,v} \right) = \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} = \left| \begin{array}{lll} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} \end{array} \right| = \left| \begin{array}{lll} {1\text{/}2} &amp; &amp; {- 1\text{/}2} \\ {1\text{/}2} &amp; &amp; {1\text{/}2} \end{array} \right| = \frac{1}{2}.$$</equation>
-        <p>Therefore, by using the transformation $$T,$$ the integral changes to</p>
-        <equation>$${\iint\limits_{R}\left( {x - y} \right)}e^{x^{2} - y^{2}}dA = \frac{1}{2}{\int\limits_{1}^{3}\ {\int\limits_{-1\text{/}v}^{1\text{/}v}{ue^{uv}du\ dv}}}.$$</equation>
-        <p>Doing the evaluation, we have</p>
-        <equation>$$\frac{1}{2}{\int\limits_{1}^{3}\ {\int\limits_{-1\text{/}v}^{1\text{/}v}{ue^{uv}du\ dv}}} = \frac{2}{3e} \approx 0.245.$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="5.47">
-      <problem>
-        <p>Using the substitutions $$x = v$$ and $$y = \sqrt{u + v},$$ evaluate the integral $${\iint\limits_{R}{y\ \text{sin}\left( {y^{2} - x} \right)}}dA$$ where $$R$$ is the region bounded by the lines $$y = \sqrt{x},x = 2,\text{and}\ y = 0.$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{2}\left( {\text{sin}\ 2 - 2} \right)$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Change of Variables for Triple Integrals">
-    <p>Changing variables in triple integrals works in exactly the same way. Cylindrical and spherical coordinate substitutions are special cases of this method, which we demonstrate here.</p>
-    <p>Suppose that $$G$$ is a region in $$uvw\text{-space}$$ and is mapped to $$D$$ in $$xyz\text{-space}$$ (Figure 5.80) by a one-to-one $$C^{1}$$ transformation $$T\left( {u,v,w} \right) = \left( {x,y,z} \right)$$ where $$x = g\left( {u,v,w} \right),$$ $$y = h\left( {u,v,w} \right),$$ and $$z = k\left( {u,v,w} \right).$$</p>
-    <image alt="On the left-hand side of this figure, there is a region G in u v w space. Then there is an arrow from this graph to the right-hand side of the figure marked with x = g(u, v, w), y = h(u, v, w), and z = k(u, v, w). On the right-hand side of this figure there is a region D in xyz space." number="5.80" caption="A region $$G$$ in $$uvw\text{-space}$$ mapped to a region $$D$$ in $$xyz\text{-space}.$$" />
-    <p>Then any function $$F\left( {x,y,z} \right)$$ defined on $$D$$ can be thought of as another function $$H\left( {u,v,w} \right)$$ that is defined on $$G\text{:}$$</p>
-    <equation>$$F\left( {x,y,z} \right) = F\left( {g\left( {u,v,w} \right),h\left( {u,v,w} \right),k\left( {u,v,w} \right)} \right) = H\left( {u,v,w} \right).$$</equation>
-    <p>Now we need to define the Jacobian for three variables.</p>
-    <note type="Definition">
-      <p>The Jacobian determinant $$J\left( {u,v,w} \right)$$ in three variables is defined as follows:</p>
-      <equation>$$J(u,v,w) = \left| \begin{array}{lclcl} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial z}{\partial u} \\ \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial y}{\partial v} &amp; &amp; \frac{\partial z}{\partial v} \\ \frac{\partial x}{\partial w} &amp; &amp; \frac{\partial y}{\partial w} &amp; &amp; \frac{\partial z}{\partial w} \end{array} \right|.$$</equation>
-      <p>This is also the same as</p>
-      <equation>$$J(u,v,w) = \left| \begin{array}{lclcl} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial x}{\partial w} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} &amp; &amp; \frac{\partial y}{\partial w} \\ \frac{\partial z}{\partial u} &amp; &amp; \frac{\partial z}{\partial v} &amp; &amp; \frac{\partial z}{\partial w} \end{array} \right|.$$</equation>
-      <p>The Jacobian can also be simply denoted as $$\frac{\partial\left( {x,y,z} \right)}{\partial\left( {u,v,w} \right)}.$$</p>
-    </note>
-    <p>With the transformations and the Jacobian for three variables, we are ready to establish the theorem that describes change of variables for triple integrals.</p>
-    <theorem number="5.15" title="Change of Variables for Triple Integrals">
-      <p>Let $$T\left( {u,v,w} \right) = \left( {x,y,z} \right)$$ where $$x = g\left( {u,v,w} \right),y = h\left( {u,v,w} \right),$$ and $$z = k\left( {u,v,w} \right),$$ be a one-to-one $$C^{1}$$ transformation, with a nonzero Jacobian, that maps the region $$G$$ in the $$uvw\text{-space}$$ into the region $$R$$ in the $$xyz\text{-space}\text{.}$$ As in the two-dimensional case, if $$F$$ is continuous on $$R,$$ then</p>
-      <equation>$$\begin{array}{cl} {\iiint\limits_{R}{F\left( {x,y,z} \right)dV}} &amp; {= {\iiint\limits_{G}{F\left( {g\left( {u,v,w} \right),h\left( {u,v,w} \right),k\left( {u,v,w} \right)} \right)\left| \frac{\partial\left( {x,y,z} \right)}{\partial\left( {u,v,w} \right)} \right|}}du\ dv\ dw} \\ &amp; {= {\iiint\limits_{G}{H\left( {u,v,w} \right)}}\left| {J\left( {u,v,w} \right)} \right|du\ dv\ dw.} \end{array}$$</equation>
-    </theorem>
-    <p>Let us now see how changes in triple integrals for cylindrical and spherical coordinates are affected by this theorem. We expect to obtain the same formulas as in Triple Integrals in Cylindrical and Spherical Coordinates.</p>
-    <example number="5.72">
-      <problem>
-        <title>Obtaining Formulas in Triple Integrals for Cylindrical and Spherical Coordinates</title>
-        <p>Derive the formula in triple integrals for</p>
-        <list type="ol" style="a">
-          <item>cylindrical and</item>
-          <item>spherical coordinates.</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="a">
-          <item>For cylindrical coordinates, the transformation isfrom the Cartesianto the Cartesian(). HereandThe Jacobian for the transformation isWe know thatsoThen the triple integral is<equation>$$T\left( {r,\theta,z} \right) = \left( {x,y,z} \right)$$</equation>
-            <equation>$$r\theta z\text{-plane}$$</equation>
-            <equation>$$xyz\text{-plane}$$</equation>
-            <equation>$$x = r\ \text{cos}\ \theta,$$</equation>
-            <equation>$$y = r\ \text{sin}\ \theta,$$</equation>
-            <equation>$$z = z.$$</equation>
-            <equation>$$\begin{array}{cl} {J\left( {r,\theta,z} \right)} &amp; {= \frac{\partial\left( {x,y,z} \right)}{\partial\left( {r,\theta,z} \right)} = \left| \begin{array}{lllll} \frac{\partial x}{\partial r} &amp; &amp; \frac{\partial x}{\partial\theta} &amp; &amp; \frac{\partial x}{\partial z} \\ \frac{\partial y}{\partial r} &amp; &amp; \frac{\partial y}{\partial\theta} &amp; &amp; \frac{\partial y}{\partial z} \\ \frac{\partial z}{\partial r} &amp; &amp; \frac{\partial z}{\partial\theta} &amp; &amp; \frac{\partial z}{\partial z} \end{array} \right|} \\ &amp; {= \left| \begin{array}{clcll} {\text{cos}\ \theta} &amp; &amp; {- r\ \text{sin}\ \theta} &amp; &amp; 0 \\ {\text{sin}\ \theta} &amp; &amp; {r\ \text{cos}\ \theta} &amp; &amp; 0 \\ 0 &amp; &amp; 0 &amp; &amp; 1 \end{array} \right| = r\ \text{cos}^{2}\theta + r\ \text{sin}^{2}\theta = r\left( {\text{cos}^{2}\theta + \text{sin}^{2}\theta} \right) = r.} \end{array}$$</equation>
-            <equation>$$r \geq 0,$$</equation>
-            <equation>$$\left| {J\left( {r,\theta,z} \right)} \right| = r.$$</equation>
-            <equation>$${\iiint\limits_{D}{f\left( {x,y,z} \right)dV = {\iiint\limits_{G}{f\left( {r\ \text{cos}\ \theta,r\ \text{sin}\ \theta,z} \right)}}}}r\ dr\ d\theta\ dz.$$</equation>
-            <image alt="On the left-hand side of this figure, there is a cube G with sides parallel to the coordinate axes in cylindrical coordinate space. Then there is an arrow from this graph to the right-hand side of the figure marked with x = r cos theta, y = r sin theta, and z = z. On the right-hand side of this figure there is a region D in x y z space that is a thick annulus. The top is labeled z = constant, the flat vertical side is labeled theta = constant, and the outermost side is labeled r = constant." number="5.81" caption="The transformation from rectangular coordinates to cylindrical coordinates can be treated as a change of variables from region $$G$$ in $$r\theta z\text{-space}$$ to region $$D$$ in $$xyz\text{-space}.$$" />
-          </item>
-          <item>For spherical coordinates, the transformation isfrom the Cartesianto the Cartesian(). HereandThe Jacobian for the transformation isExpanding the determinant with respect to the third row:Sincewe must haveThusThen the triple integral becomes<equation>$$T\left( {\rho,\theta,\varphi} \right) = \left( {x,y,z} \right)$$</equation>
-            <equation>$$p\theta\varphi\text{-plane}$$</equation>
-            <equation>$$xyz\text{-plane}$$</equation>
-            <equation>$$x = \rho\ \text{sin}\ \varphi\ \text{cos}\ \theta,$$</equation>
-            <equation>$$y = \rho\ \text{sin}\ \varphi\ \text{sin}\ \theta,$$</equation>
-            <equation>$$z = \rho\ \text{cos}\ \varphi.$$</equation>
-            <equation>$$J\left( {\rho,\theta,\varphi} \right) = \frac{\partial\left( {x,y,z} \right)}{\partial\left( {\rho,\theta,\varphi} \right)} = \left| \begin{array}{lllll} \frac{\partial x}{\partial\rho} &amp; &amp; \frac{\partial x}{\partial\theta} &amp; &amp; \frac{\partial x}{\partial\varphi} \\ \frac{\partial y}{\partial\rho} &amp; &amp; \frac{\partial y}{\partial\theta} &amp; &amp; \frac{\partial y}{\partial\varphi} \\ \frac{\partial z}{\partial\rho} &amp; &amp; \frac{\partial z}{\partial\theta} &amp; &amp; \frac{\partial z}{\partial\varphi} \end{array} \right| = \left| \begin{array}{clcll} {\text{sin}\ \varphi\ \text{cos}\ \theta} &amp; &amp; {\rho\ \text{sin}\ \varphi\ \text{sin}\ \theta} &amp; &amp; {\rho\ \text{cos}\ \varphi\ \text{cos}\ \theta} \\ {\text{sin}\ \varphi\ \text{sin}\ \theta} &amp; &amp; {\rho\ \text{sin}\ \varphi\ \text{cos}\ \theta} &amp; &amp; {\rho\ \text{cos}\ \varphi\ \text{sin}\ \theta} \\ {\text{cos}\ \phi} &amp; &amp; 0 &amp; &amp; {- \rho\ \text{sin}\ \varphi} \end{array} \right|.$$</equation>
-            <equation>$$\begin{matrix} \\ \\ {= \text{cos}\ \varphi\left| \begin{array}{lll} {- \rho\ \text{sin}\ \varphi\ \text{sin}\ \theta} &amp; &amp; {\rho\ \text{cos}\ \varphi\ \text{cos}\ \theta} \\ {\rho\ \text{sin}\ \varphi\ \text{sin}\ \theta} &amp; &amp; {\rho\ \text{cos}\ \varphi\ \text{sin}\ \theta} \end{array} \right| - \rho\ \text{sin}\ \varphi\left| \begin{array}{lll} {\text{sin}\ \varphi\ \text{cos}\ \theta} &amp; &amp; {- \rho\ \text{sin}\ \varphi\ \text{sin}\ \theta} \\ {\text{sin}\ \varphi\ \text{sin}\ \theta} &amp; &amp; {\rho\ \text{sin}\ \varphi\ \text{cos}\ \theta} \end{array} \right|} \\ {= \text{cos}\ \varphi\left( {\text{−}\rho^{2}\text{sin}\ \varphi\ \text{cos}\ \varphi\ \text{sin}^{2}\theta - \rho^{2}\text{sin}\ \varphi\ \text{cos}\ \varphi\ \text{cos}^{2}\theta} \right)} \\ {\quad - \rho\ \text{sin}\ \varphi\left( {\rho\ \text{sin}^{2}\varphi\ \text{cos}^{2}\theta + \rho\ \text{sin}^{2}\varphi\ \text{sin}^{2}\theta} \right)} \\ {= \text{−}\rho^{2}\text{sin}\ \varphi\ \text{cos}^{2}\varphi\left( {\text{sin}^{2}\theta + \text{cos}^{2}\theta} \right) - \rho^{2}\text{sin}\ \varphi\ \text{sin}^{2}\varphi\left( {\text{sin}^{2}\theta + \text{cos}^{2}\theta} \right)} \\ {= \text{−}\rho^{2}\text{sin}\ \varphi\ \text{cos}^{2}\varphi - \rho^{2}\text{sin}\ \varphi\ \text{sin}^{2}\varphi} \\ {= \text{−}\rho^{2}\text{sin}\ \varphi\left( {\text{cos}^{2}\varphi + \text{sin}^{2}\varphi} \right) = \text{−}\rho^{2}\text{sin}\ \varphi.} \end{matrix}$$</equation>
-            <equation>$$0 \leq \varphi \leq \pi,$$</equation>
-            <equation>$$\text{sin}\ \varphi \geq 0.$$</equation>
-            <equation>$$\left| {J\left( {\rho,\theta,\varphi} \right)} \right| = \left| {\text{−}\rho^{2}\text{sin}\ \varphi} \right| = \rho^{2}\text{sin}\ \varphi.$$</equation>
-            <image alt="On the left-hand side of this figure, there is a cube G with sides parallel to the coordinate axes in rho phi theta space. Then there is an arrow from this graph to the right-hand side of the figure marked with x = rho sin phi cos theta, y = rho sin phi sin theta, and z = rho cos phi. On the right-hand side of this figure there is a region D in xyz space that is a thick annulus and has the point (x, y, z) shown as being equal to (rho, phi, theta). The top is labeled phi = constant, the flat vertical side is labeled theta = constant, and the outermost side is labeled rho = constant." number="5.82" caption="The transformation from rectangular coordinates to spherical coordinates can be treated as a change of variables from region $$G$$ in $$\rho\theta\varphi\text{-space}$$ to region $$D$$ in $$xyz\text{-space}\text{.}$$" />
-            <equation>$${\iiint\limits_{D}{f\left( {x,y,z} \right)}}dV = {\iiint\limits_{G}{f\left( {\rho\ \text{sin}\ \varphi\ \text{cos}\ \theta,\rho\ \text{sin}\ \varphi\ \text{sin}\ \theta,\rho\ \text{cos}\ \varphi} \right)}}\rho^{2}\text{sin}\ \varphi\ d\rho\ d\varphi\ d\theta.$$</equation>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <p>Let’s try another example with a different substitution.</p>
-    <example number="5.73">
-      <problem>
-        <title>Evaluating a Triple Integral with a Change of Variables</title>
-        <p>Evaluate the triple integral</p>
-        <equation>$${\int\limits_{0}^{3}\ {\int\limits_{0}^{4}\ {\int\limits_{y\text{/}2}^{{({y\text{/}2})} + 1}\left( {x + \frac{z}{3}} \right)}}}dx\ dy\ dz$$</equation>
-        <p>in $$xyz\text{-space}$$ by using the transformation</p>
-        <equation>$$u = \left( {2x - y} \right)\text{/}2,v = y\text{/}2,\text{and}\ w = z\text{/}3.$$</equation>
-        <p>Then integrate over an appropriate region in $$uvw\text{-space}\text{.}$$</p>
-      </problem>
-      <solution>
-        <p>As before, some kind of sketch of the region $$G$$ in $$xyz\text{-space}$$ over which we have to perform the integration can help identify the region $$D$$ in $$uvw\text{-space}$$ (Figure 5.83). Clearly $$G$$ in $$xyz\text{-space}$$ is bounded by the planes $$x = y\text{/}2,x = \left( {y\text{/}2} \right) + 1,y = 0,$$ $$y = 4,$$ $$z = 0,\text{and}\ z = 4.$$ We also know that we have to use $$u = \left( {2x - y} \right)\text{/}2,v = y\text{/}2,\text{and}\ w = z\text{/}3$$ for the transformations. We need to solve for $$x,y,\text{and}\ z.$$ Here we find that $$x = u + v,$$ $$y = 2v,$$ and $$z = 3w.$$</p>
-        <p>Using elementary algebra, we can find the corresponding surfaces for the region $$G$$ and the limits of integration in $$uvw\text{-space}\text{.}$$ It is convenient to list these equations in a table.</p>
-        <table summary="This table consists of three columns and seven rows. The first row is a header row and reads Equations in x y z for the region D, Corresponding equations in u v w for the region G, and Limits for the integration in u v w. The first column down reads x = y/2, x = (y/2) + 1, y =, y = 4, z = 0, and z = 3. The second column down reads u + v = 2v/2 = v, u + v = (2v/2) + 1 = v + 1, 2v = 0, 2v = 4, 3w = 0, and 3w = 3. The last column reads u = 0, u =1, v = 0, v = 2, w = 0, and w = 1.">
-          <thead>
-            <row>
-              <cell>Equations in $$xyz$$ for the region $$D$$</cell>
-              <cell>Corresponding equations in $$uvw$$ for the region $$G$$</cell>
-              <cell>Limits for the integration in $$uvw$$</cell>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <cell>$$x = y\text{/}2$$</cell>
-              <cell>$$u + v = 2v\text{/}2 = v$$</cell>
-              <cell>$$u = 0$$</cell>
-            </row>
-            <row>
-              <cell>$$x = y\text{/}2$$</cell>
-              <cell>$$u + v = \left( {2v\text{/}2} \right) + 1 = v + 1$$</cell>
-              <cell>$$u = 1$$</cell>
-            </row>
-            <row>
-              <cell>$$y = 0$$</cell>
-              <cell>$$2v = 0$$</cell>
-              <cell>$$v = 0$$</cell>
-            </row>
-            <row>
-              <cell>$$y = 4$$</cell>
-              <cell>$$2v = 4$$</cell>
-              <cell>$$v = 2$$</cell>
-            </row>
-            <row>
-              <cell>$$z = 0$$</cell>
-              <cell>$$3w = 0$$</cell>
-              <cell>$$w = 0$$</cell>
-            </row>
-            <row>
-              <cell>$$z = 3$$</cell>
-              <cell>$$3w = 3$$</cell>
-              <cell>$$w = 1$$</cell>
-            </row>
-          </tbody>
-        </table>
-        <image alt="On the left-hand side of this figure, there is a box G with sides 1, 2, and 1 along the u, v, and w axes, respectively. Then there is an arrow from this graph to the right-hand side of the figure marked with x = u + v, y = 2v, and z = 3w. On the right-hand side of this figure there is a region D in xyz space that is a rotated box with sides 1, 4, and 3 along the x, y, and z axes. The rear plane is marked x = y/2 or y = 2x. The front plane is marked x = y/2 + 1 or y = 2x minus 2." number="5.83" caption="The region $$G$$ in $$uvw\text{-space}$$ is transformed to region $$D$$ in $$xyz\text{-space}\text{.}$$" />
-        <p>Now we can calculate the Jacobian for the transformation:</p>
-        <equation>$$J(u,v,w) = \left| \begin{array}{lclcl} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial x}{\partial w} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} &amp; &amp; \frac{\partial y}{\partial w} \\ \frac{\partial z}{\partial u} &amp; &amp; \frac{\partial z}{\partial v} &amp; &amp; \frac{\partial z}{\partial w} \end{array} \right| = \left| \begin{array}{lclcl} 1 &amp; &amp; 1 &amp; &amp; 0 \\ 0 &amp; &amp; 2 &amp; &amp; 0 \\ 0 &amp; &amp; 0 &amp; &amp; 3 \end{array} \right| = 6.$$</equation>
-        <p>The function to be integrated becomes</p>
-        <equation>$$f\left( {x,y,z} \right) = x + \frac{z}{3} = u + v + \frac{3w}{3} = u + v + w.$$</equation>
-        <p>We are now ready to put everything together and complete the problem.</p>
-        <equation>$$\begin{array}{l} \\ \\ \\ \\ {\quad{\int\limits_{0}^{3}\ {\int\limits_{0}^{4}\ {\int\limits_{y\text{/}2}^{{({y\text{/}2})} + 1}\left( {x + \frac{z}{3}} \right)}}}dx\ dy\ dz} \\ \\ {= {\int\limits_{0}^{1}\ {\int\limits_{0}^{2}\ {\int\limits_{0}^{1}\left( {u + v + w} \right)}}}\left| {J\left( {u,v,w} \right)} \right|du\ dv\ dw = {\int\limits_{0}^{1}\ {\int\limits_{0}^{2}\ {\int\limits_{0}^{1}\left( {u + v + w} \right)}}}|6|du\ dv\ dw} \\ {= 6{\int\limits_{0}^{1}\ {\int\limits_{0}^{2}\ {\int\limits_{0}^{1}\left( {u + v + w} \right)}}}du\ dv\ dw = 6{\int\limits_{0}^{1}\ {\int\limits_{0}^{2}\left\lbrack {\frac{u^{2}}{2} + vu + wu} \right\rbrack}}_{0}^{1}dv\ dw} \\ {= 6{\int\limits_{0}^{1}\ {\int\limits_{0}^{2}\left( {\frac{1}{2} + v + w} \right)}}dv\ dw = 6{\int\limits_{0}^{1}\left\lbrack {\frac{1}{2}v + \frac{v^{2}}{2} + wv} \right\rbrack}_{0}^{2}dw} \\ {= 6{\int\limits_{0}^{1}\left( {3 + 2w} \right)}dw = 6\left\lbrack {3w + w^{2}} \right\rbrack_{0}^{1} = 24.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="5.48">
-      <problem>
-        <p>Let $$D$$ be the region in $$xyz\text{-space}$$ defined by $$1 \leq x \leq 2,0 \leq xy \leq 2,\text{and}\ 0 \leq z \leq 1.$$</p>
-        <p>Evaluate $${\iiint\limits_{D}\left( {x^{2}y + 3xyz} \right)}dx\ dy\ dz$$ by using the transformation $$u = x,v = xy,$$ and $$w = 3z.$$</p>
-      </problem>
-      <solution>
-        <p>$${\int\limits_{0}^{3}\ {\int\limits_{0}^{2}\ {\int\limits_{1}^{2}\left( {\frac{v}{3} + \frac{vw}{3u}} \right)}}}du\ dv\ dw = 2 + \text{ln}\ 8$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <exercises title="Section 5.7 Exercises">
-    <instruction>In the following exercises, the function $$T:S\rightarrow R,T\left( {u,v} \right) = \left( {x,y} \right)$$ on the region $$S = \left\{ {\left. \left( {u,v} \right) \right|0 \leq u \leq 1,0 \leq v \leq 1} \right\}$$ bounded by the unit square is given, where $$R \subset \mathbb{R}^{2}$$ is the image of $$S$$ under $$T.$$ a. Justify that the function $$T$$ is a $$C^{1}$$ transformation. b. Find the images of the vertices of the unit square $$S$$ through the function $$T.$$ c. Determine the image $$R$$ of the unit square $$S$$ and graph it.</instruction>
-    <exercise number="356" has_solution="false">
-      <problem>
-        <p>$$x = 2u,y = 3v$$</p>
-      </problem>
-    </exercise>
-    <exercise number="357" has_solution="true">
-      <problem>
-        <p>$$x = \frac{u}{2},y = \frac{v}{3}$$</p>
-      </problem>
-      <solution>
-        <p>a. $$T\left( {u,v} \right) = \left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right),x = g\left( {u,v} \right) = \frac{u}{2}$$ and $$y = h\left( {u,v} \right) = \frac{v}{3}.$$ The functions $$g$$ and $$h$$ are continuous and differentiable, and the partial derivatives $$g_{u}\left( {u,v} \right) = \frac{1}{2},$$ $$g_{v}\left( {u,v} \right) = 0,h_{u}\left( {u,v} \right) = 0\ \text{and}\ h_{v}\left( {u,v} \right) = \frac{1}{3}$$ are continuous on $$S;$$ b. $$T\left( {0,0} \right) = \left( {0,0} \right),$$ $$T\left( {1,0} \right) = \left( {\frac{1}{2},0} \right),T\left( {0,1} \right) = \left( {0,\frac{1}{3}} \right),$$ and $$T\left( {1,1} \right) = \left( {\frac{1}{2},\frac{1}{3}} \right);$$ c. $$R$$ is the rectangle of vertices $$\left( {0,0} \right),\left( {\frac{1}{2},0} \right),\left( {\frac{1}{2},\frac{1}{3}} \right),\text{and}\ \left( {0,\frac{1}{3}} \right)$$ in the $$xy\text{-plane;}$$ the following figure.</p>
-      </solution>
-    </exercise>
-    <exercise number="358" has_solution="false">
-      <problem>
-        <p>$$x = u - v,y = u + v$$</p>
-      </problem>
-    </exercise>
-    <exercise number="359" has_solution="true">
-      <problem>
-        <p>$$x = 2u - v,y = u + 2v$$</p>
-      </problem>
-      <solution>
-        <p>a. $$T\left( {u,v} \right) = \left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right),x = g\left( {u,v} \right) = 2u - v,$$ and $$y = h\left( {u,v} \right) = u + 2v.$$ The functions $$g$$ and $$h$$ are continuous and differentiable, and the partial derivatives $$g_{u}\left( {u,v} \right) = 2,$$ $$g_{v}\left( {u,v} \right) = -1,$$ $$h_{u}\left( {u,v} \right) = 1,$$ and $$h_{v}\left( {u,v} \right) = 2$$ are continuous on $$S;$$ b. $$T\left( {0,0} \right) = \left( {0,0} \right),$$ $$T\left( {1,0} \right) = \left( {2,1} \right),$$ $$T\left( {0,1} \right) = \left( {-1,2} \right),$$ and $$T\left( {1,1} \right) = \left( {1,3} \right);$$ c. $$R$$ is the sqaure of vertices $$\left( {0,0} \right),\left( {2,1} \right),\left( {1,3} \right),\text{and}\ \left( {-1,2} \right)$$ in the $$xy\text{-plane;}$$ see the following figure.</p>
-      </solution>
-    </exercise>
-    <exercise number="360" has_solution="false">
-      <problem>
-        <p>$$x = u^{2},y = v^{2}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="361" has_solution="true">
-      <problem>
-        <p>$$x = u^{3},y = v^{3}$$</p>
-      </problem>
-      <solution>
-        <p>a. $$T\left( {u,v} \right) = \left( {g\left( {u,v} \right),h\left( {u,v} \right)} \right),x = g\left( {u,v} \right) = u^{3},$$ and $$y = h\left( {u,v} \right) = v^{3}.$$ The functions $$g$$ and $$h$$ are continuous and differentiable, and the partial derivatives $$g_{u}\left( {u,v} \right) = 3u^{2},$$ $$g_{v}\left( {u,v} \right) = 0,$$ $$h_{u}\left( {u,v} \right) = 0,$$ and $$h_{v}\left( {u,v} \right) = 3v^{2}$$ are continuous on $$S;$$ b. $$T\left( {0,0} \right) = \left( {0,0} \right),$$ $$T\left( {1,0} \right) = \left( {1,0} \right),$$ $$T\left( {0,1} \right) = \left( {0,1} \right),$$ and $$T\left( {1,1} \right) = \left( {1,1} \right);$$ c. $$R$$ is the unit square in the $$xy\text{-plane;}$$ see the following figure.</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, determine whether the transformations $$T:S\rightarrow R$$ are one-to-one or not.</instruction>
-    <exercise number="362" has_solution="false">
-      <problem>
-        <p>$$x = u^{2},y = v^{2},\text{where}\ S$$ is the rectangle of vertices $$\left( {-1,0} \right),\left( {1,0} \right),\left( {1,1} \right),\text{and}\ \left( {-1,1} \right).$$</p>
-      </problem>
-    </exercise>
-    <exercise number="363" has_solution="true">
-      <problem>
-        <p>$$x = u^{4},y = u^{2} + v,\text{where}\ S$$ is the triangle of vertices $$\left( {-2,0} \right),\left( {2,0} \right),\text{and}\ \left( {0,2} \right).$$</p>
-      </problem>
-      <solution>
-        <p>$$T$$ is not one-to-one: two points of $$S$$ have the same image. Indeed, $$T\left( {-2,0} \right) = T\left( {2,0} \right) = \left( {16,4} \right).$$</p>
-      </solution>
-    </exercise>
-    <exercise number="364" has_solution="false">
-      <problem>
-        <p>$$x = 2u,y = 3v,\text{where}\ S$$ is the square of vertices $$\left( {-1,1} \right),\left( {-1,-1} \right),\left( {1,-1} \right),\text{and}\ \left( {1,1} \right).$$</p>
-      </problem>
-    </exercise>
-    <exercise number="365" has_solution="true">
-      <problem>
-        <p>$$T\left( {u,v} \right) = \left( {2u - v,u} \right),$$ where $$S$$ is the triangle of vertices $$\left( {-1,1} \right),\left( {-1,-1} \right),\text{and}\ \left( {1,-1} \right).$$</p>
-      </problem>
-      <solution>
-        <p>$$T$$ is one-to-one: We argue by contradiction. $$T\left( {u_{1},v_{1}} \right) = T\left( {u_{2},v_{2}} \right)$$ implies $$2u_{1} - v_{1} = 2u_{2} - v_{2}$$ and $$u_{1} = u_{2}.$$ Thus, $$u_{1} = u_{2}$$ and $$v_{1} = v_{2}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="366" has_solution="false">
-      <problem>
-        <p>$$x = u + v + w,y = u + v,z = w,$$ where $$S = R = \mathbb{R}^{3}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="367" has_solution="true">
-      <problem>
-        <p>$$x = u^{2} + v + w,y = u^{2} + v,z = w,$$ where $$S = R = \mathbb{R}^{3}.$$</p>
-      </problem>
-      <solution>
-        <p>$$T$$ is not one-to-one: $$T\left( {1,v,w} \right) = \left( {-1,v,w} \right)$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, the transformations $$T:S\rightarrow R$$ are one-to-one. Find their related inverse transformations $$T^{-1}:R\rightarrow S.$$</instruction>
-    <exercise number="368" has_solution="false">
-      <problem>
-        <p>$$x = 4u,y = 5v,$$ where $$S = R = \mathbb{R}^{2}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="369" has_solution="true">
-      <problem>
-        <p>$$x = u + 2v,y = \text{−}u + v,$$ where $$S = R = \mathbb{R}^{2}.$$</p>
-      </problem>
-      <solution>
-        <p>$$u = \frac{x - 2y}{3},v = \frac{x + y}{3}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="370" has_solution="false">
-      <problem>
-        <p>$$x = e^{2u + v},y = e^{u - v},$$ where $$S = \mathbb{R}^{2}$$ and $$R = \left\{ {\left. \left( {x,y} \right) \right|x &gt; 0,y &gt; 0} \right\}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="371" has_solution="true">
-      <problem>
-        <p>$$x = \text{ln}\ u,y = \text{ln}\left( {uv} \right),$$ where $$S = \left\{ {\left. \left( {u,v} \right) \right|u &gt; 0,v &gt; 0} \right\}$$ and $$R = \mathbb{R}^{2}.$$</p>
-      </problem>
-      <solution>
-        <p>$$u = e^{x},v = e^{\text{−}x + y}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="372" has_solution="false">
-      <problem>
-        <p>$$x = u + v + w,y = 3v,z = 2w,$$ where $$S = R = \mathbb{R}^{3}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="373" has_solution="true">
-      <problem>
-        <p>$$x = u + v,y = v + w,z = u + w,$$ where $$S = R = \mathbb{R}^{3}.$$</p>
-      </problem>
-      <solution>
-        <p>$$u = \frac{x - y + z}{2},v = \frac{x + y - z}{2},w = \frac{\text{−}x + y + z}{2}$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, the transformation $$T:S\rightarrow R,T\left( {u,v} \right) = \left( {x,y} \right)$$ and the region $$R \subset \mathbb{R}^{2}$$ are given. Find the region $$S \subset \mathbb{R}^{2}.$$</instruction>
-    <exercise number="374" has_solution="false">
-      <problem>
-        <p>$$x = au,y = bv,R = \left\{ {\left. \left( {x,y} \right) \right|x^{2} + y^{2} \leq a^{2}b^{2}} \right\},$$ where $$a,b &gt; 0$$</p>
-      </problem>
-    </exercise>
-    <exercise number="375" has_solution="true">
-      <problem>
-        <p>$$x = au,y = bv,R = \left\{ {\left. \left( {x,y} \right) \right|\frac{x^{2}}{a^{2}} + \frac{y^{2}}{b^{2}} \leq 1} \right\},$$ where $$a,b &gt; 0$$</p>
-      </problem>
-      <solution>
-        <p>$$S = \left\{ {\left. \left( {u,v} \right) \right|u^{2} + v^{2} \leq 1} \right\}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="376" has_solution="false">
-      <problem>
-        <p>$$x = \frac{u}{a},y = \frac{v}{b},z = \frac{w}{c},$$ $$R = \left\{ {\left. \left( {x,y} \right) \right|x^{2} + y^{2} + z^{2} \leq 1} \right\},$$ where $$a,b,c &gt; 0$$</p>
-      </problem>
-    </exercise>
-    <exercise number="377" has_solution="true">
-      <problem>
-        <p>$$x = au,y = bv,z = cw,R = \left\{ {\left. \left( {x,y} \right) \right|\frac{x^{2}}{a^{2}} - \frac{y^{2}}{b^{2}} - \frac{z^{2}}{c^{2}} \leq 1,z &gt; 0} \right\},$$ where $$a,b,c &gt; 0$$</p>
-      </problem>
-      <solution>
-        <p>$$R = \left\{ {\left. \left( {u,v,w} \right) \right|u^{2} - v^{2} - w^{2} \leq 1,w &gt; 0} \right\}$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, find the Jacobian $$J$$ of the transformation.</instruction>
-    <exercise number="378" has_solution="false">
-      <problem>
-        <p>$$x = u + 2v,y = \text{−}u + v$$</p>
-      </problem>
-    </exercise>
-    <exercise number="379" has_solution="true">
-      <problem>
-        <p>$$x = \frac{u^{3}}{2},y = \frac{v}{u^{2}}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{3}{2}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="380" has_solution="false">
-      <problem>
-        <p>$$x = e^{2u - v},y = e^{u + v}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="381" has_solution="true">
-      <problem>
-        <p>$$x = ue^{v},y = e^{\text{−}v}$$</p>
-      </problem>
-      <solution>
-        <p>$$-1$$</p>
-      </solution>
-    </exercise>
-    <exercise number="382" has_solution="false">
-      <problem>
-        <p>$$x = u\ \text{cos}\left( e^{v} \right),y = u\ \text{sin}\left( e^{v} \right)$$</p>
-      </problem>
-    </exercise>
-    <exercise number="383" has_solution="true">
-      <problem>
-        <p>$$x = v\ \text{sin}\left( u^{2} \right),y = v\ \text{cos}\left( u^{2} \right)$$</p>
-      </problem>
-      <solution>
-        <p>$$2uv$$</p>
-      </solution>
-    </exercise>
-    <exercise number="384" has_solution="false">
-      <problem>
-        <p>$$x = u\ \text{cosh}\ v,y = u\ \text{sinh}\ v,z = w$$</p>
-      </problem>
-    </exercise>
-    <exercise number="385" has_solution="true">
-      <problem>
-        <p>$$x = v\ \text{cosh}\left( \frac{1}{u} \right),y = v\ \text{sinh}\left( \frac{1}{u} \right),z = u + w^{2}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{2vw}{u^{2}}\text{or}\frac{2w\left( {u + w^{2}} \right)}{u^{2}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="386" has_solution="false">
-      <problem>
-        <p>$$x = u + v,y = v + w,z = u$$</p>
-      </problem>
-    </exercise>
-    <exercise number="387" has_solution="true">
-      <problem>
-        <p>$$x = u - v,y = u + v,z = u + v + w$$</p>
-      </problem>
-      <solution>
-        <p>$$2$$</p>
-      </solution>
-    </exercise>
-    <exercise number="388" has_solution="false">
-      <problem>
-        <p>The triangular region $$R$$ with the vertices $$\left( {0,0} \right),\left( {1,1} \right),\text{and}\ \left( {1,2} \right)$$ is shown in the following figure.</p>
-        <list type="ol" style="a">
-          <item>Find a transformation $$T:S\rightarrow R,$$ $$T\left( {u,v} \right) = \left( {x,y} \right) = \left( {au + bv,cu + dv} \right),$$ where $$a,b,c,$$ and $$d$$ are real numbers with $$ad - bc \neq 0$$ such that $$T^{-1}\left( {0,0} \right) = \left( {0,0} \right),T^{-1}\left( {1,1} \right) = \left( {1,0} \right),$$ and $$T^{-1}\left( {1,2} \right) = \left( {0,1} \right).$$</item>
-          <item>Use the transformation $$T$$ to find the area $$A(R)$$ of the region $$R.$$</item>
-        </list>
-      </problem>
-    </exercise>
-    <exercise number="389" has_solution="true">
-      <problem>
-        <p>The triangular region $$R$$ with the vertices $$\left( {0,0} \right),\left( {2,0} \right),\text{and}\ \left( {1,3} \right)$$ is shown in the following figure.</p>
-        <list type="ol" style="a">
-          <item>Find a transformation $$T:S\rightarrow R,$$ $$T\left( {u,v} \right) = \left( {x,y} \right) = \left( {au + bv,cu + dv} \right),$$ where $$a,b,c$$ and $$d$$ are real numbers with $$ad - bc \neq 0$$ such that $$T^{-1}\left( {0,0} \right) = \left( {0,0} \right),$$ $$T^{-1}\left( {2,0} \right) = \left( {1,0} \right),$$ and $$T^{-1}\left( {1,3} \right) = \left( {0,1} \right).$$</item>
-          <item>Use the transformation $$T$$ to find the area $$A(R)$$ of the region $$R.$$</item>
-        </list>
-      </problem>
-      <solution>
-        <p>a. $$T\left( {u,v} \right) = \left( {2u + v,3v} \right);$$ b. The area of $$R$$ is$$A(R) = {\int\limits_{0}^{3}\ {\int\limits_{y\text{/}3}^{{({6 - y})}\text{/}3}{dx\ dy =}}}{\int\limits_{0}^{1}\ {\int\limits_{0}^{1 - u}{\left| \frac{\partial\left( {x,y} \right)}{\partial\left( {u,v} \right)} \right|dv\ du =}}}{\int\limits_{0}^{1}\ {\int\limits_{0}^{1 - u}{6dv\ du =}}}3.$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, use the transformation $$u = y - x,v = y,$$ to evaluate the integrals on the parallelogram $$R$$ of vertices $$\left( {0,0} \right),\left( {1,0} \right),\left( {2,1} \right),\text{and}\ \left( {1,1} \right)$$ shown in the following figure.</instruction>
-    <exercise number="390" has_solution="false">
-      <problem>
-        <p>$${\iint\limits_{R}\left( {y - x} \right)}dA$$</p>
-      </problem>
-    </exercise>
-    <exercise number="391" has_solution="true">
-      <problem>
-        <p>$${\iint\limits_{R}\left( {y^{2} - xy} \right)}dA$$</p>
-      </problem>
-      <solution>
-        <p>$$- \frac{1}{4}$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, use the transformation $$y - x = u,x + y = v$$ to evaluate the integrals on the square $$R$$ determined by the lines $$y = x,y = \text{−}x + 2,y = x + 2,$$ and $$y = \text{−}x$$ shown in the following figure.</instruction>
-    <exercise number="392" has_solution="false">
-      <problem>
-        <p>$$\iint\limits_{R}{e^{x + y}dA}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="393" has_solution="true">
-      <problem>
-        <p>$${\iint\limits_{R}{\text{sin}\left( {x - y} \right)}}dA$$</p>
-      </problem>
-      <solution>
-        <p>$$-1 + \text{cos}\ 2$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, use the transformation $$x = u,5y = v$$ to evaluate the integrals on the region $$R$$ bounded by the ellipse $$x^{2} + 25y^{2} = 1$$ shown in the following figure.</instruction>
-    <exercise number="394" has_solution="false">
-      <problem>
-        <p>$$\iint\limits_{R}{\sqrt{x^{2} + 25y^{2}}\ dA}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="395" has_solution="true">
-      <problem>
-        <p>$${\iint\limits_{R}\left( {x^{2} + 25y^{2}} \right)}^{2}dA$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{\pi}{15}$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, use the transformation $$u = x + y,v = x - y$$ to evaluate the integrals on the trapezoidal region $$R$$ determined by the points $$\left( {1,0} \right),\left( {2,0} \right),\left( {0,2}\text{)} \right.,\text{and}\ \left( {0,1} \right)$$ shown in the following figure.</instruction>
-    <exercise number="396" has_solution="false">
-      <problem>
-        <p>$$\iint\limits_{R}{\left( {x^{2} - 2xy + y^{2}} \right)e^{x + y}dA}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="397" has_solution="true">
-      <problem>
-        <p>$${\iint\limits_{R}\left( {x^{3} + 3x^{2}y + 3xy^{2} + y^{3}} \right)}dA$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{31}{5}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="398" has_solution="false">
-      <problem>
-        <p>The circular annulus sector $$R$$ bounded by the circles $$4x^{2} + 4y^{2} = 1$$ and $$9x^{2} + 9y^{2} = 64,$$ the line $$x = y\sqrt{3},$$ and the $$y\text{-axis}$$ is shown in the following figure. Find a transformation $$T$$ from a rectangular region $$S$$ in the $$r\theta\text{-plane}$$ to the region $$R$$ in the $$xy\text{-plane.}$$ Graph $$S.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="399" has_solution="true">
-      <problem>
-        <p>The solid $$R$$ bounded by the circular cylinder $$x^{2} + y^{2} = 9$$ and the planes $$z = 0,z = 1,$$ $$x = 0,\text{and}\ y = 0$$ is shown in the following figure. Find a transformation $$T$$ from a cylindrical box $$S$$ in $$r\theta z\text{-space}$$ to the solid $$R$$ in $$xyz\text{-space}.$$</p>
-      </problem>
-      <solution>
-        <p>$$T\left( {r,\theta,z} \right) = \left( {r\ \text{cos}\ \theta,r\ \text{sin}\ \theta,z} \right);S = \left\lbrack {0,3} \right\rbrack\ \times \ \left\lbrack {0,\frac{\pi}{2}} \right\rbrack\ \times \ \left\lbrack {0,1} \right\rbrack$$ in the $$r\theta z\text{-space}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="400" has_solution="false">
-      <problem>
-        <p>Show that $${\iint\limits_{R}{f\left( \sqrt{\frac{x^{2}}{3} + \frac{y^{2}}{3}} \right)}}dA = 2\pi\sqrt{15}{\int\limits_{0}^{1}{f(\rho)}}\rho\ d\rho,$$ where $$f$$ is a continuous function on $$\left\lbrack {0,1} \right\rbrack$$ and $$R$$ is the region bounded by the ellipse $$5x^{2} + 3y^{2} = 15.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="401" has_solution="false">
-      <problem>
-        <p>Show that $${\iiint\limits_{R}{f\left( \sqrt{16x^{2} + 4y^{2} + z^{2}} \right)}}dV = \frac{\pi}{2}{\int\limits_{0}^{1}{f(\rho)}}\rho^{2}d\rho,$$ where $$f$$ is a continuous function on $$\left\lbrack {0,1} \right\rbrack$$ and $$R$$ is the region bounded by the ellipsoid $$16x^{2} + 4y^{2} + z^{2} = 1.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="402" has_solution="false">
-      <problem>
-        <p>[T] Find the area of the region bounded by the curves $$xy = 1,xy = 3,y = 2x,$$ and $$y = 3x$$ by using the transformation $$u = xy$$ and $$v = \frac{y}{x}.$$ Use a computer algebra system (CAS) to graph the boundary curves of the region $$R.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="403" has_solution="true">
-      <problem>
-        <p>[T] Find the area of the region bounded by the curves $$xy = 2,xy = 3,y = x,$$ and $$y = 2x$$ by using the transformation $$u = xy$$ and $$v = \frac{y}{x}.$$</p>
-      </problem>
-      <solution>
-        <p>The area of the region is $$~\frac{\ln 2}{2}.~$$ A graph of the region is:</p>
-      </solution>
-    </exercise>
-    <exercise number="404" has_solution="false">
-      <problem>
-        <p>Evaluate the triple integral $$\int\limits_{0}^{1}\ {\int\limits_{1}^{2}\ {\int\limits_{z}^{z + 1}{\left( {y + 1} \right)dx\ dy\ dz}}}$$ by using the transformation $$u = x - z,$$ $$v = 3y,\text{and}\ w = \frac{z}{2}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="405" has_solution="true">
-      <problem>
-        <p>Evaluate the triple integral $$\int\limits_{0}^{2}\ {\int\limits_{4}^{6}\ {\int\limits_{3z}^{3z + 2}{\left( {5 - 4y} \right)dx\ dz\ dy}}}$$ by using the transformation $$u = x - 3z,v = 4y,\text{and}\ w = z.$$</p>
-      </problem>
-      <solution>
-        <p>$$8$$</p>
-      </solution>
-    </exercise>
-    <exercise number="406" has_solution="false">
-      <problem>
-        <p>A transformation $$T:\mathbb{R}^{2}\rightarrow\mathbb{R}^{2},T\left( {u,v} \right) = \left( {x,y} \right)$$ of the form $$x = au + bv,y = cu + dv,$$ where $$a,b,c,\text{and}\ d$$ are real numbers, is called linear. Show that a linear transformation for which $$ad - bc \neq 0$$ maps parallelograms to parallelograms.</p>
-      </problem>
-    </exercise>
-    <exercise number="407" has_solution="false">
-      <problem>
-        <p>The transformation $$T_{\theta}:\mathbb{R}^{2}\rightarrow\mathbb{R}^{2},T_{\theta}\left( {u,v} \right) = \left( {x,y} \right),$$ where $$x = u\ \text{cos}\ \theta - v\ \text{sin}\ \theta,$$ $$y = u\ \text{sin}\ \theta + v\ \text{cos}\ \theta,$$ is called a rotation of angle $$\theta.$$ Show that the inverse transformation of $$T_{\theta}$$ satisfies $$T_{\theta}{}^{-1} = T_{\text{−}\theta},$$ where $$T_{\text{−}\theta}$$ is the rotation of angle $$\text{−}\theta.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="408" has_solution="false">
-      <problem>
-        <p>[T] Use the results of the previous exercise to find the region $$S$$ in the $$uv\text{-plane}$$ whose image through a rotation of angle $$\frac{\pi}{4}$$ is the region $$R$$ enclosed by the ellipse $$x^{2} + 4y^{2} = 1.$$ Use a CAS to answer the following questions.</p>
-        <list type="ol" style="a">
-          <item>Graph the region $$S.$$</item>
-          <item>Evaluate the integral $${\iint\limits_{S}{e^{-2uv}du\ dv}}.$$ Round your answer to two decimal places.</item>
-        </list>
-      </problem>
-    </exercise>
-    <exercise number="409" has_solution="true">
-      <problem>
-        <p>[T] The transformations $$T_{i}:\mathbb{R}^{2}\rightarrow\mathbb{R}^{2},$$ $$i = 1\text{,…,}\ 4,$$ defined by $$T_{1}\left( {u,v} \right) = \left( {u,\text{−}v} \right),$$ $$T_{2}\left( {u,v} \right) = \left( {\text{−}u,v} \right),T_{3}\left( {u,v} \right) = \left( {\text{−}u,\text{−}v} \right),$$ and $$T_{4}\left( {u,v} \right) = \left( {v,u} \right)$$ are called reflections about the $$x\text{-axis},y\text{-axis},$$ origin, and the line $$y = x,$$ respectively.</p>
-        <list type="ol" style="a">
-          <item>Find the image of the region $$S = \left\{ {\left. \left( {u,v} \right) \right|u^{2} + v^{2} - 2u - 4v + 1 \leq 0} \right\}$$ in the $$xy\text{-plane}$$ through the transformation $$T_{1} \circ T_{2} \circ T_{3} \circ T_{4}.$$</item>
-          <item>Use a CAS to graph the image of $$S.$$</item>
-          <item>Evaluate the integral $$\iint\limits_{S}{\text{sin}(u^{2})du\ dv}$$ by using a CAS. Round your answer to two decimal places.</item>
-        </list>
-      </problem>
-      <solution>
-        <p>a. $$R = \left\{ \left( {x,y} \right) \middle| y^{2} + x^{2} - 2y - 4x + 1 \leq 0 \right\};$$ b. $$R$$ is graphed in the following figure;</p>
-        <p>c. $$3.16$$</p>
-      </solution>
-    </exercise>
-    <exercise number="410" has_solution="false">
-      <problem>
-        <p>[T] The transformation $$T_{k,1,1}:\mathbb{R}^{3}\rightarrow\mathbb{R}^{3},T_{k,1,1}\left( {u,v,w} \right) = \left( {x,y,z} \right)$$ of the form $$x = ku,$$ $$y = v,z = w,$$ where $$k \neq 1$$ is a positive real number, is called a stretch if $$k &gt; 1$$ and a compression if $$0 &lt; k &lt; 1$$ in the $$x\text{-direction}\text{.}$$ Use a CAS to evaluate the integral $${\iiint\limits_{S}e^{\text{−}{({4x^{2} + 9y^{2} + 25z^{2}})}}}dx\ dy\ dz$$ on the solid $$S = \left\{ {\left. \left( {x,y,z} \right) \right|4x^{2} + 9y^{2} + 25z^{2} \leq 1} \right\}$$ by considering the compression $$T_{2,3,5}\left( {u,v,w} \right) = \left( {x,y,z} \right)$$ defined by $$x = \frac{u}{2},y = \frac{v}{3},$$ and $$z = \frac{w}{5}.$$ Round your answer to four decimal places.</p>
-      </problem>
-    </exercise>
-    <exercise number="411" has_solution="true">
-      <problem>
-        <p>[T] The transformation $$T_{a,0}:\mathbb{R}^{2}\rightarrow\mathbb{R}^{2},T_{a,0}\left( {u,v} \right) = \left( {u + av,v} \right),$$ where $$a \neq 0$$ is a real number, is called a shear in the $$x\text{-direction}\text{.}$$ The transformation, $$T_{0,b}:\mathbb{R}^{2}\rightarrow\mathbb{R}^{2},T_{0,b}\left( {u,v} \right) = \left( {u,bu + v} \right),$$ where $$b \neq 0$$ is a real number, is called a shear in the $$y\text{-direction}\text{.}$$</p>
-        <list type="ol" style="a">
-          <item>Find transformations $$T_{0,2} \circ T_{3,0}.$$</item>
-          <item>Find the image $$R$$ of the trapezoidal region $$S$$ bounded by $$u = 0,v = 0,v = 1,$$ and $$v = 2 - u$$ through the transformation $$T_{0,2} \circ T_{3,0}.$$</item>
-          <item>Use a CAS to graph the image $$R$$ in the $$xy\text{-plane}\text{.}$$</item>
-          <item>Find the area of the region $$R$$ by using the area of region $$S.$$</item>
-        </list>
-      </problem>
-      <solution>
-        <p>a. $$T_{0,2} \circ T_{3,0}\left( {u,v} \right) = \left( {u + 3v,2u + 7v} \right);$$ b. The image $$R$$ is the quadrilateral of vertices $$\left( {0,0} \right),\left( {3,7} \right),\left( {2,4} \right),\text{and}\ \left( {4,9} \right);$$ c. $$S$$ is graphed in the following figure;</p>
-        <p>d. $$\frac{3}{2}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="412" has_solution="false">
-      <problem>
-        <p>Use the transformation, $$x = au,y = av,z = cw$$ and spherical coordinates to show that the volume of a region bounded by the spheroid $$\frac{x^{2} + y^{2}}{a^{2}} + \frac{z^{2}}{c^{2}} = 1$$ is $$\frac{4\pi a^{2}c}{3}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="413" has_solution="true">
-      <problem>
-        <p>Find the volume of a football whose shape is a spheroid $$\frac{x^{2} + y^{2}}{a^{2}} + \frac{z^{2}}{c^{2}} = 1$$ whose length from tip to tip is $$11$$ inches and circumference at the center is $$22$$ inches. Round your answer to two decimal places.</p>
-      </problem>
-      <solution>
-        <p>$$\frac{2662}{3\pi} \simeq 282.45{\ \text{in}}^{3}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="414" has_solution="false">
-      <problem>
-        <p>[T] Lamé ovals (or superellipses) are plane curves of equations $$\left( \frac{x}{a} \right)^{n} + \left( \frac{y}{b} \right)^{n} = 1,$$ where a, b, and n are positive real numbers.</p>
-        <list type="ol" style="a">
-          <item>Use a CAS to graph the regions $$R$$ bounded by Lamé ovals for $$a = 1,b = 2,n = 4$$ and $$n = 6,$$ respectively.</item>
-          <item>Find the transformations that map the region $$R$$ bounded by the Lamé oval $$x^{4} + y^{4} = 1,$$ also called a squircle and graphed in the following figure, into the unit disk.</item>
-          <item>Use a CAS to find an approximation of the area $$A(R)$$ of the region $$R$$ bounded by $$x^{4} + y^{4} = 1.$$ Round your answer to two decimal places.</item>
-        </list>
-      </problem>
-    </exercise>
-    <exercise number="415" has_solution="true">
-      <problem>
-        <p>[T] Lamé ovals have been consistently used by designers and architects. For instance, Gerald Robinson, a Canadian architect, has designed a parking garage in a shopping center in Peterborough, Ontario, in the shape of a superellipse of the equation $$\left( \frac{x}{a} \right)^{n} + \left( \frac{y}{b} \right)^{n} = 1$$ with $$\frac{a}{b} = \frac{9}{7}$$ and $$n = e.$$ Use a CAS to find an approximation of the area of the parking garage in the case $$a = 900$$ yards, $$b = 700$$ yards, and $$n = 2.72$$.</p>
-      </problem>
-      <solution>
-        <p>$$A(R) = 2,177,216~\text{yd}^{2}$$</p>
-      </solution>
-    </exercise>
-  </exercises>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>For cylindrical coordinates, the transformation is $$T\left( {r,\theta,z} \right) = \left( {x,y,z} \right)$$ from the Cartesian $$r\theta z \text{-plane}$$ to the Cartesian $$xyz \text{-plane}$$ (Figure 5.81). Here $$x = r \cos \theta,$$ $$y = r \sin \theta,$$ and $$z = z.$$ The Jacobian for the transformation is $$\begin{array}{cl} {J\left( {r,\theta,z} \right)} &amp; {= \frac{\partial\left( {x,y,z} \right)}{\partial\left( {r,\theta,z} \right)} = \left| \begin{array}{lllll} \frac{\partial x}{\partial r} &amp; &amp; \frac{\partial x}{\partial\theta} &amp; &amp; \frac{\partial x}{\partial z} \\ \frac{\partial y}{\partial r} &amp; &amp; \frac{\partial y}{\partial\theta} &amp; &amp; \frac{\partial y}{\partial z} \\ \frac{\partial z}{\partial r} &amp; &amp; \frac{\partial z}{\partial\theta} &amp; &amp; \frac{\partial z}{\partial z} \end{array} \right|} \\ &amp; {= \left| \begin{array}{clcll} {\cos \theta} &amp; &amp; {- r \sin \theta} &amp; &amp; 0 \\ {\sin \theta} &amp; &amp; {r \cos \theta} &amp; &amp; 0 \\ 0 &amp; &amp; 0 &amp; &amp; 1 \end{array} \right| = r \cos^{2}\theta + r \sin^{2}\theta = r\left( {\cos^{2}\theta + \sin^{2}\theta} \right) = r.} \end{array}$$ We know that $$r \geq 0,$$ so $$\left| {J\left( {r,\theta,z} \right)} \right| = r.$$ Then the triple integral is $${\iiint\limits_{D}{f\left( {x,y,z} \right)dV = {\iiint\limits_{G}{f\left( {r \cos \theta,r \sin \theta,z} \right)}}}}r dr d\theta dz.$$ Figure 5.81 The transformation from rectangular coordinates to cylindrical coordinates can be treated as a change of variables from region $$G$$ in $$r\theta z \text{-space}$$ to region $$D$$ in $$xyz \text{-space} .$$</item>
+        <item>For spherical coordinates, the transformation is $$T\left( {\rho,\theta,\varphi} \right) = \left( {x,y,z} \right)$$ from the Cartesian $$p\theta\varphi \text{-plane}$$ to the Cartesian $$xyz \text{-plane}$$ (Figure 5.82). Here $$x = \rho \sin \varphi \cos \theta,$$ $$y = \rho \sin \varphi \sin \theta,$$ and $$z = \rho \cos \varphi.$$ The Jacobian for the transformation is $$J\left( {\rho,\theta,\varphi} \right) = \frac{\partial\left( {x,y,z} \right)}{\partial\left( {\rho,\theta,\varphi} \right)} = \left| \begin{array}{lllll} \frac{\partial x}{\partial\rho} &amp; &amp; \frac{\partial x}{\partial\theta} &amp; &amp; \frac{\partial x}{\partial\varphi} \\ \frac{\partial y}{\partial\rho} &amp; &amp; \frac{\partial y}{\partial\theta} &amp; &amp; \frac{\partial y}{\partial\varphi} \\ \frac{\partial z}{\partial\rho} &amp; &amp; \frac{\partial z}{\partial\theta} &amp; &amp; \frac{\partial z}{\partial\varphi} \end{array} \right| = \left| \begin{array}{clcll} {\sin \varphi \cos \theta} &amp; &amp; {\rho \sin \varphi \sin \theta} &amp; &amp; {\rho \cos \varphi \cos \theta} \\ {\sin \varphi \sin \theta} &amp; &amp; {\rho \sin \varphi \cos \theta} &amp; &amp; {\rho \cos \varphi \sin \theta} \\ {\cos \phi} &amp; &amp; 0 &amp; &amp; {- \rho \sin \varphi} \end{array} \right|.$$ Expanding the determinant with respect to the third row: $$\begin{matrix} \\ \\ {= \cos \varphi\left| \begin{array}{lll} {- \rho \sin \varphi \sin \theta} &amp; &amp; {\rho \cos \varphi \cos \theta} \\ {\rho \sin \varphi \sin \theta} &amp; &amp; {\rho \cos \varphi \sin \theta} \end{array} \right| - \rho \sin \varphi\left| \begin{array}{lll} {\sin \varphi \cos \theta} &amp; &amp; {- \rho \sin \varphi \sin \theta} \\ {\sin \varphi \sin \theta} &amp; &amp; {\rho \sin \varphi \cos \theta} \end{array} \right|} \\ {= \cos \varphi\left( {-\rho^{2}\sin \varphi \cos \varphi \sin^{2}\theta - \rho^{2}\sin \varphi \cos \varphi \cos^{2}\theta} \right)} \\ { - \rho \sin \varphi\left( {\rho \sin^{2}\varphi \cos^{2}\theta + \rho \sin^{2}\varphi \sin^{2}\theta} \right)} \\ {= -\rho^{2}\sin \varphi \cos^{2}\varphi\left( {\sin^{2}\theta + \cos^{2}\theta} \right) - \rho^{2}\sin \varphi \sin^{2}\varphi\left( {\sin^{2}\theta + \cos^{2}\theta} \right)} \\ {= -\rho^{2}\sin \varphi \cos^{2}\varphi - \rho^{2}\sin \varphi \sin^{2}\varphi} \\ {= -\rho^{2}\sin \varphi\left( {\cos^{2}\varphi + \sin^{2}\varphi} \right) = -\rho^{2}\sin \varphi.} \end{matrix}$$ Since $$0 \leq \varphi \leq \pi,$$ we must have $$\sin \varphi \geq 0.$$ Thus $$\left| {J\left( {\rho,\theta,\varphi} \right)} \right| = \left| {-\rho^{2}\sin \varphi} \right| = \rho^{2}\sin \varphi.$$ Figure 5.82 The transformation from rectangular coordinates to spherical coordinates can be treated as a change of variables from region $$G$$ in $$\rho\theta\varphi \text{-space}$$ to region $$D$$ in $$xyz \text{-space} .$$ Then the triple integral becomes $${\iiint\limits_{D}{f\left( {x,y,z} \right)}}dV = {\iiint\limits_{G}{f\left( {\rho \sin \varphi \cos \theta,\rho \sin \varphi \sin \theta,\rho \cos \varphi} \right)}}\rho^{2}\sin \varphi d\rho d\varphi d\theta.$$</item>
+      </list>
+    </solution>
+  </example>
+  <paragraph>Let’s try another example with a different substitution.</paragraph>
+  <example number="5.73" title="Evaluating a Triple Integral with a Change of Variables">
+    <problem>
+      <paragraph>Evaluate the triple integral</paragraph>
+      <paragraph math="block">$${\int\limits_{0}^{3} {\int\limits_{0}^{4} {\int\limits_{y/2}^{{({y/2})} + 1}\left( {x + \frac{z}{3}} \right)}}}dx dy dz$$</paragraph>
+      <paragraph>in $$xyz \text{-space}$$ by using the transformation</paragraph>
+      <paragraph math="block">$$u = \left( {2x - y} \right)/2,v = y/2, \text{and} w = z/3.$$</paragraph>
+      <paragraph>Then integrate over an appropriate region in $$uvw \text{-space} .$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>As before, some kind of sketch of the region $$G$$ in $$xyz \text{-space}$$ over which we have to perform the integration can help identify the region $$D$$ in $$uvw \text{-space}$$ (Figure 5.83). Clearly $$G$$ in $$xyz \text{-space}$$ is bounded by the planes $$x = y/2,x = \left( {y/2} \right) + 1,y = 0,$$ $$y = 4,$$ $$z = 0, \text{and} z = 4.$$ We also know that we have to use $$u = \left( {2x - y} \right)/2,v = y/2, \text{and} w = z/3$$ for the transformations. We need to solve for $$x,y, \text{and} z.$$ Here we find that $$x = u + v,$$ $$y = 2v,$$ and $$z = 3w.$$</paragraph>
+      <paragraph>Using elementary algebra, we can find the corresponding surfaces for the region $$G$$ and the limits of integration in $$uvw \text{-space} .$$ It is convenient to list these equations in a table.</paragraph>
+      <table>
+        <thead>
+          <row>
+            <cell header="true">Equations in $$xyz$$ for the region $$D$$</cell>
+            <cell header="true">Corresponding equations in $$uvw$$ for the region $$G$$</cell>
+            <cell header="true">Limits for the integration in $$uvw$$</cell>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <cell>$$x = y/2$$</cell>
+            <cell>$$u + v = 2v/2 = v$$</cell>
+            <cell>$$u = 0$$</cell>
+          </row>
+          <row>
+            <cell>$$x = y/2$$</cell>
+            <cell>$$u + v = \left( {2v/2} \right) + 1 = v + 1$$</cell>
+            <cell>$$u = 1$$</cell>
+          </row>
+          <row>
+            <cell>$$y = 0$$</cell>
+            <cell>$$2v = 0$$</cell>
+            <cell>$$v = 0$$</cell>
+          </row>
+          <row>
+            <cell>$$y = 4$$</cell>
+            <cell>$$2v = 4$$</cell>
+            <cell>$$v = 2$$</cell>
+          </row>
+          <row>
+            <cell>$$z = 0$$</cell>
+            <cell>$$3w = 0$$</cell>
+            <cell>$$w = 0$$</cell>
+          </row>
+          <row>
+            <cell>$$z = 3$$</cell>
+            <cell>$$3w = 3$$</cell>
+            <cell>$$w = 1$$</cell>
+          </row>
+        </tbody>
+      </table>
+      <figure number="5.83">
+        <image alt="On the left-hand side of this figure, there is a box G with sides 1, 2, and 1 along the u, v, and w axes, respectively. Then there is an arrow from this graph to the right-hand side of the figure marked with x = u + v, y = 2v, and z = 3w. On the right-hand side of this figure there is a region D in xyz space that is a rotated box with sides 1, 4, and 3 along the x, y, and z axes. The rear plane is marked x = y/2 or y = 2x. The front plane is marked x = y/2 + 1 or y = 2x minus 2."/>
+        <caption>The region $$G$$ in $$uvw \text{-space}$$ is transformed to region $$D$$ in $$xyz \text{-space} .$$</caption>
+      </figure>
+      <paragraph>Now we can calculate the Jacobian for the transformation:</paragraph>
+      <paragraph math="block">$$J(u,v,w) = \left| \begin{array}{lclcl} \frac{\partial x}{\partial u} &amp; &amp; \frac{\partial x}{\partial v} &amp; &amp; \frac{\partial x}{\partial w} \\ \frac{\partial y}{\partial u} &amp; &amp; \frac{\partial y}{\partial v} &amp; &amp; \frac{\partial y}{\partial w} \\ \frac{\partial z}{\partial u} &amp; &amp; \frac{\partial z}{\partial v} &amp; &amp; \frac{\partial z}{\partial w} \end{array} \right| = \left| \begin{array}{lclcl} 1 &amp; &amp; 1 &amp; &amp; 0 \\ 0 &amp; &amp; 2 &amp; &amp; 0 \\ 0 &amp; &amp; 0 &amp; &amp; 3 \end{array} \right| = 6.$$</paragraph>
+      <paragraph>The function to be integrated becomes</paragraph>
+      <paragraph math="block">$$f\left( {x,y,z} \right) = x + \frac{z}{3} = u + v + \frac{3w}{3} = u + v + w.$$</paragraph>
+      <paragraph>We are now ready to put everything together and complete the problem.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} \\ \\ \\ \\ { {\int\limits_{0}^{3} {\int\limits_{0}^{4} {\int\limits_{y/2}^{{({y/2})} + 1}\left( {x + \frac{z}{3}} \right)}}}dx dy dz} \\ \\ {= {\int\limits_{0}^{1} {\int\limits_{0}^{2} {\int\limits_{0}^{1}\left( {u + v + w} \right)}}}\left| {J\left( {u,v,w} \right)} \right|du dv dw = {\int\limits_{0}^{1} {\int\limits_{0}^{2} {\int\limits_{0}^{1}\left( {u + v + w} \right)}}}|6|du dv dw} \\ {= 6{\int\limits_{0}^{1} {\int\limits_{0}^{2} {\int\limits_{0}^{1}\left( {u + v + w} \right)}}}du dv dw = 6{\int\limits_{0}^{1} {\int\limits_{0}^{2}\left\lbrack {\frac{u^{2}}{2} + vu + wu} \right\rbrack}}_{0}^{1}dv dw} \\ {= 6{\int\limits_{0}^{1} {\int\limits_{0}^{2}\left( {\frac{1}{2} + v + w} \right)}}dv dw = 6{\int\limits_{0}^{1}\left\lbrack {\frac{1}{2}v + \frac{v^{2}}{2} + wv} \right\rbrack}_{0}^{2}dw} \\ {= 6{\int\limits_{0}^{1}\left( {3 + 2w} \right)}dw = 6\left\lbrack {3w + w^{2}} \right\rbrack_{0}^{1} = 24.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="5.48">
+    <problem>
+      <paragraph>Let $$D$$ be the region in $$xyz \text{-space}$$ defined by $$1 \leq x \leq 2,0 \leq xy \leq 2, \text{and} 0 \leq z \leq 1.$$</paragraph>
+      <paragraph>Evaluate $${\iiint\limits_{D}\left( {x^{2}y + 3xyz} \right)}dx dy dz$$ by using the transformation $$u = x,v = xy,$$ and $$w = 3z.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$\int 0 3 \int 0 2 \int 1 2 ( v 3 + v w 3 u ) d u d v d w = 2 + ln 8 \int 0 3 \int 0 2 \int 1 2 ( v 3 + v w 3 u ) d u d v d w = 2 + ln 8$$</paragraph>
+    </solution>
+  </example>
 </section>

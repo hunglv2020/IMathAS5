@@ -1,7 +1,7 @@
 # Artifacts Catalog
 
 _Tất cả data artifacts trong hệ thống: ai tạo ra, ai dùng, schema cơ bản._
-_Last updated: 2026-06-05_
+_Last updated: 2026-06-22_
 
 ---
 
@@ -67,7 +67,7 @@ Schema (per exercise):
 |---|---|
 | **Path** | `questions/qt-{id}/static/static_question.txt` |
 | **Producer** | `draft-static-question` |
-| **Consumers** | `draft-static-solution`, `generate-blueprint`, `write-imathas-x` |
+| **Consumers** | `generate-blueprint`, `write-imathas-x` |
 | **Format** | AsciiMath, với ANSWERBOX syntax |
 | **Role** | Static version của câu hỏi (một seed cụ thể) — ground truth cho content |
 
@@ -97,7 +97,7 @@ Schema (per exercise):
 | Thuộc tính | Giá trị |
 |---|---|
 | **Path** | `questions/qt-{id}/static/static_solution.txt` |
-| **Producer** | `draft-static-solution` |
+| **Producer** | Manual static promotion or manual authoring |
 | **Consumers** | `write-imathas-x`, `audit-accuracy` |
 | **Format** | AsciiMath, step-by-step |
 | **Role** | Static version lời giải — ground truth cho solution claims |
@@ -108,8 +108,8 @@ Schema (per exercise):
 | Thuộc tính | Giá trị |
 |---|---|
 | **Path** | `questions/qt-{id}/static/static_solution_latex.txt` |
-| **Producer** | `draft-static-solution` |
-| **Format** | LaTeX, step-by-step |
+| **Producer** | Manual static promotion or manual authoring |
+| **Format** | LaTeX, step-by-step; all math uses single-line `$$ $$` for both inline and display math |
 | **Role** | LaTeX version, dành cho human review |
 
 ---
@@ -130,7 +130,7 @@ Schema (per exercise):
 |---|---|
 | **Path** | `questions/qt-{id}/static/source_brief.xml` |
 | **Producer** | Legacy/manual artifact — có thể còn tồn tại từ phiên bản cũ hoặc do người dùng tự thêm |
-| **Consumers** | `draft-static-solution`, `generate-blueprint`, `refine-static-solution` (enrichment only, nếu file tồn tại) |
+| **Consumers** | `generate-blueprint` (enrichment only, nếu file tồn tại) |
 | **Role** | Pre-computed scope contract: key ideas, methods, notation, equivalence family |
 | **Status** | Legacy — không còn producer chính thức trong IMathAS5, và không còn là input của audit workflow |
 
@@ -250,14 +250,24 @@ Schema đầy đủ:
 | Thuộc tính | Giá trị |
 |---|---|
 | **Path** | `questions/qt-{id}/reviews/` |
-| **Producer** | Audit skills |
-| **Role** | Audit reports + Fix Tracker |
+| **Producer** | Audit skills + author-feedback skills |
+| **Role** | Audit reports, author-facing feedback, and fix-tracking notes |
 
 | File | Producer |
 |---|---|
 | `coverage_report.md` | `audit-coverage` |
 | `pedagogical_report.md` | `audit-pedagogical` |
 | `accuracy_report_seed{N}.md` | `audit-accuracy` |
+| `author_feedback_from_solution_artifact.md` | `write-author-feedback-from-solution-artifact` |
+
+### `reviews/author_feedback_from_solution_artifact.md`
+| Thuộc tính | Giá trị |
+|---|---|
+| **Path** | `questions/qt-{id}/reviews/author_feedback_from_solution_artifact.md` |
+| **Producer** | `write-author-feedback-from-solution-artifact` |
+| **Consumers** | Human reviewer / original IMathAS author |
+| **Role** | Bilingual author-facing feedback grounded in the current IMathAS explanation and a reviewed solution artifact |
+| **Format** | Markdown, exactly two top-level sections (`English Version`, `Vietnamese Version`), flat bullet lists |
 
 ---
 
@@ -274,21 +284,85 @@ Schema đầy đủ:
 ### `shared/books/{book_slug}/*.xml`
 | Thuộc tính | Giá trị |
 |---|---|
-| **Role** | Textbook content — section files với definitions, examples, exercises |
+| **Role** | Textbook content (canonical v2) — unit files với definitions, theorems, procedures, examples, exercises |
 | **Authority** | Ground truth cho method, notation, scope |
-| **Consumers** | `draft-static-*`, `audit-*`, `check-future-learning`, `analyze_source_vi` (through Odoo-side prompt preparation) |
+| **Consumers** | `draft-static-*`, `audit-*`, `check-future-learning`, `build-solution-artifact`, `analyze_source_vi` (through Odoo-side prompt preparation) |
+
+---
+
+### `shared/books/{book_slug}/atoms.json`
+| Thuộc tính | Giá trị |
+|---|---|
+| **Role** | Knowledge atom index — extracted definitions, theorems, procedures, rules, key concepts, examples |
+| **Producer** | `scripts/extract_atoms.py` |
+| **Consumers** | `scripts/retrieval.py` (BM25 search), `build-solution-artifact` (prerequisite retrieval) |
+| **Format** | JSON array of atom objects with atom_id, atom_type, unit_code, seq, concept_tags, snippet, body_xml |
+
+---
+
+### `questions/qt-{id}/artifacts/solution-runs/{run_id}/knowledge_context.json`
+| Thuộc tính | Giá trị |
+|---|---|
+| **Role** | Source trace — maps every recalled concept in a solution to a textbook atom |
+| **Producer** | `build-solution-artifact` |
+| **Contains** | atoms_used (with usage_mode: current-unit-verbatim / prior-unit-verbatim / prior-chapter-bridge), bridges (concept re-explanations), unresolved_gaps |
+
+---
+
+### `questions/qt-{id}/artifacts/solution-runs/{run_id}/solution_latex.txt`
+| Thuộc tính | Giá trị |
+|---|---|
+| **Role** | Student-facing grounded solution with textbook-traceable recall and prerequisite bridges |
+| **Producer** | `build-solution-artifact` |
+| **Format** | LaTeX flat prose; all math uses single-line `$$ $$` for both inline and display math |
+| **Citation rule** | Recall uses concept name + sourced statement actually used; section-number and theorem-number citations are not valid as the primary student-facing reference |
+
+---
+
+### `questions/qt-{id}/artifacts/solution-runs/{run_id}/solution_analysis.xml`
+| Thuộc tính | Giá trị |
+|---|---|
+| **Role** | Recall triage contract: required / optional / excluded knowledge for the run |
+| **Producer** | `build-solution-artifact` |
+
+---
+
+### `questions/qt-{id}/artifacts/solution-runs/{run_id}/meta.json`
+| Thuộc tính | Giá trị |
+|---|---|
+| **Role** | Run metadata: source path, unit routing, gap counts, trace status |
+| **Producer** | `build-solution-artifact` |
+
+---
+
+### `questions/qt-{id}/artifacts/solution-runs/{run_id}/run_report.md`
+| Thuộc tính | Giá trị |
+|---|---|
+| **Role** | Human-readable run summary and trace-check outcome |
+| **Producer** | `build-solution-artifact` |
 
 ---
 
 ## Context artifacts (`context/`)
 
-### `context/active_qt.md`
+### `context/active_qt.toml`
 | Thuộc tính | Giá trị |
 |---|---|
-| **Path** | `context/active_qt.md` |
-| **Role** | Con trỏ đơn giản chỉ `qt-{id}` đang được làm việc trong session này |
-| **Format** | Chỉ chứa một dòng id, ví dụ: `qt-228586` |
+| **Path** | `context/active_qt.toml` |
+| **Role** | Canonical manifest chỉ `qt-{id}` đang được làm việc trong session này |
+| **Format** | TOML manifest tối thiểu với `schema_version` và `active_qt` |
 | **Lưu ý** | File này KHÔNG chứa curriculum metadata — metadata nằm trong `meta.xml` |
+
+Canonical schema:
+
+```toml
+schema_version = 1
+active_qt = "qt-228586"
+```
+
+- `meta.xml` remains the only authority for `book_slug`, chapter, unit, and learning objective
+- Missing file or missing `active_qt` means no active question is selected
+- Invalid `active_qt` is a contract error; accepted format is `qt-<digits>`
 
 ---
 
@@ -297,8 +371,8 @@ Schema đầy đủ:
 ### `.agents/experience/{skill-domain}/patterns.md`
 | Thuộc tính | Giá trị |
 |---|---|
-| **Role** | Cross-case rules — supersede default skill behavior |
-| **Consumers** | Skill đọc trước bước 3–4 của quy trình |
+| **Role** | Cross-case reusable layer — default-load trước `lessons.md` |
+| **Consumers** | Active-core skills đọc trước khi mở rộng sang case-specific lessons |
 
 ### `.agents/experience/{skill-domain}/lessons.md`
 | Thuộc tính | Giá trị |
@@ -316,8 +390,12 @@ target_exercises.xml ───────────────────�
                                                       audit-coverage
                                                       analyze_source_vi (Odoo input)
 
-static_question.txt ───────────────────────────────► draft-static-solution
-                                                      generate-blueprint
+static_question.txt ───────────────────────────────► generate-blueprint
+
+artifacts/solution-runs/{run_id}/solution_latex.txt ─► manual promotion / manual static authoring
+                                                       └──► static_solution.txt
+                                                       └──► static_solution_latex.txt
+
 static_solution.txt + blueprint.txt ───────────────► write-imathas-x
 
 imathas/*.txt ─────────────────────────────────────► audit-coverage
@@ -326,8 +404,7 @@ imathas/*.txt ──────────────────────
                                                       verify-imathas-batch
                                                       render_seeds MCP
 
-source_brief.xml ──────────────────────────────────► draft-static-solution (enrichment if present)
-                                                      generate-blueprint (enrichment if present)
+source_brief.xml ──────────────────────────────────► generate-blueprint (enrichment if present)
                     legacy/manual artifact — không còn producer chính thức
 
 UNIT_CONTENT + TARGET_EXERCISES ───────────────────► [Odoo: analyze_source_vi]

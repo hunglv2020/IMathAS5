@@ -6,8 +6,8 @@ description: Ensures that the narrative skeleton of localized IMathAS files (que
 # Skill: Audit Text Integrity
 
 This skill acts as a guardian to prevent the AI from arbitrarily rewriting or summarizing the question's narrative while converting it to a dynamic IMathAS package.
-It is strict by default, but it can become policy-aware when `questions/qt-{id}/static/source_brief.xml`
-explicitly allows broader generalization.
+It is strict by default, but it can become policy-aware when the legacy enrichment artifact
+`questions/qt-{id}/static/source_brief.xml` explicitly allows broader generalization.
 
 ## WHEN TO USE
 - **Mandatory:** After variable injection in the `author-imathas` workflow.
@@ -33,7 +33,7 @@ uv run python .agents/skills/audit-text-integrity/scripts/audit_text.py \
 
 ## POLICY-AWARE MODE
 
-If `questions/qt-{id}/static/source_brief.xml` declares:
+If the legacy artifact `questions/qt-{id}/static/source_brief.xml` declares:
 - `<equivalence><text_integrity_policy>generalized</text_integrity_policy>`
 
 then do not apply the strict `0.95` default automatically. Instead use:

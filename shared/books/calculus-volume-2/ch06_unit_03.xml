@@ -1,778 +1,287 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="6.3" title="Taylor and Maclaurin Series">
-  <learning_objectives>
-    <objective number="6.3.1">Describe the procedure for finding a Taylor polynomial of a given order for a function.</objective>
-    <objective number="6.3.2">Explain the meaning and significance of Taylor’s theorem with remainder.</objective>
-    <objective number="6.3.3">Estimate the remainder for a Taylor series approximation of a given function.</objective>
-  </learning_objectives>
-  <p>In the previous two sections we discussed how to find power series representations for certain types of functions––specifically, functions related to geometric series. Here we discuss power series representations for other types of functions. In particular, we address the following questions: Which functions can be represented by power series and how do we find such representations? If we can find a power series representation for a particular function $$f$$ and the series converges on some interval, how do we prove that the series actually converges to $$f?$$</p>
-  <subsection title="Overview of Taylor/Maclaurin Series">
-    <p>Consider a function $$f$$ that has a power series representation at $$x = a.$$ Then the series has the form</p>
-    <equation>$${\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} = c_{0} + c_{1}(x - a) + c_{2}{(x - a)}^{2} + \text{⋯}.$$</equation>
-    <p>What should the coefficients be? For now, we ignore issues of convergence, but instead focus on what the series should be, if one exists. We return to discuss convergence later in this section. If the series Equation 6.4 is a representation for $$f$$ at $$x = a,$$ we certainly want the series to equal $$f(a)$$ at $$x = a.$$ Evaluating the series at $$x = a,$$ we see that</p>
-    <equation>$$\begin{array}{cl} {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} &amp; {= c_{0} + c_{1}\left( {a - a} \right) + c_{2}\left( {a - a} \right)^{2} + \text{⋯}} \\ &amp; {= c_{0}.} \end{array}$$</equation>
-    <p>Thus, the series equals $$f(a)$$ if the coefficient $$c_{0} = f(a).$$ In addition, we would like the first derivative of the power series to equal $$f^{\prime}(a)$$ at $$x = a.$$ Differentiating Equation 6.4 term-by-term, we see that</p>
-    <equation>$$\frac{d}{dx}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right) = c_{1} + 2c_{2}\left( {x - a} \right) + 3c_{3}\left( {x - a} \right)^{2} + \text{⋯}.$$</equation>
-    <p>Therefore, at $$x = a,$$ the derivative is</p>
-    <equation>$$\begin{array}{cl} &amp; \\ &amp; \\ {\frac{d}{dx}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right)} &amp; {= c_{1} + 2c_{2}\left( {a - a} \right) + 3c_{3}\left( {a - a} \right)^{2} + \text{⋯}} \\ &amp; {= c_{1}.} \end{array}$$</equation>
-    <p>Therefore, the derivative of the series equals $$f^{\prime}(a)$$ if the coefficient $$c_{1} = f^{\prime}(a).$$ Continuing in this way, we look for coefficients cn such that all the derivatives of the power series Equation 6.4 will agree with all the corresponding derivatives of $$f$$ at $$x = a.$$ The second and third derivatives of Equation 6.4 are given by</p>
-    <equation>$$\frac{d^{2}}{dx^{2}}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right) = 2c_{2} + 3 \cdot 2c_{3}\left( {x - a} \right) + 4 \cdot 3c_{4}\left( {x - a} \right)^{2} + \text{⋯}$$</equation>
-    <p>and</p>
-    <equation>$$\frac{d^{3}}{dx^{3}}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right) = 3 \cdot 2c_{3} + 4 \cdot 3 \cdot 2c_{4}\left( {x - a} \right) + 5 \cdot 4 \cdot 3c_{5}\left( {x - a} \right)^{2} + \text{⋯}.$$</equation>
-    <p>Therefore, at $$x = a,$$ the second and third derivatives</p>
-    <equation>$$\begin{array}{cl} {\frac{d^{2}}{dx^{2}}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right)} &amp; {= 2c_{2} + 3 \cdot 2c_{3}\left( {a - a} \right) + 4 \cdot 3c_{4}\left( {a - a} \right)^{2} + \text{⋯}} \\ &amp; {= 2c_{2}} \end{array}$$</equation>
-    <p>and</p>
-    <equation>$$\begin{array}{cl} {\frac{d^{3}}{dx^{3}}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right)} &amp; {= 3 \cdot 2c_{3} + 4 \cdot 3 \cdot 2c_{4}\left( {a - a} \right) + 5 \cdot 4 \cdot 3c_{5}\left( {a - a} \right)^{2} + \text{⋯}} \\ &amp; {= 3 \cdot 2c_{3}} \end{array}$$</equation>
-    <p>equal $$f^{''}(a)$$ and $$f\text{'''}(a),$$ respectively, if $$c_{2} = \frac{f^{''}(a)}{2}$$ and $$c_{3} = \frac{f\text{'''}(a)}{3 \cdot 2}.$$ More generally, we see that if $$f$$ has a power series representation at $$x = a,$$ then the coefficients should be given by $$c_{n} = \frac{f^{(n)}(a)}{n\text{!}}.$$ That is, the series should be</p>
-    <equation>$${\sum\limits_{n = 0}^{\infty}\frac{f^{(n)}(a)}{n\text{!}}}\left( {x - a} \right)^{n} = f(a) + f^{\prime}(a)\left( {x - a} \right) + \frac{f^{''}(a)}{2\text{!}}\left( {x - a} \right)^{2} + \frac{f\text{'''}(a)}{3\text{!}}\left( {x - a} \right)^{3} + \text{⋯}.$$</equation>
-    <p>This power series for $$f$$ is known as the Taylor series for $$f$$ at $$a.$$ If $$a = 0,$$ then this series is known as the Maclaurin series for $$f.$$</p>
-    <note type="Definition">
-      <p>If $$f$$ has derivatives of all orders at $$x = a,$$ then the Taylor series for the function $$f$$ at $$a$$ is</p>
-      <equation>$${\sum\limits_{n = 0}^{\infty}\frac{f^{(n)}(a)}{n\text{!}}}\left( {x - a} \right)^{n} = f(a) + f^{\prime}(a)\left( {x - a} \right) + \frac{f^{''}(a)}{2\text{!}}\left( {x - a} \right)^{2} + \text{⋯} + \frac{f^{(n)}(a)}{n\text{!}}\left( {x - a} \right)^{n} + \text{⋯}.$$</equation>
-      <p>The Taylor series for $$f$$ at 0 is known as the Maclaurin series for $$f.$$</p>
-    </note>
-    <p>Later in this section, we will show examples of finding Taylor series and discuss conditions under which the Taylor series for a function will converge to that function. Here, we state an important result. Recall from Uniqueness of Power Series that power series representations are unique. Therefore, if a function $$f$$ has a power series at $$a,$$ then it must be the Taylor series for $$f$$ at $$a.$$</p>
-    <theorem number="6.6" title="Uniqueness of Taylor Series">
-      <p>If a function $$f$$ has a power series at a that converges to $$f$$ on some open interval containing a, then that power series is the Taylor series for $$f$$ at a.</p>
-    </theorem>
-    <p>The proof follows directly from Uniqueness of Power Series.</p>
-    <p>To determine if a Taylor series converges, we need to look at its sequence of partial sums. These partial sums are finite polynomials, known as Taylor polynomials.</p>
-    <note type="Media">
-      <p>Visit the MacTutor History of Mathematics archive to read brief biographies of Brook Taylor  and Colin Maclaurin  and how they developed the concepts named after them.</p>
-    </note>
-  </subsection>
-  <subsection title="Taylor Polynomials">
-    <p>The nth partial sum of the Taylor series for a function $$f$$ at $$a$$ is known as the nth Taylor polynomial. For example, the 0th, 1st, 2nd, and 3rd partial sums of the Taylor series are given by</p>
-    <equation>$$\begin{array}{l} {p_{0}(x) = f(a),} \\ {p_{1}(x) = f(a) + f^{\prime}(a)\left( {x - a} \right),} \\ {p_{2}(x) = f(a) + f^{\prime}(a)\left( {x - a} \right) + \frac{f^{''}(a)}{2\text{!}}\left( {x - a} \right)^{2},} \\ {p_{3}(x) = f(a) + f^{\prime}(a)\left( {x - a} \right) + \frac{f^{''}(a)}{2\text{!}}\left( {x - a} \right)^{2} + \frac{f\text{'''}(a)}{3\text{!}}\left( {x - a} \right)^{3},} \end{array}$$</equation>
-    <p>respectively. These partial sums are known as the 0th, 1st, 2nd, and 3rd Taylor polynomials of $$f$$ at $$a,$$ respectively. If $$a = 0,$$ then these polynomials are known as Maclaurin polynomials for $$f.$$ We now provide a formal definition of Taylor and Maclaurin polynomials for a function $$f.$$</p>
-    <note type="Definition">
-      <p>If $$f$$ has n derivatives at $$x = a,$$ then the nth Taylor polynomial for $$f$$ at $$a$$ is</p>
-      <equation>$$p_{n}(x) = f(a) + f^{\prime}(a)\left( {x - a} \right) + \frac{f^{''}(a)}{2\text{!}}\left( {x - a} \right)^{2} + \frac{f\text{'''}(a)}{3\text{!}}\left( {x - a} \right)^{3} + \text{⋯} + \frac{f^{(n)}(a)}{n\text{!}}\left( {x - a} \right)^{n}.$$</equation>
-      <p>The nth Taylor polynomial for $$f$$ at 0 is known as the nth Maclaurin polynomial for $$f.$$</p>
-    </note>
-    <p>We now show how to use this definition to find several Taylor polynomials for $$f(x) = \text{ln}\mspace{2mu} x$$ at $$x = 1.$$</p>
-    <example number="6.11">
-      <problem>
-        <title>Finding Taylor Polynomials</title>
-        <p>Find the Taylor polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}$$ for $$f(x) = \text{ln}\mspace{2mu} x$$ at $$x = 1.$$ Use a graphing utility to compare the graph of $$f$$ with the graphs of $$p_{0},p_{1},p_{2}$$ and $$p_{3}.$$</p>
-      </problem>
-      <solution>
-        <p>To find these Taylor polynomials, we need to evaluate $$f$$ and its first three derivatives at $$x = 1.$$</p>
-        <equation>$$\begin{array}{rllccrll} {f(x)} &amp; = &amp; {\text{ln}\mspace{2mu} x} &amp; &amp; &amp; {f(1)} &amp; = &amp; 0 \\ {f^{\prime}(x)} &amp; = &amp; \frac{1}{x} &amp; &amp; &amp; {f^{\prime}(1)} &amp; = &amp; 1 \\ {f^{''}(x)} &amp; = &amp; {- \frac{1}{x^{2}}} &amp; &amp; &amp; {f^{''}(1)} &amp; = &amp; -1 \\ {f\text{'''}(x)} &amp; = &amp; \frac{2}{x^{3}} &amp; &amp; &amp; {f\text{'''}(1)} &amp; = &amp; 2 \end{array}$$</equation>
-        <p>Therefore,</p>
-        <equation>$$\begin{array}{cll} {p_{0}(x)} &amp; = &amp; {f(1) = 0,} \\ {p_{1}(x)} &amp; = &amp; {f(1) + f^{\prime}(1)\left( {x - 1} \right) = x - 1,} \\ {p_{2}(x)} &amp; = &amp; {f(1) + f^{\prime}(1)\left( {x - 1} \right) + \frac{f^{''}(1)}{2}\left( {x - 1} \right)^{2} = \left( {x - 1} \right) - \frac{1}{2}\left( {x - 1} \right)^{2},} \\ {p_{3}(x)} &amp; = &amp; {f(1) + f^{\prime}(1)\left( {x - 1} \right) + \frac{f^{''}(1)}{2}\left( {x - 1} \right)^{2} + \frac{f\text{'''}(1)}{3\text{!}}\left( {x - 1} \right)^{3}} \\ &amp; = &amp; {\left( {x - 1} \right) - \frac{1}{2}\left( {x - 1} \right)^{2} + \frac{1}{3}\left( {x - 1} \right)^{3}.} \end{array}$$</equation>
-        <p>The graphs of $$y = f(x)$$ and the first three Taylor polynomials are shown in Figure 6.5.</p>
-        <image alt="This graph has four curves. The first is the function f(x)=ln(x). The second function is psub1(x)=x-1. The third is psub2(x)=(x-1)-1/2(x-1)^2. The fourth is psub3(x)=(x-1)-1/2(x-1)^2 +1/3(x-1)^3. The curves are very close around x = 1." number="6.5" caption="The function $$y = \text{ln}\mspace{2mu} x$$ and the Taylor polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}$$ at $$x = 1$$ are plotted on this graph." />
-      </solution>
-    </example>
-    <checkpoint number="6.10">
-      <problem>
-        <p>Find the Taylor polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}$$ for $$f(x) = \frac{1}{x^{2}}$$ at $$x = 1.$$</p>
-      </problem>
-      <solution>
-        <p>$$p_{0}(x) = 1; p_{1}(x) = 1 - 2(x - 1); p_{2}(x) = 1 - 2(x - 1) + 3(x - 1)^{2}; p_{3}(x) = 1 - 2(x - 1) + 3(x - 1)^{2} - 4(x - 1)^{3}$$</p>
-      </solution>
-    </checkpoint>
-    <p>We now show how to find Maclaurin polynomials for ex, $$\text{sin}\mspace{2mu} x,$$ and $$\text{cos}\mspace{2mu} x.$$ As stated above, Maclaurin polynomials are Taylor polynomials centered at zero.</p>
-    <example number="6.12">
-      <problem>
-        <title>Finding Maclaurin Polynomials</title>
-        <p>For each of the following functions, find formulas for the Maclaurin polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}.$$ Find a formula for the nth Maclaurin polynomial and write it using sigma notation. Use a graphing utilty to compare the graphs of $$p_{0},p_{1},p_{2}$$ and $$p_{3}$$ with $$f.$$</p>
-        <list type="ol" style="a">
-          <item>$$f(x) = e^{x}$$</item>
-          <item>$$f(x) = \text{sin}\mspace{2mu} x$$</item>
-          <item>$$f(x) = \text{cos}\mspace{2mu} x$$</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="a">
-          <item>Sincewe know thatfor all positive integers. Therefore,for all positive integers. Therefore, we haveThe function and the first three Maclaurin polynomials are shown in.<equation>$$f(x) = e^{x},$$</equation>
-            <equation>$$f(x) = f^{\prime}(x) = f^{''}(x) = \text{⋯} = f^{(n)}(x) = e^{x}$$</equation>
-            <equation>$$f(0) = f^{\prime}(0) = f^{''}(0) = \text{⋯} = f^{(n)}(0) = 1$$</equation>
-            <equation>$$\begin{array}{cll} {p_{0}(x)} &amp; = &amp; {f(0) = 1,} \\ {p_{1}(x)} &amp; = &amp; {f(0) + f^{\prime}(0)x = 1 + x,} \\ {p_{2}(x)} &amp; = &amp; {f(0) + f^{\prime}(0)x + \frac{f^{''}(0)}{2\text{!}}x^{2} = 1 + x + \frac{1}{2}x^{2},} \\ {p_{3}(x)} &amp; = &amp; {f(0) + f^{\prime}(0)x + \frac{f^{''}(0)}{2}x^{2} + \frac{f\text{'''}(0)}{3\text{!}}x^{3}} \\ &amp; = &amp; {1 + x + \frac{1}{2}x^{2} + \frac{1}{3\text{!}}x^{3},} \\ {p_{n}(x)} &amp; = &amp; {f(0) + f^{\prime}(0)x + \frac{f^{''}(0)}{2}x^{2} + \frac{f\text{'''}(0)}{3\text{!}}x^{3} + \text{⋯} + \frac{f^{(n)}(0)}{n\text{!}}x^{n}} \\ &amp; = &amp; {1 + x + \frac{x^{2}}{2\text{!}} + \frac{x^{3}}{3\text{!}} + \text{⋯} + \frac{x^{n}}{n\text{!}}} \\ &amp; = &amp; {{\sum\limits_{k = 0}^{n}\frac{x^{k}}{k\text{!}}}.} \end{array}$$</equation>
-            <image alt="This graph has four curves. The first is the function f(x)=e^x. The second function is psub0(x)=1. The third is psub1(x) which is an increasing line passing through y=1. The fourth function is psub3(x) which is a curve passing through y=1. The curves are very close around y= 1." number="6.6" caption="The graph shows the function $$y = e^{x}$$ and the Maclaurin polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}.$$" />
-          </item>
-          <item>Forthe values of the function and its first four derivatives atare given as follows:Since the fourth derivative isthe pattern repeats. That is,andforThus, we haveand forGraphs of the function and its Maclaurin polynomials are shown in.<equation>$$f(x) = \text{sin}\mspace{2mu} x,$$</equation>
-            <equation>$$x = 0$$</equation>
-            <equation>$$\begin{array}{rllccrll} {f(x)} &amp; = &amp; {\text{sin}\mspace{2mu} x} &amp; &amp; &amp; {f(0)} &amp; = &amp; 0 \\ {f^{\prime}(x)} &amp; = &amp; {\text{cos}\mspace{2mu} x} &amp; &amp; &amp; {f^{\prime}(0)} &amp; = &amp; 1 \\ {f^{''}(x)} &amp; = &amp; {\text{−}\text{sin}\mspace{2mu} x} &amp; &amp; &amp; {f^{''}(0)} &amp; = &amp; 0 \\ {f\text{'''}(x)} &amp; = &amp; {\text{−}\text{cos}\mspace{2mu} x} &amp; &amp; &amp; {f\text{'''}(0)} &amp; = &amp; -1 \\ {f^{(4)}(x)} &amp; = &amp; {\text{sin}\mspace{2mu} x} &amp; &amp; &amp; {f^{(4)}(0)} &amp; = &amp; 0. \end{array}$$</equation>
-            <equation>$$\text{sin}\mspace{2mu} x,$$</equation>
-            <equation>$$f^{({2m})}(0) = 0$$</equation>
-            <equation>$$f^{({2m + 1})}(0) = (-1)^{m}$$</equation>
-            <equation>$$m \geq 0.$$</equation>
-            <equation>$$\begin{array}{l} {p_{0}(x) = 0,} \\ {p_{1}(x) = 0 + x = x,} \\ {p_{2}(x) = 0 + x + 0 = x,} \\ {p_{3}(x) = 0 + x + 0 - \frac{1}{3\text{!}}x^{3} = x - \frac{x^{3}}{3\text{!}},} \\ {p_{4}(x) = 0 + x + 0 - \frac{1}{3\text{!}}x^{3} + 0 = x - \frac{x^{3}}{3\text{!}},} \\ {p_{5}(x) = 0 + x + 0 - \frac{1}{3\text{!}}x^{3} + 0 + \frac{1}{5\text{!}}x^{5} = x - \frac{x^{3}}{3\text{!}} + \frac{x^{5}}{5\text{!}},} \end{array}$$</equation>
-            <equation>$$m \geq 0,$$</equation>
-            <equation>$$\begin{array}{cl} {p_{2m + 1}(x)} &amp; {= p_{2m + 2}(x)} \\ &amp; {= x - \frac{x^{3}}{3\text{!}} + \frac{x^{5}}{5\text{!}} - \text{⋯} + (-1)^{m}\frac{x^{2m + 1}}{\left( {2m + 1} \right)\text{!}}} \\ &amp; {= {\sum\limits_{k = 0}^{m}{(-1)^{k}\frac{x^{2k + 1}}{\left( {2k + 1} \right)\text{!}}}}.} \end{array}$$</equation>
-            <image alt="This graph has four curves. The first is the function f(x)=sin(x). The second is psub1(x). The second is psub3(x). The fourth is psub5(x). All curves intersect at origin, with varying accuracy to the sine wave." number="6.7" caption="The graph shows the function $$y = \text{sin}\mspace{2mu} x$$ and the Maclaurin polynomials $$p_{1},p_{3}$$ and $$p_{5}.$$" />
-          </item>
-          <item>Forthe values of the function and its first four derivatives atare given as follows:Since the fourth derivative isthe pattern repeats. In other words,andforTherefore,and forGraphs of the function and the Maclaurin polynomials appear in.<equation>$$f(x) = \text{cos}\mspace{2mu} x,$$</equation>
-            <equation>$$x = 0$$</equation>
-            <equation>$$\begin{array}{rllccrll} {f(x)} &amp; = &amp; {\text{cos}\mspace{2mu} x} &amp; &amp; &amp; {f(0)} &amp; = &amp; 1 \\ {f^{\prime}(x)} &amp; = &amp; {\text{−}\text{sin}\mspace{2mu} x} &amp; &amp; &amp; {f^{\prime}(0)} &amp; = &amp; 0 \\ {f^{''}(x)} &amp; = &amp; {\text{−}\text{cos}\mspace{2mu} x} &amp; &amp; &amp; {f^{''}(0)} &amp; = &amp; -1 \\ {f\text{'''}(x)} &amp; = &amp; {\text{sin}\mspace{2mu} x} &amp; &amp; &amp; {f\text{'''}(0)} &amp; = &amp; 0 \\ {f^{(4)}(x)} &amp; = &amp; {\text{cos}\mspace{2mu} x} &amp; &amp; &amp; {f^{(4)}(0)} &amp; = &amp; 1. \end{array}$$</equation>
-            <equation>$$\text{cos}\mspace{2mu} x,$$</equation>
-            <equation>$$f^{({2m})}(0) = (-1)^{m}$$</equation>
-            <equation>$$f^{({2m + 1})} = 0$$</equation>
-            <equation>$$m \geq 0.$$</equation>
-            <equation>$$\begin{array}{l} {p_{0}(x) = 1,} \\ {p_{1}(x) = 1 + 0 = 1,} \\ {p_{2}(x) = 1 + 0 - \frac{1}{2\text{!}}x^{2} = 1 - \frac{x^{2}}{2\text{!}},} \\ {p_{3}(x) = 1 + 0 - \frac{1}{2\text{!}}x^{2} + 0 = 1 - \frac{x^{2}}{2\text{!}},} \\ {p_{4}(x) = 1 + 0 - \frac{1}{2\text{!}}x^{2} + 0 + \frac{1}{4\text{!}}x^{4} = 1 - \frac{x^{2}}{2\text{!}} + \frac{x^{4}}{4\text{!}},} \\ {p_{5}(x) = 1 + 0 - \frac{1}{2\text{!}}x^{2} + 0 + \frac{1}{4\text{!}}x^{4} + 0 = 1 - \frac{x^{2}}{2\text{!}} + \frac{x^{4}}{4\text{!}},} \end{array}$$</equation>
-            <equation>$$n \geq 0,$$</equation>
-            <equation>$$\begin{array}{cl} {p_{2m}(x)} &amp; {= p_{2m + 1}(x)} \\ &amp; {= 1 - \frac{x^{2}}{2\text{!}} + \frac{x^{4}}{4\text{!}} - \text{⋯} + (-1)^{m}\frac{x^{2m}}{\left( {2m} \right)\text{!}}} \\ &amp; {= {\sum\limits_{k = 0}^{m}(-1)^{k}}\frac{x^{2k}}{\left( {2k} \right)\text{!}}.} \end{array}$$</equation>
-            <image alt="This graph has four curves. The first is the function f(x)=cos(x). The second function is psub0(x). The third is psub2(x). The fourth function is psub4(x). The curves are very close around y=1" number="6.8" caption="The function $$y = \text{cos}\mspace{2mu} x$$ and the Maclaurin polynomials $$p_{0},p_{2}$$ and $$p_{4}$$ are plotted on this graph." />
-          </item>
-        </list>
-      </solution>
-    </example>
-    <checkpoint number="6.11">
-      <problem>
-        <p>Find formulas for the Maclaurin polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}$$ for $$f(x) = \frac{1}{1 + x}.$$ Find a formula for the nth Maclaurin polynomial. Write your answer using sigma notation.</p>
-      </problem>
-      <solution>
-        <p>$$p_{0}(x) = 1; p_{1}(x) = 1 - x; p_{2}(x) = 1 - x + x^{2}; p_{3}(x) = 1 - x + x^{2} - x^{3}; p_{n}(x) = 1 - x + x^{2} - x^{3} + \text{⋯} + (-1)^{n}x^{n} = \sum\limits_{k = 0}^{n}(-1)^{k}x^{k}$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Taylor’s Theorem with Remainder">
-    <p>Recall that the nth Taylor polynomial for a function $$f$$ at a is the nth partial sum of the Taylor series for $$f$$ at a. Therefore, to determine if the Taylor series converges, we need to determine whether the sequence of Taylor polynomials $$\left\{ p_{n} \right\}$$ converges. However, not only do we want to know if the sequence of Taylor polynomials converges, we want to know if it converges to $$f.$$ To answer this question, we define the remainder $$R_{n}(x)$$ as</p>
-    <equation>$$R_{n}(x) = f(x) - p_{n}(x).$$</equation>
-    <p>For the sequence of Taylor polynomials to converge to $$f,$$ we need the remainder Rn to converge to zero. To determine if Rn converges to zero, we introduce Taylor’s theorem with remainder. Not only is this theorem useful in proving that a Taylor series converges to its related function, but it will also allow us to quantify how well the nth Taylor polynomial approximates the function.</p>
-    <p>Here we look for a bound on $$\left| R_{n} \right|.$$ Consider the simplest case: $$n = 0.$$ Let p0 be the 0th Taylor polynomial at a for a function $$f.$$ The remainder R0 satisfies</p>
-    <equation>$$\begin{array}{cl} {R_{0}(x)} &amp; {= f(x) - p_{0}(x)} \\ &amp; {= f(x) - f(a).} \end{array}$$</equation>
-    <p>If $$f$$ is differentiable on an interval I containing a and x, then by the Mean Value Theorem there exists a real number c between a and x such that $$f(x) - f(a) = f^{\prime}(c)\left( {x - a} \right).$$ Therefore,</p>
-    <equation>$$R_{0}(x) = f^{\prime}(c)\left( {x - a} \right).$$</equation>
-    <p>Using the Mean Value Theorem in a similar argument, we can show that if $$f$$ is n times differentiable on an interval I containing a and x, then the nth remainder Rn satisfies</p>
-    <equation>$$R_{n}(x) = \frac{f^{({n + 1})}(c)}{\left( {n + 1} \right)\text{!}}\left( {x - a} \right)^{n + 1}$$</equation>
-    <p>for some real number c between a and x. It is important to note that the value c in the numerator above is not the center a, but rather an unknown value c between a and x. This formula allows us to get a bound on the remainder Rn. If we happen to know that $$\left| {f^{({n + 1})}(x)} \right|$$ is bounded by some real number M on this interval I, then</p>
-    <equation>$$\left| {R_{n}(x)} \right| \leq \frac{M}{\left( {n + 1} \right)\text{!}}\left| {x - a} \right|^{n + 1}$$</equation>
-    <p>for all x in the interval I.</p>
-    <p>We now state Taylor’s theorem, which provides the formal relationship between a function $$f$$ and its nth degree Taylor polynomial $$p_{n}(x).$$ This theorem allows us to bound the error when using a Taylor polynomial to approximate a function value, and will be important in proving that a Taylor series for $$f$$ converges to $$f.$$</p>
-    <theorem number="6.7" title="Taylor’s Theorem with Remainder">
-      <p>Let $$f$$ be a function that can be differentiated $$n + 1$$ times on an interval I containing the real number a. Let pn be the nth Taylor polynomial of $$f$$ at a and let</p>
-      <equation>$$R_{n}(x) = f(x) - p_{n}(x)$$</equation>
-      <p>be the nth remainder. Then for each x in the interval I, there exists a real number c between a and x such that</p>
-      <equation>$$R_{n}(x) = \frac{f^{({n + 1})}(c)}{\left( {n + 1} \right)\text{!}}\left( {x - a} \right)^{n + 1}.$$</equation>
-      <p>If there exists a real number M such that $$\left| {f^{({n + 1})}(x)} \right| \leq M$$ for all $$x \in I,$$ then</p>
-      <equation>$$\left| {R_{n}(x)} \right| \leq \frac{M}{\left( {n + 1} \right)\text{!}}\left| {x - a} \right|^{n + 1}$$</equation>
-      <p>for all x in I.</p>
-    </theorem>
-    <subsection title="Proof">
-      <p>Fix a point $$x \in I$$ and introduce the function g such that</p>
-      <equation>$$g(t) = f(x) - f(t) - f^{\prime}(t)\left( {x - t} \right) - \frac{f^{''}(t)}{2\text{!}}\left( {x - t} \right)^{2} - \text{⋯} - \frac{f^{(n)}(t)}{n\text{!}}\left( {x - t} \right)^{n} - R_{n}(x)\frac{\left( {x - t} \right)^{n + 1}}{\left( {x - a} \right)^{n + 1}}.$$</equation>
-      <p>We claim that g satisfies the criteria of Rolle’s theorem. Since g is a polynomial function (in t), it is a differentiable function. Also, g is zero at $$t = a$$ and $$t = x$$ because</p>
-      <equation>$$\begin{array}{cll} {g(a)} &amp; = &amp; {f(x) - f(a) - f^{\prime}(a)\left( {x - a} \right) - \frac{f^{''}(a)}{2\text{!}}\left( {x - a} \right)^{2} + \text{⋯} + \frac{f^{(n)}(a)}{n\text{!}}\left( {x - a} \right)^{n} - R_{n}(x)} \\ &amp; = &amp; {f(x) - p_{n}(x) - R_{n}(x)} \\ &amp; = &amp; {0,} \\ {g(x)} &amp; = &amp; {f(x) - f(x) - 0 - \text{⋯} - 0} \\ &amp; = &amp; 0. \end{array}$$</equation>
-      <p>Therefore, g satisfies Rolle’s theorem, and consequently, there exists c between a and x such that $$g^{\prime}(c) = 0.$$ We now calculate $$g^{\prime}.$$ Using the product rule, we note that</p>
-      <equation>$$\frac{d}{dt}\left\lbrack {\frac{f^{(n)}(t)}{n\text{!}}\left( {x - t} \right)^{n}} \right\rbrack = \frac{\text{−}f^{(n)}(t)}{\left( {n - 1} \right)\text{!}}\left( {x - t} \right)^{n - 1} + \frac{f^{({n + 1})}(t)}{n\text{!}}\left( {x - t} \right)^{n}.$$</equation>
-      <p>Consequently,</p>
-      <equation>$$\begin{array}{cl} {g^{\prime}(t)} &amp; {= \text{−}f^{\prime}(t) + \left\lbrack {f^{\prime}(t) - f^{''}(t)\left( {x - t} \right)} \right\rbrack + \left\lbrack {f^{''}(t)\left( {x - t} \right) - \frac{f\text{'''}(t)}{2\text{!}}\left( {x - t} \right)^{2}} \right\rbrack + \text{⋯}} \\ &amp; {\mspace{25mu} + \left\lbrack {\frac{f^{(n)}(t)}{\left( {n - 1} \right)\text{!}}\left( {x - t} \right)^{n - 1} - \frac{f^{({n + 1})}(t)}{n\text{!}}\left( {x - t} \right)^{n}} \right\rbrack + \left( {n + 1} \right)R_{n}(x)\frac{\left( {x - t} \right)^{n}}{\left( {x - a} \right)^{n + 1}}.} \end{array}$$</equation>
-      <p>Notice that there is a telescoping effect. Therefore,</p>
-      <equation>$$g^{\prime}(t) = - \frac{f^{({n + 1})}(t)}{n\text{!}}\left( {x - t} \right)^{n} + \left( {n + 1} \right)R_{n}(x)\frac{\left( {x - t} \right)^{n}}{\left( {x - a} \right)^{n + 1}}.$$</equation>
-      <p>By Rolle’s theorem, we conclude that there exists a number c between a and x such that $$g^{\prime}(c) = 0.$$ Since</p>
-      <equation>$$g^{\prime}(c) = - \frac{f^{({n + 1})}(c)}{n\text{!}}\left( {x - c} \right)^{n} + \left( {n + 1} \right)R_{n}(x)\frac{\left( {x - c} \right)^{n}}{\left( {x - a} \right)^{n + 1}}$$</equation>
-      <p>we conclude that</p>
-      <equation>$$- \frac{f^{({n + 1})}(c)}{n\text{!}}\left( {x - c} \right)^{n} + \left( {n + 1} \right)R_{n}(x)\frac{\left( {x - c} \right)^{n}}{\left( {x - a} \right)^{n + 1}} = 0.$$</equation>
-      <p>Adding the first term on the left-hand side to both sides of the equation and dividing both sides of the equation by $$\frac{(n + 1)(x - c)^{n}}{(x - a)^{n + 1}},$$ we conclude that</p>
-      <equation>$$R_{n}(x) = \frac{f^{({n + 1})}(c)}{\left( {n + 1} \right)\text{!}}\left( {x - a} \right)^{n + 1}$$</equation>
-      <p>as desired. From this fact, it follows that if there exists M such that $$\left| {f^{({n + 1})}(x)} \right| \leq M$$ for all x in I, then</p>
-      <equation>$$\left| {R_{n}(x)} \right| \leq \frac{M}{\left( {n + 1} \right)\text{!}}\left| {x - a} \right|^{n + 1}.$$</equation>
-      <p>□</p>
-      <p>Not only does Taylor’s theorem allow us to prove that a Taylor series converges to a function, but it also allows us to estimate the accuracy of Taylor polynomials in approximating function values. We begin by looking at linear and quadratic approximations of $$f(x) = \sqrt[3]{x}$$ at $$x = 8$$ and determine how accurate these approximations are at estimating $$\sqrt[3]{11}.$$</p>
-      <example number="6.13">
-        <problem>
-          <title>Using Linear and Quadratic Approximations to Estimate Function Values</title>
-          <p>Consider the function $$f(x) = \sqrt[3]{x}.$$</p>
-          <list type="ol" style="a">
-            <item>Find the first and second Taylor polynomials for $$f$$ at $$x = 8.$$ Use a graphing utility to compare these polynomials with $$f$$ near $$x = 8.$$</item>
-            <item>Use these two polynomials to estimate $$\sqrt[3]{11}.$$</item>
-            <item>Use Taylor’s theorem to bound the error.</item>
-          </list>
-        </problem>
-        <solution>
-          <list type="ol" style="a">
-            <item>Forthe values of the function and its first two derivatives atare as follows:Thus, the first and second Taylor polynomials atare given byThe function and the Taylor polynomials are shown in.<equation>$$f(x) = \sqrt[3]{x},$$</equation>
-              <equation>$$x = 8$$</equation>
-              <equation>$$\begin{array}{rllccrll} {f(x)} &amp; = &amp; \sqrt[3]{x} &amp; &amp; &amp; {f(8)} &amp; = &amp; 2 \\ {f^{\prime}(x)} &amp; = &amp; \frac{1}{3x^{2\text{/}3}} &amp; &amp; &amp; {f^{\prime}(8)} &amp; = &amp; \frac{1}{12} \\ {f^{''}(x)} &amp; = &amp; \frac{-2}{9x^{5\text{/}3}} &amp; &amp; &amp; {f^{''}(8)} &amp; = &amp; {- \frac{1}{144}.} \end{array}$$</equation>
-              <equation>$$x = 8$$</equation>
-              <equation>$$\begin{array}{cll} {p_{1}(x)} &amp; = &amp; {f(8) + f^{\prime}(8)\left( {x - 8} \right)} \\ &amp; = &amp; {2 + \frac{1}{12}\left( {x - 8} \right)} \\ {p_{2}(x)} &amp; = &amp; {f(8) + f^{\prime}(8)\left( {x - 8} \right) + \frac{f^{''}(8)}{2\text{!}}\left( {x - 8} \right)^{2}} \\ &amp; = &amp; {2 + \frac{1}{12}\left( {x - 8} \right) - \frac{1}{288}\left( {x - 8} \right)^{2}.} \end{array}$$</equation>
-              <image alt="This graph has four curves. The first is the function f(x)=cube root of x. The second function is psub1(x). The third is psub2(x). The curves are very close around x=8." number="6.9" caption="The graphs of $$f(x) = \sqrt[3]{x}$$ and the linear and quadratic approximations $$p_{1}(x)$$ and $$p_{2}(x).$$" />
-            </item>
-            <item>Using the first Taylor polynomial atwe can estimateUsing the second Taylor polynomial atwe obtain<equation>$$x = 8,$$</equation>
-              <equation>$$\sqrt[3]{11} \approx p_{1}(11) = 2 + \frac{1}{12}\left( {11 - 8} \right) = 2.25.$$</equation>
-              <equation>$$x = 8,$$</equation>
-              <equation>$$\sqrt[3]{11} \approx p_{2}(11) = 2 + \frac{1}{12}\left( {11 - 8} \right) - \frac{1}{288}\left( {11 - 8} \right)^{2} = 2.21875.$$</equation>
-            </item>
-            <item>By, there exists ain the intervalsuch that the remainder when approximatingby the first Taylor polynomial satisfiesWe do not know the exact value of, so we find an upper bound onby determining the maximum value ofon the intervalSincethe largest value foron that interval occurs atUsing the fact thatwe obtainSimilarly, to estimatewe use the fact thatSincethe maximum value ofon the intervalisTherefore, we have<equation>$$\left( {8,11} \right)$$</equation>
-              <equation>$$\sqrt[3]{11}$$</equation>
-              <equation>$$R_{1}(11) = \frac{f^{''}(c)}{2\text{!}}\left( {11 - 8} \right)^{2}.$$</equation>
-              <equation>$$R_{1}(11)$$</equation>
-              <equation>$$f^{''}$$</equation>
-              <equation>$$\left( {8,11} \right).$$</equation>
-              <equation>$$f^{''}(x) = - \frac{2}{9x^{5\text{/}3}},$$</equation>
-              <equation>$$\left| {f^{''}(x)} \right|$$</equation>
-              <equation>$$x = 8.$$</equation>
-              <equation>$$f^{''}(8) = - \frac{1}{144},$$</equation>
-              <equation>$$\left| {R_{1}(11)} \right| \leq \frac{1}{144 \cdot 2\text{!}}\left( {11 - 8} \right)^{2} = 0.03125.$$</equation>
-              <equation>$$R_{2}(11),$$</equation>
-              <equation>$$R_{2}(11) = \frac{f\text{'''}(c)}{3\text{!}}\left( {11 - 8} \right)^{3}.$$</equation>
-              <equation>$$f\text{'''}(x) = \frac{10}{27x^{8\text{/}3}},$$</equation>
-              <equation>$$f\text{'''}$$</equation>
-              <equation>$$\left( {8,11} \right)$$</equation>
-              <equation>$$f\text{'''}(8) \approx 0.0014468.$$</equation>
-              <equation>$$\left| {R_{2}(11)} \right| \leq \frac{0.0011468}{3\text{!}}\left( {11 - 8} \right)^{3} \approx 0.0065104.$$</equation>
-            </item>
-          </list>
-        </solution>
-      </example>
-      <checkpoint number="6.12">
-        <problem>
-          <p>Find the first and second Taylor polynomials for $$f(x) = \sqrt{x}$$ at $$x = 4.$$ Use these polynomials to estimate $$\sqrt{6}.$$ Use Taylor’s theorem to bound the error.</p>
-        </problem>
-        <solution>
-          <p>$$p_{1}(x) = 2 + \frac{1}{4}(x - 4);p_{2}(x) = 2 + \frac{1}{4}(x - 4) - \frac{1}{64}(x - 4)^{2}; p_{1}(6) = 2.5;p_{2}(6) = 2.4375;$$</p>
-          <p>$$\left| {R_{1}(6)} \right| \leq 0.0625;\left| {R_{2}(6)} \right| \leq 0.015625$$</p>
-        </solution>
-      </checkpoint>
-      <example number="6.14">
-        <problem>
-          <title>Approximating sinxUsing Maclaurin Polynomials</title>
-          <p>From Example 6.12b., the Maclaurin polynomials for $$\text{sin}\mspace{2mu} x$$ are given by</p>
-          <equation>$$\begin{array}{cl} {p_{2m + 1}(x)} &amp; {= p_{2m + 2}(x)} \\ &amp; {= x - \frac{x^{3}}{3\text{!}} + \frac{x^{5}}{5\text{!}} - \frac{x^{7}}{7\text{!}} + \text{⋯} + (-1)^{m}\frac{x^{2m + 1}}{\left( {2m + 1} \right)\text{!}}} \end{array}$$</equation>
-          <p>for $$m = 0,1,2,\text{…}.$$</p>
-          <list type="ol" style="a">
-            <item>Use the fifth Maclaurin polynomial for $$\text{sin}\mspace{2mu} x$$ to approximate $$\text{sin}\left( \frac{\pi}{18} \right)$$ and bound the error.</item>
-            <item>For what values of x does the fifth Maclaurin polynomial approximate $$\text{sin}\mspace{2mu} x$$ to within 0.0001?</item>
-          </list>
-        </problem>
-        <solution>
-          <list type="ol" style="a">
-            <item>The fifth Maclaurin polynomial isUsing this polynomial, we can estimate as follows:To estimate the error, use the fact that the sixth Maclaurin polynomial isand calculate a bound onBy, the remainder isfor somebetween 0 andUsing the fact thatfor all, we find that the magnitude of the error is at most<equation>$$p_{5}(x) = x - \frac{x^{3}}{3\text{!}} + \frac{x^{5}}{5\text{!}}.$$</equation>
-              <equation>$$\begin{array}{cl} {\text{sin}\left( \frac{\pi}{18} \right)} &amp; {\approx p_{5}\left( \frac{\pi}{18} \right)} \\ &amp; {= \frac{\pi}{18} - \frac{1}{3\text{!}}\left( \frac{\pi}{18} \right)^{3} + \frac{1}{5\text{!}}\left( \frac{\pi}{18} \right)^{5}} \\ &amp; {\approx 0.173648.} \end{array}$$</equation>
-              <equation>$$p_{6}(x) = p_{5}(x)$$</equation>
-              <equation>$$R_{6}\left( \frac{\pi}{18} \right).$$</equation>
-              <equation>$$R_{6}\left( \frac{\pi}{18} \right) = \frac{f^{(7)}(c)}{7\text{!}}\left( \frac{\pi}{18} \right)^{7}$$</equation>
-              <equation>$$\frac{\pi}{18}.$$</equation>
-              <equation>$$\left| {f^{(7)}(x)} \right| \leq 1$$</equation>
-              <equation>$$\frac{1}{7\text{!}} \cdot \left( \frac{\pi}{18} \right)^{7} \leq 9.8\ \times \ 10^{-10}.$$</equation>
-            </item>
-            <item>We need to find the values ofsuch thatSolving this inequality for, we have that the fifth Maclaurin polynomial gives an estimate to within 0.0001 as long as<equation>$$\frac{1}{7\text{!}}|x|^{7} \leq 0.0001.$$</equation>
-              <equation>$$|x| &lt; 0.907.$$</equation>
-            </item>
-          </list>
-        </solution>
-      </example>
-      <checkpoint number="6.13">
-        <problem>
-          <p>Use the fourth Maclaurin polynomial for $$\text{cos}\mspace{2mu} x$$ to approximate $$\text{cos}\left( \frac{\pi}{12} \right).$$</p>
-        </problem>
-        <solution>
-          <p>0.96593</p>
-        </solution>
-      </checkpoint>
-      <p>Now that we are able to bound the remainder $$R_{n}(x),$$ we can use this bound to prove that a Taylor series for $$f$$ at a converges to $$f.$$</p>
-    </subsection>
-  </subsection>
-  <subsection title="Representing Functions with Taylor and Maclaurin Series">
-    <p>We now discuss issues of convergence for Taylor series. We begin by showing how to find a Taylor series for a function, and how to find its interval of convergence.</p>
-    <example number="6.15">
-      <problem>
-        <title>Finding a Taylor Series</title>
-        <p>Find the Taylor series for $$f(x) = \frac{1}{x}$$ at $$x = 1.$$ Determine the interval of convergence.</p>
-      </problem>
-      <solution>
-        <p>For $$f(x) = \frac{1}{x},$$ the values of the function and its first four derivatives at $$x = 1$$ are</p>
-        <equation>$$\begin{array}{rllccrll} {f(x)} &amp; = &amp; \frac{1}{x} &amp; &amp; &amp; {f(1)} &amp; = &amp; 1 \\ {f^{\prime}(x)} &amp; = &amp; {- \frac{1}{x^{2}}} &amp; &amp; &amp; {f^{\prime}(1)} &amp; = &amp; -1 \\ {f^{''}(x)} &amp; = &amp; \frac{2}{x^{3}} &amp; &amp; &amp; {f^{''}(1)} &amp; = &amp; {2\text{!}} \\ {f\text{'''}(x)} &amp; = &amp; {- \frac{3 \cdot 2}{x^{4}}} &amp; &amp; &amp; {f\text{'''}(1)} &amp; = &amp; {-3\text{!}} \\ {f^{(4)}(x)} &amp; = &amp; \frac{4 \cdot 3 \cdot 2}{x^{5}} &amp; &amp; &amp; {f^{(4)}(1)} &amp; = &amp; {4\text{!.}} \end{array}$$</equation>
-        <p>That is, we have $$f^{(n)}(1) = (-1)^{n}n\text{!}$$ for all $$n \geq 0.$$ Therefore, the Taylor series for $$f$$ at $$x = 1$$ is given by</p>
-        <equation>$${\sum\limits_{n = 0}^{\infty}{\frac{f^{(n)}(1)}{n\text{!}}\left( {x - 1} \right)^{n}}} = {\sum\limits_{n = 0}^{\infty}{(-1)^{n}\left( {x - 1} \right)^{n}}}.$$</equation>
-        <p>To find the interval of convergence, we use the ratio test. We find that</p>
-        <equation>$$\frac{\left| a_{n + 1} \right|}{\left| a_{n} \right|} = \frac{\left| {(-1)^{n + 1}\left( {x - 1} \right)^{n + 1}} \right|}{\left| {(-1)^{n}\left( {x - 1} \right)^{n}} \right|} = \left| {x - 1} \right|.$$</equation>
-        <p>Thus, the series converges if $$\left| {x - 1} \right| &lt; 1.$$ That is, the series converges for $$0 &lt; x &lt; 2.$$ Next, we need to check the endpoints. At $$x = 2,$$ we see that</p>
-        <equation>$${\sum\limits_{n = 0}^{\infty}{(-1)^{n}\left( {2 - 1} \right)^{n}}} = {\sum\limits_{n = 0}^{\infty}(-1)^{n}}$$</equation>
-        <p>diverges by the divergence test. Similarly, at $$x = 0,$$</p>
-        <equation>$${\sum\limits_{n = 0}^{\infty}{(-1)^{n}\left( {0 - 1} \right)^{n}}} = {\sum\limits_{n = 0}^{\infty}(-1)^{2n}} = {\sum\limits_{n = 0}^{\infty}1}$$</equation>
-        <p>diverges. Therefore, the interval of convergence is $$\left( {0,2} \right).$$</p>
-      </solution>
-    </example>
-    <checkpoint number="6.14">
-      <problem>
-        <p>Find the Taylor series for $$f(x) = \frac{1}{2x}$$ at $$x = 2$$ and determine its interval of convergence.</p>
-      </problem>
-      <solution>
-        <p>$$\sum\limits_{n = 0}^{\infty}\frac{\left( {2 - x} \right)^{n}}{2^{({x - 2})}}.$$ The interval of convergence is $$\left( {0,4} \right).$$</p>
-      </solution>
-    </checkpoint>
-    <p>We know that the Taylor series found in this example converges on the interval $$\left( {0,2} \right),$$ but how do we know it actually converges to $$f?$$ We consider this question in more generality in a moment, but for this example, we can answer this question by writing</p>
-    <equation>$$f(x) = \frac{1}{x} = \frac{1}{1 - \left( {1 - x} \right)}.$$</equation>
-    <p>That is, $$f$$ can be represented by the geometric series $${\sum\limits_{n = 0}^{\infty}\left( {1 - x} \right)^{n}}.$$ Since this is a geometric series, it converges to $$\frac{1}{x}$$ as long as $$\left| {1 - x} \right| &lt; 1.$$ Therefore, the Taylor series found in Example 6.15 does converge to $$f(x) = \frac{1}{x}$$ on $$\left( {0,2} \right).$$</p>
-    <p>We now consider the more general question: if a Taylor series for a function $$f$$ converges on some interval, how can we determine if it actually converges to $$f?$$ To answer this question, recall that a series converges to a particular value if and only if its sequence of partial sums converges to that value. Given a Taylor series for $$f$$ at a, the nth partial sum is given by the nth Taylor polynomial pn. Therefore, to determine if the Taylor series converges to $$f,$$ we need to determine whether</p>
-    <equation>$$\underset{n\rightarrow\infty}{\text{lim}}p_{n}(x) = f(x).$$</equation>
-    <p>Since the remainder $$R_{n}(x) = f(x) - p_{n}(x),$$ the Taylor series converges to $$f$$ if and only if</p>
-    <equation>$$\underset{n\rightarrow\infty}{\text{lim}}R_{n}(x) = 0.$$</equation>
-    <p>We now state this theorem formally.</p>
-    <theorem number="6.8" title="Convergence of Taylor Series">
-      <p>Suppose that $$f$$ has derivatives of all orders on an interval I containing a. Then the Taylor series</p>
-      <equation>$$\sum\limits_{n = 0}^{\infty}{\frac{f^{(n)}(a)}{n\text{!}}\left( {x - a} \right)^{n}}$$</equation>
-      <p>converges to $$f(x)$$ for all x in I if and only if</p>
-      <equation>$$\underset{n\rightarrow\infty}{\text{lim}}R_{n}(x) = 0$$</equation>
-      <p>for all x in I.</p>
-    </theorem>
-    <p>With this theorem, we can prove that a Taylor series for $$f$$ at a converges to $$f$$ if we can prove that the remainder $$R_{n}(x)\rightarrow 0.$$ To prove that $$R_{n}(x)\rightarrow 0,$$ we typically use the bound</p>
-    <equation>$$\left| {R_{n}(x)} \right| \leq \frac{M}{\left( {n + 1} \right)\text{!}}\left| {x - a} \right|^{n + 1}$$</equation>
-    <p>from Taylor’s theorem with remainder.</p>
-    <p>In the next example, we find the Maclaurin series for ex and $$\text{sin}\mspace{2mu} x$$ and show that these series converge to the corresponding functions for all real numbers by proving that the remainders $$R_{n}(x)\rightarrow 0$$ for all real numbers x.</p>
-    <example number="6.16">
-      <problem>
-        <title>Finding Maclaurin Series</title>
-        <p>For each of the following functions, find the Maclaurin series and its interval of convergence. Use Taylor’s Theorem with Remainder to prove that the Maclaurin series for $$f$$ converges to $$f$$ on that interval.</p>
-        <list type="ol" style="a">
-          <item>ex</item>
-          <item>$$\text{sin}\mspace{2mu} x$$</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="a">
-          <item>Using theth Maclaurin polynomial forfound ina., we find that the Maclaurin series foris given byTo determine the interval of convergence, we use the ratio test. Sincewe havefor all. Therefore, the series converges absolutely for all, and thus, the interval of convergence isTo show that the series converges tofor all, we use the fact thatfor allandis an increasing function onTherefore, for any real number, the maximum value offor allis. Thus,Since we just showed thatconverges for all, by the divergence test, we know thatfor any real number. By combining this fact with the squeeze theorem, the result is<equation>$${\sum\limits_{n = 0}^{\infty}\frac{x^{n}}{n\text{!}}}.$$</equation>
-            <equation>$$\frac{\left| a_{n + 1} \right|}{\left| a_{n} \right|} = \frac{|x|^{n + 1}}{\left( {n + 1} \right)\text{!}} \cdot \frac{n\text{!}}{|x|^{n}} = \frac{|x|}{n + 1},$$</equation>
-            <equation>$$\underset{n\rightarrow\infty}{\text{lim}}\frac{\left| a_{n + 1} \right|}{\left| a_{n} \right|} = \underset{n\rightarrow\infty}{\text{lim}}\frac{|x|}{n + 1} = 0$$</equation>
-            <equation>$$\left( {\text{−}\infty,\infty} \right).$$</equation>
-            <equation>$$f^{(n)}(x) = e^{x}$$</equation>
-            <equation>$$n \geq 0$$</equation>
-            <equation>$$\left( {\text{−}\infty,\infty} \right).$$</equation>
-            <equation>$$|x| \leq b$$</equation>
-            <equation>$$\left| {R_{n}(x)} \right| \leq \frac{e^{b}}{\left( {n + 1} \right)\text{!}}|x|^{n + 1}.$$</equation>
-            <equation>$$\sum\limits_{n = 0}^{\infty}\frac{|x|^{n}}{n\text{!}}$$</equation>
-            <equation>$$\underset{n\rightarrow\infty}{\text{lim}}\frac{|x|^{n + 1}}{\left( {n + 1} \right)\text{!}} = 0$$</equation>
-            <equation>$$\underset{n\rightarrow\infty}{\text{lim}}R_{n}(x) = 0.$$</equation>
-          </item>
-          <item>Using theth Maclaurin polynomial forfound inb., we find that the Maclaurin series foris given byIn order to apply the ratio test, considerSincefor all, we obtain the interval of convergence asTo show that the Maclaurin series converges tolook atFor eachthere exists a real numberbetween 0 andsuch thatSincefor all integersand all real numbers, we havefor all real numbers. Using the same idea as in part a., the result isfor all, and therefore, the Maclaurin series forconverges tofor all real.<equation>$$\text{sin}\mspace{2mu} x$$</equation>
-            <equation>$$\text{sin}\mspace{2mu} x$$</equation>
-            <equation>$${\sum\limits_{n = 0}^{\infty}{(-1)^{n}\frac{x^{2n + 1}}{\left( {2n + 1} \right)\text{!}}}}.$$</equation>
-            <equation>$$\frac{\left| a_{n + 1} \right|}{\left| a_{n} \right|} = \frac{|x|^{2n + 3}}{\left( {2n + 3} \right)\text{!}} \cdot \frac{\left( {2n + 1} \right)\text{!}}{|x|^{2n + 1}} = \frac{|x|^{2}}{\left( {2n + 3} \right)\left( {2n + 2} \right)}.$$</equation>
-            <equation>$$\underset{n\rightarrow\infty}{\text{lim}}\frac{|x|^{2}}{\left( {2n + 3} \right)\left( {2n + 2} \right)} = 0$$</equation>
-            <equation>$$\left( {\text{−}\infty,\infty} \right).$$</equation>
-            <equation>$$\text{sin}\mspace{2mu} x,$$</equation>
-            <equation>$$R_{n}(x).$$</equation>
-            <equation>$$R_{n}(x) = \frac{f^{({n + 1})}(c)}{\left( {n + 1} \right)\text{!}}x^{n + 1}.$$</equation>
-            <equation>$$\left| {f^{({n + 1})}(c)} \right| \leq 1$$</equation>
-            <equation>$$\left| {R_{n}(x)} \right| \leq \frac{|x|^{n + 1}}{\left( {n + 1} \right)\text{!}}$$</equation>
-            <equation>$$\underset{n\rightarrow\infty}{\text{lim}}R_{n}(x) = 0$$</equation>
-            <equation>$$\text{sin}\mspace{2mu} x$$</equation>
-            <equation>$$\text{sin}\mspace{2mu} x$$</equation>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <checkpoint number="6.15">
-      <problem>
-        <p>Find the Maclaurin series for $$f(x) = \text{cos}\mspace{2mu} x.$$ Use the ratio test to show that the interval of convergence is $$\left( {\text{−}\infty,\infty} \right).$$ Show that the Maclaurin series converges to $$\text{cos}\mspace{2mu} x$$ for all real numbers x.</p>
-      </problem>
-      <solution>
-        <p>$$\sum\limits_{n = 0}^{\infty}\frac{(-1)^{n}x^{2n}}{\left( {2n} \right)\text{!}}$$</p>
-        <p>By the ratio test, the interval of convergence is $$\left( {\text{−}\infty,\infty} \right).$$ Since $$\left| {R_{n}(x)} \right| \leq \frac{|x|^{n + 1}}{\left( {n + 1} \right)\text{!}},$$ the series converges to $$\text{cos}\mspace{2mu} x$$ for all real x.</p>
-      </solution>
-    </checkpoint>
-    <note type="Student Project">
-      <p>In this project, we use the Maclaurin polynomials for ex to prove that e is irrational. The proof relies on supposing that e is rational and arriving at a contradiction. Therefore, in the following steps, we suppose $$e = {r\text{/}s}$$ for some integers r and s where $$s \neq 0.$$</p>
-      <list type="ol" style="1">
-        <item>Write the Maclaurin polynomials $$p_{0}(x),p_{1}(x),p_{2}(x),p_{3}(x),p_{4}(x)$$ for ex. Evaluate $$p_{0}(1),p_{1}(1),p_{2}(1),p_{3}(1),p_{4}(1)$$ to estimate e.</item>
-        <item>Let $$R_{n}(x)$$ denote the remainder when using $$p_{n}(x)$$ to estimate ex. Therefore, $$R_{n}(x) = e^{x} - p_{n}(x),$$ and $$R_{n}(1) = e - p_{n}(1).$$ Assuming that $$e = \frac{r}{s}$$ for integers r and s, evaluate $$R_{0}(1),R_{1}(1),R_{2}(1),R_{3}(1),R_{4}(1).$$</item>
-        <item>Using the results from part 2, show that for each remainder $$R_{0}(1),R_{1}(1),R_{2}(1),R_{3}(1),R_{4}(1),$$ we can find an integer k such that $$kR_{n}(1)$$ is an integer for $$n = 0,1,2,3,4.$$</item>
-        <item>Write down the formula for the nth Maclaurin polynomial $$p_{n}(x)$$ for ex and the corresponding remainder $$R_{n}(x).$$ Show that $$sn\text{!}R_{n}(1)$$ is an integer.</item>
-        <item>Use Taylor’s theorem to write down an explicit formula for $$R_{n}(1).$$ Conclude that $$R_{n}(1) \neq 0,$$ and therefore, $$sn\text{!}R_{n}(1) \neq 0.$$</item>
-        <item>Use Taylor’s theorem to find an estimate on $$R_{n}(1).$$ Use this estimate combined with the result from part 5 to show that $$\left| {sn\text{!}R_{n}(1)} \right| &lt; \frac{se}{n + 1}.$$ Conclude that if n is large enough, then $$\left| {sn\text{!}R_{n}(1)} \right| &lt; 1.$$ Therefore, $$sn\text{!}R_{n}(1)$$ is an integer with magnitude less than 1. Thus, $$sn\text{!}R_{n}(1) = 0.$$ But from part 5, we know that $$sn\text{!}R_{n}(1) \neq 0.$$ We have arrived at a contradiction, and consequently, the original supposition that e is rational must be false.</item>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">6.3 Taylor and Maclaurin Series</heading>
+  <heading level="2">Learning Objectives</heading>
+  <list type="unordered">
+    <item>Describe the procedure for finding a Taylor polynomial of a given order for a function.</item>
+    <item>Explain the meaning and significance of Taylor’s theorem with remainder.</item>
+    <item>Estimate the remainder for a Taylor series approximation of a given function.</item>
+  </list>
+  <paragraph>In the previous two sections we discussed how to find power series representations for certain types of functions––specifically, functions related to geometric series. Here we discuss power series representations for other types of functions. In particular, we address the following questions: Which functions can be represented by power series and how do we find such representations? If we can find a power series representation for a particular function $$f$$ and the series converges on some interval, how do we prove that the series actually converges to $$f?$$</paragraph>
+  <heading level="2">Overview of Taylor/Maclaurin Series</heading>
+  <paragraph>Consider a function $$f$$ that has a power series representation at $$x = a.$$ Then the series has the form</paragraph>
+  <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} = c_{0} + c_{1}(x - a) + c_{2}{(x - a)}^{2} + \text{⋯} .$$</paragraph>
+  <paragraph>What should the coefficients be? For now, we ignore issues of convergence, but instead focus on what the series should be, if one exists. We return to discuss convergence later in this section. If the series Equation 6.4 is a representation for $$f$$ at $$x = a,$$ we certainly want the series to equal $$f(a)$$ at $$x = a.$$ Evaluating the series at $$x = a,$$ we see that</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} &amp; {= c_{0} + c_{1}\left( {a - a} \right) + c_{2}\left( {a - a} \right)^{2} + \text{⋯} } \\ &amp; {= c_{0}.} \end{array}$$</paragraph>
+  <paragraph>Thus, the series equals $$f(a)$$ if the coefficient $$c_{0} = f(a).$$ In addition, we would like the first derivative of the power series to equal $$f^{\prime}(a)$$ at $$x = a.$$ Differentiating Equation 6.4 term-by-term, we see that</paragraph>
+  <paragraph math="block">$$\frac{d}{dx}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right) = c_{1} + 2c_{2}\left( {x - a} \right) + 3c_{3}\left( {x - a} \right)^{2} + \text{⋯} .$$</paragraph>
+  <paragraph>Therefore, at $$x = a,$$ the derivative is</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} &amp; \\ &amp; \\ {\frac{d}{dx}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right)} &amp; {= c_{1} + 2c_{2}\left( {a - a} \right) + 3c_{3}\left( {a - a} \right)^{2} + \text{⋯} } \\ &amp; {= c_{1}.} \end{array}$$</paragraph>
+  <paragraph>Therefore, the derivative of the series equals $$f^{\prime}(a)$$ if the coefficient $$c_{1} = f^{\prime}(a).$$ Continuing in this way, we look for coefficients cn such that all the derivatives of the power series Equation 6.4 will agree with all the corresponding derivatives of $$f$$ at $$x = a.$$ The second and third derivatives of Equation 6.4 are given by</paragraph>
+  <paragraph math="block">$$\frac{d^{2}}{dx^{2}}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right) = 2c_{2} + 3 \cdot 2c_{3}\left( {x - a} \right) + 4 \cdot 3c_{4}\left( {x - a} \right)^{2} + \text{⋯}$$</paragraph>
+  <paragraph>and</paragraph>
+  <paragraph math="block">$$\frac{d^{3}}{dx^{3}}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right) = 3 \cdot 2c_{3} + 4 \cdot 3 \cdot 2c_{4}\left( {x - a} \right) + 5 \cdot 4 \cdot 3c_{5}\left( {x - a} \right)^{2} + \text{⋯} .$$</paragraph>
+  <paragraph>Therefore, at $$x = a,$$ the second and third derivatives</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {\frac{d^{2}}{dx^{2}}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right)} &amp; {= 2c_{2} + 3 \cdot 2c_{3}\left( {a - a} \right) + 4 \cdot 3c_{4}\left( {a - a} \right)^{2} + \text{⋯} } \\ &amp; {= 2c_{2}} \end{array}$$</paragraph>
+  <paragraph>and</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {\frac{d^{3}}{dx^{3}}\left( {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} \right)} &amp; {= 3 \cdot 2c_{3} + 4 \cdot 3 \cdot 2c_{4}\left( {a - a} \right) + 5 \cdot 4 \cdot 3c_{5}\left( {a - a} \right)^{2} + \text{⋯} } \\ &amp; {= 3 \cdot 2c_{3}} \end{array}$$</paragraph>
+  <paragraph>equal $$f^{''}(a)$$ and $$f \text{'''} (a),$$ respectively, if $$c_{2} = \frac{f^{''}(a)}{2}$$ and $$c_{3} = \frac{f \text{'''} (a)}{3 \cdot 2}.$$ More generally, we see that if $$f$$ has a power series representation at $$x = a,$$ then the coefficients should be given by $$c_{n} = \frac{f^{(n)}(a)}{n \text{!} }.$$ That is, the series should be</paragraph>
+  <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}\frac{f^{(n)}(a)}{n \text{!} }}\left( {x - a} \right)^{n} = f(a) + f^{\prime}(a)\left( {x - a} \right) + \frac{f^{''}(a)}{2 \text{!} }\left( {x - a} \right)^{2} + \frac{f \text{'''} (a)}{3 \text{!} }\left( {x - a} \right)^{3} + \text{⋯} .$$</paragraph>
+  <paragraph>This power series for $$f$$ is known as the Taylor series for $$f$$ at $$a.$$ If $$a = 0,$$ then this series is known as the Maclaurin series for $$f.$$</paragraph>
+  <note type="definition" source_type="Definition" title="Definition">
+    <paragraph>If $$f$$ has derivatives of all orders at $$x = a,$$ then the Taylor series for the function $$f$$ at $$a$$ is</paragraph>
+    <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}\frac{f^{(n)}(a)}{n \text{!} }}\left( {x - a} \right)^{n} = f(a) + f^{\prime}(a)\left( {x - a} \right) + \frac{f^{''}(a)}{2 \text{!} }\left( {x - a} \right)^{2} + \text{⋯} + \frac{f^{(n)}(a)}{n \text{!} }\left( {x - a} \right)^{n} + \text{⋯} .$$</paragraph>
+    <paragraph>The Taylor series for $$f$$ at 0 is known as the Maclaurin series for $$f.$$</paragraph>
+  </note>
+  <paragraph>Later in this section, we will show examples of finding Taylor series and discuss conditions under which the Taylor series for a function will converge to that function. Here, we state an important result. Recall from Uniqueness of Power Series that power series representations are unique. Therefore, if a function $$f$$ has a power series at $$a,$$ then it must be the Taylor series for $$f$$ at $$a.$$</paragraph>
+  <note type="theorem_key" source_type="theorem" number="6.6" title="Uniqueness of Taylor Series">
+    <heading level="4">Uniqueness of Taylor Series</heading>
+    <paragraph>If a function $$f$$ has a power series at a that converges to $$f$$ on some open interval containing a, then that power series is the Taylor series for $$f$$ at a.</paragraph>
+  </note>
+  <paragraph>The proof follows directly from Uniqueness of Power Series.</paragraph>
+  <paragraph>To determine if a Taylor series converges, we need to look at its sequence of partial sums. These partial sums are finite polynomials, known as Taylor polynomials.</paragraph>
+  <note type="sidebar" source_type="Media" title="Media">
+    <paragraph>Visit the MacTutor History of Mathematics archive to read brief biographies of Brook Taylor and Colin Maclaurin and how they developed the concepts named after them.</paragraph>
+  </note>
+  <heading level="2">Taylor Polynomials</heading>
+  <paragraph>The nth partial sum of the Taylor series for a function $$f$$ at $$a$$ is known as the nth Taylor polynomial. For example, the 0th, 1st, 2nd, and 3rd partial sums of the Taylor series are given by</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {p_{0}(x) = f(a),} \\ {p_{1}(x) = f(a) + f^{\prime}(a)\left( {x - a} \right),} \\ {p_{2}(x) = f(a) + f^{\prime}(a)\left( {x - a} \right) + \frac{f^{''}(a)}{2 \text{!} }\left( {x - a} \right)^{2},} \\ {p_{3}(x) = f(a) + f^{\prime}(a)\left( {x - a} \right) + \frac{f^{''}(a)}{2 \text{!} }\left( {x - a} \right)^{2} + \frac{f \text{'''} (a)}{3 \text{!} }\left( {x - a} \right)^{3},} \end{array}$$</paragraph>
+  <paragraph>respectively. These partial sums are known as the 0th, 1st, 2nd, and 3rd Taylor polynomials of $$f$$ at $$a,$$ respectively. If $$a = 0,$$ then these polynomials are known as Maclaurin polynomials for $$f.$$ We now provide a formal definition of Taylor and Maclaurin polynomials for a function $$f.$$</paragraph>
+  <note type="definition" source_type="Definition" title="Definition">
+    <paragraph>If $$f$$ has n derivatives at $$x = a,$$ then the nth Taylor polynomial for $$f$$ at $$a$$ is</paragraph>
+    <paragraph math="block">$$p_{n}(x) = f(a) + f^{\prime}(a)\left( {x - a} \right) + \frac{f^{''}(a)}{2 \text{!} }\left( {x - a} \right)^{2} + \frac{f \text{'''} (a)}{3 \text{!} }\left( {x - a} \right)^{3} + \text{⋯} + \frac{f^{(n)}(a)}{n \text{!} }\left( {x - a} \right)^{n}.$$</paragraph>
+    <paragraph>The nth Taylor polynomial for $$f$$ at 0 is known as the nth Maclaurin polynomial for $$f.$$</paragraph>
+  </note>
+  <paragraph>We now show how to use this definition to find several Taylor polynomials for $$f(x) = \ln x$$ at $$x = 1.$$</paragraph>
+  <example number="6.11" title="Finding Taylor Polynomials">
+    <problem>
+      <paragraph>Find the Taylor polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}$$ for $$f(x) = \ln x$$ at $$x = 1.$$ Use a graphing utility to compare the graph of $$f$$ with the graphs of $$p_{0},p_{1},p_{2}$$ and $$p_{3}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>To find these Taylor polynomials, we need to evaluate $$f$$ and its first three derivatives at $$x = 1.$$</paragraph>
+      <paragraph math="block">$$\begin{array}{rllccrll} {f(x)} &amp; = &amp; {\ln x} &amp; &amp; &amp; {f(1)} &amp; = &amp; 0 \\ {f^{\prime}(x)} &amp; = &amp; \frac{1}{x} &amp; &amp; &amp; {f^{\prime}(1)} &amp; = &amp; 1 \\ {f^{''}(x)} &amp; = &amp; {- \frac{1}{x^{2}}} &amp; &amp; &amp; {f^{''}(1)} &amp; = &amp; -1 \\ {f \text{'''} (x)} &amp; = &amp; \frac{2}{x^{3}} &amp; &amp; &amp; {f \text{'''} (1)} &amp; = &amp; 2 \end{array}$$</paragraph>
+      <paragraph>Therefore,</paragraph>
+      <paragraph math="block">$$\begin{array}{cll} {p_{0}(x)} &amp; = &amp; {f(1) = 0,} \\ {p_{1}(x)} &amp; = &amp; {f(1) + f^{\prime}(1)\left( {x - 1} \right) = x - 1,} \\ {p_{2}(x)} &amp; = &amp; {f(1) + f^{\prime}(1)\left( {x - 1} \right) + \frac{f^{''}(1)}{2}\left( {x - 1} \right)^{2} = \left( {x - 1} \right) - \frac{1}{2}\left( {x - 1} \right)^{2},} \\ {p_{3}(x)} &amp; = &amp; {f(1) + f^{\prime}(1)\left( {x - 1} \right) + \frac{f^{''}(1)}{2}\left( {x - 1} \right)^{2} + \frac{f \text{'''} (1)}{3 \text{!} }\left( {x - 1} \right)^{3}} \\ &amp; = &amp; {\left( {x - 1} \right) - \frac{1}{2}\left( {x - 1} \right)^{2} + \frac{1}{3}\left( {x - 1} \right)^{3}.} \end{array}$$</paragraph>
+      <paragraph>The graphs of $$y = f(x)$$ and the first three Taylor polynomials are shown in Figure 6.5.</paragraph>
+      <figure number="6.5">
+        <image alt="This graph has four curves. The first is the function f(x)=ln(x). The second function is psub1(x)=x-1. The third is psub2(x)=(x-1)-1/2(x-1)^2. The fourth is psub3(x)=(x-1)-1/2(x-1)^2 +1/3(x-1)^3. The curves are very close around x = 1."/>
+        <caption>The function $$y = \ln x$$ and the Taylor polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}$$ at $$x = 1$$ are plotted on this graph.</caption>
+      </figure>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.10">
+    <problem>
+      <paragraph>Find the Taylor polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}$$ for $$f(x) = \frac{1}{x^{2}}$$ at $$x = 1.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$p 0 ( x ) = 1 ; p 1 ( x ) = 1 - 2 ( x - 1 ) ; p 2 ( x ) = 1 - 2 ( x - 1 ) + 3 ( x - 1 ) 2 ; p 3 ( x ) = 1 - 2 ( x - 1 ) + 3 ( x - 1 ) 2 - 4 ( x - 1 ) 3 p 0 ( x ) = 1 ; p 1 ( x ) = 1 - 2 ( x - 1 ) ; p 2 ( x ) = 1 - 2 ( x - 1 ) + 3 ( x - 1 ) 2 ; p 3 ( x ) = 1 - 2 ( x - 1 ) + 3 ( x - 1 ) 2 - 4 ( x - 1 ) 3$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>We now show how to find Maclaurin polynomials for ex, $$\sin x,$$ and $$\cos x.$$ As stated above, Maclaurin polynomials are Taylor polynomials centered at zero.</paragraph>
+  <example number="6.12" title="Finding Maclaurin Polynomials">
+    <problem>
+      <paragraph>For each of the following functions, find formulas for the Maclaurin polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}.$$ Find a formula for the nth Maclaurin polynomial and write it using sigma notation. Use a graphing utilty to compare the graphs of $$p_{0},p_{1},p_{2}$$ and $$p_{3}$$ with $$f.$$</paragraph>
+      <list type="ordered">
+        <item>$$f(x) = e^{x}$$</item>
+        <item>$$f(x) = \sin x$$</item>
+        <item>$$f(x) = \cos x$$</item>
       </list>
-    </note>
-  </subsection>
-  <exercises title="Section 6.3 Exercises">
-    <instruction>In the following exercises, find the Taylor polynomials of degree two approximating the given function centered at the given point.</instruction>
-    <exercise number="116" has_solution="false">
-      <problem>
-        <p>$$f(x) = 1 + x + x^{2}$$ at $$a = 1$$</p>
-      </problem>
-    </exercise>
-    <exercise number="117" has_solution="true">
-      <problem>
-        <p>$$f(x) = 1 + x + x^{2}$$ at $$a = -1$$</p>
-      </problem>
-      <solution>
-        <p>$$f(-1) = 1;f^{\prime}(-1) = -1;f^{''}(-1) = 2;f(x) = 1 - \left( {x + 1} \right) + \left( {x + 1} \right)^{2}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="118" has_solution="false">
-      <problem>
-        <p>$$f(x) = \text{cos}\left( {2x} \right)$$ at $$a = \pi$$</p>
-      </problem>
-    </exercise>
-    <exercise number="119" has_solution="true">
-      <problem>
-        <p>$$f(x) = \text{sin}\left( {2x} \right)$$ at $$a = \frac{\pi}{2}$$</p>
-      </problem>
-      <solution>
-        <p>$$f^{\prime}(x) = 2\mspace{2mu}\text{cos}\left( {2x} \right);f^{''}(x) = -4\mspace{2mu}\text{sin}\left( {2x} \right);p_{2}(x) = -2\left( {x - \frac{\pi}{2}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="120" has_solution="false">
-      <problem>
-        <p>$$f(x) = \sqrt{x}$$ at $$a = 4$$</p>
-      </problem>
-    </exercise>
-    <exercise number="121" has_solution="true">
-      <problem>
-        <p>$$f(x) = \text{ln}\mspace{2mu} x$$ at $$a = 1$$</p>
-      </problem>
-      <solution>
-        <p>$$f^{\prime}(x) = \frac{1}{x};f^{''}(x) = - \frac{1}{x^{2}};p_{2}(x) = 0 + \left( {x - 1} \right) - \frac{1}{2}\left( {x - 1} \right)^{2}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="122" has_solution="false">
-      <problem>
-        <p>$$f(x) = \frac{1}{x}$$ at $$a = 1$$</p>
-      </problem>
-    </exercise>
-    <exercise number="123" has_solution="true">
-      <problem>
-        <p>$$f(x) = e^{x}$$ at $$a = 1$$</p>
-      </problem>
-      <solution>
-        <p>$$p_{2}(x) = e + e\left( {x - 1} \right) + \frac{e}{2}\left( {x - 1} \right)^{2}$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, verify that the given choice of n in the remainder estimate $$\left| R_{n} \right| \leq \frac{M}{\left( {n + 1} \right)\text{!}}\left( {x - a} \right)^{n + 1},$$ where M is the maximum value of $$\left| {f^{({n + 1})}(z)} \right|$$ on the interval between a and the indicated point, yields $$\left| R_{n} \right| \leq \frac{1}{1000}.$$ Find the value of the Taylor polynomial pn of $$f$$ at the indicated point.  If $$\left| {\mathbf{R}n} \right|$$ is not less than $$1/1000$$, determine what it is.</instruction>
-    <exercise number="124" has_solution="false">
-      <problem>
-        <p>[T] $$\sqrt{10};a = 9,n = 3$$</p>
-      </problem>
-    </exercise>
-    <exercise number="125" has_solution="true">
-      <problem>
-        <p>[T] $$(28)^{1\text{/}3};a = 27,n = 1$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{d^{2}}{dx^{2}}x^{1\text{/}3} = - \frac{2}{9x^{5\text{/}3}} \geq -0.00092\text{…}$$ when $$x \geq 28$$ so the remainder estimate applies to the linear approximation $$x^{1\text{/}3} \approx p_{1}(27) = 3 + \frac{x - 27}{27},$$ which gives $$(28)^{1\text{/}3} \approx 3 + \frac{1}{27} = 3.\overline{037},$$ while $$(28)^{1\text{/}3} \approx 3.03658.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="126" has_solution="false">
-      <problem>
-        <p>[T] $$\text{sin}(6);a = 2\pi,n = 5$$</p>
-      </problem>
-    </exercise>
-    <exercise number="127" has_solution="true">
-      <problem>
-        <p>[T] e2; $$a = 0,n = 9$$</p>
-      </problem>
-      <solution>
-        <p>Using the estimate $$\frac{2^{10}}{10\text{!}} &lt; 0.000283$$ we can use the Taylor expansion of order 9 to estimate ex at $$x = 2.$$ as $$e^{2} \approx p_{9}(2) = 1 + 2 + \frac{2^{2}}{2} + \frac{2^{3}}{6} + \text{⋯} + \frac{2^{9}}{9\text{!}} = 7.3887\text{…}$$ whereas $$e^{2} \approx 7.3891.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="128" has_solution="false">
-      <problem>
-        <p>[T] $$\text{cos}\left( \frac{\pi}{5} \right);a = 0,n = 4$$</p>
-      </problem>
-    </exercise>
-    <exercise number="129" has_solution="true">
-      <problem>
-        <p>[T] $$\text{ln}\mspace{2mu}(2);a = 1,n = 1000$$</p>
-      </problem>
-      <solution>
-        <p>Since $$\frac{d^{n}}{dx^{n}}\left( {\text{ln}\mspace{2mu} x} \right) = (-1)^{n - 1}\frac{\left( {n - 1} \right)\text{!}}{x^{n}},R_{1000} \approx \frac{1}{1001}.$$ One has $$p_{1000}(1) = {\sum\limits_{n = 1}^{1000}\frac{(-1)^{n - 1}}{n}} \approx 0.6936$$ whereas $$\text{ln}\mspace{2mu}(2) \approx 0.6931\text{⋯}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="130" has_solution="false">
-      <problem>
-        <p>Integrate the approximation $$\text{sin}\mspace{2mu} t \approx t - \frac{t^{3}}{6} + \frac{t^{5}}{120} - \frac{t^{7}}{5040}$$ evaluated at πt to approximate $${\int_{0}^{1}{\frac{\text{sin}\mspace{2mu}\pi t}{\pi t}dt}}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="131" has_solution="true">
-      <problem>
-        <p>Integrate the approximation $$e^{x} \approx 1 + x + \frac{x^{2}}{2} + \text{⋯} + \frac{x^{6}}{720}$$ evaluated at −x2 to approximate $${\int_{0}^{1}{e^{\text{−}x^{2}}dx}}.$$</p>
-      </problem>
-      <solution>
-        <p>$$\int_{0}^{1}{\left( {1 - x^{2} + \frac{x^{4}}{2} - \frac{x^{6}}{6} + \frac{x^{8}}{24} - \frac{x^{10}}{120} + \frac{x^{12}}{720}} \right)\mspace{2mu} dx}$$</p>
-        <p>$$= 1 - \frac{1^{3}}{3} + \frac{1^{5}}{10} - \frac{1^{7}}{42} + \frac{1^{9}}{9 \cdot 24} - \frac{1^{11}}{120 \cdot 11} + \frac{1^{13}}{720 \cdot 13} \approx 0.74683$$ whereas $${\int_{0}^{1}{e^{\text{−}x^{2}}dx}} \approx 0.74682.$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, find the smallest value of n such that the remainder estimate $$\left| R_{n} \right| \leq \frac{M}{\left( {n + 1} \right)\text{!}}\left( {x - a} \right)^{n + 1},$$ where M is the maximum value of $$\left| {f^{({n + 1})}(z)} \right|$$ on the interval between a and the indicated point, yields $$\left| R_{n} \right| \leq \frac{1}{1000}$$ on the indicated interval.</instruction>
-    <exercise number="132" has_solution="false">
-      <problem>
-        <p>$$f(x) = \text{sin}\mspace{2mu} x$$ on $$\left\lbrack {\text{−}\pi,\pi} \right\rbrack,a = 0$$</p>
-      </problem>
-    </exercise>
-    <exercise number="133" has_solution="true">
-      <problem>
-        <p>$$f(x) = \text{cos}\mspace{2mu} x$$ on $$\left\lbrack {- \frac{\pi}{2},\frac{\pi}{2}} \right\rbrack,a = 0$$</p>
-      </problem>
-      <solution>
-        <p>Since $$f^{({n + 1})}(z)$$ is $$\text{sin}\mspace{2mu} z$$ or $$\text{cos}\mspace{2mu} z,$$ we have $$M = 1.$$ Since $$\left| {x - 0} \right| \leq \frac{\pi}{2},$$ we seek the smallest n such that $$\frac{\pi^{n + 1}}{2^{n + 1}\left( {n + 1} \right)\text{!}} \leq 0.001.$$ The smallest such value is $$n = 7.$$ The remainder estimate is $$R_{7} \leq 0.00092.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="134" has_solution="false">
-      <problem>
-        <p>$$f(x) = e^{-2x}$$ on $$\left\lbrack {-1,1} \right\rbrack,a = 0$$</p>
-      </problem>
-    </exercise>
-    <exercise number="135" has_solution="true">
-      <problem>
-        <p>$$f(x) = e^{\text{−}x}$$ on $$\left\lbrack {-3,3} \right\rbrack,a = 0$$</p>
-      </problem>
-      <solution>
-        <p>Since $$f^{({n + 1})}(z) = \text{±}e^{\text{−}z}$$ one has $$M = e^{3}.$$ Since $$\left| {x - 0} \right| \leq 3,$$ one seeks the smallest n such that $$\frac{3^{n + 1}e^{3}}{\left( {n + 1} \right)\text{!}} \leq 0.001.$$ The smallest such value is $$n = 14.$$ The remainder estimate is $$R_{14} \leq 0.000220.$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, the maximum of the right-hand side of the remainder estimate $$\left| R_{1} \right| \leq \frac{\text{max}\left| {f^{''}(z)} \right|}{2}R^{2}$$ on $$\left\lbrack {a - R,a + R} \right\rbrack$$ occurs at a or $$a \pm R.$$ Estimate the maximum value of R such that $$\frac{\text{max}\left| {f^{''}(z)} \right|}{2}R^{2} \leq 0.1$$ on $$\left\lbrack {a - R,a + R} \right\rbrack$$ by plotting this maximum as a function of R.</instruction>
-    <exercise number="136" has_solution="false">
-      <problem>
-        <p>[T] ex approximated by $$1 + x,a = 0$$</p>
-      </problem>
-    </exercise>
-    <exercise number="137" has_solution="true">
-      <problem>
-        <p>[T] $$\text{sin}\mspace{2mu} x$$ approximated by x, $$a = 0$$</p>
-      </problem>
-      <solution>
-        <p />
-        <p>Since $$\text{sin}\mspace{2mu} x$$ is increasing for small x and since $${si}n^{''}x = \text{−}\text{sin}\mspace{2mu} x,$$ the estimate applies whenever $$R^{2}\text{sin}(R) \leq 0.2,$$ which applies up to $$R = 0.596.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="138" has_solution="false">
-      <problem>
-        <p>[T] $$\text{ln}\mspace{2mu} x$$ approximated by $$x - 1,a = 1$$</p>
-      </problem>
-    </exercise>
-    <exercise number="139" has_solution="true">
-      <problem>
-        <p>[T] $$\text{cos}\mspace{2mu} x$$ approximated by $$1,a = 0$$</p>
-      </problem>
-      <solution>
-        <p />
-        <p>Since the second derivative of $$\text{cos}\mspace{2mu} x$$ is $$\text{−}\text{cos}\mspace{2mu} x$$ and since $$\text{cos}\mspace{2mu} x$$ is decreasing away from $$x = 0,$$ the estimate applies when $$R^{2}\text{cos}\mspace{2mu} R \leq 0.2$$ or $$R \leq 0.447.$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, find the Taylor series of the given function centered at the indicated point.</instruction>
-    <exercise number="140" has_solution="false">
-      <problem>
-        <p>$$x^{4}$$ at $$a = -1$$</p>
-      </problem>
-    </exercise>
-    <exercise number="141" has_solution="true">
-      <problem>
-        <p>$$1 + x + x^{2} + x^{3}$$ at $$a = -1$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {x + 1} \right)^{3} - 2\left( {x + 1} \right)^{2} + 2\left( {x + 1} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="142" has_solution="false">
-      <problem>
-        <p>$$\text{sin}\mspace{2mu} x$$ at $$a = \pi$$</p>
-      </problem>
-    </exercise>
-    <exercise number="143" has_solution="true">
-      <problem>
-        <p>$$\text{cos}\mspace{2mu} x$$ at $$a = 2\pi$$</p>
-      </problem>
-      <solution>
-        <p>Values of derivatives are the same as for $$x = 0$$ so $$\text{cos}\mspace{2mu} x = {\sum\limits_{n = 0}^{\infty}(-1)}^{n}\frac{\left( {x - 2\pi} \right)^{2n}}{\left( {2n} \right)\text{!}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="144" has_solution="false">
-      <problem>
-        <p>$$\text{sin}\mspace{2mu} x$$ at $$x = \frac{\pi}{2}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="145" has_solution="true">
-      <problem>
-        <p>$$\text{cos}\mspace{2mu} x$$ at $$x = \frac{\pi}{2}$$</p>
-      </problem>
-      <solution>
-        <p>$$\text{cos}\left( \frac{\pi}{2} \right) = 0,\text{−}\text{sin}\left( \frac{\pi}{2} \right) = -1$$ so $$\text{cos}\mspace{2mu} x = {\sum\limits_{n = 0}^{\infty}(-1)^{n + 1}}\frac{\left( {x - \frac{\pi}{2}} \right)^{2n + 1}}{\left( {2n + 1} \right)\text{!}},$$ which is also $$\text{−}\text{cos}\left( {x - \frac{\pi}{2}} \right).$$</p>
-      </solution>
-    </exercise>
-    <exercise number="146" has_solution="false">
-      <problem>
-        <p>$$e^{x}$$ at $$a = -1$$</p>
-      </problem>
-    </exercise>
-    <exercise number="147" has_solution="true">
-      <problem>
-        <p>$$e^{x}$$ at $$a = 1$$</p>
-      </problem>
-      <solution>
-        <p>The derivatives are $$f^{(n)}(1) = e$$ so $$e^{x} = e{\sum\limits_{n = 0}^{\infty}\frac{\left( {x - 1} \right)^{n}}{n\text{!}}}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="148" has_solution="false">
-      <problem>
-        <p>$$\frac{1}{\left( {x - 1} \right)^{2}}$$ at $$a = 0$$ (Hint: Differentiate $$\frac{1}{1 - x}.)$$</p>
-      </problem>
-    </exercise>
-    <exercise number="149" has_solution="true">
-      <problem>
-        <p>$$\frac{1}{\left( {x - 1} \right)^{3}}$$ at $$a = 0$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{\left( {x - 1} \right)^{3}} = \text{−}\left( \frac{1}{2} \right)\frac{d^{2}}{dx^{2}}\ \frac{1}{1 - x} = \text{−}{\sum\limits_{n = 0}^{\infty}\left( \frac{\left( {n + 2} \right)\left( {n + 1} \right)x^{n}}{2} \right)}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="150" has_solution="false">
-      <problem>
-        <p>$$F(x) = {\int_{0}^{x}{\text{cos}\left( \sqrt{t} \right)\mspace{2mu} dt}};f(t) = {\sum\limits_{n = 0}^{\infty}{(-1)^{n}\frac{t^{n}}{\left( {2n} \right)\text{!}}}}$$ at $$a = 0$$ (Note: $$f$$ is the Taylor series of $$\text{cos}\left( \sqrt{t} \right).)$$</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, compute the Taylor series of each function around $$x = 1.$$</instruction>
-    <exercise number="151" has_solution="true">
-      <problem>
-        <p>$$f(x) = 2 - x$$</p>
-      </problem>
-      <solution>
-        <p>$$2 - x = 1 - \left( {x - 1} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="152" has_solution="false">
-      <problem>
-        <p>$$f(x) = x^{3}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="153" has_solution="true">
-      <problem>
-        <p>$$f(x) = \left( {x - 2} \right)^{2}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {\left( {x - 1} \right) - 1} \right)^{2} = \left( {x - 1} \right)^{2} - 2\left( {x - 1} \right) + 1$$</p>
-      </solution>
-    </exercise>
-    <exercise number="154" has_solution="false">
-      <problem>
-        <p>$$f(x) = \text{ln}\mspace{2mu} x$$</p>
-      </problem>
-    </exercise>
-    <exercise number="155" has_solution="true">
-      <problem>
-        <p>$$f(x) = \frac{1}{x}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{1 - \left( {1 - x} \right)} = {\sum\limits_{n = 0}^{\infty}{(-1)^{n}\left( {x - 1} \right)^{n}}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="156" has_solution="false">
-      <problem>
-        <p>$$f(x) = \frac{1}{2x - x^{2}}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="157" has_solution="true">
-      <problem>
-        <p>$$f(x) = \frac{x}{4x - 2x^{2} - 1}$$</p>
-      </problem>
-      <solution>
-        <p>$$x{\sum\limits_{n = 0}^{\infty}{2^{n}\left( {1 - x} \right)^{2n} =}}{\sum\limits_{n = 0}^{\infty}{2^{n}\left( {x - 1} \right)^{2n + 1} +}}{\sum\limits_{n = 0}^{\infty}{2^{n}\left( {x - 1} \right)^{2n}}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="158" has_solution="false">
-      <problem>
-        <p>$$f(x) = e^{\text{−}x}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="159" has_solution="true">
-      <problem>
-        <p>$$f(x) = e^{2x}$$</p>
-      </problem>
-      <solution>
-        <p>$$e^{2x} = e^{2{({x - 1})} + 2} = e^{2}{\sum\limits_{n = 0}^{\infty}\frac{2^{n}\left( {x - 1} \right)^{n}}{n\text{!}}}$$</p>
-      </solution>
-    </exercise>
-    <instruction>[T] In the following exercises, identify the value of x such that the given series $$\sum\limits_{n = 0}^{\infty}a_{n}$$ is the value of the Maclaurin series of $$f(x)$$ at $$x.$$ Approximate the value of $$f(x)$$ using $$S_{10} = {\sum\limits_{n = 0}^{10}a_{n}}.$$</instruction>
-    <exercise number="160" has_solution="false">
-      <problem>
-        <p>$$\sum\limits_{n = 0}^{\infty}\frac{1}{n\text{!}}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="161" has_solution="true">
-      <problem>
-        <p>$$\sum\limits_{n = 0}^{\infty}\frac{2^{n}}{n\text{!}}$$</p>
-      </problem>
-      <solution>
-        <p>$$x = e^{2};S_{10} = \frac{34,913}{4725} \approx 7.3889947$$</p>
-      </solution>
-    </exercise>
-    <exercise number="162" has_solution="false">
-      <problem>
-        <p>$$\sum\limits_{n = 0}^{\infty}\frac{(-1)^{n}\left( {2\pi} \right)^{2n}}{\left( {2n} \right)\text{!}}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="163" has_solution="true">
-      <problem>
-        <p>$$\sum\limits_{n = 0}^{\infty}\frac{(-1)^{n}\left( {2\pi} \right)^{2n + 1}}{\left( {2n + 1} \right)\text{!}}$$</p>
-      </problem>
-      <solution>
-        <p>$$\text{sin}\left( {2\pi} \right) = 0;S_{10} = 8.27\ \times \ 10^{-5}$$</p>
-      </solution>
-    </exercise>
-    <instruction>The following exercises make use of the functions $$S_{5}(x) = x - \frac{x^{3}}{6} + \frac{x^{5}}{120}$$ and $$C_{4}(x) = 1 - \frac{x^{2}}{2} + \frac{x^{4}}{24}$$ on $$\lbrack\text{−}\pi,\pi\rbrack.$$</instruction>
-    <exercise number="164" has_solution="false">
-      <problem>
-        <p>[T] Plot $$\text{sin}^{2}x - \left( {S_{5}(x)} \right)^{2}$$ on $$\lbrack\text{−}\pi,\pi\rbrack.$$ Compare the maximum difference with the square of the Taylor remainder estimate for $$\text{sin}\mspace{2mu} x.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="165" has_solution="true">
-      <problem>
-        <p>[T] Plot $$\text{cos}^{2}x - \left( {C_{4}(x)} \right)^{2}$$ on $$\lbrack\text{−}\pi,\pi\rbrack.$$ Compare the maximum difference with the square of the Taylor remainder estimate for $$\text{cos}\mspace{2mu} x.$$</p>
-      </problem>
-      <solution>
-        <p />
-        <p>The difference is small on the interior of the interval but approaches $$1$$ near the endpoints. The remainder estimate is $$\left| R_{4} \right| = \frac{\pi^{5}}{120} \approx 2.552.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="166" has_solution="false">
-      <problem>
-        <p>[T] Plot $$\left| {2S_{5}(x)C_{4}(x) - \text{sin}\left( {2x} \right)} \right|$$ on $$\lbrack\text{−}\pi,\pi\rbrack.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="167" has_solution="true">
-      <problem>
-        <p>[T] Compare $$\frac{S_{5}(x)}{C_{4}(x)}$$ on $$\left\lbrack {-1,1} \right\rbrack$$ to $$\text{tan}\mspace{2mu} x.$$ Compare this with the Taylor remainder estimate for the approximation of $$\text{tan}\mspace{2mu} x$$ by $$x + \frac{x^{3}}{3} + \frac{2x^{5}}{15}.$$</p>
-      </problem>
-      <solution>
-        <p />
-        <p>The difference is on the order of $$10^{-4}$$ on $$\lbrack-1,1\rbrack$$ while the Taylor approximation error is around $$0.1$$ near $$\pm 1.$$ The top curve is a plot of $$\text{tan}^{2}x - \left( \frac{S_{5}(x)}{C_{4}(x)} \right)^{2}$$ and the lower dashed plot shows $$t^{2} - \left( \frac{S_{5}}{C_{4}} \right)^{2}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="168" has_solution="false">
-      <problem>
-        <p>[T] Plot $$e^{x} - e_{4}(x)$$ where $$e_{4}(x) = 1 + x + \frac{x^{2}}{2} + \frac{x^{3}}{6} + \frac{x^{4}}{24}$$ on $$\lbrack 0,2\rbrack.$$ Compare the maximum error with the Taylor remainder estimate.</p>
-      </problem>
-    </exercise>
-    <exercise number="169" has_solution="true">
-      <problem>
-        <p>(Taylor approximations and root finding.) Recall that Newton’s method $$x_{n + 1} = x_{n} - \frac{f\left( x_{n} \right)}{f\prime\left( x_{n} \right)}$$ approximates solutions of $$f(x) = 0$$ near the input $$x_{0}.$$</p>
-        <list type="ol" style="a">
-          <item>If $$f$$ and $$g$$ are inverse functions, explain why a solution of $$g(x) = a$$ is the value $$f(a)\ \text{of}\ f.$$</item>
-          <item>Let $$p_{N}(x)$$ be the $$N\mspace{2mu}\text{th}$$ degree Maclaurin polynomial of $$e^{x}.$$ Use Newton’s method to approximate solutions of $$p_{N}(x) - 2 = 0$$ for $$N = 4,5,6.$$</item>
-          <item>Explain why the approximate roots of $$p_{N}(x) - 2 = 0$$ are approximate values of $$\text{ln}\mspace{2mu}(2).$$</item>
-        </list>
-      </problem>
-      <solution>
-        <p>a. Answers will vary. b. The following are the $$x_{n}$$ values after $$10$$ iterations of Newton’s method to approximation a root of $$p_{N}(x) - 2 = 0\text{:}$$ for $$N = 4,x = 0.6939...;$$ for $$N = 5,x = 0.6932...;$$ for $$N = 6,x = 0.69315...;.$$ (Note: $$\text{ln}\mspace{2mu}(2) = 0.69314...)$$ c. Answers will vary.</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, use the fact that if $$q(x) = {\sum\limits_{n = 1}^{\infty}{a_{n}\left( {x - c} \right)^{n}}}$$ converges in an interval containing $$c,$$ then $$\underset{x\rightarrow c}{\text{lim}}q(x) = a_{0}^{}$$ to evaluate each limit using Taylor series.</instruction>
-    <exercise number="170" has_solution="false">
-      <problem>
-        <p>$$\underset{x\rightarrow 0}{\text{lim}}\frac{\text{cos}\mspace{2mu} x - 1}{x^{2}}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="171" has_solution="true">
-      <problem>
-        <p>$$\underset{x\rightarrow 0}{\text{lim}}\frac{\text{ln}\mspace{2mu}\left( {1 - x^{2}} \right)}{x^{2}}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{\text{ln}\mspace{2mu}\left( {1 - x^{2}} \right)}{x^{2}}\rightarrow\text{−}1$$</p>
-      </solution>
-    </exercise>
-    <exercise number="172" has_solution="false">
-      <problem>
-        <p>$$\underset{x\rightarrow 0}{\text{lim}}\frac{e^{x^{2}} - x^{2} - 1}{x^{4}}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="173" has_solution="true">
-      <problem>
-        <p>$$\underset{x\rightarrow 0^{+}}{\text{lim}}\frac{\text{cos}\left( \sqrt{x} \right) - 1}{2x}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{\text{cos}\left( \sqrt{x} \right) - 1}{2x} \approx \frac{\left( {1 - \frac{x}{2} + \frac{x^{2}}{4\text{!}} - \text{⋯}} \right) - 1}{2x}\rightarrow - \frac{1}{4}$$</p>
-      </solution>
-    </exercise>
-  </exercises>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>Since $$f(x) = e^{x},$$ we know that $$f(x) = f^{\prime}(x) = f^{''}(x) = \text{⋯} = f^{(n)}(x) = e^{x}$$ for all positive integers n. Therefore, $$f(0) = f^{\prime}(0) = f^{''}(0) = \text{⋯} = f^{(n)}(0) = 1$$ for all positive integers n. Therefore, we have $$\begin{array}{cll} {p_{0}(x)} &amp; = &amp; {f(0) = 1,} \\ {p_{1}(x)} &amp; = &amp; {f(0) + f^{\prime}(0)x = 1 + x,} \\ {p_{2}(x)} &amp; = &amp; {f(0) + f^{\prime}(0)x + \frac{f^{''}(0)}{2 \text{!} }x^{2} = 1 + x + \frac{1}{2}x^{2},} \\ {p_{3}(x)} &amp; = &amp; {f(0) + f^{\prime}(0)x + \frac{f^{''}(0)}{2}x^{2} + \frac{f \text{'''} (0)}{3 \text{!} }x^{3}} \\ &amp; = &amp; {1 + x + \frac{1}{2}x^{2} + \frac{1}{3 \text{!} }x^{3},} \\ {p_{n}(x)} &amp; = &amp; {f(0) + f^{\prime}(0)x + \frac{f^{''}(0)}{2}x^{2} + \frac{f \text{'''} (0)}{3 \text{!} }x^{3} + \text{⋯} + \frac{f^{(n)}(0)}{n \text{!} }x^{n}} \\ &amp; = &amp; {1 + x + \frac{x^{2}}{2 \text{!} } + \frac{x^{3}}{3 \text{!} } + \text{⋯} + \frac{x^{n}}{n \text{!} }} \\ &amp; = &amp; {{\sum\limits_{k = 0}^{n}\frac{x^{k}}{k \text{!} }}.} \end{array}$$ The function and the first three Maclaurin polynomials are shown in Figure 6.6. Figure 6.6 The graph shows the function $$y = e^{x}$$ and the Maclaurin polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}.$$</item>
+        <item>For $$f(x) = \sin x,$$ the values of the function and its first four derivatives at $$x = 0$$ are given as follows: $$\begin{array}{rllccrll} {f(x)} &amp; = &amp; {\sin x} &amp; &amp; &amp; {f(0)} &amp; = &amp; 0 \\ {f^{\prime}(x)} &amp; = &amp; {\cos x} &amp; &amp; &amp; {f^{\prime}(0)} &amp; = &amp; 1 \\ {f^{''}(x)} &amp; = &amp; {-\sin x} &amp; &amp; &amp; {f^{''}(0)} &amp; = &amp; 0 \\ {f \text{'''} (x)} &amp; = &amp; {-\cos x} &amp; &amp; &amp; {f \text{'''} (0)} &amp; = &amp; -1 \\ {f^{(4)}(x)} &amp; = &amp; {\sin x} &amp; &amp; &amp; {f^{(4)}(0)} &amp; = &amp; 0. \end{array}$$ Since the fourth derivative is $$\sin x,$$ the pattern repeats. That is, $$f^{({2m})}(0) = 0$$ and $$f^{({2m + 1})}(0) = (-1)^{m}$$ for $$m \geq 0.$$ Thus, we have $$\begin{array}{l} {p_{0}(x) = 0,} \\ {p_{1}(x) = 0 + x = x,} \\ {p_{2}(x) = 0 + x + 0 = x,} \\ {p_{3}(x) = 0 + x + 0 - \frac{1}{3 \text{!} }x^{3} = x - \frac{x^{3}}{3 \text{!} },} \\ {p_{4}(x) = 0 + x + 0 - \frac{1}{3 \text{!} }x^{3} + 0 = x - \frac{x^{3}}{3 \text{!} },} \\ {p_{5}(x) = 0 + x + 0 - \frac{1}{3 \text{!} }x^{3} + 0 + \frac{1}{5 \text{!} }x^{5} = x - \frac{x^{3}}{3 \text{!} } + \frac{x^{5}}{5 \text{!} },} \end{array}$$ and for $$m \geq 0,$$ $$\begin{array}{cl} {p_{2m + 1}(x)} &amp; {= p_{2m + 2}(x)} \\ &amp; {= x - \frac{x^{3}}{3 \text{!} } + \frac{x^{5}}{5 \text{!} } - \text{⋯} + (-1)^{m}\frac{x^{2m + 1}}{\left( {2m + 1} \right) \text{!} }} \\ &amp; {= {\sum\limits_{k = 0}^{m}{(-1)^{k}\frac{x^{2k + 1}}{\left( {2k + 1} \right) \text{!} }}}.} \end{array}$$ Graphs of the function and its Maclaurin polynomials are shown in Figure 6.7. Figure 6.7 The graph shows the function $$y = \sin x$$ and the Maclaurin polynomials $$p_{1},p_{3}$$ and $$p_{5}.$$</item>
+        <item>For $$f(x) = \cos x,$$ the values of the function and its first four derivatives at $$x = 0$$ are given as follows: $$\begin{array}{rllccrll} {f(x)} &amp; = &amp; {\cos x} &amp; &amp; &amp; {f(0)} &amp; = &amp; 1 \\ {f^{\prime}(x)} &amp; = &amp; {-\sin x} &amp; &amp; &amp; {f^{\prime}(0)} &amp; = &amp; 0 \\ {f^{''}(x)} &amp; = &amp; {-\cos x} &amp; &amp; &amp; {f^{''}(0)} &amp; = &amp; -1 \\ {f \text{'''} (x)} &amp; = &amp; {\sin x} &amp; &amp; &amp; {f \text{'''} (0)} &amp; = &amp; 0 \\ {f^{(4)}(x)} &amp; = &amp; {\cos x} &amp; &amp; &amp; {f^{(4)}(0)} &amp; = &amp; 1. \end{array}$$ Since the fourth derivative is $$\cos x,$$ the pattern repeats. In other words, $$f^{({2m})}(0) = (-1)^{m}$$ and $$f^{({2m + 1})} = 0$$ for $$m \geq 0.$$ Therefore, $$\begin{array}{l} {p_{0}(x) = 1,} \\ {p_{1}(x) = 1 + 0 = 1,} \\ {p_{2}(x) = 1 + 0 - \frac{1}{2 \text{!} }x^{2} = 1 - \frac{x^{2}}{2 \text{!} },} \\ {p_{3}(x) = 1 + 0 - \frac{1}{2 \text{!} }x^{2} + 0 = 1 - \frac{x^{2}}{2 \text{!} },} \\ {p_{4}(x) = 1 + 0 - \frac{1}{2 \text{!} }x^{2} + 0 + \frac{1}{4 \text{!} }x^{4} = 1 - \frac{x^{2}}{2 \text{!} } + \frac{x^{4}}{4 \text{!} },} \\ {p_{5}(x) = 1 + 0 - \frac{1}{2 \text{!} }x^{2} + 0 + \frac{1}{4 \text{!} }x^{4} + 0 = 1 - \frac{x^{2}}{2 \text{!} } + \frac{x^{4}}{4 \text{!} },} \end{array}$$ and for $$n \geq 0,$$ $$\begin{array}{cl} {p_{2m}(x)} &amp; {= p_{2m + 1}(x)} \\ &amp; {= 1 - \frac{x^{2}}{2 \text{!} } + \frac{x^{4}}{4 \text{!} } - \text{⋯} + (-1)^{m}\frac{x^{2m}}{\left( {2m} \right) \text{!} }} \\ &amp; {= {\sum\limits_{k = 0}^{m}(-1)^{k}}\frac{x^{2k}}{\left( {2k} \right) \text{!} }.} \end{array}$$ Graphs of the function and the Maclaurin polynomials appear in Figure 6.8. Figure 6.8 The function $$y = \cos x$$ and the Maclaurin polynomials $$p_{0},p_{2}$$ and $$p_{4}$$ are plotted on this graph.</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.11">
+    <problem>
+      <paragraph>Find formulas for the Maclaurin polynomials $$p_{0},p_{1},p_{2}$$ and $$p_{3}$$ for $$f(x) = \frac{1}{1 + x}.$$ Find a formula for the nth Maclaurin polynomial. Write your answer using sigma notation.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$p 0 ( x ) = 1 ; p 1 ( x ) = 1 - x ; p 2 ( x ) = 1 - x + x 2 ; p 3 ( x ) = 1 - x + x 2 - x 3 ; p n ( x ) = 1 - x + x 2 - x 3 + ⋯ + ( -1 ) n x n = \sum k = 0 n ( -1 ) k x k p 0 ( x ) = 1 ; p 1 ( x ) = 1 - x ; p 2 ( x ) = 1 - x + x 2 ; p 3 ( x ) = 1 - x + x 2 - x 3 ; p n ( x ) = 1 - x + x 2 - x 3 + ⋯ + ( -1 ) n x n = \sum k = 0 n ( -1 ) k x k$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Taylor’s Theorem with Remainder</heading>
+  <paragraph>Recall that the nth Taylor polynomial for a function $$f$$ at a is the nth partial sum of the Taylor series for $$f$$ at a. Therefore, to determine if the Taylor series converges, we need to determine whether the sequence of Taylor polynomials $$\left\{ p_{n} \right\}$$ converges. However, not only do we want to know if the sequence of Taylor polynomials converges, we want to know if it converges to $$f.$$ To answer this question, we define the remainder $$R_{n}(x)$$ as</paragraph>
+  <paragraph math="block">$$R_{n}(x) = f(x) - p_{n}(x).$$</paragraph>
+  <paragraph>For the sequence of Taylor polynomials to converge to $$f,$$ we need the remainder Rn to converge to zero. To determine if Rn converges to zero, we introduce Taylor’s theorem with remainder. Not only is this theorem useful in proving that a Taylor series converges to its related function, but it will also allow us to quantify how well the nth Taylor polynomial approximates the function.</paragraph>
+  <paragraph>Here we look for a bound on $$\left| R_{n} \right|.$$ Consider the simplest case: $$n = 0.$$ Let p0 be the 0th Taylor polynomial at a for a function $$f.$$ The remainder R0 satisfies</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {R_{0}(x)} &amp; {= f(x) - p_{0}(x)} \\ &amp; {= f(x) - f(a).} \end{array}$$</paragraph>
+  <paragraph>If $$f$$ is differentiable on an interval I containing a and x, then by the Mean Value Theorem there exists a real number c between a and x such that $$f(x) - f(a) = f^{\prime}(c)\left( {x - a} \right).$$ Therefore,</paragraph>
+  <paragraph math="block">$$R_{0}(x) = f^{\prime}(c)\left( {x - a} \right).$$</paragraph>
+  <paragraph>Using the Mean Value Theorem in a similar argument, we can show that if $$f$$ is n times differentiable on an interval I containing a and x, then the nth remainder Rn satisfies</paragraph>
+  <paragraph math="block">$$R_{n}(x) = \frac{f^{({n + 1})}(c)}{\left( {n + 1} \right) \text{!} }\left( {x - a} \right)^{n + 1}$$</paragraph>
+  <paragraph>for some real number c between a and x. It is important to note that the value c in the numerator above is not the center a, but rather an unknown value c between a and x. This formula allows us to get a bound on the remainder Rn. If we happen to know that $$\left| {f^{({n + 1})}(x)} \right|$$ is bounded by some real number M on this interval I, then</paragraph>
+  <paragraph math="block">$$\left| {R_{n}(x)} \right| \leq \frac{M}{\left( {n + 1} \right) \text{!} }\left| {x - a} \right|^{n + 1}$$</paragraph>
+  <paragraph>for all x in the interval I.</paragraph>
+  <paragraph>We now state Taylor’s theorem, which provides the formal relationship between a function $$f$$ and its nth degree Taylor polynomial $$p_{n}(x).$$ This theorem allows us to bound the error when using a Taylor polynomial to approximate a function value, and will be important in proving that a Taylor series for $$f$$ converges to $$f.$$</paragraph>
+  <note type="theorem_key" source_type="theorem" number="6.7" title="Taylor’s Theorem with Remainder">
+    <heading level="4">Taylor’s Theorem with Remainder</heading>
+    <paragraph>Let $$f$$ be a function that can be differentiated $$n + 1$$ times on an interval I containing the real number a. Let pn be the nth Taylor polynomial of $$f$$ at a and let</paragraph>
+    <paragraph math="block">$$R_{n}(x) = f(x) - p_{n}(x)$$</paragraph>
+    <paragraph>be the nth remainder. Then for each x in the interval I, there exists a real number c between a and x such that</paragraph>
+    <paragraph math="block">$$R_{n}(x) = \frac{f^{({n + 1})}(c)}{\left( {n + 1} \right) \text{!} }\left( {x - a} \right)^{n + 1}.$$</paragraph>
+    <paragraph>If there exists a real number M such that $$\left| {f^{({n + 1})}(x)} \right| \leq M$$ for all $$x \in I,$$ then</paragraph>
+    <paragraph math="block">$$\left| {R_{n}(x)} \right| \leq \frac{M}{\left( {n + 1} \right) \text{!} }\left| {x - a} \right|^{n + 1}$$</paragraph>
+    <paragraph>for all x in I.</paragraph>
+  </note>
+  <heading level="3">Proof</heading>
+  <paragraph>Fix a point $$x \in I$$ and introduce the function g such that</paragraph>
+  <paragraph math="block">$$g(t) = f(x) - f(t) - f^{\prime}(t)\left( {x - t} \right) - \frac{f^{''}(t)}{2 \text{!} }\left( {x - t} \right)^{2} - \text{⋯} - \frac{f^{(n)}(t)}{n \text{!} }\left( {x - t} \right)^{n} - R_{n}(x)\frac{\left( {x - t} \right)^{n + 1}}{\left( {x - a} \right)^{n + 1}}.$$</paragraph>
+  <paragraph>We claim that g satisfies the criteria of Rolle’s theorem. Since g is a polynomial function (in t), it is a differentiable function. Also, g is zero at $$t = a$$ and $$t = x$$ because</paragraph>
+  <paragraph math="block">$$\begin{array}{cll} {g(a)} &amp; = &amp; {f(x) - f(a) - f^{\prime}(a)\left( {x - a} \right) - \frac{f^{''}(a)}{2 \text{!} }\left( {x - a} \right)^{2} + \text{⋯} + \frac{f^{(n)}(a)}{n \text{!} }\left( {x - a} \right)^{n} - R_{n}(x)} \\ &amp; = &amp; {f(x) - p_{n}(x) - R_{n}(x)} \\ &amp; = &amp; {0,} \\ {g(x)} &amp; = &amp; {f(x) - f(x) - 0 - \text{⋯} - 0} \\ &amp; = &amp; 0. \end{array}$$</paragraph>
+  <paragraph>Therefore, g satisfies Rolle’s theorem, and consequently, there exists c between a and x such that $$g^{\prime}(c) = 0.$$ We now calculate $$g^{\prime}.$$ Using the product rule, we note that</paragraph>
+  <paragraph math="block">$$\frac{d}{dt}\left\lbrack {\frac{f^{(n)}(t)}{n \text{!} }\left( {x - t} \right)^{n}} \right\rbrack = \frac{-f^{(n)}(t)}{\left( {n - 1} \right) \text{!} }\left( {x - t} \right)^{n - 1} + \frac{f^{({n + 1})}(t)}{n \text{!} }\left( {x - t} \right)^{n}.$$</paragraph>
+  <paragraph>Consequently,</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {g^{\prime}(t)} &amp; {= -f^{\prime}(t) + \left\lbrack {f^{\prime}(t) - f^{''}(t)\left( {x - t} \right)} \right\rbrack + \left\lbrack {f^{''}(t)\left( {x - t} \right) - \frac{f \text{'''} (t)}{2 \text{!} }\left( {x - t} \right)^{2}} \right\rbrack + \text{⋯} } \\ &amp; { + \left\lbrack {\frac{f^{(n)}(t)}{\left( {n - 1} \right) \text{!} }\left( {x - t} \right)^{n - 1} - \frac{f^{({n + 1})}(t)}{n \text{!} }\left( {x - t} \right)^{n}} \right\rbrack + \left( {n + 1} \right)R_{n}(x)\frac{\left( {x - t} \right)^{n}}{\left( {x - a} \right)^{n + 1}}.} \end{array}$$</paragraph>
+  <paragraph>Notice that there is a telescoping effect. Therefore,</paragraph>
+  <paragraph math="block">$$g^{\prime}(t) = - \frac{f^{({n + 1})}(t)}{n \text{!} }\left( {x - t} \right)^{n} + \left( {n + 1} \right)R_{n}(x)\frac{\left( {x - t} \right)^{n}}{\left( {x - a} \right)^{n + 1}}.$$</paragraph>
+  <paragraph>By Rolle’s theorem, we conclude that there exists a number c between a and x such that $$g^{\prime}(c) = 0.$$ Since</paragraph>
+  <paragraph math="block">$$g^{\prime}(c) = - \frac{f^{({n + 1})}(c)}{n \text{!} }\left( {x - c} \right)^{n} + \left( {n + 1} \right)R_{n}(x)\frac{\left( {x - c} \right)^{n}}{\left( {x - a} \right)^{n + 1}}$$</paragraph>
+  <paragraph>we conclude that</paragraph>
+  <paragraph math="block">$$- \frac{f^{({n + 1})}(c)}{n \text{!} }\left( {x - c} \right)^{n} + \left( {n + 1} \right)R_{n}(x)\frac{\left( {x - c} \right)^{n}}{\left( {x - a} \right)^{n + 1}} = 0.$$</paragraph>
+  <paragraph>Adding the first term on the left-hand side to both sides of the equation and dividing both sides of the equation by $$\frac{(n + 1)(x - c)^{n}}{(x - a)^{n + 1}},$$ we conclude that</paragraph>
+  <paragraph math="block">$$R_{n}(x) = \frac{f^{({n + 1})}(c)}{\left( {n + 1} \right) \text{!} }\left( {x - a} \right)^{n + 1}$$</paragraph>
+  <paragraph>as desired. From this fact, it follows that if there exists M such that $$\left| {f^{({n + 1})}(x)} \right| \leq M$$ for all x in I, then</paragraph>
+  <paragraph math="block">$$\left| {R_{n}(x)} \right| \leq \frac{M}{\left( {n + 1} \right) \text{!} }\left| {x - a} \right|^{n + 1}.$$</paragraph>
+  <paragraph>□</paragraph>
+  <paragraph>Not only does Taylor’s theorem allow us to prove that a Taylor series converges to a function, but it also allows us to estimate the accuracy of Taylor polynomials in approximating function values. We begin by looking at linear and quadratic approximations of $$f(x) = \sqrt[3]{x}$$ at $$x = 8$$ and determine how accurate these approximations are at estimating $$\sqrt[3]{11}.$$</paragraph>
+  <example number="6.13" title="Using Linear and Quadratic Approximations to Estimate Function Values">
+    <problem>
+      <paragraph>Consider the function $$f(x) = \sqrt[3]{x}.$$</paragraph>
+      <list type="ordered">
+        <item>Find the first and second Taylor polynomials for $$f$$ at $$x = 8.$$ Use a graphing utility to compare these polynomials with $$f$$ near $$x = 8.$$</item>
+        <item>Use these two polynomials to estimate $$\sqrt[3]{11}.$$</item>
+        <item>Use Taylor’s theorem to bound the error.</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>For $$f(x) = \sqrt[3]{x},$$ the values of the function and its first two derivatives at $$x = 8$$ are as follows: $$\begin{array}{rllccrll} {f(x)} &amp; = &amp; \sqrt[3]{x} &amp; &amp; &amp; {f(8)} &amp; = &amp; 2 \\ {f^{\prime}(x)} &amp; = &amp; \frac{1}{3x^{2/3}} &amp; &amp; &amp; {f^{\prime}(8)} &amp; = &amp; \frac{1}{12} \\ {f^{''}(x)} &amp; = &amp; \frac{-2}{9x^{5/3}} &amp; &amp; &amp; {f^{''}(8)} &amp; = &amp; {- \frac{1}{144}.} \end{array}$$ Thus, the first and second Taylor polynomials at $$x = 8$$ are given by $$\begin{array}{cll} {p_{1}(x)} &amp; = &amp; {f(8) + f^{\prime}(8)\left( {x - 8} \right)} \\ &amp; = &amp; {2 + \frac{1}{12}\left( {x - 8} \right)} \\ {p_{2}(x)} &amp; = &amp; {f(8) + f^{\prime}(8)\left( {x - 8} \right) + \frac{f^{''}(8)}{2 \text{!} }\left( {x - 8} \right)^{2}} \\ &amp; = &amp; {2 + \frac{1}{12}\left( {x - 8} \right) - \frac{1}{288}\left( {x - 8} \right)^{2}.} \end{array}$$ The function and the Taylor polynomials are shown in Figure 6.9. Figure 6.9 The graphs of $$f(x) = \sqrt[3]{x}$$ and the linear and quadratic approximations $$p_{1}(x)$$ and $$p_{2}(x).$$</item>
+        <item>Using the first Taylor polynomial at $$x = 8,$$ we can estimate $$\sqrt[3]{11} \approx p_{1}(11) = 2 + \frac{1}{12}\left( {11 - 8} \right) = 2.25.$$ Using the second Taylor polynomial at $$x = 8,$$ we obtain $$\sqrt[3]{11} \approx p_{2}(11) = 2 + \frac{1}{12}\left( {11 - 8} \right) - \frac{1}{288}\left( {11 - 8} \right)^{2} = 2.21875.$$</item>
+        <item>By Taylor’s Theorem with Remainder, there exists a c in the interval $$\left( {8,11} \right)$$ such that the remainder when approximating $$\sqrt[3]{11}$$ by the first Taylor polynomial satisfies $$R_{1}(11) = \frac{f^{''}(c)}{2 \text{!} }\left( {11 - 8} \right)^{2}.$$ We do not know the exact value of c, so we find an upper bound on $$R_{1}(11)$$ by determining the maximum value of $$f^{''}$$ on the interval $$\left( {8,11} \right).$$ Since $$f^{''}(x) = - \frac{2}{9x^{5/3}},$$ the largest value for $$\left| {f^{''}(x)} \right|$$ on that interval occurs at $$x = 8.$$ Using the fact that $$f^{''}(8) = - \frac{1}{144},$$ we obtain $$\left| {R_{1}(11)} \right| \leq \frac{1}{144 \cdot 2 \text{!} }\left( {11 - 8} \right)^{2} = 0.03125.$$ Similarly, to estimate $$R_{2}(11),$$ we use the fact that $$R_{2}(11) = \frac{f \text{'''} (c)}{3 \text{!} }\left( {11 - 8} \right)^{3}.$$ Since $$f \text{'''} (x) = \frac{10}{27x^{8/3}},$$ the maximum value of $$f \text{'''}$$ on the interval $$\left( {8,11} \right)$$ is $$f \text{'''} (8) \approx 0.0014468.$$ Therefore, we have $$\left| {R_{2}(11)} \right| \leq \frac{0.0011468}{3 \text{!} }\left( {11 - 8} \right)^{3} \approx 0.0065104.$$</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.12">
+    <problem>
+      <paragraph>Find the first and second Taylor polynomials for $$f(x) = \sqrt{x}$$ at $$x = 4.$$ Use these polynomials to estimate $$\sqrt{6}.$$ Use Taylor’s theorem to bound the error.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$p 1 ( x ) = 2 + 1 4 ( x - 4 ) ; p 2 ( x ) = 2 + 1 4 ( x - 4 ) - 1 64 ( x - 4 ) 2 ; p 1 ( 6 ) = 2.5 ; p 2 ( 6 ) = 2.4375 ; p 1 ( x ) = 2 + 1 4 ( x - 4 ) ; p 2 ( x ) = 2 + 1 4 ( x - 4 ) - 1 64 ( x - 4 ) 2 ; p 1 ( 6 ) = 2.5 ; p 2 ( 6 ) = 2.4375 ;$$</paragraph>
+      <paragraph>$$| R 1 ( 6 ) | \le 0.0625 ; | R 2 ( 6 ) | \le 0.015625 | R 1 ( 6 ) | \le 0.0625 ; | R 2 ( 6 ) | \le 0.015625$$</paragraph>
+    </solution>
+  </example>
+  <example number="6.14" title="Approximating sin x Using Maclaurin Polynomials">
+    <problem>
+      <paragraph>From Example 6.12b., the Maclaurin polynomials for $$\sin x$$ are given by</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} {p_{2m + 1}(x)} &amp; {= p_{2m + 2}(x)} \\ &amp; {= x - \frac{x^{3}}{3 \text{!} } + \frac{x^{5}}{5 \text{!} } - \frac{x^{7}}{7 \text{!} } + \text{⋯} + (-1)^{m}\frac{x^{2m + 1}}{\left( {2m + 1} \right) \text{!} }} \end{array}$$</paragraph>
+      <paragraph>for $$m = 0,1,2, \text{…} .$$</paragraph>
+      <list type="ordered">
+        <item>Use the fifth Maclaurin polynomial for $$\sin x$$ to approximate $$\sin \left( \frac{\pi}{18} \right)$$ and bound the error.</item>
+        <item>For what values of x does the fifth Maclaurin polynomial approximate $$\sin x$$ to within 0.0001?</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>The fifth Maclaurin polynomial is $$p_{5}(x) = x - \frac{x^{3}}{3 \text{!} } + \frac{x^{5}}{5 \text{!} }.$$ Using this polynomial, we can estimate as follows: $$\begin{array}{cl} {\sin \left( \frac{\pi}{18} \right)} &amp; {\approx p_{5}\left( \frac{\pi}{18} \right)} \\ &amp; {= \frac{\pi}{18} - \frac{1}{3 \text{!} }\left( \frac{\pi}{18} \right)^{3} + \frac{1}{5 \text{!} }\left( \frac{\pi}{18} \right)^{5}} \\ &amp; {\approx 0.173648.} \end{array}$$ To estimate the error, use the fact that the sixth Maclaurin polynomial is $$p_{6}(x) = p_{5}(x)$$ and calculate a bound on $$R_{6}\left( \frac{\pi}{18} \right).$$ By Uniqueness of Taylor Series, the remainder is $$R_{6}\left( \frac{\pi}{18} \right) = \frac{f^{(7)}(c)}{7 \text{!} }\left( \frac{\pi}{18} \right)^{7}$$ for some c between 0 and $$\frac{\pi}{18}.$$ Using the fact that $$\left| {f^{(7)}(x)} \right| \leq 1$$ for all x, we find that the magnitude of the error is at most $$\frac{1}{7 \text{!} } \cdot \left( \frac{\pi}{18} \right)^{7} \leq 9.8 \times 10^{-10}.$$</item>
+        <item>We need to find the values of x such that $$\frac{1}{7 \text{!} }|x|^{7} \leq 0.0001.$$ Solving this inequality for x, we have that the fifth Maclaurin polynomial gives an estimate to within 0.0001 as long as $$|x| &lt; 0.907.$$</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.13">
+    <problem>
+      <paragraph>Use the fourth Maclaurin polynomial for $$\cos x$$ to approximate $$\cos \left( \frac{\pi}{12} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>0.96593</paragraph>
+    </solution>
+  </example>
+  <paragraph>Now that we are able to bound the remainder $$R_{n}(x),$$ we can use this bound to prove that a Taylor series for $$f$$ at a converges to $$f.$$</paragraph>
+  <heading level="2">Representing Functions with Taylor and Maclaurin Series</heading>
+  <paragraph>We now discuss issues of convergence for Taylor series. We begin by showing how to find a Taylor series for a function, and how to find its interval of convergence.</paragraph>
+  <example number="6.15" title="Finding a Taylor Series">
+    <problem>
+      <paragraph>Find the Taylor series for $$f(x) = \frac{1}{x}$$ at $$x = 1.$$ Determine the interval of convergence.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>For $$f(x) = \frac{1}{x},$$ the values of the function and its first four derivatives at $$x = 1$$ are</paragraph>
+      <paragraph math="block">$$\begin{array}{rllccrll} {f(x)} &amp; = &amp; \frac{1}{x} &amp; &amp; &amp; {f(1)} &amp; = &amp; 1 \\ {f^{\prime}(x)} &amp; = &amp; {- \frac{1}{x^{2}}} &amp; &amp; &amp; {f^{\prime}(1)} &amp; = &amp; -1 \\ {f^{''}(x)} &amp; = &amp; \frac{2}{x^{3}} &amp; &amp; &amp; {f^{''}(1)} &amp; = &amp; {2 \text{!} } \\ {f \text{'''} (x)} &amp; = &amp; {- \frac{3 \cdot 2}{x^{4}}} &amp; &amp; &amp; {f \text{'''} (1)} &amp; = &amp; {-3 \text{!} } \\ {f^{(4)}(x)} &amp; = &amp; \frac{4 \cdot 3 \cdot 2}{x^{5}} &amp; &amp; &amp; {f^{(4)}(1)} &amp; = &amp; {4 \text{!.} } \end{array}$$</paragraph>
+      <paragraph>That is, we have $$f^{(n)}(1) = (-1)^{n}n \text{!}$$ for all $$n \geq 0.$$ Therefore, the Taylor series for $$f$$ at $$x = 1$$ is given by</paragraph>
+      <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}{\frac{f^{(n)}(1)}{n \text{!} }\left( {x - 1} \right)^{n}}} = {\sum\limits_{n = 0}^{\infty}{(-1)^{n}\left( {x - 1} \right)^{n}}}.$$</paragraph>
+      <paragraph>To find the interval of convergence, we use the ratio test. We find that</paragraph>
+      <paragraph math="block">$$\frac{\left| a_{n + 1} \right|}{\left| a_{n} \right|} = \frac{\left| {(-1)^{n + 1}\left( {x - 1} \right)^{n + 1}} \right|}{\left| {(-1)^{n}\left( {x - 1} \right)^{n}} \right|} = \left| {x - 1} \right|.$$</paragraph>
+      <paragraph>Thus, the series converges if $$\left| {x - 1} \right| &lt; 1.$$ That is, the series converges for $$0 &lt; x &lt; 2.$$ Next, we need to check the endpoints. At $$x = 2,$$ we see that</paragraph>
+      <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}{(-1)^{n}\left( {2 - 1} \right)^{n}}} = {\sum\limits_{n = 0}^{\infty}(-1)^{n}}$$</paragraph>
+      <paragraph>diverges by the divergence test. Similarly, at $$x = 0,$$</paragraph>
+      <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}{(-1)^{n}\left( {0 - 1} \right)^{n}}} = {\sum\limits_{n = 0}^{\infty}(-1)^{2n}} = {\sum\limits_{n = 0}^{\infty}1}$$</paragraph>
+      <paragraph>diverges. Therefore, the interval of convergence is $$\left( {0,2} \right).$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.14">
+    <problem>
+      <paragraph>Find the Taylor series for $$f(x) = \frac{1}{2x}$$ at $$x = 2$$ and determine its interval of convergence.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$\sum n=0\infty 2-xn2x-2.\sum n=0\infty 2-xn2x-2.$$ The interval of convergence is $$(0,4).(0,4).$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>We know that the Taylor series found in this example converges on the interval $$\left( {0,2} \right),$$ but how do we know it actually converges to $$f?$$ We consider this question in more generality in a moment, but for this example, we can answer this question by writing</paragraph>
+  <paragraph math="block">$$f(x) = \frac{1}{x} = \frac{1}{1 - \left( {1 - x} \right)}.$$</paragraph>
+  <paragraph>That is, $$f$$ can be represented by the geometric series $${\sum\limits_{n = 0}^{\infty}\left( {1 - x} \right)^{n}}.$$ Since this is a geometric series, it converges to $$\frac{1}{x}$$ as long as $$\left| {1 - x} \right| &lt; 1.$$ Therefore, the Taylor series found in Example 6.15 does converge to $$f(x) = \frac{1}{x}$$ on $$\left( {0,2} \right).$$</paragraph>
+  <paragraph>We now consider the more general question: if a Taylor series for a function $$f$$ converges on some interval, how can we determine if it actually converges to $$f?$$ To answer this question, recall that a series converges to a particular value if and only if its sequence of partial sums converges to that value. Given a Taylor series for $$f$$ at a, the nth partial sum is given by the nth Taylor polynomial pn. Therefore, to determine if the Taylor series converges to $$f,$$ we need to determine whether</paragraph>
+  <paragraph math="block">$$\underset{n\rightarrow\infty}{\lim }p_{n}(x) = f(x).$$</paragraph>
+  <paragraph>Since the remainder $$R_{n}(x) = f(x) - p_{n}(x),$$ the Taylor series converges to $$f$$ if and only if</paragraph>
+  <paragraph math="block">$$\underset{n\rightarrow\infty}{\lim }R_{n}(x) = 0.$$</paragraph>
+  <paragraph>We now state this theorem formally.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="6.8" title="Convergence of Taylor Series">
+    <heading level="4">Convergence of Taylor Series</heading>
+    <paragraph>Suppose that $$f$$ has derivatives of all orders on an interval I containing a. Then the Taylor series</paragraph>
+    <paragraph math="block">$$\sum\limits_{n = 0}^{\infty}{\frac{f^{(n)}(a)}{n \text{!} }\left( {x - a} \right)^{n}}$$</paragraph>
+    <paragraph>converges to $$f(x)$$ for all x in I if and only if</paragraph>
+    <paragraph math="block">$$\underset{n\rightarrow\infty}{\lim }R_{n}(x) = 0$$</paragraph>
+    <paragraph>for all x in I.</paragraph>
+  </note>
+  <paragraph>With this theorem, we can prove that a Taylor series for $$f$$ at a converges to $$f$$ if we can prove that the remainder $$R_{n}(x)\rightarrow 0.$$ To prove that $$R_{n}(x)\rightarrow 0,$$ we typically use the bound</paragraph>
+  <paragraph math="block">$$\left| {R_{n}(x)} \right| \leq \frac{M}{\left( {n + 1} \right) \text{!} }\left| {x - a} \right|^{n + 1}$$</paragraph>
+  <paragraph>from Taylor’s theorem with remainder.</paragraph>
+  <paragraph>In the next example, we find the Maclaurin series for ex and $$\sin x$$ and show that these series converge to the corresponding functions for all real numbers by proving that the remainders $$R_{n}(x)\rightarrow 0$$ for all real numbers x.</paragraph>
+  <example number="6.16" title="Finding Maclaurin Series">
+    <problem>
+      <paragraph>For each of the following functions, find the Maclaurin series and its interval of convergence. Use Taylor’s Theorem with Remainder to prove that the Maclaurin series for $$f$$ converges to $$f$$ on that interval.</paragraph>
+      <list type="ordered">
+        <item>ex</item>
+        <item>$$\sin x$$</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>Using the nth Maclaurin polynomial for ex found in Example 6.12a., we find that the Maclaurin series for ex is given by $${\sum\limits_{n = 0}^{\infty}\frac{x^{n}}{n \text{!} }}.$$ To determine the interval of convergence, we use the ratio test. Since $$\frac{\left| a_{n + 1} \right|}{\left| a_{n} \right|} = \frac{|x|^{n + 1}}{\left( {n + 1} \right) \text{!} } \cdot \frac{n \text{!} }{|x|^{n}} = \frac{|x|}{n + 1},$$ we have $$\underset{n\rightarrow\infty}{\lim }\frac{\left| a_{n + 1} \right|}{\left| a_{n} \right|} = \underset{n\rightarrow\infty}{\lim }\frac{|x|}{n + 1} = 0$$ for all x. Therefore, the series converges absolutely for all x, and thus, the interval of convergence is $$\left( {-\infty,\infty} \right).$$ To show that the series converges to ex for all x, we use the fact that $$f^{(n)}(x) = e^{x}$$ for all $$n \geq 0$$ and ex is an increasing function on $$\left( {-\infty,\infty} \right).$$ Therefore, for any real number b, the maximum value of ex for all $$|x| \leq b$$ is eb. Thus, $$\left| {R_{n}(x)} \right| \leq \frac{e^{b}}{\left( {n + 1} \right) \text{!} }|x|^{n + 1}.$$ Since we just showed that $$\sum\limits_{n = 0}^{\infty}\frac{|x|^{n}}{n \text{!} }$$ converges for all x, by the divergence test, we know that $$\underset{n\rightarrow\infty}{\lim }\frac{|x|^{n + 1}}{\left( {n + 1} \right) \text{!} } = 0$$ for any real number x. By combining this fact with the squeeze theorem, the result is $$\underset{n\rightarrow\infty}{\lim }R_{n}(x) = 0.$$</item>
+        <item>Using the nth Maclaurin polynomial for $$\sin x$$ found in Example 6.12b., we find that the Maclaurin series for $$\sin x$$ is given by $${\sum\limits_{n = 0}^{\infty}{(-1)^{n}\frac{x^{2n + 1}}{\left( {2n + 1} \right) \text{!} }}}.$$ In order to apply the ratio test, consider $$\frac{\left| a_{n + 1} \right|}{\left| a_{n} \right|} = \frac{|x|^{2n + 3}}{\left( {2n + 3} \right) \text{!} } \cdot \frac{\left( {2n + 1} \right) \text{!} }{|x|^{2n + 1}} = \frac{|x|^{2}}{\left( {2n + 3} \right)\left( {2n + 2} \right)}.$$ Since $$\underset{n\rightarrow\infty}{\lim }\frac{|x|^{2}}{\left( {2n + 3} \right)\left( {2n + 2} \right)} = 0$$ for all x, we obtain the interval of convergence as $$\left( {-\infty,\infty} \right).$$ To show that the Maclaurin series converges to $$\sin x,$$ look at $$R_{n}(x).$$ For each x there exists a real number c between 0 and x such that $$R_{n}(x) = \frac{f^{({n + 1})}(c)}{\left( {n + 1} \right) \text{!} }x^{n + 1}.$$ Since $$\left| {f^{({n + 1})}(c)} \right| \leq 1$$ for all integers n and all real numbers c, we have $$\left| {R_{n}(x)} \right| \leq \frac{|x|^{n + 1}}{\left( {n + 1} \right) \text{!} }$$ for all real numbers x. Using the same idea as in part a., the result is $$\underset{n\rightarrow\infty}{\lim }R_{n}(x) = 0$$ for all x, and therefore, the Maclaurin series for $$\sin x$$ converges to $$\sin x$$ for all real x.</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.15">
+    <problem>
+      <paragraph>Find the Maclaurin series for $$f(x) = \cos x.$$ Use the ratio test to show that the interval of convergence is $$\left( {-\infty,\infty} \right).$$ Show that the Maclaurin series converges to $$\cos x$$ for all real numbers x.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$\sum n = 0 \infty ( -1 ) n x 2 n ( 2 n ) ! \sum n = 0 \infty ( -1 ) n x 2 n ( 2 n ) !$$</paragraph>
+      <paragraph>By the ratio test, the interval of convergence is $$(-\infty ,\infty ).(-\infty ,\infty ).$$ Since $$|Rn(x)|\le |x|n+1(n+1)!,|Rn(x)|\le |x|n+1(n+1)!,$$ the series converges to $$cosxcosx$$ for all real x.</paragraph>
+    </solution>
+  </example>
+  <note type="sidebar" source_type="Student Project" title="Student Project">
+    <heading level="4">Proving that e is Irrational</heading>
+    <paragraph>In this project, we use the Maclaurin polynomials for ex to prove that e is irrational. The proof relies on supposing that e is rational and arriving at a contradiction. Therefore, in the following steps, we suppose $$e = {r/s}$$ for some integers r and s where $$s \neq 0.$$</paragraph>
+    <list type="ordered">
+      <item>Write the Maclaurin polynomials $$p_{0}(x),p_{1}(x),p_{2}(x),p_{3}(x),p_{4}(x)$$ for ex. Evaluate $$p_{0}(1),p_{1}(1),p_{2}(1),p_{3}(1),p_{4}(1)$$ to estimate e.</item>
+      <item>Let $$R_{n}(x)$$ denote the remainder when using $$p_{n}(x)$$ to estimate ex. Therefore, $$R_{n}(x) = e^{x} - p_{n}(x),$$ and $$R_{n}(1) = e - p_{n}(1).$$ Assuming that $$e = \frac{r}{s}$$ for integers r and s, evaluate $$R_{0}(1),R_{1}(1),R_{2}(1),R_{3}(1),R_{4}(1).$$</item>
+      <item>Using the results from part 2, show that for each remainder $$R_{0}(1),R_{1}(1),R_{2}(1),R_{3}(1),R_{4}(1),$$ we can find an integer k such that $$kR_{n}(1)$$ is an integer for $$n = 0,1,2,3,4.$$</item>
+      <item>Write down the formula for the nth Maclaurin polynomial $$p_{n}(x)$$ for ex and the corresponding remainder $$R_{n}(x).$$ Show that $$sn \text{!} R_{n}(1)$$ is an integer.</item>
+      <item>Use Taylor’s theorem to write down an explicit formula for $$R_{n}(1).$$ Conclude that $$R_{n}(1) \neq 0,$$ and therefore, $$sn \text{!} R_{n}(1) \neq 0.$$</item>
+      <item>Use Taylor’s theorem to find an estimate on $$R_{n}(1).$$ Use this estimate combined with the result from part 5 to show that $$\left| {sn \text{!} R_{n}(1)} \right| &lt; \frac{se}{n + 1}.$$ Conclude that if n is large enough, then $$\left| {sn \text{!} R_{n}(1)} \right| &lt; 1.$$ Therefore, $$sn \text{!} R_{n}(1)$$ is an integer with magnitude less than 1. Thus, $$sn \text{!} R_{n}(1) = 0.$$ But from part 5, we know that $$sn \text{!} R_{n}(1) \neq 0.$$ We have arrived at a contradiction, and consequently, the original supposition that e is rational must be false.</item>
+    </list>
+  </note>
 </section>

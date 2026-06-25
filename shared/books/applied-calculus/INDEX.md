@@ -1,16 +1,17 @@
 # Applied Calculus for the Managerial, Life, and Social Sciences
 
-> Generated: 2026-05-31 · 78 files
+> Synced: 2026-06-22 · 144 files
 
 ## How to use
 
 Read this file first to locate the right XML file, then open or grep it.
 
 - **Chapter files** (`chNN.xml`) — full chapter with all sections. Use for broad context or when the section is unknown.
-- **Section files** (`chNN_unitMM.xml`) — one section only. Prefer when targeting a specific exercise or example.
-- Find a specific exercise number: `grep -n 'number="25"' ch04_unit_02.xml`
+- **Unit files** (`chNN_unit_MM.xml`) — one unit only. Prefer when targeting a specific exercise or example.
+- **Exercise files** (`chNN_unit_MM_exercises.xml`) — exercises for one unit, separated from content.
+- Find a specific exercise number: `grep -n 'number="25"' ch04_unit_02_exercises.xml`
 - Find an example: `grep -n '<example' ch04_unit_02.xml`
-- Find a term or keyword: `grep -in "eigenvector" ch05_unit_01.xml`
+- Find a term or keyword: `grep -in "chain rule" ch03_unit_03.xml`
 
 ## Table of contents
 
@@ -20,10 +21,10 @@ Full chapter: `ch01.xml`
 
 | File | Section | Title | Exercises |
 |------|---------|-------|-----------|
-| `ch01_unit_01.xml` | 1.1 | Precalculus Review I | Ex. 1–148 |
-| `ch01_unit_02.xml` | 1.2 | Precalculus Review II | Ex. 1–102 |
-| `ch01_unit_03.xml` | 1.3 | The Cartesian Coordinate System | Ex. 1–52 |
-| `ch01_unit_04.xml` | 1.4 | Straight Lines | Ex. 1–90 |
+| `ch01_unit_01.xml` | 1.1 | Precalculus Review I | Ex. 1–24 |
+| `ch01_unit_02.xml` | 1.2 | Precalculus Review II | Ex. 1–22 |
+| `ch01_unit_03.xml` | 1.3 | The Cartesian Coordinate System | Ex. 1–18 |
+| `ch01_unit_04.xml` | 1.4 | Straight Lines | Ex. 1–10 |
 
 ### Chapter 2
 
@@ -44,13 +45,13 @@ Full chapter: `ch03.xml`
 
 | File | Section | Title | Exercises |
 |------|---------|-------|-----------|
-| `ch03_unit_01.xml` | 3.1 | Basic Rules of Differentiation | Ex. 1–78 |
-| `ch03_unit_02.xml` | 3.2 | The Product and Quotient Rules | Ex. 1–74 |
-| `ch03_unit_03.xml` | 3.3 | The Chain Rule | Ex. 1–90 |
-| `ch03_unit_04.xml` | 3.4 | Marginal Functions in Economics | Ex. 1–42 |
-| `ch03_unit_05.xml` | 3.5 | Higher-Order Derivatives | Ex. 1–50 |
-| `ch03_unit_06.xml` | 3.6 | Implicit Differentiation and Related Rates | Ex. 1–74 |
-| `ch03_unit_07.xml` | 3.7 | Differentials | Ex. 1–50 |
+| `ch03_unit_01.xml` | 3.1 | Basic Rules of Differentiation | Ex. 1–36 |
+| `ch03_unit_02.xml` | 3.2 | The Product and Quotient Rules | Ex. 1–30 |
+| `ch03_unit_03.xml` | 3.3 | The Chain Rule | Ex. 1–48 |
+| `ch03_unit_04.xml` | 3.4 | Marginal Functions in Economics | Ex. 1–22 |
+| `ch03_unit_05.xml` | 3.5 | Higher-Order Derivatives | Ex. 1–20 |
+| `ch03_unit_06.xml` | 3.6 | Implicit Differentiation and Related Rates | Ex. 1–30 |
+| `ch03_unit_07.xml` | 3.7 | Differentials | Ex. 1–30 |
 
 ### Chapter 4
 
@@ -58,10 +59,10 @@ Full chapter: `ch04.xml`
 
 | File | Section | Title | Exercises |
 |------|---------|-------|-----------|
-| `ch04_unit_01.xml` | 4.1 | Applications of the First Derivative | Ex. 1–110 |
-| `ch04_unit_02.xml` | 4.2 | Applications of the Second Derivative | Ex. 1–110 |
-| `ch04_unit_03.xml` | 4.3 | Curve Sketching | Ex. 1–74 |
-| `ch04_unit_04.xml` | 4.4 | Optimization I | Ex. 1–88 |
+| `ch04_unit_01.xml` | 4.1 | Applications of the First Derivative | Ex. 1–43 |
+| `ch04_unit_02.xml` | 4.2 | Applications of the Second Derivative | Ex. 1–21 |
+| `ch04_unit_03.xml` | 4.3 | Curve Sketching | Ex. 1–24 |
+| `ch04_unit_04.xml` | 4.4 | Optimization I | Ex. 1–39 |
 | `ch04_unit_05.xml` | 4.5 | Optimization II | Ex. 1–36 |
 
 ### Chapter 5
@@ -83,12 +84,12 @@ Full chapter: `ch06.xml`
 
 | File | Section | Title | Exercises |
 |------|---------|-------|-----------|
-| `ch06_unit_01.xml` | 6.1 | Antiderivatives and the Rules of Integration | Ex. 1–100 |
-| `ch06_unit_02.xml` | 6.2 | Integration by Substitution | Ex. 1–72 |
-| `ch06_unit_03.xml` | 6.3 | Area and the Definite Integral | Ex. 1–20 |
-| `ch06_unit_04.xml` | 6.4 | The Fundamental Theorem of Calculus | Ex. 1–64 |
-| `ch06_unit_05.xml` | 6.5 | Evaluating Definite Integrals | Ex. 1–86 |
-| `ch06_unit_06.xml` | 6.6 | Area Between Two Curves | Ex. 1–59 |
+| `ch06_unit_01.xml` | 6.1 | Antiderivatives and the Rules of Integration | Ex. 1–42 |
+| `ch06_unit_02.xml` | 6.2 | Integration by Substitution | Ex. 1–50 |
+| `ch06_unit_03.xml` | 6.3 | Area and the Definite Integral | Ex. 1–12 |
+| `ch06_unit_04.xml` | 6.4 | The Fundamental Theorem of Calculus | Ex. 1–24 |
+| `ch06_unit_05.xml` | 6.5 | Evaluating Definite Integrals | Ex. 1–28 |
+| `ch06_unit_06.xml` | 6.6 | Area Between Two Curves | Ex. 1–10 |
 | `ch06_unit_07.xml` | 6.7 | Applications of the Definite Integral to Business and Economics | Ex. 1–34 |
 
 ### Chapter 7
@@ -97,11 +98,11 @@ Full chapter: `ch07.xml`
 
 | File | Section | Title | Exercises |
 |------|---------|-------|-----------|
-| `ch07_unit_01.xml` | 7.1 | Integration by Parts | Ex. 1–62 |
+| `ch07_unit_01.xml` | 7.1 | Integration by Parts | Ex. 1–30 |
 | `ch07_unit_02.xml` | 7.2 | Integration Using Tables of Integrals | Ex. 1–47 |
-| `ch07_unit_03.xml` | 7.3 | Numerical Integration | Ex. 1–54 |
-| `ch07_unit_04.xml` | 7.4 | Improper Integrals | Ex. 1–60 |
-| `ch07_unit_05.xml` | 7.5 | Volumes of Solids of Revolution | Ex. 1–33 |
+| `ch07_unit_03.xml` | 7.3 | Numerical Integration | Ex. 1–27 |
+| `ch07_unit_04.xml` | 7.4 | Improper Integrals | Ex. 1–34 |
+| `ch07_unit_05.xml` | 7.5 | Volumes of Solids of Revolution | Ex. 1–11 |
 
 ### Chapter 8
 
@@ -109,14 +110,14 @@ Full chapter: `ch08.xml`
 
 | File | Section | Title | Exercises |
 |------|---------|-------|-----------|
-| `ch08_unit_01.xml` | 8.1 | Functions of Several Variables | Ex. 1–64 |
-| `ch08_unit_02.xml` | 8.2 | Partial Derivatives | Ex. 1–72 |
-| `ch08_unit_03.xml` | 8.3 | Maxima and Minima of Functions of Several Variables | Ex. 1–42 |
-| `ch08_unit_04.xml` | 8.4 | The Method of Least Squares | Ex. 1–30 |
-| `ch08_unit_05.xml` | 8.5 | Constrained Maxima and Minima and the Method of Lagrange Multipliers | Ex. 1–42 |
-| `ch08_unit_06.xml` | 8.6 | Total Differentials | Ex. 1–48 |
-| `ch08_unit_07.xml` | 8.7 | Double Integrals | Ex. 1–27 |
-| `ch08_unit_08.xml` | 8.8 | Applications of Double Integrals | Ex. 1–29 |
+| `ch08_unit_01.xml` | 8.1 | Functions of Several Variables | Ex. 1–32 |
+| `ch08_unit_02.xml` | 8.2 | Partial Derivatives | Ex. 1–22 |
+| `ch08_unit_03.xml` | 8.3 | Maxima and Minima of Functions of Several Variables | Ex. 1–35 |
+| `ch08_unit_04.xml` | 8.4 | The Method of Least Squares | Ex. 1–20 |
+| `ch08_unit_05.xml` | 8.5 | Constrained Maxima and Minima and the Method of Lagrange Multipliers | Ex. 1–38 |
+| `ch08_unit_06.xml` | 8.6 | Total Differentials | Ex. 1–30 |
+| `ch08_unit_07.xml` | 8.7 | Double Integrals | Ex. 1–25 |
+| `ch08_unit_08.xml` | 8.8 | Applications of Double Integrals | Ex. 1–11 |
 
 ### Chapter 9
 
@@ -135,9 +136,9 @@ Full chapter: `ch10.xml`
 
 | File | Section | Title | Exercises |
 |------|---------|-------|-----------|
-| `ch10_unit_01.xml` | 10.1 | Probability Distributions of Random Variables | Ex. 1–66 |
-| `ch10_unit_02.xml` | 10.2 | Expected Value and Standard Deviation | Ex. 1–36 |
-| `ch10_unit_03.xml` | 10.3 | Normal Distributions | Ex. 1–34 |
+| `ch10_unit_01.xml` | 10.1 | Probability Distributions of Random Variables | Ex. 1–26 |
+| `ch10_unit_02.xml` | 10.2 | Expected Value and Standard Deviation | Ex. 1–28 |
+| `ch10_unit_03.xml` | 10.3 | Normal Distributions | Ex. 1–28 |
 
 ### Chapter 11
 
@@ -146,12 +147,12 @@ Full chapter: `ch11.xml`
 | File | Section | Title | Exercises |
 |------|---------|-------|-----------|
 | `ch11_unit_01.xml` | 11.1 | Taylor Polynomials | Ex. 1–46 |
-| `ch11_unit_02.xml` | 11.2 | Infinite Sequences | Ex. 1–52 |
-| `ch11_unit_03.xml` | 11.3 | Infinite Series | Ex. 1–48 |
-| `ch11_unit_04.xml` | 11.4 | Series with Positive Terms | Ex. 1–60 |
-| `ch11_unit_05.xml` | 11.5 | Power Series and Taylor Series | Ex. 1–36 |
+| `ch11_unit_02.xml` | 11.2 | Infinite Sequences | Ex. 1–19 |
+| `ch11_unit_03.xml` | 11.3 | Infinite Series | Ex. 1–14 |
+| `ch11_unit_04.xml` | 11.4 | Series with Positive Terms | Ex. 1–12 |
+| `ch11_unit_05.xml` | 11.5 | Power Series and Taylor Series | Ex. 1–20 |
 | `ch11_unit_06.xml` | 11.6 | More on Taylor Series | Ex. 1–32 |
-| `ch11_unit_07.xml` | 11.7 | Newton’s Method | Ex. 1–41 |
+| `ch11_unit_07.xml` | 11.7 | Newton’s Method | Ex. 1–19 |
 
 ### Chapter 12
 

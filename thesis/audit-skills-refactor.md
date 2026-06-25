@@ -2,7 +2,7 @@
 
 _Tài liệu thiết kế cho việc refactor `audit-coverage` và `audit-pedagogical`._
 _Nguồn: research session 2026-06-03 (`context/research_audit_refactor.md`)._
-_Last updated: 2026-06-03_
+_Last updated: 2026-06-22_
 
 ---
 
@@ -11,7 +11,7 @@ _Last updated: 2026-06-03_
 ### 1.1 Luồng thông tin hiện tại
 
 ```
-active_qt.md ──► (qt-id)
+active_qt.toml ──► (qt-id)
                     │
                     ▼
               meta.xml ──► book_slug, chapter, unit, LO
@@ -296,7 +296,7 @@ L5 chỉ áp dụng khi `exercise_analysis.xml` tồn tại và đã được hu
 ### 6.1 Workflow tổng thể
 
 ```
-active_qt.md → qt-id
+active_qt.toml → qt-id
                 │
                 ▼
           meta.xml → book_slug, chapter_title, unit_title, LO

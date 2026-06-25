@@ -1,711 +1,265 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="6.2" title="Properties of Power Series">
-  <learning_objectives>
-    <objective number="6.2.1">Combine power series by addition or subtraction.</objective>
-    <objective number="6.2.2">Create a new power series by multiplication by a power of the variable or a constant, or by substitution.</objective>
-    <objective number="6.2.3">Multiply two power series together.</objective>
-    <objective number="6.2.4">Differentiate and integrate power series term-by-term.</objective>
-  </learning_objectives>
-  <p>In the preceding section on power series and functions we showed how to represent certain functions using power series. In this section we discuss how power series can be combined, differentiated, or integrated to create new power series. This capability is particularly useful for a couple of reasons. First, it allows us to find power series representations for certain elementary functions, by writing those functions in terms of functions with known power series. For example, given the power series representation for $$f(x) = \frac{1}{1 - x},$$ we can find a power series representation for $$f^{\prime}(x) = \frac{1}{\left( {1 - x} \right)^{2}}.$$ Second, being able to create power series allows us to define new functions that cannot be written in terms of elementary functions. This capability is particularly useful for solving differential equations for which there is no solution in terms of elementary functions.</p>
-  <subsection title="Combining Power Series">
-    <p>If we have two power series with the same interval of convergence, we can add or subtract the two series to create a new power series, also with the same interval of convergence. Similarly, we can multiply a power series by a power of x or evaluate a power series at $$x^{m}$$ for a positive integer m to create a new power series. Being able to do this allows us to find power series representations for certain functions by using power series representations of other functions. For example, since we know the power series representation for $$f(x) = \frac{1}{1 - x},$$ we can find power series representations for related functions, such as</p>
-    <equation>$$y = \frac{3x}{1 - x^{2}}\ \text{and}\ y = \frac{1}{\left( {x - 1} \right)\left( {x - 3} \right)}.$$</equation>
-    <p>In Combining Power Series we state results regarding addition or subtraction of power series, composition of a power series, and multiplication of a power series by a power of the variable. For simplicity, we state the theorem for power series centered at $$x = 0.$$ Similar results hold for power series centered at $$x = a.$$</p>
-    <theorem number="6.2" title="Combining Power Series">
-      <p>Suppose that the two power series $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $$\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}$$ converge to the functions f and g, respectively, on a common interval I.</p>
-      <list type="ol" style="i">
-        <item>The power series $$\sum\limits_{n = 0}^{\infty}\left( {c_{n}x^{n} \pm d_{n}x^{n}} \right)$$ converges to $$f \pm g$$ on I.</item>
-        <item>For any integer $$m \geq 0$$ and any real number b, the power series $$\sum\limits_{n = 0}^{\infty}{bx^{m}c_{n}x^{n}}$$ converges to $$bx^{m}f(x)$$ on I.</item>
-        <item>For any integer $$m \geq 0$$ and any real number b, the series $$\sum\limits_{n = 0}^{\infty}{c_{n}\left( {bx^{m}} \right)^{n}}$$ converges to $$f\left( {bx^{m}} \right)$$ for all x such that $$bx^{m}$$ is in I.</item>
-      </list>
-    </theorem>
-    <subsection title="Proof">
-      <p>We prove i. in the case of the series $${\sum\limits_{n = 0}^{\infty}\left( {c_{n}x^{n} + d_{n}x^{n}} \right)}.$$ Suppose that $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $$\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}$$ converge to the functions f and g, respectively, on the interval I. Let x be a point in I and let $$S_{N}(x)$$ and $$T_{N}(x)$$ denote the Nth partial sums of the series $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $${\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}},$$ respectively. Then the sequence $$\left\{ {S_{N}(x)} \right\}$$ converges to $$f(x)$$ and the sequence $$\left\{ {T_{N}(x)} \right\}$$ converges to $$g(x).$$ Furthermore, the Nth partial sum of $$\sum\limits_{n = 0}^{\infty}\left( {c_{n}x^{n} + d_{n}x^{n}} \right)$$ is</p>
-      <equation>$$\begin{array}{cl} {\sum\limits_{n = 0}^{N}\left( {c_{n}x^{n} + d_{n}x^{n}} \right)} &amp; {= {\sum\limits_{n = 0}^{N}{c_{n}x^{n}}} + {\sum\limits_{n = 0}^{N}{d_{n}x^{n}}}} \\ &amp; {= S_{N}(x) + T_{N}(x).} \end{array}$$</equation>
-      <p>Because</p>
-      <equation>$$\begin{array}{cl} {\underset{N\rightarrow\infty}{\text{lim}}\left( {S_{N}(x) + T_{N}(x)} \right)} &amp; {= \underset{N\rightarrow\infty}{\text{lim}}S_{N}(x) + \underset{N\rightarrow\infty}{\text{lim}}T_{N}(x)} \\ &amp; {= f(x) + g(x),} \end{array}$$</equation>
-      <p>we conclude that the series $$\sum\limits_{n = 0}^{\infty}\left( {c_{n}x^{n} + d_{n}x^{n}} \right)$$ converges to $$f(x) + g(x).$$</p>
-      <p>□</p>
-      <p>We examine products of power series in a later theorem. First, we show several applications of Combining Power Series and how to find the interval of convergence of a power series given the interval of convergence of a related power series.</p>
-      <example number="6.4">
-        <problem>
-          <title>Combining Power Series</title>
-          <p>Suppose that $$\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}$$ is a power series whose interval of convergence is $$\left( {-1,1} \right),$$ and suppose that $$\sum\limits_{n = 0}^{\infty}{b_{n}x^{n}}$$ is a power series whose interval of convergence is $$\left( {-2,2} \right).$$</p>
-          <list type="ol" style="a">
-            <item>Find the interval of convergence of the series $${\sum\limits_{n = 0}^{\infty}\left( {a_{n}x^{n} + b_{n}x^{n}} \right)}.$$</item>
-            <item>Find the interval of convergence of the series $${\sum\limits_{n = 0}^{\infty}{a_{n}3^{n}x^{n}}}.$$</item>
-          </list>
-        </problem>
-        <solution>
-          <list type="ol" style="a">
-            <item>Since the interval $$\left( {-1,1} \right)$$ is a common interval of convergence of the series $$\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}$$ and $${\sum\limits_{n = 0}^{\infty}{b_{n}x^{n}}},$$ the interval of convergence of the series $$\sum\limits_{n = 0}^{\infty}\left( {a_{n}x^{n} + b_{n}x^{n}} \right)$$ is $$\left( {-1,1} \right).$$</item>
-            <item>Sinceis a power series centered at zero with radius of convergence 1, it converges for allin the intervalBy, the seriesconverges if 3is in the intervalTherefore, the series converges for allin the interval<equation>$$\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}$$</equation>
-              <equation>$$\left( {-1,1} \right).$$</equation>
-              <equation>$${\sum\limits_{n = 0}^{\infty}{a_{n}3^{n}x^{n}}} = {\sum\limits_{n = 0}^{\infty}{a_{n}\left( {3x} \right)^{n}}}$$</equation>
-              <equation>$$\left( {-1,1} \right).$$</equation>
-              <equation>$$\left( {- \frac{1}{3},\frac{1}{3}} \right).$$</equation>
-            </item>
-          </list>
-        </solution>
-      </example>
-      <checkpoint number="6.4">
-        <problem>
-          <p>Suppose that $$\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}$$ has an interval of convergence of $$\left( {-1,1} \right).$$ Find the interval of convergence of $${\sum\limits_{n = 0}^{\infty}{a_{n}\left( \frac{x}{2} \right)^{n}}}.$$</p>
-        </problem>
-        <solution>
-          <p>Interval of convergence is $$\left( {-2,2} \right).$$</p>
-        </solution>
-      </checkpoint>
-      <p>In the next example, we show how to use Combining Power Series and the power series for a function f to construct power series for functions related to f. Specifically, we consider functions related to the function $$f(x) = \frac{1}{1 - x}$$ and we use the fact that</p>
-      <equation>$$\frac{1}{1 - x} = {\sum\limits_{n = 0}^{\infty}x^{n}} = 1 + x + x^{2} + x^{3} + \text{⋯}$$</equation>
-      <p>for $$|x| &lt; 1.$$</p>
-      <example number="6.5">
-        <problem>
-          <title>Constructing Power Series from Known Power Series</title>
-          <p>Use the power series representation for $$f(x) = \frac{1}{1 - x}$$ combined with Combining Power Series to construct a power series for each of the following functions. Find the interval of convergence of the power series.</p>
-          <list type="ol" style="a">
-            <item>$$f(x) = \frac{3x}{1 + x^{2}}$$</item>
-            <item>$$f(x) = \frac{1}{\left( {x - 1} \right)\left( {x - 3} \right)}$$</item>
-          </list>
-        </problem>
-        <solution>
-          <list type="ol" style="a">
-            <item>First writeasUsing the power series representation forand parts ii. and iii. of, we find that a power series representation foris given bySince the interval of convergence of the series foristhe interval of convergence for this new series is the set of real numberssuch thatTherefore, the interval of convergence is<equation>$$f(x)$$</equation>
-              <equation>$$f(x) = 3x\left( \frac{1}{1 - \left( {\text{−}x^{2}} \right)} \right).$$</equation>
-              <equation>$$f(x) = \frac{1}{1 - x}$$</equation>
-              <equation>$${\sum\limits_{n = 0}^{\infty}{3x\left( {\text{−}x^{2}} \right)^{n}}} = {\sum\limits_{n = 0}^{\infty}{3(-1)^{n}x^{2n + 1}}}.$$</equation>
-              <equation>$$\frac{1}{1 - x}$$</equation>
-              <equation>$$\left( {-1,1} \right),$$</equation>
-              <equation>$$\left| x^{2} \right| &lt; 1.$$</equation>
-              <equation>$$\left( {-1,1} \right).$$</equation>
-            </item>
-            <item>To find the power series representation, use partial fractions to writeas the sum of two fractions. We haveFirst, using part ii. of, we obtainThen, using parts ii. and iii. of, we haveSince we are combining these two power series, the interval of convergence of the difference must be the smaller of these two intervals. Using this fact and part i. of, we havewhere the interval of convergence is<equation>$$f(x) = \frac{1}{\left( {x - 1} \right)\left( {x - 3} \right)}$$</equation>
-              <equation>$$\begin{array}{cl} \frac{1}{\left( {x - 1} \right)\left( {x - 3} \right)} &amp; {= \frac{\text{−}{1\text{/}2}}{x - 1} + \frac{1\text{/}2}{x - 3}} \\ &amp; {= \frac{1\text{/}2}{1 - x} - \frac{1\text{/}2}{3 - x}} \\ &amp; {= \frac{1\text{/}2}{1 - x} - \frac{1\text{/}6}{1 - \frac{x}{3}}.} \end{array}$$</equation>
-              <equation>$$\frac{1\text{/}2}{1 - x} = {\sum\limits_{n = 0}^{\infty}{\frac{1}{2}x^{n}}}\ \text{for}\ |x| &lt; 1.$$</equation>
-              <equation>$$\frac{1\text{/}6}{1 - {x\text{/}3}} = {\sum\limits_{n = 0}^{\infty}{\frac{1}{6}\left( \frac{x}{3} \right)^{n}}}\ \text{for}\ |x| &lt; 3.$$</equation>
-              <equation>$$\frac{1}{\left( {x - 1} \right)\left( {x - 3} \right)} = {\sum\limits_{n = 0}^{\infty}{\left( {\frac{1}{2} - \frac{1}{6 \cdot 3^{n}}} \right)x^{n}}}$$</equation>
-              <equation>$$\left( {-1,1} \right).$$</equation>
-            </item>
-          </list>
-        </solution>
-      </example>
-      <checkpoint number="6.5">
-        <problem>
-          <p>Use the series for $$f(x) = \frac{1}{1 - x}$$ on $$|x| &lt; 1$$ to construct a series for $$\frac{1}{\left( {1 - x} \right)\left( {x - 2} \right)}.$$ Determine the interval of convergence.</p>
-        </problem>
-        <solution>
-          <p>$${\sum\limits_{n = 0}^{\infty}{\left( {-1 + \frac{1}{2^{n + 1}}} \right)x^{n}}}.$$ The interval of convergence is $$\left( {-1,1} \right).$$</p>
-        </solution>
-      </checkpoint>
-      <p>In Example 6.5, we showed how to find power series for certain functions. In Example 6.6 we show how to do the opposite: given a power series, determine which function it represents.</p>
-      <example number="6.6">
-        <problem>
-          <title>Finding the Function Represented by a Given Power Series</title>
-          <p>Consider the power series $${\sum\limits_{n = 0}^{\infty}{2^{n}x^{n}}}.$$ Find the function f represented by this series. Determine the interval of convergence of the series.</p>
-        </problem>
-        <solution>
-          <p>Writing the given series as</p>
-          <equation>$${\sum\limits_{n = 0}^{\infty}{2^{n}x^{n}}} = {\sum\limits_{n = 0}^{\infty}\left( {2x} \right)^{n}},$$</equation>
-          <p>we can recognize this series as the power series for</p>
-          <equation>$$f(x) = \frac{1}{1 - 2x}.$$</equation>
-          <p>Since this is a geometric series, the series converges if and only if $$\left| {2x} \right| &lt; 1.$$ Therefore, the interval of convergence is $$\left( {- \frac{1}{2},\frac{1}{2}} \right).$$</p>
-        </solution>
-      </example>
-      <checkpoint number="6.6">
-        <problem>
-          <p>Find the function represented by the power series $${\sum\limits_{n = 0}^{\infty}{\frac{1}{3^{n}}x^{n}}}.$$ Determine its interval of convergence.</p>
-        </problem>
-        <solution>
-          <p>$$f(x) = \frac{3}{3 - x}.$$ The interval of convergence is $$\left( {-3,3} \right).$$</p>
-        </solution>
-      </checkpoint>
-      <p>Recall the questions posed in the chapter opener about which is the better way of receiving payouts from lottery winnings. We now revisit those questions and show how to use series to compare values of payments over time with a lump sum payment today. We will compute how much future payments are worth in terms of today’s dollars, assuming we have the ability to invest winnings and earn interest. The value of future payments in terms of today’s dollars is known as the present value of those payments.</p>
-      <example number="6.7">
-        <problem>
-          <title>Chapter Opener: Present Value of Future Winnings</title>
-          <image alt="This is a picture of a stack of money. There are 100 dollar bills wrapped in groups of $10,000." number="6.4" caption="(credit: modification of work by Robert Huffstutter, Flickr)" />
-          <p>Suppose you win the lottery and are given the following three options: (1) Receive 20 million dollars today; (2) receive 1.5 million dollars per year over the next 20 years; or (3) receive 1 million dollars per year indefinitely (being passed on to your heirs). Which is the best deal, assuming that the annual interest rate is 5%? We answer this by working through the following sequence of questions.</p>
-          <list type="ol" style="a">
-            <item>How much is the 1.5 million dollars received annually over the course of 20 years worth in terms of today’s dollars, assuming an annual interest rate of 5%?</item>
-            <item>Use the answer to part a. to find a general formula for the present value of payments of C dollars received each year over the next n years, assuming an average annual interest rate r.</item>
-            <item>Find a formula for the present value if annual payments of C dollars continue indefinitely, assuming an average annual interest rate r.</item>
-            <item>Use the answer to part c. to determine the present value of 1 million dollars paid annually indefinitely.</item>
-            <item>Use your answers to parts a. and d. to determine which of the three options is best.</item>
-          </list>
-        </problem>
-        <solution>
-          <list type="ol" style="a">
-            <item>Consider the payment of 1.5 million dollars made at the end of the first year. If you were able to receive that payment today instead of one year from now, you could invest that money and earn 5% interest. Therefore, the present value of that moneysatisfiesWe conclude thatSimilarly, consider the payment of 1.5 million dollars made at the end of the second year. If you were able to receive that payment today, you could invest that money for two years, earning 5% interest, compounded annually. Therefore, the present value of that moneysatisfiesWe conclude thatThe value of the future payments today is the sum of the present valuesof each of those annual payments. The present valuesatisfiesTherefore,<equation>$$P_{1}\left( {1 + 0.05} \right) = 1.5\ \text{million dollars}.$$</equation>
-              <equation>$$P_{1} = \frac{1.5}{1.05} = \text{\$}1.429\ \text{million dollars}\text{.}$$</equation>
-              <equation>$$P_{2}\left( {1 + 0.05} \right)^{2} = 1.5\ \text{million dollars}.$$</equation>
-              <equation>$$P_{2} = \frac{1.5}{(1.05)^{2}} = \text{\$}1.361\ \text{million dollars}\text{.}$$</equation>
-              <equation>$$P_{1},P_{2},\text{…},P_{20}$$</equation>
-              <equation>$$P_{k} = \frac{1.5}{(1.05)^{k}}.$$</equation>
-              <equation>$$\begin{array}{cl} P &amp; {= \frac{1.5}{1.05} + \frac{1.5}{(1.05)^{2}} + \text{⋯} + \frac{1.5}{(1.05)^{20}}} \\ &amp; {= \text{\$}18.693\ \text{million dollars}\text{.}} \end{array}$$</equation>
-            </item>
-            <item>Using the result from part a. we see that the present valueofdollars paid annually over the course ofyears, assuming an annual interest rate, is given by<equation>$$P = \frac{C}{1 + r} + \frac{C}{\left( {1 + r} \right)^{2}} + \text{⋯} + \frac{C}{\left( {1 + r} \right)^{n}}\ \text{dollars}\text{.}$$</equation>
-            </item>
-            <item>Using the result from part b. we see that the present value of an annuity that continues indefinitely is given by the infinite seriesWe can view the present value as a power series in, which converges as long asSincethis series converges. Rewriting the series aswe recognize this series as the power series forWe conclude that the present value of this annuity is<equation>$$P = {\sum\limits_{n = 0}^{\infty}\frac{C}{\left( {1 + r} \right)^{n + 1}}}.$$</equation>
-              <equation>$$\left| \frac{1}{1 + r} \right| &lt; 1.$$</equation>
-              <equation>$$r &gt; 0,$$</equation>
-              <equation>$$P = \frac{C}{\left( {1 + r} \right)}{\sum\limits_{n = 0}^{\infty}\left( \frac{1}{1 + r} \right)^{n}},$$</equation>
-              <equation>$$f(r) = \frac{1}{1 - \left( \frac{1}{1 + r} \right)} = \frac{1}{\left( \frac{r}{1 + r} \right)} = \frac{1 + r}{r}.$$</equation>
-              <equation>$$P = \frac{C}{1 + r} \cdot \frac{1 + r}{r} = \frac{C}{r}.$$</equation>
-            </item>
-            <item>From the result to part c. we conclude that the present valueofpaid out every year indefinitely, assuming an annual interest rateis given by<equation>$$C = 1\ \text{million dollars}$$</equation>
-              <equation>$$r = 0.05,$$</equation>
-              <equation>$$P = \frac{1}{0.05} = 20\ \text{million dollars}\text{.}$$</equation>
-            </item>
-            <item>From part a. we see that receiving $1.5 million dollars over the course of 20 years is worth $18.693 million dollars in today’s dollars. From part d. we see that receiving $1 million dollars per year indefinitely is worth $20 million dollars in today’s dollars. Therefore, either receiving a lump-sum payment of $20 million dollars today or receiving $1 million dollars indefinitely have the same present value.</item>
-          </list>
-        </solution>
-      </example>
-    </subsection>
-  </subsection>
-  <subsection title="Multiplication of Power Series">
-    <p>We can also create new power series by multiplying power series. Being able to multiply two power series provides another way of finding power series representations for functions.</p>
-    <p>The way we multiply them is similar to how we multiply polynomials. For example, suppose we want to multiply</p>
-    <equation>$${\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}} = c_{0} + c_{1}x + c_{2}x^{2} + \text{⋯}$$</equation>
-    <p>and</p>
-    <equation>$${\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}} = d_{0} + d_{1}x + d_{2}x^{2} + \text{⋯}.$$</equation>
-    <p>It appears that the product should satisfy</p>
-    <equation>$$\begin{array}{cl} {\left( {\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}} \right)\left( {\sum\limits_{n = -0}^{\infty}{d_{n}x^{n}}} \right)} &amp; {= \left( {c_{0} + c_{1}x + c_{2}x^{2} + \text{⋯}} \right) \cdot \left( {d_{0} + d_{1}x + d_{2}x^{2} + \text{⋯}} \right)} \\ &amp; {= c_{0}d_{0} + \left( {c_{1}d_{0} + c_{0}d_{1}} \right)\mspace{2mu} x + \left( {c_{2}d_{0} + c_{1}d_{1} + c_{0}d_{2}} \right)\mspace{2mu} x^{2} + \text{⋯}.} \end{array}$$</equation>
-    <p>In Multiplying Power Series, we state the main result regarding multiplying power series, showing that if $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $$\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}$$ converge on a common interval I, then we can multiply the series in this way, and the resulting series also converges on the interval I.</p>
-    <theorem number="6.3" title="Multiplying Power Series">
-      <p>Suppose that the power series $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $$\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}$$ converge to f and g, respectively, on a common interval I. Let</p>
-      <equation>$$\begin{array}{cl} e_{n} &amp; {= c_{0}d_{n} + c_{1}d_{n - 1} + c_{2}d_{n - 2} + \text{⋯} + c_{n - 1}d_{1} + c_{n}d_{0}} \\ &amp; {= {\sum\limits_{k = 0}^{n}{c_{k}d_{n - k}}}.} \end{array}$$</equation>
-      <p>Then</p>
-      <equation>$$\left( {\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}} \right)\left( {\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}} \right) = {\sum\limits_{n = 0}^{\infty}{e_{n}x^{n}}}$$</equation>
-      <p>and</p>
-      <equation>$${\sum\limits_{n = 0}^{\infty}{e_{n}x^{n}}}\ \text{converges to}\ f(x) \cdot g(x)\ \text{on}\ I.$$</equation>
-      <p>The series $${\sum\limits_{n = 0}^{\infty}e_{n}}x^{n}$$ is known as the Cauchy product of the series $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $${\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}}.$$</p>
-    </theorem>
-    <p>We omit the proof of this theorem, as it is beyond the level of this text and is typically covered in a more advanced course. We now provide an example of this theorem by finding the power series representation for</p>
-    <equation>$$f(x) = \frac{1}{\left( {1 - x} \right)\left( {1 - x^{2}} \right)}$$</equation>
-    <p>using the power series representations for</p>
-    <equation>$$y = \frac{1}{1 - x}\ \text{and}\ y = \frac{1}{1 - x^{2}}.$$</equation>
-    <example number="6.8">
-      <problem>
-        <title>Multiplying Power Series</title>
-        <p>Multiply the power series representation</p>
-        <equation>$$\begin{array}{cl} \frac{1}{1 - x} &amp; {= {\sum\limits_{n = 0}^{\infty}x^{n}}} \\ &amp; {= 1 + x + x^{2} + x^{3} + \text{⋯}} \end{array}$$</equation>
-        <p>for $$\left| x \middle| &lt; 1 \right.$$ with the power series representation</p>
-        <equation>$$\begin{array}{cl} \frac{1}{1 - x^{2}} &amp; {= {\sum\limits_{n = 0}^{\infty}\left( x^{2} \right)^{n}}} \\ &amp; {= 1 + x^{2} + x^{4} + x^{6} + \text{⋯}} \end{array}$$</equation>
-        <p>for $$|x| &lt; 1$$ to construct a power series for $$f(x) = \frac{1}{\left( {1 - x} \right)\left( {1 - x^{2}} \right)}$$ on the interval $$\left( {-1,1} \right).$$</p>
-      </problem>
-      <solution>
-        <p>We need to multiply</p>
-        <equation>$$\left( {1 + x + x^{2} + x^{3} + \text{⋯}} \right)\left( {1 + x^{2} + x^{4} + x^{6} + \text{⋯}} \right).$$</equation>
-        <p>Writing out the first several terms, we see that the product is given by</p>
-        <equation>$$\begin{array}{l} {\left( {1 + x^{2} + x^{4} + x^{6} + \text{⋯}} \right) + \left( {x + x^{3} + x^{5} + x^{7} + \text{⋯}} \right) + \left( {x^{2} + x^{4} + x^{6} + x^{8} + \text{⋯}} \right) + \left( {x^{3} + x^{5} + x^{7} + x^{9} + \text{⋯}} \right)} \\ {= 1 + x + \left( {1 + 1} \right)x^{2} + \left( {1 + 1} \right)x^{3} + \left( {1 + 1 + 1} \right)x^{4} + \left( {1 + 1 + 1} \right)x^{5} + \text{⋯}} \\ {= 1 + x + 2x^{2} + 2x^{3} + 3x^{4} + 3x^{5} + \text{⋯}.} \end{array}$$</equation>
-        <p>Since the series for $$y = \frac{1}{1 - x}$$ and $$y = \frac{1}{1 - x^{2}}$$ both converge on the interval $$\left( {-1,1} \right),$$ the series for the product also converges on the interval $$\left( {-1,1} \right).$$</p>
-      </solution>
-    </example>
-    <checkpoint number="6.7">
-      <problem>
-        <p>Multiply the series $$\frac{1}{1 - x} = {\sum\limits_{n = 0}^{\infty}x^{n}}$$ by itself to construct a series for $$\frac{1}{\left( {1 - x} \right)\left( {1 - x} \right)}.$$</p>
-      </problem>
-      <solution>
-        <p>$$1 + 2x + 3x^{2} + 4x^{3} + \text{⋯}$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Differentiating and Integrating Power Series">
-    <p>Consider a power series $${\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}} = c_{0} + c_{1}x + c_{2}x^{2} + \text{⋯}$$ that converges on some interval I, and let $$f$$ be the function defined by this series. Here we address two questions about $$f.$$</p>
-    <list type="ul">
-      <item>Is $$f$$ differentiable, and if so, how do we determine the derivative $$f^{\prime}?$$</item>
-      <item>How do we evaluate the indefinite integral $${\int{f(x)\mspace{2mu} dx}}?$$</item>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">6.2 Properties of Power Series</heading>
+  <heading level="2">Learning Objectives</heading>
+  <list type="unordered">
+    <item>Combine power series by addition or subtraction.</item>
+    <item>Create a new power series by multiplication by a power of the variable or a constant, or by substitution.</item>
+    <item>Multiply two power series together.</item>
+    <item>Differentiate and integrate power series term-by-term.</item>
+  </list>
+  <paragraph>In the preceding section on power series and functions we showed how to represent certain functions using power series. In this section we discuss how power series can be combined, differentiated, or integrated to create new power series. This capability is particularly useful for a couple of reasons. First, it allows us to find power series representations for certain elementary functions, by writing those functions in terms of functions with known power series. For example, given the power series representation for $$f(x) = \frac{1}{1 - x},$$ we can find a power series representation for $$f^{\prime}(x) = \frac{1}{\left( {1 - x} \right)^{2}}.$$ Second, being able to create power series allows us to define new functions that cannot be written in terms of elementary functions. This capability is particularly useful for solving differential equations for which there is no solution in terms of elementary functions.</paragraph>
+  <heading level="2">Combining Power Series</heading>
+  <paragraph>If we have two power series with the same interval of convergence, we can add or subtract the two series to create a new power series, also with the same interval of convergence. Similarly, we can multiply a power series by a power of x or evaluate a power series at $$x^{m}$$ for a positive integer m to create a new power series. Being able to do this allows us to find power series representations for certain functions by using power series representations of other functions. For example, since we know the power series representation for $$f(x) = \frac{1}{1 - x},$$ we can find power series representations for related functions, such as</paragraph>
+  <paragraph math="block">$$y = \frac{3x}{1 - x^{2}} \text{and} y = \frac{1}{\left( {x - 1} \right)\left( {x - 3} \right)}.$$</paragraph>
+  <paragraph>In Combining Power Series we state results regarding addition or subtraction of power series, composition of a power series, and multiplication of a power series by a power of the variable. For simplicity, we state the theorem for power series centered at $$x = 0.$$ Similar results hold for power series centered at $$x = a.$$</paragraph>
+  <note type="theorem_key" source_type="theorem" number="6.2" title="Combining Power Series">
+    <heading level="4">Combining Power Series</heading>
+    <paragraph>Suppose that the two power series $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $$\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}$$ converge to the functions f and g, respectively, on a common interval I.</paragraph>
+    <list type="ordered">
+      <item>The power series $$\sum\limits_{n = 0}^{\infty}\left( {c_{n}x^{n} \pm d_{n}x^{n}} \right)$$ converges to $$f \pm g$$ on I.</item>
+      <item>For any integer $$m \geq 0$$ and any real number b, the power series $$\sum\limits_{n = 0}^{\infty}{bx^{m}c_{n}x^{n}}$$ converges to $$bx^{m}f(x)$$ on I.</item>
+      <item>For any integer $$m \geq 0$$ and any real number b, the series $$\sum\limits_{n = 0}^{\infty}{c_{n}\left( {bx^{m}} \right)^{n}}$$ converges to $$f\left( {bx^{m}} \right)$$ for all x such that $$bx^{m}$$ is in I.</item>
     </list>
-    <p>We know that, for a polynomial with a finite number of terms, we can evaluate the derivative by differentiating each term separately. Similarly, we can evaluate the indefinite integral by integrating each term separately. Here we show that we can do the same thing for convergent power series. That is, if</p>
-    <equation>$$f(x) = {\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}} = c_{0} + c_{1}x + c_{2}x^{2} + \text{⋯}$$</equation>
-    <p>converges on some interval I, then</p>
-    <equation>$$f^{\prime}(x) = c_{1} + 2c_{2}x + 3c_{3}x^{2} + \text{⋯}$$</equation>
-    <p>and</p>
-    <equation>$${\int{f(x)\mspace{2mu} dx}} = C + c_{0}x + c_{1}\frac{x^{2}}{2} + c_{2}\frac{x^{3}}{3} + \text{⋯}$$</equation>
-    <p>converges on I. As noted below, behavior at the endpoints of the interval must be investigated individually.</p>
-    <p>Evaluating the derivative and indefinite integral in this way is called term-by-term differentiation of a power series and term-by-term integration of a power series, respectively. The ability to differentiate and integrate power series term-by-term also allows us to use known power series representations to find power series representations for other functions. For example, given the power series for $$f(x) = \frac{1}{1 - x},$$ we can differentiate term-by-term to find the power series for $$f^{\prime}(x) = \frac{1}{\left( {1 - x} \right)^{2}}.$$ Similarly, using the power series for $$g(x) = \frac{1}{1 + x},$$ we can integrate term-by-term to find the power series for $$G(x) = \text{ln}\mspace{2mu}\left( {1 + x} \right),$$ an antiderivative of g. We show how to do this in Example 6.9 and Example 6.10. First, we state Term-by-Term Differentiation and Integration for Power Series, which provides the main result regarding differentiation and integration of power series.</p>
-    <theorem number="6.4" title="Term-by-Term Differentiation and Integration for Power Series">
-      <p>Suppose that the power series $$\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}$$ converges on the interval $$\left( {a - R,a + R} \right)$$ for some $$R &gt; 0.$$ Let f be the function defined by the series</p>
-      <equation>$$\begin{array}{cl} {f(x)} &amp; {= {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}}} \\ &amp; {= c_{0} + c_{1}\left( {x - a} \right) + c_{2}\left( {x - a} \right)^{2} + c_{3}\left( {x - a} \right)^{3} + \text{⋯}} \end{array}$$</equation>
-      <p>for $$\left| {x - a} \right| &lt; R.$$ Then f is differentiable on the interval $$\left( {a - R,a + R} \right)$$ and we can find $$f^{\prime}$$ by differentiating the series term-by-term:</p>
-      <equation>$$\begin{array}{cl} {f^{\prime}(x)} &amp; {= {\sum\limits_{n = 1}^{\infty}{nc_{n}\left( {x - a} \right)^{n - 1}}}} \\ &amp; {= c_{1} + 2c_{2}\left( {x - a} \right) + 3c_{3}\left( {x - a} \right)^{2} + \text{⋯}} \end{array}$$</equation>
-      <p>for $$\left| {x - a} \right| &lt; R.$$ Also, to find $${\int{f(x)\mspace{2mu} dx}},$$ we can integrate the series term-by-term. The resulting series converges on $$\left( {a - R,a + R} \right),$$ and we have</p>
-      <equation>$$\begin{array}{cl} {\int{f(x)\mspace{2mu} dx}} &amp; {= C + {\sum\limits_{n = 0}^{\infty}{c_{n}\frac{\left( {x - a} \right)^{n + 1}}{n + 1}}}} \\ &amp; {= C + c_{0}\left( {x - a} \right) + c_{1}\frac{\left( {x - a} \right)^{2}}{2} + c_{2}\frac{\left( {x - a} \right)^{3}}{3} + \text{⋯}} \end{array}$$</equation>
-      <p>for $$\left| {x - a} \right| &lt; R.$$</p>
-    </theorem>
-    <p>The proof of this result is beyond the scope of the text and is omitted. Note that although Term-by-Term Differentiation and Integration for Power Series guarantees the same radius of convergence when a power series is differentiated or integrated term-by-term, it says nothing about what happens at the endpoints. It is possible that the differentiated and integrated power series have different behavior at the endpoints than does the original series. We see this behavior in the next examples.</p>
-    <example number="6.9">
-      <problem>
-        <title>Differentiating Power Series</title>
-        <list type="ol" style="a">
-          <item>Use the power series representationforto find a power series representation foron the intervalDetermine whether the resulting series converges at the endpoints.<equation>$$\begin{array}{cl} {f(x)} &amp; {= \frac{1}{1 - x}} \\ &amp; {= {\sum\limits_{n = 0}^{\infty}x^{n}}} \\ &amp; {= 1 + x + x^{2} + x^{3} + \text{⋯}} \end{array}$$</equation>
-            <equation>$$|x| &lt; 1$$</equation>
-            <equation>$$g(x) = \frac{1}{\left( {1 - x} \right)^{2}}$$</equation>
-            <equation>$$\left( {-1,1} \right).$$</equation>
-          </item>
-          <item>Use the result of part a. to evaluate the sum of the series $${\sum\limits_{n = 0}^{\infty}\frac{n + 1}{4^{n}}}.$$</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="a">
-          <item>Sinceis the derivative ofwe can find a power series representation forby differentiating the power series forterm-by-term. The result isfordoes not guarantee anything about the behavior of this series at the endpoints. Testing the endpoints by using the divergence test, we find that the series diverges at both endpointsNote that this is the same result found in.<equation>$$g(x) = \frac{1}{\left( {1 - x} \right)^{2}}$$</equation>
-            <equation>$$f(x) = \frac{1}{1 - x},$$</equation>
-            <equation>$$\begin{array}{cl} {g(x)} &amp; {= \frac{1}{\left( {1 - x} \right)^{2}}} \\ &amp; {= \frac{d}{dx}\left( \frac{1}{1 - x} \right)} \\ &amp; {= {\sum\limits_{n = 0}^{\infty}{\frac{d}{dx}\left( x^{n} \right)}}} \\ &amp; {= \frac{d}{dx}\left( {1 + x + x^{2} + x^{3} + \text{⋯}} \right)} \\ &amp; {= 0 + 1 + 2x + 3x^{2} + 4x^{3} + \text{⋯}} \\ &amp; {= {\sum\limits_{n = 0}^{\infty}{\left( {n + 1} \right)x^{n}}}} \end{array}$$</equation>
-            <equation>$$|x| &lt; 1.$$</equation>
-            <equation>$$x = \text{±}1.$$</equation>
-          </item>
-          <item>From part a. we know thatTherefore,<equation>$${\sum\limits_{n = 0}^{\infty}{\left( {n + 1} \right)x^{n}}} = \frac{1}{\left( {1 - x} \right)^{2}}.$$</equation>
-            <equation>$$\begin{array}{cl} {\sum\limits_{n = 0}^{\infty}\frac{n + 1}{4^{n}}} &amp; {= {\sum\limits_{n = 0}^{\infty}{\left( {n + 1} \right)\left( \frac{1}{4} \right)^{n}}}} \\ &amp; {= \frac{1}{\left( {1 - \frac{1}{4}} \right)^{2}}} \\ &amp; {= \frac{1}{\left( \frac{3}{4} \right)^{2}}} \\ &amp; {= \frac{16}{9}.} \end{array}$$</equation>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <checkpoint number="6.8">
-      <problem>
-        <p>Differentiate the series $$\frac{1}{\left( {1 - x} \right)^{2}} = {\sum\limits_{n = 0}^{\infty}{\left( {n + 1} \right)x^{n}}}$$ term-by-term to find a power series representation for $$\frac{2}{\left( {1 - x} \right)^{3}}$$ on the interval $$\left( {-1,1} \right).$$</p>
-      </problem>
-      <solution>
-        <p>$$\sum\limits_{n = 0}^{\infty}{\left( {n + 2} \right)\left( {n + 1} \right)x^{n}}$$</p>
-      </solution>
-    </checkpoint>
-    <example number="6.10">
-      <problem>
-        <title>Integrating Power Series</title>
-        <p>For each of the following functions f, find a power series representation for f by integrating the power series for $$f^{\prime}$$ and find its interval of convergence.</p>
-        <list type="ol" style="a">
-          <item>$$f(x) = \text{ln}\mspace{2mu}\left( {1 + x} \right)$$</item>
-          <item>$$f(x) = \text{tan}^{-1}x$$</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="a">
-          <item>Forthe derivative isWe know thatforTo find a power series forwe integrate the series term-by-term.Sinceis an antiderivative ofit remains to solve for the constant. Sincewe haveTherefore, a power series representation forisfordoes not guarantee anything about the behavior of this power series at the endpoints. However, checking the endpoints, we find that atthe series is the alternating harmonic series, which converges. Also, atthe series is the harmonic series, which diverges. It is important to note that, even though this series converges atdoes not guarantee that the series actually converges toIn fact, the series does converge tobut showing this fact requires more advanced techniques. (Abel’s theorem, covered in more advanced texts, deals with this more technical point.) The interval of convergence is<equation>$$f(x) = \text{ln}\mspace{2mu}\left( {1 + x} \right),$$</equation>
-            <equation>$$f^{\prime}(x) = \frac{1}{1 + x}.$$</equation>
-            <equation>$$\begin{array}{cl} \frac{1}{1 + x} &amp; {= \frac{1}{1 - \left( {\text{−}x} \right)}} \\ &amp; {= {\sum\limits_{n = 0}^{\infty}\left( {\text{−}x} \right)^{n}}} \\ &amp; {= 1 - x + x^{2} - x^{3} + \text{⋯}} \end{array}$$</equation>
-            <equation>$$|x| &lt; 1.$$</equation>
-            <equation>$$f(x) = \text{ln}\mspace{2mu}\left( {1 + x} \right),$$</equation>
-            <equation>$$\begin{array}{cl} {\int{f^{\prime}(x)\mspace{2mu} dx}} &amp; {= {\int{\left( {1 - x + x^{2} - x^{3} + \text{⋯}} \right)\mspace{2mu} dx}}} \\ &amp; {= C + x - \frac{x^{2}}{2} + \frac{x^{3}}{3} - \frac{x^{4}}{4} + \text{⋯}} \end{array}$$</equation>
-            <equation>$$f(x) = \text{ln}\mspace{2mu}\left( {1 + x} \right)$$</equation>
-            <equation>$$\frac{1}{1 + x},$$</equation>
-            <equation>$$\text{ln}\mspace{2mu}\left( {1 + 0} \right) = 0,$$</equation>
-            <equation>$$C = 0.$$</equation>
-            <equation>$$f(x) = \text{ln}\mspace{2mu}\left( {1 + x} \right)$$</equation>
-            <equation>$$\begin{array}{cl} {\text{ln}\mspace{2mu}\left( {1 + x} \right)} &amp; {= x - \frac{x^{2}}{2} + \frac{x^{3}}{3} - \frac{x^{4}}{4} + \text{⋯}} \\ &amp; {= {\sum\limits_{n = 1}^{\infty}{(-1)^{n + 1}\frac{x^{n}}{n}}}} \end{array}$$</equation>
-            <equation>$$|x| &lt; 1.$$</equation>
-            <equation>$$x = 1$$</equation>
-            <equation>$$x = -1,$$</equation>
-            <equation>$$x = 1,$$</equation>
-            <equation>$$\text{ln}\mspace{2mu}(2).$$</equation>
-            <equation>$$\text{ln}\mspace{2mu}(2),$$</equation>
-            <equation>$$\left( {-1,1} \right\rbrack.$$</equation>
-          </item>
-          <item>The derivative ofisWe know thatforTo find a power series forwe integrate this series term-by-term.Sincewe haveTherefore, a power series representation forisforAgain,does not guarantee anything about the convergence of this series at the endpoints. However, checking the endpoints and using the alternating series test, we find that the series converges atandAs discussed in part a., using Abel’s theorem, it can be shown that the series actually converges toandatandrespectively. Thus, the interval of convergence is<equation>$$f(x) = \text{tan}^{-1}x$$</equation>
-            <equation>$$f^{\prime}(x) = \frac{1}{1 + x^{2}}.$$</equation>
-            <equation>$$\begin{array}{cl} \frac{1}{1 + x^{2}} &amp; {= \frac{1}{1 - \left( {\text{−}x^{2}} \right)}} \\ &amp; {= {\sum\limits_{n = 0}^{\infty}\left( {\text{−}x^{2}} \right)^{n}}} \\ &amp; {= 1 - x^{2} + x^{4} - x^{6} + \text{⋯}} \end{array}$$</equation>
-            <equation>$$|x| &lt; 1.$$</equation>
-            <equation>$$f(x) = \text{tan}^{-1}x,$$</equation>
-            <equation>$$\begin{array}{cl} {\int{f^{\prime}(x)\mspace{2mu} dx}} &amp; {= {\int{\left( {1 - x^{2} + x^{4} - x^{6} + \text{⋯}} \right)\mspace{2mu} dx}}} \\ &amp; {= C + x - \frac{x^{3}}{3} + \frac{x^{5}}{5} - \frac{x^{7}}{7} + \text{⋯}} \end{array}$$</equation>
-            <equation>$$\text{tan}^{-1}(0) = 0,$$</equation>
-            <equation>$$C = 0.$$</equation>
-            <equation>$$f(x) = \text{tan}^{-1}x$$</equation>
-            <equation>$$\begin{array}{cl} {\text{tan}^{-1}x} &amp; {= x - \frac{x^{3}}{3} + \frac{x^{5}}{5} - \frac{x^{7}}{7} + \text{⋯}} \\ &amp; {= {\sum\limits_{n = 0}^{\infty}{(-1)^{n}\frac{x^{2n + 1}}{2n + 1}}}} \end{array}$$</equation>
-            <equation>$$|x| &lt; 1.$$</equation>
-            <equation>$$x = 1$$</equation>
-            <equation>$$x = -1.$$</equation>
-            <equation>$$\text{tan}^{-1}(1)$$</equation>
-            <equation>$$\text{tan}^{-1}(-1)$$</equation>
-            <equation>$$x = 1$$</equation>
-            <equation>$$x = -1,$$</equation>
-            <equation>$$\left\lbrack {-1,1} \right\rbrack.$$</equation>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <checkpoint number="6.9">
-      <problem>
-        <p>Integrate the power series $$\text{ln}\mspace{2mu}\left( {1 + x} \right) = {\sum\limits_{n = 1}^{\infty}{(-1)^{n + 1}\frac{x^{n}}{n}}}$$ term-by-term to evaluate $${\int{\text{ln}\mspace{2mu}\left( {1 + x} \right)\mspace{2mu} dx}}.$$</p>
-      </problem>
-      <solution>
-        <p>$$\sum\limits_{n = 2}^{\infty}\frac{(-1)^{n}x^{n}}{n\left( {n - 1} \right)}$$</p>
-      </solution>
-    </checkpoint>
-    <p>Up to this point, we have shown several techniques for finding power series representations for functions. However, how do we know that these power series are unique? That is, given a function f and a power series for f at a, is it possible that there is a different power series for f at a that we could have found if we had used a different technique? The answer to this question is no. This fact should not seem surprising if we think of power series as polynomials with an infinite number of terms. Intuitively, if</p>
-    <equation>$$c_{0} + c_{1}x + c_{2}x^{2} + \text{⋯} = d_{0} + d_{1}x + d_{2}x^{2} + \text{⋯}$$</equation>
-    <p>for all values x in some open interval I about zero, then the coefficients cn should equal dn for $$n \geq 0.$$ We now state this result formally in Uniqueness of Power Series.</p>
-    <theorem number="6.5" title="Uniqueness of Power Series">
-      <p>Let $$\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}$$ and $$\sum\limits_{n = 0}^{\infty}{d_{n}\left( {x - a} \right)^{n}}$$ be two convergent power series such that</p>
-      <equation>$${\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} = {\sum\limits_{n = 0}^{\infty}{d_{n}\left( {x - a} \right)^{n}}}$$</equation>
-      <p>for all x in an open interval containing a. Then $$c_{n} = d_{n}$$ for all $$n \geq 0.$$</p>
-    </theorem>
-    <subsection title="Proof">
-      <p>Let</p>
-      <equation>$$\begin{array}{cl} {f(x)} &amp; {= c_{0} + c_{1}\left( {x - a} \right) + c_{2}\left( {x - a} \right)^{2} + c_{3}\left( {x - a} \right)^{3} + \text{⋯}} \\ &amp; {= d_{0} + d_{1}\left( {x - a} \right) + d_{2}\left( {x - a} \right)^{2} + d_{3}\left( {x - a} \right)^{3} + \text{⋯}.} \end{array}$$</equation>
-      <p>Then $$f(a) = c_{0} = d_{0}.$$ By Term-by-Term Differentiation and Integration for Power Series, we can differentiate both series term-by-term. Therefore,</p>
-      <equation>$$\begin{array}{cl} {f^{\prime}(x)} &amp; {= c_{1} + 2c_{2}\left( {x - a} \right) + 3c_{3}\left( {x - a} \right)^{2} + \text{⋯}} \\ &amp; {= d_{1} + 2d_{2}\left( {x - a} \right) + 3d_{3}\left( {x - a} \right)^{2} + \text{⋯},} \end{array}$$</equation>
-      <p>and thus, $$f^{\prime}(a) = c_{1} = d_{1}.$$ Similarly,</p>
-      <equation>$$\begin{array}{cl} {f^{''}(x)} &amp; {= 2c_{2} + 3 \cdot 2c_{3}\left( {x - a} \right) + \text{⋯}} \\ &amp; {= 2d_{2} + 3 \cdot 2d_{3}\left( {x - a} \right) + \text{⋯}} \end{array}$$</equation>
-      <p>implies that $$f^{''}(a) = 2c_{2} = 2d_{2},$$ and therefore, $$c_{2} = d_{2}.$$ More generally, for any integer $$n \geq 0,f^{(n)}(a) = n\text{!}c_{n} = n\text{!}d_{n},$$ and consequently, $$c_{n} = d_{n}$$ for all $$n \geq 0.$$</p>
-      <p>□</p>
-      <p>In this section we have shown how to find power series representations for certain functions using various algebraic operations, differentiation, or integration. At this point, however, we are still limited as to the functions for which we can find power series representations. Next, we show how to find power series representations for many more functions by introducing Taylor series.</p>
-    </subsection>
-  </subsection>
-  <exercises title="Section 6.2 Exercises">
-    <exercise number="63" has_solution="true">
-      <problem>
-        <p>If $$f(x) = {\sum\limits_{n = 0}^{\infty}\frac{x^{n}}{n\text{!}}}$$ and $$g(x) = {\sum\limits_{n = 0}^{\infty}{(-1)^{n}\frac{x^{n}}{n\text{!}}}},$$ find the power series of $$\frac{1}{2}\left( {f(x) + g(x)} \right)$$ and of $$\frac{1}{2}\left( {f(x) - g(x)} \right).$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{2}\left( {f(x) + g(x)} \right) = {\sum\limits_{n = 0}^{\infty}\frac{x^{2n}}{\left( {2n} \right)\text{!}}}$$ and $$\frac{1}{2}\left( {f(x) - g(x)} \right) = {\sum\limits_{n = 0}^{\infty}\frac{x^{2n + 1}}{\left( {2n + 1} \right)\text{!}}}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="64" has_solution="false">
-      <problem>
-        <p>If $$C(x) = {\sum\limits_{n = 0}^{\infty}\frac{x^{2n}}{\left( {2n} \right)\text{!}}}$$ and $$S(x) = {\sum\limits_{n = 0}^{\infty}\frac{x^{2n + 1}}{\left( {2n + 1} \right)\text{!}}},$$ find the power series of $$C(x) + S(x)$$ and of $$C(x) - S(x).$$</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, use partial fractions to find the power series of each function.</instruction>
-    <exercise number="65" has_solution="true">
-      <problem>
-        <p>$$\frac{4}{\left( {x - 3} \right)\left( {x + 1} \right)}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{4}{\left( {x - 3} \right)\left( {x + 1} \right)} = \frac{1}{x - 3} - \frac{1}{x + 1} = - \frac{1}{3\left( {1 - \frac{x}{3}} \right)} - \frac{1}{1 - \left( {\text{−}x} \right)} = - \frac{1}{3}{\sum\limits_{n = 0}^{\infty}\left( \frac{x}{3} \right)^{n}} - {\sum\limits_{n = 0}^{\infty}{(-1)^{n}x^{n}}} = {\sum\limits_{n = 0}^{\infty}{\left( {(-1)^{n + 1} - \frac{1}{3^{n + 1}}} \right)x^{n}}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="66" has_solution="false">
-      <problem>
-        <p>$$\frac{3}{\left( {x + 2} \right)\left( {x - 1} \right)}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="67" has_solution="true">
-      <problem>
-        <p>$$\frac{5}{\left( {x^{2} + 4} \right)\left( {x^{2} - 1} \right)}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{5}{\left( x^{2} + 4 \right)\left( x^{2} - 1 \right)} = \frac{1}{x^{2} - 1} - \frac{1}{4}\ \frac{1}{1 + \left( \frac{x}{2} \right)^{2}} = \text{−}\sum\limits_{n = 0}^{\infty}x^{2n} - \frac{1}{4}\sum\limits_{n = 0}^{\infty}(-1)^{n}\left( \frac{x}{2} \right)^{2n} = \sum\limits_{n = 0}^{\infty}\left( - 1 + (-1) \cdot^{n + 1}\frac{1}{2^{n + 2}} \right)x^{2n}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="68" has_solution="false">
-      <problem>
-        <p>$$\frac{30}{\left( {x^{2} + 1} \right)\left( {x^{2} - 9} \right)}$$</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, express each series as a rational function.</instruction>
-    <exercise number="69" has_solution="true">
-      <problem>
-        <p>$$\sum\limits_{n = 1}^{\infty}\frac{1}{x^{n}}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{x}{\sum\limits_{n = 0}^{\infty}\frac{1}{x^{n}}} = \frac{1}{x}\ \frac{1}{1 - \frac{1}{x}} = \frac{1}{x - 1}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="70" has_solution="false">
-      <problem>
-        <p>$$\sum\limits_{n = 1}^{\infty}\frac{1}{x^{2n}}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="71" has_solution="true">
-      <problem>
-        <p>$$\sum\limits_{n = 1}^{\infty}\frac{1}{\left( {x - 3} \right)^{2n - 1}}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{x - 3}\ \frac{1}{1 - \frac{1}{\left( {x - 3} \right)^{2}}} = \frac{x - 3}{\left( {x - 3} \right)^{2} - 1}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="72" has_solution="false">
-      <problem>
-        <p>$$\sum\limits_{n = 1}^{\infty}\left( {\frac{1}{\left( {x - 3} \right)^{2n - 1}} - \frac{1}{\left( {x - 2} \right)^{2n - 1}}} \right)$$</p>
-      </problem>
-    </exercise>
-    <instruction>The following exercises explore applications of annuities.</instruction>
-    <exercise number="73" has_solution="true">
-      <problem>
-        <p>Calculate the present values P of an annuity in which $10,000 is to be paid out annually for a period of 20 years, assuming interest rates of $$r = 0.03,r = 0.05,$$ and $$r = 0.07.$$</p>
-      </problem>
-      <solution>
-        <p>$$P = P_{1} + \text{⋯} + P_{20}$$ where $$P_{k} = 10,000\frac{1}{\left( {1 + r} \right)^{k}}.$$ Then $$P = 10,000{\sum\limits_{k = 1}^{20}\frac{1}{\left( {1 + r} \right)^{k}}} = 10,000\frac{1 - \left( {1 + r} \right)^{-20}}{r}.$$ When $$r = 0.03,P \approx 10,000\ \times \ 14.8775 = 148,775.$$ When $$r = 0.05,P \approx 10,000\ \times \ 12.4622 = 124,622.$$ When $$r = 0.07,P \approx 105,940.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="74" has_solution="false">
-      <problem>
-        <p>Calculate the present values P of annuities in which $9,000 is to be paid out annually perpetually, assuming interest rates of $$r = 0.03,r = 0.05$$ and $$r = 0.07.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="75" has_solution="true">
-      <problem>
-        <p>Calculate the annual payouts C to be given for 20 years on annuities having present value $100,000 assuming respective interest rates of $$r = 0.03,r = 0.05,$$ and $$r = 0.07.$$</p>
-      </problem>
-      <solution>
-        <p>In general, $$P = \frac{C\left( {1 - \left( {1 + r} \right)^{\text{−}N}} \right)}{r}$$ for N years of payouts, or $$C = \frac{Pr}{1 - \left( {1 + r} \right)^{\text{−}N}}.$$ For $$N = 20$$ and $$P = 100,000,$$ one has $$C = 6721.57$$ when $$r = 0.03;C = 8024.26$$ when $$r = 0.05;$$ and $$C \approx 9439.29$$ when $$r = 0.07.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="76" has_solution="false">
-      <problem>
-        <p>Calculate the annual payouts C to be given perpetually on annuities having present value $100,000 assuming respective interest rates of $$r = 0.03,r = 0.05,$$ and $$r = 0.07.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="77" has_solution="true">
-      <problem>
-        <p>Suppose that an annuity has a present value $$P = 1\ \text{million dollars}.$$ What interest rate r would allow for perpetual annual payouts of $50,000?</p>
-      </problem>
-      <solution>
-        <p>In general, $$P = \frac{C}{r}.$$ Thus, $$r = \frac{C}{P} = 5\ \times \ \frac{10^{4}}{10^{6}} = 0.05.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="78" has_solution="false">
-      <problem>
-        <p>Suppose that an annuity has a present value $$P = 10\ \text{million dollars}\text{.}$$ What interest rate r would allow for perpetual annual payouts of $100,000?</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, express the sum of each power series in terms of geometric series, and then express the sum as a rational function.</instruction>
-    <exercise number="79" has_solution="true">
-      <problem>
-        <p>$$x + x^{2} - x^{3} + x^{4} + x^{5} - x^{6} + \text{⋯}$$ (Hint: Group powers x3k, $$x^{3k - 1},$$ and $$x^{3k - 2}.)$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {x + x^{2} - x^{3}} \right)\left( {1 + x^{3} + x^{6} + \text{⋯}} \right) = \frac{x + x^{2} - x^{3}}{1 - x^{3}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="80" has_solution="false">
-      <problem>
-        <p>$$x + x^{2} - x^{3} - x^{4} + x^{5} + x^{6} - x^{7} - x^{8} + \text{⋯}$$ (Hint: Group powers x4k, $$x^{4k - 1},$$ etc.)</p>
-      </problem>
-    </exercise>
-    <exercise number="81" has_solution="true">
-      <problem>
-        <p>$$x - x^{2} - x^{3} + x^{4} - x^{5} - x^{6} + x^{7} - \text{⋯}$$ (Hint: Group powers x3k, $$x^{3k - 1},$$ and $$x^{3k - 2}.)$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {x - x^{2} - x^{3}} \right)\left( {1 + x^{3} + x^{6} + \text{⋯}} \right) = \frac{x - x^{2} - x^{3}}{1 - x^{3}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="82" has_solution="false">
-      <problem>
-        <p>$$\frac{x}{2} + \frac{x^{2}}{4} - \frac{x^{3}}{8} + \frac{x^{4}}{16} + \frac{x^{5}}{32} - \frac{x^{6}}{64} + \text{⋯}$$ (Hint: Group powers $$\left( \frac{x}{2} \right)^{3k},\left( \frac{x}{2} \right)^{3k - 1},$$ and $$\left( \frac{x}{2} \right)^{3k - 2}.)$$</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, find the power series of $$f(x)g(x)$$ given f and g as defined.</instruction>
-    <exercise number="83" has_solution="true">
-      <problem>
-        <p>$$f(x) = 2{\sum\limits_{n = 0}^{\infty}x^{n}},g(x) = {\sum\limits_{n = 0}^{\infty}{nx^{n}}}$$</p>
-      </problem>
-      <solution>
-        <p>$$a_{n} = 2,b_{n} = n$$ so $$c_{n} = {\sum\limits_{k = 0}^{n}{b_{k}a_{n - k}}} = 2{\sum\limits_{k = 0}^{n}k} = (n)\left( {n + 1} \right)$$ and $$f(x)g(x) = {\sum\limits_{n = 1}^{\infty}{n\left( {n + 1} \right)x^{n}}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="84" has_solution="false">
-      <problem>
-        <p>$$f(x) = {\sum\limits_{n = 1}^{\infty}x^{n}},g(x) = {\sum\limits_{n = 1}^{\infty}{\frac{1}{n}x^{n}}}.$$ Express the coefficients of $$f(x)g(x)$$ in terms of $$H_{n} = {\sum\limits_{k = 1}^{n}\frac{1}{k}}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="85" has_solution="true">
-      <problem>
-        <p>$$f(x) = g(x) = {\sum\limits_{n = 1}^{\infty}\left( \frac{x}{2} \right)^{n}}$$</p>
-      </problem>
-      <solution>
-        <p>$$a_{n} = b_{n} = 2^{\text{−}n}$$ so $$c_{n} = {\sum\limits_{k = 1}^{n}{b_{k}a_{n - k}}} = 2^{\text{−}n}{\sum\limits_{k = 1}^{n}1} = \frac{n}{2^{n}}$$ and $$f(x)g(x) = {\sum\limits_{n = 1}^{\infty}{n\left( \frac{x}{2} \right)^{n}}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="86" has_solution="false">
-      <problem>
-        <p>$$f(x) = g(x) = {\sum\limits_{n = 1}^{\infty}{nx^{n}}}$$</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, differentiate the given series expansion of f term-by-term to obtain the corresponding series expansion for the derivative of f.</instruction>
-    <exercise number="87" has_solution="true">
-      <problem>
-        <p>$$f(x) = \frac{1}{1 + x} = {\sum\limits_{n = 0}^{\infty}{(-1)^{n}x^{n}}}$$</p>
-      </problem>
-      <solution>
-        <p>The derivative of $$f$$ is $$- \frac{1}{\left( {1 + x} \right)^{2}} = \text{−}{\sum\limits_{n = 0}^{\infty}{(-1)^{n}\left( {n + 1} \right)x^{n}}}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="88" has_solution="false">
-      <problem>
-        <p>$$f(x) = \frac{1}{1 - x^{2}} = {\sum\limits_{n = 0}^{\infty}x^{2n}}$$</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, integrate the given series expansion of $$f$$ term-by-term from zero to x to obtain the corresponding series expansion for the indefinite integral of $$f.$$</instruction>
-    <exercise number="89" has_solution="true">
-      <problem>
-        <p>$$f(x) = \frac{2x}{\left( {1 + x^{2}} \right)^{2}} = {\sum\limits_{n = 1}^{\infty}{(-1)^{n}\left( {2n} \right)x^{2n - 1}}}$$</p>
-      </problem>
-      <solution>
-        <p>The indefinite integral of $$f$$ is $$- \frac{1}{1 + x^{2}} = {\sum\limits_{n = 0}^{\infty}{(-1)^{n}x^{2n}}}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="90" has_solution="false">
-      <problem>
-        <p>$$f(x) = \frac{2x}{1 + x^{2}} = 2{\sum\limits_{n = 0}^{\infty}{(-1)^{n}x^{2n + 1}}}$$</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, evaluate each infinite series by identifying it as the value of a derivative or integral of geometric series.</instruction>
-    <exercise number="91" has_solution="true">
-      <problem>
-        <p>Evaluate $$\sum\limits_{n = 1}^{\infty}\frac{n}{2^{n}}$$ as $$f^{\prime}\left( \frac{1}{2} \right)$$ where $$f(x) = {\sum\limits_{n = 0}^{\infty}x^{n}}.$$</p>
-      </problem>
-      <solution>
-        <p>$$f(x) = {\sum\limits_{n = 0}^{\infty}x^{n}} = \frac{1}{1 - x};f^{\prime}\left( \frac{1}{2} \right) = {\sum\limits_{n = 1}^{\infty}\frac{n}{2^{n - 1}}} = \left. {\frac{d}{dx}\left( {1 - x} \right)^{-1}} \right|_{x = 1\text{/}2} = \left. \frac{1}{\left( {1 - x} \right)^{2}} \right|_{x = 1\text{/}2} = 4$$ so $${\sum\limits_{n = 1}^{\infty}\frac{n}{2^{n}}} = 2.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="92" has_solution="false">
-      <problem>
-        <p>Evaluate $$\sum\limits_{n = 1}^{\infty}\frac{n}{3^{n}}$$ as $$f^{\prime}\left( \frac{1}{3} \right)$$ where $$f(x) = {\sum\limits_{n = 0}^{\infty}x^{n}}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="93" has_solution="true">
-      <problem>
-        <p>Evaluate $$\sum\limits_{n = 2}^{\infty}\frac{n\left( {n - 1} \right)}{2^{n}}$$ as $$f^{''}\left( \frac{1}{2} \right)$$ where $$f(x) = {\sum\limits_{n = 0}^{\infty}x^{n}}.$$</p>
-      </problem>
-      <solution>
-        <p>$$f(x) = {\sum\limits_{n = 0}^{\infty}x^{n}} = \frac{1}{1 - x};f^{''}\left( \frac{1}{2} \right) = {\sum\limits_{n = 2}^{\infty}\frac{n\left( {n - 1} \right)}{2^{n - 2}}} = \left. {\frac{d^{2}}{dx^{2}}\left( {1 - x} \right)^{-1}} \right|_{x = 1\text{/}2} = \left. \frac{2}{\left( {1 - x} \right)^{3}} \right|_{x = 1\text{/}2} = 16$$ so $${\sum\limits_{n = 2}^{\infty}\frac{n\left( {n - 1} \right)}{2^{n}}} = 4.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="94" has_solution="false">
-      <problem>
-        <p>Evaluate $$\sum\limits_{n = 0}^{\infty}\frac{(-1)^{n}}{2n + 1}$$ as $$\int_{0}^{1}{f(t)\mspace{2mu} dt}$$ where $$f(x) = {\sum\limits_{n = 0}^{\infty}{(-1)^{n}x^{2n}}} = \frac{1}{1 + x^{2}}.$$</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, given that $$\frac{1}{1 - x} = {\sum\limits_{n = 0}^{\infty}x^{n}},$$ use term-by-term differentiation or integration to find power series for each function centered at the given point.</instruction>
-    <exercise number="95" has_solution="true">
-      <problem>
-        <p>$$f(x) = \text{ln}\mspace{2mu} x$$ centered at $$x = 1$$ (Hint: $$x = 1 - \left( {1 - x} \right))$$</p>
-      </problem>
-      <solution>
-        <p>$${\int{{\sum\left( {1 - x} \right)^{n}}dx}} = {\int{{\sum(-1)^{n}}\left( {x - 1} \right)^{n}dx}} = {\sum\frac{(-1)^{n}\left( {x - 1} \right)^{n + 1}}{n + 1}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="96" has_solution="false">
-      <problem>
-        <p>$$\text{ln}\mspace{2mu}\left( {1 - x} \right)$$ at $$x = 0$$</p>
-      </problem>
-    </exercise>
-    <exercise number="97" has_solution="true">
-      <problem>
-        <p>$$\text{ln}\mspace{2mu}\left( {1 - x^{2}} \right)$$ at $$x = 0$$</p>
-      </problem>
-      <solution>
-        <p>$$\text{−}{\int_{t = 0}^{x^{2}}{\frac{1}{1 - t}dt}} = \text{−}{\sum\limits_{n = 0}^{\infty}{\int_{0}^{x^{2}}{t^{n}dx}}} - {\sum\limits_{n = 0}^{\infty}\frac{x^{2{({n + 1})}}}{n + 1}} = \text{−}{\sum\limits_{n = 1}^{\infty}\frac{x^{2n}}{n}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="98" has_solution="false">
-      <problem>
-        <p>$$f(x) = \frac{2x}{\left( {1 - x^{2}} \right)^{2}}$$ at $$x = 0$$</p>
-      </problem>
-    </exercise>
-    <exercise number="99" has_solution="true">
-      <problem>
-        <p>$$f(x) = \text{tan}^{-1}\left( x^{2} \right)$$ at $$x = 0$$</p>
-      </problem>
-      <solution>
-        <p>$${\int_{0}^{x^{2}}\frac{dt}{1 + t^{2}}} = {\sum\limits_{n = 0}^{\infty}{(-1)^{n}{\int_{0}^{x^{2}}{t^{2n}dt}}}} = {\sum\limits_{n = 0}^{\infty}\left. {(-1)^{n}\frac{t^{2n + 1}}{2n + 1}} \right|}_{t = 0}^{x^{2}} = {\sum\limits_{n = 0}^{\infty}{(-1)^{n}\frac{x^{4n + 2}}{2n + 1}}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="100" has_solution="false">
-      <problem>
-        <p>$$f(x) = \text{ln}\mspace{2mu}\left( {1 + x^{2}} \right)$$ at $$x = 0$$</p>
-      </problem>
-    </exercise>
-    <exercise number="101" has_solution="true">
-      <problem>
-        <p>$$f(x) = {\int_{0}^{x}{\text{ln}\mspace{2mu} tdt}}$$ where $$\text{ln}\mspace{2mu}(x) = {\sum\limits_{n = 1}^{\infty}{(-1)^{n - 1}\frac{\left( {x - 1} \right)^{n}}{n}}}$$</p>
-      </problem>
-      <solution>
-        <p>Term-by-term integration gives $${\int_{0}^{x}{\text{ln}\mspace{2mu} tdt}} = {\sum\limits_{n = 1}^{\infty}{(-1)^{n - 1}\frac{\left( {x - 1} \right)^{n + 1}}{n\left( {n + 1} \right)}}} = {\sum\limits_{n = 1}^{\infty}{(-1)^{n - 1}\left( {\frac{1}{n} - \frac{1}{n + 1}} \right)\left( {x - 1} \right)^{n + 1}}} = \left( {x - 1} \right)\text{ln}\mspace{2mu} x + {\sum\limits_{n = 2}^{\infty}{(-1)^{n}\frac{\left( {x - 1} \right)^{n}}{n}}} = x\mspace{2mu}\text{ln}\mspace{2mu} x - x.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="102" has_solution="false">
-      <problem>
-        <p>[T] Evaluate the power series expansion $$\text{ln}\mspace{2mu}\left( {1 + x} \right) = {\sum\limits_{n = 1}^{\infty}{(-1)^{n - 1}\frac{x^{n}}{n}}}$$ at $$x = 1$$ to show that $$\text{ln}\mspace{2mu}(2)$$ is the sum of the alternating harmonic series. Use the alternating series test to determine how many terms of the sum are needed to estimate $$\text{ln}\mspace{2mu}(2)$$ accurate to within 0.001, and find such an approximation.</p>
-      </problem>
-    </exercise>
-    <exercise number="103" has_solution="true">
-      <problem>
-        <p>[T] Subtract the infinite series of $$\text{ln}\mspace{2mu}\left( {1 - x} \right)$$ from $$\text{ln}\mspace{2mu}\left( {1 + x} \right)$$ to get a power series for $$\text{ln}\mspace{2mu}\left( \frac{1 + x}{1 - x} \right).$$ Evaluate at $$x = \frac{1}{3}.$$ What is the smallest N such that the Nth partial sum of this series approximates $$\text{ln}\mspace{2mu}(2)$$ with an error less than 0.001?</p>
-      </problem>
-      <solution>
-        <p>We have $$\text{ln}\mspace{2mu}\left( {1 - x} \right) = \text{−}{\sum\limits_{n = 1}^{\infty}\frac{x^{n}}{n}}$$ so $$\text{ln}\mspace{2mu}\left( {1 + x} \right) = {\sum\limits_{n = 1}^{\infty}{(-1)^{n - 1}\frac{x^{n}}{n}}}.$$ Thus, $$\text{ln}\mspace{2mu}\left( \frac{1 + x}{1 - x} \right) = {\sum\limits_{n = 1}^{\infty}{\left( {1 + (-1)^{n - 1}} \right)\frac{x^{n}}{n}}} = 2{\sum\limits_{n = 1}^{\infty}\frac{x^{2n - 1}}{2n - 1}}.$$ When $$x = \frac{1}{3}$$ we obtain $$\text{ln}\mspace{2mu}(2) = 2{\sum\limits_{n = 1}^{\infty}\frac{1}{3^{2n - 1}\left( {2n - 1} \right)}}.$$ We have $$2{\sum\limits_{n = 1}^{3}\frac{1}{3^{2n - 1}(2n - 1)}} = 0.69300\text{…},$$ while $$2{\sum\limits_{n = 1}^{4}\frac{1}{3^{2n - 1}\left( {2n - 1} \right)}} = 0.69313\text{…}$$ and $$\text{ln}\mspace{2mu}(2) = 0.69314\text{…};$$ therefore, $$N = 4.$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, using a substitution if indicated, express each series in terms of elementary functions and find the radius of convergence of the sum.</instruction>
-    <exercise number="104" has_solution="false">
-      <problem>
-        <p>$$\sum\limits_{k = 0}^{\infty}\left( {x^{k} - x^{2k + 1}} \right)$$</p>
-      </problem>
-    </exercise>
-    <exercise number="105" has_solution="true">
-      <problem>
-        <p>$$\sum\limits_{k = 1}^{\infty}\frac{x^{3k}}{6k}$$</p>
-      </problem>
-      <solution>
-        <p>$${\sum\limits_{k = 1}^{\infty}\frac{x^{k}}{k}} = \text{−}\text{ln}\mspace{2mu}\left( {1 - x} \right)$$ so $${\sum\limits_{k = 1}^{\infty}\frac{x^{3k}}{6k}} = - \frac{1}{6}\mspace{2mu}\text{ln}\mspace{2mu}\left( {1 - x^{3}} \right).$$ The radius of convergence is equal to 1 by the ratio test.</p>
-      </solution>
-    </exercise>
-    <exercise number="106" has_solution="false">
-      <problem>
-        <p>$$\sum\limits_{k = 1}^{\infty}\left( {1 + x^{2}} \right)^{\text{−}k}$$ using $$y = \frac{1}{1 + x^{2}}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="107" has_solution="true">
-      <problem>
-        <p>$$\sum\limits_{k = 1}^{\infty}2^{\text{−}kx}$$ using $$y = 2^{\text{−}x}$$</p>
-      </problem>
-      <solution>
-        <p>If $$y = 2^{\text{−}x},$$ then $${\sum\limits_{k = 1}^{\infty}y^{k}} = \frac{y}{1 - y} = \frac{2^{\text{−}x}}{1 - 2^{\text{−}x}} = \frac{1}{2^{x} - 1}.$$ If $$a_{k} = 2^{\text{−}kx},$$ then $$\frac{a_{k + 1}}{a_{k}} = 2^{\text{−}x} &lt; 1$$ when $$x &gt; 0.$$ So the series converges for all $$x &gt; 0.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="108" has_solution="false">
-      <problem>
-        <p>Show that, up to powers x3 and y3, $$E(x) = {\sum\limits_{n = 0}^{\infty}\frac{x^{n}}{n\text{!}}}$$ satisfies $$E\left( {x + y} \right) = E(x)E(y).$$</p>
-      </problem>
-    </exercise>
-    <exercise number="109" has_solution="true">
-      <problem>
-        <p>Differentiate the series $$E(x) = {\sum\limits_{n = 0}^{\infty}\frac{x^{n}}{n\text{!}}}$$ term-by-term to show that $$E(x)$$ is equal to its derivative.</p>
-      </problem>
-      <solution>
-        <p>Answers will vary.</p>
-      </solution>
-    </exercise>
-    <exercise number="110" has_solution="false">
-      <problem>
-        <p>Show that if $$f(x) = {\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}}$$ is a sum of even powers, that is, $$a_{n} = 0$$ if n is odd, then $$F = {\int_{0}^{x}{f(t)\mspace{2mu} dt}}$$ is a sum of odd powers, while if f is a sum of odd powers, then F is a sum of even powers.</p>
-      </problem>
-    </exercise>
-    <exercise number="111" has_solution="true">
-      <problem>
-        <p>[T] Suppose that the coefficients an of the series $$\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}$$ are defined by the recurrence relation $$a_{n} = \frac{a_{n - 1}}{n} + \frac{a_{n - 2}}{n\left( {n - 1} \right)}.$$ For $$a_{0} = 0$$ and $$a_{1} = 1,$$ compute and plot the sums $$S_{N} = {\sum\limits_{n = 0}^{N}{a_{n}x^{n}}}$$ for $$N = 2,3,4,5$$ on $$\left\lbrack {-1,1} \right\rbrack.$$</p>
-      </problem>
-      <solution>
-        <p />
-        <p>The solid curve is S5. The dashed curve is S2, dotted is S3, and dash-dotted is S4</p>
-      </solution>
-    </exercise>
-    <exercise number="112" has_solution="false">
-      <problem>
-        <p>[T] Suppose that the coefficients an of the series $$\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}$$ are defined by the recurrence relation $$a_{n} = \frac{a_{n - 1}}{\sqrt{n}} - \frac{a_{n - 2}}{\sqrt{n\left( {n - 1} \right)}}.$$ For $$a_{0} = 1$$ and $$a_{1} = 0,$$ compute and plot the sums $$S_{N} = {\sum\limits_{n = 0}^{N}{a_{n}x^{n}}}$$ for $$N = 2,3,4,5$$ on $$\left\lbrack {-1,1} \right\rbrack.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="113" has_solution="true">
-      <problem>
-        <p>[T] Given the power series expansion $$\text{ln}\mspace{2mu}\left( {1 + x} \right) = {\sum\limits_{n = 1}^{\infty}{(-1)^{n - 1}\frac{x^{n}}{n}}},$$ determine how many terms N of the sum evaluated at $$x = -1\text{/}2$$ are needed to approximate $$\text{ln}\mspace{2mu}(2)$$ accurate to within 1/1000. Evaluate the corresponding partial sum $${\sum\limits_{n = 1}^{N}{(-1)^{n - 1}\frac{x^{n}}{n}}}.$$</p>
-      </problem>
-      <solution>
-        <p>When $$x = - \frac{1}{2},\text{−}\text{ln}\mspace{2mu}(2) = \text{ln}\mspace{2mu}\left( \frac{1}{2} \right) = \text{−}{\sum\limits_{n = 1}^{\infty}\frac{1}{n2^{n}}}.$$ Since $$\sum\limits_{n = 11}^{\infty}\frac{1}{n2^{n}} &lt; {\sum\limits_{n = 11}^{\infty}\frac{1}{2^{n}}} = \frac{1}{2^{10}},$$ one has $${\sum\limits_{n = 1}^{10}\frac{1}{n2^{n}}} = 0.69306\text{…}$$ whereas $$\text{ln}\mspace{2mu}(2) = 0.69314\text{…};$$ therefore, $$N = 10.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="114" has_solution="false">
-      <problem>
-        <p>[T] Given the power series expansion $$\text{tan}^{-1}(x) = {\sum\limits_{k = 0}^{\infty}{(-1)^{k}\frac{x^{2k + 1}}{2k + 1}}},$$ use the alternating series test to determine how many terms N of the sum evaluated at $$x = 1$$ are needed to approximate $$\text{tan}^{-1}(1) = \frac{\pi}{4}$$ accurate to within 1/1000. Evaluate the corresponding partial sum $${\sum\limits_{k = 0}^{N}{(-1)^{k}\frac{x^{2k + 1}}{2k + 1}}}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="115" has_solution="true">
-      <problem>
-        <p>[T] Recall that $$\text{tan}^{-1}\left( \frac{1}{\sqrt{3}} \right) = \frac{\pi}{6}.$$ Assuming an exact value of $$\left( \frac{1}{\sqrt{3}} \right),$$ estimate $$\frac{\pi}{6}$$ by evaluating partial sums $$S_{N}\left( \frac{1}{\sqrt{3}} \right)$$ of the power series expansion $$\text{tan}^{-1}(x) = {\sum\limits_{k = 0}^{\infty}{(-1)^{k}\frac{x^{2k + 1}}{2k + 1}}}$$ at $$x = \frac{1}{\sqrt{3}}.$$ What is the smallest number N such that $$6S_{N}\left( \frac{1}{\sqrt{3}} \right)$$ approximates π accurately to within 0.001? How many terms are needed for accuracy to within 0.00001?</p>
-      </problem>
-      <solution>
-        <p>$$6S_{N}\left( \frac{1}{\sqrt{3}} \right) = 2\sqrt{3}{\sum\limits_{n = 0}^{N}{(-1)^{n}\frac{1}{3^{n}\left( {2n + 1} \right)}}}.$$ One has $$\pi - 6S_{4}\left( \frac{1}{\sqrt{3}} \right) = 0.00101\text{…}$$ and $$\pi - 6S_{5}\left( \frac{1}{\sqrt{3}} \right) = 0.00028\text{…}$$ so $$N = 5$$ is the smallest partial sum with accuracy to within 0.001. Also, $$\pi - 6S_{7}\left( \frac{1}{\sqrt{3}} \right) = 0.00002\text{…}$$ while $$\pi - 6S_{8}\left( \frac{1}{\sqrt{3}} \right) = -0.000007\text{…}$$ so $$N = 8$$ is the smallest N to give accuracy to within 0.00001.</p>
-      </solution>
-    </exercise>
-  </exercises>
+  </note>
+  <heading level="3">Proof</heading>
+  <paragraph>We prove i. in the case of the series $${\sum\limits_{n = 0}^{\infty}\left( {c_{n}x^{n} + d_{n}x^{n}} \right)}.$$ Suppose that $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $$\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}$$ converge to the functions f and g, respectively, on the interval I. Let x be a point in I and let $$S_{N}(x)$$ and $$T_{N}(x)$$ denote the Nth partial sums of the series $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $${\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}},$$ respectively. Then the sequence $$\left\{ {S_{N}(x)} \right\}$$ converges to $$f(x)$$ and the sequence $$\left\{ {T_{N}(x)} \right\}$$ converges to $$g(x).$$ Furthermore, the Nth partial sum of $$\sum\limits_{n = 0}^{\infty}\left( {c_{n}x^{n} + d_{n}x^{n}} \right)$$ is</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {\sum\limits_{n = 0}^{N}\left( {c_{n}x^{n} + d_{n}x^{n}} \right)} &amp; {= {\sum\limits_{n = 0}^{N}{c_{n}x^{n}}} + {\sum\limits_{n = 0}^{N}{d_{n}x^{n}}}} \\ &amp; {= S_{N}(x) + T_{N}(x).} \end{array}$$</paragraph>
+  <paragraph>Because</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {\underset{N\rightarrow\infty}{\lim }\left( {S_{N}(x) + T_{N}(x)} \right)} &amp; {= \underset{N\rightarrow\infty}{\lim }S_{N}(x) + \underset{N\rightarrow\infty}{\lim }T_{N}(x)} \\ &amp; {= f(x) + g(x),} \end{array}$$</paragraph>
+  <paragraph>we conclude that the series $$\sum\limits_{n = 0}^{\infty}\left( {c_{n}x^{n} + d_{n}x^{n}} \right)$$ converges to $$f(x) + g(x).$$</paragraph>
+  <paragraph>□</paragraph>
+  <paragraph>We examine products of power series in a later theorem. First, we show several applications of Combining Power Series and how to find the interval of convergence of a power series given the interval of convergence of a related power series.</paragraph>
+  <example number="6.4" title="Combining Power Series">
+    <problem>
+      <paragraph>Suppose that $$\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}$$ is a power series whose interval of convergence is $$\left( {-1,1} \right),$$ and suppose that $$\sum\limits_{n = 0}^{\infty}{b_{n}x^{n}}$$ is a power series whose interval of convergence is $$\left( {-2,2} \right).$$</paragraph>
+      <list type="ordered">
+        <item>Find the interval of convergence of the series $${\sum\limits_{n = 0}^{\infty}\left( {a_{n}x^{n} + b_{n}x^{n}} \right)}.$$</item>
+        <item>Find the interval of convergence of the series $${\sum\limits_{n = 0}^{\infty}{a_{n}3^{n}x^{n}}}.$$</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>Since the interval $$\left( {-1,1} \right)$$ is a common interval of convergence of the series $$\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}$$ and $${\sum\limits_{n = 0}^{\infty}{b_{n}x^{n}}},$$ the interval of convergence of the series $$\sum\limits_{n = 0}^{\infty}\left( {a_{n}x^{n} + b_{n}x^{n}} \right)$$ is $$\left( {-1,1} \right).$$</item>
+        <item>Since $$\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}$$ is a power series centered at zero with radius of convergence 1, it converges for all x in the interval $$\left( {-1,1} \right).$$ By Combining Power Series, the series $${\sum\limits_{n = 0}^{\infty}{a_{n}3^{n}x^{n}}} = {\sum\limits_{n = 0}^{\infty}{a_{n}\left( {3x} \right)^{n}}}$$ converges if 3x is in the interval $$\left( {-1,1} \right).$$ Therefore, the series converges for all x in the interval $$\left( {- \frac{1}{3},\frac{1}{3}} \right).$$</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.4">
+    <problem>
+      <paragraph>Suppose that $$\sum\limits_{n = 0}^{\infty}{a_{n}x^{n}}$$ has an interval of convergence of $$\left( {-1,1} \right).$$ Find the interval of convergence of $${\sum\limits_{n = 0}^{\infty}{a_{n}\left( \frac{x}{2} \right)^{n}}}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Interval of convergence is $$(-2,2).(-2,2).$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>In the next example, we show how to use Combining Power Series and the power series for a function f to construct power series for functions related to f. Specifically, we consider functions related to the function $$f(x) = \frac{1}{1 - x}$$ and we use the fact that</paragraph>
+  <paragraph math="block">$$\frac{1}{1 - x} = {\sum\limits_{n = 0}^{\infty}x^{n}} = 1 + x + x^{2} + x^{3} + \text{⋯}$$</paragraph>
+  <paragraph>for $$|x| &lt; 1.$$</paragraph>
+  <example number="6.5" title="Constructing Power Series from Known Power Series">
+    <problem>
+      <paragraph>Use the power series representation for $$f(x) = \frac{1}{1 - x}$$ combined with Combining Power Series to construct a power series for each of the following functions. Find the interval of convergence of the power series.</paragraph>
+      <list type="ordered">
+        <item>$$f(x) = \frac{3x}{1 + x^{2}}$$</item>
+        <item>$$f(x) = \frac{1}{\left( {x - 1} \right)\left( {x - 3} \right)}$$</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>First write $$f(x)$$ as $$f(x) = 3x\left( \frac{1}{1 - \left( {-x^{2}} \right)} \right).$$ Using the power series representation for $$f(x) = \frac{1}{1 - x}$$ and parts ii. and iii. of Combining Power Series, we find that a power series representation for f is given by $${\sum\limits_{n = 0}^{\infty}{3x\left( {-x^{2}} \right)^{n}}} = {\sum\limits_{n = 0}^{\infty}{3(-1)^{n}x^{2n + 1}}}.$$ Since the interval of convergence of the series for $$\frac{1}{1 - x}$$ is $$\left( {-1,1} \right),$$ the interval of convergence for this new series is the set of real numbers x such that $$\left| x^{2} \right| &lt; 1.$$ Therefore, the interval of convergence is $$\left( {-1,1} \right).$$</item>
+        <item>To find the power series representation, use partial fractions to write $$f(x) = \frac{1}{\left( {x - 1} \right)\left( {x - 3} \right)}$$ as the sum of two fractions. We have $$\begin{array}{cl} \frac{1}{\left( {x - 1} \right)\left( {x - 3} \right)} &amp; {= \frac{-{1/2}}{x - 1} + \frac{1/2}{x - 3}} \\ &amp; {= \frac{1/2}{1 - x} - \frac{1/2}{3 - x}} \\ &amp; {= \frac{1/2}{1 - x} - \frac{1/6}{1 - \frac{x}{3}}.} \end{array}$$ First, using part ii. of Combining Power Series, we obtain $$\frac{1/2}{1 - x} = {\sum\limits_{n = 0}^{\infty}{\frac{1}{2}x^{n}}} \text{for} |x| &lt; 1.$$ Then, using parts ii. and iii. of Combining Power Series, we have $$\frac{1/6}{1 - {x/3}} = {\sum\limits_{n = 0}^{\infty}{\frac{1}{6}\left( \frac{x}{3} \right)^{n}}} \text{for} |x| &lt; 3.$$ Since we are combining these two power series, the interval of convergence of the difference must be the smaller of these two intervals. Using this fact and part i. of Combining Power Series, we have $$\frac{1}{\left( {x - 1} \right)\left( {x - 3} \right)} = {\sum\limits_{n = 0}^{\infty}{\left( {\frac{1}{2} - \frac{1}{6 \cdot 3^{n}}} \right)x^{n}}}$$ where the interval of convergence is $$\left( {-1,1} \right).$$</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.5">
+    <problem>
+      <paragraph>Use the series for $$f(x) = \frac{1}{1 - x}$$ on $$|x| &lt; 1$$ to construct a series for $$\frac{1}{\left( {1 - x} \right)\left( {x - 2} \right)}.$$ Determine the interval of convergence.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$\sum n=0\infty (-1+12n+1)xn.\sum n=0\infty (-1+12n+1)xn.$$ The interval of convergence is $$(-1,1).(-1,1).$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>In Example 6.5, we showed how to find power series for certain functions. In Example 6.6 we show how to do the opposite: given a power series, determine which function it represents.</paragraph>
+  <example number="6.6" title="Finding the Function Represented by a Given Power Series">
+    <problem>
+      <paragraph>Consider the power series $${\sum\limits_{n = 0}^{\infty}{2^{n}x^{n}}}.$$ Find the function f represented by this series. Determine the interval of convergence of the series.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Writing the given series as</paragraph>
+      <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}{2^{n}x^{n}}} = {\sum\limits_{n = 0}^{\infty}\left( {2x} \right)^{n}},$$</paragraph>
+      <paragraph>we can recognize this series as the power series for</paragraph>
+      <paragraph math="block">$$f(x) = \frac{1}{1 - 2x}.$$</paragraph>
+      <paragraph>Since this is a geometric series, the series converges if and only if $$\left| {2x} \right| &lt; 1.$$ Therefore, the interval of convergence is $$\left( {- \frac{1}{2},\frac{1}{2}} \right).$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.6">
+    <problem>
+      <paragraph>Find the function represented by the power series $${\sum\limits_{n = 0}^{\infty}{\frac{1}{3^{n}}x^{n}}}.$$ Determine its interval of convergence.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$f(x)=33-x.f(x)=33-x.$$ The interval of convergence is $$(-3,3).(-3,3).$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>Recall the questions posed in the chapter opener about which is the better way of receiving payouts from lottery winnings. We now revisit those questions and show how to use series to compare values of payments over time with a lump sum payment today. We will compute how much future payments are worth in terms of today’s dollars, assuming we have the ability to invest winnings and earn interest. The value of future payments in terms of today’s dollars is known as the present value of those payments.</paragraph>
+  <example number="6.7" title="Chapter Opener: Present Value of Future Winnings">
+    <problem>
+      <figure number="6.4">
+        <image alt="This is a picture of a stack of money. There are 100 dollar bills wrapped in groups of \$10,000."/>
+        <caption>(credit: modification of work by Robert Huffstutter, Flickr)</caption>
+      </figure>
+      <paragraph>Suppose you win the lottery and are given the following three options: (1) Receive 20 million dollars today; (2) receive 1.5 million dollars per year over the next 20 years; or (3) receive 1 million dollars per year indefinitely (being passed on to your heirs). Which is the best deal, assuming that the annual interest rate is 5%? We answer this by working through the following sequence of questions.</paragraph>
+      <list type="ordered">
+        <item>How much is the 1.5 million dollars received annually over the course of 20 years worth in terms of today’s dollars, assuming an annual interest rate of 5%?</item>
+        <item>Use the answer to part a. to find a general formula for the present value of payments of C dollars received each year over the next n years, assuming an average annual interest rate r.</item>
+        <item>Find a formula for the present value if annual payments of C dollars continue indefinitely, assuming an average annual interest rate r.</item>
+        <item>Use the answer to part c. to determine the present value of 1 million dollars paid annually indefinitely.</item>
+        <item>Use your answers to parts a. and d. to determine which of the three options is best.</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>Consider the payment of 1.5 million dollars made at the end of the first year. If you were able to receive that payment today instead of one year from now, you could invest that money and earn 5% interest. Therefore, the present value of that money P1 satisfies $$P_{1}\left( {1 + 0.05} \right) = 1.5 \text{million dollars} .$$ We conclude that $$P_{1} = \frac{1.5}{1.05} = \$1.429 \text{million dollars} .$$ Similarly, consider the payment of 1.5 million dollars made at the end of the second year. If you were able to receive that payment today, you could invest that money for two years, earning 5% interest, compounded annually. Therefore, the present value of that money P2 satisfies $$P_{2}\left( {1 + 0.05} \right)^{2} = 1.5 \text{million dollars} .$$ We conclude that $$P_{2} = \frac{1.5}{(1.05)^{2}} = \$1.361 \text{million dollars} .$$ The value of the future payments today is the sum of the present values $$P_{1},P_{2}, \text{…} ,P_{20}$$ of each of those annual payments. The present value Pk satisfies $$P_{k} = \frac{1.5}{(1.05)^{k}}.$$ Therefore, $$\begin{array}{cl} P &amp; {= \frac{1.5}{1.05} + \frac{1.5}{(1.05)^{2}} + \text{⋯} + \frac{1.5}{(1.05)^{20}}} \\ &amp; {= \$18.693 \text{million dollars} .} \end{array}$$</item>
+        <item>Using the result from part a. we see that the present value P of C dollars paid annually over the course of n years, assuming an annual interest rate r, is given by $$P = \frac{C}{1 + r} + \frac{C}{\left( {1 + r} \right)^{2}} + \text{⋯} + \frac{C}{\left( {1 + r} \right)^{n}} \text{dollars} .$$</item>
+        <item>Using the result from part b. we see that the present value of an annuity that continues indefinitely is given by the infinite series $$P = {\sum\limits_{n = 0}^{\infty}\frac{C}{\left( {1 + r} \right)^{n + 1}}}.$$ We can view the present value as a power series in r, which converges as long as $$\left| \frac{1}{1 + r} \right| &lt; 1.$$ Since $$r &gt; 0,$$ this series converges. Rewriting the series as $$P = \frac{C}{\left( {1 + r} \right)}{\sum\limits_{n = 0}^{\infty}\left( \frac{1}{1 + r} \right)^{n}},$$ we recognize this series as the power series for $$f(r) = \frac{1}{1 - \left( \frac{1}{1 + r} \right)} = \frac{1}{\left( \frac{r}{1 + r} \right)} = \frac{1 + r}{r}.$$ We conclude that the present value of this annuity is $$P = \frac{C}{1 + r} \cdot \frac{1 + r}{r} = \frac{C}{r}.$$</item>
+        <item>From the result to part c. we conclude that the present value P of $$C = 1 \text{million dollars}$$ paid out every year indefinitely, assuming an annual interest rate $$r = 0.05,$$ is given by $$P = \frac{1}{0.05} = 20 \text{million dollars} .$$</item>
+        <item>From part a. we see that receiving \$1.5 million dollars over the course of 20 years is worth \$18.693 million dollars in today’s dollars. From part d. we see that receiving \$1 million dollars per year indefinitely is worth \$20 million dollars in today’s dollars. Therefore, either receiving a lump-sum payment of \$20 million dollars today or receiving \$1 million dollars indefinitely have the same present value.</item>
+      </list>
+    </solution>
+  </example>
+  <heading level="2">Multiplication of Power Series</heading>
+  <paragraph>We can also create new power series by multiplying power series. Being able to multiply two power series provides another way of finding power series representations for functions.</paragraph>
+  <paragraph>The way we multiply them is similar to how we multiply polynomials. For example, suppose we want to multiply</paragraph>
+  <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}} = c_{0} + c_{1}x + c_{2}x^{2} + \text{⋯}$$</paragraph>
+  <paragraph>and</paragraph>
+  <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}} = d_{0} + d_{1}x + d_{2}x^{2} + \text{⋯} .$$</paragraph>
+  <paragraph>It appears that the product should satisfy</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {\left( {\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}} \right)\left( {\sum\limits_{n = -0}^{\infty}{d_{n}x^{n}}} \right)} &amp; {= \left( {c_{0} + c_{1}x + c_{2}x^{2} + \text{⋯} } \right) \cdot \left( {d_{0} + d_{1}x + d_{2}x^{2} + \text{⋯} } \right)} \\ &amp; {= c_{0}d_{0} + \left( {c_{1}d_{0} + c_{0}d_{1}} \right) x + \left( {c_{2}d_{0} + c_{1}d_{1} + c_{0}d_{2}} \right) x^{2} + \text{⋯} .} \end{array}$$</paragraph>
+  <paragraph>In Multiplying Power Series, we state the main result regarding multiplying power series, showing that if $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $$\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}$$ converge on a common interval I, then we can multiply the series in this way, and the resulting series also converges on the interval I.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="6.3" title="Multiplying Power Series">
+    <heading level="4">Multiplying Power Series</heading>
+    <paragraph>Suppose that the power series $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $$\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}$$ converge to f and g, respectively, on a common interval I. Let</paragraph>
+    <paragraph math="block">$$\begin{array}{cl} e_{n} &amp; {= c_{0}d_{n} + c_{1}d_{n - 1} + c_{2}d_{n - 2} + \text{⋯} + c_{n - 1}d_{1} + c_{n}d_{0}} \\ &amp; {= {\sum\limits_{k = 0}^{n}{c_{k}d_{n - k}}}.} \end{array}$$</paragraph>
+    <paragraph>Then</paragraph>
+    <paragraph math="block">$$\left( {\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}} \right)\left( {\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}} \right) = {\sum\limits_{n = 0}^{\infty}{e_{n}x^{n}}}$$</paragraph>
+    <paragraph>and</paragraph>
+    <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}{e_{n}x^{n}}} \text{converges to} f(x) \cdot g(x) \text{on} I.$$</paragraph>
+    <paragraph>The series $${\sum\limits_{n = 0}^{\infty}e_{n}}x^{n}$$ is known as the Cauchy product of the series $$\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}$$ and $${\sum\limits_{n = 0}^{\infty}{d_{n}x^{n}}}.$$</paragraph>
+  </note>
+  <paragraph>We omit the proof of this theorem, as it is beyond the level of this text and is typically covered in a more advanced course. We now provide an example of this theorem by finding the power series representation for</paragraph>
+  <paragraph math="block">$$f(x) = \frac{1}{\left( {1 - x} \right)\left( {1 - x^{2}} \right)}$$</paragraph>
+  <paragraph>using the power series representations for</paragraph>
+  <paragraph math="block">$$y = \frac{1}{1 - x} \text{and} y = \frac{1}{1 - x^{2}}.$$</paragraph>
+  <example number="6.8" title="Multiplying Power Series">
+    <problem>
+      <paragraph>Multiply the power series representation</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} \frac{1}{1 - x} &amp; {= {\sum\limits_{n = 0}^{\infty}x^{n}}} \\ &amp; {= 1 + x + x^{2} + x^{3} + \text{⋯} } \end{array}$$</paragraph>
+      <paragraph>for $$\left| x \middle| &lt; 1 \right.$$ with the power series representation</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} \frac{1}{1 - x^{2}} &amp; {= {\sum\limits_{n = 0}^{\infty}\left( x^{2} \right)^{n}}} \\ &amp; {= 1 + x^{2} + x^{4} + x^{6} + \text{⋯} } \end{array}$$</paragraph>
+      <paragraph>for $$|x| &lt; 1$$ to construct a power series for $$f(x) = \frac{1}{\left( {1 - x} \right)\left( {1 - x^{2}} \right)}$$ on the interval $$\left( {-1,1} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>We need to multiply</paragraph>
+      <paragraph math="block">$$\left( {1 + x + x^{2} + x^{3} + \text{⋯} } \right)\left( {1 + x^{2} + x^{4} + x^{6} + \text{⋯} } \right).$$</paragraph>
+      <paragraph>Writing out the first several terms, we see that the product is given by</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {\left( {1 + x^{2} + x^{4} + x^{6} + \text{⋯} } \right) + \left( {x + x^{3} + x^{5} + x^{7} + \text{⋯} } \right) + \left( {x^{2} + x^{4} + x^{6} + x^{8} + \text{⋯} } \right) + \left( {x^{3} + x^{5} + x^{7} + x^{9} + \text{⋯} } \right)} \\ {= 1 + x + \left( {1 + 1} \right)x^{2} + \left( {1 + 1} \right)x^{3} + \left( {1 + 1 + 1} \right)x^{4} + \left( {1 + 1 + 1} \right)x^{5} + \text{⋯} } \\ {= 1 + x + 2x^{2} + 2x^{3} + 3x^{4} + 3x^{5} + \text{⋯} .} \end{array}$$</paragraph>
+      <paragraph>Since the series for $$y = \frac{1}{1 - x}$$ and $$y = \frac{1}{1 - x^{2}}$$ both converge on the interval $$\left( {-1,1} \right),$$ the series for the product also converges on the interval $$\left( {-1,1} \right).$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.7">
+    <problem>
+      <paragraph>Multiply the series $$\frac{1}{1 - x} = {\sum\limits_{n = 0}^{\infty}x^{n}}$$ by itself to construct a series for $$\frac{1}{\left( {1 - x} \right)\left( {1 - x} \right)}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$1 + 2 x + 3 x 2 + 4 x 3 + ⋯ 1 + 2 x + 3 x 2 + 4 x 3 + ⋯$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Differentiating and Integrating Power Series</heading>
+  <paragraph>Consider a power series $${\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}} = c_{0} + c_{1}x + c_{2}x^{2} + \text{⋯}$$ that converges on some interval I, and let $$f$$ be the function defined by this series. Here we address two questions about $$f.$$</paragraph>
+  <list type="unordered">
+    <item>Is $$f$$ differentiable, and if so, how do we determine the derivative $$f^{\prime}?$$</item>
+    <item>How do we evaluate the indefinite integral $${\int{f(x) dx}}?$$</item>
+  </list>
+  <paragraph>We know that, for a polynomial with a finite number of terms, we can evaluate the derivative by differentiating each term separately. Similarly, we can evaluate the indefinite integral by integrating each term separately. Here we show that we can do the same thing for convergent power series. That is, if</paragraph>
+  <paragraph math="block">$$f(x) = {\sum\limits_{n = 0}^{\infty}{c_{n}x^{n}}} = c_{0} + c_{1}x + c_{2}x^{2} + \text{⋯}$$</paragraph>
+  <paragraph>converges on some interval I, then</paragraph>
+  <paragraph math="block">$$f^{\prime}(x) = c_{1} + 2c_{2}x + 3c_{3}x^{2} + \text{⋯}$$</paragraph>
+  <paragraph>and</paragraph>
+  <paragraph math="block">$${\int{f(x) dx}} = C + c_{0}x + c_{1}\frac{x^{2}}{2} + c_{2}\frac{x^{3}}{3} + \text{⋯}$$</paragraph>
+  <paragraph>converges on I. As noted below, behavior at the endpoints of the interval must be investigated individually.</paragraph>
+  <paragraph>Evaluating the derivative and indefinite integral in this way is called term-by-term differentiation of a power series and term-by-term integration of a power series, respectively. The ability to differentiate and integrate power series term-by-term also allows us to use known power series representations to find power series representations for other functions. For example, given the power series for $$f(x) = \frac{1}{1 - x},$$ we can differentiate term-by-term to find the power series for $$f^{\prime}(x) = \frac{1}{\left( {1 - x} \right)^{2}}.$$ Similarly, using the power series for $$g(x) = \frac{1}{1 + x},$$ we can integrate term-by-term to find the power series for $$G(x) = \ln \left( {1 + x} \right),$$ an antiderivative of g. We show how to do this in Example 6.9 and Example 6.10. First, we state Term-by-Term Differentiation and Integration for Power Series, which provides the main result regarding differentiation and integration of power series.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="6.4" title="Term-by-Term Differentiation and Integration for Power Series">
+    <heading level="4">Term-by-Term Differentiation and Integration for Power Series</heading>
+    <paragraph>Suppose that the power series $$\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}$$ converges on the interval $$\left( {a - R,a + R} \right)$$ for some $$R &gt; 0.$$ Let f be the function defined by the series</paragraph>
+    <paragraph math="block">$$\begin{array}{cl} {f(x)} &amp; {= {\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}}} \\ &amp; {= c_{0} + c_{1}\left( {x - a} \right) + c_{2}\left( {x - a} \right)^{2} + c_{3}\left( {x - a} \right)^{3} + \text{⋯} } \end{array}$$</paragraph>
+    <paragraph>for $$\left| {x - a} \right| &lt; R.$$ Then f is differentiable on the interval $$\left( {a - R,a + R} \right)$$ and we can find $$f^{\prime}$$ by differentiating the series term-by-term:</paragraph>
+    <paragraph math="block">$$\begin{array}{cl} {f^{\prime}(x)} &amp; {= {\sum\limits_{n = 1}^{\infty}{nc_{n}\left( {x - a} \right)^{n - 1}}}} \\ &amp; {= c_{1} + 2c_{2}\left( {x - a} \right) + 3c_{3}\left( {x - a} \right)^{2} + \text{⋯} } \end{array}$$</paragraph>
+    <paragraph>for $$\left| {x - a} \right| &lt; R.$$ Also, to find $${\int{f(x) dx}},$$ we can integrate the series term-by-term. The resulting series converges on $$\left( {a - R,a + R} \right),$$ and we have</paragraph>
+    <paragraph math="block">$$\begin{array}{cl} {\int{f(x) dx}} &amp; {= C + {\sum\limits_{n = 0}^{\infty}{c_{n}\frac{\left( {x - a} \right)^{n + 1}}{n + 1}}}} \\ &amp; {= C + c_{0}\left( {x - a} \right) + c_{1}\frac{\left( {x - a} \right)^{2}}{2} + c_{2}\frac{\left( {x - a} \right)^{3}}{3} + \text{⋯} } \end{array}$$</paragraph>
+    <paragraph>for $$\left| {x - a} \right| &lt; R.$$</paragraph>
+  </note>
+  <paragraph>The proof of this result is beyond the scope of the text and is omitted. Note that although Term-by-Term Differentiation and Integration for Power Series guarantees the same radius of convergence when a power series is differentiated or integrated term-by-term, it says nothing about what happens at the endpoints. It is possible that the differentiated and integrated power series have different behavior at the endpoints than does the original series. We see this behavior in the next examples.</paragraph>
+  <example number="6.9" title="Differentiating Power Series">
+    <problem>
+      <list type="ordered">
+        <item>Use the power series representation $$\begin{array}{cl} {f(x)} &amp; {= \frac{1}{1 - x}} \\ &amp; {= {\sum\limits_{n = 0}^{\infty}x^{n}}} \\ &amp; {= 1 + x + x^{2} + x^{3} + \text{⋯} } \end{array}$$ for $$|x| &lt; 1$$ to find a power series representation for $$g(x) = \frac{1}{\left( {1 - x} \right)^{2}}$$ on the interval $$\left( {-1,1} \right).$$ Determine whether the resulting series converges at the endpoints.</item>
+        <item>Use the result of part a. to evaluate the sum of the series $${\sum\limits_{n = 0}^{\infty}\frac{n + 1}{4^{n}}}.$$</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>Since $$g(x) = \frac{1}{\left( {1 - x} \right)^{2}}$$ is the derivative of $$f(x) = \frac{1}{1 - x},$$ we can find a power series representation for g by differentiating the power series for f term-by-term. The result is $$\begin{array}{cl} {g(x)} &amp; {= \frac{1}{\left( {1 - x} \right)^{2}}} \\ &amp; {= \frac{d}{dx}\left( \frac{1}{1 - x} \right)} \\ &amp; {= {\sum\limits_{n = 0}^{\infty}{\frac{d}{dx}\left( x^{n} \right)}}} \\ &amp; {= \frac{d}{dx}\left( {1 + x + x^{2} + x^{3} + \text{⋯} } \right)} \\ &amp; {= 0 + 1 + 2x + 3x^{2} + 4x^{3} + \text{⋯} } \\ &amp; {= {\sum\limits_{n = 0}^{\infty}{\left( {n + 1} \right)x^{n}}}} \end{array}$$ for $$|x| &lt; 1.$$ Term-by-Term Differentiation and Integration for Power Series does not guarantee anything about the behavior of this series at the endpoints. Testing the endpoints by using the divergence test, we find that the series diverges at both endpoints $$x = \text{±} 1.$$ Note that this is the same result found in Example 6.8.</item>
+        <item>From part a. we know that $${\sum\limits_{n = 0}^{\infty}{\left( {n + 1} \right)x^{n}}} = \frac{1}{\left( {1 - x} \right)^{2}}.$$ Therefore, $$\begin{array}{cl} {\sum\limits_{n = 0}^{\infty}\frac{n + 1}{4^{n}}} &amp; {= {\sum\limits_{n = 0}^{\infty}{\left( {n + 1} \right)\left( \frac{1}{4} \right)^{n}}}} \\ &amp; {= \frac{1}{\left( {1 - \frac{1}{4}} \right)^{2}}} \\ &amp; {= \frac{1}{\left( \frac{3}{4} \right)^{2}}} \\ &amp; {= \frac{16}{9}.} \end{array}$$</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.8">
+    <problem>
+      <paragraph>Differentiate the series $$\frac{1}{\left( {1 - x} \right)^{2}} = {\sum\limits_{n = 0}^{\infty}{\left( {n + 1} \right)x^{n}}}$$ term-by-term to find a power series representation for $$\frac{2}{\left( {1 - x} \right)^{3}}$$ on the interval $$\left( {-1,1} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$\sum n = 0 \infty ( n + 2 ) ( n + 1 ) x n \sum n = 0 \infty ( n + 2 ) ( n + 1 ) x n$$</paragraph>
+    </solution>
+  </example>
+  <example number="6.10" title="Integrating Power Series">
+    <problem>
+      <paragraph>For each of the following functions f, find a power series representation for f by integrating the power series for $$f^{\prime}$$ and find its interval of convergence.</paragraph>
+      <list type="ordered">
+        <item>$$f(x) = \ln \left( {1 + x} \right)$$</item>
+        <item>$$f(x) = \tan^{-1}x$$</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>For $$f(x) = \ln \left( {1 + x} \right),$$ the derivative is $$f^{\prime}(x) = \frac{1}{1 + x}.$$ We know that $$\begin{array}{cl} \frac{1}{1 + x} &amp; {= \frac{1}{1 - \left( {-x} \right)}} \\ &amp; {= {\sum\limits_{n = 0}^{\infty}\left( {-x} \right)^{n}}} \\ &amp; {= 1 - x + x^{2} - x^{3} + \text{⋯} } \end{array}$$ for $$|x| &lt; 1.$$ To find a power series for $$f(x) = \ln \left( {1 + x} \right),$$ we integrate the series term-by-term. $$\begin{array}{cl} {\int{f^{\prime}(x) dx}} &amp; {= {\int{\left( {1 - x + x^{2} - x^{3} + \text{⋯} } \right) dx}}} \\ &amp; {= C + x - \frac{x^{2}}{2} + \frac{x^{3}}{3} - \frac{x^{4}}{4} + \text{⋯} } \end{array}$$ Since $$f(x) = \ln \left( {1 + x} \right)$$ is an antiderivative of $$\frac{1}{1 + x},$$ it remains to solve for the constant C. Since $$\ln \left( {1 + 0} \right) = 0,$$ we have $$C = 0.$$ Therefore, a power series representation for $$f(x) = \ln \left( {1 + x} \right)$$ is $$\begin{array}{cl} {\ln \left( {1 + x} \right)} &amp; {= x - \frac{x^{2}}{2} + \frac{x^{3}}{3} - \frac{x^{4}}{4} + \text{⋯} } \\ &amp; {= {\sum\limits_{n = 1}^{\infty}{(-1)^{n + 1}\frac{x^{n}}{n}}}} \end{array}$$ for $$|x| &lt; 1.$$ Term-by-Term Differentiation and Integration for Power Series does not guarantee anything about the behavior of this power series at the endpoints. However, checking the endpoints, we find that at $$x = 1$$ the series is the alternating harmonic series, which converges. Also, at $$x = -1,$$ the series is the harmonic series, which diverges. It is important to note that, even though this series converges at $$x = 1,$$ Term-by-Term Differentiation and Integration for Power Series does not guarantee that the series actually converges to $$\ln (2).$$ In fact, the series does converge to $$\ln (2),$$ but showing this fact requires more advanced techniques. (Abel’s theorem, covered in more advanced texts, deals with this more technical point.) The interval of convergence is $$\left( {-1,1} \right\rbrack.$$</item>
+        <item>The derivative of $$f(x) = \tan^{-1}x$$ is $$f^{\prime}(x) = \frac{1}{1 + x^{2}}.$$ We know that $$\begin{array}{cl} \frac{1}{1 + x^{2}} &amp; {= \frac{1}{1 - \left( {-x^{2}} \right)}} \\ &amp; {= {\sum\limits_{n = 0}^{\infty}\left( {-x^{2}} \right)^{n}}} \\ &amp; {= 1 - x^{2} + x^{4} - x^{6} + \text{⋯} } \end{array}$$ for $$|x| &lt; 1.$$ To find a power series for $$f(x) = \tan^{-1}x,$$ we integrate this series term-by-term. $$\begin{array}{cl} {\int{f^{\prime}(x) dx}} &amp; {= {\int{\left( {1 - x^{2} + x^{4} - x^{6} + \text{⋯} } \right) dx}}} \\ &amp; {= C + x - \frac{x^{3}}{3} + \frac{x^{5}}{5} - \frac{x^{7}}{7} + \text{⋯} } \end{array}$$ Since $$\tan^{-1}(0) = 0,$$ we have $$C = 0.$$ Therefore, a power series representation for $$f(x) = \tan^{-1}x$$ is $$\begin{array}{cl} {\tan^{-1}x} &amp; {= x - \frac{x^{3}}{3} + \frac{x^{5}}{5} - \frac{x^{7}}{7} + \text{⋯} } \\ &amp; {= {\sum\limits_{n = 0}^{\infty}{(-1)^{n}\frac{x^{2n + 1}}{2n + 1}}}} \end{array}$$ for $$|x| &lt; 1.$$ Again, Term-by-Term Differentiation and Integration for Power Series does not guarantee anything about the convergence of this series at the endpoints. However, checking the endpoints and using the alternating series test, we find that the series converges at $$x = 1$$ and $$x = -1.$$ As discussed in part a., using Abel’s theorem, it can be shown that the series actually converges to $$\tan^{-1}(1)$$ and $$\tan^{-1}(-1)$$ at $$x = 1$$ and $$x = -1,$$ respectively. Thus, the interval of convergence is $$\left\lbrack {-1,1} \right\rbrack.$$</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="6.9">
+    <problem>
+      <paragraph>Integrate the power series $$\ln \left( {1 + x} \right) = {\sum\limits_{n = 1}^{\infty}{(-1)^{n + 1}\frac{x^{n}}{n}}}$$ term-by-term to evaluate $${\int{\ln \left( {1 + x} \right) dx}}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$\sum n = 2 \infty ( -1 ) n x n n ( n - 1 ) \sum n = 2 \infty ( -1 ) n x n n ( n - 1 )$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>Up to this point, we have shown several techniques for finding power series representations for functions. However, how do we know that these power series are unique? That is, given a function f and a power series for f at a, is it possible that there is a different power series for f at a that we could have found if we had used a different technique? The answer to this question is no. This fact should not seem surprising if we think of power series as polynomials with an infinite number of terms. Intuitively, if</paragraph>
+  <paragraph math="block">$$c_{0} + c_{1}x + c_{2}x^{2} + \text{⋯} = d_{0} + d_{1}x + d_{2}x^{2} + \text{⋯}$$</paragraph>
+  <paragraph>for all values x in some open interval I about zero, then the coefficients cn should equal dn for $$n \geq 0.$$ We now state this result formally in Uniqueness of Power Series.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="6.5" title="Uniqueness of Power Series">
+    <heading level="4">Uniqueness of Power Series</heading>
+    <paragraph>Let $$\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}$$ and $$\sum\limits_{n = 0}^{\infty}{d_{n}\left( {x - a} \right)^{n}}$$ be two convergent power series such that</paragraph>
+    <paragraph math="block">$${\sum\limits_{n = 0}^{\infty}{c_{n}\left( {x - a} \right)^{n}}} = {\sum\limits_{n = 0}^{\infty}{d_{n}\left( {x - a} \right)^{n}}}$$</paragraph>
+    <paragraph>for all x in an open interval containing a. Then $$c_{n} = d_{n}$$ for all $$n \geq 0.$$</paragraph>
+  </note>
+  <heading level="3">Proof</heading>
+  <paragraph>Let</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {f(x)} &amp; {= c_{0} + c_{1}\left( {x - a} \right) + c_{2}\left( {x - a} \right)^{2} + c_{3}\left( {x - a} \right)^{3} + \text{⋯} } \\ &amp; {= d_{0} + d_{1}\left( {x - a} \right) + d_{2}\left( {x - a} \right)^{2} + d_{3}\left( {x - a} \right)^{3} + \text{⋯} .} \end{array}$$</paragraph>
+  <paragraph>Then $$f(a) = c_{0} = d_{0}.$$ By Term-by-Term Differentiation and Integration for Power Series, we can differentiate both series term-by-term. Therefore,</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {f^{\prime}(x)} &amp; {= c_{1} + 2c_{2}\left( {x - a} \right) + 3c_{3}\left( {x - a} \right)^{2} + \text{⋯} } \\ &amp; {= d_{1} + 2d_{2}\left( {x - a} \right) + 3d_{3}\left( {x - a} \right)^{2} + \text{⋯} ,} \end{array}$$</paragraph>
+  <paragraph>and thus, $$f^{\prime}(a) = c_{1} = d_{1}.$$ Similarly,</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {f^{''}(x)} &amp; {= 2c_{2} + 3 \cdot 2c_{3}\left( {x - a} \right) + \text{⋯} } \\ &amp; {= 2d_{2} + 3 \cdot 2d_{3}\left( {x - a} \right) + \text{⋯} } \end{array}$$</paragraph>
+  <paragraph>implies that $$f^{''}(a) = 2c_{2} = 2d_{2},$$ and therefore, $$c_{2} = d_{2}.$$ More generally, for any integer $$n \geq 0,f^{(n)}(a) = n \text{!} c_{n} = n \text{!} d_{n},$$ and consequently, $$c_{n} = d_{n}$$ for all $$n \geq 0.$$</paragraph>
+  <paragraph>□</paragraph>
+  <paragraph>In this section we have shown how to find power series representations for certain functions using various algebraic operations, differentiation, or integration. At this point, however, we are still limited as to the functions for which we can find power series representations. Next, we show how to find power series representations for many more functions by introducing Taylor series.</paragraph>
 </section>

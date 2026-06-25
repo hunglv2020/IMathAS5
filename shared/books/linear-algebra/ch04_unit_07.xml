@@ -1,356 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch04" chapter_number="4" unit_code="4.7">
-  <section number="4.7" title="Digital Signal Processing">
-    <metadata>
-      <source_pages count="7">
-        <page global_index="216" type="content"/>
-        <page global_index="217" type="content"/>
-        <page global_index="218" type="content"/>
-        <page global_index="219" type="content"/>
-        <page global_index="220" type="content"/>
-        <page global_index="221" type="exercises"/>
-        <page global_index="222" type="exercises"/>
-      </source_pages>
-    </metadata>
-    <content>
-      <heading level="1">4.7 Digital Signal Processing</heading>
-      <heading level="2">Introduction</heading>
-      <paragraph>In the space of just a few decades, digital signal processing (DSP) has led to a dramatic shift in how data is collected, processed, and synthesized. DSP models unify the approach to dealing with data that was previously viewed as unrelated. From stock market analysis to telecommunications and computer science, the data collected over time can be viewed as discrete-time signals and DSP used to store and process the data for more efficient and effective use. Not only do digital signals arise in electrical and control systems engineering, but discrete-data sequences are also generated in biology, physics, economics, demography, and many other areas, wherever a process is measured, or <em>sampled</em>, at discrete time intervals. In this section, we will explore the properties of the discrete-time signal space, <math display="inline">$\mathbb{S}$</math>, and some of its subspaces, as well as how linear transformations can be used to process, filter, and synthesize the data contained in signals.</paragraph>
-      <heading level="2">Discrete-Time Signals</heading>
-      <paragraph>The vector space <math display="inline">$\mathbb{S}$</math> of discrete-time signals was introduced in Section 4.1. A signal in <math display="inline">$\mathbb{S}$</math> is an infinite sequence of numbers, <math display="inline">$\{ y_{k}\}$</math>, where the subscripts <math display="inline">$k$</math> range over all integers. <strong>Table 1</strong> shows several examples of signals.</paragraph>
-      <figure caption="Table 1          Examples of Signals">
-          <image alt="A table shows examples of signals with signal names, symbols, vectors, and formal descriptions."/>
-        </figure>
-      <paragraph>Another set of commonly used signals are the periodic signals—specifically signals <math display="inline">$\left\{ p_{k} \right\}$</math> for which there exists a positive integer <math display="inline">$q$</math> such that <math display="inline">$p_{k} = p_{k + q}$</math> for all integers <math display="inline">$k$</math>. In particular, the sinusoidal signals, described by <math display="inline">$\sigma_{f\text{,}\theta} = \{\cos(fk\pi + \theta\pi)\}$</math> where <math display="inline">$f$</math> and <math display="inline">$\theta$</math> are fixed rational numbers, are periodic functions. (See <strong>Figure 1</strong>.)</paragraph>
-      <figure caption="Figure 1">
-          <image alt="A graph shows two cycles of discrete-time sinusoidal waveform."/>
-        </figure>
-      <heading level="2">Linear Time Invariant Transformations</heading>
-      <paragraph><strong>Linear time invariant (LTI)</strong> transformations are used to process signals. One type of processing is to create signals as they are needed, rather than using valuable storage space to store the signals themselves.</paragraph>
-      <paragraph>To describe the standard basis for <math display="inline">$\text{ℝ}^{n}$</math> given in Example 4 of Section 4.3, <math display="inline">$n$</math> vectors, <math display="inline">$e_{1}\text{,~}e_{2}\text{,~}\ldots\text{,~}e_{n}$</math>, are listed where <math display="inline">$e_{j}$</math> has a value of <math display="inline">$1$</math> in the <math display="inline">$j$</math>-th position and zeros elsewhere. In <strong>Example 1</strong> that follows, the analogous signal to each <math display="inline">$e_{j}$</math> can be created by repeatedly applying a shift LTI transformation to just one signal, that of <math display="inline">$\delta$</math> in Table 1.</paragraph>
-      <example number="1">
-          <heading level="2">Example 1</heading>
-              <paragraph>Let <math display="inline">$S$</math> be the transformation that shifts each element in a signal to the right, specifically <math display="inline">$S(\{ x_{k}\}) = \{ y_{k}\}$</math>, where <math display="inline">$y_{k} = x_{k - 1}$</math>. For ease of notation, write <math display="inline">$S(\{ x_{k}\}) = \{ x_{k - 1}\}$</math>. To shift a signal to the left, consider <math display="inline">$S^{- 1}(\{ x_{k}\}) = \{ x_{k + 1}\}$</math>. Notice <math display="inline">$S^{- 1}S(\{ x_{k}\}) = S^{- 1}(\{ x_{k - 1}\}) = \{ x_{(k - 1) + 1}\} = \{ x_{k}\}$</math>. It is easy to verify that, <math display="inline">$S^{- 1}S = SS^{- 1} = S^{0} = I$</math> the identity transformation, and hence <math display="inline">$S$</math> is an example of an invertible transformation. <strong>Table 2</strong> illustrates the effect of repeatedly applying <math display="inline">$S$</math> and <math display="inline">$S^{- 1}$</math> to delta, and the resulting signals can be visualized using <strong>Figure 2</strong>.</paragraph>
-          <figure caption="Table 2          Applying a Shift Signal">
-            <image alt="A table shows data on applying a shift signal with vertical ellipsis on top and bottom."/>
-          </figure>
-          <figure caption="Figure 2">
-            <image alt="A graph shows two curves for the discrete-time signal over a horizontal axis."/>
-          </figure>
-        </example>
-      <paragraph>Notice that <math display="inline">$S$</math> satisfies the properties of a linear transformation. Specifically, for any scalar <math display="inline">$c$</math> and signals <math display="inline">$\{ x_{k}\}$</math> and <math display="inline">$\{ y_{k}\}$</math>, applying <math display="inline">$S$</math> results in <math display="inline">$S(\{ x_{k}\} + \{ y_{k}\}) = \{ x_{k - 1} + y_{k - 1}\} = \{ x_{k - 1}\} + \{ y_{k - 1}\} = S(\{ x_{k}\}) + S(\{ y_{k}\})$</math> and <math display="inline">$S(c\{ x_{k}\}) = \{ cx_{k - 1}\} = cS(\{ x_{k}\})$</math>. The mapping <math display="inline">$S$</math> has an additional property. Notice that for any integer <math display="inline">$q$</math>, <math display="inline">$S(\{ x_{k + q}\}) = \{ x_{k - 1 + q}\}$</math>. One can think of this last property as the <em>time invariance</em> property. Transformations with the same properties as <math display="inline">$S$</math> are referred to as linear time invariant (LTI).</paragraph>
-      <note type="definition" title="Definition">
-          <heading level="2">Definition</heading>
-          <heading level="3">Linear Time Invariant (LTI) Transformations</heading>
-              <paragraph>A transformation <math display="inline">$\left. T:\mathbb{S}\rightarrow\mathbb{S} \right.$</math> is linear time invariant provided</paragraph>
-          <list ordered="true">
-                  <item>T({xk+yk})=T({xk})+T({yk}) for all signals {xk} and {yk};</item>
-                  <item>T(c{xk})=cT({xk}) for all scalars c and all signals {xk};</item>
-                  <item>If T({xk})={yk}, then T({xk+q})={yk+q} for all integers q and all signals {xk}.</item>
-          </list>
-        </note>
-      <paragraph>The first two properties in the definition of LTI transformations are the same as the two properties listed in the definition of a linear transformation resulting in the following theorem:</paragraph>
-      <note type="procedure" title="Theorem 16">
-          <heading level="2">Theorem 16</heading>
-          <heading level="3">LTI Transformations are Linear Transformations</heading>
-              <paragraph>A linear time invariant transformation on the signal space <math display="inline">$\mathbb{S}$</math> is a special type of linear transformation.</paragraph>
-        </note>
-      <heading level="2">Digital Signal Processing</heading>
-      <paragraph>LTI transformations, like the shift transformation, can be used to create new signals from signals that are already stored in a system. Another type of LTI transformation is used for <em>smoothing</em> or <em>filtering</em> data. In Example 11 of Section 4.2, a two-day moving average LTI transformation is used to smooth out stock price fluctuations. In <strong>Example</strong><strong>2</strong>, this mapping is extended to encompass longer time periods. Smoothing out a signal can make it easier to spot trends in data. Filtering will be discussed in more detail in Section 4.8.</paragraph>
-      <example number="2">
-          <heading level="2">Example 2</heading>
-              <paragraph>For any positive integer <math display="inline">$m$</math>, the moving average LTI transformation with time period <math display="inline">$m$</math> is given by</paragraph>
-              <paragraph><math display="block">$$M_{m}(\left\{ x_{k} \right\}) = \,\left\{ y_{k} \right\}\text{~where~}y_{k} = \frac{1}{m}\underset{j = k - m + 1}{\overset{k}{\text{∑}}}x_{k}$$</math></paragraph>
-              <paragraph><strong>Figure 3</strong> illustrates how <math display="inline">$M_{3}$</math> smooths out a signal. Section 4.2, Figure 3 illustrates the smoothing that occurred when <math display="inline">$M_{2}$</math> was applied to the same data. As <math display="inline">$m$</math> is increased, applying <math display="inline">$M_{m}$</math> smooths the signal even more.</paragraph>
-          <figure caption="Figure 3">
-            <image alt="A graph depicts two lines that depict the original signal and the moving average."/>
-          </figure>
-              <paragraph>The kernel of <math display="inline">$M_{2}$</math> is calculated in Example 11 of Section 4.2. It is the span of the alternating sequence <math display="inline">$\alpha$</math> listed in Table 1. The kernel of the LTI transformation describes what is smoothed out of the original signal. Exercises 10, 12, and 14 explore properties of <math display="inline">$M_{3}$</math> further.</paragraph>
-        </example>
-      <paragraph>Another type of DSP does the opposite of smoothing or filtering - it combines signals to increase their complexity. Auralization is a process used in the entertainment industry to give a more acoustic quality to virtually generated sounds. In <strong>Example 3</strong>, we illustrate how combining signals enhances the sound generated by the signal <math display="inline">$\{\cos(440\pi k)\}$</math>.</paragraph>
-      <example number="3">
-          <heading level="2">Example 3</heading>
-              <paragraph>Combining several signals can be used to produce more realistic virtual sounds. In <strong>Figure 4</strong>, notice that the original cosine wave contains very little variation, whereas by enhancing the equation used, the waves created contain more variation by introducing echos or allowing a sound to fade out.</paragraph>
-          <figure caption="Figure 4">
-            <image alt="Four different combinations of signals are shown."/>
-          </figure>
-        </example>
-      <heading level="2">Generating Bases for Subspaces of S</heading>
-      <paragraph>If several sets of data are being sampled over the same <math display="inline">$n$</math> time periods, it may be advantageous to view the signals created as part of <math display="inline">$\mathbb{S}_{n}$</math>. The set of signals of length n, <math display="inline">$\mathbb{S}_{n}$</math>, is defined to be the set of all signals <math display="inline">$\{ y_{k}\}$</math> such that <math display="inline">$y_{k} = 0$</math> whenever <math display="inline">$k &lt; 0$</math> or <math display="inline">$k &gt; n$</math>. <strong>Theorem 17</strong> establishes that <math display="inline">$\mathbb{S}_{n}$</math> is isomorphic to <math display="inline">${\mathbb{R}}^{n + 1}$</math>. A basis for <math display="inline">$\mathbb{S}_{n}$</math> can be generated using the shift LTI transformation <math display="inline">$S$</math> from Example 1 and the signal <math display="inline">$\delta$</math> as illustrated in Table 2.</paragraph>
-      <note type="procedure" title="Theorem 17">
-          <heading level="2">Theorem 17</heading>
-              <paragraph>The set <math display="inline">$\mathbb{S}_{n}$</math> is a subspace of <math display="inline">$\mathbb{S}$</math> isomorphic to <math display="inline">${\mathbb{R}}^{n + 1}$</math>, and the set of signals <math display="inline">$B_{n} = \{\delta_{\text{,~}}\, S(\delta)\text{,~}S^{2}(\delta)\text{,~}\ldots\text{,~}S^{n}(\delta)\}$</math> forms a basis for <math display="inline">$\mathbb{S}_{n}$</math>.</paragraph>
-        </note>
-      <heading level="3">Proof</heading>
-      <paragraph>Since the zero signal is in <math display="inline">$\mathbb{S}_{n}$</math>, and adding or scaling signals cannot create nonzeros in the positions that must contain zeros, the set <math display="inline">$\mathbb{S}_{n}$</math> is a subspace of <math display="inline">$\mathbb{S}$</math>. Let <math display="inline">$\{ y_{k}\}$</math> be any signal in <math display="inline">$\mathbb{S}_{n}$</math>. Notice</paragraph>
-      <paragraph>
-        <math display="block">$$\{ y_{k}\} = \sum\limits_{j = 0}^{n}y_{j}S^{j}(\delta)\text{,~}$$</math>
-      </paragraph>
-      <paragraph>so <math display="inline">$B_{n}$</math> is a spanning set for <math display="inline">$\mathbb{S}_{n}$</math>. Conversely, if <math display="inline">$c_{0}\text{,~}\ldots\text{,~}c_{n}$</math> are scalars such that</paragraph>
-      <paragraph>
-        <math display="block">$$c_{0}\delta + c_{1}S(\delta) + \ldots + c_{n}S^{n}(\delta) = \{ 0\}\text{,~}$$</math>
-      </paragraph>
-      <paragraph>specifically</paragraph>
-      <paragraph>
-        <math display="block">$$(\ldots 0\text{,~}0\text{,~}c_{0}\text{,~}c_{1}\text{,~}\ldots\text{,~}c_{n}\text{,~}0\text{,~}0\text{,~}\ldots) = (\ldots\text{,~}0\text{,~}0\text{,~}0\text{,~}0\text{,~}\ldots\text{,~}0\text{,~}0\text{,~}0\text{,~}\ldots)\text{,~}$$</math>
-      </paragraph>
-      <paragraph>then <math display="inline">$c_{0} = c_{1} = \cdots = c_{n} = 0$</math>, and thus the vectors in <math display="inline">$B_{n}$</math> form a linearly independent set. This establishes that <math display="inline">$B_{n}$</math> is a basis for <math display="inline">$\mathbb{S}_{n}$</math> and hence it is an <math display="inline">$n + 1$</math> dimensional vector space isomorphic to <math display="inline">${\mathbb{R}}^{n + 1}$</math>.</paragraph>
-      <paragraph>Since <math display="inline">$\mathbb{S}_{n}$</math> has a finite basis, any vector in <math display="inline">$\mathbb{S}_{n}$</math> can be represented as a vector in <math display="inline">$\text{ℝ}^{n + 1}$</math>.</paragraph>
-      <example number="4">
-          <heading level="2">Example 4</heading>
-              <paragraph>Using the basis <math display="inline">$B_{2} = \{\delta\text{,~}S(\delta)\text{,~}S^{2}(\delta)\}$</math> for <math display="inline">$\mathbb{S}_{2}$</math>, represent the signal <math display="inline">$\{ y_{k}\}$</math>, where</paragraph>
-              <paragraph><math display="block">$$y_{k} = \left\{ \begin{matrix}
-      0 &amp; {\text{if~}k &lt; 0\,\text{or\,~}k &gt; 3} \\
-      2 &amp; {\text{if~}k = 0} \\
-      3 &amp; {\text{if~}k = 1} \\
-      {- 1} &amp; {\text{if~}k = 2}
-      \end{matrix} \right.$$</math></paragraph>
-              <paragraph>as a vector in <math display="inline">$\text{ℝ}^{3}$</math>.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>First write <math display="inline">$\{ y_{k}\}$</math> as a linear combination of the basis vectors in <math display="inline">$B_{2}$</math>.</paragraph>
-              <paragraph><math display="block">$$\{ y_{k}\} = 2\delta + 3S(\delta) + ( - 1)S^{2}(\delta)$$</math></paragraph>
-              <paragraph>The coefficients of this linear combination are precisely the entries in the coordinate vector. Thus <math display="inline">$\left\lbrack \left\{ y_{k} \right\} \right\rbrack_{B_{2}} = \,\,\begin{bmatrix}
-      2 \\
-      3 \\
-      {- 1}
-      \end{bmatrix}$</math></paragraph>
-        </example>
-      <paragraph>The set of finitely supported signals, <math display="inline">$\mathbb{S}_{f}$</math>, is the set of signals <math display="inline">$\{ y_{k}\}$</math>, where only finitely many of the entries are nonzero. In Example 8 of Section 4.1, it is established that <math display="inline">$\mathbb{S}_{f}$</math> is a subspace of <math display="inline">$\mathbb{S}$</math>. The signals created by recording the daily price of a stock increase in length each day, but remain finitely supported, and hence these signals belong to <math display="inline">$\mathbb{S}_{f}$</math>, but not to any particular <math display="inline">$\mathbb{S}_{n}$</math>. Conversely, if a signal is in <math display="inline">$\mathbb{S}_{n}$</math> for some positive integer <math display="inline">$n$</math>, then it is also in <math display="inline">$\mathbb{S}_{f}$</math>. In <strong>Theorem 18</strong>, we see that <math display="inline">$\mathbb{S}_{f}$</math> is an infinite dimensional subspace and so it is not isomorphic to <math display="inline">${\mathbb{R}}^{n}$</math> for any <math display="inline">$n$</math>.</paragraph>
-      <note type="procedure" title="Theorem 18">
-          <heading level="2">Theorem 18</heading>
-              <paragraph>The set <math display="inline">$B_{f} = \text{\{}S^{j}\text{(}\delta\text{)~:~where}j \in {\mathbb{Z}}\text{\}}$</math> is a basis for the infinite dimensional vector space <math display="inline">$\mathbb{S}_{f}$</math>.</paragraph>
-        </note>
-      <heading level="3">Proof</heading>
-      <paragraph>Let <math display="inline">$\{ y_{k}\}$</math> be any signal in <math display="inline">$\mathbb{S}_{f}$</math>. Since only finitely many entries in <math display="inline">$\{ y_{k}\}$</math> are nonzero, there exist integers <math display="inline">$p$</math> and <math display="inline">$q$</math> such that <math display="inline">$y_{k} = 0$</math> for all <math display="inline">$k &lt; p$</math> and and <math display="inline">$k &gt; q$</math>. Thus</paragraph>
-      <paragraph>
-        <math display="block">$$\{ y_{k}\} = \sum\limits_{j = p}^{q}y_{j}S^{j}(\delta)\text{,~}$$</math>
-      </paragraph>
-      <paragraph>so <math display="inline">$B_{f}$</math> is a spanning set for <math display="inline">$\mathbb{S}_{n}$</math>. Moreover, if a linear combination of signals with scalars <math display="inline">$c_{p}\text{,~}c_{p + 1}\text{,~}\ldots\text{,~}c_{q}$</math> add to zero,</paragraph>
-      <paragraph>
-        <math display="block">$$\sum\limits_{j = p}^{q}c_{j}S^{j}(\delta)\text{,~} = \{ 0\}\text{,~}$$</math>
-      </paragraph>
-      <paragraph>then <math display="inline">$c_{p} = c_{p + 1} = \cdots = c_{q} = 0$</math>, and thus the vectors in <math display="inline">$B_{f}$</math> form a linearly independent set. This establishes that <math display="inline">$B_{f}$</math> is a basis for <math display="inline">$\mathbb{S}_{f}$</math>. Since <math display="inline">$B_{f}$</math> contains infinitely many signals, <math display="inline">$\mathbb{S}_{f}$</math> is an infinite dimensional vector space.</paragraph>
-      <paragraph>The creative power of the shift LTI transformation falls short of being able to create a basis for <math display="inline">$\mathbb{S}$</math> itself. The definition of linear combination requires that only finitely many vectors and scalars are used in a sum. Consider the unit step signal, <math display="inline">$\upsilon$</math>, from Table 1. Although <math display="inline">$\upsilon = {\sum\limits_{j = 0}^{\infty}{S^{j}(\delta)}}$</math>, this is an infinite sum of vectors and hence not technically considered a <em>linear combination</em> of the basis elements from <math display="inline">$B_{f}$</math>.</paragraph>
-      <paragraph>In calculus, sums with infinitely many terms are studied in detail. Although it can be shown that every vector space has a basis (using a finite number of terms in each linear combination), the proof relies on the Axiom of Choice and hence establishing that <math display="inline">$\mathbb{S}$</math> has a basis is a topic you may see in higher level math classes. The sinusoidal and exponential signals, which have infinite support, are explored in detail in Section 4.8</paragraph>
-      <note type="practice" title="Practice Problems">
-          <heading level="2">Practice Problems</heading>
-          <list ordered="true">
-                  <item>Find υ+χ from Table 1. Express the answer as a vector and give its formal description.</item>
-                  <item>Show that T({xk})={3xk−2xk−1} is a linear time invariant transformation.</item>
-                  <item>Find a nonzero vector in the kernel of T for the linear time invariant transformation given in Practice Problem 2.</item>
-          </list>
-        </note>
-    </content>
-    <exercises title="4.7 Exercises">
-      <heading level="1">4.7 Exercises</heading>
-      <exercise_group start="1">
-                  <instructions>For Exercises 1–4, find the indicated sums of the signals in Table 1.</instructions>
-            <problem number="1">
-              <statement>
-                          <paragraph><math display="inline">$\chi + \alpha$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="2">
-              <statement>
-                          <paragraph><math display="inline">$\chi - \alpha$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="3">
-              <statement>
-                          <paragraph><math display="inline">$\upsilon + 2\alpha$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="4">
-              <statement>
-                          <paragraph><math display="inline">$\upsilon - 3\alpha$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="5">
-                  <instructions>For Exercises 5–8, recall that <math display="inline">$I(\{ x_{k}\}) = \{ x_{k}\}$</math> and <math display="inline">$S(\{ x_{k}\}) = \{ x_{k - 1}\}$</math>.</instructions>
-            <problem number="5">
-              <statement>
-                          <paragraph>Which signals from Table 1 are in the kernel of <math display="inline">$I + S$</math>?</paragraph>
-              </statement>
-            </problem>
-            <problem number="6">
-              <statement>
-                          <paragraph>Which signals from Table 1 are in the kernel of <math display="inline">$I - S$</math>?</paragraph>
-              </statement>
-            </problem>
-            <problem number="7">
-              <statement>
-                          <paragraph>Which signals from Table 1 are in the kernel of <math display="inline">$I - cS$</math> for a fixed nonzero scalar <math display="inline">$c \neq 1$</math>?</paragraph>
-              </statement>
-            </problem>
-            <problem number="8">
-              <statement>
-                          <paragraph>Which signals from Table 1 are in the kernel of <math display="inline">$I - S - S^{2}$</math>?</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="9">
-            <problem number="9">
-              <statement>
-                          <paragraph>Show that <math display="inline">$T(\{ x_{k}\}) = \{ x_{k} - x_{k - 1}\}$</math> is a linear time invariant transformation.</paragraph>
-              </statement>
-            </problem>
-            <problem number="10">
-              <statement>
-                          <paragraph>Show that <math display="inline">$M_{3}\left( \left\{ x_{k} \right\} \right) = \left\{ {\frac{1}{3}\left( x_{k - 2} + x_{k - 1} + x_{k} \right)} \right\}$</math> is a linear time invariant transformation.</paragraph>
-              </statement>
-            </problem>
-            <problem number="11">
-              <statement>
-                          <paragraph>Find a nonzero signal in the kernel of <math display="inline">$T$</math> from Exercise 9.</paragraph>
-              </statement>
-            </problem>
-            <problem number="12">
-              <statement>
-                          <paragraph>Find a nonzero signal in the kernel of <math display="inline">$M_{3}$</math> from Exercise 10.</paragraph>
-              </statement>
-            </problem>
-            <problem number="13">
-              <statement>
-                          <paragraph>Find a nonzero signal in the range of <math display="inline">$T$</math> from Exercise 9.</paragraph>
-              </statement>
-            </problem>
-            <problem number="14">
-              <statement>
-                          <paragraph>Find a nonzero signal in the range of <math display="inline">$M_{3}$</math> from Exercise 10.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="15">
-                  <instructions>In Exercises 15–22, <math display="inline">$V$</math> is a vector space and <math display="inline">$A$</math> is an <math display="inline">$m \times n$</math> matrix. Mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
-            <problem number="15">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The set of signals of length <math display="inline">$n$</math>, <math display="inline">$\mathbb{S}_{n}$</math>, has a basis with <math display="inline">$n + 1$</math> signals.</paragraph>
-              </statement>
-            </problem>
-            <problem number="16">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The set of signals, <math display="inline">$\mathbb{S}$</math>, has a finite basis.</paragraph>
-              </statement>
-            </problem>
-            <problem number="17">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> Every subspace of the set of signals <math display="inline">$\mathbb{S}$</math> is infinite dimensional.</paragraph>
-              </statement>
-            </problem>
-            <problem number="18">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The vector space <math display="inline">${\mathbb{R}}^{n + 1}$</math> is a subspace of <math display="inline">$\mathbb{S}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="19">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> Every linear time invariant transformation is a linear transformation.</paragraph>
-              </statement>
-            </problem>
-            <problem number="20">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The moving average function is a linear time invariant transformation.</paragraph>
-              </statement>
-            </problem>
-            <problem number="21">
-              <statement>
-                          <paragraph><math display="inline">$(\mathbf{T}/\mathbf{F})$</math> If you scale a signal by a fixed constant, the result is not a signal.</paragraph>
-              </statement>
-            </problem>
-            <problem number="22">
-              <statement>
-                          <paragraph><math display="inline">$(\mathbf{T}/\mathbf{F})$</math> If you scale a linear time invariant transformation by a fixed constant, the result is no longer a linear transformation.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="23">
-                  <instructions>Guess and check or working backwards through the solution to Practice Problem 3 are two good ways to find solutions to Exercises 23 and 24.</instructions>
-            <problem number="23">
-              <statement>
-                          <paragraph>Construct a linear time invariant transformation that has the signal <math display="inline">$\left\{ x_{k} \right\} = \left\{ \left( \frac{3}{4} \right)^{k} \right\}$</math> in its kernel.</paragraph>
-              </statement>
-            </problem>
-            <problem number="24">
-              <statement>
-                          <paragraph>Construct a linear time invariant transformation that has the signal <math display="inline">$\left\{ x_{k} \right\} = \left\{ \left( \frac{- 2}{3} \right)^{k} \right\}$</math> in its kernel.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="25">
-            <problem number="25">
-              <statement>
-                          <paragraph>Let <math display="inline">$W = \left\{ \left. \left\{ x_{k} \right\}\  \right|\ x_{k} = \left\{ \begin{array}{ll}
-      0 &amp; {\text{if~}k\text{~is~a~multiple~of~2}} \\
-      r &amp; {\text{if~}k\text{~is~not~a~multiple~of~2}}
-      \end{array} \text{where~}r\text{~can~be~any~real~number} \right. \right\}$</math>. A typical signal in <math display="inline">$W$</math> looks like <math display="block">$$\begin{matrix}
-      (\ldots,\,r,\,0,\,r,\,0,\,r,\,0,\,r,\,\ldots) \\
-       \uparrow \\
-      {k = 0}
-      \end{matrix}$$</math></paragraph>
-                          <paragraph>Show that <math display="inline">$W$</math> is a subspace of <math display="inline">$\mathbb{S}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="26">
-              <statement>
-                          <paragraph>Let <math display="inline">$W = \left\{ {\left. \left\{ x_{k} \right\}\  \right|\ }x_{k} = \left\{ \begin{array}{ll}
-      0 &amp; {\text{if~}k &lt; 0} \\
-      r &amp; {\text{if~}k \geq 0}
-      \end{array} \text{where~}r\text{~can~be~any~real~number} \right. \right\}.$</math> A typical signal in <math display="inline">$W$</math> looks like</paragraph>
-                          <paragraph><math display="block">$$\begin{matrix}
-      (\ldots,\,0,\,0,\,0,\,r,\,r,\,r,\,r,\,\ldots) \\
-       \uparrow \\
-      {k = 0}
-      \end{matrix}$$</math>Show that <math display="inline">$W$</math> is a subspace of <math display="inline">$\mathbb{S}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="27">
-              <statement>
-                          <paragraph>Find a basis for the subspace <math display="inline">$W$</math> in Exercise 25. What is the dimension of this subspace?</paragraph>
-              </statement>
-            </problem>
-            <problem number="28">
-              <statement>
-                          <paragraph>Find a basis for the subspace <math display="inline">$W$</math> in Exercise 26. What is the dimension of this subspace?</paragraph>
-              </statement>
-            </problem>
-            <problem number="29">
-              <statement>
-                          <paragraph>Let <math display="inline">$W = \left\{ {\left. \left\{ x_{k} \right\}\  \right|\ }x_{k} = \begin{cases}
-      0 &amp; {\text{if~}k\text{~is~a~multiple~of~2}} \\
-      r_{k} &amp; {\text{if~}k\text{~is~not~a~multiple~of~2}}
-      \end{cases} \right.$</math> where each <math display="inline">$r_{k}$</math> can be any real number}. A typical signal in <math display="inline">$W$</math> looks like <math display="block">$$\begin{matrix}
-      \left( \ldots,\,r_{- 3},\,0,\,r_{- 1},\,0,\,r_{1},\,0,\,r_{3},\,\ldots \right) \\
-       \uparrow \\
-      {k = 0}
-      \end{matrix}$$</math></paragraph>
-                          <paragraph>Show that <math display="inline">$W$</math> is a subspace of <math display="inline">$\mathbb{S}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="30">
-              <statement>
-                          <paragraph>Let <math display="inline">$W = \left\{ \left. \left\{ x_{k} \right\}\  \right|\ x_{k} = \left\{ \begin{array}{ll}
-      0 &amp; {\text{if~}k &lt; 0} \\
-      r_{k} &amp; {\text{if~}k \geq 0}
-      \end{array} \text{where~each~}r_{k}\text{~can~be~any~real~number} \right. \right\}$</math>. A typical signal in <math display="inline">$W$</math> looks like<math display="block">$$\begin{matrix}
-      \left( \ldots,\,0,\,0,0,\,r_{0},\,r_{1},\,r_{2},\,r_{3},\,\ldots \right) \\
-      \left. \mspace{-4mu}\mspace{-4mu}\mspace{-4mu}\uparrow \right. \\
-      {\mspace{-4mu}\mspace{-4mu}\mspace{-4mu} k = 0}
-      \end{matrix}$$</math></paragraph>
-                          <paragraph>Show that <math display="inline">$W$</math> is a subspace of <math display="inline">$\mathbb{S}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="31">
-              <statement>
-                          <paragraph>Describe an infinite linearly independent subset of the subspace <math display="inline">$W$</math> in Exercise 29. Does this establish that <math display="inline">$W$</math> is infinite dimensional? Justify your answer.</paragraph>
-              </statement>
-            </problem>
-            <problem number="32">
-              <statement>
-                          <paragraph>Describe an infinite linearly independent subset of the subspace <math display="inline">$W$</math> in Exercise 30. Does this establish that <math display="inline">$W$</math> is infinite dimensional? Justify your answer.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-    </exercises>
-  </section>
-</section_file>
+<section>
+  <heading level="1">4.7 Digital Signal Processing</heading>
+  <heading level="2">Introduction</heading>
+  <paragraph>In the space of just a few decades, digital signal processing (DSP) has led to a dramatic shift in how data is collected, processed, and synthesized. DSP models unify the approach to dealing with data that was previously viewed as unrelated. From stock market analysis to telecommunications and computer science, the data collected over time can be viewed as discrete-time signals and DSP used to store and process the data for more efficient and effective use. Not only do digital signals arise in electrical and control systems engineering, but discrete-data sequences are also generated in biology, physics, economics, demography, and many other areas, wherever a process is measured, or sampled, at discrete time intervals. In this section, we will explore the properties of the discrete-time signal space, $$\mathbb{S}$$ , and some of its subspaces, as well as how linear transformations can be used to process, filter, and synthesize the data contained in signals.</paragraph>
+  <heading level="2">Discrete-Time Signals</heading>
+  <paragraph>The vector space $$\mathbb{S}$$ of discrete-time signals was introduced in Section 4.1. A signal in $$\mathbb{S}$$ is an infinite sequence of numbers, $$\{ y_{k}\}$$ , where the subscripts $$k$$ range over all integers. Table 1 shows several examples of signals.</paragraph>
+  <figure>
+    <image alt="A table shows examples of signals with signal names, symbols, vectors, and formal descriptions."/>
+    <caption>Table 1 Examples of Signals</caption>
+  </figure>
+  <paragraph>Another set of commonly used signals are the periodic signals—specifically signals $$\left\{ p_{k} \right\}$$ for which there exists a positive integer $$q$$ such that $$p_{k} = p_{k + q}$$ for all integers $$k$$ . In particular, the sinusoidal signals, described by $$\sigma_{f,\theta} = \{\cos(fk\pi + \theta\pi)\}$$ where $$f$$ and $$\theta$$ are fixed rational numbers, are periodic functions. (See Figure 1.)</paragraph>
+  <figure>
+    <image alt="A graph shows two cycles of discrete-time sinusoidal waveform."/>
+    <caption>Figure 1</caption>
+  </figure>
+  <heading level="2">Linear Time Invariant Transformations</heading>
+  <paragraph>Linear time invariant (LTI) transformations are used to process signals. One type of processing is to create signals as they are needed, rather than using valuable storage space to store the signals themselves.</paragraph>
+  <paragraph>To describe the standard basis for $$\mathbb{R}^{n}$$ given in Example 4 of Section 4.3, $$n$$ vectors, $$e_{1} \text{,} e_{2} \text{,} \ldots \text{,} e_{n}$$ , are listed where $$e_{j}$$ has a value of $$1$$ in the $$j$$ -th position and zeros elsewhere. In Example 1 that follows, the analogous signal to each $$e_{j}$$ can be created by repeatedly applying a shift LTI transformation to just one signal, that of $$\delta$$ in Table 1.</paragraph>
+  <example number="1">
+    <heading level="2">Example 1</heading>
+    <paragraph>Let $$S$$ be the transformation that shifts each element in a signal to the right, specifically $$S(\{ x_{k}\}) = \{ y_{k}\}$$ , where $$y_{k} = x_{k - 1}$$ . For ease of notation, write $$S(\{ x_{k}\}) = \{ x_{k - 1}\}$$ . To shift a signal to the left, consider $$S^{- 1}(\{ x_{k}\}) = \{ x_{k + 1}\}$$ . Notice $$S^{- 1}S(\{ x_{k}\}) = S^{- 1}(\{ x_{k - 1}\}) = \{ x_{(k - 1) + 1}\} = \{ x_{k}\}$$ . It is easy to verify that, $$S^{- 1}S = SS^{- 1} = S^{0} = I$$ the identity transformation, and hence $$S$$ is an example of an invertible transformation. Table 2 illustrates the effect of repeatedly applying $$S$$ and $$S^{- 1}$$ to delta, and the resulting signals can be visualized using Figure 2.</paragraph>
+    <figure>
+      <image alt="A table shows data on applying a shift signal with vertical ellipsis on top and bottom."/>
+      <caption>Table 2 Applying a Shift Signal</caption>
+    </figure>
+    <figure>
+      <image alt="A graph shows two curves for the discrete-time signal over a horizontal axis."/>
+      <caption>Figure 2</caption>
+    </figure>
+  </example>
+  <paragraph>Notice that $$S$$ satisfies the properties of a linear transformation. Specifically, for any scalar $$c$$ and signals $$\{ x_{k}\}$$ and $$\{ y_{k}\}$$ , applying $$S$$ results in $$S(\{ x_{k}\} + \{ y_{k}\}) = \{ x_{k - 1} + y_{k - 1}\} = \{ x_{k - 1}\} + \{ y_{k - 1}\} = S(\{ x_{k}\}) + S(\{ y_{k}\})$$ and $$S(c\{ x_{k}\}) = \{ cx_{k - 1}\} = cS(\{ x_{k}\})$$ . The mapping $$S$$ has an additional property. Notice that for any integer $$q$$ , $$S(\{ x_{k + q}\}) = \{ x_{k - 1 + q}\}$$ . One can think of this last property as the time invariance property. Transformations with the same properties as $$S$$ are referred to as linear time invariant (LTI).</paragraph>
+  <note type="definition" source_type="definition" title="Definition">
+    <heading level="2">Definition</heading>
+    <heading level="3">Linear Time Invariant (LTI) Transformations</heading>
+    <paragraph>A transformation $$\left. T:\mathbb{S}\rightarrow\mathbb{S} \right.$$ is linear time invariant provided</paragraph>
+    <list type="ordered">
+      <item>$$T(\{ x_{k} + y_{k}\}) = T(\{ x_{k}\}) + T(\{ y_{k}\})$$ for all signals $$\{ x_{k}\}$$ and $$\{ y_{k}\}$$ ;</item>
+      <item>$$T(c\{ x_{k}\}) = cT(\{ x_{k}\})$$ for all scalars $$c$$ and all signals $$\{ x_{k}\}$$ ;</item>
+      <item>If $$T(\{ x_{k}\}) = \{ y_{k}\}$$ , then $$T(\{ x_{k + q}\}) = \{ y_{k + q}\}$$ for all integers $$q$$ and all signals $$\{ x_{k}\}$$ .</item>
+    </list>
+  </note>
+  <paragraph>The first two properties in the definition of LTI transformations are the same as the two properties listed in the definition of a linear transformation resulting in the following theorem:</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem 16">
+    <heading level="2">Theorem 16</heading>
+    <heading level="3">LTI Transformations are Linear Transformations</heading>
+    <paragraph>A linear time invariant transformation on the signal space $$\mathbb{S}$$ is a special type of linear transformation.</paragraph>
+  </note>
+  <heading level="2">Digital Signal Processing</heading>
+  <paragraph>LTI transformations, like the shift transformation, can be used to create new signals from signals that are already stored in a system. Another type of LTI transformation is used for smoothing or filtering data. In Example 11 of Section 4.2, a two-day moving average LTI transformation is used to smooth out stock price fluctuations. In Example 2, this mapping is extended to encompass longer time periods. Smoothing out a signal can make it easier to spot trends in data. Filtering will be discussed in more detail in Section 4.8.</paragraph>
+  <example number="2">
+    <heading level="2">Example 2</heading>
+    <paragraph>For any positive integer $$m$$ , the moving average LTI transformation with time period $$m$$ is given by</paragraph>
+    <paragraph>$$M_{m} ( \left{x_{k}\right} ) = \left{y_{k}\right} \text{where} y_{k} = \frac{1}{m} \sum_{j = k - m + 1}^{k} x_{k}$$</paragraph>
+    <paragraph>Figure 3 illustrates how $$M_{3}$$ smooths out a signal. Section 4.2, Figure 3 illustrates the smoothing that occurred when $$M_{2}$$ was applied to the same data. As $$m$$ is increased, applying $$M_{m}$$ smooths the signal even more.</paragraph>
+    <figure>
+      <image alt="A graph depicts two lines that depict the original signal and the moving average."/>
+      <caption>Figure 3</caption>
+    </figure>
+    <paragraph>The kernel of $$M_{2}$$ is calculated in Example 11 of Section 4.2. It is the span of the alternating sequence $$\alpha$$ listed in Table 1. The kernel of the LTI transformation describes what is smoothed out of the original signal. Exercises 10, 12, and 14 explore properties of $$M_{3}$$ further.</paragraph>
+  </example>
+  <paragraph>Another type of DSP does the opposite of smoothing or filtering - it combines signals to increase their complexity. Auralization is a process used in the entertainment industry to give a more acoustic quality to virtually generated sounds. In Example 3, we illustrate how combining signals enhances the sound generated by the signal $$\{\cos(440\pi k)\}$$ .</paragraph>
+  <example number="3">
+    <heading level="2">Example 3</heading>
+    <paragraph>Combining several signals can be used to produce more realistic virtual sounds. In Figure 4, notice that the original cosine wave contains very little variation, whereas by enhancing the equation used, the waves created contain more variation by introducing echos or allowing a sound to fade out.</paragraph>
+    <figure>
+      <image alt="Four different combinations of signals are shown."/>
+      <caption>Figure 4</caption>
+    </figure>
+  </example>
+  <heading level="2">Generating Bases for Subspaces of S</heading>
+  <paragraph>If several sets of data are being sampled over the same $$n$$ time periods, it may be advantageous to view the signals created as part of $$\mathbb{S}_{n}$$ . The set of signals of length n, $$\mathbb{S}_{n}$$ , is defined to be the set of all signals $$\{ y_{k}\}$$ such that $$y_{k} = 0$$ whenever $$k &lt; 0$$ or $$k &gt; n$$ . Theorem 17 establishes that $$\mathbb{S}_{n}$$ is isomorphic to $${\mathbb{R}}^{n + 1}$$ . A basis for $$\mathbb{S}_{n}$$ can be generated using the shift LTI transformation $$S$$ from Example 1 and the signal $$\delta$$ as illustrated in Table 2.</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem 17">
+    <heading level="2">Theorem 17</heading>
+    <paragraph>The set $$\mathbb{S}_{n}$$ is a subspace of $$\mathbb{S}$$ isomorphic to $${\mathbb{R}}^{n + 1}$$ , and the set of signals $$B_{n} = \{\delta_{ \text{,} } S(\delta) \text{,} S^{2}(\delta) \text{,} \ldots \text{,} S^{n}(\delta)\}$$ forms a basis for $$\mathbb{S}_{n}$$ .</paragraph>
+  </note>
+  <heading level="3">Proof</heading>
+  <paragraph>Since the zero signal is in $$\mathbb{S}_{n}$$ , and adding or scaling signals cannot create nonzeros in the positions that must contain zeros, the set $$\mathbb{S}_{n}$$ is a subspace of $$\mathbb{S}$$ . Let $$\{ y_{k}\}$$ be any signal in $$\mathbb{S}_{n}$$ . Notice</paragraph>
+  <paragraph>$$\left{\right. y_{k} \left.\right} = \sum_{j = 0}^{n} y_{j} S^{j} \left(\right. \delta \left.\right) ,$$</paragraph>
+  <paragraph>so $$B_{n}$$ is a spanning set for $$\mathbb{S}_{n}$$ . Conversely, if $$c_{0} \text{,} \ldots \text{,} c_{n}$$ are scalars such that</paragraph>
+  <paragraph>$$c_{0} \delta + c_{1} S \left(\right. \delta \left.\right) + \ldots + c_{n} S^{n} \left(\right. \delta \left.\right) = \left{\right. 0 \left.\right} ,$$</paragraph>
+  <paragraph>specifically</paragraph>
+  <paragraph>$$\left(\right. \ldots 0 , 0 , c_{0} , c_{1} , \ldots , c_{n} , 0 , 0 , \ldots \left.\right) = \left(\right. \ldots , 0 , 0 , 0 , 0 , \ldots , 0 , 0 , 0 , \ldots \left.\right) ,$$</paragraph>
+  <paragraph>then $$c_{0} = c_{1} = \cdots = c_{n} = 0$$ , and thus the vectors in $$B_{n}$$ form a linearly independent set. This establishes that $$B_{n}$$ is a basis for $$\mathbb{S}_{n}$$ and hence it is an $$n + 1$$ dimensional vector space isomorphic to $${\mathbb{R}}^{n + 1}$$ .</paragraph>
+  <paragraph>Since $$\mathbb{S}_{n}$$ has a finite basis, any vector in $$\mathbb{S}_{n}$$ can be represented as a vector in $$\mathbb{R}^{n + 1}$$ .</paragraph>
+  <example number="4">
+    <heading level="2">Example 4</heading>
+    <paragraph>Using the basis $$B_{2} = \{\delta \text{,} S(\delta) \text{,} S^{2}(\delta)\}$$ for $$\mathbb{S}_{2}$$ , represent the signal $$\{ y_{k}\}$$ , where</paragraph>
+    <paragraph>$$y_{k} = \left{\right. 0 &amp; \text{if} k &lt; 0 \text{or} k &gt; 3 2 &amp; \text{if} k = 0 3 &amp; \text{if} k = 1 - 1 &amp; \text{if} k = 2$$</paragraph>
+    <paragraph>as a vector in $$\mathbb{R}^{3}$$ .</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>First write $$\{ y_{k}\}$$ as a linear combination of the basis vectors in $$B_{2}$$ .</paragraph>
+    <paragraph>$$\left{\right. y_{k} \left.\right} = 2 \delta + 3 S \left(\right. \delta \left.\right) + \left(\right. - 1 \left.\right) S^{2} \left(\right. \delta \left.\right)$$</paragraph>
+    <paragraph>The coefficients of this linear combination are precisely the entries in the coordinate vector. Thus $$\left(\left[\right. \left{\right. y_{k} \left.\right} \left]\right.\right)_{B_{2}} = \begin{bmatrix} 2 \\ 3 \\ - 1 \end{bmatrix}$$</paragraph>
+  </example>
+  <paragraph>The set of finitely supported signals, $$\mathbb{S}_{f}$$ , is the set of signals $$\{ y_{k}\}$$ , where only finitely many of the entries are nonzero. In Example 8 of Section 4.1, it is established that $$\mathbb{S}_{f}$$ is a subspace of $$\mathbb{S}$$ . The signals created by recording the daily price of a stock increase in length each day, but remain finitely supported, and hence these signals belong to $$\mathbb{S}_{f}$$ , but not to any particular $$\mathbb{S}_{n}$$ . Conversely, if a signal is in $$\mathbb{S}_{n}$$ for some positive integer $$n$$ , then it is also in $$\mathbb{S}_{f}$$ . In Theorem 18, we see that $$\mathbb{S}_{f}$$ is an infinite dimensional subspace and so it is not isomorphic to $${\mathbb{R}}^{n}$$ for any $$n$$ .</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem 18">
+    <heading level="2">Theorem 18</heading>
+    <paragraph>The set $$B_{f} = \text{\{} S^{j}(\delta \text{) : where} j \in {\mathbb{Z}} \text{\}}$$ is a basis for the infinite dimensional vector space $$\mathbb{S}_{f}$$ .</paragraph>
+  </note>
+  <heading level="3">Proof</heading>
+  <paragraph>Let $$\{ y_{k}\}$$ be any signal in $$\mathbb{S}_{f}$$ . Since only finitely many entries in $$\{ y_{k}\}$$ are nonzero, there exist integers $$p$$ and $$q$$ such that $$y_{k} = 0$$ for all $$k &lt; p$$ and and $$k &gt; q$$ . Thus</paragraph>
+  <paragraph>$$\left{\right. y_{k} \left.\right} = \sum_{j = p}^{q} y_{j} S^{j} \left(\right. \delta \left.\right) ,$$</paragraph>
+  <paragraph>so $$B_{f}$$ is a spanning set for $$\mathbb{S}_{n}$$ . Moreover, if a linear combination of signals with scalars $$c_{p} \text{,} c_{p + 1} \text{,} \ldots \text{,} c_{q}$$ add to zero,</paragraph>
+  <paragraph>$$\sum_{j = p}^{q} c_{j} S^{j} \left(\right. \delta \left.\right) , = \left{\right. 0 \left.\right} ,$$</paragraph>
+  <paragraph>then $$c_{p} = c_{p + 1} = \cdots = c_{q} = 0$$ , and thus the vectors in $$B_{f}$$ form a linearly independent set. This establishes that $$B_{f}$$ is a basis for $$\mathbb{S}_{f}$$ . Since $$B_{f}$$ contains infinitely many signals, $$\mathbb{S}_{f}$$ is an infinite dimensional vector space.</paragraph>
+  <paragraph>The creative power of the shift LTI transformation falls short of being able to create a basis for $$\mathbb{S}$$ itself. The definition of linear combination requires that only finitely many vectors and scalars are used in a sum. Consider the unit step signal, $$\upsilon$$ , from Table 1. Although $$\upsilon = {\sum\limits_{j = 0}^{\infty}{S^{j}(\delta)}}$$ , this is an infinite sum of vectors and hence not technically considered a linear combination of the basis elements from $$B_{f}$$ .</paragraph>
+  <paragraph>In calculus, sums with infinitely many terms are studied in detail. Although it can be shown that every vector space has a basis (using a finite number of terms in each linear combination), the proof relies on the Axiom of Choice and hence establishing that $$\mathbb{S}$$ has a basis is a topic you may see in higher level math classes. The sinusoidal and exponential signals, which have infinite support, are explored in detail in Section 4.8</paragraph>
+  <note type="practice" source_type="practice" title="Practice Problems">
+    <heading level="2">Practice Problems</heading>
+    <list type="ordered">
+      <item>Find $$\upsilon + \chi$$ from Table 1. Express the answer as a vector and give its formal description.</item>
+      <item>Show that $$T(\{ x_{k}\}) = \{ 3x_{k} - 2x_{k - 1}\}$$ is a linear time invariant transformation.</item>
+      <item>Find a nonzero vector in the kernel of $$T$$ for the linear time invariant transformation given in Practice Problem 2.</item>
+    </list>
+  </note>
+</section>

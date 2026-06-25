@@ -1,801 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch04" chapter_number="4" section="unit_08" section_number="8">
-  <section number="4.8" title="Newton’s Method">
-    <content>
-      <paragraph>
-        Suppose that a car dealer offers to sell you a car for <math display="inline">$$\$ 18,000$$</math> or for payments of <math display="inline">$$\$ 375$$</math> per month for five years. You would like to know what monthly interest rate the dealer is, in effect, charging you. To find the answer, you have to solve the equation
-      </paragraph>
-      <paragraph>
-        (The details are explained in Exercise 41.) How would you solve such an equation?
-      </paragraph>
-      <paragraph>
-        For a quadratic equation <math display="inline">$$ax^{2} + bx + c = 0$$</math> there is a well-known formula for the solutions. For third- and fourth-degree equations there are also formulas for the solutions, but they are extremely complicated. If <math display="inline">$$f$$</math> is a polynomial of degree <math display="inline">$$5$$</math> or higher, there is no such formula. Likewise, there is no formula that will enable us to find the exact solutions of a transcendental equation such as <math display="inline">$$\cos x = x$$</math> .
-      </paragraph>
-      <paragraph>
-        We can find an <em>approximate</em> solution to Equation 1 by plotting the left side of the equation and finding the <math display="inline">$$x$$</math>-intercepts. Using a graphing calculator (or computer), and after experimenting with viewing rectangles, we produce the graph in Figure 1.
-      </paragraph>
-    </content>
-    <figure number="1">
-      <alt_text>A curve is graphed on a graphing calculator window screen. The horizontal axis is displayed from 0 to 0.012 in increments of 0.002 units. The vertical axis is displayed from negative 0.05 to 0.15 in increments of 0.05 units. The curve enters the viewing window at (0, 0), goes down and to the right in the fourth quadrant, concave up, reaches its low point at approximately (0.004, negative 0.025), then goes up and to the right, crosses the horizontal axis at approximately (0.0076, 0), and exits the viewing window in the first quadrant at approximately (0.012, 0.13).</alt_text>
-    </figure>
-    <content>
-      <paragraph>
-        We see that in addition to the solution <math display="inline">$$x = 0$$</math> , which doesn’t interest us, there is a solution between <math display="inline">$$0.007$$</math> and <math display="inline">$$0.008$$</math> . Zooming in shows that the <math display="inline">$$x$$</math>-intercept is approximately <math display="inline">$$0.0076$$</math> . If we need more accuracy than graphing provides, we can use a calculator or computer algebra system to solve the equation numerically. If we do so, we find that the solution, correct to nine decimal places, is <math display="inline">$$0.007628603$$</math> .
-      </paragraph>
-      <paragraph>
-        How do these devices solve equations? They use a variety of methods, but most of them make some use of <strong>Newton’s method</strong>, also called the <strong>Newton-Raphson method</strong>. We will explain how this method works, partly to show what happens inside a calculator or computer, and partly as an application of the idea of linear approximation.
-      </paragraph>
-      <paragraph>
-        The geometry behind Newton’s method is shown in Figure 2. We wish to solve an equation of the form <math display="inline">$$f(x) = 0$$</math> , so the solutions of the equation correspond to the <math display="inline">$$x$$</math>-intercepts of the graph of <math display="inline">$$f$$</math> . The solution that we are trying to find is labeled <math display="inline">$$r$$</math> in the figure. We start with a first approximation <math display="inline">$$x_{1}$$</math> , which is obtained by guessing, or from a rough sketch of the graph of <math display="inline">$$f$$</math> , or from a computer-generated graph of <math display="inline">$$f$$</math> . Consider the tangent line <math display="inline">$$L$$</math> to the curve <math display="inline">$$y = f(x)$$</math> at the point <math display="inline">$$\left( {x_{1},f\left( x_{1} \right)} \right)$$</math> and look at the <math display="inline">$$x$$</math>-intercept of <math display="inline">$$L$$</math> , labeled <math display="inline">$$x_{2}$$</math> . The idea behind Newton’s method is that the tangent line is close to the curve and so its <math display="inline">$$x$$</math>-intercept, <math display="inline">$$x_{2}$$</math> , is close to the <math display="inline">$$x$$</math>-intercept of the curve (namely, the solution <math display="inline">$$r$$</math> that we are seeking). Because the tangent is a line, we can easily find its <math display="inline">$$x$$</math>-intercept.
-      </paragraph>
-    </content>
-    <figure number="2">
-      <alt_text>A curve and a tangent line are graphed on the x y coordinate plane. The x axis is displayed with tick marks r, x_2, and x_1 at irregular intervals, in the order from left to right. The curve y = f(x) enters the third quadrant, goes up and to the right through the fourth quadrant, concaves up, crosses the positive x axis at the labeled point r, then extends further into the first quadrant through a labeled point (x_1, f(x_1)). A tangent line L below the curve is drawn from the fourth quadrant to the first quadrant through the tick mark x_2, touching the curve exactly once at (x_1, f(x_1)). A vertical line segment from tick mark x_1 meets the curve at (x_1, f(x_1)).</alt_text>
-    </figure>
-    <content>
-      <paragraph>
-        To find a formula for <math display="inline">$$x_{2}$$</math> in terms of <math display="inline">$$x_{1}$$</math> we use the fact that the slope of <math display="inline">$$L$$</math> is <math display="inline">$$f^{\prime}\left( x_{1} \right)$$</math> , so its equation is
-      </paragraph>
-      <paragraph>
-        <math display="block">$$y - f\left( x_{1} \right) = f^{\prime}\left( x_{1} \right)\left( {x - x_{1}} \right)$$</math>
-      </paragraph>
-      <paragraph>
-        Since the <math display="inline">$$x$$</math>-intercept of <math display="inline">$$L$$</math> is <math display="inline">$$x_{2}$$</math> , we know that the point <math display="inline">$$\left( {x_{2},0} \right)$$</math> is on the line, and so
-      </paragraph>
-      <paragraph>
-        <math display="block">$$0 - f\left( x_{1} \right) = f^{\prime}\left( x_{1} \right)\left( {x_{2} - x_{1}} \right)$$</math>
-      </paragraph>
-      <paragraph>
-        If <math display="inline">$$f^{\prime}\left( x_{1} \right) \neq 0$$</math> , we can solve this equation for <math display="inline">$$x_{2}$$</math> :
-      </paragraph>
-      <paragraph>
-        <math display="block">$$x_{2} = x_{1} - \frac{f\left( x_{1} \right)}{f^{\prime}\left( x_{1} \right)}$$</math>
-      </paragraph>
-      <paragraph>
-        We use <math display="inline">$$x_{2}$$</math> as a second approximation to <math display="inline">$$r$$</math> .
-      </paragraph>
-      <paragraph>
-        Next we repeat this procedure with <math display="inline">$$x_{1}$$</math> replaced by the second approximation <math display="inline">$$x_{2}$$</math> , using the tangent line at <math display="inline">$$\left( {x_{2},f\left( x_{2} \right)} \right)$$</math> . This gives a third approximation:
-      </paragraph>
-      <paragraph>
-        <math display="block">$$x_{3} = x_{2} - \frac{f\left( x_{2} \right)}{f^{\prime}\left( x_{2} \right)}$$</math>
-      </paragraph>
-      <paragraph>
-        If we keep repeating this process, we obtain a sequence of approximations <math display="inline">$$x_{1},x_{2},x_{3},x_{4},\ldots$$</math> as shown in Figure 3. In general, if the <math display="inline">$$n$$</math> th approximation is <math display="inline">$$x_{n}$$</math> and <math display="inline">$$f^{\prime}\left( x_{n} \right) \neq 0$$</math> , then the next approximation is given by
-      </paragraph>
-    </content>
-    <figure number="3">
-      <alt_text>A curve and three tangent lines are graphed on the x y coordinate plane. The x axis is displayed with tick marks r, x_4, x_3, x_2, and x_1 at irregular intervals, in the order from left to right. The curve enters the third quadrant, goes up and to the right through the fourth quadrant, concave up, crosses the positive x axis at a labeled point r, then extends further into the first quadrant through the labeled points (x_2, f(x_2)) and (x_1, f(x_1)). All three tangent lines lie below the curve and are drawn from the fourth quadrant to the first quadrant by crossing the positive x axis. The first tangent line crosses the x axis at the tick mark x_2, touching the curve exactly once at the labeled point (x_1, f(x_1)). The second tangent line crosses the x axis at the tick mark x_3, touching the curve exactly once at the labeled point (x_2, f(x_2)). The third tangent line crosses the x axis at the tick mark x_4, touching the curve exactly once at the labeled point x = x_3. Dashed vertical line segments from each of the tick marks x_3, x_2, and x_1 reach the curve at the marked points.</alt_text>
-    </figure>
-    <content>
-      <paragraph>
-        If the numbers <math display="inline">$$x_{n}$$</math> become closer and closer to <math display="inline">$$r$$</math> as <math display="inline">$$n$$</math> becomes large, then we say that the sequence <em>converges</em> to <math display="inline">$$r$$</math> and we write
-      </paragraph>
-      <paragraph>
-        <math display="block">$$\lim\limits_{n\rightarrow\infty}x_{n} = r$$</math>
-      </paragraph>
-      <paragraph>
-        Although the sequence of successive approximations converges to the desired solution for functions of the type illustrated in Figure 3, in certain circumstances the sequence may not converge. For example, consider the situation shown in Figure 4. You can see that <math display="inline">$$x_{2}$$</math> is a worse approximation than <math display="inline">$$x_{1}$$</math> . This is likely to be the case when <math display="inline">$$f^{\prime}\left( x_{1} \right)$$</math> is close to <math display="inline">$$0$$</math> . It might even happen that an approximation (such as <math display="inline">$$x_{3}$$</math> in Figure 4) falls outside the domain of <math display="inline">$$f$$</math> . Then Newton’s method fails and a better initial approximation <math display="inline">$$x_{1}$$</math> should be chosen. See Exercises 31, 32, 33, and 34 for specific examples in which Newton’s method works very slowly or does not work at all.
-      </paragraph>
-    </content>
-    <figure number="4">
-      <alt_text>A curve and two tangents are graphed on the x y coordinate plane. The negative x axis has tick mark x_3; the positive x axis has tick marks x_1, r, and x_2, in the order from left to right, at irregular intervals. The curve enters near the vertical axis in the first quadrant, goes down and to the right, concave up, reaches its low point in the first quadrant, then rises, now concave down, reaches its high point, and then goes down and to the right through the labeled point r, now concave up, reaches its low point in the fourth quadrant, and again goes up and to the right. A tangent line with a negative slope enters the first quadrant above the curve, goes down and to the right, touching the curve exactly once at x = x_1, and reaches the positive x axis at the tick mark x_2. The vertical line segment extends upward from tick mark x_1 and reaches the curve. Another tangent with a negative slope enters on the negative x axis at the tick mark x_3, goes down and to the right through the fourth quadrant, touching the curve exactly once in the fourth quadrant at x = x_2. Another vertical line segment from tick mark x_2 extends downward and reaches the curve.</alt_text>
-    </figure>
+<section>
+  <heading level="2">4.8. Newton’s Method</heading>
+  <paragraph>Suppose that a car dealer offers to sell you a car for $$\$ 18,000$$ or for payments of $$\$ 375$$ per month for five years. You would like to know what monthly interest rate the dealer is, in effect, charging you. To find the answer, you have to solve the equation</paragraph>
+  <paragraph math="block">$$48x\left( {1 + x} \right)^{60} - \left( {1 + x} \right)^{60} + 1 = 0$$</paragraph>
+  <paragraph>(The details are explained in Exercise 41.) How would you solve such an equation?</paragraph>
+  <paragraph>For a quadratic equation $$ax^{2} + bx + c = 0$$ there is a well-known formula for the solutions. For third- and fourth-degree equations there are also formulas for the solutions, but they are extremely complicated. If $$f$$ is a polynomial of degree $$5$$ or higher, there is no such formula. Likewise, there is no formula that will enable us to find the exact solutions of a transcendental equation such as $$\cos x = x$$ .</paragraph>
+  <paragraph>We can find an approximate solution to Equation 1 by plotting the left side of the equation and finding the $$x$$ -intercepts. Using a graphing calculator (or computer), and after experimenting with viewing rectangles, we produce the graph in Figure 1.</paragraph>
+  <figure>
+    <image alt="Details A curve is graphed on a graphing calculator window screen. The horizontal axis is displayed from 0 to 0.012 in increments of 0.002 units. The vertical axis is displayed from negative 0.05 to 0.15 in increments of 0.05 units. The curve enters the viewing window at (0, 0), goes down and to the right in the fourth quadrant, concave up, reaches its low point at approximately (0.004, negative 0.025), then goes up and to the right, crosses the horizontal axis at approximately (0.0076, 0), and exits the viewing window in the first quadrant at approximately (0.012, 0.13)."/>
+  </figure>
+  <paragraph>We see that in addition to the solution $$x = 0$$ , which doesn’t interest us, there is a solution between $$0.007$$ and $$0.008$$ . Zooming in shows that the $$x$$ -intercept is approximately $$0.0076$$ . If we need more accuracy than graphing provides, we can use a calculator or computer algebra system to solve the equation numerically. If we do so, we find that the solution, correct to nine decimal places, is $$0.007628603$$ .</paragraph>
+  <paragraph>Try to solve Equation 1 numerically using a calculator or computer. Some machines are not able to solve it. Others are successful but require you to specify a starting point for the search.</paragraph>
+  <paragraph>How do these devices solve equations? They use a variety of methods, but most of them make some use of Newton’s method, also called the Newton-Raphson method. We will explain how this method works, partly to show what happens inside a calculator or computer, and partly as an application of the idea of linear approximation.</paragraph>
+  <paragraph>The geometry behind Newton’s method is shown in Figure 2. We wish to solve an equation of the form $$f(x) = 0$$ , so the solutions of the equation correspond to the $$x$$ -intercepts of the graph of $$f$$ . The solution that we are trying to find is labeled $$r$$ in the figure. We start with a first approximation $$x_{1}$$ , which is obtained by guessing, or from a rough sketch of the graph of $$f$$ , or from a computer-generated graph of $$f$$ . Consider the tangent line $$L$$ to the curve $$y = f(x)$$ at the point $$\left( {x_{1},f\left( x_{1} \right)} \right)$$ and look at the $$x$$ -intercept of $$L$$ , labeled $$x_{2}$$ . The idea behind Newton’s method is that the tangent line is close to the curve and so its $$x$$ -intercept, $$x_{2}$$ , is close to the $$x$$ -intercept of the curve (namely, the solution $$r$$ that we are seeking). Because the tangent is a line, we can easily find its $$x$$ -intercept.</paragraph>
+  <figure>
+    <image alt="Details A curve and a tangent line are graphed on the x y coordinate plane. The x axis is displayed with tick marks r, x_2, and x_1 at irregular intervals, in the order from left to right. The curve y = f(x) enters the third quadrant, goes up and to the right through the fourth quadrant, concaves up, crosses the positive x axis at the labeled point r, then extends further into the first quadrant through a labeled point (x_1, f(x_1)). A tangent line L below the curve is drawn from the fourth quadrant to the first quadrant through the tick mark x_2, touching the curve exactly once at (x_1, f(x_1)). A vertical line segment from tick mark x_1 meets the curve at (x_1, f(x_1))."/>
+  </figure>
+  <paragraph>To find a formula for $$x_{2}$$ in terms of $$x_{1}$$ we use the fact that the slope of $$L$$ is $$f^{\prime}\left( x_{1} \right)$$ , so its equation is</paragraph>
+  <paragraph math="block">$$y - f\left( x_{1} \right) = f^{\prime}\left( x_{1} \right)\left( {x - x_{1}} \right)$$</paragraph>
+  <paragraph>Since the $$x$$ -intercept of $$L$$ is $$x_{2}$$ , we know that the point $$\left( {x_{2},0} \right)$$ is on the line, and so</paragraph>
+  <paragraph math="block">$$0 - f\left( x_{1} \right) = f^{\prime}\left( x_{1} \right)\left( {x_{2} - x_{1}} \right)$$</paragraph>
+  <paragraph>If $$f^{\prime}\left( x_{1} \right) \neq 0$$ , we can solve this equation for $$x_{2}$$ :</paragraph>
+  <paragraph math="block">$$x_{2} = x_{1} - \frac{f\left( x_{1} \right)}{f^{\prime}\left( x_{1} \right)}$$</paragraph>
+  <paragraph>We use $$x_{2}$$ as a second approximation to $$r$$ .</paragraph>
+  <paragraph>Next we repeat this procedure with $$x_{1}$$ replaced by the second approximation $$x_{2}$$ , using the tangent line at $$\left( {x_{2},f\left( x_{2} \right)} \right)$$ . This gives a third approximation:</paragraph>
+  <paragraph math="block">$$x_{3} = x_{2} - \frac{f\left( x_{2} \right)}{f^{\prime}\left( x_{2} \right)}$$</paragraph>
+  <paragraph>If we keep repeating this process, we obtain a sequence of approximations $$x_{1},x_{2},x_{3},x_{4},\ldots$$ as shown in Figure 3. In general, if the $$n$$ th approximation is $$x_{n}$$ and $$f^{\prime}\left( x_{n} \right) \neq 0$$ , then the next approximation is given by</paragraph>
+  <paragraph math="block">$$x_{n + 1} = x_{n} - \frac{f\left( x_{n} \right)}{f^{\prime}\left( x_{n} \right)}$$</paragraph>
+  <figure>
+    <image alt="Details A curve and three tangent lines are graphed on the x y coordinate plane. The x axis is displayed with tick marks r, x_4, x_3, x_2, and x_1 at irregular intervals, in the order from left to right. The curve enters the third quadrant, goes up and to the right through the fourth quadrant, concave up, crosses the positive x axis at a labeled point r, then extends further into the first quadrant through the labeled points (x_2, f(x_2)) and (x_1, f(x_1)). All three tangent lines lie below the curve and are drawn from the fourth quadrant to the first quadrant by crossing the positive x axis. The first tangent line crosses the x axis at the tick mark x_2, touching the curve exactly once at the labeled point (x_1, f(x_1)). The second tangent line crosses the x axis at the tick mark x_3, touching the curve exactly once at the labeled point (x_2, f(x_2)). The third tangent line crosses the x axis at the tick mark x_4, touching the curve exactly once at the labeled point x = x_3. Dashed vertical line segments from each of the tick marks x_3, x_2, and x_1 reach the curve at the marked points."/>
+  </figure>
+  <paragraph>If the numbers $$x_{n}$$ become closer and closer to $$r$$ as $$n$$ becomes large, then we say that the sequence converges to $$r$$ and we write</paragraph>
+  <paragraph math="block">$$\lim\limits_{n\rightarrow\infty}x_{n} = r$$</paragraph>
+  <paragraph>Although the sequence of successive approximations converges to the desired solution for functions of the type illustrated in Figure 3, in certain circumstances the sequence may not converge. For example, consider the situation shown in Figure 4. You can see that $$x_{2}$$ is a worse approximation than $$x_{1}$$ . This is likely to be the case when $$f^{\prime}\left( x_{1} \right)$$ is close to $$0$$ . It might even happen that an approximation (such as $$x_{3}$$ in Figure 4) falls outside the domain of $$f$$ . Then Newton’s method fails and a better initial approximation $$x_{1}$$ should be chosen. See Exercises 31, 32, 33, and 34 for specific examples in which Newton’s method works very slowly or does not work at all.</paragraph>
+  <paragraph>Sequences are discussed in more detail in Section 11.1.</paragraph>
+  <figure>
+    <image alt="Details A curve and two tangents are graphed on the x y coordinate plane. The negative x axis has tick mark x_3; the positive x axis has tick marks x_1, r, and x_2, in the order from left to right, at irregular intervals. The curve enters near the vertical axis in the first quadrant, goes down and to the right, concave up, reaches its low point in the first quadrant, then rises, now concave down, reaches its high point, and then goes down and to the right through the labeled point r, now concave up, reaches its low point in the fourth quadrant, and again goes up and to the right. A tangent line with a negative slope enters the first quadrant above the curve, goes down and to the right, touching the curve exactly once at x = x_1, and reaches the positive x axis at the tick mark x_2. The vertical line segment extends upward from tick mark x_1 and reaches the curve. Another tangent with a negative slope enters on the negative x axis at the tick mark x_3, goes down and to the right through the fourth quadrant, touching the curve exactly once in the fourth quadrant at x = x_2. Another vertical line segment from tick mark x_2 extends downward and reaches the curve."/>
+  </figure>
+  <example number="1">
+    <heading level="3">Example 1</heading>
+    <paragraph>Starting with $$x_{1} = 2$$ , find the third approximation $$x_{3}$$ to the solution of the equation $$x^{3} - 2x - 5 = 0$$ .</paragraph>
+    <paragraph>Solution We apply Newton’s method with</paragraph>
+    <paragraph math="block">$$f(x) = x^{3} - 2x - 5$$</paragraph>
+    <paragraph>and</paragraph>
+    <paragraph math="block">$$f^{\prime}(x) = 3x^{2} - 2$$</paragraph>
+    <paragraph>Newton himself used this equation to illustrate his method and he chose $$x_{1} = 2$$ after some experimentation because $$f(1) = - 6$$ , $$f(2) = - 1$$ , and $$f(3) = 16$$ . Equation 2 becomes</paragraph>
+    <paragraph math="block">$$x_{n + 1} = x_{n} - \frac{f{(x_{n})}}{f^{\prime}{(x_{n})}} = x_{n} - \frac{x_{n}^{3} - 2x_{n} - 5}{3x_{n}^{2} - 2}$$</paragraph>
+    <paragraph>With $$n = 1$$ we have</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {x_{2} = {x_{1} - \frac{f{(x_{1})}}{f^{\prime}{(x_{1})}} = x_{1} - \frac{x_{1}^{3} - 2x_{1} - 5}{3x_{1}^{2} - 2}}} \\ {\phantom{x_{2}} = {2 - \frac{2^{3} - 2{(2)} - 5}{3{(2)}^{2} - 2} = 2.1}} \end{array}$$</paragraph>
+    <paragraph>Then with $$n = 2$$ we obtain</paragraph>
+    <paragraph math="block">$$x_{3} = x_{2} - \frac{x_{2}^{3} - 2x_{2} - 5}{3x_{2}^{2} - 2} = 2.1 - \frac{(2.1)^{3} - 2(2.1) - 5}{3(2.1)^{2} - 2} \approx 2.0946$$</paragraph>
+    <paragraph>It turns out that this third approximation $$x_{3} \approx 2.0946$$ is accurate to four decimal places.</paragraph>
+    <paragraph>Figure 5 shows the geometry behind the first step in Newton’s method in Example 1. Since $$f^{\prime}(2) = 10$$ , the tangent line to $$y = x^{3} - 2x - 5$$ at $$\left( {2, - 1} \right)$$ has equation $$y = 10x - 21$$ so its $$x$$ -intercept is $$x_{2} = 2.1$$ .</paragraph>
     <figure>
-      <credit>Copyright © Cengage Learning. All Rights Reserved</credit>
+      <image alt="Details A curve and its tangent are graphed on a graphing calculator window screen. The horizontal axis is displayed from 1.8 to 2.2 in increments of 0.2 units. The vertical axis is displayed from negative 2 to 1 in increments of 1 unit. The curve y = x^3 minus 2 x minus 5 enters the viewing window in the fourth quadrant at approximately (1.9, negative 2), slopes upward to the right through (2, negative 1), and exits the viewing window at approximately (2.18, 1). A tangent line y = 10 x minus 21 is drawn below the curve, touching the curve exactly once at (2, negative 1)."/>
     </figure>
-    <example number="1">
-      <problem>
-        <paragraph>
-          Starting with <math display="inline">$$x_{1} = 2$$</math> , find the third approximation <math display="inline">$$x_{3}$$</math> to the solution of the equation <math display="inline">$$x^{3} - 2x - 5 = 0$$</math> .
-        </paragraph>
-        <paragraph>
-          Solution We apply Newton’s method with
-        </paragraph>
-        <paragraph>
-          <math display="block">$$f(x) = x^{3} - 2x - 5$$</math>
-        </paragraph>
-        <paragraph>
-          and
-        </paragraph>
-        <paragraph>
-          <math display="block">$$f^{\prime}(x) = 3x^{2} - 2$$</math>
-        </paragraph>
-        <paragraph>
-          Newton himself used this equation to illustrate his method and he chose <math display="inline">$$x_{1} = 2$$</math> after some experimentation because <math display="inline">$$f(1) = - 6$$</math> , <math display="inline">$$f(2) = - 1$$</math> , and <math display="inline">$$f(3) = 16$$</math> . Equation 2 becomes
-        </paragraph>
-        <paragraph>
-          <math display="block">$$x_{n + 1} = x_{n} - \frac{f{(x_{n})}}{f^{\prime}{(x_{n})}} = x_{n} - \frac{x_{n}^{3} - 2x_{n} - 5}{3x_{n}^{2} - 2}$$</math>
-        </paragraph>
-        <paragraph>
-          With <math display="inline">$$n = 1$$</math> we have
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {x_{2} = {x_{1} - \frac{f{(x_{1})}}{f^{\prime}{(x_{1})}} = x_{1} - \frac{x_{1}^{3} - 2x_{1} - 5}{3x_{1}^{2} - 2}}} \\
-  {\phantom{x_{2}} = {2 - \frac{2^{3} - 2{(2)} - 5}{3{(2)}^{2} - 2} = 2.1}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          Then with <math display="inline">$$n = 2$$</math> we obtain
-        </paragraph>
-        <paragraph>
-          <math display="block">$$x_{3} = x_{2} - \frac{x_{2}^{3} - 2x_{2} - 5}{3x_{2}^{2} - 2} = 2.1 - \frac{(2.1)^{3} - 2(2.1) - 5}{3(2.1)^{2} - 2} \approx 2.0946$$</math>
-        </paragraph>
-        <paragraph>
-          It turns out that this third approximation <math display="inline">$$x_{3} \approx 2.0946$$</math> is accurate to four decimal places.
-        </paragraph>
-        <paragraph>
-          Figure 5 shows the geometry behind the first step in Newton’s method in Example 1. Since <math display="inline">$$f^{\prime}(2) = 10$$</math> , the tangent line to <math display="inline">$$y = x^{3} - 2x - 5$$</math> at <math display="inline">$$\left( {2, - 1} \right)$$</math> has equation <math display="inline">$$y = 10x - 21$$</math> so its <math display="inline">$$x$$</math>-intercept is <math display="inline">$$x_{2} = 2.1$$</math> .
-        </paragraph>
-        <figure number="5">
-          <alt_text>A curve and its tangent are graphed on a graphing calculator window screen. The horizontal axis is displayed from 1.8 to 2.2 in increments of 0.2 units. The vertical axis is displayed from negative 2 to 1 in increments of 1 unit. The curve y = x^3 minus 2 x minus 5 enters the viewing window in the fourth quadrant at approximately (1.9, negative 2), slopes upward to the right through (2, negative 1), and exits the viewing window at approximately (2.18, 1). A tangent line y = 10 x minus 21 is drawn below the curve, touching the curve exactly once at (2, negative 1).</alt_text>
-        </figure>
-      </problem>
-    </example>
-    <content>
-      <paragraph>
-        Suppose that we want to achieve a given accuracy, say to eight decimal places, using Newton’s method. How do we know when to stop? The rule of thumb that is generally used is: stop when successive approximations <math display="inline">$$x_{n}$$</math> and <math display="inline">$$x_{n + 1}$$</math> agree to eight decimal places. (A precise statement concerning accuracy in Newton’s method will be given in Exercise 11.11.39.)
-      </paragraph>
-      <paragraph>
-        Notice that the procedure in going from <math display="inline">$$n$$</math> to <math display="inline">$$n + 1$$</math> is the same for all values of <math display="inline">$$n$$</math> . (It is called an <em>iterative</em> process.) This means that Newton’s method is particularly convenient for use with a programmable calculator or a computer.
-      </paragraph>
-    </content>
-    <example number="2">
-      <problem>
-        <paragraph>
-          Use Newton’s method to find <math display="inline">$$\sqrt[6]{2}$$</math> correct to eight decimal places.
-        </paragraph>
-        <paragraph>
-          Solution First we observe that finding <math display="inline">$$\sqrt[6]{2}$$</math> is equivalent to finding the positive solution of the equation
-        </paragraph>
-        <paragraph>
-          <math display="block">$$x^{6} - 2 = 0$$</math>
-        </paragraph>
-        <paragraph>
-          so we take <math display="inline">$$f(x) = x^{6} - 2$$</math> . Then <math display="inline">$$f^{\prime}(x) = 6x^{5}$$</math> and Formula 2 (Newton’s method) becomes
-        </paragraph>
-        <paragraph>
-          <math display="block">$$x_{n + 1} = x_{n} - \frac{f\left( x_{n} \right)}{f^{\prime}\left( x_{n} \right)} = x_{n} - \frac{x_{n}^{6} - 2}{6x_{n}^{5}}$$</math>
-        </paragraph>
-        <paragraph>
-          If we choose <math display="inline">$$x_{1} = 1$$</math> as the initial approximation, then we obtain
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{matrix}
-  {x_{2} \approx 1.16666667} \\
-  {x_{3} \approx 1.12644368} \\
-  {x_{4} \approx 1.12249707} \\
-  {x_{5} \approx 1.12246205} \\
-  {x_{6} \approx 1.12246205}
-  \end{matrix}$$</math>
-        </paragraph>
-        <paragraph>
-          Since <math display="inline">$$x_{5}$$</math> and <math display="inline">$$x_{6}$$</math> agree to eight decimal places, we conclude that
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\sqrt[6]{2} \approx 1.12246205$$</math>
-        </paragraph>
-        <paragraph>
-          to eight decimal places.
-        </paragraph>
-      </problem>
-    </example>
-    <example number="3">
-      <problem>
-        <paragraph>
-          Find, correct to six decimal places, the solution of the equation <math display="inline">$$\cos x = x$$</math> .
-        </paragraph>
-        <paragraph>
-          Solution We first rewrite the equation in standard form: <math display="inline">$$\cos x - x = 0$$</math> . Therefore we let <math display="inline">$$f(x) = \cos x - x$$</math> . Then <math display="inline">$$f^{\prime}(x) = - \sin x - 1$$</math> , so Formula 2 becomes
-        </paragraph>
-        <paragraph>
-          <math display="block">$$x_{n + 1} = x_{n} - \frac{\cos x_{n} - x_{n}}{- \sin x_{n} - 1} = x_{n} + \frac{\cos x_{n} - x_{n}}{\sin x_{n} + 1}$$</math>
-        </paragraph>
-        <paragraph>
-          In order to guess a suitable value for <math display="inline">$$x_{1}$$</math> we sketch the graphs of <math display="inline">$$y = \cos x$$</math> and <math display="inline">$$y = x$$</math> in Figure 6. It appears that they intersect at a point whose <math display="inline">$$x$$</math>-coordinate is somewhat less than <math display="inline">$$1$$</math> , so let’s take <math display="inline">$$x_{1} = 1$$</math> as a convenient first approximation. Then, remembering to put our calculator in radian mode, we get
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{matrix}
-  {x_{2} \approx 0.75036387} \\
-  {x_{3} \approx 0.73911289} \\
-  {x_{4} \approx 0.73908513} \\
-  {x_{5} \approx 0.73908513}
-  \end{matrix}$$</math>
-        </paragraph>
-        <figure number="6">
-          <alt_text>A cosine curve and a line are graphed on the x y coordinate plane. The x axis is displayed from negative pi to pi in increments of pi/2. The curve y = cos(x) enters the third quadrant, goes down and to the right, concave up, reaches its low point at (negative pi, negative 1), then goes up and to the right through (negative pi/2, 0), now concave down, and reaches its high point on the y axis at (0, 1). It then goes down and to the right through (pi/2, 0), concave up, reaches its low point at (pi, negative 1), then goes up and to the right through (3 pi/2, 0). The line y = x is drawn from the third quadrant to the first quadrant through the points (negative 1, negative 1), (0, 0), and (1, 1), intersecting the cosine curve at approximately (0.73, 0.73).</alt_text>
-        </figure>
-        <paragraph>
-          Since <math display="inline">$$x_{4}$$</math> and <math display="inline">$$x_{5}$$</math> agree to six decimal places (eight, in fact), we conclude that the solution of the equation, correct to six decimal places, is <math display="inline">$$0.739085$$</math> .
-        </paragraph>
-      </problem>
-    </example>
-    <content>
-      <paragraph>
-        Instead of using the rough sketch in Figure 6 to get a starting approximation for Newton’s method in Example 3, we could have used the more accurate graph that a calculator or computer provides. Figure 7 suggests that we use <math display="inline">$$x_{1} = 0.75$$</math> as the initial approximation. Then Newton’s method gives
-      </paragraph>
-      <paragraph>
-        <math display="block">$$\begin{matrix}
-  {x_{2} \approx 0.73911114} \\
-  {x_{3} \approx 0.73908513} \\
-  {x_{4} \approx 0.73908513}
-  \end{matrix}$$</math>
-      </paragraph>
-      <paragraph>
-        and so we obtain the same answer as before, but with one fewer step.
-      </paragraph>
-    </content>
-    <figure number="7">
-      <alt_text>A cosine curve and a line are graphed on a graphing calculator window screen. The horizontal and the vertical axes are displayed from 0 to 1 in increments of 0.2 units. The curve y = cos(x) enters the viewing window at (0, 1), goes down and to the right, concave down, and exits the viewing window at approximately (1, 0.54). The line y = x with a positive slope is drawn from (0, 0), goes up and to the right, and intersects the curve at approximately (0.73, 0.73).</alt_text>
+  </example>
+  <paragraph>Suppose that we want to achieve a given accuracy, say to eight decimal places, using Newton’s method. How do we know when to stop? The rule of thumb that is generally used is: stop when successive approximations $$x_{n}$$ and $$x_{n + 1}$$ agree to eight decimal places. (A precise statement concerning accuracy in Newton’s method will be given in Exercise 11.11.39.)</paragraph>
+  <paragraph>Notice that the procedure in going from $$n$$ to $$n + 1$$ is the same for all values of $$n$$ . (It is called an iterative process.) This means that Newton’s method is particularly convenient for use with a programmable calculator or a computer.</paragraph>
+  <example number="2">
+    <heading level="3">Example 2</heading>
+    <paragraph>Use Newton’s method to find $$\sqrt[6]{2}$$ correct to eight decimal places.</paragraph>
+    <paragraph>Solution First we observe that finding $$\sqrt[6]{2}$$ is equivalent to finding the positive solution of the equation</paragraph>
+    <paragraph math="block">$$x^{6} - 2 = 0$$</paragraph>
+    <paragraph>so we take $$f(x) = x^{6} - 2$$ . Then $$f^{\prime}(x) = 6x^{5}$$ and Formula 2 (Newton’s method) becomes</paragraph>
+    <paragraph math="block">$$x_{n + 1} = x_{n} - \frac{f\left( x_{n} \right)}{f^{\prime}\left( x_{n} \right)} = x_{n} - \frac{x_{n}^{6} - 2}{6x_{n}^{5}}$$</paragraph>
+    <paragraph>If we choose $$x_{1} = 1$$ as the initial approximation, then we obtain</paragraph>
+    <paragraph math="block">$$\begin{matrix} {x_{2} \approx 1.16666667} \\ {x_{3} \approx 1.12644368} \\ {x_{4} \approx 1.12249707} \\ {x_{5} \approx 1.12246205} \\ {x_{6} \approx 1.12246205} \end{matrix}$$</paragraph>
+    <paragraph>Since $$x_{5}$$ and $$x_{6}$$ agree to eight decimal places, we conclude that</paragraph>
+    <paragraph math="block">$$\sqrt[6]{2} \approx 1.12246205$$</paragraph>
+    <paragraph>to eight decimal places.</paragraph>
+  </example>
+  <example number="3">
+    <heading level="3">Example 3</heading>
+    <paragraph>Find, correct to six decimal places, the solution of the equation $$\cos x = x$$ .</paragraph>
+    <paragraph>Solution We first rewrite the equation in standard form: $$\cos x - x = 0$$ . Therefore we let $$f(x) = \cos x - x$$ . Then $$f^{\prime}(x) = - \sin x - 1$$ , so Formula 2 becomes</paragraph>
+    <paragraph math="block">$$x_{n + 1} = x_{n} - \frac{\cos x_{n} - x_{n}}{- \sin x_{n} - 1} = x_{n} + \frac{\cos x_{n} - x_{n}}{\sin x_{n} + 1}$$</paragraph>
+    <paragraph>In order to guess a suitable value for $$x_{1}$$ we sketch the graphs of $$y = \cos x$$ and $$y = x$$ in Figure 6. It appears that they intersect at a point whose $$x$$ -coordinate is somewhat less than $$1$$ , so let’s take $$x_{1} = 1$$ as a convenient first approximation. Then, remembering to put our calculator in radian mode, we get</paragraph>
+    <paragraph math="block">$$\begin{matrix} {x_{2} \approx 0.75036387} \\ {x_{3} \approx 0.73911289} \\ {x_{4} \approx 0.73908513} \\ {x_{5} \approx 0.73908513} \end{matrix}$$</paragraph>
+    <figure>
+      <image alt="Details A cosine curve and a line are graphed on the x y coordinate plane. The x axis is displayed from negative pi to pi in increments of pi/2. The curve y = cos(x) enters the third quadrant, goes down and to the right, concave up, reaches its low point at (negative pi, negative 1), then goes up and to the right through (negative pi/2, 0), now concave down, and reaches its high point on the y axis at (0, 1). It then goes down and to the right through (pi/2, 0), concave up, reaches its low point at (pi, negative 1), then goes up and to the right through (3 pi/2, 0). The line y = x is drawn from the third quadrant to the first quadrant through the points (negative 1, negative 1), (0, 0), and (1, 1), intersecting the cosine curve at approximately (0.73, 0.73)."/>
     </figure>
-  </section>
-  <subsection number="4.8" title="Exercises">
-    <exercises>
-      <exercise_group>
-        <problem number="1">
-          <statement>
-            <paragraph>
-              The figure shows the graph of a function <math display="inline">$$f$$</math> . Suppose that Newton’s method is used to approximate the solution <math display="inline">$$s$$</math> of the equation <math display="inline">$$f(x) = 0$$</math> with initial approximation <math display="inline">$$x_{1} = 6$$</math> .
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Draw the tangent lines that are used to find <math display="inline">$$x_{2}$$</math> and <math display="inline">$$x_{3}$$</math> , and estimate the numerical values of <math display="inline">$$x_{2}$$</math> and <math display="inline">$$x_{3}$$</math> .
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$x_{2} \approx 7.3$$</math> , <math display="inline">$$x_{3} \approx 6.8$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Would <math display="inline">$$x_{1} = 8$$</math> be a better first approximation? Explain.
-                </paragraph>
-                <figure>
-                  <alt_text>A curve is graphed on the x y coordinate plane. The x axis is displayed from negative 1 to 9 in increments of 1 unit. The y axis is displayed from negative 2 to 4 in increments of 1 unit. The curve enters at approximately (negative 1, 2.6), goes down and to the right, concave down, crosses the x axis at approximately (2.8, 0) which is labeled r. It then goes down and to the right in the fourth quadrant, now concave up, reaches its low point at (5, negative 1), goes up and to the right by crossing the x axis at approximately (6.8, 0) which is labeled s, then extends into the first quadrant, and exits the viewing window at approximately (8.2, 4).</alt_text>
-                </figure>
-                <paragraph>
-                  Yes
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="2">
-          <statement>
-            <paragraph>
-              Follow the instructions for Exercise 1(a) but use <math display="inline">$$x_{1} = 1$$</math> as the starting approximation for finding the solution <math display="inline">$$r$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="3">
-          <statement>
-            <paragraph>
-              Suppose the tangent line to the curve <math display="inline">$$y = f(x)$$</math> at the point <math display="inline">$$\left( {2,5} \right)$$</math> has the equation <math display="inline">$$y = 9 - 2x$$</math> . If Newton’s method is used to locate a solution of the equation <math display="inline">$$f(x) = 0$$</math> and the initial approximation is <math display="inline">$$x_{1} = 2$$</math> , find the second approximation <math display="inline">$$x_{2}$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\frac{9}{2}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="4">
-          <statement>
-            <paragraph>
-              For each initial approximation, determine graphically what happens if Newton’s method is used for the function whose graph is shown.
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$x_{1} = 0$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$x_{1} = 1$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$x_{1} = 3$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$x_{1} = 4$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$x_{1} = 5$$</math>
-                </paragraph>
-                <figure>
-                  <alt_text>A curve is graphed on the x y coordinate plane. The x axis is displayed from below 0 to beyond 6 in increments of 1 unit. The curve enters the second quadrant near the x axis, goes up and to the right, concave up, veering away from the x axis, crosses the y axis, then goes up, concave down, and reaches its high point in the first quadrant at x = 1. It then goes down and to the right through (2, 0), now concave up, reaches its low point in the fourth quadrant at x = 4, then goes up and to the right through (6, 0) into the first quadrant.</alt_text>
-                </figure>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="5">
-          <statement>
-            <paragraph>
-              For which of the initial approximations <math display="inline">$$x_{1} = a,b,c,{and}d$$</math> do you think Newton’s method will work and lead to the solution of the equation <math display="inline">$$f(x) = 0$$</math> ?
-            </paragraph>
-            <figure>
-              <alt_text>A curve, which is symmetric about the y axis, is graphed on the x y coordinate plane. The negative x axis is displayed with tick mark a, and the positive x axis is displayed with tick marks b, c, and d, in the order from left to right. The curve labeled f enters the second quadrant from the top left, goes down and to the right, concave down, inflects at x = a, then goes down and to the right, now concave up, and reaches its low point at the origin. It then goes up and to the right in the first quadrant, again inflects at x = b, then goes up and to the right through the marked points at x = c and x = d, now concave down.</alt_text>
-            </figure>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$a$$</math> , <math display="inline">$$b$$</math> , <math display="inline">$$c$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="6">
-          <statement>
-            <paragraph>
-              <math display="inline">$$2x^{3} - 3x^{2} + 2 = 0$$</math> , <math display="inline">$$\quad x_{1} = - 1$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="7">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\frac{2}{x} - x^{2} + 1 = 0$$</math> , <math display="inline">$$\quad x_{1} = 2$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$1.5215$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="8">
-          <statement>
-            <paragraph>
-              <math display="inline">$$x^{5} = x^{2} + 1$$</math> , <math display="inline">$$\quad{x_{1} = 1}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="9">
-          <statement>
-            <paragraph>
-              Use Newton’s method with initial approximation <math display="inline">$$x_{1} = - 1$$</math> to find <math display="inline">$$x_{2}$$</math> , the second approximation to the solution of the equation <math display="inline">$$x^{3} + x + 3 = 0$$</math> . Explain how the method works by first graphing the function and its tangent line at <math display="inline">$$\left( {- 1,1} \right)$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- 1.25$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="10">
-          <statement>
-            <paragraph>
-              Use Newton’s method with initial approximation <math display="inline">$$x_{1} = 1$$</math> to find <math display="inline">$$x_{2}$$</math> , the second approximation to the solution of the equation <math display="inline">$$x^{4} - x - 1 = 0$$</math> . Explain how the method works by first graphing the function and its tangent line at <math display="inline">$$\left( {1, - 1} \right)$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="11">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\sqrt[4]{75}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$2.94283096$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="12">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\sqrt[8]{500}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="13">
-          <statement>
-            <paragraph>
-              <math display="inline">$${3x^{4} - 8x^{3} + 2 = 0},\quad\left\lbrack {2,3} \right\rbrack$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$2.630020$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="14">
-          <statement>
-            <paragraph>
-              <math display="inline">$${- 2x^{5} + 9x^{4} - 7x^{3} - 11x = 0},\quad\left\lbrack {3,4} \right\rbrack$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="15">
-          <statement>
-            <paragraph>
-              The negative solution of <math display="inline">$$\cos x = x^{2} - 4$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- 1.914021$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="16">
-          <statement>
-            <paragraph>
-              The positive solution of <math display="inline">$$e^{ 2x} = x + 3$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="17">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\sin x = x - 1$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$1.934563$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="18">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\cos 2x = x^{3}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="19">
-          <statement>
-            <paragraph>
-              <math display="inline">$$2^{ x} = 2 - x^{2}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- 1.257691$$</math> , <math display="inline">$$0.653483$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="20">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\ln x = \frac{1}{x - 3}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="21">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\arctan x = x^{2} - 3$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- 1.428293$$</math> , <math display="inline">$$2.027975$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="22">
-          <statement>
-            <paragraph>
-              <math display="inline">$$x^{ 3} = 5x - 3$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="23">
-          <statement>
-            <paragraph>
-              <math display="inline">$$- 2x^{7} -^{}5x^{4} + 9x^{3} + 5 = 0$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- 1.69312029$$</math> , <math display="inline">$$- 0.74466668$$</math> , <math display="inline">$$1.26587094$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="24">
-          <statement>
-            <paragraph>
-              <math display="inline">$$x^{5} - 3x^{4} + x^{3} - x^{2} - x + 6 = 0$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="25">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\frac{x}{x^{2} + 1} = \sqrt{1 - x}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$0.76682579$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="26">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\cos{({x^{2} - x})} = x^{4}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="27">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\sqrt{4 - x^{3}} = e^{x^{2}}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- 0.87828292$$</math> , <math display="inline">$$0.79177077$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="28">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\ln{({x^{2} + 2})} = \frac{3x}{\sqrt{x^{2} + 1}}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="29">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Apply Newton’s method to the equation <math display="inline">$$x^{2} - a = 0$$</math> to derive the following square-root algorithm (used by the ancient Babylonians to compute <math display="inline">$$\sqrt{a}$$</math> ):
-                </paragraph>
-                <paragraph>
-                  <math display="block">$$x_{n + 1} = \frac{1}{2}\left( {x_{n} + \frac{a}{x_{n}}} \right)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Use part (a) to compute <math display="inline">$$\sqrt{1000}$$</math> correct to six decimal places.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$31.622777$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="30">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Apply Newton’s method to the equation <math display="inline">$$1 \slash x - a = 0$$</math> to derive the following reciprocal algorithm:
-                </paragraph>
-                <paragraph>
-                  <math display="block">$$x_{n + 1} = 2x_{n} - ax_{n}^{2}$$</math>
-                </paragraph>
-                <paragraph>
-                  (This algorithm enables a computer to find reciprocals without actually dividing.)
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Use part (a) to compute <math display="inline">$$1 \slash 1.6984$$</math> correct to six decimal places.
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="31">
-          <statement>
-            <paragraph>
-              Explain why Newton’s method doesn’t work for finding the solution of the equation <math display="inline">$$x^{3} - 3x + 6 = 0$$</math> if the initial approximation is chosen to be <math display="inline">$$x_{1} = 1$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="32">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Use Newton’s method with <math display="inline">$$x_{1} = 1$$</math> to find the solution of the equation <math display="inline">$$x^{3} - x = 1$$</math> correct to six decimal places.
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Solve the equation in part (a) using <math display="inline">$$x_{1} = 0.6$$</math> as the initial approximation.
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Solve the equation in part (a) using <math display="inline">$$x_{1} = 0.57$$</math> . (You definitely need a programmable calculator for this part.)
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Graph <math display="inline">$$f(x) = x^{3} - x - 1$$</math> and its tangent lines at <math display="inline">$$x_{1} = 1,0.6,{and}0.57$$</math> to explain why Newton’s method is so sensitive to the value of the initial approximation.
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="33">
-          <statement>
-            <paragraph>
-              Explain why Newton’s method fails when applied to the equation <math display="inline">$$\sqrt[3]{x} = 0$$</math> with any initial approximation <math display="inline">$$x_{1} \neq 0$$</math> . Illustrate your explanation with a sketch.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="34">
-          <statement>
-            <paragraph>
-              If
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f(x) = \begin{cases}
-  \sqrt{x} &amp; {{if}x \geqslant 0} \\
-  {- \sqrt{- x}} &amp; {{if}x &lt; 0}
-  \end{cases}$$</math>
-            </paragraph>
-            <paragraph>
-              then the solution of the equation <math display="inline">$$f(x) = 0$$</math> is <math display="inline">$$x = 0$$</math> . Explain why Newton’s method fails to find the solution no matter which initial approximation <math display="inline">$$x_{1} \neq 0$$</math> is used. Illustrate your explanation with a sketch.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="35">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Use Newton’s method to find the critical numbers of the function <math display="inline">$$f(x) = x^{6} - x^{4} + 3x^{3} - 2x$$</math> correct to six decimal places.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$- 1.293227$$</math> , <math display="inline">$$- 0.441731$$</math> , <math display="inline">$$0.507854$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Find the absolute minimum value of <math display="inline">$$f$$</math> correct to four decimal places.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$- 2.0212$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="36">
-          <statement>
-            <paragraph>
-              Use Newton’s method to find the absolute maximum value of the function <math display="inline">$$f(x) = x\cos x,0 \leqslant x \leqslant \pi$$</math> , correct to six decimal places.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="37">
-          <statement>
-            <paragraph>
-              Use Newton’s method to find the coordinates of the inflection point of the curve <math display="inline">$$y = x^{2}\sin x,0 \leqslant x \leqslant \pi$$</math> , correct to six decimal places.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\left( {1.519855,2.306964} \right)$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="38">
-          <statement>
-            <paragraph>
-              Of the infinitely many lines that are tangent to the curve <math display="inline">$$y = - \sin x$$</math> and pass through the origin, there is one that has the largest slope. Use Newton’s method to find the slope of that line correct to six decimal places.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="39">
-          <statement>
-            <paragraph>
-              Use Newton’s method to find the coordinates, correct to six decimal places, of the point on the parabola <math display="inline">$$y = \left( {x - 1} \right)^{2}$$</math> that is closest to the origin.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\left( {0.410245,0.347810} \right)$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="40">
-          <statement>
-            <paragraph>
-              In the figure, the length of the chord <math display="inline">$$AB$$</math> is <math display="inline">$$4$$</math> cm and the length of the arc <math display="inline">$$AB$$</math> is <math display="inline">$$5$$</math> cm. Find the central angle <math display="inline">$$\theta$$</math> , in radians, correct to four decimal places. Then give the answer to the nearest degree.
-            </paragraph>
-            <figure>
-              <alt_text>A graph shows a circle with a chord and a central angle. Point A is marked on the circle at its top left, and point B is marked at the top right. A horizontal line segment of length 4 centimeters connects points A and B. From the center of the circle, two radii are drawn: one connects with point A, and the other connects with point B. The angle between these two radii is labeled theta. A small arc above the chord connecting points A and B is labeled 5 centimeters.</alt_text>
-            </figure>
-          </statement>
-        </problem>
-        <problem number="41">
-          <statement>
-            <paragraph>
-              A car dealer sells a new car for <math display="inline">$$\$ 18,000$$</math> . He also offers to sell the same car for payments of <math display="inline">$$\$ 375$$</math> per month for five years. What monthly interest rate is this dealer charging?
-            </paragraph>
-            <paragraph>
-              To solve this problem you will need to use the formula for the present value <math display="inline">$$A$$</math> of an annuity consisting of <math display="inline">$$n$$</math> equal payments of size <math display="inline">$$R$$</math> with interest rate <math display="inline">$$i$$</math> per time period:
-            </paragraph>
-            <paragraph>
-              <math display="block">$$A = \frac{R}{i}\left\lbrack {1 - \left( {1 + i} \right)^{- n}} \right\rbrack$$</math>
-            </paragraph>
-            <paragraph>
-              Replacing <math display="inline">$$i$$</math> by <math display="inline">$$x$$</math> , show that
-            </paragraph>
-            <paragraph>
-              <math display="block">$$48x\left( {1 + x} \right)^{60} - \left( {1 + x} \right)^{60} + 1 = 0$$</math>
-            </paragraph>
-            <paragraph>
-              Use Newton’s method to solve this equation.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$0.76286\%$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="42">
-          <statement>
-            <paragraph>
-              The figure shows the sun located at the origin and the earth at the point <math display="inline">$$\left( {1,0} \right)$$</math> . (The unit here is the distance between the centers of the earth and the sun, called an <em>astronomical unit:</em> <math display="inline">$$1{AU} \approx 1.496 \times 10^{8}$$</math> km.) There are five locations <math display="inline">$$L_{1}$$</math> , <math display="inline">$$L_{2}$$</math> , <math display="inline">$$L_{3}$$</math> , <math display="inline">$$L_{4}$$</math> , and <math display="inline">$$L_{5}$$</math> in this plane of rotation of the earth about the sun where a satellite remains motionless with respect to the earth because the forces acting on the satellite (including the gravitational attractions of the earth and the sun) balance each other. These locations are called <em>libration points</em>. (A solar research satellite has been placed at one of these libration points.) If <math display="inline">$$m_{1}$$</math> is the mass of the sun, <math display="inline">$$m_{2}$$</math> is the mass of the earth, and <math display="inline">$$r = m_{2} \slash \left( {m_{1} + m_{2}} \right)$$</math> , it turns out that the <math display="inline">$$x$$</math>-coordinate of <math display="inline">$$L_{1}$$</math> is the unique solution of the fifth-degree equation
-            </paragraph>
-            <paragraph>
-              <math display="block">$$p(x) = x^{5} - \left( {2 + r} \right)x^{4} + \left( {1 + 2r} \right)x^{3} - \left( {1 - r} \right)x^{2} + 2\left( {1 - r} \right)x + r - 1 = 0$$</math>
-            </paragraph>
-            <paragraph>
-              and the <math display="inline">$$x$$</math>-coordinate of <math display="inline">$$L_{2}$$</math> is the solution of the equation
-            </paragraph>
-            <paragraph>
-              <math display="block">$$p(x) - 2rx^{2} = 0$$</math>
-            </paragraph>
-            <paragraph>
-              Using the value <math display="inline">$$r \approx 3.04042 \times 10^{- 6}$$</math> , find the locations of the libration points
-            </paragraph>
-            <list ordered="false">
-              <item>
-                <paragraph>
-                  <math display="inline">$$L_{1}$$</math> and
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$L_{2}$$</math> .
-                </paragraph>
-              </item>
-            </list>
-            <figure>
-              <alt_text>An illustration displays the sun and the earth on the x y coordinate plane with five marked locations. The sun is located at the origin. The earth is located on the positive x axis. L_1 is located on the positive x axis, between the sun and the earth. L_2 is located on the positive x axis to the right of the earth. L_3 is located in the fourth quadrant between the sun and L_1. L_4 is located in the first quadrant, directly above L_3. L_5 is located on the negative x axis.</alt_text>
-            </figure>
-          </statement>
-        </problem>
-      </exercise_group>
-    </exercises>
-  </subsection>
-</section_file>
+    <paragraph>Since $$x_{4}$$ and $$x_{5}$$ agree to six decimal places (eight, in fact), we conclude that the solution of the equation, correct to six decimal places, is $$0.739085$$ .</paragraph>
+  </example>
+  <paragraph>Instead of using the rough sketch in Figure 6 to get a starting approximation for Newton’s method in Example 3, we could have used the more accurate graph that a calculator or computer provides. Figure 7 suggests that we use $$x_{1} = 0.75$$ as the initial approximation. Then Newton’s method gives</paragraph>
+  <paragraph math="block">$$\begin{matrix} {x_{2} \approx 0.73911114} \\ {x_{3} \approx 0.73908513} \\ {x_{4} \approx 0.73908513} \end{matrix}$$</paragraph>
+  <paragraph>and so we obtain the same answer as before, but with one fewer step.</paragraph>
+  <figure>
+    <image alt="Details A cosine curve and a line are graphed on a graphing calculator window screen. The horizontal and the vertical axes are displayed from 0 to 1 in increments of 0.2 units. The curve y = cos(x) enters the viewing window at (0, 1), goes down and to the right, concave down, and exits the viewing window at approximately (1, 0.54). The line y = x with a positive slope is drawn from (0, 0), goes up and to the right, and intersects the curve at approximately (0.73, 0.73)."/>
+  </figure>
+</section>

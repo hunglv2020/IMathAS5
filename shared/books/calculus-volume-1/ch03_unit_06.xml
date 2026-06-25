@@ -1,641 +1,299 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="3.6" title="The Chain Rule">
-  <learning_objectives>
-    <objective number="3.6.1">State the chain rule for the composition of two functions.</objective>
-    <objective number="3.6.2">Apply the chain rule together with the power rule.</objective>
-    <objective number="3.6.3">Apply the chain rule and the product/quotient rules correctly in combination when both are necessary.</objective>
-    <objective number="3.6.4">Recognize the chain rule for a composition of three or more functions.</objective>
-    <objective number="3.6.5">Describe the proof of the chain rule.</objective>
-  </learning_objectives>
-  <p>We have seen the techniques for differentiating basic functions $$(x^{n},\text{sin}\mspace{2mu} x,\text{cos}\mspace{2mu} x,\text{etc}.)$$ as well as sums, differences, products, quotients, and constant multiples of these functions. However, these techniques do not allow us to differentiate compositions of functions, such as $$h(x) = \text{sin}\left( x^{3} \right)$$ or $$k(x) = \sqrt{3x^{2} + 1}.$$ In this section, we study the rule for finding the derivative of the composition of two or more functions.</p>
-  <subsection title="Deriving the Chain Rule">
-    <p>When we have a function that is a composition of two or more functions, we could use all of the techniques we have already learned to differentiate it. However, using all of those techniques to break down a function into simpler parts that we are able to differentiate can get cumbersome. Instead, we use the chain rule, which states that the derivative of a composite function is the derivative of the outer function evaluated at the inner function times the derivative of the inner function.</p>
-    <p>To put this rule into context, let’s take a look at an example: $$h(x) = \text{sin}\mspace{2mu}\left( x^{3} \right).$$ We can think of the derivative of this function with respect to x as the rate of change of $$\text{sin}\left( x^{3} \right)$$ relative to the change in $$x.$$ Consequently, we want to know how $$\text{sin}\left( x^{3} \right)$$ changes as $$x$$ changes. We can think of this event as a chain reaction: As $$x$$ changes, $$x^{3}$$ changes, which leads to a change in $$\text{sin}\mspace{2mu}\left( x^{3} \right).$$ This chain reaction gives us hints as to what is involved in computing the derivative of $$\ \text{sin}\left( x^{3} \right).$$ First of all, a change in $$x$$ forcing a change in $$x^{3}$$ suggests that somehow the derivative of $$x^{3}$$ is involved. In addition, the change in $$x^{3}$$ forcing a change in $$\text{sin}\left( x^{3} \right)$$ suggests that the derivative of $$\text{sin}(u)$$ with respect to $$u,$$ where $$u = x^{3},$$ is also part of the final derivative.</p>
-    <p>We can take a more formal look at the derivative of $$h(x) = \text{sin}\mspace{2mu}\left( x^{3} \right)$$ by setting up the limit that would give us the derivative at a specific value $$a$$ in the domain of $$h(x) = \text{sin}\mspace{2mu}\left( x^{3} \right).$$</p>
-    <equation>$$h^{\prime}(a) = \underset{x\rightarrow a}{\text{lim}}\frac{\text{sin}\mspace{2mu}\left( x^{3} \right) - \text{sin}\left( a^{3} \right)}{x - a}.$$</equation>
-    <p>This expression does not seem particularly helpful; however, we can modify it by multiplying and dividing by the expression $$x^{3} - a^{3}$$ to obtain</p>
-    <equation>$$h^{\prime}(a) = \underset{x\rightarrow a}{\text{lim}}\frac{\text{sin}\mspace{2mu}\left( x^{3} \right) - \text{sin}\left( a^{3} \right)}{x^{3} - a^{3}} \cdot \frac{x^{3} - a^{3}}{x - a}.$$</equation>
-    <p>From the definition of the derivative, we can see that the second factor is the derivative of $$x^{3}$$ at $$x = a.$$ That is,</p>
-    <equation>$$\underset{x\rightarrow a}{\text{lim}}\frac{x^{3} - a^{3}}{x - a} = \frac{d}{dx}\left( x^{3} \right)_{x = a} = 3a^{2}.$$</equation>
-    <p>However, it might be a little more challenging to recognize that the first term is also a derivative. We can see this by letting $$u = x^{3}$$ and observing that as $$x\rightarrow a,u\rightarrow a^{3}\text{:}$$</p>
-    <equation>$$\begin{array}{cl} {\underset{x\rightarrow a}{\text{lim}}\frac{\text{sin}\mspace{2mu}\left( x^{3} \right) - \text{sin}\mspace{2mu}\left( a^{3} \right)}{x^{3} - a^{3}}} &amp; {= \underset{u\rightarrow a^{3}}{\text{lim}}\frac{\text{sin}\mspace{2mu} u - \text{sin}\mspace{2mu}\left( a^{3} \right)}{u - a^{3}}} \\ &amp; {= \frac{d}{du}\left( {\text{sin}\mspace{2mu} u} \right)_{u = a^{3}}} \\ &amp; {= \text{cos}\mspace{2mu}{\left( a^{3} \right).}} \end{array}$$</equation>
-    <p>Thus, $$h^{\prime}(a) = \text{cos}\left( a^{3} \right) \cdot 3a^{2}.$$</p>
-    <p>In other words, if $$h(x) = \text{sin}\mspace{2mu}\left( x^{3} \right),$$ then $$h^{\prime}(x) = \text{cos}\mspace{2mu}\left( x^{3} \right) \cdot 3x^{2}.$$ Thus, if we think of $$h(x) = \text{sin}\left( x^{3} \right)$$ as the composition $$\left( {f \circ g} \right)(x) = f\left( {g(x)} \right)$$ where $$f(x) =$$ sin $$x$$ and $$g(x) = x^{3},$$ then the derivative of $$h(x) = \text{sin}\left( x^{3} \right)$$ is the product of the derivative of $$g(x) = x^{3}$$ and the derivative of the function $$f(x) = \text{sin}\mspace{2mu} x$$ evaluated at the function $$g(x) = x^{3}.$$ At this point, we anticipate that for $$h(x) = \text{sin}\mspace{2mu}\left( {g(x)} \right),$$ it is quite likely that $$h^{\prime}(x) = \text{cos}(g(x))g^{\prime}(x).$$ As we determined above, this is the case for $$h(x) = \text{sin}\mspace{2mu}\left( x^{3} \right).$$</p>
-    <p>Now that we have derived a special case of the chain rule, we state the general case and then apply it in a general form to other composite functions. An informal proof is provided at the end of the section.</p>
-    <note type="Rule" title="The Chain Rule">
-      <p>Let $$f$$ and $$g$$ be functions. For all x in the domain of $$g$$ for which $$g$$ is differentiable at x and $$f$$ is differentiable at $$g(x),$$ the derivative of the composite function</p>
-      <equation>$$h(x) = \left( {f \circ g} \right)(x) = f\left( {g(x)} \right)$$</equation>
-      <p>is given by</p>
-      <equation>$$h^{\prime}(x) = f^{\prime}\left( {g(x)} \right)g^{\prime}(x).$$</equation>
-      <p>Alternatively, if $$y$$ is a function of $$u,$$ and $$u$$ is a function of $$x,$$ then</p>
-      <equation>$$\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}.$$</equation>
-    </note>
-    <note type="Media">
-      <p>Watch an animation of the chain rule.</p>
-    </note>
-    <note type="Problem-Solving Strategy">
-      <list type="ol" style="1">
-        <item>To differentiate $$h(x) = f\left( {g(x)} \right),$$ begin by identifying $$f(x)$$ and $$g(x).$$</item>
-        <item>Find $$f\prime(x)$$ and evaluate it at $$g(x)$$ to obtain $$f^{\prime}\left( {g(x)} \right).$$</item>
-        <item>Find $$g^{\prime}(x).$$</item>
-        <item>Write $$h^{\prime}(x) = f^{\prime}\left( {g(x)} \right) \cdot g^{\prime}(x).$$</item>
-      </list>
-      <p>Note: When applying the chain rule to the composition of two or more functions, keep in mind that we work our way from the outside function in. It is also useful to remember that the derivative of the composition of two functions can be thought of as having two parts; the derivative of the composition of three functions has three parts; and so on. Also, remember that we never evaluate a derivative at a derivative.</p>
-    </note>
-  </subsection>
-  <subsection title="The Chain and Power Rules Combined">
-    <p>We can now apply the chain rule to composite functions, but note that we often need to use it with other rules. For example, to find derivatives of functions of the form $$h(x) = {(g(x))}^{n},$$ we need to use the chain rule combined with the power rule. To do so, we can think of $$h(x) = \left( {g(x)} \right)^{n}$$ as $$f\left( {g(x)} \right)$$ where $$f(x) = x^{n}.$$ Then $$f^{\prime}(x) = nx^{n - 1}.$$ Thus, $$f^{\prime}\left( {g(x)} \right) = n\left( {g(x)} \right)^{n - 1}.$$ This leads us to the derivative of a power function using the chain rule,</p>
-    <equation>$$h^{\prime}(x) = n\left( {g(x)} \right)^{n - 1}g^{\prime}(x)$$</equation>
-    <note type="Rule" title="Power Rule for Composition of Functions">
-      <p>For all values of x for which the derivative is defined, if</p>
-      <equation>$$h(x) = \left( {g(x)} \right)^{n}.$$</equation>
-      <p>Then</p>
-      <equation>$$h^{\prime}(x) = n\left( {g(x)} \right)^{n - 1}g^{\prime}\left( x\operatorname{).} \right.$$</equation>
-    </note>
-    <example number="3.48">
-      <problem>
-        <title>Using the Chain and Power Rules</title>
-        <p>Find the derivative of $$h(x) = \frac{1}{\left( {3x^{2} + 1} \right)^{2}}.$$</p>
-      </problem>
-      <solution>
-        <p>First, rewrite $$h(x) = \frac{1}{\left( {3x^{2} + 1} \right)^{2}} = \left( {3x^{2} + 1} \right)^{-2}.$$</p>
-        <p>Applying the power rule with $$g(x) = 3x^{2} + 1,$$ we have</p>
-        <equation>$$h^{\prime}(x) = -2\left( {3x^{2} + 1} \right)^{-3}\left( {6x} \right).$$</equation>
-        <p>Rewriting back to the original form gives us</p>
-        <equation>$$h^{\prime}(x) = \frac{-12x}{{(3x^{2} + 1)}^{3}}.$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="3.34">
-      <problem>
-        <p>Find the derivative of $$h(x) = \left( {2x^{3} + 2x - 1} \right)^{4}.$$</p>
-      </problem>
-      <solution>
-        <p>$$h^{\prime}(x) = 4\left( {2x^{3} + 2x - 1} \right)^{3}\left( {6x^{2} + 2} \right) = 8\left( {3x^{2} + 1} \right)\left( {2x^{3} + 2x - 1} \right)^{3}$$</p>
-      </solution>
-    </checkpoint>
-    <example number="3.49">
-      <problem>
-        <title>Using the Chain and Power Rules with a Trigonometric Function</title>
-        <p>Find the derivative of $$h(x) = \text{sin}^{3}x.$$</p>
-      </problem>
-      <solution>
-        <p>First recall that $$\text{sin}^{3}x = \left( {\text{sin}\mspace{2mu} x} \right)^{3},$$ so we can rewrite $$h(x) = \text{sin}^{3}x$$ as $$h(x) = \left( {\text{sin}\mspace{2mu} x} \right)^{3}.$$</p>
-        <p>Applying the power rule with $$g(x) = \text{sin}\mspace{2mu} x,$$ we obtain</p>
-        <equation>$$h^{\prime}(x) = 3\left( {\text{sin}\mspace{2mu} x} \right)^{2}\text{cos}\mspace{2mu} x = 3\mspace{2mu}\text{sin}^{2}x\mspace{2mu}\text{cos}\mspace{2mu} x.$$</equation>
-      </solution>
-    </example>
-    <example number="3.50">
-      <problem>
-        <title>Finding the Equation of a Tangent Line</title>
-        <p>Find the equation of a line tangent to the graph of $$h(x) = \frac{1}{{(3x - 5)}^{2}}$$ at $$x = 2.$$</p>
-      </problem>
-      <solution>
-        <p>Because we are finding an equation of a line, we need a point. The x-coordinate of the point is 2. To find the y-coordinate, substitute 2 into $$h(x).$$ Since $$h(2) = \frac{1}{\left( {3(2) - 5} \right)^{2}} = 1,$$ the point is $$\left( {2,1} \right).$$</p>
-        <p>For the slope, we need $$h^{\prime}(2).$$ To find $$h^{\prime}(x),$$ first we rewrite $$h(x) = \left( {3x - 5} \right)^{-2}$$ and apply the power rule to obtain</p>
-        <equation>$$h^{\prime}(x) = -2\left( {3x - 5} \right)^{-3}(3) = -6\left( {3x - 5} \right)^{-3}.$$</equation>
-        <p>By substituting, we have $$h^{\prime}(2) = -6\left( {3(2) - 5} \right)^{-3} = -6.$$ Therefore, the line has equation $$y - 1 = -6\left( {x - 2} \right).$$ Rewriting, the equation of the line is $$y = -6x + 13.$$</p>
-      </solution>
-    </example>
-    <checkpoint number="3.35">
-      <problem>
-        <p>Find an equation of the line tangent to the graph of $$f(x) = \left( {x^{2} - 2} \right)^{3}$$ at $$x = -2.$$</p>
-      </problem>
-      <solution>
-        <p>$$y = -48x - 88$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Combining the Chain Rule with Other Rules">
-    <p>Now that we can combine the chain rule and the power rule, we examine how to combine the chain rule with the other rules we have learned. In particular, we can use it with the formulas for the derivatives of trigonometric functions or with the product rule.</p>
-    <example number="3.51">
-      <problem>
-        <title>Using the Chain Rule on a General Cosine Function</title>
-        <p>Find the derivative of $$h(x) = \text{cos}\mspace{2mu}\left( {g(x)} \right).$$</p>
-      </problem>
-      <solution>
-        <p>Think of $$h(x) = \text{cos}(g(x))$$ as $$f\left( {g(x)} \right)$$ where $$f(x) = \text{cos}\mspace{2mu} x.$$ Since $$f^{\prime}(x) = \text{−}\text{sin}\mspace{2mu} x.$$ we have $$f^{\prime}\left( {g(x)} \right) = \text{−}\text{sin}\mspace{2mu}\left( {g(x)} \right).$$ Then we do the following calculation.</p>
-        <equation>$$\begin{array}{clccl} {h^{\prime}(x)} &amp; {= f^{\prime}\left( {g(x)} \right)g^{\prime}(x)} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= \text{−}\text{sin}\mspace{2mu}\left( {g(x)} \right)g^{\prime}(x)} &amp; &amp; &amp; {\text{Substitute}\ f^{\prime}\left( {g(x)} \right) = \text{−}\text{sin}\mspace{2mu}\left( {g(x)} \right).} \end{array}$$</equation>
-        <p>Thus, the derivative of $$h(x) = \text{cos}\mspace{2mu}\left( {g(x)} \right)$$ is given by $$h^{\prime}(x) = \text{−}\text{sin}\mspace{2mu}\left( {g(x)} \right)g^{\prime}(x).$$</p>
-      </solution>
-    </example>
-    <p>In the following example we apply the rule that we have just derived.</p>
-    <example number="3.52">
-      <problem>
-        <title>Using the Chain Rule on a Cosine Function</title>
-        <p>Find the derivative of $$h(x) = \text{cos}\mspace{2mu}\left( {5x^{2}} \right).$$</p>
-      </problem>
-      <solution>
-        <p>Let $$g(x) = 5x^{2}.$$ Then $$g^{\prime}(x) = 10x.$$ Using the result from the previous example,</p>
-        <equation>$$\begin{array}{cl} {h^{\prime}(x)} &amp; {= \text{−}\text{sin}\mspace{2mu}\left( {5x^{2}} \right) \cdot 10x} \\ &amp; {= -10x\mspace{2mu}\text{sin}\mspace{2mu}\left( {5x^{2}} \right).} \end{array}$$</equation>
-      </solution>
-    </example>
-    <example number="3.53">
-      <problem>
-        <title>Using the Chain Rule on Another Trigonometric Function</title>
-        <p>Find the derivative of $$h(x) = \text{sec}\mspace{2mu}\left( {4x^{5} + 2x} \right).$$</p>
-      </problem>
-      <solution>
-        <p>Apply the chain rule to $$h(x) = \text{sec}\mspace{2mu}\left( {g(x)} \right)$$ to obtain</p>
-        <equation>$$h^{\prime}(x) = \text{sec}(g{(x))}\mspace{2mu}\text{tan}\mspace{2mu}\left( {g(x)} \right)g^{\prime}(x).$$</equation>
-        <p>In this problem, $$g(x) = 4x^{5} + 2x,$$ so we have $$g^{\prime}(x) = 20x^{4} + 2.$$ Therefore, we obtain</p>
-        <equation>$$\begin{array}{cl} {h^{\prime}(x)} &amp; {= \text{sec}\mspace{2mu}\left( {4x^{5} + 2x} \right)\mspace{2mu}\text{tan}\mspace{2mu}\left( {4x^{5} + 2x} \right)\left( {20x^{4} + 2} \right)} \\ &amp; {= (20x^{4} + 2)\text{sec}\mspace{2mu}\left( {4x^{5} + 2x} \right)\mspace{2mu}\text{tan}\mspace{2mu}\left( {4x^{5} + 2x} \right).} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="3.36">
-      <problem>
-        <p>Find the derivative of $$h(x) = \text{sin}(7x + 2).$$</p>
-      </problem>
-      <solution>
-        <p>$$h^{\prime}(x) = 7\mspace{2mu}\text{cos}\mspace{2mu}\left( {7x + 2} \right)$$</p>
-      </solution>
-    </checkpoint>
-    <p>At this point we provide a list of derivative formulas that may be obtained by applying the chain rule in conjunction with the formulas for derivatives of trigonometric functions. Their derivations are similar to those used in Example 3.51 and Example 3.53. For convenience, formulas are also given in Leibniz’s notation, which some students find easier to remember. (We discuss the chain rule using Leibniz’s notation at the end of this section.) It is not absolutely necessary to memorize these as separate formulas as they are all applications of the chain rule to previously learned formulas.</p>
-    <theorem number="3.10" title="Using the Chain Rule with Trigonometric Functions">
-      <p>For all values of $$x$$ for which the derivative is defined,</p>
-      <equation>$$\begin{array}{lccl} {\frac{d}{dx}\left( {\text{sin}(g(x))}) \right.\ = \text{cos}\mspace{2mu}\left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\mspace{2mu}\text{sin}\mspace{2mu} u\ = \text{cos}\mspace{2mu} u\frac{du}{dx}} \\ {\frac{d}{dx}\left( {\text{cos}(g(x))}) \right.\mspace{2mu} = \text{−}\text{sin}\mspace{2mu}\left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\mspace{2mu}\text{cos}\mspace{2mu} u\mspace{2mu} = \text{−}\text{sin}\mspace{2mu} u\frac{du}{dx}} \\ {\frac{d}{dx}\left( {\text{tan}(g(x))}) \right.\ = \text{sec}^{2}\left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\mspace{2mu}\text{tan}\mspace{2mu} u\ = \text{sec}^{2}u\frac{du}{dx}} \\ {\frac{d}{dx}\left( {\text{cot}(g(x))}) \right.\ = \text{−}\text{csc}^{2}\left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\mspace{2mu}\text{cot}\mspace{2mu} u\ = \text{−}\text{csc}^{2}u\frac{du}{dx}} \\ {\frac{d}{dx}\left( {\text{sec}(g(x))}) \right.\ = \text{sec}(g\left( x) \right.\mspace{2mu}\text{tan}\mspace{2mu}\left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\mspace{2mu}\text{sec}\mspace{2mu} u\ = \text{sec}\mspace{2mu} u\mspace{2mu}\text{tan}\mspace{2mu} u\frac{du}{dx}} \\ {\frac{d}{dx}\left( {\text{csc}(g(x))}) \right.\ = \text{−}\text{csc}(g\left( x) \right.)\text{cot}\mspace{2mu}\left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\mspace{2mu}\text{csc}\mspace{2mu} u\ = \text{−}\text{csc}\mspace{2mu} u\mspace{2mu}\text{cot}\mspace{2mu} u\frac{du}{dx}.} \end{array}$$</equation>
-    </theorem>
-    <example number="3.54">
-      <problem>
-        <title>Combining the Chain Rule with the Product Rule</title>
-        <p>Find the derivative of $$h(x) = \left( {2x + 1} \right)^{5}\left( {3x - 2} \right)^{7}.$$</p>
-      </problem>
-      <solution>
-        <p>First apply the product rule, then apply the chain rule to each term of the product.</p>
-        <equation>$$\begin{array}{clccl} {h^{\prime}(x)} &amp; {= \frac{d}{dx}\left( {(2x + 1)}^{5} \right) \cdot \left( {3x - 2} \right)^{7} + \frac{d}{dx}\left( {(3x - 2)}^{7} \right) \cdot \left( {2x + 1} \right)^{5}} &amp; &amp; &amp; \text{Apply the product rule.} \\ &amp; {= 5{(2x + 1)}^{4} \cdot 2 \cdot \left( {3x - 2} \right)^{7} + 7{(3x - 2)}^{6} \cdot 3 \cdot {(2x + 1)}^{5}} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= 10\left( {2x + 1} \right)^{4}\left( {3x - 2} \right)^{7} + 21{(3x - 2)}^{6}{(2x + 1)}^{5}} &amp; &amp; &amp; \text{Simplify.} \\ &amp; {= \left( {2x + 1} \right)^{4}\left( {3x - 2} \right)^{6}\left( {10\left( {3x - 2} \right) + 21\left( {2x + 1} \right)} \right)} &amp; &amp; &amp; {\text{Factor out}\ \left( {2x + 1} \right)^{4}\left( {3x - 2} \right)^{6}.} \\ &amp; {= \left( {2x + 1} \right)^{4}\left( {3x - 2} \right)^{6}(72x + 1)} &amp; &amp; &amp; \text{Simplify.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="3.37">
-      <problem>
-        <p>Find the derivative of $$h(x) = \frac{x}{\left( {2x + 3} \right)^{3}}.$$</p>
-      </problem>
-      <solution>
-        <p>$$h^{\prime}(x) = \frac{3 - 4x}{\left( {2x + 3} \right)^{4}}$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Composites of Three or More Functions">
-    <p>We can now combine the chain rule with other rules for differentiating functions, but when we are differentiating the composition of three or more functions, we need to apply the chain rule more than once. If we look at this situation in general terms, we can generate a formula, but we do not need to remember it, as we can simply apply the chain rule multiple times.</p>
-    <p>In general terms, first we let</p>
-    <equation>$$k(x) = h\left( {f\left( {g(x)} \right)} \right).$$</equation>
-    <p>Then, applying the chain rule once we obtain</p>
-    <equation>$$k^{\prime}(x) = \frac{d}{dx}\left( {h(f\left( {g(x)} \right)} \right) = h\prime\left( {f\left( {g(x)} \right)} \right) \cdot \frac{d}{dx}f\left( \left( {g(x)} \right) \right).$$</equation>
-    <p>Applying the chain rule again, we obtain</p>
-    <equation>$$k^{\prime}(x) = h^{\prime}\left( {f\left( {g(x)} \right)f^{\prime}\left( {g(x)} \right)g^{\prime}(x)} \right).$$</equation>
-    <note type="Rule" title="Chain Rule for a Composition of Three Functions">
-      <p>For all values of x for which the function is differentiable, if</p>
-      <equation>$$k(x) = h\left( {f\left( {g(x)} \right)} \right),$$</equation>
-      <p>then</p>
-      <equation>$$k^{\prime}(x) = h^{\prime}\left( {f\left( {g(x)} \right)} \right)f^{\prime}\left( {g(x)} \right)g^{\prime}(x).$$</equation>
-      <p>In other words, we are applying the chain rule twice.</p>
-    </note>
-    <p>Notice that the derivative of the composition of three functions has three parts. (Similarly, the derivative of the composition of four functions has four parts, and so on.) Also, remember, we can always work from the outside in, taking one derivative at a time.</p>
-    <example number="3.55">
-      <problem>
-        <title>Differentiating a Composite of Three Functions</title>
-        <p>Find the derivative of $$k(x) = \text{cos}^{4}\left( {{7x}^{2} + 1} \right).$$</p>
-      </problem>
-      <solution>
-        <p>First, rewrite $$k(x)$$ as</p>
-        <equation>$$k(x) = \left( {\text{cos}\mspace{2mu}\left( {7x^{2} + 1} \right)} \right)^{4}.$$</equation>
-        <p>Then apply the power rule several times.</p>
-        <equation>$$\begin{array}{clccl} {k^{\prime}(x)} &amp; {= 4\left( {\text{cos}\mspace{2mu}\left( {7x^{2} + 1} \right)} \right)^{3}\left( {\frac{d}{dx}\text{cos}\mspace{2mu}\left( {7x^{2} + 1} \right)} \right)} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= 4\left( {\text{cos}\mspace{2mu}\left( {7x^{2} + 1} \right)} \right)^{3}\left( {\text{−}\text{sin}\mspace{2mu}\left( {7x^{2} + 1} \right)} \right)\left( {\frac{d}{dx}\left( {7x^{2} + 1} \right)} \right)} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= 4\left( {\text{cos}\mspace{2mu}\left( {7x^{2} + 1} \right)} \right)^{3}\left( {\text{−}\text{sin}\mspace{2mu}\left( {7x^{2} + 1} \right)} \right)\left( {14x} \right)} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= -56x\mspace{2mu}\text{sin}\mspace{2mu}(7x^{2} + 1)\text{cos}^{3}(7x^{2} + 1)} &amp; &amp; &amp; \text{Simplify.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="3.38">
-      <problem>
-        <p>Find the derivative of $$h(x) = \text{sin}^{6}\left( x^{3} \right).$$</p>
-      </problem>
-      <solution>
-        <p>$$h^{\prime}(x) = 18x^{2}\text{sin}^{5}\left( x^{3} \right)\mspace{2mu}\text{cos}\mspace{2mu}\left( x^{3} \right)$$</p>
-      </solution>
-    </checkpoint>
-    <example number="3.56">
-      <problem>
-        <title>Using the Chain Rule in a Velocity Problem</title>
-        <p>A particle moves along a coordinate axis. Its position at time t is given by $$s(t) = \text{sin}\mspace{2mu}\left( {2t} \right) + \text{cos}\mspace{2mu}\left( {3t} \right).$$ What is the velocity of the particle at time $$t = \frac{\pi}{6}?$$</p>
-      </problem>
-      <solution>
-        <p>To find $$v(t),$$ the velocity of the particle at time $$t,$$ we must differentiate $$s(t).$$ Thus,</p>
-        <equation>$$v(t) = s^{\prime}(t) = 2\mspace{2mu}\text{cos}\mspace{2mu}\left( {2t} \right) - 3\mspace{2mu}\text{sin}\mspace{2mu}\left( {3t} \right).$$</equation>
-        <p>Substituting $$t = \frac{\pi}{6}$$ into $$v(t),$$ we obtain $$v\left( \frac{\pi}{6} \right) = -2.$$</p>
-      </solution>
-    </example>
-    <checkpoint number="3.39">
-      <problem>
-        <p>A particle moves along a coordinate axis. Its position at time $$t$$ is given by $$s(t) = \text{sin}(4t).$$ Find its acceleration at time $$t.$$</p>
-      </problem>
-      <solution>
-        <p>$$a(t) = -16\mspace{2mu}\text{sin}(4t)$$</p>
-      </solution>
-    </checkpoint>
-    <subsection title="Proof">
-      <p>At this point, we present a very informal proof of the chain rule. For simplicity’s sake we ignore certain issues: For example, we assume that $$g(x) \neq g(a)$$ for $$x \neq a$$ in some open interval containing $$a.$$ We begin by applying the limit definition of the derivative to the function $$h(x)$$ to obtain $$h^{\prime}(a)\text{:}$$</p>
-      <equation>$$h^{\prime}(a) = \underset{x\rightarrow a}{\text{lim}}\frac{f\left( {g(x)} \right) - f\left( {g(a)} \right)}{x - a}.$$</equation>
-      <p>Rewriting, we obtain</p>
-      <equation>$$h^{\prime}(a) = \underset{x\rightarrow a}{\text{lim}}\frac{f\left( {g(x)} \right) - f\left( {g(a)} \right)}{g(x) - g(a)} \cdot \frac{g(x) - g(a)}{x - a}.$$</equation>
-      <p>Although it is clear that</p>
-      <equation>$$\underset{x\rightarrow a}{\text{lim}}\frac{g(x) - g(a)}{x - a} = g^{\prime}(a),$$</equation>
-      <p>it is not obvious that</p>
-      <equation>$$\underset{x\rightarrow a}{\text{lim}}\frac{f\left( {g(x)} \right) - f\left( {g(a)} \right)}{g(x) - g(a)} = f^{\prime}\left( {g(a)} \right).$$</equation>
-      <p>To see that this is true, first recall that since g is differentiable at $$a,g$$ is also continuous at $$a.$$ Thus,</p>
-      <equation>$$\underset{x\rightarrow a}{\text{lim}}g(x) = g(a).$$</equation>
-      <p>Next, make the substitution $$y = g(x)$$ and $$b = g(a)$$ and use change of variables in the limit to obtain</p>
-      <equation>$$\underset{x\rightarrow a}{\text{lim}}\frac{f\left( {g(x)} \right) - f\left( {g(a)} \right)}{g(x) - g(a)} = \underset{y\rightarrow b}{\text{lim}}\frac{f(y) - f(b)}{y - b} = f^{\prime}(b) = f^{\prime}\left( {g(a)} \right).$$</equation>
-      <p>Finally,</p>
-      <equation>$$h^{\prime}(a) = \underset{x\rightarrow a}{\text{lim}}\frac{f\left( {g(x)} \right) - f\left( {g(a)} \right)}{g(x) - g(a)} \cdot \frac{g(x) - g(a)}{x - a} = f^{\prime}\left( {g(a)} \right)g^{\prime}(a).$$</equation>
-      <p>□</p>
-      <example number="3.57">
-        <problem>
-          <title>Using the Chain Rule with Functional Values</title>
-          <p>Let $$h(x) = f\left( {g(x)} \right).$$ If $$g(1) = 4,g^{\prime}(1) = 3,$$ and $$f^{\prime}(4) = 7,$$ find $$h^{\prime}(1).$$</p>
-        </problem>
-        <solution>
-          <p>Use the chain rule, then substitute.</p>
-          <equation>$$\begin{array}{clccl} {h^{\prime}(1)} &amp; {= f^{\prime}\left( {g(1)} \right)g^{\prime}(1)} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= f^{\prime}(4) \cdot 3} &amp; &amp; &amp; {\text{Substitute}\ g(1) = 4\ \text{and}\ g^{\prime}(1) = 3.} \\ &amp; {= 7 \cdot 3} &amp; &amp; &amp; {\text{Substitute}\ f\prime(4) = 7.} \\ &amp; {= 21} &amp; &amp; &amp; \text{Simplify.} \end{array}$$</equation>
-        </solution>
-      </example>
-      <checkpoint number="3.40">
-        <problem>
-          <p>Given $$h(x) = f\left( {g(x)} \right).$$ If $$g(2) = -3,g^{\prime}(2) = 4,$$ and $$f^{\prime}(-3) = 7,$$ find $$h^{\prime}(2).$$</p>
-        </problem>
-        <solution>
-          <p>$$28$$</p>
-        </solution>
-      </checkpoint>
-    </subsection>
-  </subsection>
-  <subsection title="The Chain Rule Using Leibniz’s Notation">
-    <p>As with other derivatives that we have seen, we can express the chain rule using Leibniz’s notation. This notation for the chain rule is used heavily in physics applications.</p>
-    <p>$$\text{For}\ h(x) = f\left( {g(x)} \right),$$ let $$u = g(x)$$ and $$y = h(x) = f(u).$$ Thus,</p>
-    <equation>$$h^{\prime}(x) = \frac{dy}{dx},f^{\prime}\left( {g(x)} \right) = f^{\prime}(u) = \frac{dy}{du}\ \text{and}\ g^{\prime}(x) = \frac{du}{dx}.$$</equation>
-    <p>Consequently,</p>
-    <equation>$$\frac{dy}{dx} = h^{\prime}(x) = f^{\prime}\left( {g(x)} \right)g^{\prime}(x) = \frac{dy}{du} \cdot \frac{du}{dx}.$$</equation>
-    <note type="Rule" title="Chain Rule Using Leibniz’s Notation">
-      <p>If $$y$$ is a function of $$u,$$ and $$u$$ is a function of $$x,$$ then</p>
-      <equation>$$\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}.$$</equation>
-    </note>
-    <example number="3.58">
-      <problem>
-        <title>Taking a Derivative Using Leibniz’s Notation, Example 1</title>
-        <p>Find the derivative of $$y = \left( \frac{x}{3x + 2} \right)^{5}.$$</p>
-      </problem>
-      <solution>
-        <p>First, let $$u = \frac{x}{3x + 2}.$$ Thus, $$y = u^{5}.$$ Next, find $$\frac{du}{dx}$$ and $$\frac{dy}{du}.$$ Using the quotient rule,</p>
-        <equation>$$\frac{du}{dx} = \frac{2}{\left( {3x + 2} \right)^{2}}$$</equation>
-        <p>and</p>
-        <equation>$$\frac{dy}{du} = 5u^{4}.$$</equation>
-        <p>Finally, we put it all together.</p>
-        <equation>$$\begin{array}{clccl} \frac{dy}{dx} &amp; {= \frac{dy}{du} \cdot \frac{du}{dx}} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= 5u^{4} \cdot \frac{2}{\left( {3x + 2} \right)^{2}}} &amp; &amp; &amp; {\text{Substitute}\ \frac{dy}{du} = 5u^{4}\ \text{and}\ \frac{du}{dx} = \frac{2}{\left( {3x + 2} \right)^{2}}.} \\ &amp; {= 5\left( \frac{x}{3x + 2} \right)^{4} \cdot \frac{2}{\left( {3x + 2} \right)^{2}}} &amp; &amp; &amp; {\text{Substitute}\ u = \frac{x}{3x + 2}.} \\ &amp; {= \frac{10x^{4}}{\left( {3x + 2} \right)^{6}}} &amp; &amp; &amp; \text{Simplify.} \end{array}$$</equation>
-        <p>It is important to remember that, when using the Leibniz form of the chain rule, the final answer must be expressed entirely in terms of the original variable given in the problem.</p>
-      </solution>
-    </example>
-    <example number="3.59">
-      <problem>
-        <title>Taking a Derivative Using Leibniz’s Notation, Example 2</title>
-        <p>Find the derivative of $$y = \text{tan}\mspace{2mu}\left( {4x^{2} - 3x + 1} \right).$$</p>
-      </problem>
-      <solution>
-        <p>First, let $$u = 4x^{2} - 3x + 1.$$ Then $$y = \text{tan}\mspace{2mu} u.$$ Next, find $$\frac{du}{dx}$$ and $$\frac{dy}{du}\text{:}$$</p>
-        <equation>$$\frac{du}{dx} = 8x - 3\ \text{and}\ \frac{dy}{du} = \text{sec}^{2}u.$$</equation>
-        <p>Finally, we put it all together.</p>
-        <equation>$$\begin{array}{clccl} \frac{dy}{dx} &amp; {= \frac{dy}{du} \cdot \frac{du}{dx}} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= \text{sec}^{2}u \cdot \left( {8x - 3} \right)} &amp; &amp; &amp; {\text{Use}\ \frac{du}{dx} = 8x - 3\ \text{and}\ \frac{dy}{du} = \text{sec}^{2}u.} \\ &amp; {= \text{sec}^{2}(4x^{2} - 3x + 1) \cdot (8x - 3)} &amp; &amp; &amp; {\text{Substitute}\ u = 4x^{2} - 3x + 1.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="3.41">
-      <problem>
-        <p>Use Leibniz’s notation to find the derivative of $$y = \text{cos}\mspace{2mu}\left( x^{3} \right).$$ Make sure that the final answer is expressed entirely in terms of the variable $$x.$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{dy}{dx} = -3x^{2}\text{sin}\mspace{2mu}\left( x^{3} \right)$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <exercises title="Section 3.6 Exercises">
-    <instruction>For the following exercises, given $$y = f(u)$$ and $$u = g(x),$$ find $$\frac{dy}{dx}$$ by using Leibniz’s notation for the chain rule: $$\frac{dy}{dx} = \frac{dy}{du}\ \frac{du}{dx}.$$</instruction>
-    <exercise number="214" has_solution="false">
-      <problem>
-        <p>$$y = 3u - 6,u = 2x^{2}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="215" has_solution="true">
-      <problem>
-        <p>$$y = 6u^{3},u = 7x - 4$$</p>
-      </problem>
-      <solution>
-        <p>$$18u^{2} \cdot 7 = 18\left( {7x - 4} \right)^{2} \cdot 7$$</p>
-      </solution>
-    </exercise>
-    <exercise number="216" has_solution="false">
-      <problem>
-        <p>$$y = \text{sin}\mspace{2mu} u,u = 5x - 1$$</p>
-      </problem>
-    </exercise>
-    <exercise number="217" has_solution="true">
-      <problem>
-        <p>$$y = \text{cos}\mspace{2mu} u,u = \frac{\text{−}x}{8}$$</p>
-      </problem>
-      <solution>
-        <p>$$\text{−}\text{sin}\mspace{2mu} u \cdot \frac{-1}{8} = \text{−}\text{sin}\mspace{2mu}\left( \frac{\text{−}x}{8} \right) \cdot \frac{-1}{8}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="218" has_solution="false">
-      <problem>
-        <p>$$y = \text{tan}\mspace{2mu} u,u = 9x + 2$$</p>
-      </problem>
-    </exercise>
-    <exercise number="219" has_solution="true">
-      <problem>
-        <p>$$y = \sqrt{4u + 3},u = x^{2} - 6x$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{8x - 24}{2\sqrt{4u + 3}} = \frac{4x - 12}{\sqrt{4x^{2} - 24x + 3}}$$</p>
-      </solution>
-    </exercise>
-    <instruction>For each of the following exercises, a. decompose each function in the form $$y = f(u)$$ and $$u = g(x),$$ and b. find $$\frac{dy}{dx}$$ as a function of $$x.$$</instruction>
-    <exercise number="220" has_solution="false">
-      <problem>
-        <p>$$y = \left( {3x - 2} \right)^{6}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="221" has_solution="true">
-      <problem>
-        <p>$$y = \left( {3x^{2} + 1} \right)^{3}$$</p>
-      </problem>
-      <solution>
-        <p>a. $$u = 3x^{2} + 1;$$ b. $$18x\left( {3x^{2} + 1} \right)^{2}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="222" has_solution="false">
-      <problem>
-        <p>$$y = \text{sin}^{5}(x)$$</p>
-      </problem>
-    </exercise>
-    <exercise number="223" has_solution="true">
-      <problem>
-        <p>$$y = \left( {\frac{x}{7} + \frac{7}{x}} \right)^{7}$$</p>
-      </problem>
-      <solution>
-        <p>a. $$f(u) = u^{7},u = \frac{x}{7} + \frac{7}{x};$$ b. $$7\left( {\frac{x}{7} + \frac{7}{x}} \right)^{6} \cdot \left( {\frac{1}{7} - \frac{7}{x^{2}}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="224" has_solution="false">
-      <problem>
-        <p>$$y = \text{tan}\mspace{2mu}\left( {\text{sec}\mspace{2mu} x} \right)$$</p>
-      </problem>
-    </exercise>
-    <exercise number="225" has_solution="true">
-      <problem>
-        <p>$$y = \text{csc}\mspace{2mu}\left( {\pi x + 1} \right)$$</p>
-      </problem>
-      <solution>
-        <p>a. $$f(u) = \text{csc}\mspace{2mu} u,u = \pi x + 1;$$ b. $$\text{−}\pi\mspace{2mu}\text{csc}\mspace{2mu}\left( {\pi x + 1} \right) \cdot \text{cot}\mspace{2mu}\left( {\pi x + 1} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="226" has_solution="false">
-      <problem>
-        <p>$$y = \text{cot}^{2}x$$</p>
-      </problem>
-    </exercise>
-    <exercise number="227" has_solution="true">
-      <problem>
-        <p>$$y = -6\mspace{2mu}\left( \sin~x \right)^{- 3}$$</p>
-      </problem>
-      <solution>
-        <p>a. $$f(u) = -6u^{-3},u = \text{sin}\mspace{2mu} x,$$ b. $$18\mspace{2mu}\left( \text{sin} \right)^{-4}x \cdot \text{cos}\mspace{2mu} x$$</p>
-      </solution>
-    </exercise>
-    <instruction>For the following exercises, find $$\frac{dy}{dx}$$ for each function.</instruction>
-    <exercise number="228" has_solution="false">
-      <problem>
-        <p>$$y = \left( {3x^{2} + 3x - 1} \right)^{4}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="229" has_solution="true">
-      <problem>
-        <p>$$y = \left( {5 - 2x} \right)^{-2}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{4}{\left( {5 - 2x} \right)^{3}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="230" has_solution="false">
-      <problem>
-        <p>$$y = \text{cos}^{3}\left( {\pi x} \right)$$</p>
-      </problem>
-    </exercise>
-    <exercise number="231" has_solution="true">
-      <problem>
-        <p>$$y = \left( {2x^{3} - x^{2} + 6x + 1} \right)^{3}$$</p>
-      </problem>
-      <solution>
-        <p>$$6\left( {2x^{3} - x^{2} + 6x + 1} \right)^{2}\left( {3x^{2} - x + 3} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="232" has_solution="false">
-      <problem>
-        <p>$$y = \frac{1}{\text{sin}^{2}(x)}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="233" has_solution="true">
-      <problem>
-        <p>$$y = \left( {\text{tan}\mspace{2mu} x + \text{sin}\mspace{2mu} x} \right)^{-3}$$</p>
-      </problem>
-      <solution>
-        <p>$$-3\left( {\text{tan}\mspace{2mu} x + \text{sin}\mspace{2mu} x} \right)^{-4} \cdot \left( {\text{sec}^{2}x + \text{cos}\mspace{2mu} x} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="234" has_solution="false">
-      <problem>
-        <p>$$y = x^{2}\text{cos}^{4}x$$</p>
-      </problem>
-    </exercise>
-    <exercise number="235" has_solution="true">
-      <problem>
-        <p>$$y = \text{sin}\mspace{2mu}\left( {\text{cos}\mspace{2mu} 7x} \right)$$</p>
-      </problem>
-      <solution>
-        <p>$$-7\mspace{2mu}\text{cos}\mspace{2mu}\left( {\text{cos}\mspace{2mu} 7x} \right) \cdot \text{sin}\mspace{2mu} 7x$$</p>
-      </solution>
-    </exercise>
-    <exercise number="236" has_solution="false">
-      <problem>
-        <p>$$y = \sqrt{6 + \text{sec}\mspace{2mu}\pi x^{2}}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="237" has_solution="true">
-      <problem>
-        <p>$$y = \text{cot}^{3}\left( {4x + 1} \right)$$</p>
-      </problem>
-      <solution>
-        <p>$$-12\mspace{2mu}\text{cot}^{2}(4x + 1) \cdot \text{csc}^{2}(4x + 1)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="238" has_solution="false">
-      <problem>
-        <p>Let $$y = \left\lbrack {f(x)} \right\rbrack^{2}$$ and suppose that $$f^{\prime}(1) = 4$$ and $$\frac{dy}{dx} = 10$$ for $$x = 1.$$ Find $$f(1).$$</p>
-      </problem>
-    </exercise>
-    <exercise number="239" has_solution="true">
-      <problem>
-        <p>Let $$y = \left( {f(x) + 5x^{2}} \right)^{4}$$ and suppose that $$f(-1) = -4$$ and $$\frac{dy}{dx} = 3$$ when $$x = -1.$$ Find $$f^{\prime}(-1)$$</p>
-      </problem>
-      <solution>
-        <p>$$10\frac{3}{4}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="240" has_solution="false">
-      <problem>
-        <p>Let $$y = \left( {f(u) + 3x} \right)^{2}$$ and $$u = x^{3} - 2x.$$ If $$f(4) = 6$$ and $$\frac{dy}{dx} = 18$$ when $$x = 2,$$ find $$f^{\prime}(4).$$</p>
-      </problem>
-    </exercise>
-    <exercise number="241" has_solution="true">
-      <problem>
-        <p>[T] Find an equation of the tangent line to $$y = \text{−}\text{sin}\mspace{2mu}\left( \frac{x}{2} \right)$$ at the origin. Use a calculator to graph the function and the tangent line together.</p>
-      </problem>
-      <solution>
-        <p>$$y = \frac{-1}{2}x$$</p>
-      </solution>
-    </exercise>
-    <exercise number="242" has_solution="false">
-      <problem>
-        <p>[T] Find an equation of the tangent line to $$y = \left( {3x + \frac{1}{x}} \right)^{2}$$ at the point $$\left( {1,16} \right).$$ Use a calculator to graph the function and the tangent line together.</p>
-      </problem>
-    </exercise>
-    <exercise number="243" has_solution="true">
-      <problem>
-        <p>Find the $$x$$-coordinates at which the tangent line to $$y = \left( {x - \frac{6}{x}} \right)^{8}$$ is horizontal.</p>
-      </problem>
-      <solution>
-        <p>$$x = \pm \sqrt{6}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="244" has_solution="false">
-      <problem>
-        <p>[T] Find an equation of the line that is normal to $$g(\theta) = \text{sin}^{2}\left( {\pi\theta} \right)$$ at the point $$\left( {\frac{1}{4},\frac{1}{2}} \right).$$ Use a calculator to graph the function and the normal line together.</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, use the information in the following table to find $$h^{\prime}(a)$$ at the given value for $$a.$$</instruction>
-    <exercise number="245" has_solution="true">
-      <problem>
-        <p>$$h(x) = f\left( {g(x)} \right);a = 0$$</p>
-      </problem>
-      <solution>
-        <p>10</p>
-      </solution>
-    </exercise>
-    <exercise number="246" has_solution="false">
-      <problem>
-        <p>$$h(x) = g\left( {f(x)} \right);a = 0$$</p>
-      </problem>
-    </exercise>
-    <exercise number="247" has_solution="true">
-      <problem>
-        <p>$$h(x) = \left( {x^{4} + g(x)} \right)^{-2};a = 1$$</p>
-      </problem>
-      <solution>
-        <p>$$- \frac{1}{8}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="248" has_solution="false">
-      <problem>
-        <p>$$h(x) = \left( \frac{f(x)}{g(x)} \right)^{2};a = 3$$</p>
-      </problem>
-    </exercise>
-    <exercise number="249" has_solution="true">
-      <problem>
-        <p>$$h(x) = f\left( {x + f(x)} \right);a = 1$$</p>
-      </problem>
-      <solution>
-        <p>$$-4$$</p>
-      </solution>
-    </exercise>
-    <exercise number="250" has_solution="false">
-      <problem>
-        <p>$$h(x) = \left( {1 + g(x)} \right)^{3};a = 2$$</p>
-      </problem>
-    </exercise>
-    <exercise number="251" has_solution="true">
-      <problem>
-        <p>$$h(x) = g\left( {2 + f\left( x^{2} \right)} \right);a = 1$$</p>
-      </problem>
-      <solution>
-        <p>$$-12$$</p>
-      </solution>
-    </exercise>
-    <exercise number="252" has_solution="false">
-      <problem>
-        <p>$$h(x) = f\left( {g\left( {\text{sin}\mspace{2mu} x} \right)} \right);a = 0$$</p>
-      </problem>
-    </exercise>
-    <exercise number="253" has_solution="true">
-      <problem>
-        <p>[T] The position function of a freight train is given by $$s(t) = 100\left( {t + 1} \right)^{-2},$$ with $$s$$ in meters and $$t$$ in seconds. At time $$t = 6$$ s, find the train’s</p>
-        <list type="ol" style="a">
-          <item>velocity and</item>
-          <item>acceleration.</item>
-          <item>Using a. and b. is the train speeding up or slowing down?</item>
-        </list>
-      </problem>
-      <solution>
-        <p>a. $$- \frac{200}{343}$$ m/s, b. $$\frac{600}{2401}$$ m/s2, c. The train is slowing down since velocity and acceleration have opposite signs.</p>
-      </solution>
-    </exercise>
-    <exercise number="254" has_solution="false">
-      <problem>
-        <p>[T] A mass hanging from a vertical spring is in simple harmonic motion as given by the following position function, where $$t$$ is measured in seconds and $$s$$ is in inches:</p>
-        <p>$$s(t) = -3\mspace{2mu}\text{cos}\mspace{2mu}\left( {\pi t + \frac{\pi}{4}} \right).$$</p>
-        <list type="ol" style="a">
-          <item>Determine the position of the spring at $$t = 1.5$$ s.</item>
-          <item>Find the velocity of the spring at $$t = 1.5$$ s.</item>
-        </list>
-      </problem>
-    </exercise>
-    <exercise number="255" has_solution="true">
-      <problem>
-        <p>[T] The total cost to produce $$x$$ boxes of Thin Mint Girl Scout cookies is $$C$$ dollars, where $$C = 0.0001x^{3} - 0.02x^{2} + 3x + 300.$$ In $$t$$ weeks production is estimated to be $$x = 1600 + 100t$$ boxes.</p>
-        <list type="ol" style="a">
-          <item>Find the marginal cost $$C^{\prime}(x).$$</item>
-          <item>Use Leibniz’s notation for the chain rule, $$\frac{dC}{dt} = \frac{dC}{dx} \cdot \frac{dx}{dt},$$ to find the rate with respect to time $$t$$ that the cost is changing.</item>
-          <item>Use b. to determine how fast costs are increasing when $$t = 2$$ weeks. Include units with the answer.</item>
-        </list>
-      </problem>
-      <solution>
-        <p>a. $$C^{\prime}(x) = 0.0003x^{2} - 0.04x + 3$$ b. $$\frac{dC}{dt} = 100 \cdot \left( {0.0003x^{2} - 0.04x + 3} \right)$$ c. Approximately $90,300 per week</p>
-      </solution>
-    </exercise>
-    <exercise number="256" has_solution="false">
-      <problem>
-        <p>[T] The formula for the area of a circle is $$A = \pi r^{2},$$ where $$r$$ is the radius of the circle. Suppose a circle is expanding, meaning that both the area $$A$$ and the radius $$r$$ (in inches) are expanding.</p>
-        <list type="ol" style="a">
-          <item>Suppose $$r = 2 - \frac{100}{\left( {t + 7} \right)^{2}}$$ where $$t$$ is time in seconds. Use the chain rule $$\frac{dA}{dt} = \frac{dA}{dr} \cdot \frac{dr}{dt}$$ to find the rate at which the area is expanding.</item>
-          <item>Use a. to find the rate at which the area is expanding at $$t = 4$$ s.</item>
-        </list>
-      </problem>
-    </exercise>
-    <exercise number="257" has_solution="true">
-      <problem>
-        <p>[T] The formula for the volume of a sphere is $$S = \frac{4}{3}\pi r^{3},$$ where $$r$$ (in feet) is the radius of the sphere. Suppose a spherical snowball is melting in the sun.</p>
-        <list type="ol" style="a">
-          <item>Suppose $$r = \frac{1}{\left( {t + 1} \right)^{2}} - \frac{1}{12}$$ where $$t$$ is time in minutes. Use the chain rule $$\frac{dS}{dt} = \frac{dS}{dr} \cdot \frac{dr}{dt}$$ to find the rate at which the snowball is melting.</item>
-          <item>Use a. to find the rate at which the volume is changing at $$t = 1$$ min.</item>
-        </list>
-      </problem>
-      <solution>
-        <p>a. $$\frac{dS}{dt} = - \frac{8\pi r^{2}}{\left( {t + 1} \right)^{3}}$$ b. The volume is decreasing at a rate of $$- \frac{\pi}{36}$$ ft3/min.</p>
-      </solution>
-    </exercise>
-    <exercise number="258" has_solution="false">
-      <problem>
-        <p>[T] The daily temperature in degrees Fahrenheit of Phoenix in the summer can be modeled by the function $$T(x) = 94 - 10\mspace{2mu}\text{cos}\left\lbrack {\frac{\pi}{12}\left( {x - 2} \right)} \right\rbrack,$$ where $$x$$ is hours after midnight. Find the rate at which the temperature is changing at 4 p.m.</p>
-      </problem>
-    </exercise>
-    <exercise number="259" has_solution="true">
-      <problem>
-        <p>[T] The depth (in feet) of water at a dock changes with the rise and fall of tides. The depth is modeled by the function $$D(t) = 5\mspace{2mu}\text{sin}\mspace{2mu}\left( {\frac{\pi}{6}t - \frac{7\pi}{6}} \right) + 8,$$ where $$t$$ is the number of hours after midnight. Find the rate at which the depth is changing at 6 a.m.</p>
-      </problem>
-      <solution>
-        <p>$$\sim 2.3$$ ft/hr</p>
-      </solution>
-    </exercise>
-  </exercises>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">3.6 The Chain Rule</heading>
+  <heading level="2">Learning Objectives</heading>
+  <list type="unordered">
+    <item>State the chain rule for the composition of two functions.</item>
+    <item>Apply the chain rule together with the power rule.</item>
+    <item>Apply the chain rule and the product/quotient rules correctly in combination when both are necessary.</item>
+    <item>Recognize the chain rule for a composition of three or more functions.</item>
+    <item>Describe the proof of the chain rule.</item>
+  </list>
+  <paragraph>We have seen the techniques for differentiating basic functions $$(x^{n},\sin x,\cos x, \text{etc} .)$$ as well as sums, differences, products, quotients, and constant multiples of these functions. However, these techniques do not allow us to differentiate compositions of functions, such as $$h(x) = \sin \left( x^{3} \right)$$ or $$k(x) = \sqrt{3x^{2} + 1}.$$ In this section, we study the rule for finding the derivative of the composition of two or more functions.</paragraph>
+  <heading level="2">Deriving the Chain Rule</heading>
+  <paragraph>When we have a function that is a composition of two or more functions, we could use all of the techniques we have already learned to differentiate it. However, using all of those techniques to break down a function into simpler parts that we are able to differentiate can get cumbersome. Instead, we use the chain rule, which states that the derivative of a composite function is the derivative of the outer function evaluated at the inner function times the derivative of the inner function.</paragraph>
+  <paragraph>To put this rule into context, let’s take a look at an example: $$h(x) = \sin \left( x^{3} \right).$$ We can think of the derivative of this function with respect to x as the rate of change of $$\sin \left( x^{3} \right)$$ relative to the change in $$x.$$ Consequently, we want to know how $$\sin \left( x^{3} \right)$$ changes as $$x$$ changes. We can think of this event as a chain reaction: As $$x$$ changes, $$x^{3}$$ changes, which leads to a change in $$\sin \left( x^{3} \right).$$ This chain reaction gives us hints as to what is involved in computing the derivative of $$\sin \left( x^{3} \right).$$ First of all, a change in $$x$$ forcing a change in $$x^{3}$$ suggests that somehow the derivative of $$x^{3}$$ is involved. In addition, the change in $$x^{3}$$ forcing a change in $$\sin \left( x^{3} \right)$$ suggests that the derivative of $$\sin (u)$$ with respect to $$u,$$ where $$u = x^{3},$$ is also part of the final derivative.</paragraph>
+  <paragraph>We can take a more formal look at the derivative of $$h(x) = \sin \left( x^{3} \right)$$ by setting up the limit that would give us the derivative at a specific value $$a$$ in the domain of $$h(x) = \sin \left( x^{3} \right).$$</paragraph>
+  <paragraph math="block">$$h^{\prime}(a) = \underset{x\rightarrow a}{\lim }\frac{\sin \left( x^{3} \right) - \sin \left( a^{3} \right)}{x - a}.$$</paragraph>
+  <paragraph>This expression does not seem particularly helpful; however, we can modify it by multiplying and dividing by the expression $$x^{3} - a^{3}$$ to obtain</paragraph>
+  <paragraph math="block">$$h^{\prime}(a) = \underset{x\rightarrow a}{\lim }\frac{\sin \left( x^{3} \right) - \sin \left( a^{3} \right)}{x^{3} - a^{3}} \cdot \frac{x^{3} - a^{3}}{x - a}.$$</paragraph>
+  <paragraph>From the definition of the derivative, we can see that the second factor is the derivative of $$x^{3}$$ at $$x = a.$$ That is,</paragraph>
+  <paragraph math="block">$$\underset{x\rightarrow a}{\lim }\frac{x^{3} - a^{3}}{x - a} = \frac{d}{dx}\left( x^{3} \right)_{x = a} = 3a^{2}.$$</paragraph>
+  <paragraph>However, it might be a little more challenging to recognize that the first term is also a derivative. We can see this by letting $$u = x^{3}$$ and observing that as $$x\rightarrow a,u\rightarrow a^{3}:$$</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {\underset{x\rightarrow a}{\lim }\frac{\sin \left( x^{3} \right) - \sin \left( a^{3} \right)}{x^{3} - a^{3}}} &amp; {= \underset{u\rightarrow a^{3}}{\lim }\frac{\sin u - \sin \left( a^{3} \right)}{u - a^{3}}} \\ &amp; {= \frac{d}{du}\left( {\sin u} \right)_{u = a^{3}}} \\ &amp; {= \cos {\left( a^{3} \right).}} \end{array}$$</paragraph>
+  <paragraph>Thus, $$h^{\prime}(a) = \cos \left( a^{3} \right) \cdot 3a^{2}.$$</paragraph>
+  <paragraph>In other words, if $$h(x) = \sin \left( x^{3} \right),$$ then $$h^{\prime}(x) = \cos \left( x^{3} \right) \cdot 3x^{2}.$$ Thus, if we think of $$h(x) = \sin \left( x^{3} \right)$$ as the composition $$\left( {f \circ g} \right)(x) = f\left( {g(x)} \right)$$ where $$f(x) =$$ sin $$x$$ and $$g(x) = x^{3},$$ then the derivative of $$h(x) = \sin \left( x^{3} \right)$$ is the product of the derivative of $$g(x) = x^{3}$$ and the derivative of the function $$f(x) = \sin x$$ evaluated at the function $$g(x) = x^{3}.$$ At this point, we anticipate that for $$h(x) = \sin \left( {g(x)} \right),$$ it is quite likely that $$h^{\prime}(x) = \cos (g(x))g^{\prime}(x).$$ As we determined above, this is the case for $$h(x) = \sin \left( x^{3} \right).$$</paragraph>
+  <paragraph>Now that we have derived a special case of the chain rule, we state the general case and then apply it in a general form to other composite functions. An informal proof is provided at the end of the section.</paragraph>
+  <note type="rule" source_type="Rule: The Chain Rule" title="Rule: The Chain Rule">
+    <paragraph>Let $$f$$ and $$g$$ be functions. For all x in the domain of $$g$$ for which $$g$$ is differentiable at x and $$f$$ is differentiable at $$g(x),$$ the derivative of the composite function</paragraph>
+    <paragraph math="block">$$h(x) = \left( {f \circ g} \right)(x) = f\left( {g(x)} \right)$$</paragraph>
+    <paragraph>is given by</paragraph>
+    <paragraph math="block">$$h^{\prime}(x) = f^{\prime}\left( {g(x)} \right)g^{\prime}(x).$$</paragraph>
+    <paragraph>Alternatively, if $$y$$ is a function of $$u,$$ and $$u$$ is a function of $$x,$$ then</paragraph>
+    <paragraph math="block">$$\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}.$$</paragraph>
+  </note>
+  <note type="sidebar" source_type="Media" title="Media">
+    <paragraph>Watch an animation of the chain rule.</paragraph>
+  </note>
+  <note type="procedure" source_type="Problem-Solving Strategy" title="Problem-Solving Strategy">
+    <heading level="4">Applying the Chain Rule</heading>
+    <list type="ordered">
+      <item>To differentiate $$h(x) = f\left( {g(x)} \right),$$ begin by identifying $$f(x)$$ and $$g(x).$$</item>
+      <item>Find $$f\prime(x)$$ and evaluate it at $$g(x)$$ to obtain $$f^{\prime}\left( {g(x)} \right).$$</item>
+      <item>Find $$g^{\prime}(x).$$</item>
+      <item>Write $$h^{\prime}(x) = f^{\prime}\left( {g(x)} \right) \cdot g^{\prime}(x).$$</item>
+    </list>
+    <paragraph>Note: When applying the chain rule to the composition of two or more functions, keep in mind that we work our way from the outside function in. It is also useful to remember that the derivative of the composition of two functions can be thought of as having two parts; the derivative of the composition of three functions has three parts; and so on. Also, remember that we never evaluate a derivative at a derivative.</paragraph>
+  </note>
+  <heading level="2">The Chain and Power Rules Combined</heading>
+  <paragraph>We can now apply the chain rule to composite functions, but note that we often need to use it with other rules. For example, to find derivatives of functions of the form $$h(x) = {(g(x))}^{n},$$ we need to use the chain rule combined with the power rule. To do so, we can think of $$h(x) = \left( {g(x)} \right)^{n}$$ as $$f\left( {g(x)} \right)$$ where $$f(x) = x^{n}.$$ Then $$f^{\prime}(x) = nx^{n - 1}.$$ Thus, $$f^{\prime}\left( {g(x)} \right) = n\left( {g(x)} \right)^{n - 1}.$$ This leads us to the derivative of a power function using the chain rule,</paragraph>
+  <paragraph math="block">$$h^{\prime}(x) = n\left( {g(x)} \right)^{n - 1}g^{\prime}(x)$$</paragraph>
+  <note type="rule" source_type="Rule: Power Rule for Composition of Functions" title="Rule: Power Rule for Composition of Functions">
+    <paragraph>For all values of x for which the derivative is defined, if</paragraph>
+    <paragraph math="block">$$h(x) = \left( {g(x)} \right)^{n}.$$</paragraph>
+    <paragraph>Then</paragraph>
+    <paragraph math="block">$$h^{\prime}(x) = n\left( {g(x)} \right)^{n - 1}g^{\prime}\left( x \text{).} \right.$$</paragraph>
+  </note>
+  <example number="3.48" title="Using the Chain and Power Rules">
+    <problem>
+      <paragraph>Find the derivative of $$h(x) = \frac{1}{\left( {3x^{2} + 1} \right)^{2}}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First, rewrite $$h(x) = \frac{1}{\left( {3x^{2} + 1} \right)^{2}} = \left( {3x^{2} + 1} \right)^{-2}.$$</paragraph>
+      <paragraph>Applying the power rule with $$g(x) = 3x^{2} + 1,$$ we have</paragraph>
+      <paragraph math="block">$$h^{\prime}(x) = -2\left( {3x^{2} + 1} \right)^{-3}\left( {6x} \right).$$</paragraph>
+      <paragraph>Rewriting back to the original form gives us</paragraph>
+      <paragraph math="block">$$h^{\prime}(x) = \frac{-12x}{{(3x^{2} + 1)}^{3}}.$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="3.34">
+    <problem>
+      <paragraph>Find the derivative of $$h(x) = \left( {2x^{3} + 2x - 1} \right)^{4}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$h ′ ( x ) = 4 ( 2 x 3 + 2 x - 1 ) 3 ( 6 x 2 + 2 ) = 8 ( 3 x 2 + 1 ) ( 2 x 3 + 2 x - 1 ) 3 h ′ ( x ) = 4 ( 2 x 3 + 2 x - 1 ) 3 ( 6 x 2 + 2 ) = 8 ( 3 x 2 + 1 ) ( 2 x 3 + 2 x - 1 ) 3$$</paragraph>
+    </solution>
+  </example>
+  <example number="3.49" title="Using the Chain and Power Rules with a Trigonometric Function">
+    <problem>
+      <paragraph>Find the derivative of $$h(x) = \sin^{3}x.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First recall that $$\sin^{3}x = \left( {\sin x} \right)^{3},$$ so we can rewrite $$h(x) = \sin^{3}x$$ as $$h(x) = \left( {\sin x} \right)^{3}.$$</paragraph>
+      <paragraph>Applying the power rule with $$g(x) = \sin x,$$ we obtain</paragraph>
+      <paragraph math="block">$$h^{\prime}(x) = 3\left( {\sin x} \right)^{2}\cos x = 3\sin^{2}x\cos x.$$</paragraph>
+    </solution>
+  </example>
+  <example number="3.50" title="Finding the Equation of a Tangent Line">
+    <problem>
+      <paragraph>Find the equation of a line tangent to the graph of $$h(x) = \frac{1}{{(3x - 5)}^{2}}$$ at $$x = 2.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Because we are finding an equation of a line, we need a point. The x-coordinate of the point is 2. To find the y-coordinate, substitute 2 into $$h(x).$$ Since $$h(2) = \frac{1}{\left( {3(2) - 5} \right)^{2}} = 1,$$ the point is $$\left( {2,1} \right).$$</paragraph>
+      <paragraph>For the slope, we need $$h^{\prime}(2).$$ To find $$h^{\prime}(x),$$ first we rewrite $$h(x) = \left( {3x - 5} \right)^{-2}$$ and apply the power rule to obtain</paragraph>
+      <paragraph math="block">$$h^{\prime}(x) = -2\left( {3x - 5} \right)^{-3}(3) = -6\left( {3x - 5} \right)^{-3}.$$</paragraph>
+      <paragraph>By substituting, we have $$h^{\prime}(2) = -6\left( {3(2) - 5} \right)^{-3} = -6.$$ Therefore, the line has equation $$y - 1 = -6\left( {x - 2} \right).$$ Rewriting, the equation of the line is $$y = -6x + 13.$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="3.35">
+    <problem>
+      <paragraph>Find an equation of the line tangent to the graph of $$f(x) = \left( {x^{2} - 2} \right)^{3}$$ at $$x = -2.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$y = -48 x - 88 y = -48 x - 88$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Combining the Chain Rule with Other Rules</heading>
+  <paragraph>Now that we can combine the chain rule and the power rule, we examine how to combine the chain rule with the other rules we have learned. In particular, we can use it with the formulas for the derivatives of trigonometric functions or with the product rule.</paragraph>
+  <example number="3.51" title="Using the Chain Rule on a General Cosine Function">
+    <problem>
+      <paragraph>Find the derivative of $$h(x) = \cos \left( {g(x)} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Think of $$h(x) = \cos (g(x))$$ as $$f\left( {g(x)} \right)$$ where $$f(x) = \cos x.$$ Since $$f^{\prime}(x) = -\sin x.$$ we have $$f^{\prime}\left( {g(x)} \right) = -\sin \left( {g(x)} \right).$$ Then we do the following calculation.</paragraph>
+      <paragraph math="block">$$\begin{array}{clccl} {h^{\prime}(x)} &amp; {= f^{\prime}\left( {g(x)} \right)g^{\prime}(x)} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= -\sin \left( {g(x)} \right)g^{\prime}(x)} &amp; &amp; &amp; { \text{Substitute} f^{\prime}\left( {g(x)} \right) = -\sin \left( {g(x)} \right).} \end{array}$$</paragraph>
+      <paragraph>Thus, the derivative of $$h(x) = \cos \left( {g(x)} \right)$$ is given by $$h^{\prime}(x) = -\sin \left( {g(x)} \right)g^{\prime}(x).$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>In the following example we apply the rule that we have just derived.</paragraph>
+  <example number="3.52" title="Using the Chain Rule on a Cosine Function">
+    <problem>
+      <paragraph>Find the derivative of $$h(x) = \cos \left( {5x^{2}} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let $$g(x) = 5x^{2}.$$ Then $$g^{\prime}(x) = 10x.$$ Using the result from the previous example,</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} {h^{\prime}(x)} &amp; {= -\sin \left( {5x^{2}} \right) \cdot 10x} \\ &amp; {= -10x\sin \left( {5x^{2}} \right).} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example number="3.53" title="Using the Chain Rule on Another Trigonometric Function">
+    <problem>
+      <paragraph>Find the derivative of $$h(x) = \sec \left( {4x^{5} + 2x} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Apply the chain rule to $$h(x) = \sec \left( {g(x)} \right)$$ to obtain</paragraph>
+      <paragraph math="block">$$h^{\prime}(x) = \sec (g{(x))}\tan \left( {g(x)} \right)g^{\prime}(x).$$</paragraph>
+      <paragraph>In this problem, $$g(x) = 4x^{5} + 2x,$$ so we have $$g^{\prime}(x) = 20x^{4} + 2.$$ Therefore, we obtain</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} {h^{\prime}(x)} &amp; {= \sec \left( {4x^{5} + 2x} \right)\tan \left( {4x^{5} + 2x} \right)\left( {20x^{4} + 2} \right)} \\ &amp; {= (20x^{4} + 2)\sec \left( {4x^{5} + 2x} \right)\tan \left( {4x^{5} + 2x} \right).} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="3.36">
+    <problem>
+      <paragraph>Find the derivative of $$h(x) = \sin (7x + 2).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$h ′ ( x ) = 7 cos ( 7 x + 2 ) h ′ ( x ) = 7 cos ( 7 x + 2 )$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>At this point we provide a list of derivative formulas that may be obtained by applying the chain rule in conjunction with the formulas for derivatives of trigonometric functions. Their derivations are similar to those used in Example 3.51 and Example 3.53. For convenience, formulas are also given in Leibniz’s notation, which some students find easier to remember. (We discuss the chain rule using Leibniz’s notation at the end of this section.) It is not absolutely necessary to memorize these as separate formulas as they are all applications of the chain rule to previously learned formulas.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="3.10" title="Using the Chain Rule with Trigonometric Functions">
+    <heading level="4">Using the Chain Rule with Trigonometric Functions</heading>
+    <paragraph>For all values of $$x$$ for which the derivative is defined,</paragraph>
+    <paragraph math="block">$$\begin{array}{lccl} {\frac{d}{dx}\left( {\sin (g(x))}) \right. = \cos \left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\sin u = \cos u\frac{du}{dx}} \\ {\frac{d}{dx}\left( {\cos (g(x))}) \right. = -\sin \left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\cos u = -\sin u\frac{du}{dx}} \\ {\frac{d}{dx}\left( {\tan (g(x))}) \right. = \sec^{2}\left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\tan u = \sec^{2}u\frac{du}{dx}} \\ {\frac{d}{dx}\left( {\cot (g(x))}) \right. = -\csc^{2}\left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\cot u = -\csc^{2}u\frac{du}{dx}} \\ {\frac{d}{dx}\left( {\sec (g(x))}) \right. = \sec (g\left( x) \right.\tan \left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\sec u = \sec u\tan u\frac{du}{dx}} \\ {\frac{d}{dx}\left( {\csc (g(x))}) \right. = -\csc (g\left( x) \right.)\cot \left( {g\left( x) \right.}) \right.g\prime(x)} &amp; &amp; &amp; {\frac{d}{dx}\csc u = -\csc u\cot u\frac{du}{dx}.} \end{array}$$</paragraph>
+  </note>
+  <example number="3.54" title="Combining the Chain Rule with the Product Rule">
+    <problem>
+      <paragraph>Find the derivative of $$h(x) = \left( {2x + 1} \right)^{5}\left( {3x - 2} \right)^{7}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First apply the product rule, then apply the chain rule to each term of the product.</paragraph>
+      <paragraph math="block">$$\begin{array}{clccl} {h^{\prime}(x)} &amp; {= \frac{d}{dx}\left( {(2x + 1)}^{5} \right) \cdot \left( {3x - 2} \right)^{7} + \frac{d}{dx}\left( {(3x - 2)}^{7} \right) \cdot \left( {2x + 1} \right)^{5}} &amp; &amp; &amp; \text{Apply the product rule.} \\ &amp; {= 5{(2x + 1)}^{4} \cdot 2 \cdot \left( {3x - 2} \right)^{7} + 7{(3x - 2)}^{6} \cdot 3 \cdot {(2x + 1)}^{5}} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= 10\left( {2x + 1} \right)^{4}\left( {3x - 2} \right)^{7} + 21{(3x - 2)}^{6}{(2x + 1)}^{5}} &amp; &amp; &amp; \text{Simplify.} \\ &amp; {= \left( {2x + 1} \right)^{4}\left( {3x - 2} \right)^{6}\left( {10\left( {3x - 2} \right) + 21\left( {2x + 1} \right)} \right)} &amp; &amp; &amp; { \text{Factor out} \left( {2x + 1} \right)^{4}\left( {3x - 2} \right)^{6}.} \\ &amp; {= \left( {2x + 1} \right)^{4}\left( {3x - 2} \right)^{6}(72x + 1)} &amp; &amp; &amp; \text{Simplify.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="3.37">
+    <problem>
+      <paragraph>Find the derivative of $$h(x) = \frac{x}{\left( {2x + 3} \right)^{3}}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$h ′ ( x ) = 3 - 4 x ( 2 x + 3 ) 4 h ′ ( x ) = 3 - 4 x ( 2 x + 3 ) 4$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Composites of Three or More Functions</heading>
+  <paragraph>We can now combine the chain rule with other rules for differentiating functions, but when we are differentiating the composition of three or more functions, we need to apply the chain rule more than once. If we look at this situation in general terms, we can generate a formula, but we do not need to remember it, as we can simply apply the chain rule multiple times.</paragraph>
+  <paragraph>In general terms, first we let</paragraph>
+  <paragraph math="block">$$k(x) = h\left( {f\left( {g(x)} \right)} \right).$$</paragraph>
+  <paragraph>Then, applying the chain rule once we obtain</paragraph>
+  <paragraph math="block">$$k^{\prime}(x) = \frac{d}{dx}\left( {h(f\left( {g(x)} \right)} \right) = h\prime\left( {f\left( {g(x)} \right)} \right) \cdot \frac{d}{dx}f\left( \left( {g(x)} \right) \right).$$</paragraph>
+  <paragraph>Applying the chain rule again, we obtain</paragraph>
+  <paragraph math="block">$$k^{\prime}(x) = h^{\prime}\left( {f\left( {g(x)} \right)f^{\prime}\left( {g(x)} \right)g^{\prime}(x)} \right).$$</paragraph>
+  <note type="rule" source_type="Rule: Chain Rule for a Composition of Three Functions" title="Rule: Chain Rule for a Composition of Three Functions">
+    <paragraph>For all values of x for which the function is differentiable, if</paragraph>
+    <paragraph math="block">$$k(x) = h\left( {f\left( {g(x)} \right)} \right),$$</paragraph>
+    <paragraph>then</paragraph>
+    <paragraph math="block">$$k^{\prime}(x) = h^{\prime}\left( {f\left( {g(x)} \right)} \right)f^{\prime}\left( {g(x)} \right)g^{\prime}(x).$$</paragraph>
+    <paragraph>In other words, we are applying the chain rule twice.</paragraph>
+  </note>
+  <paragraph>Notice that the derivative of the composition of three functions has three parts. (Similarly, the derivative of the composition of four functions has four parts, and so on.) Also, remember, we can always work from the outside in, taking one derivative at a time.</paragraph>
+  <example number="3.55" title="Differentiating a Composite of Three Functions">
+    <problem>
+      <paragraph>Find the derivative of $$k(x) = \cos^{4}\left( {{7x}^{2} + 1} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First, rewrite $$k(x)$$ as</paragraph>
+      <paragraph math="block">$$k(x) = \left( {\cos \left( {7x^{2} + 1} \right)} \right)^{4}.$$</paragraph>
+      <paragraph>Then apply the power rule several times.</paragraph>
+      <paragraph math="block">$$\begin{array}{clccl} {k^{\prime}(x)} &amp; {= 4\left( {\cos \left( {7x^{2} + 1} \right)} \right)^{3}\left( {\frac{d}{dx}\cos \left( {7x^{2} + 1} \right)} \right)} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= 4\left( {\cos \left( {7x^{2} + 1} \right)} \right)^{3}\left( {-\sin \left( {7x^{2} + 1} \right)} \right)\left( {\frac{d}{dx}\left( {7x^{2} + 1} \right)} \right)} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= 4\left( {\cos \left( {7x^{2} + 1} \right)} \right)^{3}\left( {-\sin \left( {7x^{2} + 1} \right)} \right)\left( {14x} \right)} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= -56x\sin (7x^{2} + 1)\cos^{3}(7x^{2} + 1)} &amp; &amp; &amp; \text{Simplify.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="3.38">
+    <problem>
+      <paragraph>Find the derivative of $$h(x) = \sin^{6}\left( x^{3} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$h ′ ( x ) = 18 x 2 sin 5 ( x 3 ) cos ( x 3 ) h ′ ( x ) = 18 x 2 sin 5 ( x 3 ) cos ( x 3 )$$</paragraph>
+    </solution>
+  </example>
+  <example number="3.56" title="Using the Chain Rule in a Velocity Problem">
+    <problem>
+      <paragraph>A particle moves along a coordinate axis. Its position at time t is given by $$s(t) = \sin \left( {2t} \right) + \cos \left( {3t} \right).$$ What is the velocity of the particle at time $$t = \frac{\pi}{6}?$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>To find $$v(t),$$ the velocity of the particle at time $$t,$$ we must differentiate $$s(t).$$ Thus,</paragraph>
+      <paragraph math="block">$$v(t) = s^{\prime}(t) = 2\cos \left( {2t} \right) - 3\sin \left( {3t} \right).$$</paragraph>
+      <paragraph>Substituting $$t = \frac{\pi}{6}$$ into $$v(t),$$ we obtain $$v\left( \frac{\pi}{6} \right) = -2.$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="3.39">
+    <problem>
+      <paragraph>A particle moves along a coordinate axis. Its position at time $$t$$ is given by $$s(t) = \sin (4t).$$ Find its acceleration at time $$t.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$a ( t ) = -16 sin ( 4 t ) a ( t ) = -16 sin ( 4 t )$$</paragraph>
+    </solution>
+  </example>
+  <heading level="3">Proof</heading>
+  <paragraph>At this point, we present a very informal proof of the chain rule. For simplicity’s sake we ignore certain issues: For example, we assume that $$g(x) \neq g(a)$$ for $$x \neq a$$ in some open interval containing $$a.$$ We begin by applying the limit definition of the derivative to the function $$h(x)$$ to obtain $$h^{\prime}(a):$$</paragraph>
+  <paragraph math="block">$$h^{\prime}(a) = \underset{x\rightarrow a}{\lim }\frac{f\left( {g(x)} \right) - f\left( {g(a)} \right)}{x - a}.$$</paragraph>
+  <paragraph>Rewriting, we obtain</paragraph>
+  <paragraph math="block">$$h^{\prime}(a) = \underset{x\rightarrow a}{\lim }\frac{f\left( {g(x)} \right) - f\left( {g(a)} \right)}{g(x) - g(a)} \cdot \frac{g(x) - g(a)}{x - a}.$$</paragraph>
+  <paragraph>Although it is clear that</paragraph>
+  <paragraph math="block">$$\underset{x\rightarrow a}{\lim }\frac{g(x) - g(a)}{x - a} = g^{\prime}(a),$$</paragraph>
+  <paragraph>it is not obvious that</paragraph>
+  <paragraph math="block">$$\underset{x\rightarrow a}{\lim }\frac{f\left( {g(x)} \right) - f\left( {g(a)} \right)}{g(x) - g(a)} = f^{\prime}\left( {g(a)} \right).$$</paragraph>
+  <paragraph>To see that this is true, first recall that since g is differentiable at $$a,g$$ is also continuous at $$a.$$ Thus,</paragraph>
+  <paragraph math="block">$$\underset{x\rightarrow a}{\lim }g(x) = g(a).$$</paragraph>
+  <paragraph>Next, make the substitution $$y = g(x)$$ and $$b = g(a)$$ and use change of variables in the limit to obtain</paragraph>
+  <paragraph math="block">$$\underset{x\rightarrow a}{\lim }\frac{f\left( {g(x)} \right) - f\left( {g(a)} \right)}{g(x) - g(a)} = \underset{y\rightarrow b}{\lim }\frac{f(y) - f(b)}{y - b} = f^{\prime}(b) = f^{\prime}\left( {g(a)} \right).$$</paragraph>
+  <paragraph>Finally,</paragraph>
+  <paragraph math="block">$$h^{\prime}(a) = \underset{x\rightarrow a}{\lim }\frac{f\left( {g(x)} \right) - f\left( {g(a)} \right)}{g(x) - g(a)} \cdot \frac{g(x) - g(a)}{x - a} = f^{\prime}\left( {g(a)} \right)g^{\prime}(a).$$</paragraph>
+  <paragraph>□</paragraph>
+  <example number="3.57" title="Using the Chain Rule with Functional Values">
+    <problem>
+      <paragraph>Let $$h(x) = f\left( {g(x)} \right).$$ If $$g(1) = 4,g^{\prime}(1) = 3,$$ and $$f^{\prime}(4) = 7,$$ find $$h^{\prime}(1).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Use the chain rule, then substitute.</paragraph>
+      <paragraph math="block">$$\begin{array}{clccl} {h^{\prime}(1)} &amp; {= f^{\prime}\left( {g(1)} \right)g^{\prime}(1)} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= f^{\prime}(4) \cdot 3} &amp; &amp; &amp; { \text{Substitute} g(1) = 4 \text{and} g^{\prime}(1) = 3.} \\ &amp; {= 7 \cdot 3} &amp; &amp; &amp; { \text{Substitute} f\prime(4) = 7.} \\ &amp; {= 21} &amp; &amp; &amp; \text{Simplify.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="3.40">
+    <problem>
+      <paragraph>Given $$h(x) = f\left( {g(x)} \right).$$ If $$g(2) = -3,g^{\prime}(2) = 4,$$ and $$f^{\prime}(-3) = 7,$$ find $$h^{\prime}(2).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$28 28$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">The Chain Rule Using Leibniz’s Notation</heading>
+  <paragraph>As with other derivatives that we have seen, we can express the chain rule using Leibniz’s notation. This notation for the chain rule is used heavily in physics applications.</paragraph>
+  <paragraph>$$\text{For} h(x) = f\left( {g(x)} \right),$$ let $$u = g(x)$$ and $$y = h(x) = f(u).$$ Thus,</paragraph>
+  <paragraph math="block">$$h^{\prime}(x) = \frac{dy}{dx},f^{\prime}\left( {g(x)} \right) = f^{\prime}(u) = \frac{dy}{du} \text{and} g^{\prime}(x) = \frac{du}{dx}.$$</paragraph>
+  <paragraph>Consequently,</paragraph>
+  <paragraph math="block">$$\frac{dy}{dx} = h^{\prime}(x) = f^{\prime}\left( {g(x)} \right)g^{\prime}(x) = \frac{dy}{du} \cdot \frac{du}{dx}.$$</paragraph>
+  <note type="rule" source_type="Rule: Chain Rule Using Leibniz’s Notation" title="Rule: Chain Rule Using Leibniz’s Notation">
+    <paragraph>If $$y$$ is a function of $$u,$$ and $$u$$ is a function of $$x,$$ then</paragraph>
+    <paragraph math="block">$$\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}.$$</paragraph>
+  </note>
+  <example number="3.58">
+    <problem>
+      <paragraph>Find the derivative of $$y = \left( \frac{x}{3x + 2} \right)^{5}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First, let $$u = \frac{x}{3x + 2}.$$ Thus, $$y = u^{5}.$$ Next, find $$\frac{du}{dx}$$ and $$\frac{dy}{du}.$$ Using the quotient rule,</paragraph>
+      <paragraph math="block">$$\frac{du}{dx} = \frac{2}{\left( {3x + 2} \right)^{2}}$$</paragraph>
+      <paragraph>and</paragraph>
+      <paragraph math="block">$$\frac{dy}{du} = 5u^{4}.$$</paragraph>
+      <paragraph>Finally, we put it all together.</paragraph>
+      <paragraph math="block">$$\begin{array}{clccl} \frac{dy}{dx} &amp; {= \frac{dy}{du} \cdot \frac{du}{dx}} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= 5u^{4} \cdot \frac{2}{\left( {3x + 2} \right)^{2}}} &amp; &amp; &amp; { \text{Substitute} \frac{dy}{du} = 5u^{4} \text{and} \frac{du}{dx} = \frac{2}{\left( {3x + 2} \right)^{2}}.} \\ &amp; {= 5\left( \frac{x}{3x + 2} \right)^{4} \cdot \frac{2}{\left( {3x + 2} \right)^{2}}} &amp; &amp; &amp; { \text{Substitute} u = \frac{x}{3x + 2}.} \\ &amp; {= \frac{10x^{4}}{\left( {3x + 2} \right)^{6}}} &amp; &amp; &amp; \text{Simplify.} \end{array}$$</paragraph>
+      <paragraph>It is important to remember that, when using the Leibniz form of the chain rule, the final answer must be expressed entirely in terms of the original variable given in the problem.</paragraph>
+    </solution>
+  </example>
+  <example number="3.59">
+    <problem>
+      <paragraph>Find the derivative of $$y = \tan \left( {4x^{2} - 3x + 1} \right).$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First, let $$u = 4x^{2} - 3x + 1.$$ Then $$y = \tan u.$$ Next, find $$\frac{du}{dx}$$ and $$\frac{dy}{du}:$$</paragraph>
+      <paragraph math="block">$$\frac{du}{dx} = 8x - 3 \text{and} \frac{dy}{du} = \sec^{2}u.$$</paragraph>
+      <paragraph>Finally, we put it all together.</paragraph>
+      <paragraph math="block">$$\begin{array}{clccl} \frac{dy}{dx} &amp; {= \frac{dy}{du} \cdot \frac{du}{dx}} &amp; &amp; &amp; \text{Apply the chain rule.} \\ &amp; {= \sec^{2}u \cdot \left( {8x - 3} \right)} &amp; &amp; &amp; { \text{Use} \frac{du}{dx} = 8x - 3 \text{and} \frac{dy}{du} = \sec^{2}u.} \\ &amp; {= \sec^{2}(4x^{2} - 3x + 1) \cdot (8x - 3)} &amp; &amp; &amp; { \text{Substitute} u = 4x^{2} - 3x + 1.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="3.41">
+    <problem>
+      <paragraph>Use Leibniz’s notation to find the derivative of $$y = \cos \left( x^{3} \right).$$ Make sure that the final answer is expressed entirely in terms of the variable $$x.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$d y d x = -3 x 2 sin ( x 3 ) d y d x = -3 x 2 sin ( x 3 )$$</paragraph>
+    </solution>
+  </example>
 </section>

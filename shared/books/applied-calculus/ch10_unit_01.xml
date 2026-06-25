@@ -1,1980 +1,341 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch10" chapter_number="10" section="unit_01" section_number="1">
-  <section number="10.1" title="Probability Distributions of Random Variables">
-    <subsection title="Probability">
-      <paragraph>
-        We begin by discussing some terminology and notation that are important in the study of probability.
-      </paragraph>
-      <note title="Experiment, Outcome, Sample Point, Sample Space, and Event">
-        <paragraph>
-          An <term>experiment</term> is an activity with observable results called <term>outcomes</term> , or <term>sample points</term> . The totality of all outcomes is the <term>sample space</term> of the experiment. A subset of the sample space is called an <term>event</term> of the experiment.
-        </paragraph>
-      </note>
-      <paragraph>
-        Now, given an event associated with an experiment, our primary objective is to determine the likelihood that this event will occur. This likelihood, or <term>probability of the event</term> , is a number between <math display="inline">$$0$$</math> and <math display="inline">$$1$$</math> and may be viewed as the proportionate number of times that the event will occur if the experiment associated with the event is repeated indefinitely under independent and similar conditions. Consider the simple experiment of tossing an unbiased coin and observing whether it lands “heads” <math display="inline">$$(H)$$</math> or “tails” <math display="inline">$$(T)$$</math> . Since the coin is <em>unbiased</em>, we see that the probability of each outcome is <math display="inline">$$\frac{1}{2}$$</math> , abbreviated
-      </paragraph>
-      <paragraph>
-        <math display="block">$$P(H) = \frac{1}{2}$$</math>
-      </paragraph>
-      <paragraph>
-        and
-      </paragraph>
-      <paragraph>
-        <math display="block">$$P(T) = \frac{1}{2}$$</math>
-      </paragraph>
-    </subsection>
-  </section>
-  <subsection title="Discrete Random Variables">
-    <paragraph>
-      We often assign numerical values to the outcomes of an experiment. For example, suppose an experiment consists of throwing a die and observing the face that lands up. If we let <math display="inline">$$X$$</math> denote the outcome of the experiment, then <math display="inline">$$X$$</math> assumes one of the values <math display="inline">$$1$$</math> , <math display="inline">$$2$$</math> , <math display="inline">$$3$$</math> , <math display="inline">$$4$$</math> , <math display="inline">$$5$$</math> , or <math display="inline">$$6$$</math> . Because the values assumed by <math display="inline">$$X$$</math> depend on the outcomes of a chance experiment, the outcome <math display="inline">$$X$$</math> is referred to as a <term>random variable</term> . In this case, the random variable <math display="inline">$$X$$</math> is also said to be <strong>finite discrete</strong>, since it can assume only a finite number of integer values.
-    </paragraph>
-    <paragraph>
-      The function <math display="inline">$$P$$</math> that associates with each value of a random variable its probability of occurrence is called a <em>probability function</em>. It is <em>discrete</em> because its domain consists of a finite set. In general, a discrete probability function is defined as follows.
-    </paragraph>
-    <note title="Discrete Probability Function">
-      <paragraph>
-        A <term>discrete probability function</term> <math display="inline">$$P$$</math> with domain <math display="inline">$$\left\{ x_{1},x_{2},\ldots,x_{n} \right\}$$</math> satisfies these conditions:
-      </paragraph>
-      <list ordered="true">
-        <item>
-          <paragraph>
-            <math display="inline">$$0 \leq P\left( x_{i} \right) \leq 1$$</math> , for <math display="inline">$$1 \leq i \leq n$$</math>
-          </paragraph>
-        </item>
-        <item>
-          <paragraph>
-            <math display="inline">$$P\left( x_{1} \right) + P\left( x_{2} \right) + \cdots + P\left( x_{n} \right) = 1$$</math>
-          </paragraph>
-        </item>
-      </list>
-    </note>
-    <note title="Note">
-      <paragraph>
-        These conditions state that the probability assigned to an outcome must be nonnegative and less than or equal to <math display="inline">$$1$$</math> and that the sum of all probabilities must be <math display="inline">$$1$$</math> .
-      </paragraph>
-    </note>
-  </subsection>
-  <subsection title="Histograms">
-    <paragraph>
-      We can exhibit a discrete probability function or probability distribution graphically by constructing a <term>histogram</term> . First locate the values of the random variable on a horizontal line. Then, above each number, erect a rectangle whose height is equal to the probability associated with that value of the random variable.
-    </paragraph>
-    <paragraph>
-      For example, consider the data in Table 1, the number of cars observed waiting in line at <math display="inline">$$2$$</math>-minute intervals between 3 p.m. and 5 p.m. on a certain Friday at the drive-in teller of the Westwood Savings Bank and the corresponding frequency of occurrence. If we divide each number on the right of the table by <math display="inline">$$60$$</math> (the sum of these numbers), then we obtain the respective probabilities associated with the random variable <math display="inline">$$X$$</math> , when <math display="inline">$$X$$</math> assumes the values <math display="inline">$$0,1,2,\ldots,8$$</math> . For example,
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\begin{array}{ccl}
-  {P\left( {X = 0} \right)} &amp; = &amp; {\frac{2}{60} \approx .03} \\
-  {P\left( {X = 1} \right)} &amp; = &amp; {\frac{9}{60} = .15} \\
-  {\quad \vdots} &amp; &amp; 
-  \end{array}$$</math>
-    </paragraph>
-    <paragraph>
-      The resulting probability distribution is shown in Table 2.
-    </paragraph>
+<section>
+  <heading level="2">10.1. Probability Distributions of Random Variables</heading>
+  <heading level="3">Probability</heading>
+  <paragraph>We begin by discussing some terminology and notation that are important in the study of probability.</paragraph>
+  <note type="theorem" source_type="Experiment, Outcome, Sample Point, Sample Space, and Event" title="Experiment, Outcome, Sample Point, Sample Space, and Event">
+    <heading level="4">Experiment, Outcome, Sample Point, Sample Space, and Event</heading>
+    <paragraph>An experiment is an activity with observable results called outcomes , or sample points . The totality of all outcomes is the sample space of the experiment. A subset of the sample space is called an event of the experiment.</paragraph>
+  </note>
+  <paragraph>Now, given an event associated with an experiment, our primary objective is to determine the likelihood that this event will occur. This likelihood, or probability of the event , is a number between $$0$$ and $$1$$ and may be viewed as the proportionate number of times that the event will occur if the experiment associated with the event is repeated indefinitely under independent and similar conditions. Consider the simple experiment of tossing an unbiased coin and observing whether it lands “heads” $$(H)$$ or “tails” $$(T)$$ . Since the coin is unbiased, we see that the probability of each outcome is $$\frac{1}{2}$$ , abbreviated</paragraph>
+  <paragraph math="block">$$P(H) = \frac{1}{2}$$</paragraph>
+  <paragraph>and</paragraph>
+  <paragraph math="block">$$P(T) = \frac{1}{2}$$</paragraph>
+  <heading level="3">Discrete Random Variables</heading>
+  <paragraph>We often assign numerical values to the outcomes of an experiment. For example, suppose an experiment consists of throwing a die and observing the face that lands up. If we let $$X$$ denote the outcome of the experiment, then $$X$$ assumes one of the values $$1$$ , $$2$$ , $$3$$ , $$4$$ , $$5$$ , or $$6$$ . Because the values assumed by $$X$$ depend on the outcomes of a chance experiment, the outcome $$X$$ is referred to as a random variable . In this case, the random variable $$X$$ is also said to be finite discrete, since it can assume only a finite number of integer values.</paragraph>
+  <paragraph>The function $$P$$ that associates with each value of a random variable its probability of occurrence is called a probability function. It is discrete because its domain consists of a finite set. In general, a discrete probability function is defined as follows.</paragraph>
+  <note type="theorem" source_type="Discrete Probability Function" title="Discrete Probability Function">
+    <heading level="4">Discrete Probability Function</heading>
+    <paragraph>A discrete probability function $$P$$ with domain $$\left\{ x_{1},x_{2},\ldots,x_{n} \right\}$$ satisfies these conditions:</paragraph>
+    <list type="ordered">
+      <item>$$0 \leq P\left( x_{i} \right) \leq 1$$ , for $$1 \leq i \leq n$$</item>
+      <item>$$P\left( x_{1} \right) + P\left( x_{2} \right) + \cdots + P\left( x_{n} \right) = 1$$</item>
+    </list>
+  </note>
+  <note type="sidebar" source_type="Note" title="Note">
+    <heading level="4">Note</heading>
+    <paragraph>These conditions state that the probability assigned to an outcome must be nonnegative and less than or equal to $$1$$ and that the sum of all probabilities must be $$1$$ .</paragraph>
+  </note>
+  <heading level="3">Histograms</heading>
+  <paragraph>We can exhibit a discrete probability function or probability distribution graphically by constructing a histogram . First locate the values of the random variable on a horizontal line. Then, above each number, erect a rectangle whose height is equal to the probability associated with that value of the random variable.</paragraph>
+  <paragraph>For example, consider the data in Table 1, the number of cars observed waiting in line at $$2$$ -minute intervals between 3 p.m. and 5 p.m. on a certain Friday at the drive-in teller of the Westwood Savings Bank and the corresponding frequency of occurrence. If we divide each number on the right of the table by $$60$$ (the sum of these numbers), then we obtain the respective probabilities associated with the random variable $$X$$ , when $$X$$ assumes the values $$0,1,2,\ldots,8$$ . For example,</paragraph>
+  <paragraph math="block">$$\begin{array}{ccl} {P\left( {X = 0} \right)} &amp; = &amp; {\frac{2}{60} \approx .03} \\ {P\left( {X = 1} \right)} &amp; = &amp; {\frac{9}{60} = .15} \\ { \vdots} &amp; &amp; \end{array}$$</paragraph>
+  <paragraph>The resulting probability distribution is shown in Table 2.</paragraph>
+  <heading level="4">Table 1</heading>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Number of Cars</cell>
+        <cell header="true">Frequency of Occurrence</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>0</cell>
+        <cell>2</cell>
+      </row>
+      <row>
+        <cell>1</cell>
+        <cell>9</cell>
+      </row>
+      <row>
+        <cell>2</cell>
+        <cell>16</cell>
+      </row>
+      <row>
+        <cell>3</cell>
+        <cell>12</cell>
+      </row>
+      <row>
+        <cell>4</cell>
+        <cell>8</cell>
+      </row>
+      <row>
+        <cell>5</cell>
+        <cell>6</cell>
+      </row>
+      <row>
+        <cell>6</cell>
+        <cell>4</cell>
+      </row>
+      <row>
+        <cell>7</cell>
+        <cell>2</cell>
+      </row>
+      <row>
+        <cell>8</cell>
+        <cell>1</cell>
+      </row>
+    </tbody>
+  </table>
+  <heading level="4">Table 2 Probability Distribution for the Random Variable X</heading>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">$$x$$</cell>
+        <cell header="true">$$P(X = x)$$</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>0</cell>
+        <cell>.03</cell>
+      </row>
+      <row>
+        <cell>1</cell>
+        <cell>.15</cell>
+      </row>
+      <row>
+        <cell>2</cell>
+        <cell>.27</cell>
+      </row>
+      <row>
+        <cell>3</cell>
+        <cell>.20</cell>
+      </row>
+      <row>
+        <cell>4</cell>
+        <cell>.13</cell>
+      </row>
+      <row>
+        <cell>5</cell>
+        <cell>.10</cell>
+      </row>
+      <row>
+        <cell>6</cell>
+        <cell>.07</cell>
+      </row>
+      <row>
+        <cell>7</cell>
+        <cell>.03</cell>
+      </row>
+      <row>
+        <cell>8</cell>
+        <cell>.02</cell>
+      </row>
+    </tbody>
+  </table>
+  <paragraph>The histogram associated with this probability distribution is shown in Figure 1. Observe that the area of a rectangle in a histogram is associated with a value of a random variable $$X$$ and that this area gives precisely the probability associated with that value of $$X$$ . This follows because each rectangle, by construction, has width $$1$$ and height corresponding to the probability associated with the value of the random variable.</paragraph>
+  <figure>
+    <image alt="Details A histogram is graphed. The horizontal axis x has tick marks labeled from 0 to 8. Three horizontal lines are drawn parallel to the x axis labeled 0.1, 0.2, and 0.3, from bottom to top. Above each number, a vertical rectangle of uniform width and different height is raised on the horizontal axis, each adjoining the next, without any intervals. The width of the each rectangle is 1 unit and runs along the x axis. The width of the first rectangle runs from negative 0.5 to 0.5 and it reaches to a height of 0.03 units. The width of the second rectangle runs from 0.5 to 1.5 along the x axis and it reaches a height of 0.15 units, the width of the third rectangle runs from 1.5 to 2.5 and reaches to a height of 0.27 units, the width of the fourth rectangle runs from 2.5 to 3.5 and reaches to a height of 0.2 units, the width of the fifth one runs from 3.5 to 4.5 and reaches to a height of 0.13 units, the width of sixth one runs from 4.5 to 5.5 reaches to a height of 0.1 units, the width of seventh one runs from 5.5 to 6.5 and it reaches to a height of 0.07 units, the width of eighth one runs from 6.5 to 7.5 and it reaches to a height of 0.03 units, and the width of ninth one runs from 7.5 to 8.5 and it reaches to a height of 0.02 units."/>
+    <caption>Probability distribution of the number of cars waiting in line</caption>
+  </figure>
+  <paragraph>Another consequence arising from the method of construction of a histogram is that the probability associated with more than one value of the random variable $$X$$ is given by the sum of the areas of the rectangles associated with those values of $$X$$ . For example, the probability that three or four cars are in line is given by</paragraph>
+  <paragraph math="block">$$P\left( {X = 3} \right) + P\left( {X = 4} \right)$$</paragraph>
+  <paragraph>which may be obtained from the histogram by adding the areas of the rectangles associated with the values $$3$$ and $$4$$ of the random variable $$X$$ . Thus, the required probability is</paragraph>
+  <paragraph math="block">$$P\left( {X = 3} \right) + P\left( {X = 4} \right) = .20 + .13 = .33$$</paragraph>
+  <heading level="3">Continuous Random Variables</heading>
+  <paragraph>A random variable $$X$$ that can assume any value in an interval is called a continuous random variable . Examples of continuous random variables are the life span of a light bulb, the length of a telephone call, the length of an infant at birth, the daily amount of rainfall in Boston, and the life span of a certain plant species. For the remainder of this section, we are interested primarily in continuous random variables.</paragraph>
+  <paragraph>Consider an experiment in which the associated random variable $$X$$ has the interval $$\left\lbrack {a,b} \right\rbrack$$ as its sample space. Then an event of the experiment is any subset of $$\left\lbrack {a,b} \right\rbrack$$ . For example, if $$X$$ denotes the life span of a light bulb, then the sample space associated with the experiment is $$\lbrack 0,\infty)$$ , and the event that a light bulb selected at random has a life span between $$500$$ and $$600$$ hours, inclusive, is described by the interval $$\left\lbrack {500,600} \right\rbrack$$ or, equivalently, by the inequality $$500 \leq X \leq 600$$ . The probability that the light bulb will have a life span of between $$500$$ and $$600$$ hours is denoted by $$P\left( {500 \leq X \leq 600} \right)$$ .</paragraph>
+  <paragraph>In general, we will be interested in computing $$P\left( {a \leq X \leq b} \right)$$ , the probability that a random variable $$X$$ assumes a value in the interval $$a \leq X \leq b$$ . This computation is based on the notion of a probability density function, which we now introduce.</paragraph>
+  <note type="theorem" source_type="Probability Density Function" title="Probability Density Function">
+    <heading level="4">Probability Density Function</heading>
+    <paragraph>A probability density function of a random variable $$X$$ in an interval $$I$$ , where $$I$$ may be bounded or unbounded, is a nonnegative function $$f$$ having the following properties.</paragraph>
+    <list type="ordered">
+      <item>The total area of the region under the graph of $$f$$ is equal to $$1$$ (Figure 2a).</item>
+      <item>The probability that an observed value of the random variable $$X$$ lies in the interval $$\lbrack a,b\rbrack$$ is given by $$P(a \leq X \leq b) = {\int_{a}^{b}f(x)\mathit{dx}}$$ (Figure 2b). Figure 2 Details There are two images a and b each graphed a bell shaped curve in the first quadrant of the x y coordinate plane. In image a, the x and y axes are unmarked and unlabeled. The curve starts just above the x axis, a short distance away from the origin, slopes upward to the right, concave up, after it reaches the inflection point, it goes up, now concave down, and reaches the high point. From its high point, the curve goes down to the right, still concave down, after it reaches its inflection point, it goes down to the right, but concave up and ends very close to the x axis. The region below the curve is shaded and is labeled R. In image b, the x axis has marks labeled a and b, appear at unequal intervals. The curve starts just above the x axis, a short distance away from the origin, slopes upward to the right, concave up, after it reaches the inflection point, it goes up, now concave down, and reaches the high point. From its high point, the curve goes down to the right, still concave down, after it reaches its inflection point, it goes down to the right, but concave up and ends very close to the x axis. Two vertical lines rises from the marks a and b on the x axis, till it reaches the curve. The region bounded by the curve, x axis and the two vertical lines is shaded and the region is labeled P (a &lt;= X &lt;= b).</item>
+    </list>
+  </note>
+  <note type="sidebar" source_type="Notes" title="Notes">
+    <heading level="4">Notes</heading>
+    <list type="ordered">
+      <item>Property 1 states that the probability that a continuous random variable takes on a value lying in its range is $$1$$ , a certainty, which is expected.</item>
+      <item>Property 2 states that the probability that the random variable $$X$$ assumes a value in an interval $$a \leq X \leq b$$ is given by the area of the region between the graph of $$f$$ and the $$x$$ -axis from $$X = a$$ to $$X = b$$ . Because the area under one point on the graph of $$f$$ is equal to zero, we see that $$P(a \leq X \leq b) = P(a &lt; X \leq b) = P(a \leq X &lt; b) = P(a &lt; X &lt; b)$$ .</item>
+      <item>A probability density function of a random variable $$X$$ may be constructed by using methods that range from theoretical considerations of the problem on one extreme to an interpretation of data associated with the experiment on the other.</item>
+    </list>
+  </note>
+  <example number="1">
+    <heading level="4">Example 1</heading>
+    <paragraph>Show that each of the following functions satisfies the nonnegativity condition and Property 1 of probability density functions.</paragraph>
+    <list type="ordered">
+      <item>$$f(x) = \frac{2}{27}x(x - 1) (1 \leq x \leq 4)$$</item>
+      <item>$$f(x) = \frac{1}{3}e^{( - 1 \slash 3)x} (0 \leq x &lt; \infty)$$</item>
+    </list>
+    <heading level="4">Solution</heading>
+    <list type="ordered">
+      <item>Since the factors $$x$$ and $$(x - 1)$$ are both nonnegative on $$\left\lbrack {1,4} \right\rbrack$$ , we see that $$f(x) \geq 0$$ on $$\left\lbrack {1,4} \right\rbrack$$ . Next, we compute $$\begin{array}{l} {{\int_{1}^{4}{\frac{2}{27}x\left( {x - 1} \right)dx}} = {\frac{2}{27}{\int_{1}^{4}{({x^{2} - x})}dx}}} \\ {\phantom{\int_{1}^{4}{\frac{2}{27}x\left( {x - 1} \right)dx}} = \left. \frac{2}{27}\left( {\frac{1}{3}x^{3} - \frac{1}{2}x^{2}} \right) \right|_{1}^{4}} \\ {\phantom{\int_{1}^{4}{\frac{2}{27}x\left( {x - 1} \right)dx}} = \left. \frac{2}{27}\left\lbrack \left( {\frac{64}{3} - 8} \right) - \left( {\frac{1}{3} - \frac{1}{2}} \right) \right. \right\rbrack} \\ {\phantom{\int_{1}^{4}{\frac{2}{27}x\left( {x - 1} \right)dx}} = {\frac{2}{27}\left( \frac{27}{2} \right)}} \\ {\phantom{\int_{1}^{4}{\frac{2}{27}x\left( {x - 1} \right)dx}} = 1} \end{array}$$ showing that Property 1 of probability density functions holds as well.</item>
+      <item>First, $$f(x) = \frac{1}{3}e^{( - 1 \slash 3)x} \geq 0$$ for all values of $$x$$ in $$\lbrack 0,\infty)$$ . Next, $$\begin{array}{l} {{\int_{0}^{\infty}{\frac{1}{3}e^{{({- 1 \slash 3})}x}dx}} = {\lim\limits_{b\rightarrow\infty}{\int_{0}^{b}{\frac{1}{3}e^{{({- 1 \slash 3})}x}dx}}}} \\ {\phantom{\int_{0}^{\infty}{\frac{1}{3}e^{{({- 1 \slash 3})}x}dx}} = \left. \lim\limits_{b\rightarrow\infty} - e^{{({- 1 \slash 3})}x} \right|_{0}^{b}} \\ {\phantom{\int_{0}^{\infty}{\frac{1}{3}e^{{({- 1 \slash 3})}x}dx}} = {\lim\limits_{b\rightarrow\infty}{({- e^{{({- 1 \slash 3})}b} + 1})}}} \\ {\phantom{\int_{0}^{\infty}{\frac{1}{3}e^{{({- 1 \slash 3})}x}dx}} = 1} \end{array}$$ so the area under the graph of $$f(x) = \frac{1}{3}e^{( - 1 \slash 3)x}$$ on $$\lbrack 0,\infty)$$ is equal to $$1$$ , as we set out to show.</item>
+    </list>
+  </example>
+  <example number="2">
+    <heading level="4">Example 2</heading>
+    <list type="ordered">
+      <item>Determine the value of the constant $$k$$ such that the function $$f(x) = kx^{2}$$ is a probability density function on the interval $$\left\lbrack {0,5} \right\rbrack$$ .</item>
+      <item>If $$X$$ is a continuous random variable with the probability density function given in part (a), compute the probability that $$X$$ will assume a value between $$1$$ and $$2$$ .</item>
+      <item>Find the probability that $$X$$ will assume a value at $$3$$ .</item>
+    </list>
+    <heading level="4">Solution</heading>
+    <list type="ordered">
+      <item>We compute $$\begin{array}{l} {{\int_{0}^{5}{kx^{2}dx}} = {k{\int_{0}^{5}{x^{2}dx}}}} \\ {\phantom{\int_{0}^{5}{kx^{2}dx}} = \left. \frac{k}{3}x^{3} \right|_{0}^{5}} \\ {\phantom{\int_{0}^{5}{kx^{2}dx}} = {\frac{125}{3}k}} \end{array}$$ Since this value must be equal to $$1$$ , we find that $$k = \frac{3}{125}$$ .</item>
+      <item>The required probability is given by $$\begin{array}{l} {{P\left( {1 \leq X \leq 2} \right)} = {\int_{1}^{2}{f(x)dx = {\int_{1}^{2}{\frac{3}{125}x^{2}dx}}}}} \\ {\phantom{P\left( {1 \leq X \leq 2} \right)} = \left. \frac{1}{125}x^{3} \right|_{1}^{2} = \frac{1}{125}\left( {8 - 1} \right)} \\ {\phantom{P\left( {1 \leq X \leq 2} \right)} = \frac{7}{125}} \end{array}$$ The graph of the probability density function $$f$$ and the area corresponding to the probability $$P(1 \leq X \leq 2)$$ are shown in Figure 3. Figure 3 Details Alt-text: A curve is graphed in the first quadrant of the x y coordinate plane. The x axis ranges from 0 to beyond 5 and the y axis ranges from 0 to over 0.6. The curve starts from the origin, slopes upward to the right, concave up, passes through (2, 0.1), and ends at (5, 0.6). From the point (5, 0.6), perpendiculars are dropped to each of the axes. From the mark 2 on the x axis, a vertical line rises till it reaches the curve. The region below the curve from the line x = 1 to x = 2 is shaded. $$P(1 \leq X \leq 2)$$ for the probability density function $$y = \frac{3}{125}x^{2}$$</item>
+      <item>The required probability is given by $$\begin{array}{l} {{P\left( {X = 3} \right)} = {\int_{3}^{3}{f(x)dx}}} \\ {\phantom{P\left( {X = 3} \right)} = {\int_{3}^{3}{\frac{3}{125}x^{2}dx = 0}}} \end{array}$$</item>
+    </list>
+  </example>
+  <note type="sidebar" source_type="Note" title="Note">
+    <heading level="4">Note</heading>
+    <paragraph>Observe that the probability that a continuous random variable $$X$$ will assume a value at a number $$a$$ is zero, since $$P\left( {X = a} \right) = \int_{a}^{a}{f(x)dx = 0}$$ . (See Probability Density Function.)</paragraph>
+  </note>
+  <example number="3">
+    <heading level="4">Example 3</heading>
+    <paragraph>Let $$f$$ be a constant function defined on an interval $$\left\lbrack {a,b} \right\rbrack$$ . What properties must $$f$$ satisfy in order for $$f$$ to be a probability density function on $$\left\lbrack {a,b} \right\rbrack$$ ? Find an expression for $$f$$ .</paragraph>
+    <heading level="4">Solution</heading>
+    <paragraph>Let $$f(x) = k$$ for $$x$$ in the interval $$\left\lbrack {a,b} \right\rbrack$$ , where $$k$$ is a constant. Clearly, $$k$$ must be positive on $$\left\lbrack {a,b} \right\rbrack$$ . Next, we compute</paragraph>
+    <paragraph math="block">$$\int_{a}^{b}f(x)dx = \left. \int_{a}^{b}kdx = {kx} \right|_{a}^{b} = k\left( {b - a} \right)$$</paragraph>
+    <paragraph>Since the area of $$f$$ under $$\left\lbrack {a,b} \right\rbrack$$ must be equal to $$1$$ , we have</paragraph>
+    <paragraph math="block">$$k\left( {b - a} \right) = 1$$</paragraph>
+    <paragraph>or</paragraph>
+    <paragraph math="block">$$k = \frac{1}{b - a}$$</paragraph>
+    <paragraph>So the required function is defined by</paragraph>
+    <paragraph math="block">$$f(x) = \frac{1}{b - a} \left( {a \leq x \leq b} \right)$$</paragraph>
+  </example>
+  <paragraph>Let’s summarize the result of Example 3.</paragraph>
+  <note type="theorem" source_type="Uniform Density Function" title="Uniform Density Function">
+    <heading level="4">Uniform Density Function</heading>
+    <paragraph>Let $$f$$ be the constant probability density function</paragraph>
+    <paragraph math="block">$$f(x) = \frac{1}{b - a} (a \leq x \leq b)$$</paragraph>
+    <paragraph>defined on an interval $$\lbrack a,b\rbrack$$ , where $$a &lt; b$$ . Then $$f$$ is called a uniform density function on $$\lbrack a,b\rbrack$$ .</paragraph>
+  </note>
+  <paragraph>A random variable that has a uniform density function is said to be uniformly distributed. An application involving a uniform distribution follows.</paragraph>
+  <note type="sidebar" source_type="Applied Example 4. Musical Fountains" title="Applied Example 4. Musical Fountains">
+    <heading level="4">Applied Example 4. Musical Fountains</heading>
+    <paragraph>“The Fountains of Bellagio” is a choreographed water display set to light and music that takes place in front of the Bellagio Hotel in Las Vegas. In the evening, the shows take place every $$15$$ minutes from 7 p.m. to midnight. The duration of each show is $$7$$ minutes. If Joan arrives at a random time between 7 p.m. and 7:15 p.m. for an evening show and finds the fountains not performing, find the probability that Joan will have to wait at least $$5$$ minutes before the next show starts.</paragraph>
+    <heading level="4">Solution</heading>
+    <paragraph>Let $$X$$ denote the time (in minutes) that Joan has to wait for the next show. Then $$X$$ is uniformly distributed over the interval $$\left\lbrack {0,8} \right\rbrack$$ . (The fountains are not performing for a duration of $$8$$ minutes each time the show is not on.) So the uniform density function associated with this problem is</paragraph>
+    <paragraph math="block">$$f(x) = \frac{1}{8} \left( {0 \leq x \leq 8} \right)$$</paragraph>
+    <paragraph>and the desired probability is</paragraph>
+    <paragraph math="block">$$P\left( {5 \leq X \leq 8} \right) = {\int_{5}^{8}\frac{1}{8}}dx = \left. {\frac{1}{8}x} \right|_{5}^{8} = \frac{1}{8}\left( {8 - 5} \right) = \frac{3}{8}$$</paragraph>
+  </note>
+  <note type="sidebar" source_type="Applied Example 5. Life Span of Light Bulbs" title="Applied Example 5. Life Span of Light Bulbs">
+    <heading level="4">Applied Example 5. Life Span of Light Bulbs</heading>
+    <paragraph>TKK Products manufactures a $$200$$ -watt electric light bulb. Laboratory tests show that the life spans of these light bulbs have a distribution described by the probability density function</paragraph>
+    <paragraph math="block">$$f(x) = 0.001e^{- 0.001x} (0 \leq x &lt; \infty)$$</paragraph>
+    <paragraph>Determine the probability that a light bulb will have a life span of</paragraph>
+    <list type="unordered">
+      <item>(a) $$500$$ hours or less,</item>
+      <item>(b) more than $$500$$ hours, and</item>
+      <item>(c) more than $$1000$$ hours but less than $$1500$$ hours.</item>
+    </list>
+    <heading level="4">Solution</heading>
+    <paragraph>Let $$X$$ denote the life span of a light bulb.</paragraph>
+    <list type="ordered">
+      <item>The probability that a light bulb will have a life span of $$500$$ hours or less is given by $$\begin{array}{l} {{P(0 \leq X \leq 500)} = {\int_{0}^{500}{0.001e^{- 0.001x}dx}}} \\ {\phantom{P(0 \leq X \leq 500)} = - {\left. e^{- 0.001x} \right|_{0}^{500} = - e^{- 0.5} + 1}} \\ {\phantom{P(0 \leq X \leq 500)} \approx 0.3935} \end{array}$$</item>
+      <item>The probability that a light bulb will have a life span of more than $$500$$ hours is given by $$\begin{array}{l} {{P(X &gt; 500)} = {\int_{500}^{\infty}{0.001e^{- 0.001x}dx}}} \\ {\phantom{P(X &gt; 500)} = {\lim\limits_{b\rightarrow\infty}{\int_{500}^{b}{0.001e^{- 0.001x}dx}}}} \\ {\phantom{P(X &gt; 500)} = {\lim\limits_{b\rightarrow\infty}\left. {- e^{- 0.001x}} \right|}_{500}^{b}} \\ {\phantom{P(X &gt; 500)} = {\lim\limits_{b\rightarrow\infty}( - e^{- 0.001b} + e^{- 0.5})}} \\ {\phantom{P(X &gt; 500)} = {e^{- 0.5} \approx 0.6065}} \end{array}$$ This result may also be obtained by observing that $$\begin{array}{l} {{P(X &gt; 500)} = {1 - P(X \leq 500)}} \\ {\phantom{P(X &gt; 500)} = {1 - 0.3935} {{Use the result from part}(a).}} \\ {\phantom{P(X &gt; 500)} \approx 0.6065} \end{array}$$</item>
+      <item>The probability that a light bulb will have a life span of more than $$1000$$ hours but less than $$1500$$ hours is given by $$\begin{array}{l} {{P\left( {1000 &lt; X &lt; 1500} \right)} = {\int_{1000}^{1500}{0.001e^{- 0.001x}dx}}} \\ {\phantom{P\left( {1000 &lt; X &lt; 1500} \right)} = \left. {- e^{- 0.001x}} \right|_{1000}^{1500}} \\ {\phantom{P\left( {1000 &lt; X &lt; 1500} \right)} = {- e^{- 1.5} + e^{- 1}}} \\ {\phantom{P\left( {1000 &lt; X &lt; 1500} \right)} \approx {- 0.2231 + 0.3679}} \\ {\phantom{P\left( {1000 &lt; X &lt; 1500} \right)} = 0.1448} \end{array}$$</item>
+    </list>
+  </note>
+  <paragraph>The probability density function of Example 5 is called an exponential density function . More generally, we have the following.</paragraph>
+  <note type="theorem" source_type="Exponential Density Function (with Parameter k )" title="Exponential Density Function (with Parameter k )">
+    <heading level="4">Exponential Density Function (with Parameter k )</heading>
+    <paragraph>Let $$f$$ be the function defined by</paragraph>
+    <paragraph math="block">$$f(x) = ke^{- kx} (0 \leq x &lt; \infty)$$</paragraph>
+    <paragraph>where $$k$$ is a positive constant. Then $$f$$ is called an exponential density function with parameter $$k$$ on $$\lbrack 0,\infty)$$ .</paragraph>
+  </note>
+  <paragraph>You are asked to verify that $$f$$ is a probability density function in Exercise 61. The graph of $$f$$ is shown in Figure 4. The random variable that is associated with $$f$$ is said to be exponentially distributed. Exponential random variables are used to represent the life span of an electronic component, the duration of a telephone call, the waiting time in a doctor’s office, and the time between successive flight arrivals and departures in an airport, to mention but a few applications.</paragraph>
+  <figure>
+    <image alt="Details A curve f(x) = k e^(negative k x) is graphed in the first quadrant of the x y coordinate plane. The curve starts on the top of the vertical axis from the mark k, away from the origin, goes downward to the right, concave up, and meets the x axis, at the right extreme. The region below the curve is shaded."/>
+    <caption>The area under the graph of the exponential density function is equal to $$1$$ .</caption>
+  </figure>
+  <heading level="3">Joint Probability Density Functions</heading>
+  <paragraph>Sometimes the outcomes of an experiment are associated with more than one random variable. For example, we might be interested in the relationship between the weight and height of newborn infants or between the price and tread life of automobile tires. To study such problems, we need to extend the concept of a probability density function of a random variable to functions of more than one variable. In the case involving two random variables, we have the following definition.</paragraph>
+  <note type="theorem" source_type="Joint Probability Density Function" title="Joint Probability Density Function">
+    <heading level="4">Joint Probability Density Function</heading>
+    <paragraph>A joint probability density function of the random variables $$X$$ and $$Y$$ on a region $$D$$ is a nonnegative function $$f\left( {x,y} \right)$$ having the property</paragraph>
+    <paragraph math="block">$$\iint\limits_{D}{f(x,y)dA = 1}$$</paragraph>
+    <paragraph>Thus, the volume of the solid under the graph of $$f$$ is equal to $$1$$ .</paragraph>
+    <paragraph>The probability that the observed values of the random variables $$X$$ and $$Y$$ lie in a region $$R \subset D$$ is given by</paragraph>
+    <paragraph math="block">$$P\left\lbrack {\left( {X,Y} \right){in}R} \right\rbrack = {\iint\limits_{R}{f(x,y)dA}}$$</paragraph>
+  </note>
+  <example number="6">
+    <heading level="4">Example 6</heading>
+    <paragraph>Show that the function $$f\left( {x,y} \right) = xy$$ is a joint probability density function on $$D = \left\{ \left( {x,y} \right) \middle| 0 \leq x \leq 1;0 \leq y \leq 2 \right\}$$ .</paragraph>
+    <heading level="4">Solution</heading>
+    <paragraph>First, observe that $$f\left( {x,y} \right) = xy$$ is nonnegative on $$D$$ . Next, we compute</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {{\iint\limits_{D}{f(x,y)dA}} = {\int_{0}^{2}{\int_{0}^{1}{xydxdy}}}} \\ {\phantom{\iint\limits_{D}{f(x,y)dA}} = {{\int_{0}^{2}\left( \left. \frac{1}{2}x^{2}y \right|_{0}^{1} \right)}dy}} \\ {\phantom{\iint\limits_{D}{f(x,y)dA}} = {\int_{0}^{2}{\frac{1}{2}ydy = \left. {\frac{1}{4}y^{2}} \right|_{0}^{2} = 1}}} \end{array}$$</paragraph>
+    <paragraph>Therefore, $$f$$ is a joint probability density function on $$D$$ .</paragraph>
+  </example>
+  <example number="7">
+    <heading level="4">Example 7</heading>
+    <paragraph>Let $$f\left( {x,y} \right) = xy$$ be the joint probability density function for the random variables $$X$$ and $$Y$$ on $$D = \left\{ \left. \left( {x,y} \right) \middle| 0 \leq x \leq 1;0 \leq y \leq 2 \right\} \right.$$ . Find</paragraph>
+    <list type="unordered">
+      <item>(a) $$P{({0 \leq X \leq \frac{1}{2};1 \leq Y \leq 2})}$$ and</item>
+      <item>(b) $$P\left( {X + Y \leq 1} \right)$$ .</item>
+    </list>
+    <heading level="4">Solution</heading>
+    <list type="ordered">
+      <item>The required probability is given by $$\begin{array}{l} {{P\left( {0 \leq X \leq \frac{1}{2};1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{\int_{0}^{1 \slash 2}{xydxdy}}}} \\ {\phantom{P\left( {0 \leq X \leq \frac{1}{2};1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{\left( \left. {\frac{1}{2}x^{2}y} \right|_{0}^{1 \slash 2} \right)dy}}} \\ {\phantom{P\left( {0 \leq X \leq \frac{1}{2};1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{\frac{1}{8}ydy = \left. {\frac{1}{16}y^{2}} \right|_{1}^{2} = \frac{3}{16}}}} \end{array}$$</item>
+      <item>The region $$R = \left\{ \left( {x,y} \right) \middle| x + y \leq 1 \right\}$$ is shown in Figure 5. The required probability is $$\begin{array}{l} {{P\left( {X + Y \leq 1} \right)} = {\int_{0}^{1}{\int_{0}^{1 - x}{xydydx}}}} \\ {\phantom{P\left( {X + Y \leq 1} \right)} = {\int_{0}^{1}{\left( \left. {\frac{1}{2}xy^{2}} \right|_{0}^{1 - x} \right)dx}}} \\ {\phantom{P\left( {X + Y \leq 1} \right)} = {\int_{0}^{1}{\frac{1}{2}x\left( {1 - x} \right)^{2}dx}}} \\ {\phantom{P\left( {X + Y \leq 1} \right)} = {\frac{1}{2}{\int_{0}^{1}{{({x - 2x^{2} + x^{3}})}dx}}}} \\ {\phantom{P\left( {X + Y \leq 1} \right)} = {\frac{1}{2}\left. \left( {\frac{1}{2}x^{2} - \frac{2}{3}x^{3} + \frac{1}{4}x^{4}} \right) \right|_{0}^{1}}} \\ {\phantom{P\left( {X + Y \leq 1} \right)} = {\frac{1}{2}\left( {\frac{1}{2} - \frac{2}{3} + \frac{1}{4}} \right) = \frac{1}{24}}} \end{array}$$ Figure 5 Details A line x + y = 1 is graphed on the x y coordinate plane. The x axis ranges from 0 to beyond 1 and the y axis ranges from 0 to over 1. The line enters the second quadrant from the top, cuts the y axis at (0, 1), goes down to the right, cuts the x axis at (1, 0), and enters the fourth quadrant. The region below the line is shaded and the region is labeled R.</item>
+    </list>
+  </example>
+  <example number="8">
+    <heading level="4">Example 8</heading>
+    <paragraph>Let $$f\left( {x,y} \right) = 2e^{- x - 2y}$$ be the joint probability density function for the random variables $$X$$ and $$Y$$ on $$D = \left\{ \left( {x,y} \right) \middle| x \geq 0 \right.$$ and $$\left. y \geq 0 \right\}$$ .</paragraph>
+    <list type="ordered">
+      <item>Find the probability that $$X$$ will assume a value between $$0$$ and $$1$$ and that $$Y$$ will assume a value between $$1$$ and $$2$$ .</item>
+      <item>Find the probability that $$X$$ will assume a value greater than $$1$$ and that $$Y$$ will assume a value less than $$2$$ .</item>
+    </list>
+    <heading level="4">Solution</heading>
+    <list type="ordered">
+      <item>The required probability is given by $$\begin{array}{l} {{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{\int_{0}^{1}{2e^{- x - 2y}dxdy}}}} \\ {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = \int_{1}^{2}\left( \left. - 2e^{- x - 2y} \right|_{0}^{1} \right)dy} \\ {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{{({- 2e^{- 1 - 2y} + 2e^{- 2y}})}dy}}} \\ {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{2(1 - e^{- 1})e^{- 2y}dy}} {{Simplify the integrand}.}} \\ {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = {2(1 - e^{- 1})\left. \left( {- \frac{1}{2}e^{- 2y}} \right) \right|_{1}^{2}}} \\ {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = \left. - (1 - e^{- 1})e^{- 2y} \right|_{1}^{2}} \\ {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = {- (1 - e^{- 1})(e^{- 4} - e^{- 2}) \approx .0740}} \end{array}$$</item>
+      <item>The required probability is given by $$\begin{array}{l} {{P(X &gt; 1;0 \leq Y &lt; 2)} = {\int_{0}^{2}{\int_{1}^{\infty}{2e^{- x - 2y}dxdy}}}} \\ {\phantom{P(X &gt; 1;0 \leq Y &lt; 2)} = {\int_{0}^{2}{\left( {\lim\limits_{b\rightarrow\infty}{\int_{1}^{b}{2e^{- x - 2y}}}dx} \right)dy}}} \\ {\phantom{P(X &gt; 1;0 \leq Y &lt; 2)} = {{\int_{0}^{2}\left( \left. {\lim\limits_{b\rightarrow\infty} - 2e^{- x - 2y}} \right|_{1}^{b} \right)}dy}} \\ {\phantom{P(X &gt; 1;0 \leq Y &lt; 2)} = {\int_{0}^{2}{\lbrack\lim\limits_{b\rightarrow\infty}( - 2e^{- b - 2y} + 2e^{- 1 - 2y})\rbrack dy}}} \\ {\phantom{P(X &gt; 1;0 \leq Y &lt; 2)} = {{\int_{0}^{2}{2e^{- 1 - 2y}}}dy}} \\ {\phantom{P(X &gt; 1;0 \leq Y &lt; 2)} = {\left. - e^{- 1 - 2y} \right|_{0}^{2} = - e^{- 5} + e^{- 1} \approx .3611}} \end{array}$$</item>
+    </list>
+  </example>
+  <heading level="3">10.1. Concept Questions</heading>
+  <list type="ordered">
+    <item>Define the following terms in your own words: Experiment Sample point (outcome) Event Probability of an event</item>
+    <item>What is the difference between a finite discrete random variable and a continuous random variable?</item>
+    <item>What is a probability density function? What is a joint probability density function?</item>
+  </list>
+  <heading level="3">Using Technology Graphing a Histogram</heading>
+  <heading level="4">Graphing Utility</heading>
+  <paragraph>A graphing utility can be used to plot the histogram for a given set of data, as illustrated in the following example.</paragraph>
+  <note type="sidebar" source_type="Applied Example 1." title="Applied Example 1.">
+    <heading level="4">Applied Example 1.</heading>
+    <paragraph>A survey of $$90,000$$ households conducted in a certain year revealed the following percentage of women who wear a shoe size within the given ranges.</paragraph>
     <table>
-      <thead>
-        <row>
-          <cell header="true">Number of Cars</cell>
-          <cell header="true">Frequency of Occurrence</cell>
-        </row>
-      </thead>
       <tbody>
         <row>
-          <cell>
-            0
-          </cell>
-          <cell>
-            2
-          </cell>
+          <cell>Shoe Size</cell>
+          <cell>$$&lt; 5$$</cell>
+          <cell>$$5-5\frac{1}{2}$$</cell>
+          <cell>$$6-6\frac{1}{2}$$</cell>
+          <cell>$$7-7\frac{1}{2}$$</cell>
+          <cell>$$8-8\frac{1}{2}$$</cell>
+          <cell>$$9-9\frac{1}{2}$$</cell>
+          <cell>$$10-10\frac{1}{2}$$</cell>
+          <cell>$$&gt; 10\frac{1}{2}$$</cell>
         </row>
         <row>
-          <cell>
-            1
-          </cell>
-          <cell>
-            9
-          </cell>
-        </row>
-        <row>
-          <cell>
-            2
-          </cell>
-          <cell>
-            16
-          </cell>
-        </row>
-        <row>
-          <cell>
-            3
-          </cell>
-          <cell>
-            12
-          </cell>
-        </row>
-        <row>
-          <cell>
-            4
-          </cell>
-          <cell>
-            8
-          </cell>
-        </row>
-        <row>
-          <cell>
-            5
-          </cell>
-          <cell>
-            6
-          </cell>
-        </row>
-        <row>
-          <cell>
-            6
-          </cell>
-          <cell>
-            4
-          </cell>
-        </row>
-        <row>
-          <cell>
-            7
-          </cell>
-          <cell>
-            2
-          </cell>
-        </row>
-        <row>
-          <cell>
-            8
-          </cell>
-          <cell>
-            1
-          </cell>
+          <cell>Women (%)</cell>
+          <cell>1</cell>
+          <cell>5</cell>
+          <cell>15</cell>
+          <cell>27</cell>
+          <cell>29</cell>
+          <cell>14</cell>
+          <cell>7</cell>
+          <cell>2</cell>
         </row>
       </tbody>
     </table>
-    <table>
-      <thead>
-        <row>
-          <cell header="true">x</cell>
-          <cell header="true">P ( X = x )</cell>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <cell>
-            0
-          </cell>
-          <cell>
-            .03
-          </cell>
-        </row>
-        <row>
-          <cell>
-            1
-          </cell>
-          <cell>
-            .15
-          </cell>
-        </row>
-        <row>
-          <cell>
-            2
-          </cell>
-          <cell>
-            .27
-          </cell>
-        </row>
-        <row>
-          <cell>
-            3
-          </cell>
-          <cell>
-            .20
-          </cell>
-        </row>
-        <row>
-          <cell>
-            4
-          </cell>
-          <cell>
-            .13
-          </cell>
-        </row>
-        <row>
-          <cell>
-            5
-          </cell>
-          <cell>
-            .10
-          </cell>
-        </row>
-        <row>
-          <cell>
-            6
-          </cell>
-          <cell>
-            .07
-          </cell>
-        </row>
-        <row>
-          <cell>
-            7
-          </cell>
-          <cell>
-            .03
-          </cell>
-        </row>
-        <row>
-          <cell>
-            8
-          </cell>
-          <cell>
-            .02
-          </cell>
-        </row>
-      </tbody>
-    </table>
-    <paragraph>
-      The histogram associated with this probability distribution is shown in Figure 1. Observe that the area of a rectangle in a histogram is associated with a value of a random variable <math display="inline">$$X$$</math> and that this area gives precisely the probability associated with that value of <math display="inline">$$X$$</math> . This follows because each rectangle, by construction, has width <math display="inline">$$1$$</math> and height corresponding to the probability associated with the value of the random variable.
-    </paragraph>
-    <figure number="1" caption="Probability distribution of the number of cars waiting in line">
-      <alt_text>A histogram is graphed. The horizontal axis x has tick marks labeled from 0 to 8. Three horizontal lines are drawn parallel to the x axis labeled 0.1, 0.2, and 0.3, from bottom to top. Above each number, a vertical rectangle of uniform width and different height is raised on the horizontal axis, each adjoining the next, without any intervals. The width of the each rectangle is 1 unit and runs along the x axis. The width of the first rectangle runs from negative 0.5 to 0.5 and it reaches to a height of 0.03 units. The width of the second rectangle runs from 0.5 to 1.5 along the x axis and it reaches a height of 0.15 units, the width of the third rectangle runs from 1.5 to 2.5 and reaches to a height of 0.27 units, the width of the fourth rectangle runs from 2.5 to 3.5 and reaches to a height of 0.2 units, the width of the fifth one runs from 3.5 to 4.5 and reaches to a height of 0.13 units, the width of sixth one runs from 4.5 to 5.5 reaches to a height of 0.1 units, the width of seventh one runs from 5.5 to 6.5 and it reaches to a height of 0.07 units, the width of eighth one runs from 6.5 to 7.5 and it reaches to a height of 0.03 units, and the width of ninth one runs from 7.5 to 8.5 and it reaches to a height of 0.02 units.</alt_text>
-    </figure>
-    <paragraph>
-      Another consequence arising from the method of construction of a histogram is that the probability associated with more than one value of the random variable <math display="inline">$$X$$</math> is given by the sum of the areas of the rectangles associated with those values of <math display="inline">$$X$$</math> . For example, the probability that three or four cars are in line is given by
-    </paragraph>
-    <paragraph>
-      <math display="block">$$P\left( {X = 3} \right) + P\left( {X = 4} \right)$$</math>
-    </paragraph>
-    <paragraph>
-      which may be obtained from the histogram by adding the areas of the rectangles associated with the values <math display="inline">$$3$$</math> and <math display="inline">$$4$$</math> of the random variable <math display="inline">$$X$$</math> . Thus, the required probability is
-    </paragraph>
-    <paragraph>
-      <math display="block">$$P\left( {X = 3} \right) + P\left( {X = 4} \right) = .20 + .13 = .33$$</math>
-    </paragraph>
-  </subsection>
-  <subsection title="Continuous Random Variables">
-    <paragraph>
-      A random variable <math display="inline">$$X$$</math> that can assume any value in an interval is called a <term>continuous random variable</term> . Examples of continuous random variables are the life span of a light bulb, the length of a telephone call, the length of an infant at birth, the daily amount of rainfall in Boston, and the life span of a certain plant species. For the remainder of this section, we are interested primarily in continuous random variables.
-    </paragraph>
-    <paragraph>
-      Consider an experiment in which the associated random variable <math display="inline">$$X$$</math> has the interval <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> as its sample space. Then an event of the experiment is any subset of <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> . For example, if <math display="inline">$$X$$</math> denotes the life span of a light bulb, then the sample space associated with the experiment is <math display="inline">$$\lbrack 0,\infty)$$</math> , and the event that a light bulb selected at random has a life span between <math display="inline">$$500$$</math> and <math display="inline">$$600$$</math> hours, inclusive, is described by the interval <math display="inline">$$\left\lbrack {500,600} \right\rbrack$$</math> or, equivalently, by the inequality <math display="inline">$$500 \leq X \leq 600$$</math> . The probability that the light bulb will have a life span of between <math display="inline">$$500$$</math> and <math display="inline">$$600$$</math> hours is denoted by <math display="inline">$$P\left( {500 \leq X \leq 600} \right)$$</math> .
-    </paragraph>
-    <paragraph>
-      In general, we will be interested in computing <math display="inline">$$P\left( {a \leq X \leq b} \right)$$</math> , the probability that a random variable <math display="inline">$$X$$</math> assumes a value in the interval <math display="inline">$$a \leq X \leq b$$</math> . This computation is based on the notion of a probability density function, which we now introduce.
-    </paragraph>
-    <note title="Probability Density Function">
-      <paragraph>
-        A <term>probability density function</term> of a random variable <math display="inline">$$X$$</math> in an interval <math display="inline">$$I$$</math> , where <math display="inline">$$I$$</math> may be bounded or unbounded, is a nonnegative function <math display="inline">$$f$$</math> having the following properties.
-      </paragraph>
-      <list ordered="true">
-        <item>
-          <paragraph>
-            The total area of the region under the graph of <math display="inline">$$f$$</math> is equal to <math display="inline">$$1$$</math> (Figure 2a).
-          </paragraph>
-        </item>
-        <item>
-          <paragraph>
-            The probability that an observed value of the random variable <math display="inline">$$X$$</math> lies in the interval <math display="inline">$$\lbrack a,b\rbrack$$</math> is given by
-          </paragraph>
-          <paragraph>
-            <math display="block">$$P(a \leq X \leq b) = {\int_{a}^{b}‍f(x)\mathit{dx}}$$</math>
-          </paragraph>
-          <paragraph>
-            (Figure 2b).
-          </paragraph>
-          <figure number="2">
-            <alt_text>There are two images a and b each graphed a bell shaped curve in the first quadrant of the x y coordinate plane. In image a, the x and y axes are unmarked and unlabeled. The curve starts just above the x axis, a short distance away from the origin, slopes upward to the right, concave up, after it reaches the inflection point, it goes up, now concave down, and reaches the high point. From its high point, the curve goes down to the right, still concave down, after it reaches its inflection point, it goes down to the right, but concave up and ends very close to the x axis. The region below the curve is shaded and is labeled R. In image b, the x axis has marks labeled a and b, appear at unequal intervals. The curve starts just above the x axis, a short distance away from the origin, slopes upward to the right, concave up, after it reaches the inflection point, it goes up, now concave down, and reaches the high point. From its high point, the curve goes down to the right, still concave down, after it reaches its inflection point, it goes down to the right, but concave up and ends very close to the x axis. Two vertical lines rises from the marks a and b on the x axis, till it reaches the curve. The region bounded by the curve, x axis and the two vertical lines is shaded and the region is labeled P (a &lt;= X &lt;= b).</alt_text>
-          </figure>
-        </item>
-      </list>
-    </note>
-    <note title="Notes">
-      <list ordered="true">
-        <item>
-          <paragraph>
-            Property 1 states that the probability that a continuous random variable takes on a value lying in its range is <math display="inline">$$1$$</math> , a certainty, which is expected.
-          </paragraph>
-        </item>
-        <item>
-          <paragraph>
-            Property 2 states that the probability that the random variable <math display="inline">$$X$$</math> assumes a value in an interval <math display="inline">$$a \leq X \leq b$$</math> is given by the area of the region between the graph of <math display="inline">$$f$$</math> and the <math display="inline">$$x$$</math> -axis from <math display="inline">$$X = a$$</math> to <math display="inline">$$X = b$$</math> . Because the area under one point on the graph of <math display="inline">$$f$$</math> is equal to zero, we see that <math display="inline">$$P(a \leq X \leq b) = P(a &lt; X \leq b) = P(a \leq X &lt; b) = P(a &lt; X &lt; b)$$</math> .
-          </paragraph>
-        </item>
-        <item>
-          <paragraph>
-            A probability density function of a random variable <math display="inline">$$X$$</math> may be constructed by using methods that range from theoretical considerations of the problem on one extreme to an interpretation of data associated with the experiment on the other.
-          </paragraph>
-        </item>
-      </list>
-    </note>
-    <example number="1">
-      <problem>
-        <paragraph>
-          Show that each of the following functions satisfies the nonnegativity condition and Property 1 of probability density functions.
-        </paragraph>
-        <list ordered="true">
-          <item>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{2}{27}x(x - 1)\qquad(1 \leq x \leq 4)$$</math>
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{1}{3}e^{( - 1 \slash 3)x}\qquad(0 \leq x &lt; \infty)$$</math>
-            </paragraph>
-          </item>
-        </list>
-      </problem>
-      <solution>
-        <list ordered="true">
-          <item>
-            <paragraph>
-              Since the factors <math display="inline">$$x$$</math> and <math display="inline">$$(x - 1)$$</math> are both nonnegative on <math display="inline">$$\left\lbrack {1,4} \right\rbrack$$</math> , we see that <math display="inline">$$f(x) \geq 0$$</math> on <math display="inline">$$\left\lbrack {1,4} \right\rbrack$$</math> . Next, we compute
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{\int_{1}^{4}{\frac{2}{27}‍x\left( {x - 1} \right)dx}} = {\frac{2}{27}{\int_{1}^{4}{({x^{2} - x})}dx}}} \\
-  {\phantom{\int_{1}^{4}{\frac{2}{27}‍x\left( {x - 1} \right)dx}} = \left. \frac{2}{27}‍\left( {\frac{1}{3}‍x^{3} - \frac{1}{2}‍x^{2}} \right) \right|_{1}^{4}} \\
-  {\phantom{\int_{1}^{4}{\frac{2}{27}‍x\left( {x - 1} \right)dx}} = \left. \frac{2}{27}\left\lbrack \left( {\frac{64}{3} - 8} \right) - \left( {\frac{1}{3} - \frac{1}{2}} \right) \right. \right\rbrack} \\
-  {\phantom{\int_{1}^{4}{\frac{2}{27}‍x\left( {x - 1} \right)dx}} = {\frac{2}{27}‍\left( \frac{27}{2} \right)}} \\
-  {\phantom{\int_{1}^{4}{\frac{2}{27}‍x\left( {x - 1} \right)dx}} = 1}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              showing that Property 1 of probability density functions holds as well.
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              First, <math display="inline">$$f(x) = \frac{1}{3}e^{( - 1 \slash 3)x} \geq 0$$</math> for all values of <math display="inline">$$x$$</math> in <math display="inline">$$\lbrack 0,\infty)$$</math> . Next,
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{\int_{0}^{\infty}{\frac{1}{3}‍e^{{({- 1 \slash 3})}x}dx}} = {\lim\limits_{b\rightarrow\infty}{\int_{0}^{b}{\frac{1}{3}‍e^{{({- 1 \slash 3})}x}dx}}}} \\
-  {\phantom{\int_{0}^{\infty}{\frac{1}{3}‍e^{{({- 1 \slash 3})}x}dx}} = \left. \lim\limits_{b\rightarrow\infty} - e^{{({- 1 \slash 3})}x} \right|_{0}^{b}} \\
-  {\phantom{\int_{0}^{\infty}{\frac{1}{3}‍e^{{({- 1 \slash 3})}x}dx}} = {\lim\limits_{b\rightarrow\infty}{({- e^{{({- 1 \slash 3})}b} + 1})}}} \\
-  {\phantom{\int_{0}^{\infty}{\frac{1}{3}‍e^{{({- 1 \slash 3})}x}dx}} = 1}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              so the area under the graph of <math display="inline">$$f(x) = \frac{1}{3}e^{( - 1 \slash 3)x}$$</math> on <math display="inline">$$\lbrack 0,\infty)$$</math> is equal to <math display="inline">$$1$$</math> , as we set out to show.
-            </paragraph>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <example number="2">
-      <problem>
-        <list ordered="true">
-          <item>
-            <paragraph>
-              Determine the value of the constant <math display="inline">$$k$$</math> such that the function <math display="inline">$$f(x) = kx^{2}$$</math> is a probability density function on the interval <math display="inline">$$\left\lbrack {0,5} \right\rbrack$$</math> .
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              If <math display="inline">$$X$$</math> is a continuous random variable with the probability density function given in part (a), compute the probability that <math display="inline">$$X$$</math> will assume a value between <math display="inline">$$1$$</math> and <math display="inline">$$2$$</math> .
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              Find the probability that <math display="inline">$$X$$</math> will assume a value at <math display="inline">$$3$$</math> .
-            </paragraph>
-          </item>
-        </list>
-      </problem>
-      <solution>
-        <list ordered="true">
-          <item>
-            <paragraph>
-              We compute
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{\int_{0}^{5}{kx^{2}dx}} = {k{\int_{0}^{5}{x^{2}dx}}}} \\
-  {\phantom{\int_{0}^{5}{kx^{2}dx}} = \left. \frac{k}{3}‍x^{3} \right|_{0}^{5}} \\
-  {\phantom{\int_{0}^{5}{kx^{2}dx}} = {\frac{125}{3}‍k}}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              Since this value must be equal to <math display="inline">$$1$$</math> , we find that <math display="inline">$$k = \frac{3}{125}$$</math> .
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              The required probability is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P\left( {1 \leq X \leq 2} \right)} = {\int_{1}^{2}{f(x)dx = {\int_{1}^{2}{\frac{3}{125}‍x^{2}dx}}}}} \\
-  {\phantom{P\left( {1 \leq X \leq 2} \right)} = \left. \frac{1}{125}‍x^{3} \right|_{1}^{2} = \frac{1}{125}‍\left( {8 - 1} \right)} \\
-  {\phantom{P\left( {1 \leq X \leq 2} \right)} = \frac{7}{125}}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              The graph of the probability density function <math display="inline">$$f$$</math> and the area corresponding to the probability <math display="inline">$$P(1 \leq X \leq 2)$$</math> are shown in Figure 3.
-            </paragraph>
-            <figure number="3" caption="P ( 1 ≤ X ≤ 2 ) for the probability density function y = 3 125 ‍ x 2">
-              <alt_text>Alt-text: A curve is graphed in the first quadrant of the x y coordinate plane. The x axis ranges from 0 to beyond 5 and the y axis ranges from 0 to over 0.6. The curve starts from the origin, slopes upward to the right, concave up, passes through (2, 0.1), and ends at (5, 0.6). From the point (5, 0.6), perpendiculars are dropped to each of the axes. From the mark 2 on the x axis, a vertical line rises till it reaches the curve. The region below the curve from the line x = 1 to x = 2 is shaded.</alt_text>
-            </figure>
-          </item>
-          <item>
-            <paragraph>
-              The required probability is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P\left( {X = 3} \right)} = {\int_{3}^{3}{f(x)dx}}} \\
-  {\phantom{P\left( {X = 3} \right)} = {\int_{3}^{3}{\frac{3}{125}x^{2}dx = 0}}}
-  \end{array}$$</math>
-            </paragraph>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <note title="Note">
-      <paragraph>
-        Observe that the probability that a continuous random variable <math display="inline">$$X$$</math> will assume a value at a number <math display="inline">$$a$$</math> is zero, since <math display="inline">$$P\left( {X = a} \right) = \int_{a}^{a}{‍f(x)dx = 0}$$</math> . (See Probability Density Function.)
-      </paragraph>
-    </note>
-    <example number="3">
-      <problem>
-        <paragraph>
-          Let <math display="inline">$$f$$</math> be a constant function defined on an interval <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> . What properties must <math display="inline">$$f$$</math> satisfy in order for <math display="inline">$$f$$</math> to be a probability density function on <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> ? Find an expression for <math display="inline">$$f$$</math> .
-        </paragraph>
-      </problem>
-      <solution>
-        <paragraph>
-          Let <math display="inline">$$f(x) = k$$</math> for <math display="inline">$$x$$</math> in the interval <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> , where <math display="inline">$$k$$</math> is a constant. Clearly, <math display="inline">$$k$$</math> must be positive on <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> . Next, we compute
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\int_{a}^{b}f(x)dx = \left. \int_{a}^{b}kdx = {kx} \right|_{a}^{b} = k\left( {b - a} \right)$$</math>
-        </paragraph>
-        <paragraph>
-          Since the area of <math display="inline">$$f$$</math> under <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> must be equal to <math display="inline">$$1$$</math> , we have
-        </paragraph>
-        <paragraph>
-          <math display="block">$$k\left( {b - a} \right) = 1$$</math>
-        </paragraph>
-        <paragraph>
-          or
-        </paragraph>
-        <paragraph>
-          <math display="block">$$k = \frac{1}{b - a}$$</math>
-        </paragraph>
-        <paragraph>
-          So the required function is defined by
-        </paragraph>
-        <paragraph>
-          <math display="block">$$f(x) = \frac{1}{b - a}\qquad\left( {a \leq x \leq b} \right)$$</math>
-        </paragraph>
-      </solution>
-    </example>
-    <paragraph>
-      Let’s summarize the result of Example 3.
-    </paragraph>
-    <note title="Uniform Density Function">
-      <paragraph>
-        Let <math display="inline">$$f$$</math> be the constant probability density function
-      </paragraph>
-      <paragraph>
-        defined on an interval <math display="inline">$$\lbrack a,b\rbrack$$</math> , where <math display="inline">$$a &lt; b$$</math> . Then <math display="inline">$$f$$</math> is called a <term>uniform density function</term> on <math display="inline">$$\lbrack a,b\rbrack$$</math> .
-      </paragraph>
-    </note>
-    <paragraph>
-      A random variable that has a uniform density function is said to be <strong>uniformly distributed</strong>. An application involving a uniform distribution follows.
-    </paragraph>
-    <note title="Applied Example 4. Musical Fountains">
-      <paragraph>
-        “The Fountains of Bellagio” is a choreographed water display set to light and music that takes place in front of the Bellagio Hotel in Las Vegas. In the evening, the shows take place every <math display="inline">$$15$$</math> minutes from 7 p.m. to midnight. The duration of each show is <math display="inline">$$7$$</math> minutes. If Joan arrives at a random time between 7 p.m. and 7:15 p.m. for an evening show and finds the fountains not performing, find the probability that Joan will have to wait at least <math display="inline">$$5$$</math> minutes before the next show starts.
-      </paragraph>
-      <subsection title="Solution">
-        <paragraph>
-          Let <math display="inline">$$X$$</math> denote the time (in minutes) that Joan has to wait for the next show. Then <math display="inline">$$X$$</math> is uniformly distributed over the interval <math display="inline">$$\left\lbrack {0,8} \right\rbrack$$</math> . (The fountains are not performing for a duration of <math display="inline">$$8$$</math> minutes each time the show is not on.) So the uniform density function associated with this problem is
-        </paragraph>
-        <paragraph>
-          and the desired probability is
-        </paragraph>
-      </subsection>
-    </note>
-    <note title="Applied Example 5. Life Span of Light Bulbs">
-      <paragraph>
-        TKK Products manufactures a <math display="inline">$$200$$</math>-watt electric light bulb. Laboratory tests show that the life spans of these light bulbs have a distribution described by the probability density function
-      </paragraph>
-      <paragraph>
-        Determine the probability that a light bulb will have a life span of
-      </paragraph>
-      <list ordered="false">
-        <item>
-          <paragraph>
-            <math display="inline">$$500$$</math> hours or less,
-          </paragraph>
-        </item>
-        <item>
-          <paragraph>
-            more than <math display="inline">$$500$$</math> hours, and
-          </paragraph>
-        </item>
-        <item>
-          <paragraph>
-            more than <math display="inline">$$1000$$</math> hours but less than <math display="inline">$$1500$$</math> hours.
-          </paragraph>
-        </item>
-      </list>
-      <subsection title="Solution">
-        <paragraph>
-          Let <math display="inline">$$X$$</math> denote the life span of a light bulb.
-        </paragraph>
-        <list ordered="true">
-          <item>
-            <paragraph>
-              The probability that a light bulb will have a life span of <math display="inline">$$500$$</math> hours or less is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P(0 \leq X \leq 500)} = {\int_{0}^{500}{0.001e^{- 0.001x}dx}}} \\
-  {\phantom{P(0 \leq X \leq 500)} = - {\left. e^{- 0.001x} \right|_{0}^{500} = - e^{- 0.5} + 1}} \\
-  {\phantom{P(0 \leq X \leq 500)} \approx 0.3935}
-  \end{array}$$</math>
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              The probability that a light bulb will have a life span of more than <math display="inline">$$500$$</math> hours is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P(X &gt; 500)} = {\int_{500}^{\infty}{0.001e^{- 0.001x}dx}}} \\
-  {\phantom{P(X &gt; 500)} = {\lim\limits_{b\rightarrow\infty}{\int_{500}^{b}{0.001e^{- 0.001x}dx}}}} \\
-  {\phantom{P(X &gt; 500)} = {\lim\limits_{b\rightarrow\infty}\left. {- e^{- 0.001x}} \right|}_{500}^{b}} \\
-  {\phantom{P(X &gt; 500)} = {\lim\limits_{b\rightarrow\infty}( - e^{- 0.001b} + e^{- 0.5})}} \\
-  {\phantom{P(X &gt; 500)} = {e^{- 0.5} \approx 0.6065}}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              This result may also be obtained by observing that
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P(X &gt; 500)} = {1 - P(X \leq 500)}} \\
-  {\phantom{P(X &gt; 500)} = {1 - 0.3935}\qquad{{Use\ the\ result\ from\ part}(a).}} \\
-  {\phantom{P(X &gt; 500)} \approx 0.6065}
-  \end{array}$$</math>
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              The probability that a light bulb will have a life span of more than <math display="inline">$$1000$$</math> hours but less than <math display="inline">$$1500$$</math> hours is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P\left( {1000 &lt; X &lt; 1500} \right)} = {\int_{1000}^{1500}{0.001e^{- 0.001x}dx}}} \\
-  {\phantom{P\left( {1000 &lt; X &lt; 1500} \right)} = \left. {- e^{- 0.001x}} \right|_{1000}^{1500}} \\
-  {\phantom{P\left( {1000 &lt; X &lt; 1500} \right)} = {- e^{- 1.5} + e^{- 1}}} \\
-  {\phantom{P\left( {1000 &lt; X &lt; 1500} \right)} \approx {- 0.2231 + 0.3679}} \\
-  {\phantom{P\left( {1000 &lt; X &lt; 1500} \right)} = 0.1448}
-  \end{array}$$</math>
-            </paragraph>
-          </item>
-        </list>
-      </subsection>
-    </note>
-    <paragraph>
-      The probability density function of Example 5 is called an <term>exponential density function</term> . More generally, we have the following.
-    </paragraph>
-    <note title="Exponential Density Function (with Parameter k )">
-      <paragraph>
-        Let <math display="inline">$$f$$</math> be the function defined by
-      </paragraph>
-      <paragraph>
-        where <math display="inline">$$k$$</math> is a positive constant. Then <math display="inline">$$f$$</math> is called an <strong>exponential density function</strong> with parameter <math display="inline">$$k$$</math> on <math display="inline">$$\lbrack 0,\infty)$$</math> .
-      </paragraph>
-    </note>
-    <paragraph>
-      You are asked to verify that <math display="inline">$$f$$</math> is a probability density function in Exercise 61. The graph of <math display="inline">$$f$$</math> is shown in Figure 4. The random variable that is associated with <math display="inline">$$f$$</math> is said to be <strong>exponentially distributed.</strong> Exponential random variables are used to represent the life span of an electronic component, the duration of a telephone call, the waiting time in a doctor’s office, and the time between successive flight arrivals and departures in an airport, to mention but a few applications.
-    </paragraph>
-    <figure number="4" caption="The area under the graph of the exponential density function is equal to 1 .">
-      <alt_text>A curve f(x) = k e^(negative k x) is graphed in the first quadrant of the x y coordinate plane. The curve starts on the top of the vertical axis from the mark k, away from the origin, goes downward to the right, concave up, and meets the x axis, at the right extreme. The region below the curve is shaded.</alt_text>
-    </figure>
-  </subsection>
-  <subsection title="Joint Probability Density Functions">
-    <paragraph>
-      Sometimes the outcomes of an experiment are associated with more than one random variable. For example, we might be interested in the relationship between the weight and height of newborn infants or between the price and tread life of automobile tires. To study such problems, we need to extend the concept of a probability density function of a random variable to functions of more than one variable. In the case involving two random variables, we have the following definition.
-    </paragraph>
-    <note title="Joint Probability Density Function">
-      <paragraph>
-        A <term>joint probability density function</term> of the random variables <math display="inline">$$X$$</math> and <math display="inline">$$Y$$</math> on a region <math display="inline">$$D$$</math> is a nonnegative function <math display="inline">$$f\left( {x,y} \right)$$</math> having the property
-      </paragraph>
-      <paragraph>
-        Thus, the volume of the solid under the graph of <math display="inline">$$f$$</math> is equal to <math display="inline">$$1$$</math> .
-      </paragraph>
-      <paragraph>
-        The probability that the observed values of the random variables <math display="inline">$$X$$</math> and <math display="inline">$$Y$$</math> lie in a region <math display="inline">$$R \subset D$$</math> is given by
-      </paragraph>
-    </note>
-    <example number="6">
-      <problem>
-        <paragraph>
-          Show that the function <math display="inline">$$f\left( {x,y} \right) = xy$$</math> is a joint probability density function on <math display="inline">$$D = \left\{ \left( {x,y} \right) \middle| 0 \leq x \leq 1;0 \leq y \leq 2 \right\}$$</math> .
-        </paragraph>
-      </problem>
-      <solution>
-        <paragraph>
-          First, observe that <math display="inline">$$f\left( {x,y} \right) = xy$$</math> is nonnegative on <math display="inline">$$D$$</math> . Next, we compute
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {{\iint\limits_{D}{f(x,y)dA}} = {\int_{0}^{2}{\int_{0}^{1}{xydxdy}}}} \\
-  {\phantom{\iint\limits_{D}{f(x,y)dA}} = {{\int_{0}^{2}\left( \left. \frac{1}{2}‍x^{2}y \right|_{0}^{1} \right)}dy}} \\
-  {\phantom{\iint\limits_{D}{f(x,y)dA}} = {\int_{0}^{2}{\frac{1}{2}ydy = \left. {\frac{1}{4}y^{2}} \right|_{0}^{2} = 1}}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          Therefore, <math display="inline">$$f$$</math> is a joint probability density function on <math display="inline">$$D$$</math> .
-        </paragraph>
-      </solution>
-    </example>
-    <example number="7">
-      <problem>
-        <paragraph>
-          Let <math display="inline">$$f\left( {x,y} \right) = xy$$</math> be the joint probability density function for the random variables <math display="inline">$$X$$</math> and <math display="inline">$$Y$$</math> on <math display="inline">$$D = \left\{ \left. \left( {x,y} \right) \middle| 0 \leq x \leq 1;0 \leq y \leq 2 \right\} \right.$$</math> . Find
-        </paragraph>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              <math display="inline">$$P{({0 \leq X \leq \frac{1}{2};1 \leq Y \leq 2})}$$</math> and
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              <math display="inline">$$P\left( {X + Y \leq 1} \right)$$</math> .
-            </paragraph>
-          </item>
-        </list>
-      </problem>
-      <solution>
-        <list ordered="true">
-          <item>
-            <paragraph>
-              The required probability is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P\left( {0 \leq X \leq \frac{1}{2}‍;1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{\int_{0}^{1 \slash 2}{xydxdy}}}} \\
-  {\phantom{P\left( {0 \leq X \leq \frac{1}{2};1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{\left( \left. {\frac{1}{2}‍x^{2}y} \right|_{0}^{1 \slash 2} \right)dy}}} \\
-  {\phantom{P\left( {0 \leq X \leq \frac{1}{2};1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{\frac{1}{8}‍ydy = \left. {\frac{1}{16}‍y^{2}} \right|_{1}^{2} = \frac{3}{16}}}}
-  \end{array}$$</math>
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              The region <math display="inline">$$R = \left\{ \left( {x,y} \right) \middle| x + y \leq 1 \right\}$$</math> is shown in Figure 5. The required probability is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P\left( {X + Y \leq 1} \right)} = {\int_{0}^{1}{\int_{0}^{1 - x}{xydydx}}}} \\
-  {\phantom{P\left( {X + Y \leq 1} \right)} = {\int_{0}^{1}{\left( \left. {\frac{1}{2}‍xy^{2}} \right|_{0}^{1 - x} \right)dx}}} \\
-  {\phantom{P\left( {X + Y \leq 1} \right)} = {\int_{0}^{1}{\frac{1}{2}‍x\left( {1 - x} \right)^{2}dx}}} \\
-  {\phantom{P\left( {X + Y \leq 1} \right)} = {\frac{1}{2}{\int_{0}^{1}{{({x - 2x^{2} + x^{3}})}dx}}}} \\
-  {\phantom{P\left( {X + Y \leq 1} \right)} = {\frac{1}{2}‍\left. \left( {\frac{1}{2}‍x^{2} - \frac{2}{3}‍x^{3} + \frac{1}{4}‍x^{4}} \right) \right|_{0}^{1}}} \\
-  {\phantom{P\left( {X + Y \leq 1} \right)} = {\frac{1}{2}‍\left( {\frac{1}{2} - \frac{2}{3} + \frac{1}{4}} \right) = \frac{1}{24}}}
-  \end{array}$$</math>
-            </paragraph>
-            <figure number="5">
-              <alt_text>A line x + y = 1 is graphed on the x y coordinate plane. The x axis ranges from 0 to beyond 1 and the y axis ranges from 0 to over 1. The line enters the second quadrant from the top, cuts the y axis at (0, 1), goes down to the right, cuts the x axis at (1, 0), and enters the fourth quadrant. The region below the line is shaded and the region is labeled R.</alt_text>
-            </figure>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <example number="8">
-      <problem>
-        <paragraph>
-          Let <math display="inline">$$f\left( {x,y} \right) = 2e^{- x - 2y}$$</math> be the joint probability density function for the random variables <math display="inline">$$X$$</math> and <math display="inline">$$Y$$</math> on <math display="inline">$$D = \left\{ \left( {x,y} \right) \middle| x \geq 0 \right.$$</math> and <math display="inline">$$\left. y \geq 0 \right\}$$</math> .
-        </paragraph>
-        <list ordered="true">
-          <item>
-            <paragraph>
-              Find the probability that <math display="inline">$$X$$</math> will assume a value between <math display="inline">$$0$$</math> and <math display="inline">$$1$$</math> and that <math display="inline">$$Y$$</math> will assume a value between <math display="inline">$$1$$</math> and <math display="inline">$$2$$</math> .
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              Find the probability that <math display="inline">$$X$$</math> will assume a value greater than <math display="inline">$$1$$</math> and that <math display="inline">$$Y$$</math> will assume a value less than <math display="inline">$$2$$</math> .
-            </paragraph>
-          </item>
-        </list>
-      </problem>
-      <solution>
-        <list ordered="true">
-          <item>
-            <paragraph>
-              The required probability is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{\int_{0}^{1}{2e^{- x - 2y}dxdy}}}} \\
-  {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = \int_{1}^{2}\left( \left. - 2e^{- x - 2y} \right|_{0}^{1} \right)dy} \\
-  {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{{({- 2e^{- 1 - 2y} + 2e^{- 2y}})}dy}}} \\
-  {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = {\int_{1}^{2}{2(1 - e^{- 1})e^{- 2y}dy}}\qquad{{Simplify\ the\ integrand}.}} \\
-  {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = {2(1 - e^{- 1})\left. \left( {- \frac{1}{2}e^{- 2y}} \right) \right|_{1}^{2}}} \\
-  {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = \left. - (1 - e^{- 1})e^{- 2y} \right|_{1}^{2}} \\
-  {\phantom{P\left( {0 \leq X \leq 1;1 \leq Y \leq 2} \right)} = {- (1 - e^{- 1})(e^{- 4} - e^{- 2}) \approx .0740}}
-  \end{array}$$</math>
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              The required probability is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P(X &gt; 1;0 \leq Y &lt; 2)} = {\int_{0}^{2}{\int_{1}^{\infty}{2e^{- x - 2y}dxdy}}}} \\
-  {\phantom{P(X &gt; 1;0 \leq Y &lt; 2)} = {\int_{0}^{2}{\left( {\lim\limits_{b\rightarrow\infty}{\int_{1}^{b}{2e^{- x - 2y}}}dx} \right)dy}}} \\
-  {\phantom{P(X &gt; 1;0 \leq Y &lt; 2)} = {{\int_{0}^{2}\left( \left. {\lim\limits_{b\rightarrow\infty} - 2e^{- x - 2y}} \right|_{1}^{b} \right)}dy}} \\
-  {\phantom{P(X &gt; 1;0 \leq Y &lt; 2)} = {\int_{0}^{2}{\lbrack\lim\limits_{b\rightarrow\infty}( - 2e^{- b - 2y} + 2e^{- 1 - 2y})\rbrack dy}}} \\
-  {\phantom{P(X &gt; 1;0 \leq Y &lt; 2)} = {{\int_{0}^{2}{2e^{- 1 - 2y}}}dy}} \\
-  {\phantom{P(X &gt; 1;0 \leq Y &lt; 2)} = {\left. - e^{- 1 - 2y} \right|_{0}^{2} = - e^{- 5} + e^{- 1} \approx .3611}}
-  \end{array}$$</math>
-            </paragraph>
-          </item>
-        </list>
-      </solution>
-    </example>
-  </subsection>
-  <subsection number="10.1" title="Self-Check Exercises">
-    <exercises>
-      <exercise_group>
-        <problem number="1">
-          <statement>
-            <paragraph>
-              Determine the value of the constant <math display="inline">$$k$$</math> such that the function <math display="inline">$$f(x) = k(4x - x^{2})$$</math> is a probability density function on the interval <math display="inline">$$\lbrack 0,4\rbrack$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              We compute
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{\int_{0}^{4}{k(4x - x^{2})dx}} = \left. k‍\left( {2x^{2} - \frac{1}{3}x^{3}} \right) \right|_{0}^{4}} \\
-  {\phantom{\int_{0}^{4}{k(4x - x^{2})dx}} = {k\left( {32 - \frac{64}{3}} \right)}} \\
-  {\phantom{\int_{0}^{4}{k(4x - x^{2})dx}} = {\frac{32}{3}‍k}}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              Since this value must be equal to <math display="inline">$$1$$</math> , we have <math display="inline">$$k = \frac{3}{32}$$</math> .
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="2">
-          <statement>
-            <paragraph>
-              Suppose that <math display="inline">$$X$$</math> is a continuous random variable with the probability density function of Self-Check Exercise 1. Find the probability that <math display="inline">$$X$$</math> will assume a value between <math display="inline">$$1$$</math> and <math display="inline">$$3$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              The required probability is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{P(1 &lt; X &lt; 3)} = {\int_{1}^{3}{f(x)dx}}} \\
-  {\phantom{P(1 &lt; X &lt; 3)} = {\int_{1}^{3}{\frac{3}{32}‍(4x - x^{2})dx}}} \\
-  {\phantom{P(1 &lt; X &lt; 3)} = \left. \frac{3}{32}‍\left( {2x^{2} - \frac{1}{3}‍x^{3}} \right) \right|_{1}^{3}} \\
-  {\phantom{P(1 &lt; X &lt; 3)} = {\frac{3}{32}‍\left\lbrack {(18 - 9) - \left( {2 - \frac{1}{3}} \right)} \right\rbrack = \frac{11}{16}}}
-  \end{array}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-      </exercise_group>
-    </exercises>
-  </subsection>
-  <subsection number="10.1" title="Concept Questions">
-    <exercises>
-      <exercise_group>
-        <problem number="1">
-          <statement>
-            <paragraph>
-              Define the following terms in your own words:
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Experiment
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Sample point (outcome)
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Event
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Probability of an event
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="2">
-          <statement>
-            <paragraph>
-              What is the difference between a finite discrete random variable and a continuous random variable?
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="3">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  What is a probability density function?
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  What is a joint probability density function?
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-      </exercise_group>
-    </exercises>
-  </subsection>
-  <subsection number="10.1" title="Exercises">
-    <exercises>
-      <exercise_group>
-        <instructions>
-          In Exercises 1, 2, 3, 4, 5, 6, 7, 8, 9 and 10, show that the function is a probability density function on the specified interval.
-        </instructions>
-        <problem number="1">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{1}{16}‍x$$</math> ; <math display="inline">$$(2 \leq x \leq 6)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="2">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{2}{9}‍(3x - x^{2})$$</math> ; <math display="inline">$$(0 \leq x \leq 3)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="3">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{3}{8}x^{2}$$</math> ; <math display="inline">$$(0 \leq x \leq 2)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="4">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{3}{32}(x - 1)(5 - x)$$</math> ; <math display="inline">$$(1 \leq x \leq 5)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="5">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = 20(x^{3} - x^{4})$$</math> ; <math display="inline">$$(0 \leq x &lt; 1)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="6">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{8}{7x^{2}}$$</math> ; <math display="inline">$$(1 \leq x \leq 8)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="7">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{3}{14}\sqrt{x}$$</math> ; <math display="inline">$$(1 \leq x \leq 4)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="8">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{12 - x}{72}$$</math> ; <math display="inline">$$(0 \leq x \leq 12)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="9">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{x}{\left( {x^{2} + 1} \right)^{3 \slash 2}}$$</math> ; <math display="inline">$$(0 \leq x &lt; \infty)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="10">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = 4xe^{- 2x^{2}}$$</math> ; <math display="inline">$$(0 \leq x &lt; \infty)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          In Exercises 11, 12, 13, 14, 15, 16, 17 and 18, find the value of the constant <math display="inline">$$k$$</math> such that the function is a probability density function on the indicated interval.
-        </instructions>
-        <problem number="11">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = k$$</math> ; <math display="inline">$$\lbrack 1,4\rbrack$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$k = \frac{1}{3}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="12">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = kx$$</math> ; <math display="inline">$$\lbrack 0,4\rbrack$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="13">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = k(4 - x)$$</math> ; <math display="inline">$$\lbrack 0,4\rbrack$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$k = \frac{1}{8}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="14">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = kx^{3}$$</math> ; <math display="inline">$$\lbrack 0,1\rbrack$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="15">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = k\sqrt{x}$$</math> ; <math display="inline">$$\lbrack 0,4\rbrack$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$k = \frac{3}{16}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="16">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{k}{x}$$</math> ; <math display="inline">$$\lbrack 1,5\rbrack$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="17">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{k}{x^{3}}$$</math> ; <math display="inline">$$\left\lbrack {1,\infty} \right)$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$k = 2$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="18">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = ke^{{- x} \slash 2}$$</math> ; <math display="inline">$$\left\lbrack {0,\infty} \right)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          In Exercises 19, 20, 21, 22, 23, 24, 25, 26, 27 and 28, <math display="inline">$$f$$</math> is the probability density function for the random variable <math display="inline">$$X$$</math> defined on the given interval. Find the indicated probabilities.
-        </instructions>
-        <problem number="19">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{1}{12}x$$</math> ; <math display="inline">$$\left\lbrack {1,5} \right\rbrack$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {2 \leq X \leq 4} \right)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{2}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {1 \leq X \leq 4} \right)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{5}{8}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {X \geq 2} \right)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{7}{8}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {X = 2} \right)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$0$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="20">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{1}{9}x^{2}$$</math> ; <math display="inline">$$\left\lbrack {0,3} \right\rbrack$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(1 \leq X \leq 2)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(1 &lt; X \leq 3)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X \leq 2)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X = 1)$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="21">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{3}{32}‍{({4 - x^{2}})}$$</math> ; <math display="inline">$$\left\lbrack {- 2,2} \right\rbrack$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P( - 1 \leq X \leq 1)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{11}{16}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X \leq 0)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{2}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X &gt; - ‍1)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{27}{32}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X = 0)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$0$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="22">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{3}{16}\sqrt{x}$$</math> ; <math display="inline">$$\left\lbrack {0,4} \right\rbrack$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(1 &lt; X &lt; 3)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X \leq 2)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X = 2)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X \geq 1)$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="23">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{1}{4\sqrt{x}}$$</math> ; <math display="inline">$$\left\lbrack {1,9} \right\rbrack$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X \geq 4)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{2}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(1 \leq X &lt; 8)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{2}‍{({2\sqrt{2} - 1})}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X = 3)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$0$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X \leq 4)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{2}$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="24">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{1}{2}e^{{- x} \slash 2}$$</math> ; <math display="inline">$$\left\lbrack {0,\infty} \right)$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X \leq 4)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(1 &lt; X &lt; 2)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X = 50)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X \geq 2)$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="25">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = 4xe^{- 2x^{2}}$$</math> ; <math display="inline">$$\left\lbrack {0,\infty} \right)$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(0 \leq X \leq 4)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$1$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X \geq 1)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.135$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="26">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \frac{1}{9}xe^{{- x} \slash 3}$$</math> ; <math display="inline">$$\left\lbrack {0,\infty} \right)$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(0 \leq X \leq 3)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X \geq 1)$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="27">
-          <statement>
-            <paragraph>
-              <math display="block">$$f(x) = \begin{cases}
-  x &amp; {{if}0 \leq x \leq 1} \\
-  {2 - x} &amp; {{if}1 \leq x \leq 2}
-  \end{cases};\lbrack 0,2\rbrack$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {\frac{1}{2} \leq X \leq 1} \right)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.375$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {\frac{1}{2} \leq X \leq \frac{3}{2}} \right)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.75$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {X \geq 1} \right)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.5$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {X \leq \frac{3}{2}} \right)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.875$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="28">
-          <statement>
-            <paragraph>
-              <math display="block">$$f(x) = \begin{cases}
-  {\frac{3}{40}\sqrt{x}} &amp; {{if}0 \leq x \leq 4} \\
-  \frac{12}{5x^{2}} &amp; {{if}4 &lt; x &lt; \infty}
-  \end{cases};\lbrack 0,\infty)$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(1 \leq X \leq 4)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(0 \leq X \leq 5)$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          In Exercises 29, 30, 31 and 32, show that the function is a joint probability density function on <math display="inline">$$D$$</math> .
-        </instructions>
-        <problem number="29">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y} \right) = \frac{1}{4}$$</math> ; <math display="inline">$$D = \left\{ {0 \leq x \leq 2;1 \leq y \leq 3} \right\}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="30">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y} \right) = \frac{1}{4}\left( {x + 2y} \right)$$</math> ; <math display="inline">$$D = \left\{ {0 \leq x \leq 2;0 \leq y \leq 1} \right\}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="31">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y} \right) = \frac{1}{3}xy$$</math> ; <math display="inline">$$D = \left\{ {0 \leq x \leq 2;1 \leq y \leq 2} \right\}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="32">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y} \right) = 4\left( {1 - x} \right)\left( {2 - y} \right)$$</math> ; <math display="inline">$$D = \left\{ {0 \leq x \leq 1;1 \leq y \leq 2} \right\}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          In Exercises 33, 34, 35 and 36, find the value of the constant <math display="inline">$$k$$</math> so that the function is a joint probability density function on <math display="inline">$$D$$</math> .
-        </instructions>
-        <problem number="33">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y} \right) = kx^{2}y$$</math> ; <math display="inline">$$D = \left\{ {0 \leq x \leq 1;1 \leq y \leq 2} \right\}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$k = 2$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="34">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y} \right) = k\sqrt{x}\left( {2 - y} \right)$$</math> ; <math display="inline">$$D = \left\{ {1 \leq x \leq 2;0 \leq y \leq 2} \right\}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="35">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = k{({x - x^{2}})}e^{- 2y}$$</math> ; <math display="inline">$$D = \left\{ {0 \leq x \leq 1;1 \leq y \leq \infty} \right\}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$k = 12e^{2}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="36">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{(x,y)} = kxye^{- {({x^{2} + y^{2}})}}$$</math> ; <math display="inline">$$D = \left\{ {0 &lt; x &lt; \infty;0 &lt; y &lt; \infty} \right\}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          In Exercises 37, 38, 39 and 40, <math display="inline">$$f$$</math> is a joint probability density function for the random variables <math display="inline">$$X$$</math> and <math display="inline">$$Y$$</math> on <math display="inline">$$D$$</math> . Find the indicated probabilities.
-        </instructions>
-        <problem number="37">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y} \right) = xy$$</math> ; <math display="inline">$$D = \left\{ {\left. \left( {x,y} \right) \right|0 \leq x \leq 1;0 \leq y \leq 2} \right\}$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(0 \leq X \leq 1;0 \leq Y \leq 1)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{4}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(X + 2Y \leq 1)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{96}$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="38">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y} \right) = \frac{1}{12}\left( {x + y} \right)$$</math> ; <math display="inline">$$D = \left\{ {\left. \left( {x,y} \right) \right|0 \leq x \leq 2;1 \leq y \leq 3} \right\}$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(0 \leq X \leq 1;1 \leq Y \leq 2)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {Y \geq 1;X + Y \leq 3} \right)$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="39">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y} \right) = \frac{9}{224}‍\sqrt{xy}$$</math> ; <math display="inline">$$D = \left\{ {\left. \left( {x,y} \right) \right|1 \leq x \leq 4;0 \leq y \leq 4} \right\}$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P(1 \leq X \leq 2;0 \leq Y \leq 1)$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{56}‍{({2\sqrt{2} - 1})}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P{({1 \leq X \leq 4;0 \leq Y \leq \sqrt{X}})}$$</math>
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.2575$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="40">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y} \right) = 3\sqrt{x}e^{- 2y}$$</math> ; <math display="inline">$$D = \left\{ {\left. \left( {x,y} \right) \right|0 \leq x \leq 1;0 \leq y \leq \infty} \right\}$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {0 \leq X \leq 1;1 \leq Y &lt; \infty} \right)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$P\left( {\frac{1}{2} \leq X \leq 1;0 \leq Y &lt; \infty} \right)$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="41">
-          <statement>
-            <paragraph>
-              Waiting Time at a Health Clinic The average waiting time for patients arriving at the Newtown Health Clinic between 1 p.m. and 4 p.m. on a weekday is an exponentially distributed random variable <math display="inline">$$X$$</math> with probability density function <math display="inline">$$f(x) = \frac{1}{15}e^{{- x} \slash 15}$$</math> .
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  What is the probability that a patient arriving at the clinic between 1 p.m. and 4 p.m. will have to wait between <math display="inline">$$10$$</math> and <math display="inline">$$12$$</math> min?
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.06$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  What is the probability that a patient arriving at the clinic between 1 p.m. and 4 p.m. will have to wait more than <math display="inline">$$15$$</math> min?
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.37$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="42">
-          <statement>
-            <paragraph>
-              Life Span of a Plant Species The life span of a certain plant species (in days) is described by the probability density function
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f(x) = \frac{1}{100}e^{{- x} \slash 100}\qquad\left( {0 \leq x &lt; \infty} \right)$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Find the probability that a plant of this species will live for <math display="inline">$$100$$</math> days or less.
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Find the probability that a plant of this species will live more than <math display="inline">$$120$$</math> days.
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Find the probability that a plant of this species will live more than <math display="inline">$$60$$</math> days but less than <math display="inline">$$140$$</math> days.
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="43">
-          <statement>
-            <paragraph>
-              Waiting Time at a Bakery The proprietress of Ann’s Bakery finds that the waiting time (in minutes) for a customer to be served during the hours between 12 noon and 1 p.m. is an exponentially distributed random variable <math display="inline">$$X$$</math> with associated probability function <math display="inline">$$f(t) = \frac{1}{2}e^{{- t} \slash 2}$$</math> .
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Find the probability that a customer arriving between noon and 1 p.m. will have to wait at most <math display="inline">$$3$$</math> min.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.777$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Find the probability that a customer arriving between noon and 1 p.m. will have to wait between <math display="inline">$$2$$</math> and <math display="inline">$$3$$</math> min.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.145$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Find the probability that a customer arriving between noon and 1 p.m. will have to wait at least <math display="inline">$$3$$</math> min.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.223$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="44">
-          <statement>
-            <paragraph>
-              Frequency of Road Repairs The fraction of streets in the downtown section of a certain city that need repairs in a given year is a random variable with a distribution described by the probability density function
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f(x) = 12x^{2}(1 - x)\qquad(0 \leq x \leq 1)$$</math>
-            </paragraph>
-            <paragraph>
-              Find the probability that at most half of the streets will need repairs in any given year.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="45">
-          <statement>
-            <paragraph>
-              Reliability of Robots National Welding uses industrial robots in some of its assembly-line operations. Management has determined that the lengths of time (in hours) between breakdowns are exponentially distributed with probability density function <math display="inline">$$f(t) = 0.001e^{- 0.001t}$$</math> .
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  What is the probability that a robot selected at random will break down between <math display="inline">$$600$$</math> and <math display="inline">$$800$$</math> hr of use?
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.099$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  What is the probability that a robot will break down after <math display="inline">$$1200$$</math> hr of use?
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.30$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="46">
-          <statement>
-            <paragraph>
-              Waiting Time at an Expressway Tollbooth Suppose the time intervals (in seconds) between arrivals of successive cars at an expressway tollbooth during rush hour are exponentially distributed with probability density function <math display="inline">$$f(t) = \frac{1}{8}e^{{- t} \slash 8}$$</math> . Find the probability that the time interval between arrivals of successive cars is more than <math display="inline">$$8$$</math> sec.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="47">
-          <statement>
-            <paragraph>
-              Time Intervals Between Phone Calls A study conducted by UniMart, a mail-order department store, reveals that the time intervals (in minutes) between incoming telephone calls on its toll-free <math display="inline">$$800$$</math> line between 10 a.m. and 2 p.m. are exponentially distributed with probability density function <math display="inline">$$f(t) = \frac{1}{30}e^{{- t} \slash 30}$$</math> . What is the probability that the time interval between successive calls is more than <math display="inline">$$2$$</math> min?
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$.02$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="48">
-          <statement>
-            <paragraph>
-              Reliability of Microprocessors The microprocessors manufactured by United Motor Works, which are used in automobiles to regulate fuel consumption, are guaranteed against defects for <math display="inline">$$20,000$$</math> mi of use. Tests conducted in the laboratory under simulated driving conditions reveal that the distances driven (in miles) before the microprocessors break down are exponentially distributed with probability density function <math display="inline">$$f(t) = 0.00001e^{- 0.00001t}$$</math> . What is the probability that a microprocessor selected at random will fail during the warranty period?
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="49">
-          <statement>
-            <paragraph>
-              Commuting Bill takes the commuter train to work every day. During the morning commute, a train arrives every <math display="inline">$$15$$</math> min. If Bill arrives at the station at a random time for the morning commute, what is the probability that he will have to wait:
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  At least <math display="inline">$$5$$</math> min for a train?
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{2}{3}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Between <math display="inline">$$5$$</math> and <math display="inline">$$8$$</math> min for a train?
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{5}$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="50">
-          <statement>
-            <paragraph>
-              Musical Fountains Refer to Example 4. “The Fountains of Bellagio” is a choreographed water display set to light and music that takes place in front of the Bellagio Hotel in Las Vegas. In the evening, the shows take place every <math display="inline">$$15$$</math> min from 7 p.m. to midnight. The duration of each show is <math display="inline">$$7$$</math> min. If Joan arrives at a random time between 7 p.m. and 7:15 p.m. for an evening show and finds the fountains not performing, find the probability that Joan will have to wait at most <math display="inline">$$5$$</math> min before the next show starts.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="51">
-          <statement>
-            <paragraph>
-              The Fountains of Bellagio Refer to Example 4. “The Fountains of Bellagio” is a choreographed water display set to light and music that takes place in front of the Bellagio Hotel in Las Vegas. In the evening, the shows take place every <math display="inline">$$15$$</math> min from 7 p.m. to midnight. The duration of each show is <math display="inline">$$7$$</math> min. If Joan arrives at a random time between 8 p.m. and 8:30 p.m. for an evening show, find the probability that Joan will have to wait:
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Less than <math display="inline">$$5$$</math> min before the next show begins.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{3}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  More than <math display="inline">$$10$$</math> min before the next show begins.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\frac{1}{3}$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="52">
-          <statement>
-            <paragraph>
-              Probability of Snowfall The amount of snowfall (in feet) in a remote region of Alaska in the month of January is a continuous random variable with probability density function <math display="inline">$$f(x) = \frac{2}{9}x\left( {3 - x} \right)$$</math> , <math display="inline">$$0 \leq x \leq 3$$</math> . Find the probability that the amount of snowfall will be between <math display="inline">$$1$$</math> and <math display="inline">$$2$$</math> ft; more than <math display="inline">$$1$$</math> ft.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="53">
-          <statement>
-            <paragraph>
-              Probability of Rainfall The amount of rainfall (in inches) on a tropical island in the month of August is a continuous random variable with probability density function
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f(x) = \frac{1}{16}x\left( {6 - x} \right)\qquad\left( {0 \leq x \leq 6} \right)$$</math>
-            </paragraph>
-            <paragraph>
-              Find the probability that the amount of rainfall in August will be less than <math display="inline">$$2$$</math> in.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$.5833$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="54">
-          <statement>
-            <paragraph>
-              Life Expectancy of Plasma TVs The life expectancy (in years) of a certain brand of plasma TV is a continuous random variable with probability density function
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f(t) = 9{({9 + t^{2}})}^{{- 3} \slash 2}\qquad\left( {0 \leq t &lt; \infty} \right)$$</math>
-            </paragraph>
-            <paragraph>
-              Find the probability that a randomly chosen plasma TV will last more than <math display="inline">$$4$$</math> years.
-            </paragraph>
-            <paragraph>
-              Hint: Integrate using a table of integrals.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="55">
-          <statement>
-            <paragraph>
-              Product Reliability The tread life (in thousands of miles) of a certain make of tire is a continuous random variable with probability density function
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f(x) = 0.02e^{- 0.02x}\qquad\left( {0 \leq x &lt; \infty} \right)$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Find the probability that a randomly selected tire of this make will have a tread life of at most <math display="inline">$$30,000$$</math> mi.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.4512$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Find the probability that a randomly selected tire of this make will have a tread life between <math display="inline">$$40,000$$</math> and <math display="inline">$$60,000$$</math> mi.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.1481$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Find the probability that a randomly selected tire of this make will have a tread life of at least <math display="inline">$$70,000$$</math> mi.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$.2466$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="56">
-          <statement>
-            <paragraph>
-              Product Reliability The <em>reliability function</em> of a product, <math display="inline">$$R(x)$$</math> , is the probability that the product will not fail in the time interval <math display="inline">$$\left\lbrack {0,x} \right\rbrack$$</math> .
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Suppose that the time to failure of a product is a random variable <math display="inline">$$X$$</math> with probability density function <math display="inline">$$f(x)$$</math> Find a formula for <math display="inline">$$R(x)$$</math> in terms of <math display="inline">$$f(x)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Suppose that <math display="inline">$$f$$</math> is exponentially distributed with parameter <math display="inline">$$k$$</math> , that is,
-                </paragraph>
-                <paragraph>
-                  <math display="block">$$f(x) = ke^{- kx}\qquad\left( {x \geq 0} \right)$$</math>
-                </paragraph>
-                <paragraph>
-                  Find an expression for <math display="inline">$$R$$</math> .
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Suppose that a component has a failure rate of <math display="inline">$$0.05$$</math> per thousand hours <math display="inline">$$\left( {k = 0.05} \right)$$</math> . What is the probability that the component will survive at least <math display="inline">$$10,000$$</math> hr of operation?
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="57">
-          <statement>
-            <paragraph>
-              Cable TV Subscribers The management of Telstar Cable estimates that the number of new subscribers (in thousands) to their service next year in Foxboro, <math display="inline">$$X$$</math> , and the number of new subscribers (in thousands) next year in Sharon, <math display="inline">$$Y$$</math> , have a distribution given by the joint probability density function
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{rcl}
-  {f\left( {x,y} \right)} &amp; = &amp; {\frac{9}{4000}xy\sqrt{25 - x^{2}}\left( {4 - y} \right);} \\
-  D &amp; = &amp; \left\{ {\left. \left( {x,y} \right) \right|0 \leq x \leq 5;0 \leq y \leq 4} \right\}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              Find the probability that the number of new subscribers next year in Foxboro will be between <math display="inline">$$2000$$</math> and <math display="inline">$$2500$$</math> and the number of new subscribers in Sharon will be between <math display="inline">$$1000$$</math> and <math display="inline">$$2000$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$.0414$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="58">
-          <statement>
-            <paragraph>
-              Cable TV Subscribers Refer to Exercise 57. What is the probability that the total number of new subscribers next year in Foxboro will be less than <math display="inline">$$3000$$</math> and the number of new subscribers next year in Sharon will be less than <math display="inline">$$2000$$</math> ?
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="59">
-          <statement>
-            <paragraph>
-              Product Reliability Hal has a tablet PC and a smartphone. Suppose that the random variables <math display="inline">$$X$$</math> and <math display="inline">$$Y$$</math> give the time to failure (in years) of the tablet PC and the smartphone, respectively. If the joint probability density function for <math display="inline">$$X$$</math> and <math display="inline">$$Y$$</math> is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f\left( {x,y} \right) = 0.06e^{- 0.2x}e^{- 0.3y}\qquad\left( {x \geq 0{and}y \geq 0} \right)$$</math>
-            </paragraph>
-            <paragraph>
-              what is the probability that both Hal’s tablet PC and smartphone will last <math display="inline">$$4$$</math> years or longer?
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$.6152$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="60">
-          <statement>
-            <paragraph>
-              Let <math display="inline">$$f(x) = \frac{3}{8}x^{2}$$</math> be a probability density function on <math display="inline">$$\left\lbrack {0,2} \right\rbrack$$</math> . Find <math display="inline">$$c$$</math> such that <math display="inline">$$P(X \leq c) = .1$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="61">
-          <statement>
-            <paragraph>
-              Show that the exponential density function
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f(x) = ke^{- kx}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$k$$</math> is a positive constant, satisfies the conditions for being a probability density function on the interval <math display="inline">$$\left\lbrack {0,\infty} \right)$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="62">
-          <statement>
-            <paragraph>
-              Suppose that <math display="inline">$$f$$</math> is the probability density function of the random variable <math display="inline">$$X$$</math> on the interval <math display="inline">$$\left\lbrack {A,B} \right\rbrack$$</math> . Show that if <math display="inline">$$A \leq b \leq c \leq B$$</math> , then <math display="inline">$$P\left( {X \leq b} \right) \leq P\left( {X \leq c} \right)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          In Exercises 63, 64, 65 and 66, determine whether the statement is true or false. If it is true, explain why it is true. If it is false, give an example to show why it is false.
-        </instructions>
-        <problem number="63">
-          <statement>
-            <paragraph>
-              If <math display="inline">$${\int_{a}^{b}{f(x)dx}} = 1$$</math> , then <math display="inline">$$f$$</math> is a probability density function on <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> .
-            </paragraph>
-            <list ordered="false">
-              <item>
-                <paragraph>
-                  True
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  False
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="64">
-          <statement>
-            <paragraph>
-              If <math display="inline">$$f$$</math> is a probability density function on an interval <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> , then <math display="inline">$$f$$</math> is a probability density function on <math display="inline">$$\left\lbrack {c,d} \right\rbrack$$</math> for any real numbers <math display="inline">$$c$$</math> and <math display="inline">$$d$$</math> satisfying <math display="inline">$$a &lt; c &lt; d &lt; b$$</math> .
-            </paragraph>
-            <list ordered="false">
-              <item>
-                <paragraph>
-                  True
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  False
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="65">
-          <statement>
-            <paragraph>
-              If <math display="inline">$$f$$</math> is a probability density function on <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> , then <math display="inline">$$0 \leq f(x) \leq 1$$</math> on <math display="inline">$$\left\lbrack {a,b} \right\rbrack$$</math> .
-            </paragraph>
-            <list ordered="false">
-              <item>
-                <paragraph>
-                  True
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  False
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="66">
-          <statement>
-            <paragraph>
-              The function <math display="inline">$$f(x) = \frac{3}{2}x^{2} - 3x$$</math> is a probability density function on <math display="inline">$$\left\lbrack {1,3} \right\rbrack$$</math> .
-            </paragraph>
-            <list ordered="false">
-              <item>
-                <paragraph>
-                  True
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  False
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-      </exercise_group>
-    </exercises>
-  </subsection>
-  <subsection title="Using Technology Graphing a Histogram">
-  </subsection>
-  <subsection title="Technology Exercises">
-  </subsection>
-</section_file>
+    <paragraph>Let $$X$$ denote the random variable taking on the values $$1$$ through $$8$$ , where $$1$$ corresponds to a shoe size less than $$5$$ , $$2$$ corresponds to a shoe size of $$5-5\frac{1}{2}$$ , and so on.</paragraph>
+    <list type="ordered">
+      <item>Plot a histogram for the given data.</item>
+      <item>What percentage of women in the survey wear a shoe size within the ranges $$7-7\frac{1}{2}$$ or $$8-8\frac{1}{2}$$ ?</item>
+    </list>
+    <heading level="4">Solution</heading>
+    <list type="ordered">
+      <item>Enter the values of $$X$$ as $$x_{1} = 1,x_{2} = 2,\ldots,x_{8} = 8$$ and the corresponding values of $$Y$$ as $$y_{1} = 1,y_{2} = 5,\ldots,y_{8} = 2$$ . Then using the draw function from the Statistics menu, we draw the histogram shown in Figure T1. Figure T1 Details The figure shows a histogram in the first quadrant of the viewing window. The horizontal axis ranges from 0 to 9 and the vertical axis ranges from 0 to 35. Above each number, a vertical rectangle of uniform width and different heights is raised on the horizontal axis, each adjoining the next, without any intervals. The width of each rectangle is 1 unit runs along the x axis. The width of the first rectangle runs from the mark 0.5 to 1.5 and it reaches to a height of 1 unit, the width of the second rectangle runs from 1.5 to 2.5 and it reaches to a height of 5 units, the width of the third rectangle runs from 2.5 to 3.5 and it reaches to a height of 15 units, the width of the fourth rectangle runs from 3.5 to 4.5 and it reaches to a height of 27 units, the width of the fifth rectangle runs from 4.5 to 5.5 and it reaches to a height of 29 units, the width of sixth rectangle runs from 5.5 to 6.5 one reaches to a height of 14 units, the width of seventh one runs from 6.5 to 7.5 and it reaches to a height of 7 units, and the width of eighth one runs from 7.5 to 8.5 and it reaches to a height of 2 units. The histogram for the given data, using the viewing window $$\left\lbrack {0,9} \right\rbrack \times \left\lbrack {0,35} \right\rbrack$$</item>
+      <item>The probability that a woman participating in the survey wears a shoe size within the ranges $$7-7\frac{1}{2}$$ or $$8-8\frac{1}{2}$$ is given by $$P(X = 4) + P(X = 5) = .27 + .29 = .56$$ This tells us that $$56\%$$ of the women wear a shoe size within the ranges $$7-7\frac{1}{2}$$ or $$8-8\frac{1}{2}$$ .</item>
+    </list>
+  </note>
+</section>

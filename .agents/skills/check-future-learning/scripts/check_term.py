@@ -27,7 +27,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[4]
 BOOKS_DIR = PROJECT_ROOT / "shared" / "books"
 
-FORMAL_BLOCK_TYPES = {"definition", "theorem_key", "procedure"}
+FORMAL_BLOCK_TYPES = {"definition", "theorem", "theorem_key", "procedure", "rule", "key_concept"}
 EXCLUDED_UNIT_CODES = {"chapter_misc", "supplementary", "projects", "intro"}
 
 
@@ -99,24 +99,38 @@ def extract_text(element: ET.Element) -> str:
     return " ".join(p for p in parts if p)
 
 
-def get_unit_code(root: ET.Element) -> str | None:
-    """Extract unit code from root element (section_file or section)."""
-    code = root.get("unit_code")       # Pearson: unit_code="1.1"
+def get_unit_code(root: ET.Element, filepath: Path | None = None) -> str | None:
+    """Extract unit code from canonical v2 XML (heading text) or legacy formats."""
+    for heading in root.iter("heading"):
+        text = (heading.text or "").strip()
+        m = re.match(r"^(\d+\.\d+)\.?\s+", text)
+        if m:
+            return m.group(1)
+        break
+
+    code = root.get("unit_code")
     if code:
         return code
-    sec_num = root.get("section_number")  # Cengage: section_number="1"
+    sec_num = root.get("section_number")
     if sec_num:
         return sec_num
-    number = root.get("number")        # OpenStax: <section number="1.1">
+    number = root.get("number")
     if number:
         return number
+
+    if filepath:
+        fm = re.match(r"ch(\d+)_unit_(\d+)", filepath.stem)
+        if fm:
+            return f"{int(fm.group(1))}.{int(fm.group(2))}"
+
     return None
 
 
 def extract_formal_blocks(xml_path: Path) -> list[dict]:
     """
     Parse one section XML file and extract all formal knowledge blocks
-    (definition, theorem_key, procedure) from the <content> block only.
+    from canonical v2 format (notes directly under <section>) or legacy
+    format (notes under <content>).
 
     Returns list of dicts: {title, text, type, file, section}
     """
@@ -126,33 +140,44 @@ def extract_formal_blocks(xml_path: Path) -> list[dict]:
         return []
 
     root = tree.getroot()
-    unit_code = get_unit_code(root)
+    unit_code = get_unit_code(root, filepath=xml_path)
 
-    # Exclude chapter misc, supplementary, etc.
     if unit_code in EXCLUDED_UNIT_CODES:
         return []
 
     blocks: list[dict] = []
 
-    # Only search inside <content> — not <exercises>
-    for content_el in root.iter("content"):
-        for note in content_el.iter("note"):
-            note_type = note.get("type", "")
-            if note_type not in FORMAL_BLOCK_TYPES:
-                continue
-            title = note.get("title", "").strip()
-            text = extract_text(note)
-            if not title and not text:
-                continue
-            blocks.append(
-                {
-                    "type": note_type,
-                    "title": title,
-                    "text": text,
-                    "file": xml_path.name,
-                    "section": unit_code or xml_path.stem,
-                }
-            )
+    # Collect notes from anywhere in the tree except inside <exercises>
+    exercises_elements = set()
+    for ex in root.iter("exercises"):
+        exercises_elements.add(ex)
+
+    def is_inside_exercises(element: ET.Element) -> bool:
+        for ex_el in exercises_elements:
+            for child in ex_el.iter():
+                if child is element:
+                    return True
+        return False
+
+    for note in root.iter("note"):
+        if is_inside_exercises(note):
+            continue
+        note_type = note.get("type", "")
+        if note_type not in FORMAL_BLOCK_TYPES:
+            continue
+        title = note.get("title", "").strip()
+        text = extract_text(note)
+        if not title and not text:
+            continue
+        blocks.append(
+            {
+                "type": note_type,
+                "title": title,
+                "text": text,
+                "file": xml_path.name,
+                "section": unit_code or xml_path.stem,
+            }
+        )
 
     return blocks
 
@@ -168,7 +193,7 @@ def find_section_index(sorted_files: list[Path], current_section: str) -> int:
             root = tree.getroot()
         except ET.ParseError:
             continue
-        code = get_unit_code(root)
+        code = get_unit_code(root, filepath=path)
         if code == current_section:
             return i
     return -1

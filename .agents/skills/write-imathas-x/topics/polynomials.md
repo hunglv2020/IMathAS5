@@ -77,7 +77,7 @@ $p_deriv = derivepoly($p1);
 ```
 
 ### 3. Display and Formatting (ZONE 2)
-*Always use `writepoly` to convert to a display string. Do not concatenate `$coef . "x^" . $degree` manually, as `writepoly` seamlessly handles `+ -` signs, `1x`, and `x^0` formatting for you.*
+*Always use `writepoly` to convert to a display string. Do not build polynomial display by manual dot-concat like `$coef . "x^" . $degree`; either use `writepoly` directly or interpolate already-formed display pieces when composing a larger string.*
 
 ```php
 // Convert polynomial to string format for display
@@ -141,7 +141,7 @@ $v_rem = writepoly($p_rem);
 Before finalizing IMathAS code using this reference:
 - [ ] Did I include `loadlibrary("polys");` in ZONE 0?
 - [ ] Did I ensure NO usage of the blocked `divpolys` and `writepolyfrac` macros?
-- [ ] Am I using `writepoly($poly)` to stringify instead of manual string concatenation?
+- [ ] Am I using `writepoly($poly)` to stringify instead of manual dot-concat display assembly?
 - [ ] For division problems, did I use the "Backward Design" strategy?
 - [ ] Is my polynomial properly structured as an array of `[coef, deg]` terms when manually mocking them?
-- [ ] **Formatting:** If I concatenate `writepoly` output with other factors, am I avoiding `*` and using spaces/parentheses instead? (e.g., `"$v_coeff ($v_poly)"` instead of `"$v_coeff * $v_poly"`)
+- [ ] **Formatting:** If I place `writepoly` output inside a larger display string, am I doing it with interpolation and avoiding `*` in display math? (e.g., `"{$v_coeff} ({$v_poly})"` instead of `"{$v_coeff} * {$v_poly}"`)

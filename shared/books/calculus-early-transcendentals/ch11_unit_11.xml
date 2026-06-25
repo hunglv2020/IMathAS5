@@ -1,1295 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch11" chapter_number="11" section="unit_11" section_number="11">
-  <section number="11.11" title="Applications of Taylor Polynomials">
-    <figure>
-      <credit>Copyright © Cengage Learning. All Rights Reserved</credit>
-    </figure>
-    <content>
-      <paragraph>
-        In this section we explore two types of applications of Taylor polynomials. First we look at how they are used to approximate functions—computer scientists employ them because polynomials are the simplest of functions. Then we investigate how physicists and engineers use them in such fields as relativity, optics, blackbody radiation, electric dipoles, the velocity of water waves, and building highways across a desert.
-      </paragraph>
-    </content>
-  </section>
-  <subsection title="Approximating Functions by Polynomials">
-    <paragraph>
-      Suppose that <math display="inline">$$f(x)$$</math> is equal to the sum of its Taylor series at <math display="inline">$$a$$</math> :
-    </paragraph>
-    <paragraph>
-      <math display="block">$$f(x) = \sum\limits_{n = 0}^{\infty}\frac{f^{(n)}{(a)}}{n!}\left( {x - a} \right)^{n}$$</math>
-    </paragraph>
-    <paragraph>
-      In Section 11.10 we introduced the notation <math display="inline">$$T_{n}(x)$$</math> for the <math display="inline">$$n$$</math> th partial sum of this series and called it the <math display="inline">$$n$$</math> th-degree Taylor polynomial of <math display="inline">$$f$$</math> at <math display="inline">$$a$$</math> . Thus
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\begin{array}{l}
-  {T_{n}(x) = \sum\limits_{i = 0}^{\infty}\frac{f^{(i)}(a)}{i!}\left( {x - a} \right)^{i}} \\
-  {\phantom{T_{n}(x)} = f(a) + \frac{f^{\prime}(a)}{1!}\left( {x - a} \right) + \frac{f^{''}{(a)}}{2!}\left( {x - a} \right)^{2} + \cdots + \frac{f^{(n)}{(a)}}{n!}\left( {x - a} \right)^{n}}
-  \end{array}$$</math>
-    </paragraph>
-    <paragraph>
-      Since <math display="inline">$$f$$</math> is the sum of its Taylor series, we know that <math display="inline">$$\left. T_{n}(x)\rightarrow f(x) \right.$$</math> as <math display="inline">$$\left. n\rightarrow\infty \right.$$</math> and so <math display="inline">$$T_{n}$$</math> can be used as an approximation to <math display="inline">$$f$$</math> : <math display="inline">$$f(x) \approx T_{n}(x)$$</math> .
-    </paragraph>
-    <paragraph>
-      Notice that the first-degree Taylor polynomial
-    </paragraph>
-    <paragraph>
-      <math display="block">$$T_{1}(x) = f(a) + f^{\prime}(a)\left( {x - a} \right)$$</math>
-    </paragraph>
-    <paragraph>
-      is the same as the linearization of <math display="inline">$$f$$</math> at <math display="inline">$$a$$</math> that we discussed in Section 3.10. Notice also that <math display="inline">$$T_{1}$$</math> and its derivative have the same values at <math display="inline">$$a$$</math> that <math display="inline">$$f$$</math> and <math display="inline">$$f^{\prime}$$</math> have. In general, it can be shown that the derivatives of <math display="inline">$$T_{n}$$</math> at <math display="inline">$$a$$</math> agree with those of <math display="inline">$$f$$</math> up to and including derivatives of order <math display="inline">$$n$$</math> .
-    </paragraph>
-    <paragraph>
-      To illustrate these ideas let’s take another look at the graphs of <math display="inline">$$y = e^{ x}$$</math> and its first few Taylor polynomials, as shown in Figure 1. The graph of <math display="inline">$$T_{1}$$</math> is the tangent line to <math display="inline">$$y = e^{ x}$$</math> at <math display="inline">$$\left( {0,1} \right)$$</math> ; this tangent line is the best linear approximation to <math display="inline">$$e^{ x}$$</math> near <math display="inline">$$\left( {0,1} \right)$$</math> . The graph of <math display="inline">$$T_{2}$$</math> is the parabola <math display="inline">$$y = 1 + x + x^{2} \slash 2$$</math> , and the graph of <math display="inline">$$T_{3}$$</math> is the cubic curve <math display="inline">$$y = 1 + x + x^{2} \slash 2 + x^{3} \slash 6$$</math> , which is a closer fit to the exponential curve <math display="inline">$$y = e^{ x}$$</math> than <math display="inline">$$T_{2}$$</math> . The next Taylor polynomial <math display="inline">$$T_{4}$$</math> would be an even better approximation, and so on.
-    </paragraph>
-    <figure number="1">
-      <alt_text>Three curves and a line are graphed on the x y coordinate plane. The first curve, labeled y = e^x, enters from the bottom left, close to and above the negative x axis, veers away from it, goes up to the right, concave up, crosses the y axis at a marked point (0, 1), rises steeply upward to the right, concave up and exits at the top of the viewing window. The line, labeled y = T_1(x), enters at the bottom right, slopes upward to the right, crosses the negative x-axis, briefly runs along the curve y = e^x as it crosses the y axis at (0, 1), continues upward to the right, and exits at the top right of the viewing window. The second curve, labeled y = T_2(x), traces a parabolic path. The parabola opens upward, enters from the top left, has its vertex in the second quadrant, briefly runs along the curve y = e^x and the line as they cross the y axis at (0, 1), and exits at the top very close and to the right of y = e^x. The third curve, labeled y = T_3(x), enters from the bottom left, goes up to the right, concaves down, crosses the negative x-axis to the left of the line, briefly runs along the first two curves and the line and becomes concave up as it crosses the y axis at (0, 1), goes steeply up to the right, and exits at the top of the viewing window slightly to the right of the first and second curves.</alt_text>
-    </figure>
-    <paragraph>
-      The values in the table give a numerical demonstration of the convergence of the Taylor polynomials <math display="inline">$$T_{n}(x)$$</math> to the function <math display="inline">$$y = e^{ x}$$</math> . We see that when <math display="inline">$$x = 0.2$$</math> the convergence is very rapid, but when <math display="inline">$$x = 3$$</math> it is somewhat slower. In fact, the farther <math display="inline">$$x$$</math> is from <math display="inline">$$0$$</math> , the more slowly <math display="inline">$$T_{n}(x)$$</math> converges to <math display="inline">$$e^{ x}$$</math> .
-    </paragraph>
-    <table>
-      <thead>
-        <row>
-          <cell header="true"/>
-          <cell header="true">x = 0.2</cell>
-          <cell header="true">x = 3.0</cell>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <cell>
-            <paragraph>
-              <math display="inline">$$T_{2}(x)$$</math>
-            </paragraph>
-          </cell>
-          <cell>
-            1.220000
-          </cell>
-          <cell>
-            8.500000
-          </cell>
-        </row>
-        <row>
-          <cell>
-            <paragraph>
-              <math display="inline">$$T_{4}(x)$$</math>
-            </paragraph>
-          </cell>
-          <cell>
-            1.221400
-          </cell>
-          <cell>
-            16.375000
-          </cell>
-        </row>
-        <row>
-          <cell>
-            <paragraph>
-              <math display="inline">$$T_{6}(x)$$</math>
-            </paragraph>
-          </cell>
-          <cell>
-            1.221403
-          </cell>
-          <cell>
-            19.412500
-          </cell>
-        </row>
-        <row>
-          <cell>
-            <paragraph>
-              <math display="inline">$$T_{8}(x)$$</math>
-            </paragraph>
-          </cell>
-          <cell>
-            1.221403
-          </cell>
-          <cell>
-            20.009152
-          </cell>
-        </row>
-        <row>
-          <cell>
-            <paragraph>
-              <math display="inline">$$T_{10}(x)$$</math>
-            </paragraph>
-          </cell>
-          <cell>
-            1.221403
-          </cell>
-          <cell>
-            20.079665
-          </cell>
-        </row>
-        <row>
-          <cell>
-            <paragraph>
-              <math display="inline">$$e^{ x}$$</math>
-            </paragraph>
-          </cell>
-          <cell>
-            1.221403
-          </cell>
-          <cell>
-            20.085537
-          </cell>
-        </row>
-      </tbody>
-    </table>
-    <paragraph>
-      When using a Taylor polynomial <math display="inline">$$T_{n}$$</math> to approximate a function <math display="inline">$$f$$</math> , we have to ask the questions: How good an approximation is it? How large should we take <math display="inline">$$n$$</math> to be in order to achieve a desired accuracy? To answer these questions we need to look at the absolute value of the remainder:
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\left| {R_{n}(x)} \right| = \left| {f(x) - T_{n}(x)} \right|$$</math>
-    </paragraph>
-    <paragraph>
-      There are three possible methods for estimating the size of the error:
-    </paragraph>
-    <list ordered="true">
-      <item>
-        <paragraph>
-          We can use a calculator or computer to graph <math display="inline">$$\left| {R_{n}(x)} \right| = \left| {f(x) - T_{n}(x)} \right|$$</math> and thereby estimate the error.
-        </paragraph>
-      </item>
-      <item>
-        <paragraph>
-          If the series happens to be an alternating series, we can use the Alternating Series Estimation Theorem.
-        </paragraph>
-      </item>
-      <item>
-        <paragraph>
-          In all cases we can use Taylor’s Inequality (Theorem 11.10.9), which says that if <math display="inline">$$\left| {f^{({n + 1})}(x)} \right| \leqslant M$$</math> , then
-        </paragraph>
-      </item>
+<section>
+  <heading level="2">11.11. Applications of Taylor Polynomials</heading>
+  <paragraph>In this section we explore two types of applications of Taylor polynomials. First we look at how they are used to approximate functions—computer scientists employ them because polynomials are the simplest of functions. Then we investigate how physicists and engineers use them in such fields as relativity, optics, blackbody radiation, electric dipoles, the velocity of water waves, and building highways across a desert.</paragraph>
+  <heading level="3">Approximating Functions by Polynomials</heading>
+  <paragraph>Suppose that $$f(x)$$ is equal to the sum of its Taylor series at $$a$$ :</paragraph>
+  <paragraph math="block">$$f(x) = \sum\limits_{n = 0}^{\infty}\frac{f^{(n)}{(a)}}{n!}\left( {x - a} \right)^{n}$$</paragraph>
+  <paragraph>In Section 11.10 we introduced the notation $$T_{n}(x)$$ for the $$n$$ th partial sum of this series and called it the $$n$$ th-degree Taylor polynomial of $$f$$ at $$a$$ . Thus</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {T_{n}(x) = \sum\limits_{i = 0}^{\infty}\frac{f^{(i)}(a)}{i!}\left( {x - a} \right)^{i}} \\ {\phantom{T_{n}(x)} = f(a) + \frac{f^{\prime}(a)}{1!}\left( {x - a} \right) + \frac{f^{''}{(a)}}{2!}\left( {x - a} \right)^{2} + \cdots + \frac{f^{(n)}{(a)}}{n!}\left( {x - a} \right)^{n}} \end{array}$$</paragraph>
+  <paragraph>Since $$f$$ is the sum of its Taylor series, we know that $$\left. T_{n}(x)\rightarrow f(x) \right.$$ as $$\left. n\rightarrow\infty \right.$$ and so $$T_{n}$$ can be used as an approximation to $$f$$ : $$f(x) \approx T_{n}(x)$$ .</paragraph>
+  <paragraph>Notice that the first-degree Taylor polynomial</paragraph>
+  <paragraph math="block">$$T_{1}(x) = f(a) + f^{\prime}(a)\left( {x - a} \right)$$</paragraph>
+  <paragraph>is the same as the linearization of $$f$$ at $$a$$ that we discussed in Section 3.10. Notice also that $$T_{1}$$ and its derivative have the same values at $$a$$ that $$f$$ and $$f^{\prime}$$ have. In general, it can be shown that the derivatives of $$T_{n}$$ at $$a$$ agree with those of $$f$$ up to and including derivatives of order $$n$$ .</paragraph>
+  <paragraph>To illustrate these ideas let’s take another look at the graphs of $$y = e^{ x}$$ and its first few Taylor polynomials, as shown in Figure 1. The graph of $$T_{1}$$ is the tangent line to $$y = e^{ x}$$ at $$\left( {0,1} \right)$$ ; this tangent line is the best linear approximation to $$e^{ x}$$ near $$\left( {0,1} \right)$$ . The graph of $$T_{2}$$ is the parabola $$y = 1 + x + x^{2} \slash 2$$ , and the graph of $$T_{3}$$ is the cubic curve $$y = 1 + x + x^{2} \slash 2 + x^{3} \slash 6$$ , which is a closer fit to the exponential curve $$y = e^{ x}$$ than $$T_{2}$$ . The next Taylor polynomial $$T_{4}$$ would be an even better approximation, and so on.</paragraph>
+  <figure>
+    <image alt="Details Three curves and a line are graphed on the x y coordinate plane. The first curve, labeled y = e^x, enters from the bottom left, close to and above the negative x axis, veers away from it, goes up to the right, concave up, crosses the y axis at a marked point (0, 1), rises steeply upward to the right, concave up and exits at the top of the viewing window. The line, labeled y = T_1(x), enters at the bottom right, slopes upward to the right, crosses the negative x-axis, briefly runs along the curve y = e^x as it crosses the y axis at (0, 1), continues upward to the right, and exits at the top right of the viewing window. The second curve, labeled y = T_2(x), traces a parabolic path. The parabola opens upward, enters from the top left, has its vertex in the second quadrant, briefly runs along the curve y = e^x and the line as they cross the y axis at (0, 1), and exits at the top very close and to the right of y = e^x. The third curve, labeled y = T_3(x), enters from the bottom left, goes up to the right, concaves down, crosses the negative x-axis to the left of the line, briefly runs along the first two curves and the line and becomes concave up as it crosses the y axis at (0, 1), goes steeply up to the right, and exits at the top of the viewing window slightly to the right of the first and second curves."/>
+  </figure>
+  <paragraph>The values in the table give a numerical demonstration of the convergence of the Taylor polynomials $$T_{n}(x)$$ to the function $$y = e^{ x}$$ . We see that when $$x = 0.2$$ the convergence is very rapid, but when $$x = 3$$ it is somewhat slower. In fact, the farther $$x$$ is from $$0$$ , the more slowly $$T_{n}(x)$$ converges to $$e^{ x}$$ .</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true"/>
+        <cell header="true">$$x = 0.2$$</cell>
+        <cell header="true">$$x = 3.0$$</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>$$T_{2}(x)$$</cell>
+        <cell>1.220000</cell>
+        <cell>8.500000</cell>
+      </row>
+      <row>
+        <cell>$$T_{4}(x)$$</cell>
+        <cell>1.221400</cell>
+        <cell>16.375000</cell>
+      </row>
+      <row>
+        <cell>$$T_{6}(x)$$</cell>
+        <cell>1.221403</cell>
+        <cell>19.412500</cell>
+      </row>
+      <row>
+        <cell>$$T_{8}(x)$$</cell>
+        <cell>1.221403</cell>
+        <cell>20.009152</cell>
+      </row>
+      <row>
+        <cell>$$T_{10}(x)$$</cell>
+        <cell>1.221403</cell>
+        <cell>20.079665</cell>
+      </row>
+      <row>
+        <cell>$$e^{ x}$$</cell>
+        <cell>1.221403</cell>
+        <cell>20.085537</cell>
+      </row>
+    </tbody>
+  </table>
+  <paragraph>When using a Taylor polynomial $$T_{n}$$ to approximate a function $$f$$ , we have to ask the questions: How good an approximation is it? How large should we take $$n$$ to be in order to achieve a desired accuracy? To answer these questions we need to look at the absolute value of the remainder:</paragraph>
+  <paragraph math="block">$$\left| {R_{n}(x)} \right| = \left| {f(x) - T_{n}(x)} \right|$$</paragraph>
+  <paragraph>There are three possible methods for estimating the size of the error:</paragraph>
+  <list type="ordered">
+    <item>We can use a calculator or computer to graph $$\left| {R_{n}(x)} \right| = \left| {f(x) - T_{n}(x)} \right|$$ and thereby estimate the error.</item>
+    <item>If the series happens to be an alternating series, we can use the Alternating Series Estimation Theorem.</item>
+    <item>In all cases we can use Taylor’s Inequality (Theorem 11.10.9), which says that if $$\left| {f^{({n + 1})}(x)} \right| \leqslant M$$ , then</item>
+  </list>
+  <paragraph math="block">$$\left| {R_{n}(x)} \right| \leqslant \frac{M}{\left( {n + 1} \right)!}\left| {x - a} \right|^{n + 1}$$</paragraph>
+  <example number="1">
+    <heading level="4">Example 1</heading>
+    <list type="unordered">
+      <item>(a) Approximate the function $$f(x) = \sqrt[3]{x}$$ by a Taylor polynomial of degree $$2$$ at $$a = 8$$ .</item>
+      <item>(b) How accurate is this approximation when $$7 \leqslant x \leqslant 9$$ ?</item>
     </list>
-    <paragraph>
-      <math display="block">$$\left| {R_{n}(x)} \right| \leqslant \frac{M}{\left( {n + 1} \right)!}\left| {x - a} \right|^{n + 1}$$</math>
-    </paragraph>
-    <example number="1">
-      <problem>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              Approximate the function <math display="inline">$$f(x) = \sqrt[3]{x}$$</math> by a Taylor polynomial of degree <math display="inline">$$2$$</math> at <math display="inline">$$a = 8$$</math> .
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              How accurate is this approximation when <math display="inline">$$7 \leqslant x \leqslant 9$$</math> ?
-            </paragraph>
-          </item>
-        </list>
-        <paragraph>
-          Solution
-        </paragraph>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              <math display="block">$$\begin{array}{rclrll}
-  {f(x)} &amp; = &amp; {\sqrt[3]{x^{}} = x^{1 \slash 3}} &amp; {f(8)} &amp; = &amp; 2 \\
-  {f^{\prime}(x)} &amp; = &amp; {\frac{1}{3}x^{- 2 \slash 3}} &amp; {f^{\prime}(8)} &amp; = &amp; \frac{1}{12} \\
-  {f^{''}(x)} &amp; = &amp; {- ‍\frac{2}{9}x^{- 5 \slash 3}} &amp; {\quad f^{''}(8)} &amp; = &amp; \frac{1}{144} \\
-  {f^{'''}(x)} &amp; = &amp; {\frac{10}{27}x^{- 8 \slash 3}} &amp; &amp; &amp; 
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              Thus the second-degree Taylor polynomial is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {T_{2}(x) = f(8) + \frac{f^{\prime}(8)}{1!}\left( {x - 8} \right) + \frac{f^{''}(8)}{2!}\left( {x - 8} \right)^{2}} \\
-  {\phantom{T_{2}(x)} = 2 + \frac{1}{12}\left( {x - 8} \right) - \frac{1}{288}\left( {x - 8} \right)^{2}}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              The desired approximation is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\sqrt[3]{x^{}} \approx T_{2}(x) = 2 + \frac{1}{12}\left( {x - 8} \right) - \frac{1}{288}\left( {x - 8} \right)^{2}$$</math>
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              The Taylor series is not alternating when <math display="inline">$$x &lt; 8$$</math> , so we can’t use the Alternating Series Estimation Theorem in this example. But we can use Taylor’s Inequality with <math display="inline">$$n = 2$$</math> and <math display="inline">$$a = 8$$</math> :
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\left| {R_{2}(x)} \right| \leqslant \frac{M}{3!}\left| {x - 8} \right|^{3}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$\left| {f^{'''}(x)} \right| \leqslant M$$</math> . Because <math display="inline">$$x \geqslant 7$$</math> , we have <math display="inline">$$x^{8 \slash 3} \geqslant 7^{8 \slash 3}$$</math> and so
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f^{'''}(x) = \frac{10}{27} \cdot \frac{1}{x^{8 \slash 3}} \leqslant \frac{10}{27} \cdot \frac{1}{7^{8 \slash 3}} &lt; 0.0021$$</math>
-            </paragraph>
-            <paragraph>
-              Therefore we can take <math display="inline">$$M = 0.0021$$</math> . Also <math display="inline">$$7 \leqslant x \leqslant 9$$</math> , so <math display="inline">$$- 1 \leqslant x - 8 \leqslant 1$$</math> and <math display="inline">$$\left| {x - 8} \right| \leqslant 1$$</math> . Then Taylor’s Inequality gives
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\left| {R_{2}(x)} \right| \leqslant \frac{0.0021}{3!} \cdot 1^{3} = \frac{0.0021}{6} &lt; 0.0004$$</math>
-            </paragraph>
-            <paragraph>
-              Thus, if <math display="inline">$$7 \leqslant x \leqslant 9$$</math> , the approximation in part (a) is accurate to within <math display="inline">$$0.0004$$</math> .
-            </paragraph>
-          </item>
-        </list>
-      </problem>
-    </example>
-    <paragraph>
-      Let’s check the calculation inwe first convert to radian measure: Example 1. Figure 2 shows that the graphs of <math display="inline">$$y = \sqrt[3]{x}$$</math> and <math display="inline">$$y = T_{2}(x)$$</math> are very close to each other when <math display="inline">$$x$$</math> is near <math display="inline">$$8$$</math> . Figure 3 shows the graph of <math display="inline">$$\left| {R_{2}(x)} \right|$$</math> computed from the expression
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\left| {R_{2}(x)} \right| = \left| {\sqrt[3]{x} - T_{2}(x)} \right|$$</math>
-    </paragraph>
-    <figure number="2">
-      <alt_text>Two curves are graphed in a graphing calculator window. The horizontal axis is displayed from 0 to 15 in increments of 3. The vertical axis is displayed from 0 to 2.5. The first curve, labeled y = root3(x), enters from the bottom left corner, along the vertical axis until approximately (0, 0.5), goes up to the right, concave down, and exits at(15, 2.5). The second curve, labeled T_2, enters at approximately (0, 1.0), gradually goes up to the right, concave down, runs along the first curve, crossing it at approximately (8.5, 2.0), and exits at the top right corner, just below the first curve.</alt_text>
-    </figure>
-    <figure number="3">
-      <alt_text>A curve is graphed in a graphing calculator window. The horizontal axis ranges from 7 to 9 and the vertical axis is displayed from 0 to 0.0003. The curve, labeled y = abs(R_2(x)), enters from the top left, steeply goes down to the right, almost linearly but concave up, meets the horizontal axis, and briefly runs long it crossing (8, 0), goes up rapidly to the right, almost linearly but concave up, and exits at the top right corner.</alt_text>
-    </figure>
-    <paragraph>
-      We see from the graph that
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\left| {R_{2}(x)} \right| &lt; 0.0003$$</math>
-    </paragraph>
-    <paragraph>
-      when <math display="inline">$$7 \leqslant x \leqslant 9$$</math> . Thus the error estimate from graphical methods is slightly better than the error estimate from Taylor’s Inequality in this case.
-    </paragraph>
-    <example number="2">
-      <problem>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              What is the maximum error possible in using the approximation
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\sin x \approx x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!}$$</math>
-            </paragraph>
-            <paragraph>
-              when <math display="inline">$$- 0.3 \leqslant x \leqslant 0.3$$</math> ? Use this approximation to find <math display="inline">$$\sin 12^{{^\circ}}$$</math> correct to six decimal places.
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              For what values of <math display="inline">$$x$$</math> is this approximation accurate to within <math display="inline">$$0.00005$$</math> ?
-            </paragraph>
-          </item>
-        </list>
-        <paragraph>
-          Solution
-        </paragraph>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              Notice that the Maclaurin series
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\sin x = x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!} - \frac{x^{7}}{7!} + \cdots$$</math>
-            </paragraph>
-            <paragraph>
-              is alternating for all nonzero values of <math display="inline">$$x$$</math> , and the successive terms decrease in size because <math display="inline">$$|x| &lt; 1$$</math> , so we can use the Alternating Series Estimation Theorem. The error in approximating <math display="inline">$$\sin x$$</math> by the first three terms of its Maclaurin series is at most
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\left| \frac{x^{7}}{7!} \right| = \frac{|x|^{7}}{5040}$$</math>
-            </paragraph>
-            <paragraph>
-              If <math display="inline">$$- 0.3 \leqslant x \leqslant 0.3$$</math> , then <math display="inline">$$|x| \leqslant 0.3$$</math> , so the error is smaller than
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\frac{(0.3)^{7}}{5040} \approx 4.3 \times 10^{- 8}$$</math>
-            </paragraph>
-            <paragraph>
-              To find <math display="inline">$$\sin 12^{{^\circ}}$$</math> we first convert to radian measure:
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {\sin 12^{{^\circ}} = \sin\left( \frac{12\pi}{180} \right) = \sin\left( \frac{\pi}{15} \right)} \\
-  {\phantom{\sin 12^{{^\circ}}} \approx \frac{\pi}{15} - \left( \frac{\pi}{15} \right)^{3}\frac{1}{3!} + \left( \frac{\pi}{15} \right)^{5}\frac{1}{5!} \approx 0.20791169}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              Thus, correct to six decimal places, <math display="inline">$$\sin 12^{{^\circ}} \approx 0.207912$$</math> .
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              The error will be smaller than <math display="inline">$$0.00005$$</math> if
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\frac{|x|^{7}}{5040} &lt; 0.00005$$</math>
-            </paragraph>
-            <paragraph>
-              Solving this inequality for <math display="inline">$$x$$</math> , we get
-            </paragraph>
-            <paragraph>
-              <math display="block">$$|x|^{7} &lt; 0.252$$</math>
-            </paragraph>
-            <paragraph>
-              or
-            </paragraph>
-            <paragraph>
-              <math display="block">$$|x| &lt; (0.252)^{1 \slash 7} \approx 0.821$$</math>
-            </paragraph>
-            <paragraph>
-              So the given approximation is accurate to within <math display="inline">$$0.00005$$</math> when <math display="inline">$$|x| &lt; 0.82$$</math> .
-            </paragraph>
-          </item>
-        </list>
-      </problem>
-    </example>
-    <paragraph>
-      What if we use Taylor’s Inequality to solve Example 2? Since <math display="inline">$$f^{(7)}(x) = - \cos x$$</math> , we have <math display="inline">$$\left| {f^{(7)}(x)} \right| \leqslant 1$$</math> and so
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\left| {R_{6}(x)} \right| \leqslant \frac{1}{7!}|x|^{7}$$</math>
-    </paragraph>
-    <paragraph>
-      So we get the same estimates as with the Alternating Series Estimation Theorem.
-    </paragraph>
-    <paragraph>
-      What about graphical methods? Figure 4 shows the graph of
-    </paragraph>
-    <paragraph>
-      <math display="block">$${|{R_{6}(x)}|} = \left| {\sin x - \left( {x - \frac{1}{6}x^{3} + \frac{1}{120}x^{5}} \right)} \right|$$</math>
-    </paragraph>
-    <paragraph>
-      and we see from it that <math display="inline">$$\left| {R_{6}(x)} \right| &lt; 4.3 \times 10^{- 8}$$</math> when <math display="inline">$$|x| \leqslant 0.3$$</math> . This is the same estimate that we obtained in Example 2. For part (b) we want <math display="inline">$$\left| {R_{6}(x)} \right| &lt; 0.00005$$</math> , so we graph both <math display="inline">$$y = \left| {R_{6}(x)} \right|$$</math> and <math display="inline">$$y = 0.00005$$</math> in Figure 5. From the coordinates of the right intersection point we find that the inequality is satisfied when <math display="inline">$$|x| &lt; 0.82$$</math> . Again this is the same estimate that we obtained in the solution to Example 2.
-    </paragraph>
-    <figure number="4">
-      <alt_text>A curve and a line are graphed in a graphing calculator window. The horizontal axis is displayed from negative 0.3 to 0.3 in increments of 0.3. The vertical axis is displayed from 0 to 4.3 times 10^(negative 8). The curve, labeled y = abs(R_6(x)) enters from approximately (negative 0.3, 4.3 times 10^(negative 8)), goes down steeply to the right, almost linearly but slightly concave up, meets the horizontal axis at approximately (negative 0.15, 0), runs horizontally rightward until approximately (0.15, 0), goes steeply upward to the right, almost linearly but slightly concave up and exits at approximately (0.3, 4.3 times 10^(negative 8)).</alt_text>
-    </figure>
-    <figure number="5">
-      <alt_text>A curve and a line are graphed in a graphing calculator window. The horizontal axis is displayed from negative 1 to 1 in increments of 1. The vertical axis is displayed from 0 to 0.00006. A horizontal line, labeled y = 0.00005, runs parallel to the horizontal axis. The curve, labeled y = abs(R_6(x)) enters from approximately (negative 0.8, 0.00006), goes down steeply to the right, almost linearly but slightly concave up, and meets the horizontal axis at approximately (negative 0.4, 0), runs horizontally rightward until approximately (0.4, 0), goes steeply upward to the right, almost linearly but slightly concave up and exits at approximately (0.8, 0.00006).</alt_text>
-    </figure>
-    <paragraph>
-      If we had been asked to approximate <math display="inline">$$\sin 72^{{^\circ}}$$</math> instead of <math display="inline">$$\sin 12^{{^\circ}}$$</math> in Example 2, it would have been wise to use the Taylor polynomials at <math display="inline">$$a = \pi \slash 3$$</math> (instead of <math display="inline">$$a = 0$$</math> ) because they are better approximations to <math display="inline">$$\sin x$$</math> for values of <math display="inline">$$x$$</math> close to <math display="inline">$$\pi \slash 3$$</math> . Notice that <math display="inline">$$72^{{^\circ}}$$</math> is close to <math display="inline">$$60^{{^\circ}}$$</math> (or <math display="inline">$$\pi \slash 3$$</math> radians) and the derivatives of <math display="inline">$$\sin x$$</math> are easy to compute at <math display="inline">$$\pi \slash 3$$</math> .
-    </paragraph>
-    <paragraph>
-      Figure 6 shows the graphs of the Maclaurin polynomial approximations
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\begin{array}{rcll}
-  {T_{1}(x)} &amp; = &amp; x &amp; {T_{3}(x) = x - \frac{x^{3}}{3!}} \\
-  {T_{5}(x)} &amp; = &amp; {x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!}} &amp; {\quad T_{7}(x) = x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!} - \frac{x^{7}}{7!}}
-  \end{array}$$</math>
-    </paragraph>
-    <paragraph>
-      to the sine curve. You can see that as <math display="inline">$$n$$</math> increases, <math display="inline">$$T_{n}(x)$$</math> is a good approximation to <math display="inline">$$\sin x$$</math> on a larger and larger interval.
-    </paragraph>
-    <figure number="6">
-      <alt_text>Four curves and a line are graphed on the x y coordinate plane. The first curve, labeled y = sin(x), is a sinusoidal curve, that begins from the negative x-axis, goes up to the right, reaches a high point, goes down to the right, crosses the x-axis, reaches a low point, goes up to the right and meets the x-axis as it crosses the origin, completing a full-wave. The curve then completes another full wave, exactly similar to the previous wave, goes up to the right, reaches a high point, goes down to the right, crosses the x-axis, reaches a low point, goes up to the right, and meets the x-axis in the first quadrant. The line, labeled T_1, enters from the bottom, slopes upward to the right, runs along the curve y as it goes up to the right, crossing the origin, and exits at the top. The second curve, labeled T_3, is a wave-like curve, that enters from the top, goes down to the right, crosses the negative x-axis, reaches a low point, goes up to the right, and runs along y and T_1 as they pass through the origin and ascend in the first quadrant, veers away from them and reaches a high point, goes down to the right, crosses the positive x-axis, and exits at the bottom. The thor curve, labeled T_5, is a wave-like curve, that enters from the bottom, briefly goes up to the right, concave down, reaches a high point in the third quadrant, goes down to the right, and runs along y as it reaches a low point, rises, crosses the origin and rises an reaches a high point in the first quadrant, veers away and briefly goes down to the right, reaches a low point in the first quadrant, goes up to the right and exits at the top. The fourth curve, labeled T_7, is a lot similar to T_3 with its arms wider. The curve enters from the top left, goes down to the right, crosses the negative x-axis, reaches a low point, runs along y until it starts descending in the first quadrant, veers away from it, crosses the x-axis, goes down to the right, and exits at the bottom right.</alt_text>
-    </figure>
-    <paragraph>
-      One use of the type of calculation done in Examples 1 and 2 occurs in calculators and computers. For instance, when you press the <math display="inline">$$\sin$$</math> or <math display="inline">$$e^{ x}$$</math> key on your calculator, or when a computer programmer uses a subroutine for a trigonometric or exponential or Bessel function, in many machines a polynomial approximation is calculated. The polynomial is often a Taylor polynomial that has been modified so that the error is spread more evenly throughout an interval.
-    </paragraph>
-  </subsection>
-  <subsection title="Applications to Physics">
-    <paragraph>
-      Taylor polynomials are also used frequently in physics. In order to gain insight into an equation, a physicist often simplifies a function by considering only the first two or three terms in its Taylor series. In other words, the physicist uses a Taylor polynomial as an approximation to the function. Taylor’s Inequality can then be used to gauge the accuracy of the approximation. The following example shows one way in which this idea is used in special relativity.
-    </paragraph>
-    <example number="3">
-      <problem>
-        <paragraph>
-          In Einstein’s theory of special relativity the mass <math display="inline">$$m$$</math> of an object moving with velocity <math display="inline">$$v$$</math> is
-        </paragraph>
-        <paragraph>
-          <math display="block">$$m = \frac{m_{0}}{\sqrt{1 - v^{ 2} \slash c^{ 2}}}$$</math>
-        </paragraph>
-        <paragraph>
-          where <math display="inline">$$m_{0}$$</math> is the mass of the object when at rest and <math display="inline">$$c$$</math> is the speed of light. The kinetic energy of the object is the difference between its total energy and its energy at rest:
-        </paragraph>
-        <paragraph>
-          <math display="block">$$K = mc^{ 2} - m_{0}c^{ 2}$$</math>
-        </paragraph>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              Show that when <math display="inline">$$v$$</math> is very small compared with <math display="inline">$$c$$</math> , this expression for <math display="inline">$$K$$</math> agrees with classical Newtonian physics: <math display="inline">$$K = \frac{1}{2}m_{0}v^{ 2}$$</math> .
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              Use Taylor’s Inequality to estimate the difference in these expressions for <math display="inline">$$K$$</math> when <math display="inline">$$|v| \leqslant 100m \slash s$$</math> .
-            </paragraph>
-          </item>
-        </list>
-        <paragraph>
-          Solution
-        </paragraph>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              Using the expressions given for <math display="inline">$$K$$</math> and <math display="inline">$$m$$</math> , we get
-            </paragraph>
-            <paragraph>
-              <math display="block">$${K = mc^{ 2} - m_{0}c^{ 2} = \frac{m_{0}c^{ 2}}{\sqrt{1 - v^{ 2} \slash c^{ 2}}} - m_{0}c^{ 2}}{= m_{0}c^{ 2}\left\lbrack {\left( {1 - \frac{v^{ 2}}{c^{ 2}}} \right)^{- 1 \slash 2} - 1} \right\rbrack}$$</math>
-            </paragraph>
-            <paragraph>
-              With <math display="inline">$$x = - v^{ 2} \slash c^{ 2}$$</math> , the Maclaurin series for <math display="inline">$$\left( {1 + x} \right)^{- 1 \slash 2}$$</math> is most easily computed as a binomial series with <math display="inline">$$k = - \frac{1}{2}$$</math> . (Notice that <math display="inline">$$|x| &lt; 1$$</math> because <math display="inline">$$v &lt; c$$</math> .) Therefore we have
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {\left( {1 + x} \right)^{- 1 \slash 2} = 1 - \frac{1}{2}x + \frac{\left( {- \frac{1}{2}} \right)\left( {- \frac{3}{2}} \right)}{2!}x^{2} + \frac{\left( {- \frac{1}{2}} \right)\left( {- \frac{3}{2}} \right)\left( {- \frac{5}{2}} \right)}{3!}x^{3} + \cdots} \\
-  {\phantom{\left( {1 + x} \right)^{- 1 \slash 2}} = 1 - \frac{1}{2}x + \frac{3}{8}x^{2} - \frac{5}{16}x^{3} + \cdots}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              and
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {K = m_{0}c^{ 2}\left\lbrack {\left( {1 + \frac{1}{2}\frac{v^{ 2}}{c^{ 2}} + \frac{3}{8}\frac{v^{4}}{c^{4}} + \frac{5}{16}\frac{v^{6}}{c^{6}} + \cdots} \right) - 1} \right\rbrack} \\
-  {\phantom{K} = m_{0}c^{ 2}\left( {\frac{1}{2}\frac{v^{ 2}}{c^{ 2}} + \frac{3}{8}\frac{v^{4}}{c^{4}} + \frac{5}{16}\frac{v^{6}}{c^{6}} + \cdots} \right)}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              If <math display="inline">$$v$$</math> is much smaller than <math display="inline">$$c$$</math> , then all terms after the first are very small when compared with the first term. If we omit them, we get
-            </paragraph>
-            <paragraph>
-              <math display="block">$$K \approx m_{0}c^{ 2}\left( {\frac{1}{2}\frac{v^{ 2}}{c^{ 2}}} \right) = \frac{1}{2}m_{0}v^{ 2}$$</math>
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              If <math display="inline">$$x = - v^{ 2} \slash c^{ 2}$$</math> , <math display="inline">$$f(x) = m_{0}c^{ 2}\left\lbrack {\left( {1 + x} \right)^{- 1 \slash 2} - 1} \right\rbrack$$</math> , and <math display="inline">$$M$$</math> is a number such that <math display="inline">$$\left| {f^{''}(x)} \right| \leqslant M$$</math> , then we can use Taylor’s Inequality to write
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\left| {R_{1}(x)} \right| \leqslant \frac{M}{2!}x^{2}$$</math>
-            </paragraph>
-            <paragraph>
-              We have <math display="inline">$$f^{''}(x) = \frac{3}{4}m_{0}c^{ 2}\left( {1 + x} \right)^{- 5 \slash 2}$$</math> and we are given that <math display="inline">$$|v| \leqslant 100m \slash s$$</math> , so
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\left| {f^{''}(x)} \right| = \frac{3m_{0}c^{ 2}}{4\left( {1 - v^{ 2} \slash c^{ 2}} \right)^{5 \slash 2}} \leqslant \frac{3m_{0}c^{ 2}}{4\left( {1 - 100^{2} \slash c^{ 2}} \right)^{5 \slash 2}}\left( {= M} \right)$$</math>
-            </paragraph>
-            <paragraph>
-              Thus, with <math display="inline">$$c = 3 \times 10^{8}m \slash s$$</math> ,
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\left| {R_{1}(x)} \right| \leqslant \frac{1}{2} \cdot \frac{3m_{0}c^{ 2}}{4\left( {1 - 100^{2} \slash c^{ 2}} \right)^{5 \slash 2}} \cdot \frac{100^{4}}{c^{4}} &lt; \left( {4.17 \times 10^{- 10}} \right)m_{0}$$</math>
-            </paragraph>
-            <paragraph>
-              So when <math display="inline">$$|v| \leqslant 100m \slash s$$</math> , the magnitude of the error in using the Newtonian expression for kinetic energy is at most <math display="inline">$${({4.2 \times 10^{- 10}})}m_{0}$$</math> .
-            </paragraph>
-          </item>
-        </list>
-        <paragraph>
-          The upper curve in Figure 7 is the graph of the expression for the kinetic energy <math display="inline">$$K$$</math> of an object with velocity <math display="inline">$$\upsilon$$</math> in special relativity. The lower curve shows the function used for <math display="inline">$$K$$</math> in classical Newtonian physics. When <math display="inline">$$\upsilon$$</math> is much smaller than the speed of light, the curves are practically identical.
-        </paragraph>
-        <figure number="7">
-          <alt_text>Two curves are graphed on the first quadrant of a coordinate plane. The horizontal axis is labeled v and has a single tick mark labeled c. The vertical axis is labeled K. The first curve, labeled K = m c^2 minus m_0 c^2, begins at the origin, goes up to the right, concaves up, gradually at first and then more rapidly, and exits at the top right of the viewing window. The second curve, labeled K = 12 m_0 v^2, begins at the origin, gradually goes up to the right, concave up, until directly above the tick mark c.</alt_text>
-        </figure>
-      </problem>
-    </example>
-    <paragraph>
-      Another application to physics occurs in optics. Figure 8 depicts a wave from the point source <math display="inline">$$S$$</math> meeting a spherical interface of radius <math display="inline">$$R$$</math> centered at <math display="inline">$$C$$</math> . The ray <math display="inline">$$SA$$</math> is refracted toward <math display="inline">$$P$$</math> .
-    </paragraph>
-    <figure number="8" caption="Refraction at a spherical interface">
-      <alt_text>The figure is a two-dimensional illustration. A point labeled S is on the extreme left of the viewing window and a large sphere with a potion on the right is cut off at the right of the viewing window. From S, a triangular shaded area opens out to meet the sphere. A horizontal line segment begins at S, runs to the right, crosses the left-most point of the sphere, labeled V, passes through the center of the sphere, labeled C, and ends at a point P to the right of C. The distances S V and V P are labeled S_0 and S_i. The region outside the sphere is labeled n_1 and the region within the sphere is labeled n_2. A dashed arrow, labeled l_0, slopes upward to the right, along the upper side of the shaded triangle, and meets the sphere at a point labeled A. This point is at a height h from the horizontal line segment. A short vertical arrow extends upward from A. From C, an arrow slopes upward to the left at an angle phi from the horizontal line segment, passes through a point labeled R, and reaches A. From A a dashed arrow slopes upward to the left as an extension of the arrow from C. The dashed arrow is at an angle theta_i from the dashed arrow S A and at an angle theta_r from the vertical arrow extending upward from A. From A, an arrow labeled l_i, slopes down to the right and reaches P at an angle theta t from the arrow joining C and A.</alt_text>
-      <credit>Source: Adapted from E. Hecht, Optics, 4e (UpperSaddle River, NJ: Pearson Education, 2002).</credit>
-    </figure>
-    <paragraph>
-      Using Fermat’s principle that light travels so as to minimize the time taken, one can derive the equation
-    </paragraph>
-    <paragraph>
-      where <math display="inline">$$n_{1}$$</math> and <math display="inline">$$n_{2}$$</math> are indexes of refraction and <math display="inline">$$\ell_{o}$$</math> , <math display="inline">$$\ell_{i}$$</math> , <math display="inline">$$s_{o}$$</math> , and <math display="inline">$$s_{i}$$</math> are the distances indicated in Figure 8. By the Law of Cosines, applied to triangles <em>ACS</em> and <em>ACP</em>, we have
-    </paragraph>
-    <paragraph>
-      Because Equation 1 is cumbersome to work with, Gauss, in 1841, simplified it by using the linear approximation <math display="inline">$$\cos\phi \approx 1$$</math> for small values of <math display="inline">$$\phi$$</math> . (This amounts to using the Taylor polynomial of degree <math display="inline">$$1$$</math> .) Then Equation 1 becomes the following simpler equation [as you are asked to show in Exercise 34(a)]:
-    </paragraph>
-    <paragraph>
-      The resulting optical theory is known as <em>Gaussian optics</em>, or <em>first-order optics</em>, and has become the basic theoretical tool used to design lenses.
-    </paragraph>
-    <paragraph>
-      A more accurate theory is obtained by approximating <math display="inline">$$\cos\phi$$</math> by its Taylor polynomial of degree <math display="inline">$$3$$</math> (which is the same as the Taylor polynomial of degree <math display="inline">$$2$$</math> ). This takes into account rays for which <math display="inline">$$\phi$$</math> is not so small, that is, rays that strike the surface at greater distances <math display="inline">$$h$$</math> above the axis. In Exercise 34(b) you are asked to use this approximation to derive the more accurate equation
-    </paragraph>
-    <paragraph>
-      The resulting optical theory is known as <em>third-order optics</em>.
-    </paragraph>
-    <paragraph>
-      Other applications of Taylor polynomials to physics and engineering are explored in Exercises 32, 33, 35, 36, 37, and 38, and in the Applied Project following this section.
-    </paragraph>
-  </subsection>
-  <subsection number="11.11" title="Exercises">
-    <exercises>
-      <exercise_group>
-        <problem number="1">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Find the Taylor polynomials up to degree <math display="inline">$$5$$</math> for <math display="inline">$$f(x) = \sin x$$</math> centered at <math display="inline">$$a = 0$$</math> . Graph <math display="inline">$$f$$</math> and these polynomials on a common screen.
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$T_{0}(x) = 0$$</math> , <math display="inline">$$T_{1}(x) = T_{2}(x) = x$$</math> , <math display="inline">$$T_{3}(x) = T_{4}(x) = x - \frac{1}{6}x^{3}$$</math> , <math display="inline">$$T_{5}(x) = x - \frac{1}{6}x^{3} + \frac{1}{120}x^{5}$$</math>
-                </paragraph>
-                <figure>
-                </figure>
-              </item>
-              <item>
-                <paragraph>
-                  Evaluate <math display="inline">$$f$$</math> and these polynomials at <math display="inline">$$x = \pi \slash 4$$</math> , <math display="inline">$$\pi \slash 2$$</math> , and <math display="inline">$$\pi$$</math> .
-                </paragraph>
-                <table>
-                  <thead>
-                    <row>
-                      <cell header="true">x</cell>
-                      <cell header="true">f</cell>
-                      <cell header="true">T 0</cell>
-                      <cell header="true">T 1 = T 2</cell>
-                      <cell header="true">T 3 = T 4</cell>
-                      <cell header="true">T 5</cell>
-                    </row>
-                  </thead>
-                  <tbody>
-                    <row>
-                      <cell>
-                        <paragraph>
-                          <math display="inline">$$\pi \slash 4$$</math>
-                        </paragraph>
-                      </cell>
-                      <cell>
-                        0.7071
-                      </cell>
-                      <cell>
-                        0
-                      </cell>
-                      <cell>
-                        0.7854
-                      </cell>
-                      <cell>
-                        0.7047
-                      </cell>
-                      <cell>
-                        0.7071
-                      </cell>
-                    </row>
-                    <row>
-                      <cell>
-                        <paragraph>
-                          <math display="inline">$$\pi \slash 2$$</math>
-                        </paragraph>
-                      </cell>
-                      <cell>
-                        1
-                      </cell>
-                      <cell>
-                        0
-                      </cell>
-                      <cell>
-                        1.5708
-                      </cell>
-                      <cell>
-                        0.9248
-                      </cell>
-                      <cell>
-                        1.0045
-                      </cell>
-                    </row>
-                    <row>
-                      <cell>
-                        <paragraph>
-                          <math display="inline">$$\pi$$</math>
-                        </paragraph>
-                      </cell>
-                      <cell>
-                        0
-                      </cell>
-                      <cell>
-                        0
-                      </cell>
-                      <cell>
-                        3.1416
-                      </cell>
-                      <cell>
-                        −2.0261
-                      </cell>
-                      <cell>
-                        0.5240
-                      </cell>
-                    </row>
-                  </tbody>
-                </table>
-              </item>
-              <item>
-                <paragraph>
-                  Comment on how the Taylor polynomials converge to <math display="inline">$$f(x)$$</math> .
-                </paragraph>
-                <paragraph>
-                  As <math display="inline">$$n$$</math> increases, <math display="inline">$$T_{n}(x)$$</math> is a good approximation to <math display="inline">$$f(x)$$</math> on a larger and larger interval.
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="2">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Find the Taylor polynomials up to degree <math display="inline">$$3$$</math> for <math display="inline">$$f(x) = \tan x$$</math> centered at <math display="inline">$$a = 0$$</math> . Graph <math display="inline">$$f$$</math> and these polynomials on a common screen.
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Evaluate <math display="inline">$$f$$</math> and these polynomials at <math display="inline">$$x = \pi \slash 6$$</math> , <math display="inline">$$\pi \slash 4$$</math> , and <math display="inline">$$\pi \slash 3$$</math> .
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Comment on how the Taylor polynomials converge to <math display="inline">$$f(x)$$</math> .
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          3, 4, 5, 6, 7, 8, 9, and 10 Find the Taylor polynomial <math display="inline">$$T_{3}(x)$$</math> for the function <math display="inline">$$f$$</math> centered at the number <math display="inline">$$a$$</math> . Graph <math display="inline">$$f$$</math> and <math display="inline">$$T_{3}$$</math> on the same screen.
-        </instructions>
-        <problem number="3">
-          <statement>
-            <paragraph>
-              <math display="inline">$${f(x) = e^{ x}},\quad{a = 1}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$e + e\left( {x - 1} \right) + \frac{1}{2}e\left( {x - 1} \right)^{2} + \frac{1}{6}e\left( {x - 1} \right)^{3}$$</math>
-            </paragraph>
-            <figure>
-            </figure>
-          </answer>
-        </problem>
-        <problem number="4">
-          <statement>
-            <paragraph>
-              <math display="inline">$${f(x) = \sin x},\quad{a = \pi \slash 6}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="5">
-          <statement>
-            <paragraph>
-              <math display="inline">$${f(x) = \cos x},\quad{a = \pi \slash 2}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- \left( {x - \frac{\pi}{2}} \right) + \frac{1}{6}\left( {x - \frac{\pi}{2}} \right)^{3}$$</math>
-            </paragraph>
-            <figure>
-            </figure>
-          </answer>
-        </problem>
-        <problem number="6">
-          <statement>
-            <paragraph>
-              <math display="inline">$${f(x) = e^{- x}\sin x},\quad{a = 0}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="7">
-          <statement>
-            <paragraph>
-              <math display="inline">$${f(x) = \ln x},\quad{a = 1}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\left( {x - 1} \right) - \frac{1}{2}\left( {x - 1} \right)^{2} + \frac{1}{3}\left( {x - 1} \right)^{3}$$</math>
-            </paragraph>
-            <figure>
-            </figure>
-          </answer>
-        </problem>
-        <problem number="8">
-          <statement>
-            <paragraph>
-              <math display="inline">$${f(x) = x\cos x},\quad{a = 0}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="9">
-          <statement>
-            <paragraph>
-              <math display="inline">$${f(x) = xe^{- 2x}},\quad{a = 0}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$x - 2x^{2} + 2x^{3}$$</math>
-            </paragraph>
-            <figure>
-            </figure>
-          </answer>
-        </problem>
-        <problem number="10">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \tan^{- 1}x,\quad a = 1$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          11–12 Use a computer algebra system to find the Taylor polynomials <math display="inline">$$T_{n}$$</math> centered at for <math display="inline">$$n = 2,3,4,5$$</math> . Then graph these polynomials and <math display="inline">$$f$$</math> on the same screen.
-        </instructions>
-        <problem number="11">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \cot x,\quad a = \pi \slash 4$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$T_{5}(x) = 1 - 2\left( {x - \frac{\pi}{4}} \right) + 2\left( {x - \frac{\pi}{4}} \right)^{2} - \frac{8}{3}\left( {x - \frac{\pi}{4}} \right)^{3} + \frac{10}{3}\left( {x - \frac{\pi}{4}} \right)^{4} - \frac{64}{15}\left( {x - \frac{\pi}{4}} \right)^{5}$$</math>
-            </paragraph>
-            <figure>
-            </figure>
-          </answer>
-        </problem>
-        <problem number="12">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \sqrt[3]{1 + x^{2}},\quad a = 0$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          13, 14, 15, 16, 17, 18, 19, 20, 21, and 22
-        </instructions>
-        <problem number="13">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = 1 \slash x,\quad a = 1,\quad n = 2,\quad 0.7 \leqslant x \leqslant 1.3$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$1 - \left( {x - 1} \right) + \left( {x - 1} \right)^{2}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0.112\ 453$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="14">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = x^{- 1 \slash 2},\quad a = 4,\quad n = 2,\quad 3.5 \leqslant x \leqslant 4.5$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="15">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = x^{2 \slash 3},\quad a = 1,\quad n = 3,\quad 0.8 \leqslant x \leqslant 1.2$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$1 + \frac{2}{3}\left( {x - 1} \right) - \frac{1}{9}\left( {x - 1} \right)^{2} + \frac{4}{81}\left( {x - 1} \right)^{3}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0.000097$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="16">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \sin x,\quad a = \pi \slash 6,\quad n = 4,\quad 0 \leqslant x \leqslant \pi \slash 3$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="17">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \sec x,\quad a = 0,\quad n = 2,\quad - 0.2 \leqslant x \leqslant 0.2$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$1 + \frac{1}{2}x^{2}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0.001\ 447$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="18">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \ln\left( {1 + 2x} \right),\quad a = 1,\quad n = 3,\quad 0.5 \leqslant x \leqslant 1.5$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="19">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = e^{x^{2}},\quad a = 0,\quad n = 3,\quad 0 \leqslant x \leqslant 0.1$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$1 + x^{2}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0.000\ 053$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="20">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = x\ln x,\quad a = 1,\quad n = 3,\quad 0.5 \leqslant x \leqslant 1.5$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="21">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = x\sin x,\quad a = 0,\quad n = 4,\quad - 1 \leqslant x \leqslant 1$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$x^{2} - \frac{1}{6}x^{4}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0.041\ 667$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="22">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x) = \sinh 2x,\quad a = 0,\quad n = 5,\quad - 1 \leqslant x \leqslant 1$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="23">
-          <statement>
-            <paragraph>
-              Use the information from Exercise 5 to estimate <math display="inline">$$\cos 80^{\circ}$$</math> correct to five decimal places.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$0.17365$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="24">
-          <statement>
-            <paragraph>
-              Use the information from Exercise 16 to estimate <math display="inline">$$\sin 38^{\circ}$$</math> correct to five decimal places.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="25">
-          <statement>
-            <paragraph>
-              Use Taylor’s Inequality to determine the number of terms of the Maclaurin series for <math display="inline">$$e^{ x}$$</math> that should be used to estimate <math display="inline">$$e^{0.1}$$</math> to within <math display="inline">$$0.00001$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              Four
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="26">
-          <statement>
-            <paragraph>
-              How many terms of the Maclaurin series for <math display="inline">$$\ln(1 + x)$$</math> do you need to use to estimate <math display="inline">$$\ln 1.4$$</math> to within <math display="inline">$$0.001$$</math> ?
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          27, 28, and 29 Use the Alternating Series Estimation Theorem or Taylor’s Inequality to estimate the range of values of <math display="inline">$$x$$</math> for which the given approximation is accurate to within the stated error. Check your answer graphically.
-        </instructions>
-        <problem number="27">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\sin x \approx x - \frac{x^{3}}{6}{\quad\left( {\left| \text{error} \right| &lt; 0.01} \right)}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- 1.037 &lt; x &lt; 1.037$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="28">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\cos x \approx 1 - \frac{x^{2}}{2} + \frac{x^{4}}{24}{\quad\left( {\left| \text{error} \right| &lt; 0.005} \right)}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="29">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\arctan x \approx x - \frac{x^{3}}{3} + \frac{x^{5}}{5}{\quad\left( {\left| \text{error} \right| &lt; 0.05} \right)}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- 0.86 &lt; x &lt; 0.86$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="30">
-          <statement>
-            <paragraph>
-              Suppose you know that
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f^{(n)}(4) = \frac{\left( {- 1} \right)^{n}n!}{3^{n}\left( {n + 1} \right)}$$</math>
-            </paragraph>
-            <paragraph>
-              and the Taylor series of <math display="inline">$$f$$</math> centered at <math display="inline">$$4$$</math> converges to <math display="inline">$$f(x)$$</math> for all <math display="inline">$$x$$</math> in the interval of convergence. Show that the fifth-degree Taylor polynomial approximates <math display="inline">$$f(5)$$</math> with error less than <math display="inline">$$0.0002$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="31">
-          <statement>
-            <paragraph>
-              A car is moving with speed <math display="inline">$$20m \slash s$$</math> and acceleration <math display="inline">$$2{m \slash s}^{2}$$</math> at a given instant. Using a second-degree Taylor polynomial, estimate how far the car moves in the next second. Would it be reasonable to use this polynomial to estimate the distance traveled during the next minute?
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$21$$</math> m, no
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="32">
-          <statement>
-            <paragraph>
-              The resistivity <math display="inline">$$\rho$$</math> of a conducting wire is the reciprocal of the conductivity and is measured in units of ohm-meters (<math display="inline">$$\Omega$$</math>-m). The resistivity of a given metal depends on the temperature according to the equation
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\rho(t) = \rho_{20}e^{\alpha{({t - 20})}}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$t$$</math> is the temperature in <math display="inline">$${}_{}^{}{}$$</math> . There are tables that list the values of <math display="inline">$$\alpha$$</math> (called the temperature coefficient) and <math display="inline">$$\rho_{20}$$</math> (the resistivity at <math display="inline">$$20^{\circ}C$$</math> ) for various metals. Except at very low temperatures, the resistivity varies almost linearly with temperature and so it is common to approximate the expression for <math display="inline">$$\rho(t)$$</math> by its first- or second-degree Taylor polynomial at <math display="inline">$$t = 20$$</math> .
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Find expressions for these linear and quadratic approximations.
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  For copper, the tables give <math display="inline">$$\alpha = 0.0039 \slash {}_{}^{}$$</math> and <math display="inline">$${\rho_{20} = 1.7 \times 10^{- 8}}\Omega$$</math>-m. Graph the resistivity of copper and the linear and quadratic approximations for <math display="inline">$$- 250{}_{}^{} \leqslant t \leqslant 1000{}_{}^{}$$</math> .
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  For what values of <math display="inline">$$t$$</math> does the linear approximation agree with the exponential expression to within one percent?
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="33">
-          <statement>
-            <paragraph>
-              An electric dipole consists of two electric charges of equal magnitude and opposite sign. If the charges are <math display="inline">$$q$$</math> and <math display="inline">$$- q$$</math> and are located at a distance <math display="inline">$$d$$</math> from each other, then the electric field <math display="inline">$$E$$</math> at the point <math display="inline">$$P$$</math> in the figure is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$E = \frac{q}{D^{2}} - \frac{q}{\left( {D + d} \right)^{2}}$$</math>
-            </paragraph>
-            <paragraph>
-              By expanding this expression for <math display="inline">$$E$$</math> as a series in powers of <math display="inline">$$d \slash D$$</math> , show that <math display="inline">$$E$$</math> is approximately proportional to <math display="inline">$$1 \slash D^{3}$$</math> when <math display="inline">$$P$$</math> is far away from the dipole.
-            </paragraph>
-            <figure>
-              <alt_text>A line segment with three points on it. The line segment is horizontal, begins from a point labeled P, passes through a point q at a distance D from P, and ends at a point labeled negative q at a distance d from q.</alt_text>
-            </figure>
-          </statement>
-        </problem>
-        <problem number="34">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Derive Equation 3 for Gaussian optics from Equation 1 by approximating <math display="inline">$$\cos\phi$$</math> in Equation 2 by its first-degree Taylor polynomial.
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Show that if <math display="inline">$$\cos\phi$$</math> is replaced by its third-degree Taylor polynomial in Equation 2, then Equation 1 becomes Equation 4 for third-order optics. [<em>Hint:</em> Use the first two terms in the binomial series for <math display="inline">$$\ell_{o}^{- 1}$$</math> and <math display="inline">$$\ell_{i}^{- 1}$$</math> . Also, use <math display="inline">$$\phi \approx \sin\phi$$</math> .]
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="35">
-          <statement>
-            <paragraph>
-              If a water wave with length <math display="inline">$$L$$</math> moves with velocity <math display="inline">$$v$$</math> across a body of water with depth <math display="inline">$$d$$</math> , as shown in the figure, then
-            </paragraph>
-            <paragraph>
-              <math display="block">$$v^{ 2} = \frac{gL}{2\pi}\tanh\frac{2\pi d}{L}$$</math>
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  If the water is deep, show that <math display="inline">$$v \approx \sqrt{gL \slash \left( {2\pi} \right)}$$</math> .
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  If the water is shallow, use the Maclaurin series for <math display="inline">$$\tanh$$</math> to show that <math display="inline">$$v \approx \sqrt{gd}$$</math> . (Thus in shallow water the velocity of a wave tends to be independent of the length of the wave.)
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Use the Alternating Series Estimation Theorem to show that if <math display="inline">$$L &gt; 10d$$</math> , then the estimate <math display="inline">$$v^{ 2} \approx \mathbf{g}\mathbf{d}$$</math> is accurate to within <math display="inline">$$0.014\mathbf{g}\mathbf{L}$$</math> .
-                </paragraph>
-                <figure>
-                  <alt_text>A two-dimensional rendering of a cross-sectional view of a water body. The water bed is horizontal at the bottom A dashed horizontal line runs parallel to the water bed at a height d from it. The surface of the water is a wave that rises up and down periodically about the dashed line. The distance between a low point and the immediate next low point is labeled L.</alt_text>
-                </figure>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="36">
-          <statement>
-            <paragraph>
-              A uniformly charged disk has radius <math display="inline">$$R$$</math> and surface charge density <math display="inline">$$\sigma$$</math> as in the figure. The electric potential <math display="inline">$$V$$</math> at a point <math display="inline">$$P$$</math> at a distance <math display="inline">$$d$$</math> along the perpendicular central axis of the disk is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$V = 2\pi k_{e}\sigma\left( {\sqrt{d^{2} + R^{2}} - d} \right)$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$k_{e}$$</math> is a constant (called Coulomb’s constant). Show that
-            </paragraph>
-            <paragraph>
-              <math display="block">$$V \approx \frac{\pi k_{e}R^{2}\sigma}{d}\qquad{for\ large}d$$</math>
-            </paragraph>
-            <figure>
-              <alt_text>A disk of radius R. A line segment perpendicular to the disk connects the center of the top surface of the disk to a point P at a distance d from it.</alt_text>
-            </figure>
-          </statement>
-        </problem>
-        <problem number="37">
-          <statement>
-            <paragraph>
-              If a surveyor measures differences in elevation when making plans for a highway across a desert, corrections must be made for the curvature of the earth.
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  If <math display="inline">$$R$$</math> is the radius of the earth and <math display="inline">$$L$$</math> is the length of the highway, show that the correction is
-                </paragraph>
-                <paragraph>
-                  <math display="block">$$C = R\sec\left( {L \slash R} \right) - R$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Use a Taylor polynomial to show that
-                </paragraph>
-                <paragraph>
-                  <math display="block">$$C \approx \frac{L^{2}}{2R} + \frac{5L^{4}}{24R^{3}}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Compare the corrections given by the formulas in parts (a) and (b) for a highway that is <math display="inline">$$100$$</math> km long. (Take the radius of the earth to be <math display="inline">$$6370$$</math> km.)
-                </paragraph>
-                <figure>
-                  <alt_text>An arc and a right triangle. The arc labeled C, enters at the top left, goes down to the right, and exits at the bottom right of the viewing window. A right triangle with a vertical side on the left, a horizontal top side, and a hypotenuse that slopes downward to the left are drawn on the arc such that the vertical left side of the triangle is labeled R and the top-left vertex of the right triangle is on the arc. The horizontal side is labeled L, is perpendicular to the vertical side R, and is tangent to the arc. The hypotenuse crosses the arc to meet the horizontal top side and the part of the hypotenuse within the arc is labeled R.</alt_text>
-                </figure>
-                <paragraph>
-                  Corrections differ by about <math display="inline">$$8 \times 10^{- 9}$$</math> km.
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="38">
-          <statement>
-            <paragraph>
-              The period of a pendulum with length <math display="inline">$$L$$</math> that makes a maximum angle <math display="inline">$$\theta_{0}$$</math> with the vertical is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$T = 4\sqrt{\frac{L}{g}}{\int_{0}^{\pi \slash 2}\frac{dx}{\sqrt{1 - k^{2}{\sin}^{2}x}}}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$k = \sin\left( {\frac{1}{2}\theta_{0}} \right)$$</math> and <math display="inline">$$g$$</math> is the acceleration due to gravity.
-            </paragraph>
-            <paragraph>
-              (In Exercise 7.7.42 we approximated this integral using Simpson’s Rule.)
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Expand the integrand as a binomial series and use the result of Exercise 7.1.56 to show that
-                </paragraph>
-                <paragraph>
-                  <math display="block">$$T = 2\pi\sqrt{\frac{L}{g}}\left\lbrack {1 + \frac{1^{2}}{2^{2}}k^{2} + \frac{1^{2}3^{2}}{2^{2}4^{2}}k^{4} + \frac{1^{2}3^{2}5^{2}}{2^{2}4^{2}6^{2}}k^{6} + \cdots ‍} \right\rbrack$$</math>
-                </paragraph>
-                <paragraph>
-                  If <math display="inline">$$\theta_{0}$$</math> is not too large, the approximation <math display="inline">$$T \approx 2\pi\sqrt{L \slash g^{}}$$</math> , obtained by using only the first term in the series, is often used. A better approximation is obtained by using two terms:
-                </paragraph>
-                <paragraph>
-                  <math display="block">$$T \approx 2\pi\sqrt{\frac{L}{g}}\left( {1 + \frac{1}{4}k^{2}} \right)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Notice that all the terms in the series after the first one have coefficients that are at most <math display="inline">$$\frac{1}{4}$$</math> . Use this fact to compare this series with a geometric series and show that
-                </paragraph>
-                <paragraph>
-                  <math display="block">$$2\pi\sqrt{\frac{L}{g}}\left( {1 + \frac{1}{4}k^{2}} \right) \leqslant T \leqslant 2\pi\sqrt{\frac{L}{g}}\frac{4 - 3k^{2}}{4 - 4k^{2}}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Use the inequalities in part (b) to estimate the period of a pendulum with <math display="inline">$$L = 1$$</math> meter and <math display="inline">$$\theta_{0} = 10^{{^\circ}}$$</math> . How does it compare with the estimate <math display="inline">$$T \approx 2\pi\sqrt{L \slash g}$$</math> ? What if <math display="inline">$$\theta_{0} = 42^{{^\circ}}$$</math> ?
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="39">
-          <statement>
-            <paragraph>
-              In Section 4.8 we considered Newton’s method for approximating a solution <math display="inline">$$r$$</math> of the equation <math display="inline">$$f(x) = 0$$</math> , and from an initial approximation <math display="inline">$$x_{1}$$</math> we obtained successive approximations <math display="inline">$$x_{2},x_{3},\ldots$$</math> , where
-            </paragraph>
-            <paragraph>
-              <math display="block">$$x_{n + 1} = x_{n} - \frac{f\left( x_{n} \right)}{f^{\prime}\left( x_{n} \right)}$$</math>
-            </paragraph>
-            <paragraph>
-              Use Taylor’s Inequality with <math display="inline">$$n = 1$$</math> , <math display="inline">$$a = x_{n}$$</math> , and <math display="inline">$$x = r$$</math> to show that if <math display="inline">$$f^{''}(x)$$</math> exists on an interval <math display="inline">$$I$$</math> containing <math display="inline">$$r$$</math> , <math display="inline">$$x_{n}$$</math> , and <math display="inline">$$x_{n + 1}$$</math> , and <math display="inline">$$\left| {f^{''}(x)} \right| \leqslant M$$</math> , <math display="inline">$$\left| {f^{\prime}(x)} \right| \geqslant K$$</math> for all <math display="inline">$$x \in I$$</math> , then
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\left| {x_{n + 1} - r} \right| \leqslant \frac{M}{2K}\left| {x_{n} - r} \right|^{2}$$</math>
-            </paragraph>
-            <paragraph>
-              [This means that if <math display="inline">$$x_{n}$$</math> is accurate to <math display="inline">$$d$$</math> decimal places, then <math display="inline">$$x_{n + 1}$$</math> is accurate to about <math display="inline">$$2d$$</math> decimal places. More precisely, if the error at stage <math display="inline">$$n$$</math> is at most <math display="inline">$$10^{- m}$$</math> , then the error at stage <math display="inline">$$n + 1$$</math> is at most <math display="inline">$$\left( {M \slash 2K} \right)10^{- 2m}$$</math> .]
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-    </exercises>
-  </subsection>
-  <subsection title="Applied Project Radiation from the Stars">
-    <paragraph>
-      Any object emits radiation when heated. A <em>blackbody</em> is a system that absorbs all the radiation that falls on it. For instance, a matte black surface or a large cavity with a small hole in its wall (like a blast furnace) is a blackbody and emits blackbody radiation. Even the radiation from the sun is close to being blackbody radiation.
-    </paragraph>
-    <paragraph>
-      Proposed in the late 19th century, the Rayleigh-Jeans Law expresses the energy density of blackbody radiation of wavelength <math display="inline">$$\text{λ}$$</math> as
-    </paragraph>
-    <paragraph>
-      <math display="block">$$f\left( \text{λ} \right) = \frac{8\pi kT}{\text{λ}^{4}}$$</math>
-    </paragraph>
-    <paragraph>
-      where <math display="inline">$$\text{λ}$$</math> is measured in meters, <math display="inline">$$T$$</math> is the temperature in kelvins (K), and <math display="inline">$$k$$</math> is Boltzmann’s constant. The Rayleigh-Jeans Law agrees with experimental measurements for long wavelengths but disagrees drastically for short wavelengths. [The law predicts that <math display="inline">$$\left. f\left( \text{λ} \right)\rightarrow\infty \right.$$</math> as <math display="inline">$$\left. \text{λ}\rightarrow 0^{+} \right.$$</math> but experiments have shown that <math display="inline">$$\left. f\left( \text{λ} \right)\rightarrow 0 \right.$$</math> .] This fact is known as the <em>ultraviolet catastrophe</em>.
-    </paragraph>
-    <figure>
-      <credit>Luke Dodd / SCIENCE PHOTO LIBRARY / Getty Images</credit>
-    </figure>
-    <paragraph>
-      In 1900 Max Planck found a better model (known now as Planck’s Law) for blackbody radiation:
-    </paragraph>
-    <paragraph>
-      <math display="block">$$f\left( \text{λ} \right) = \frac{8\pi hc\text{λ}^{- 5}}{e^{ hc \slash {({\text{λ}kT})}} - 1}$$</math>
-    </paragraph>
-    <paragraph>
-      where <math display="inline">$$\text{λ}$$</math> is measured in meters, <math display="inline">$$T$$</math> is the temperature (in kelvins), and
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\begin{array}{l}
-  {h = {Planck’s\ constant} = 6.6262 \times 10^{- 34}J \cdot s} \\
-  {c = {speed\ of\ light} = 2.997925 \times 10^{8}m \slash s} \\
-  {k = {Boltzmann’s\ constant} = 1.3807 \times 10^{- 23}J \slash K}
-  \end{array}$$</math>
-    </paragraph>
-    <list ordered="true">
-      <item>
-        <paragraph>
-          Use l’Hospital’s Rule to show that
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\lim\limits_{\text{λ}\rightarrow 0^{+}}f\left( \text{λ} \right) = 0$$</math>
-        </paragraph>
-        <paragraph>
-          and
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\lim\limits_{\text{λ}\rightarrow\infty}f\left( \text{λ} \right) = 0$$</math>
-        </paragraph>
-        <paragraph>
-          for Planck’s Law. So this law models blackbody radiation better than the Rayleigh-Jeans Law for short wavelengths.
-        </paragraph>
-      </item>
-      <item>
-        <paragraph>
-          Use a Taylor polynomial to show that, for large wavelengths, Planck’s Law gives approximately the same values as the Rayleigh-Jeans Law.
-        </paragraph>
-      </item>
-      <item>
-        <paragraph>
-          Graph <math display="inline">$$f$$</math> as given by both laws on the same screen and comment on the similarities and differences. Use <math display="inline">$$T = 5700K$$</math> (the temperature of the sun). (You may want to change from meters to the more convenient unit of micrometers: <math display="inline">$$1{µm} = 10^{- 6}m$$</math> .)
-        </paragraph>
-      </item>
-      <item>
-        <paragraph>
-          Use your graph in Problem 3 to estimate the value of <math display="inline">$$\text{λ}$$</math> for which <math display="inline">$$f\left( \text{λ} \right)$$</math> is a maximum under Planck’s Law.
-        </paragraph>
-      </item>
-      <item>
-        <paragraph>
-          Investigate how the graph of <math display="inline">$$f$$</math> changes as <math display="inline">$$T$$</math> varies. (Use Planck’s Law.) In particular, graph <math display="inline">$$f$$</math> for the stars Betelgeuse <math display="inline">$$(T = 3400K)$$</math> , Procyon <math display="inline">$$(T = 6400K)$$</math> , and Sirius <math display="inline">$$(T = 9200K)$$</math> , as well as the sun. How does the total radiation emitted (the area under the curve) vary with <math display="inline">$$T$$</math> ? Use the graph to comment on why Sirius is known as a blue star and Betelgeuse as a red star.
-        </paragraph>
-      </item>
+    <paragraph>Solution</paragraph>
+    <list type="unordered">
+      <item>(a) $$\begin{array}{rclrll} {f(x)} &amp; = &amp; {\sqrt[3]{x^{}} = x^{1 \slash 3}} &amp; {f(8)} &amp; = &amp; 2 \\ {f^{\prime}(x)} &amp; = &amp; {\frac{1}{3}x^{- 2 \slash 3}} &amp; {f^{\prime}(8)} &amp; = &amp; \frac{1}{12} \\ {f^{''}(x)} &amp; = &amp; {- \frac{2}{9}x^{- 5 \slash 3}} &amp; { f^{''}(8)} &amp; = &amp; \frac{1}{144} \\ {f^{'''}(x)} &amp; = &amp; {\frac{10}{27}x^{- 8 \slash 3}} &amp; &amp; &amp; \end{array}$$ Thus the second-degree Taylor polynomial is $$\begin{array}{l} {T_{2}(x) = f(8) + \frac{f^{\prime}(8)}{1!}\left( {x - 8} \right) + \frac{f^{''}(8)}{2!}\left( {x - 8} \right)^{2}} \\ {\phantom{T_{2}(x)} = 2 + \frac{1}{12}\left( {x - 8} \right) - \frac{1}{288}\left( {x - 8} \right)^{2}} \end{array}$$ The desired approximation is $$\sqrt[3]{x^{}} \approx T_{2}(x) = 2 + \frac{1}{12}\left( {x - 8} \right) - \frac{1}{288}\left( {x - 8} \right)^{2}$$</item>
+      <item>(b) The Taylor series is not alternating when $$x &lt; 8$$ , so we can’t use the Alternating Series Estimation Theorem in this example. But we can use Taylor’s Inequality with $$n = 2$$ and $$a = 8$$ : $$\left| {R_{2}(x)} \right| \leqslant \frac{M}{3!}\left| {x - 8} \right|^{3}$$ where $$\left| {f^{'''}(x)} \right| \leqslant M$$ . Because $$x \geqslant 7$$ , we have $$x^{8 \slash 3} \geqslant 7^{8 \slash 3}$$ and so $$f^{'''}(x) = \frac{10}{27} \cdot \frac{1}{x^{8 \slash 3}} \leqslant \frac{10}{27} \cdot \frac{1}{7^{8 \slash 3}} &lt; 0.0021$$ Therefore we can take $$M = 0.0021$$ . Also $$7 \leqslant x \leqslant 9$$ , so $$- 1 \leqslant x - 8 \leqslant 1$$ and $$\left| {x - 8} \right| \leqslant 1$$ . Then Taylor’s Inequality gives $$\left| {R_{2}(x)} \right| \leqslant \frac{0.0021}{3!} \cdot 1^{3} = \frac{0.0021}{6} &lt; 0.0004$$ Thus, if $$7 \leqslant x \leqslant 9$$ , the approximation in part (a) is accurate to within $$0.0004$$ .</item>
     </list>
-  </subsection>
-</section_file>
+  </example>
+  <paragraph>Let’s check the calculation inwe first convert to radian measure: Example 1. Figure 2 shows that the graphs of $$y = \sqrt[3]{x}$$ and $$y = T_{2}(x)$$ are very close to each other when $$x$$ is near $$8$$ . Figure 3 shows the graph of $$\left| {R_{2}(x)} \right|$$ computed from the expression</paragraph>
+  <paragraph math="block">$$\left| {R_{2}(x)} \right| = \left| {\sqrt[3]{x} - T_{2}(x)} \right|$$</paragraph>
+  <figure>
+    <image alt="Details Two curves are graphed in a graphing calculator window. The horizontal axis is displayed from 0 to 15 in increments of 3. The vertical axis is displayed from 0 to 2.5. The first curve, labeled y = root3(x), enters from the bottom left corner, along the vertical axis until approximately (0, 0.5), goes up to the right, concave down, and exits at(15, 2.5). The second curve, labeled T_2, enters at approximately (0, 1.0), gradually goes up to the right, concave down, runs along the first curve, crossing it at approximately (8.5, 2.0), and exits at the top right corner, just below the first curve."/>
+  </figure>
+  <figure>
+    <image alt="Details A curve is graphed in a graphing calculator window. The horizontal axis ranges from 7 to 9 and the vertical axis is displayed from 0 to 0.0003. The curve, labeled y = abs(R_2(x)), enters from the top left, steeply goes down to the right, almost linearly but concave up, meets the horizontal axis, and briefly runs long it crossing (8, 0), goes up rapidly to the right, almost linearly but concave up, and exits at the top right corner."/>
+  </figure>
+  <paragraph>We see from the graph that</paragraph>
+  <paragraph math="block">$$\left| {R_{2}(x)} \right| &lt; 0.0003$$</paragraph>
+  <paragraph>when $$7 \leqslant x \leqslant 9$$ . Thus the error estimate from graphical methods is slightly better than the error estimate from Taylor’s Inequality in this case.</paragraph>
+  <example number="2">
+    <heading level="4">Example 2</heading>
+    <list type="unordered">
+      <item>(a) What is the maximum error possible in using the approximation $$\sin x \approx x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!}$$ when $$- 0.3 \leqslant x \leqslant 0.3$$ ? Use this approximation to find $$\sin 12^{{^\circ}}$$ correct to six decimal places.</item>
+      <item>(b) For what values of $$x$$ is this approximation accurate to within $$0.00005$$ ?</item>
+    </list>
+    <paragraph>Solution</paragraph>
+    <list type="unordered">
+      <item>(a) Notice that the Maclaurin series $$\sin x = x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!} - \frac{x^{7}}{7!} + \cdots$$ is alternating for all nonzero values of $$x$$ , and the successive terms decrease in size because $$|x| &lt; 1$$ , so we can use the Alternating Series Estimation Theorem. The error in approximating $$\sin x$$ by the first three terms of its Maclaurin series is at most $$\left| \frac{x^{7}}{7!} \right| = \frac{|x|^{7}}{5040}$$ If $$- 0.3 \leqslant x \leqslant 0.3$$ , then $$|x| \leqslant 0.3$$ , so the error is smaller than $$\frac{(0.3)^{7}}{5040} \approx 4.3 \times 10^{- 8}$$ To find $$\sin 12^{{^\circ}}$$ we first convert to radian measure: $$\begin{array}{l} {\sin 12^{{^\circ}} = \sin\left( \frac{12\pi}{180} \right) = \sin\left( \frac{\pi}{15} \right)} \\ {\phantom{\sin 12^{{^\circ}}} \approx \frac{\pi}{15} - \left( \frac{\pi}{15} \right)^{3}\frac{1}{3!} + \left( \frac{\pi}{15} \right)^{5}\frac{1}{5!} \approx 0.20791169} \end{array}$$ Thus, correct to six decimal places, $$\sin 12^{{^\circ}} \approx 0.207912$$ .</item>
+      <item>(b) The error will be smaller than $$0.00005$$ if $$\frac{|x|^{7}}{5040} &lt; 0.00005$$ Solving this inequality for $$x$$ , we get $$|x|^{7} &lt; 0.252$$ or $$|x| &lt; (0.252)^{1 \slash 7} \approx 0.821$$ So the given approximation is accurate to within $$0.00005$$ when $$|x| &lt; 0.82$$ .</item>
+    </list>
+  </example>
+  <paragraph>What if we use Taylor’s Inequality to solve Example 2? Since $$f^{(7)}(x) = - \cos x$$ , we have $$\left| {f^{(7)}(x)} \right| \leqslant 1$$ and so</paragraph>
+  <paragraph math="block">$$\left| {R_{6}(x)} \right| \leqslant \frac{1}{7!}|x|^{7}$$</paragraph>
+  <paragraph>So we get the same estimates as with the Alternating Series Estimation Theorem.</paragraph>
+  <paragraph>What about graphical methods? Figure 4 shows the graph of</paragraph>
+  <paragraph math="block">$${|{R_{6}(x)}|} = \left| {\sin x - \left( {x - \frac{1}{6}x^{3} + \frac{1}{120}x^{5}} \right)} \right|$$</paragraph>
+  <paragraph>and we see from it that $$\left| {R_{6}(x)} \right| &lt; 4.3 \times 10^{- 8}$$ when $$|x| \leqslant 0.3$$ . This is the same estimate that we obtained in Example 2. For part (b) we want $$\left| {R_{6}(x)} \right| &lt; 0.00005$$ , so we graph both $$y = \left| {R_{6}(x)} \right|$$ and $$y = 0.00005$$ in Figure 5. From the coordinates of the right intersection point we find that the inequality is satisfied when $$|x| &lt; 0.82$$ . Again this is the same estimate that we obtained in the solution to Example 2.</paragraph>
+  <figure>
+    <image alt="Details A curve and a line are graphed in a graphing calculator window. The horizontal axis is displayed from negative 0.3 to 0.3 in increments of 0.3. The vertical axis is displayed from 0 to 4.3 times 10^(negative 8). The curve, labeled y = abs(R_6(x)) enters from approximately (negative 0.3, 4.3 times 10^(negative 8)), goes down steeply to the right, almost linearly but slightly concave up, meets the horizontal axis at approximately (negative 0.15, 0), runs horizontally rightward until approximately (0.15, 0), goes steeply upward to the right, almost linearly but slightly concave up and exits at approximately (0.3, 4.3 times 10^(negative 8))."/>
+  </figure>
+  <figure>
+    <image alt="Details A curve and a line are graphed in a graphing calculator window. The horizontal axis is displayed from negative 1 to 1 in increments of 1. The vertical axis is displayed from 0 to 0.00006. A horizontal line, labeled y = 0.00005, runs parallel to the horizontal axis. The curve, labeled y = abs(R_6(x)) enters from approximately (negative 0.8, 0.00006), goes down steeply to the right, almost linearly but slightly concave up, and meets the horizontal axis at approximately (negative 0.4, 0), runs horizontally rightward until approximately (0.4, 0), goes steeply upward to the right, almost linearly but slightly concave up and exits at approximately (0.8, 0.00006)."/>
+  </figure>
+  <paragraph>If we had been asked to approximate $$\sin 72^{{^\circ}}$$ instead of $$\sin 12^{{^\circ}}$$ in Example 2, it would have been wise to use the Taylor polynomials at $$a = \pi \slash 3$$ (instead of $$a = 0$$ ) because they are better approximations to $$\sin x$$ for values of $$x$$ close to $$\pi \slash 3$$ . Notice that $$72^{{^\circ}}$$ is close to $$60^{{^\circ}}$$ (or $$\pi \slash 3$$ radians) and the derivatives of $$\sin x$$ are easy to compute at $$\pi \slash 3$$ .</paragraph>
+  <paragraph>Figure 6 shows the graphs of the Maclaurin polynomial approximations</paragraph>
+  <paragraph math="block">$$\begin{array}{rcll} {T_{1}(x)} &amp; = &amp; x &amp; {T_{3}(x) = x - \frac{x^{3}}{3!}} \\ {T_{5}(x)} &amp; = &amp; {x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!}} &amp; { T_{7}(x) = x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!} - \frac{x^{7}}{7!}} \end{array}$$</paragraph>
+  <paragraph>to the sine curve. You can see that as $$n$$ increases, $$T_{n}(x)$$ is a good approximation to $$\sin x$$ on a larger and larger interval.</paragraph>
+  <figure>
+    <image alt="Details Four curves and a line are graphed on the x y coordinate plane. The first curve, labeled y = sin(x), is a sinusoidal curve, that begins from the negative x-axis, goes up to the right, reaches a high point, goes down to the right, crosses the x-axis, reaches a low point, goes up to the right and meets the x-axis as it crosses the origin, completing a full-wave. The curve then completes another full wave, exactly similar to the previous wave, goes up to the right, reaches a high point, goes down to the right, crosses the x-axis, reaches a low point, goes up to the right, and meets the x-axis in the first quadrant. The line, labeled T_1, enters from the bottom, slopes upward to the right, runs along the curve y as it goes up to the right, crossing the origin, and exits at the top. The second curve, labeled T_3, is a wave-like curve, that enters from the top, goes down to the right, crosses the negative x-axis, reaches a low point, goes up to the right, and runs along y and T_1 as they pass through the origin and ascend in the first quadrant, veers away from them and reaches a high point, goes down to the right, crosses the positive x-axis, and exits at the bottom. The thor curve, labeled T_5, is a wave-like curve, that enters from the bottom, briefly goes up to the right, concave down, reaches a high point in the third quadrant, goes down to the right, and runs along y as it reaches a low point, rises, crosses the origin and rises an reaches a high point in the first quadrant, veers away and briefly goes down to the right, reaches a low point in the first quadrant, goes up to the right and exits at the top. The fourth curve, labeled T_7, is a lot similar to T_3 with its arms wider. The curve enters from the top left, goes down to the right, crosses the negative x-axis, reaches a low point, runs along y until it starts descending in the first quadrant, veers away from it, crosses the x-axis, goes down to the right, and exits at the bottom right."/>
+  </figure>
+  <paragraph>One use of the type of calculation done in Examples 1 and 2 occurs in calculators and computers. For instance, when you press the $$\sin$$ or $$e^{ x}$$ key on your calculator, or when a computer programmer uses a subroutine for a trigonometric or exponential or Bessel function, in many machines a polynomial approximation is calculated. The polynomial is often a Taylor polynomial that has been modified so that the error is spread more evenly throughout an interval.</paragraph>
+  <heading level="3">Applications to Physics</heading>
+  <paragraph>Taylor polynomials are also used frequently in physics. In order to gain insight into an equation, a physicist often simplifies a function by considering only the first two or three terms in its Taylor series. In other words, the physicist uses a Taylor polynomial as an approximation to the function. Taylor’s Inequality can then be used to gauge the accuracy of the approximation. The following example shows one way in which this idea is used in special relativity.</paragraph>
+  <example number="3">
+    <heading level="4">Example 3</heading>
+    <paragraph>In Einstein’s theory of special relativity the mass $$m$$ of an object moving with velocity $$v$$ is</paragraph>
+    <paragraph math="block">$$m = \frac{m_{0}}{\sqrt{1 - v^{ 2} \slash c^{ 2}}}$$</paragraph>
+    <paragraph>where $$m_{0}$$ is the mass of the object when at rest and $$c$$ is the speed of light. The kinetic energy of the object is the difference between its total energy and its energy at rest:</paragraph>
+    <paragraph math="block">$$K = mc^{ 2} - m_{0}c^{ 2}$$</paragraph>
+    <list type="unordered">
+      <item>(a) Show that when $$v$$ is very small compared with $$c$$ , this expression for $$K$$ agrees with classical Newtonian physics: $$K = \frac{1}{2}m_{0}v^{ 2}$$ .</item>
+      <item>(b) Use Taylor’s Inequality to estimate the difference in these expressions for $$K$$ when $$|v| \leqslant 100m \slash s$$ .</item>
+    </list>
+    <paragraph>Solution</paragraph>
+    <list type="unordered">
+      <item>(a) Using the expressions given for $$K$$ and $$m$$ , we get $${K = mc^{ 2} - m_{0}c^{ 2} = \frac{m_{0}c^{ 2}}{\sqrt{1 - v^{ 2} \slash c^{ 2}}} - m_{0}c^{ 2}}{= m_{0}c^{ 2}\left\lbrack {\left( {1 - \frac{v^{ 2}}{c^{ 2}}} \right)^{- 1 \slash 2} - 1} \right\rbrack}$$ With $$x = - v^{ 2} \slash c^{ 2}$$ , the Maclaurin series for $$\left( {1 + x} \right)^{- 1 \slash 2}$$ is most easily computed as a binomial series with $$k = - \frac{1}{2}$$ . (Notice that $$|x| &lt; 1$$ because $$v &lt; c$$ .) Therefore we have $$\begin{array}{l} {\left( {1 + x} \right)^{- 1 \slash 2} = 1 - \frac{1}{2}x + \frac{\left( {- \frac{1}{2}} \right)\left( {- \frac{3}{2}} \right)}{2!}x^{2} + \frac{\left( {- \frac{1}{2}} \right)\left( {- \frac{3}{2}} \right)\left( {- \frac{5}{2}} \right)}{3!}x^{3} + \cdots} \\ {\phantom{\left( {1 + x} \right)^{- 1 \slash 2}} = 1 - \frac{1}{2}x + \frac{3}{8}x^{2} - \frac{5}{16}x^{3} + \cdots} \end{array}$$ and $$\begin{array}{l} {K = m_{0}c^{ 2}\left\lbrack {\left( {1 + \frac{1}{2}\frac{v^{ 2}}{c^{ 2}} + \frac{3}{8}\frac{v^{4}}{c^{4}} + \frac{5}{16}\frac{v^{6}}{c^{6}} + \cdots} \right) - 1} \right\rbrack} \\ {\phantom{K} = m_{0}c^{ 2}\left( {\frac{1}{2}\frac{v^{ 2}}{c^{ 2}} + \frac{3}{8}\frac{v^{4}}{c^{4}} + \frac{5}{16}\frac{v^{6}}{c^{6}} + \cdots} \right)} \end{array}$$ If $$v$$ is much smaller than $$c$$ , then all terms after the first are very small when compared with the first term. If we omit them, we get $$K \approx m_{0}c^{ 2}\left( {\frac{1}{2}\frac{v^{ 2}}{c^{ 2}}} \right) = \frac{1}{2}m_{0}v^{ 2}$$</item>
+      <item>(b) If $$x = - v^{ 2} \slash c^{ 2}$$ , $$f(x) = m_{0}c^{ 2}\left\lbrack {\left( {1 + x} \right)^{- 1 \slash 2} - 1} \right\rbrack$$ , and $$M$$ is a number such that $$\left| {f^{''}(x)} \right| \leqslant M$$ , then we can use Taylor’s Inequality to write $$\left| {R_{1}(x)} \right| \leqslant \frac{M}{2!}x^{2}$$ We have $$f^{''}(x) = \frac{3}{4}m_{0}c^{ 2}\left( {1 + x} \right)^{- 5 \slash 2}$$ and we are given that $$|v| \leqslant 100m \slash s$$ , so $$\left| {f^{''}(x)} \right| = \frac{3m_{0}c^{ 2}}{4\left( {1 - v^{ 2} \slash c^{ 2}} \right)^{5 \slash 2}} \leqslant \frac{3m_{0}c^{ 2}}{4\left( {1 - 100^{2} \slash c^{ 2}} \right)^{5 \slash 2}}\left( {= M} \right)$$ Thus, with $$c = 3 \times 10^{8}m \slash s$$ , $$\left| {R_{1}(x)} \right| \leqslant \frac{1}{2} \cdot \frac{3m_{0}c^{ 2}}{4\left( {1 - 100^{2} \slash c^{ 2}} \right)^{5 \slash 2}} \cdot \frac{100^{4}}{c^{4}} &lt; \left( {4.17 \times 10^{- 10}} \right)m_{0}$$ So when $$|v| \leqslant 100m \slash s$$ , the magnitude of the error in using the Newtonian expression for kinetic energy is at most $${({4.2 \times 10^{- 10}})}m_{0}$$ .</item>
+    </list>
+    <paragraph>The upper curve in Figure 7 is the graph of the expression for the kinetic energy $$K$$ of an object with velocity $$\upsilon$$ in special relativity. The lower curve shows the function used for $$K$$ in classical Newtonian physics. When $$\upsilon$$ is much smaller than the speed of light, the curves are practically identical.</paragraph>
+    <figure>
+      <image alt="Details Two curves are graphed on the first quadrant of a coordinate plane. The horizontal axis is labeled v and has a single tick mark labeled c. The vertical axis is labeled K. The first curve, labeled K = m c^2 minus m_0 c^2, begins at the origin, goes up to the right, concaves up, gradually at first and then more rapidly, and exits at the top right of the viewing window. The second curve, labeled K = 12 m_0 v^2, begins at the origin, gradually goes up to the right, concave up, until directly above the tick mark c."/>
+    </figure>
+  </example>
+  <paragraph>Another application to physics occurs in optics. Figure 8 depicts a wave from the point source $$S$$ meeting a spherical interface of radius $$R$$ centered at $$C$$ . The ray $$SA$$ is refracted toward $$P$$ .</paragraph>
+  <figure>
+    <image alt="Details The figure is a two-dimensional illustration. A point labeled S is on the extreme left of the viewing window and a large sphere with a potion on the right is cut off at the right of the viewing window. From S, a triangular shaded area opens out to meet the sphere. A horizontal line segment begins at S, runs to the right, crosses the left-most point of the sphere, labeled V, passes through the center of the sphere, labeled C, and ends at a point P to the right of C. The distances S V and V P are labeled S_0 and S_i. The region outside the sphere is labeled n_1 and the region within the sphere is labeled n_2. A dashed arrow, labeled l_0, slopes upward to the right, along the upper side of the shaded triangle, and meets the sphere at a point labeled A. This point is at a height h from the horizontal line segment. A short vertical arrow extends upward from A. From C, an arrow slopes upward to the left at an angle phi from the horizontal line segment, passes through a point labeled R, and reaches A. From A a dashed arrow slopes upward to the left as an extension of the arrow from C. The dashed arrow is at an angle theta_i from the dashed arrow S A and at an angle theta_r from the vertical arrow extending upward from A. From A, an arrow labeled l_i, slopes down to the right and reaches P at an angle theta t from the arrow joining C and A."/>
+    <caption>Refraction at a spherical interface</caption>
+  </figure>
+  <paragraph>Using Fermat’s principle that light travels so as to minimize the time taken, one can derive the equation</paragraph>
+  <paragraph math="block">$$\frac{n_{1}}{\ell_{o}} + \frac{n_{2}}{\ell_{i}} = \frac{1}{R}\left( {\frac{n_{2}s_{i}}{\ell_{i}} - \frac{n_{1}s_{o}}{\ell_{o}}} \right)$$</paragraph>
+  <paragraph>where $$n_{1}$$ and $$n_{2}$$ are indexes of refraction and $$\ell_{o}$$ , $$\ell_{i}$$ , $$s_{o}$$ , and $$s_{i}$$ are the distances indicated in Figure 8. By the Law of Cosines, applied to triangles ACS and ACP, we have</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {\ell_{o} = \sqrt{R^{2} + \left( {s_{o} + R} \right)^{2} - 2R\left( {s_{o} + R} \right)\cos\phi^{}}} \\ {\ell_{i} = \sqrt{R^{2} + \left( {s_{i} - R} \right)^{2} + 2R\left( {s_{i} - R} \right)\cos\phi^{}}} \end{array}$$</paragraph>
+  <paragraph>Here we use the identity</paragraph>
+  <paragraph math="block">$$\cos\left( {\pi - \phi} \right) = - \cos\phi$$</paragraph>
+  <paragraph>Because Equation 1 is cumbersome to work with, Gauss, in 1841, simplified it by using the linear approximation $$\cos\phi \approx 1$$ for small values of $$\phi$$ . (This amounts to using the Taylor polynomial of degree $$1$$ .) Then Equation 1 becomes the following simpler equation [as you are asked to show in Exercise 34(a)]:</paragraph>
+  <paragraph math="block">$$\frac{n_{1}}{s_{o}} + \frac{n_{2}}{s_{i}} = \frac{n_{2} - n_{1}}{R}$$</paragraph>
+  <paragraph>The resulting optical theory is known as Gaussian optics, or first-order optics, and has become the basic theoretical tool used to design lenses.</paragraph>
+  <paragraph>A more accurate theory is obtained by approximating $$\cos\phi$$ by its Taylor polynomial of degree $$3$$ (which is the same as the Taylor polynomial of degree $$2$$ ). This takes into account rays for which $$\phi$$ is not so small, that is, rays that strike the surface at greater distances $$h$$ above the axis. In Exercise 34(b) you are asked to use this approximation to derive the more accurate equation</paragraph>
+  <paragraph math="block">$$\frac{n_{1}}{s_{o}} + \frac{n_{2}}{s_{i}} = \frac{n_{2} - n_{1}}{R} + h^{2}\left\lbrack {\frac{n_{1}}{2s_{o}}\left( {\frac{1}{s_{o}} + \frac{1}{R}} \right)^{2} + \frac{n_{2}}{2s_{i}}\left( {\frac{1}{R} - \frac{1}{s_{i}}} \right)^{2}} \right\rbrack$$</paragraph>
+  <paragraph>The resulting optical theory is known as third-order optics.</paragraph>
+  <paragraph>Other applications of Taylor polynomials to physics and engineering are explored in Exercises 32, 33, 35, 36, 37, and 38, and in the Applied Project following this section.</paragraph>
+  <heading level="3">Applied Project Radiation from the Stars</heading>
+  <paragraph>Any object emits radiation when heated. A blackbody is a system that absorbs all the radiation that falls on it. For instance, a matte black surface or a large cavity with a small hole in its wall (like a blast furnace) is a blackbody and emits blackbody radiation. Even the radiation from the sun is close to being blackbody radiation.</paragraph>
+  <paragraph>Proposed in the late 19th century, the Rayleigh-Jeans Law expresses the energy density of blackbody radiation of wavelength $$\text{λ}$$ as</paragraph>
+  <paragraph math="block">$$f\left( \text{λ} \right) = \frac{8\pi kT}{ \text{λ} ^{4}}$$</paragraph>
+  <paragraph>where $$\text{λ}$$ is measured in meters, $$T$$ is the temperature in kelvins (K), and $$k$$ is Boltzmann’s constant. The Rayleigh-Jeans Law agrees with experimental measurements for long wavelengths but disagrees drastically for short wavelengths. [The law predicts that $$\left. f\left( \text{λ} \right)\rightarrow\infty \right.$$ as $$\left. \text{λ} \rightarrow 0^{+} \right.$$ but experiments have shown that $$\left. f\left( \text{λ} \right)\rightarrow 0 \right.$$ .] This fact is known as the ultraviolet catastrophe.</paragraph>
+  <figure>
+    <image alt="A photograph of stars in space."/>
+  </figure>
+  <paragraph>In 1900 Max Planck found a better model (known now as Planck’s Law) for blackbody radiation:</paragraph>
+  <paragraph math="block">$$f\left( \text{λ} \right) = \frac{8\pi hc \text{λ} ^{- 5}}{e^{ hc \slash {({ \text{λ} kT})}} - 1}$$</paragraph>
+  <paragraph>where $$\text{λ}$$ is measured in meters, $$T$$ is the temperature (in kelvins), and</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {h = {Planck’s constant} = 6.6262 \times 10^{- 34}J \cdot s} \\ {c = {speed of light} = 2.997925 \times 10^{8}m \slash s} \\ {k = {Boltzmann’s constant} = 1.3807 \times 10^{- 23}J \slash K} \end{array}$$</paragraph>
+  <list type="ordered">
+    <item>Use l’Hospital’s Rule to show that $$\lim\limits_{ \text{λ} \rightarrow 0^{+}}f\left( \text{λ} \right) = 0$$ and $$\lim\limits_{ \text{λ} \rightarrow\infty}f\left( \text{λ} \right) = 0$$ for Planck’s Law. So this law models blackbody radiation better than the Rayleigh-Jeans Law for short wavelengths.</item>
+    <item>Use a Taylor polynomial to show that, for large wavelengths, Planck’s Law gives approximately the same values as the Rayleigh-Jeans Law.</item>
+    <item>Graph $$f$$ as given by both laws on the same screen and comment on the similarities and differences. Use $$T = 5700K$$ (the temperature of the sun). (You may want to change from meters to the more convenient unit of micrometers: $$1{µm} = 10^{- 6}m$$ .)</item>
+    <item>Use your graph in Problem 3 to estimate the value of $$\text{λ}$$ for which $$f\left( \text{λ} \right)$$ is a maximum under Planck’s Law.</item>
+    <item>Investigate how the graph of $$f$$ changes as $$T$$ varies. (Use Planck’s Law.) In particular, graph $$f$$ for the stars Betelgeuse $$(T = 3400K)$$ , Procyon $$(T = 6400K)$$ , and Sirius $$(T = 9200K)$$ , as well as the sun. How does the total radiation emitted (the area under the curve) vary with $$T$$ ? Use the graph to comment on why Sirius is known as a blue star and Betelgeuse as a red star.</item>
+  </list>
+</section>

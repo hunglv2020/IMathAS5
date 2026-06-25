@@ -1,16 +1,17 @@
 # Calculus: Early Transcendentals
 
-> Generated: 2026-05-30 · 139 files
+> Synced: 2026-06-22 · 258 files
 
 ## How to use
 
 Read this file first to locate the right XML file, then open or grep it.
 
 - **Chapter files** (`chNN.xml`) — full chapter with all sections. Use for broad context or when the section is unknown.
-- **Section files** (`chNN_unitMM.xml`) — one section only. Prefer when targeting a specific exercise or example.
-- Find a specific exercise number: `grep -n 'number="25"' ch04_unit_02.xml`
+- **Unit files** (`chNN_unit_MM.xml`) — one unit only. Prefer when targeting a specific exercise or example.
+- **Exercise files** (`chNN_unit_MM_exercises.xml`) — exercises for one unit, separated from content.
+- Find a specific exercise number: `grep -n 'number="25"' ch04_unit_02_exercises.xml`
 - Find an example: `grep -n '<example' ch04_unit_02.xml`
-- Find a term or keyword: `grep -in "eigenvector" ch05_unit_01.xml`
+- Find a term or keyword: `grep -in "chain rule" ch03_unit_03.xml`
 
 ## Table of contents
 
@@ -132,11 +133,11 @@ Full chapter: `ch09.xml`
 
 | File | Section | Title | Exercises |
 |------|---------|-------|-----------|
-| `ch09_unit_01.xml` | 9.1 | Modeling with Differential Equations | Ex. 1–29 |
+| `ch09_unit_01.xml` | 9.1 | Modeling with Differential Equations | Ex. 1–17 |
 | `ch09_unit_02.xml` | 9.2 | Direction Fields and Euler’s Method | Ex. 1–28 |
 | `ch09_unit_03.xml` | 9.3 | Separable Equations | Ex. 1–57 |
 | `ch09_unit_04.xml` | 9.4 | Models for Population Growth | Ex. 1–25 |
-| `ch09_unit_05.xml` | 9.5 | Linear Equations | Ex. 1–42 |
+| `ch09_unit_05.xml` | 9.5 | Linear Equations | Ex. 1–13 |
 | `ch09_unit_06.xml` | 9.6 | Predator-Prey Systems | Ex. 1–12 |
 
 ### Chapter 10
@@ -190,7 +191,7 @@ Full chapter: `ch13.xml`
 | File | Section | Title | Exercises |
 |------|---------|-------|-----------|
 | `ch13_unit_01.xml` | 13.1 | Vector Functions and Space Curves | Ex. 1–62 |
-| `ch13_unit_02.xml` | 13.2 | Derivatives and Integrals of Vector Functions | Ex. 1–61 |
+| `ch13_unit_02.xml` | 13.2 | Derivatives and Integrals of Vector Functions | Ex. 1–60 |
 | `ch13_unit_03.xml` | 13.3 | Arc Length and Curvature | Ex. 1–78 |
 | `ch13_unit_04.xml` | 13.4 | Motion in Space: Velocity and Acceleration | Ex. 1–46 |
 
@@ -240,7 +241,7 @@ Full chapter: `ch16.xml`
 | `ch16_unit_07.xml` | 16.7 | Surface Integrals | Ex. 1–49 |
 | `ch16_unit_08.xml` | 16.8 | Stokes’ Theorem | Ex. 1–24 |
 | `ch16_unit_09.xml` | 16.9 | The Divergence Theorem | Ex. 1–34 |
-| `ch16_unit_10.xml` | 16.10 | Summary |  |
+| `ch16_unit_10.xml` | 16.10 | Summary | — |
 
 ### Chapter 17
 
@@ -252,11 +253,3 @@ Full chapter: `ch17.xml`
 | `ch17_unit_02.xml` | 17.2 | Nonhomogeneous Linear Equations | Ex. 1–28 |
 | `ch17_unit_03.xml` | 17.3 | Applications of Second-Order Differential Equations | Ex. 1–18 |
 | `ch17_unit_04.xml` | 17.4 | Series Solutions | Ex. 1–12 |
-
-### Chapter 18
-
-Full chapter: `ch18.xml`
-
-| File | Section | Title | Exercises |
-|------|---------|-------|-----------|
-| `ch18_unit_01.xml` |  |  |  |

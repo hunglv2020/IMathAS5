@@ -1,896 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch10" chapter_number="10" unit_code="10.2">
-  <section number="10.2" title="The Steady-State Vector and Google’s PageRank">
-    <metadata>
-      <source_pages count="7">
-        <page global_index="461" type="content"/>
-        <page global_index="462" type="content"/>
-        <page global_index="463" type="content"/>
-        <page global_index="464" type="content"/>
-        <page global_index="465" type="content"/>
-        <page global_index="466" type="exercises"/>
-        <page global_index="467" type="exercises"/>
-      </source_pages>
-    </metadata>
-    <content>
-      <heading level="1">10.2 The Steady-State Vector and Google’s PageRank</heading>
-      <paragraph>As was seen in Section 5.9, the most interesting aspect of a Markov chain is its long-range behavior: the behavior of <math display="inline">$\textbf{x}_{n}$</math> as <math display="inline">$n$</math> increases without bound. In many cases, the sequence of vectors <math display="inline">$\{\textbf{x}_{n}\}$</math> is converging to a vector that is called the steady-state vector for the Markov chain. This section will review how to compute the steady-state vector of a Markov chain, explain how to interpret this vector if it exists, and offer an expanded version of Theorem 11 in Section 5.9, which describes the circumstances under which <math display="inline">$\{\textbf{x}_{n}\}$</math> converges to a steady-state vector. This theorem will be applied to the Markov chain model used for the World Wide Web in the previous section and will show how the PageRank method for ordering the importance of webpages is derived.</paragraph>
-      <heading level="2">Steady-State Vectors</heading>
-      <paragraph>In many cases, the Markov chain <math display="inline">$\textbf{x}_{n}$</math> and the matrix <math display="inline">$P^{n}$</math> change very little for large values of <math display="inline">$n$</math>.</paragraph>
-      <example number="1">
-          <heading level="2">Example 1</heading>
-              <paragraph>To begin, recall Example 3 in Section 5.9. That example concerned a Markov chain with transition matrix <math display="inline">$P = \left\lbrack \begin{array}{rrr}
-      .5 &amp; .2 &amp; .3 \\
-      .3 &amp; .8 &amp; .3 \\
-      .2 &amp; 0 &amp; .4
-      \end{array} \right\rbrack$</math> and initial probability vector <math display="inline">$\mathbf{x}_{0} = \begin{bmatrix}
-      1 \\
-      0 \\
-      0
-      \end{bmatrix}$</math>. The vectors <math display="inline">$\textbf{x}_{n}$</math> were seen to be converging to the vector <math display="inline">$\mathbf{q} = \left\lbrack \begin{array}{r}
-      .3 \\
-      .6 \\
-      .1
-      \end{array} \right\rbrack$</math>. This result may be written as <math display="inline">$\underset{n\rightarrow\infty}{\lim~}\mathbf{x}_{n} = \mathbf{q}$</math>. Increasing powers of the transition matrix <math display="inline">$P$</math> may also be computed, as follows:</paragraph>
-              <paragraph><math display="block">$$\begin{array}{lllllll}
-      P^{2} &amp; = &amp; \left\lbrack \begin{array}{rrr}
-      .3700 &amp; .2600 &amp; .3300 \\
-      .4500 &amp; .7000 &amp; .4500 \\
-      .1800 &amp; .0400 &amp; .2200
-      \end{array} \right\rbrack &amp; &amp; P^{3} &amp; = &amp; \left\lbrack \begin{array}{rrr}
-      .3290 &amp; .2820 &amp; .3210 \\
-      .5250 &amp; .6500 &amp; .5250 \\
-      .1460 &amp; .0680 &amp; .1540
-      \end{array} \right\rbrack \\
-      P^{4} &amp; = &amp; \left\lbrack \begin{array}{rrr}
-      .3133 &amp; .2914 &amp; .3117 \\
-      .5625 &amp; .6250 &amp; .5625 \\
-      .1242 &amp; .0836 &amp; .1258
-      \end{array} \right\rbrack &amp; &amp; P^{5} &amp; = &amp; \left\lbrack \begin{array}{rrr}
-      .3064 &amp; .2958 &amp; .3061 \\
-      .5813 &amp; .6125 &amp; .5813 \\
-      .1123 &amp; .0917 &amp; .1127
-      \end{array} \right\rbrack \\
-      P^{10} &amp; = &amp; \left\lbrack \begin{array}{rrr}
-      .3002 &amp; .2999 &amp; .3002 \\
-      .5994 &amp; .6004 &amp; .5994 \\
-      .1004 &amp; .0994 &amp; .1004
-      \end{array} \right\rbrack &amp; &amp; P^{15} &amp; = &amp; \left\lbrack \begin{array}{rrr}
-      .3000 &amp; .3000 &amp; .3000 \\
-      .6000 &amp; .6000 &amp; .6000 \\
-      .1000 &amp; .1000 &amp; .1000
-      \end{array} \right\rbrack
-      \end{array}$$</math></paragraph>
-              <paragraph>so the sequence of matrices <math display="inline">$\{ P^{n}\}$</math> also seems to be converging to a matrix as <math display="inline">$n$</math> increases, and this matrix has the unusual property that all of its columns equal <math display="inline">$\textbf{q}$</math>. The example also showed that <math display="inline">$P\textbf{q} = \textbf{q}$</math>. This equation forms the definition of the steady-state vector and is a straightforward way to calculate it.</paragraph>
-        </example>
-      <note type="definition" title="Definition">
-          <heading level="2">Definition</heading>
-              <paragraph>If <math display="inline">$P$</math> is a stochastic matrix, then a steady-state vector (or equilibrium vector or <strong>invariant probability vector</strong>) for <math display="inline">$P$</math> is a probability vector <math display="inline">$\textbf{q}$</math> such that</paragraph>
-              <paragraph><math display="block">$$P\textbf{q} = \textbf{q}$$</math></paragraph>
-        </note>
-      <paragraph>Exercises 40 and 41 will show that every stochastic matrix <math display="inline">$P$</math> has a steady-state vector <math display="inline">$\textbf{q}$</math>. Notice that <math display="inline">$1$</math> must be an eigenvalue of any stochastic matrix, and the steady-state vector is a probability vector that also an eigenvector of <math display="inline">$P$</math> associated with the eigenvalue <math display="inline">$1$</math>.</paragraph>
-      <paragraph>Although the definition of the steady-state vector makes the calculation of <math display="inline">$\textbf{q}$</math> straightforward, it has the major drawback that there are Markov chains that have a steady-state vector <math display="inline">$\textbf{q}$</math> but for which <math display="inline">$\underset{n\rightarrow\infty}{\lim~}\mathbf{x}_{n} \neq \mathbf{q}$</math> the definition is not sufficient for <math display="inline">$\textbf{x}_{n}$</math> to converge. Examples 3 to 5 will show different ways in which <math display="inline">$\textbf{x}_{n}$</math> can fail to converge. Later in this section, the conditions under which <math display="inline">$\underset{n\rightarrow\infty}{\lim~}\,\mathbf{x}_{n} = \mathbf{q}$</math> will be restated. For now, consider what <math display="inline">$\textbf{q}$</math> means when <math display="inline">$\underset{n\rightarrow\infty}{\lim~}\mathbf{x}_{n} = \mathbf{q}$</math>, as it does in the previous example. When <math display="inline">$\underset{n\rightarrow\infty}{\lim~}\mathbf{x}_{n} = \mathbf{q}$</math>, there are two ways to interpret this vector.</paragraph>
-      <list ordered="false">
-              <item>Since xn is approximately equal to q for large n, the entries in q approximate the probability that the chain is in each state after n time steps. Thus in the previous example, no matter what the value of the initial probability vector is, after many steps the probability that the chain will be in state 1 is approximately q1=.3. Likewise, the probability that the chain will be in state 2 in the distant future is approximately q2=.6, and the probability that the chain will be in state 3 in the distant future is approximately q3=.1. So the entries in q give long-run probabilities.</item>
-              <item>When N is large, q approximates xn for almost all values of n≤N. Thus the entries in q approximate the proportion of time steps that the chain spends in each state. In the previous example the chain will end up spending .3 of the time steps in state 1, .6 of the time steps in state 2, and .1 of the time steps in state 3. So the entries in q give the proportion of the time steps spent in each state, which are called the occupation times for each state.</item>
-        </list>
-      <example number="2">
-          <heading level="2">Example 2</heading>
-              <paragraph>For an application of computing <math display="inline">$\textbf{q}$</math>, consider the mouse-in-the-maze example (Example 6, Section 10.1). In this example, the position of a mouse in a five-room maze is modeled by a Markov chain with states <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> and transition matrix</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-      {~~~~~~~~~~~~1~~~~~~2~~~~~~~3~~~~~~4~~~~~~5} \\
-      {P = {\left\lbrack \begin{array}{lllll}
-      0 &amp; {1\text{/3}} &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
-      {1\text{/}2} &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/3}} &amp; 0 \\
-      {1\text{/}2} &amp; {1\text{/}3} &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/2}} \\
-      0 &amp; {1\text{/}3} &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}2} \\
-      0 &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}3} &amp; 0
-      \end{array} \right\rbrack~}\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~4} \\
-      {~5}
-      \end{array}}
-      \end{array}$$</math></paragraph>
-              <paragraph>The steady-state vector may be computed by solving the system <math display="inline">$P\textbf{q} = \textbf{q}$</math>, which is equivalent to the homogeneous system <math display="inline">$(P - I)\textbf{q} = \textbf{0}$</math>. Row reduction yields</paragraph>
-              <paragraph><math display="block">$$\begin{bmatrix}
-      {- 1} &amp; {1\text{/3}} &amp; {1\text{/}4} &amp; 0 &amp; 0 &amp; 0 \\
-      {1\text{/}2} &amp; {- 1} &amp; {1\text{/}4} &amp; {1\text{/}3} &amp; 0 &amp; 0 \\
-      {1\text{/}2} &amp; {1\text{/}3} &amp; {- 1} &amp; {1\text{/}3} &amp; {1\text{/}2} &amp; 0 \\
-      0 &amp; {1\text{/}3} &amp; {1\text{/}4} &amp; {- 1} &amp; {1\text{/}2} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}3} &amp; {- 1} &amp; 0
-      \end{bmatrix} \sim \begin{bmatrix}
-      1 &amp; 0 &amp; 0 &amp; 0 &amp; {- 1} &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; 0 &amp; {- 3\text{/2}} &amp; 0 \\
-      0 &amp; 0 &amp; 1 &amp; 0 &amp; {- 2} &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 1 &amp; {- 3\text{/}2} &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>so a general solution is</paragraph>
-              <paragraph><math display="block">$$q_{5}\begin{bmatrix}
-      1 \\
-      {3\text{/2}} \\
-      2 \\
-      {3\text{/2}} \\
-      1
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>Letting <math display="inline">$q_{5}$</math> be the reciprocal of the sum of the entries in the vector results in the steady-state vector</paragraph>
-              <paragraph><math display="block">$$\mathbf{q} = \frac{1}{7}\begin{bmatrix}
-      1 \\
-      {3\text{/2}} \\
-      2 \\
-      {3\text{/2}} \\
-      1
-      \end{bmatrix} = \begin{bmatrix}
-      {1\text{/7}} \\
-      {3\text{/14}} \\
-      {2\text{/7}} \\
-      {3\text{/14}} \\
-      {1\text{/7}}
-      \end{bmatrix} \approx \begin{bmatrix}
-      .142857 \\
-      .214286 \\
-      .285714 \\
-      .214286 \\
-      .142857
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>There are again two interpretations for <math display="inline">$q$</math>: long-run probabilities and occupation times. After many moves, the probability that the mouse will be in room <math display="inline">$1$</math> at a given time is approximately <math display="inline">$1/7$</math> no matter where the mouse began its journey. Put another way, the mouse is expected to be in room <math display="inline">$1$</math> for <math display="inline">$1/7$</math> (or about <math display="inline">$14.3\%$</math>) of the time.</paragraph>
-              <paragraph>Again notice that taking high powers of the transition matrix <math display="inline">$P$</math> gives matrices whose columns are converging to <math display="inline">$\textbf{q}$</math>; for example,</paragraph>
-              <paragraph><math display="block">$$P^{10} = \left\lbrack \begin{array}{rrrrr}
-      .144169 &amp; .141561 &amp; .142613 &amp; .144153 &amp; .142034 \\
-      .212342 &amp; .216649 &amp; .214286 &amp; .211922 &amp; .216230 \\
-      .285226 &amp; .285714 &amp; .286203 &amp; .285714 &amp; .285226 \\
-      .216230 &amp; .211922 &amp; .214286 &amp; .216649 &amp; .212342 \\
-      .142034 &amp; .144153 &amp; .142613 &amp; .141561 &amp; .144169
-      \end{array} \right\rbrack$$</math></paragraph>
-              <paragraph>The columns of <math display="inline">$P^{10}$</math> are very nearly equal to each other, and each column is also nearly equal to <math display="inline">$\textbf{q}$</math>.</paragraph>
-        </example>
-      <heading level="2">Interpreting the Steady-State Vector</heading>
-      <paragraph>As noted previously, every stochastic matrix will have a steady-state vector, but in some cases steady-state vectors cannot be interpreted as vectors of long-run probabilities or of occupation times. The following examples show some difficulties.</paragraph>
-      <example number="3">
-          <heading level="2">Example 3</heading>
-              <paragraph>Consider an unbiased random walk on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> with absorbing boundaries. The transition matrix is</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-      {~~~~~~~~~~1~~~~~2~~~~~~3~~~~~~~4~~~~~5} \\
-      {P = \left\lbrack \begin{array}{lllll}
-      1 &amp; {1\text{/2}} &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}2} &amp; 1
-      \end{array} \right\rbrack~\begin{array}{l}
-      1 \\
-      2 \\
-      3 \\
-      4 \\
-      5
-      \end{array}}
-      \end{array}$$</math></paragraph>
-              <paragraph>Notice that only two long-term possibilities exist for this chain: it must end up in state <math display="inline">$1$</math> or state <math display="inline">$5$</math>. Thus the probability that the chain is in state <math display="inline">$2$</math>, <math display="inline">$3$</math>, or <math display="inline">$4$</math> becomes smaller and smaller as <math display="inline">$n$</math> increases, as <math display="inline">$P^{n}$</math> illustrates:</paragraph>
-              <paragraph><math display="block">$$\begin{array}{lll}
-      P^{20} &amp; = &amp; \left\lbrack \begin{array}{lllll}
-      1 &amp; .74951 &amp; .49951 &amp; .24951 &amp; 0 \\
-      0 &amp; .00049 &amp; 0 &amp; .00049 &amp; 0 \\
-      0 &amp; 0 &amp; .00098 &amp; 0 &amp; 0 \\
-      0 &amp; .00049 &amp; 0 &amp; .00049 &amp; 0 \\
-      0 &amp; .24951 &amp; .49951 &amp; .74951 &amp; 1
-      \end{array} \right\rbrack \\
-      P^{30} &amp; = &amp; \left\lbrack \begin{array}{lllll}
-      1 &amp; .749985 &amp; .499985 &amp; .249985 &amp; 0 \\
-      0 &amp; .000015 &amp; 0 &amp; .000015 &amp; 0 \\
-      0 &amp; 0 &amp; .000030 &amp; 0 &amp; 0 \\
-      0 &amp; .000015 &amp; 0 &amp; .000015 &amp; 0 \\
-      0 &amp; .249985 &amp; .499985 &amp; .749985 &amp; 1
-      \end{array} \right\rbrack
-      \end{array}$$</math></paragraph>
-              <paragraph>It seems that <math display="inline">$P^{n}$</math> converges to the matrix</paragraph>
-              <paragraph><math display="block">$$\begin{bmatrix}
-      1 &amp; .75 &amp; .5 &amp; .25 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; .25 &amp; .5 &amp; .75 &amp; 1
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>as <math display="inline">$n$</math> increases. But the columns of this matrix are not equal; the probability of ending up either at <math display="inline">$1$</math> or at <math display="inline">$5$</math> depends on where the chain begins. Although the chain has steady-state vectors, they cannot be interpreted as in Example 1. Exercise 35 confirms that if <math display="inline">$0 \leq q \leq 1$</math> the vector</paragraph>
-              <paragraph><math display="block">$$\begin{bmatrix}
-      q \\
-      0 \\
-      0 \\
-      0 \\
-      {1 - q}
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>is a steady-state vector for <math display="inline">$P$</math>. This matrix then has an infinite number of possible steady-state vectors, which shows in another way that <math display="inline">$\textbf{x}_{n}$</math> cannot be expected to have convergent behavior that does not depend on <math display="inline">$\textbf{x}_{0}$</math>.</paragraph>
-        </example>
-      <example number="4">
-          <heading level="2">Example 4</heading>
-              <paragraph>Consider an unbiased random walk on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> with reflecting boundaries. The transition matrix is</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-      {~~~~~~~~~~1~~~~~2~~~~~~3~~~~~~~4~~~~~5} \\
-      {P = \left\lbrack \begin{array}{lllll}
-      0 &amp; {1\text{/2}} &amp; 0 &amp; 0 &amp; 0 \\
-      1 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 1 \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}2} &amp; 0
-      \end{array} \right\rbrack\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~4} \\
-      {~5}
-      \end{array}}
-      \end{array}$$</math></paragraph>
-              <paragraph>If the chain <math display="inline">$\textbf{x}_{n}$</math> starts at state <math display="inline">$1$</math>, notice that it can return to <math display="inline">$1$</math> only when <math display="inline">$n$</math> is even, while the chain can be at state <math display="inline">$2$</math> only when <math display="inline">$n$</math> is odd. In fact, the chain must be at an even-numbered site when <math display="inline">$n$</math> is odd and at an odd-numbered site when <math display="inline">$n$</math> is even. If the chain were to start at state <math display="inline">$2$</math>, however, this situation would be reversed: the chain must be at an odd-numbered site when <math display="inline">$n$</math> is odd and at an even-numbered site when <math display="inline">$n$</math> is even. Therefore, <math display="inline">$P^{n}$</math> cannot converge to a unique matrix since <math display="inline">$P^{n}$</math> looks very different depending on whether <math display="inline">$n$</math> is even or odd, as shown:</paragraph>
-              <paragraph><math display="block">$$\begin{array}{lll}
-      P^{20} &amp; = &amp; \left\lbrack \begin{array}{lllll}
-      .2505 &amp; 0 &amp; .2500 &amp; 0 &amp; .2495 \\
-      0 &amp; .5005 &amp; 0 &amp; .4995 &amp; 0 \\
-      .5000 &amp; 0 &amp; .5000 &amp; 0 &amp; .5000 \\
-      0 &amp; .4995 &amp; 0 &amp; .5005 &amp; 0 \\
-      .2495 &amp; 0 &amp; .2500 &amp; 0 &amp; .2505
-      \end{array} \right\rbrack \\
-      P^{21} &amp; = &amp; \left\lbrack \begin{array}{lllll}
-      0 &amp; .2502 &amp; 0 &amp; .2498 &amp; 0 \\
-      .5005 &amp; 0 &amp; .5000 &amp; 0 &amp; .4995 \\
-      0 &amp; .5000 &amp; 0 &amp; .5000 &amp; 0 \\
-      .4995 &amp; 0 &amp; .5000 &amp; 0 &amp; .5005 \\
-      0 &amp; .2498 &amp; 0 &amp; .2502 &amp; 0
-      \end{array} \right\rbrack
-      \end{array}$$</math></paragraph>
-              <paragraph>Even though <math display="inline">$P^{n}$</math> does not converge to a unique matrix, <math display="inline">$P$</math> does have a steady-state vector. In fact,</paragraph>
-              <paragraph><math display="block">$$\begin{bmatrix}
-      {1\text{/}8} \\
-      {1\text{/}4} \\
-      {1\text{/}4} \\
-      {1\text{/}4} \\
-      {1\text{/}8}
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>is a steady-state vector for <math display="inline">$P$</math> (see Exercise 36). This vector <strong>can</strong> be interpreted as giving long-run probabilities and occupation times in a sense that will be made precise in Section 10.4.</paragraph>
-        </example>
-      <example number="5">
-          <heading level="2">Example 5</heading>
-              <paragraph>Consider a Markov chain on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> with transition matrix</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-      {~~~~~~~~~~~~1~~~~~~2~~~~~~~3~~~~~~4~~~~~~~5} \\
-      {P = {\left\lbrack \begin{array}{lllll}
-      {1\text{/4}} &amp; {1\text{/3}} &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      {1\text{/}4} &amp; {1\text{/}3} &amp; {1\text{/4}} &amp; 0 &amp; 0 \\
-      {1\text{/}2} &amp; {1\text{/}3} &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; {3\text{/}4} \\
-      0 &amp; 0 &amp; 0 &amp; {2\text{/}3} &amp; {1\text{/}4}
-      \end{array} \right\rbrack~}\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~4} \\
-      {~5}
-      \end{array}}
-      \end{array}$$</math></paragraph>
-              <paragraph>If this Markov chain begins at state <math display="inline">$1$</math>, <math display="inline">$2$</math>, or <math display="inline">$3$</math>, then it must always be at one of those states. Likewise if the chain starts at state <math display="inline">$4$</math> or <math display="inline">$5$</math>, then it must always be at one of those states. The chain splits into two separate chains, each with its own steady-state vector. In this case <math display="inline">$P^{n}$</math> converges to a matrix whose columns are not equal. The vectors</paragraph>
-              <paragraph><math display="block">$${\begin{bmatrix}
-      {4\text{/11}} \\
-      {3\text{/}11} \\
-      {4\text{/}11} \\
-      0 \\
-      0
-      \end{bmatrix}~~~}\text{and~~~}\begin{bmatrix}
-      0 \\
-      0 \\
-      0 \\
-      {9\text{/17}} \\
-      {8\text{/17}}
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>both satisfy the definition of steady-state vector (Exercise 37). The first vector gives the limiting probabilities if the chain starts at state <math display="inline">$1$</math>, <math display="inline">$2$</math>, or <math display="inline">$3$</math>, and the second does the same for states <math display="inline">$4$</math> and <math display="inline">$5$</math>.﻿</paragraph>
-        </example>
-      <heading level="2">Regular Matrices</heading>
-      <paragraph>Examples 1 and 2 show that in some cases a Markov chain <math display="inline">$\textbf{x}_{n}$</math> with transition matrix <math display="inline">$P$</math> has a steady-state vector <math display="inline">$\textbf{q}$</math> for which</paragraph>
-      <paragraph>
-        <math display="block">$$\underset{n\rightarrow\infty}{\lim~}P^{n} = \begin{bmatrix}
-      \mathbf{q} &amp; \mathbf{q} &amp; \cdots &amp; \mathbf{q}
-      \end{bmatrix}$$</math>
-      </paragraph>
-      <paragraph>In these cases, <math display="inline">$\textbf{q}$</math> can be interpreted as a vector of long-run probabilities or occupation times for the chain. These probabilities or occupation times do not depend on the initial probability vector; that is, for any probability vector <math display="inline">$\textbf{x}_{0}$</math>,</paragraph>
-      <paragraph>
-        <math display="block">$$\lim\limits_{n\rightarrow\infty}P^{n}\textbf{x}_{0} = {\lim\limits_{n\rightarrow\infty}\textbf{x}_{n} = \textbf{q}}$$</math>
-      </paragraph>
-      <paragraph>Notice also that <math display="inline">$\textbf{q}$</math> is the only probability vector that is also an eigenvector of <math display="inline">$P$</math> associated with the eigenvalue <math display="inline">$1$</math>.</paragraph>
-      <paragraph>Examples 3, 4, and 5 do not have such a steady-state vector <math display="inline">$\textbf{q}$</math>. In Examples 3 and 5, the steady-state vector is not unique; in all three examples the matrix <math display="inline">$P^{n}$</math> does not converge to a matrix with equal columns as <math display="inline">$n$</math> increases. The goal is then to find some property of the transition matrix <math display="inline">$P$</math> that leads to these different behaviors, and to show that this property causes the differences in behavior.</paragraph>
-      <paragraph>A little calculation shows that in Examples 3, 4, and 5, every matrix of the form <math display="inline">$P^{k}$</math> has some zero entries. In Examples 1 and 2, however, some power of <math display="inline">$P$</math> has all positive entries. As was mentioned in Section 5.9, this is exactly the property that is needed.</paragraph>
-      <note type="definition" title="Definition">
-          <heading level="2">Definition</heading>
-              <paragraph>A stochastic matrix <math display="inline">$P$</math> is <strong>regular</strong> if some power <math display="inline">$P^{k}$</math> contains only strictly positive entries.</paragraph>
-        </note>
-      <paragraph>Since the matrix <math display="inline">$P^{k}$</math> contains the probabilities of a <math display="inline">$k$</math>-step move from one state to another, a Markov chain with a regular transition matrix has the property that, for some <math display="inline">$k$</math>, it is possible to move from any state to any other in exactly <math display="inline">$k$</math> steps. The following theorem expands on the content of Theorem 11 in Section 5.9. One idea must be defined before the theorem is presented. The limit of a sequence of <math display="inline">$m \times n$</math> matrices is the <math display="inline">$m \times n$</math> matrix (if one exists) whose <math display="inline">$(i\text{,}j)$</math>-entry is the limit of the <math display="inline">$(i\text{,}j)$</math>-entries in the sequence of matrices. With that understanding, here is the theorem.</paragraph>
-      <note type="procedure" title="Theorem 1">
-          <heading level="2">Theorem 1</heading>
-              <paragraph>If <math display="inline">$P$</math> is a regular <math display="inline">$m \times m$</math> transition matrix with <math display="inline">$m \geq 2$</math>, then the following statements are all true.</paragraph>
-          <list ordered="true">
-                  <item>There is a stochastic matrix Π such that lim n→∞Pn=Π.﻿</item>
-                  <item>Each column of Π is the same probability vector q.</item>
-                  <item>For any initial probability vector x0, lim n→∞Pnx0=q.﻿</item>
-                  <item>The vector q is the unique probability vector that is an eigenvector of P associated with the eigenvalue 1.</item>
-                  <item>All eigenvalues λ of P other than 1 have |λ|&lt;1.</item>
-          </list>
-        </note>
-      <paragraph>A proof of Theorem 1 is given in Appendix 1. Theorem 1 is a special case of the Perron-Frobenius Theorem, which is used in applications of linear algebra to economics, graph theory, and systems analysis. Theorem 1 shows that a Markov chain with a regular transition matrix has the properties found in Examples 1 and 2. For example, since the transition matrix <math display="inline">$P$</math> in Example 1 is regular, Theorem 1 justifies the conclusion that <math display="inline">$P^{n}$</math> converges to a stochastic matrix all of whose columns equal <math display="inline">$\mathbf{q} = \begin{bmatrix}
-      .3 \\
-      .6 \\
-      .1
-      \end{bmatrix}$</math>, as numerical evidence seemed to indicate.</paragraph>
-      <heading level="2">PageRank and the Google Matrix</heading>
-      <paragraph>In Section 10.1, the notion of a simple random walk on a graph was defined. The World Wide Web can be modeled as a directed graph, with the vertices representing the webpages and the arrows representing the links between webpages. Let <math display="inline">$P$</math> be the huge transition matrix for this Markov chain. If the matrix <math display="inline">$P$</math> were regular, then Theorem 1 would show that there is a steady-state vector <math display="inline">$\textbf{q}$</math> for the chain, and that the entries in <math display="inline">$\textbf{q}$</math> can be interpreted as occupation times for each state. In terms of the model, the entries in <math display="inline">$\textbf{q}$</math> would tell what fraction of the random surfer’s time was spent at each webpage. The founders of Google, Sergey Brin and Lawrence Page, reasoned that “important” pages had links coming from other “important” pages. Thus the random surfer would spend more time at more important pages and less time at less important pages. But the amount of time spent at each page is just the occupation time for each state in the Markov chain.</paragraph>
-      <paragraph>This observation is the basis for PageRank, which is the model that Google uses to rank the importance of all webpages it catalogs:</paragraph>
-      <note type="procedure_box">
-              <paragraph>The importance of a webpage may be measured by the relative size of the corresponding entry in the steady-state vector <math display="inline">$\textbf{q}$</math> for an appropriately chosen Markov chain.</paragraph>
-        </note>
-      <paragraph>Unfortunately, a simple random walk on the directed graph model for the Web is not the appropriate Markov chain, because the matrix <math display="inline">$P$</math> is not regular. Thus Theorem 1 will not apply. For example, consider the seven-page Web modeled in Section 10.1 using the directed graph in <strong>Figure 1</strong>. The transition matrix is</paragraph>
-      <figure label="Figure 1" caption="A seven-page Web">
-          <image alt="A graph with 7 nodes is shown. The nodes 1, 2, and 3 are arranged in a triangular shape with 1 as the top vertex, and 2, and 3 as the lower left, and lower right vertices, respectively."/>
-        </figure>
-      <paragraph>
-        <math display="block">$$\begin{array}{l}
-      {~~~~~~~~~~1~~~~~2~~~~~~~3~~~~4~~~~~5~~~~~~6~~~~~7} \\
-      {P = \left\lbrack \begin{array}{lllllll}
-      0 &amp; {1\text{/2}} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}3} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}3} &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; {1\text{/}2} &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}3} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 1
-      \end{array} \right\rbrack\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~4} \\
-      {~5} \\
-      {~6} \\
-      {~7}
-      \end{array}}
-      \end{array}$$</math>
-      </paragraph>
-      <paragraph>Pages 4 and 7 are dangling nodes, and so are absorbing states for the chain. Just as in Example 3, the presence of absorbing states implies that the state vectors <math display="inline">$\textbf{x}_{n}$</math> do not approach a unique limit as <math display="inline">$n\rightarrow\infty$</math>. To handle dangling nodes, an adjustment is made to <math display="inline">$P$</math>:</paragraph>
-      <paragraph><strong>Adjustment 1:</strong>If the surfer reaches a dangling node, the surfer will pick any page in the Web with equal probability and will move to that page. In terms of the transition matrix <math display="inline">$P$</math>, if state <math display="inline">$j$</math> is an absorbing state, replace column <math display="inline">$j$</math> of <math display="inline">$P$</math> with the vector</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{bmatrix}
-      {1\text{/}n} \\
-      {1\text{/}n} \\
-       \vdots \\
-      {1\text{/}n}
-      \end{bmatrix}$$</math>
-      </paragraph>
-      <paragraph>where <math display="inline">$n$</math> is the number of rows (and columns) in <math display="inline">$P$</math>.</paragraph>
-      <paragraph>In the seven-page example, the transition matrix is now</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{array}{l}
-      {~~~~~~~~~~~1~~~~~2~~~~~~~3~~~~~~4~~~~~~~5~~~~~~6~~~~~~7} \\
-      {P_{\ast} = \left\lbrack \begin{array}{lllllll}
-      0 &amp; {1\text{/2}} &amp; 0 &amp; {1\text{/}7} &amp; 0 &amp; 0 &amp; {1\text{/}7} \\
-      0 &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7} &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}7} \\
-      1 &amp; 0 &amp; 0 &amp; {1\text{/}7} &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7} \\
-      0 &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7} &amp; 0 &amp; 0 &amp; {1\text{/}7} \\
-      0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}7} &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7} \\
-      0 &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7} &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}7} \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}7} &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7}
-      \end{array} \right\rbrack\begin{array}{l}
-      1 \\
-      2 \\
-      3 \\
-      4 \\
-      5 \\
-      6 \\
-      {~7~}
-      \end{array}}
-      \end{array}$$</math>
-      </paragraph>
-      <paragraph>Yet even this adjustment is not sufficient to ensure that the transition matrix is regular: while dangling nodes are no longer possible, it is still possible to have “cycles” of pages. If page <math display="inline">$j$</math> linked only to page <math display="inline">$i$</math> and page <math display="inline">$i$</math> linked only to page <math display="inline">$j$</math>, a random surfer entering either page would be condemned to spend eternity linking from page <math display="inline">$i$</math> to page <math display="inline">$j$</math> and back again. Thus the columns of <math display="inline">$P_{\ast}^{k}$</math> corresponding to these pages would always have zeros in them, and the transition matrix <math display="inline">$P_{\ast}$</math> would not be regular. Another adjustment is needed.</paragraph>
-      <paragraph><strong>Adjustment 2:</strong>Let <math display="inline">$p$</math> be a number between <math display="inline">$0$</math> and <math display="inline">$1$</math>. Assume the surfer is now at page <math display="inline">$j$</math>. With probability <math display="inline">$p$</math> the surfer will pick from among all possible links from page <math display="inline">$j$</math> with equal probability and will move to that page. With probability <math display="inline">$1 - p$</math>, the surfer will pick <em>any</em> page in the Web with equal probability and will move to that page. In terms of the transition matrix <math display="inline">$P_{\ast}$</math>, the new transition matrix will be</paragraph>
-      <paragraph>
-        <math display="block">$$G = pP_{\ast} + (1 - p)K$$</math>
-      </paragraph>
-      <paragraph>where <math display="inline">$K$</math> is an <math display="inline">$n \times n$</math> matrix all of whose columns are1<sup/></paragraph>
-      <paragraph>
-        <math display="block">$$\begin{bmatrix}
-      {1\text{/}n} \\
-      {1\text{/}n} \\
-       \vdots \\
-      {1\text{/}n}
-      \end{bmatrix}$$</math>
-      </paragraph>
-      <paragraph>The matrix <math display="inline">$G$</math> is called the <strong>Google matrix</strong>, and <math display="inline">$G$</math> is now a regular matrix since all entries in <math display="inline">$G^{1} = G$</math> are positive. Although any value of <math display="inline">$p$</math> between <math display="inline">$0$</math> and <math display="inline">$1$</math> is allowed, Google is said to use a value of <math display="inline">$p = .85$</math> for their PageRank calculations. In the seven-page Web example, the Google matrix is thus</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{array}{lll}
-      G &amp; = &amp; {.85\left\lbrack \begin{array}{lllllll}
-      0 &amp; {1\text{/2}} &amp; 0 &amp; {1\text{/}7} &amp; 0 &amp; 0 &amp; {1\text{/}7} \\
-      0 &amp; 0 &amp; {1\text{/3}} &amp; {1\text{/}7} &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}7} \\
-      1 &amp; 0 &amp; 0 &amp; {1\text{/}7} &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7} \\
-      0 &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7} &amp; 0 &amp; 0 &amp; {1\text{/}7} \\
-      0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}7} &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7} \\
-      0 &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7} &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}7} \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}7} &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}7}
-      \end{array} \right\rbrack} \\
-       &amp; &amp; {+ .15\left\lbrack \begin{array}{lllllll}
-      {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} \\
-      {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} \\
-      {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} \\
-      {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} \\
-      {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} \\
-      {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} \\
-      {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7} &amp; {1\text{/}7}
-      \end{array} \right\rbrack} \\
-       &amp; = &amp; \left\lbrack \begin{array}{lllllll}
-      .021429 &amp; .446429 &amp; .021429 &amp; .142857 &amp; .021429 &amp; .021429 &amp; .142857 \\
-      .021429 &amp; .021429 &amp; .304762 &amp; .142857 &amp; .446429 &amp; .021429 &amp; .142857 \\
-      .871429 &amp; .021429 &amp; .021429 &amp; .142857 &amp; .021429 &amp; .304762 &amp; .142857 \\
-      .021429 &amp; .021429 &amp; .304762 &amp; .142857 &amp; .021429 &amp; .021429 &amp; .142857 \\
-      .021429 &amp; .446429 &amp; .021429 &amp; .142857 &amp; .021429 &amp; .304762 &amp; .142857 \\
-      .021429 &amp; .021429 &amp; .304762 &amp; .142857 &amp; .446429 &amp; .021429 &amp; .142857 \\
-      .021429 &amp; .021429 &amp; .021429 &amp; .142857 &amp; .021429 &amp; .304762 &amp; .142857
-      \end{array} \right\rbrack
-      \end{array}$$</math>
-      </paragraph>
-      <paragraph>It is now possible to find the steady-state vector by the methods of this section:</paragraph>
-      <paragraph>
-        <math display="block">$$\textbf{q} = ~\begin{bmatrix}
-      .116293 \\
-      .168567 \\
-      .191263 \\
-      .098844 \\
-      .164054 \\
-      .168567 \\
-      .092413
-      \end{bmatrix}$$</math>
-      </paragraph>
-      <paragraph>so the most important page according to PageRank is page <math display="inline">$3$</math>, which has the largest entry in <math display="inline">$\textbf{q}$</math>. The complete ranking is <math display="inline">$3$</math>, <math display="inline">$2$</math> and <math display="inline">$6$</math>, <math display="inline">$5$</math>, <math display="inline">$1$</math>, <math display="inline">$4$</math>, and <math display="inline">$7$</math>.</paragraph>
-      <note type="caution" title="Numerical Note">
-          <heading level="2">Numerical Note</heading>
-              <paragraph>The computation of <math display="inline">$\textbf{q}$</math> is not a trivial task, since the Google matrix has more than <math display="inline">$8\text{~billion}$</math> rows and columns. Google uses a version of the power method introduced in Section 5.8 to compute <math display="inline">$\textbf{q}$</math>. While the power method was used in that section to estimate the eigenvalues of a matrix, it can also be used to provide estimates for eigenvectors. Since <math display="inline">$\textbf{q}$</math> is an eigenvector of <math display="inline">$G$</math> corresponding to the eigenvalue <math display="inline">$1$</math>, the power method applies. It turns out that only between <math display="inline">$50$</math> and <math display="inline">$100$</math> iterations of the method are needed to get the vector <math display="inline">$\textbf{q}$</math> to the accuracy that Google needs for its rankings. It still takes days for Google to compute a new <math display="inline">$\textbf{q}$</math>, which it does every month.</paragraph>
-        </note>
-      <note type="practice" title="Practice Problem">
-          <heading level="2">Practice Problem</heading>
-          <list ordered="true">
-                  <item>Consider the Markov chain on {1, 2, 3} with transition matrixP = 1/201/21/21/2001/21/2 Show that P is a regular matrix. Find the steady-state vector for this Markov chain. What fraction of the time does this chain spend in state 2? Explain your answer.</item>
-          </list>
-        </note>
-      <paragraph><sup>1</sup> PageRank really uses a <math display="inline">$K$</math> that has all its columns equal to a probability vector <math display="inline">$\mathbf{v}$</math>, which could be linked to an individual searcher or group of searchers. This modification also makes it easier to police the Web for websites attempting to generate Web traffic. See <em>Google’s PageRank and Beyond: The Science of Search Engine Rankings</em> by Amy N. Langville and Carl D. Meyer (Princeton: Princeton University Press, 2006) for more information.</paragraph>
-    </content>
-    <exercises title="10.2 Exercises">
-      <heading level="1">10.2 Exercises</heading>
-      <exercise_group start="1">
-                  <instructions>In Exercises 1 and 2, consider a Markov chain on <math display="inline">$\left\{ 1\text{,~}2 \right\}$</math> with the given transition matrix <math display="inline">$P$</math>. In each exercise, use two methods to find the probability that, in the long run, the chain is in state <math display="inline">$1.$</math> First, raise <math display="inline">$P$</math> to a high power. Then directly compute the steady-state vector.</instructions>
-            <problem number="1">
-              <statement>
-                          <paragraph><math display="inline">$P = \begin{bmatrix}
-      .2 &amp; .4 \\
-      .8 &amp; .6
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="2">
-              <statement>
-                          <paragraph><math display="inline">$P = \begin{bmatrix}
-      {1\text{/4}} &amp; {2\text{/3}} \\
-      {3\text{/4}} &amp; {1\text{/3}}
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="3">
-                  <instructions>In Exercises 3 and 4, consider a Markov chain on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3 \right\}$</math> with the given transition matrix <math display="inline">$P$</math>. In each exercise, use two methods to find the probability that, in the long run, the chain is in state <math display="inline">$1.$</math> First, raise <math display="inline">$P$</math> to a high power. Then directly compute the steady-state vector.</instructions>
-            <problem number="3">
-              <statement>
-                          <paragraph><math display="inline">$P = \begin{bmatrix}
-      {1\text{/3}} &amp; {1\text{/}4} &amp; 0 \\
-      {1\text{/}3} &amp; {1\text{/}2} &amp; 1 \\
-      {1\text{/}3} &amp; {1\text{/}4} &amp; 0
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="4">
-              <statement>
-                          <paragraph><math display="inline">$P = \begin{bmatrix}
-      .1 &amp; .2 &amp; .3 \\
-      .2 &amp; .3 &amp; .4 \\
-      .7 &amp; .5 &amp; .3
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="5">
-                  <instructions>In Exercises 5 and 6, find the matrix to which <math display="inline">$P^{n}$</math> converges as <math display="inline">$n$</math> increases.</instructions>
-            <problem number="5">
-              <statement>
-                          <paragraph><math display="inline">$P = \begin{bmatrix}
-      {1\text{/4}} &amp; {2\text{/}3} \\
-      {3\text{/}4} &amp; {1\text{/}3}
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="6">
-              <statement>
-                          <paragraph><math display="inline">$P = \begin{bmatrix}
-      {1\text{/4}} &amp; {3\text{/}5} &amp; 0 \\
-      {1\text{/}4} &amp; 0 &amp; {1\text{/}3} \\
-      {1\text{/}2} &amp; {2\text{/}5} &amp; {2\text{/}3}
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="7">
-                  <instructions>In Exercises 7 and 8, determine whether the given matrix is regular. Explain your answer.</instructions>
-            <problem number="7">
-              <statement>
-                          <paragraph><math display="inline">$P = \begin{bmatrix}
-      {1\text{/3}} &amp; 0 &amp; {1\text{/2}} \\
-      {1\text{/3}} &amp; {1\text{/2}} &amp; {1\text{/2}} \\
-      {1\text{/3}} &amp; {1\text{/2}} &amp; 0
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="8">
-              <statement>
-                          <paragraph><math display="inline">$P = \begin{bmatrix}
-      {1\text{/2}} &amp; 0 &amp; {1\text{/}3} &amp; 0 \\
-      0 &amp; {2\text{/}5} &amp; 0 &amp; {3\text{/}7} \\
-      {1\text{/}2} &amp; 0 &amp; {2\text{/}3} &amp; 0 \\
-      0 &amp; {3\text{/}5} &amp; 0 &amp; {4\text{/}7}
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="9">
-            <problem number="9">
-              <statement>
-                          <paragraph>Consider a pair of Ehrenfest urns with a total of <math display="inline">$4$</math> molecules divided between them.</paragraph>
-                <list ordered="true">
-                              <item>Find the transition matrix for the Markov chain that models the number of molecules in urn A, and show that this matrix is not regular.</item>
-                              <item>Assuming that the steady-state vector may be interpreted as occupation times for this Markov chain, in what state will this chain spend the most steps?</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="10">
-              <statement>
-                          <paragraph>Consider a pair of Ehrenfest urns with a total of <math display="inline">$5$</math> molecules divided between them.</paragraph>
-                <list ordered="true">
-                              <item>Find the transition matrix for the Markov chain that models the number of molecules in urn A, and show that this matrix is not regular.</item>
-                              <item>Assuming that the steady-state vector may be interpreted as occupation times for this Markov chain, in what state will this chain spend the most steps?</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="11">
-              <statement>
-                          <paragraph>Consider an unbiased random walk with reflecting boundaries on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4 \right\}$</math>.</paragraph>
-                <list ordered="true">
-                              <item>Find the transition matrix for the Markov chain and show that this matrix is not regular.</item>
-                              <item>Assuming that the steady-state vector may be interpreted as occupation times for this Markov chain, in what state will this chain spend the most steps?</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="12">
-              <statement>
-                          <paragraph>Consider a biased random walk with reflecting boundaries on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4 \right\}$</math> with probability <math display="inline">$p = .2$</math> of moving to the left.</paragraph>
-                <list ordered="true">
-                              <item>Find the transition matrix for the Markov chain and show that this matrix is not regular.</item>
-                              <item>Assuming that the steady-state vector may be interpreted as occupation times for this Markov chain, in what state will this chain spend the most steps?</item>
-                </list>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="13">
-                  <instructions>In Exercises 13 and 14, consider a simple random walk on the given graph. In the long run, what fraction of the time will the walk be at each of the various states?</instructions>
-            <problem number="13">
-              <statement>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a square in the form of a sealed envelope with 5 vertices. The square with vertices 1, 2, 3, and 4 and the fold forms the 5th vertex at the center of the square by joining 1 to 5 and 2 to 5."/>
-            </figure>
-            <problem number="14">
-              <statement>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a square with vertices 1, 2, 3, and 4. A diagonal is drawn from 1 to 3. A circle is drawn with vertex 3 as the center point joining from 2 to 4."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="15">
-                  <instructions>In Exercises 15 and 16, consider a simple random walk on the given directed graph. In the long run, what fraction of the time will the walk be at each of the various states?</instructions>
-            <problem number="15">
-              <statement>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A square with vertices 1, 2, 3, and 4 shows a forward flow arrow from 1 to 2, 1 to 3, 1 to 4; which is a diagonal, 2 to 4, 4 to 3, 4 to 2, and 3 to 1."/>
-            </figure>
-            <problem number="16">
-              <statement>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows two equilateral triangles with one common vertex. Triangle 1 has 1, 2, and 3 as vertices and the 2nd triangle has 3, 4, and 5 as vertices. The directed flows are indicated in the form of arrows."/>
-            </figure>
-            <figure>
-              <image alt="A square is divided into four equal small squares named 1, 2, 4, and 5. A rhombus named 3 is at the center whose vertices meet the sides of the four squares. A direct opening between each small square and between each square to the rhombus within."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows three blocks, 1, 2, and 3, on the top row and two blocks, 4 and 5 on the bottom row. There is a direct opening between each block in the top as well as bottom rows and also between the blocks of the top and bottom rows."/>
-            </figure>
-            <figure>
-              <image alt="A rectangle is divided into 6 blocks 1 to 3 on the top row and 4 to 6 on the bottom row. There is a valve opening from 1 to 4, 5 to 6, and 3 to 6. Also, there is a direct opening between 1 and 2, 2 and 3, 2 and 5, and 4 and 5."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows a square that is divided into four smaller squares 1, 2, 4, and 5. A rhombus named 3 is at the center whose vertices meet the sides of the four squares."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="17">
-            <figure>
-              <image alt="A square with vertices 1, 2, 3, and 4 shows a forward flow arrow from 1 to 2, 1 to 3, 1 to 4; which is a diagonal, 2 to 4, 4 to 3, 4 to 2, and 3 to 1."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows two equilateral triangles with one common vertex. Triangle 1 has 1, 2, and 3 as vertices and the 2nd triangle has 3, 4, and 5 as vertices. The directed flows are indicated in the form of arrows."/>
-            </figure>
-            <problem number="17">
-              <statement>
-                          <paragraph>Consider the mouse in the following maze from Section 10.1, Exercise 17.</paragraph>
-                <list ordered="false">
-                              <item>The mouse must move into a different room at each time step and is equally likely to leave the room through any of the available doorways. If you go away from the maze for a while, what is the probability that the mouse will be in room 3 when you return?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A square is divided into four equal small squares named 1, 2, 4, and 5. A rhombus named 3 is at the center whose vertices meet the sides of the four squares. A direct opening between each small square and between each square to the rhombus within."/>
-            </figure>
-            <problem number="18">
-              <statement>
-                          <paragraph>Consider the mouse in the following maze from Section 10.1, Exercise 18.</paragraph>
-                <list ordered="false">
-                              <item>What fraction of the time does it spend in room 3?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows three blocks, 1, 2, and 3, on the top row and two blocks, 4 and 5 on the bottom row. There is a direct opening between each block in the top as well as bottom rows and also between the blocks of the top and bottom rows."/>
-            </figure>
-            <problem number="19">
-              <statement>
-                          <paragraph>Consider the mouse in the following maze, which includes “one-way” doors, from Section 10.1, Exercise 19.</paragraph>
-                <list ordered="false">
-                              <item>Show that﻿</item>
-                </list>
-                <math display="block">$$\text{q~=~}\begin{bmatrix}
-      0 \\
-      0 \\
-      0 \\
-      0 \\
-      0 \\
-      1
-      \end{bmatrix}$$</math>
-                <list ordered="false">
-                              <item>is a steady-state vector for the associated Markov chain, and interpret this result in terms of the mouse’s travels through the maze.</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A rectangle is divided into 6 blocks 1 to 3 on the top row and 4 to 6 on the bottom row. There is a valve opening from 1 to 4, 5 to 6, and 3 to 6. Also, there is a direct opening between 1 and 2, 2 and 3, 2 and 5, and 4 and 5."/>
-            </figure>
-            <problem number="20">
-              <statement>
-                          <paragraph>Consider the mouse in the following maze, which includes “one-way” doors.</paragraph>
-                <list ordered="false">
-                              <item>What fraction of the time does the mouse spend in each of the rooms in the maze?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a square that is divided into four smaller squares 1, 2, 4, and 5. A rhombus named 3 is at the center whose vertices meet the sides of the four squares."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="21">
-                  <instructions>In Exercises 21–26, mark each statement True or False. Justify each answer.</instructions>
-            <problem number="21">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> Every stochastic matrix has a steady-state vector.</paragraph>
-              </statement>
-            </problem>
-            <problem number="22">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> Every stochastic matrix is regular.</paragraph>
-              </statement>
-            </problem>
-            <problem number="23">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If its transition matrix is regular, then the steady-state vector gives information on long-run probabilities of the Markov chain.</paragraph>
-              </statement>
-            </problem>
-            <problem number="24">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If <math display="inline">$P$</math> is a regular stochastic matrix, then <math display="inline">$P^{n}$</math> approaches a matrix with equal columns as <math display="inline">$n$</math> increases.</paragraph>
-              </statement>
-            </problem>
-            <problem number="25">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\text{λ} = 1$</math> is an eigenvalue of a matrix <math display="inline">$P$</math>, then <math display="inline">$P$</math> is regular.</paragraph>
-              </statement>
-            </problem>
-            <problem number="26">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\lim\limits_{n\rightarrow\infty}\,\mathbf{x}_{n} = \mathbf{q}$</math>, then the entries in <math display="inline">$\textbf{q}$</math> may be interpreted as occupation times.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="27">
-            <problem number="27">
-              <statement>
-                          <paragraph>Suppose that the weather in Charlotte is modeled using the Markov chain in Section 10.1, Exercise 27. Over the course of a year, about how many days in Charlotte are sunny, cloudy, and rainy according to the model?</paragraph>
-              </statement>
-            </problem>
-            <problem number="28">
-              <statement>
-                          <paragraph>Suppose that the weather in Charlotte is modeled using the Markov chain in Section 10.1, Exercise 28. Over the course of a year, about how many days in Charlotte are rainy according to the model?</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="29">
-                  <instructions>In Exercises 29 and 30, consider a set of webpages hyperlinked by the given directed graph. Find the Google matrix for each graph and compute the PageRank of each page in the set.</instructions>
-            <problem number="29">
-              <statement>
-                          <paragraph>﻿</paragraph>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A square with vertices 1, 2, 3, and 4 shows a forward flow arrow from 1 to 2, 1 to 3, 3 to 1, 2 to 4, 4 to 2, 4 to 3 and 1 to 4, which is a diagonal. A line extends from 2 to 5 to the right and a flow is indicated from 2 to 5."/>
-            </figure>
-            <problem number="30">
-              <statement>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows two equilateral triangles with one common vertex at 3. Triangle 1 has 1, 2 and 3 as vertices and 2nd triangle has 3, 4 and 5 as vertices. The directed flows are indicated in the form of arrows. A line extends from 5 to 6 to the right."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="31">
-            <figure>
-              <image alt="A square with vertices 1, 2, 3, and 4 shows a forward flow arrow from 1 to 2, 1 to 3, 3 to 1, 2 to 4, 4 to 2, 4 to 3 and 1 to 4, which is a diagonal. A line extends from 2 to 5 to the right and a flow is indicated from 2 to 5."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows two equilateral triangles with one common vertex at 3. Triangle 1 has 1, 2 and 3 as vertices and 2nd triangle has 3, 4 and 5 as vertices. The directed flows are indicated in the form of arrows. A line extends from 5 to 6 to the right."/>
-            </figure>
-            <problem number="31">
-              <statement>
-                          <paragraph>A genetic trait is often governed by a pair of genes, one inherited from each parent. The genes may be of two types, often labeled A and a. An individual then may have three different pairs: AA, Aa (which is the same as aA), or aa. In many cases the AA and Aa individuals cannot be otherwise distinguished; in these cases gene A is <em>dominant</em> and gene a is <em>recessive</em>. Likewise, an AA individual is called <em>dominant</em> and an aa individual is called <em>recessive</em>. An Aa individual is called a <em>hybrid</em>.</paragraph>
-                <list ordered="true">
-                              <item>Show that if a dominant individual is mated with a hybrid, the probability of an offspring being dominant is 1/2 and the probability of an offspring being a hybrid is 1/2.</item>
-                              <item>Show that if a recessive individual is mated with a hybrid, the probability of an offspring being recessive is 1/2 and the probability of an offspring being a hybrid is 1/2.</item>
-                              <item>Show that if a hybrid individual is mated with another hybrid, the probability of an offspring being dominant is 1/4, the probability of an offspring being recessive is 1/4, and the probability of an offspring being a hybrid is 1/2.</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="32">
-              <statement>
-                          <paragraph>Consider beginning with an individual of known type and mating it with a hybrid, then mating an offspring of this mating with a hybrid, and so on. At each step, an offspring is mated with a hybrid. The type of the offspring can be modeled by a Markov chain with states AA, Aa, and aa.</paragraph>
-                <list ordered="true">
-                              <item>Find the transition matrix for this Markov chain.</item>
-                              <item>If the mating process in Exercise 31 is continued for an extended period of time, what percent of the offspring will be of each type?</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="33">
-              <statement>
-                          <paragraph>Consider the variation of the Ehrenfest urn model of diffusion studied in Section 10.1, Exercise 33,where one of the <math display="inline">$2k$</math> molecules is chosen at random and is then moved between the urns with a fixed probability <math display="inline">$p$</math>.</paragraph>
-                <list ordered="true">
-                              <item>Let k=3 and suppose that p=1/2. Show that the transition matrix for the Markov chain that models the number of molecules in urn A is regular.</item>
-                              <item>Let k=3 and suppose that p=1/2. In what state will this chain spend the most steps, and what fraction of the steps will the chain spend at this state?</item>
-                              <item>Does the answer to part (b) change if a different value of p with 0&lt;p&lt;1 is used?</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="34">
-              <statement>
-                          <paragraph>Consider the Bernoulli-Laplace diffusion model studied in Section 10.1, Exercise 34.</paragraph>
-                <list ordered="true">
-                              <item>Let k=5 and show that the transition matrix for the Markov chain that models the number of type I molecules in urn A is regular.</item>
-                              <item>Let k=5. In what state will this chain spend the most steps, and what fraction of the steps will the chain spend at this state?</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="35">
-              <statement>
-                          <paragraph>Let <math display="inline">$0 \leq q \leq 1$</math>. Show that <math display="inline">$\begin{bmatrix}
-      q \\
-      0 \\
-      0 \\
-      0 \\
-      {1 - q}
-      \end{bmatrix}$</math> is a steady-state vector for the Markov chain in Example 3.</paragraph>
-              </statement>
-            </problem>
-            <problem number="36">
-              <statement>
-                          <paragraph>Consider the Markov chain in Example 4.</paragraph>
-                <list ordered="true">
-                              <item>Show that [1/81/41/41/41/8] is a steady-state vector for this Markov chain.</item>
-                              <item>Compute the average of the entries in P20 and P21 given in Example 4. What do you find?</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="37">
-              <statement>
-                          <paragraph>Show that <math display="inline">$\begin{bmatrix}
-      {4\text{/11}} \\
-      \text{3/11} \\
-      {4\text{/11}} \\
-      0 \\
-      0
-      \end{bmatrix}$</math> and <math display="inline">$\begin{bmatrix}
-      0 \\
-      0 \\
-      0 \\
-      \text{9/17} \\
-      {8\text{/17}}
-      \end{bmatrix}$</math> are steady-state vectors for the Markov chain in Example 5. If the chain is equally likely to begin in each of the states, what is the probability of being in state <math display="inline">$1$</math> after many steps?</paragraph>
-              </statement>
-            </problem>
-            <problem number="38">
-              <statement>
-                          <paragraph>Let <math display="inline">$0 \leq p$</math>, <math display="inline">$q \leq 1$</math>, and define <math display="block">$$P = \begin{bmatrix}
-      p &amp; {1 - q} \\
-      {1 - p} &amp; q
-      \end{bmatrix}$$</math></paragraph>
-                <list ordered="true">
-                              <item>Show that 1 and p+q−1 are eigenvalues of P.</item>
-                              <item>By Theorem 1, for what values of p and q will P fail to be regular?</item>
-                              <item>Find a steady-state vector for P.</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="39">
-              <statement>
-                          <paragraph>Let <math display="inline">$0 \leq p$</math>, <math display="inline">$q \leq 1$</math>, and define<math display="block">$$P = \begin{bmatrix}
-      p &amp; q &amp; {1 - p - q} \\
-      q &amp; {1 - p - q} &amp; p \\
-      {1 - p - q} &amp; p &amp; q
-      \end{bmatrix}$$</math></paragraph>
-                <list ordered="true">
-                              <item>For what values of p and q is P a regular stochastic matrix?</item>
-                              <item>Given that P is regular, find a steady-state vector for P.</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="40">
-              <statement>
-                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$m \times m$</math> stochastic matrix, let <math display="inline">$\textbf{x}$</math> be in <math display="inline">$\text{ℝ}^{m}$</math>, and let <math display="inline">$\textbf{y} = A\textbf{x}$</math>. Show that <math display="block">$$\left| y_{1} \middle| + \cdots + \middle| y_{m} \middle| \leq \middle| x_{1} \middle| + \cdots + \middle| x_{m} \right|$$</math></paragraph>
-                          <paragraph>with equality holding if and only if all of the nonzero entries in <math display="inline">$\textbf{x}$</math> have the same sign.</paragraph>
-              </statement>
-            </problem>
-            <problem number="41">
-              <statement>
-                          <paragraph>Show that every stochastic matrix has a steady-state vector using the following steps.</paragraph>
-                <list ordered="true">
-                              <item>Let P be a stochastic matrix. By Theorem 10 in Section 5.9, λ=1 is an eigenvalue for P. Let v be an eigenvector of P associated with λ=1. Use Exercise 40 to conclude that the nonzero entries in v must have the same sign.</item>
-                              <item>Show how to produce a steady-state vector for P from v.</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="42">
-              <statement>
-                          <paragraph>Consider a simple random walk on a finite connected graph. (A graph is connected if it is possible to move from any vertex of the graph to any other along the edges of the graph.)</paragraph>
-                <list ordered="true">
-                              <item>Explain why this Markov chain must have a regular transition matrix.</item>
-                              <item>Use the results of Exercises 13 and 14 to hypothesize a formula for the steady-state vector for such a Markov chain.</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="43">
-              <statement>
-                          <paragraph>By Theorem 1(e), all eigenvalues <math display="inline">$\text{λ}$</math> of a regular matrix other than <math display="inline">$1$</math> have the property that <math display="inline">$|\text{λ}| &lt; 1$</math>; that is, the eigenvalue <math display="inline">$1$</math> is a <em>strictly dominant eigenvalue</em>. Suppose that <math display="inline">$P$</math> is an <math display="inline">$n \times n$</math> regular matrix with eigenvalues <math display="inline">$\text{λ}_{1} = 1$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\text{λ}_{n}$</math>, ordered so that <math display="inline">$\left| \text{λ}_{1} \middle| &gt; \middle| \text{λ}_{2} \middle| \geq \middle| \text{λ}_{3} \middle| \geq \cdots \geq \middle| \text{λ}_{n} \right|$</math>. Suppose that <math display="inline">$\textbf{x}_{0} = c_{1}\textbf{q} + c_{2}\textbf{v}_{2} + \cdots + c_{n}\textbf{v}_{n}$</math> is a linear combination of eigenvectors of <math display="inline">$P$</math>.</paragraph>
-                <list ordered="true">
-                              <item>Use Equation (2) in Section 5.8 to derive an expression for xk=Pkx0.</item>
-                              <item>Use the result of part (a) to derive an expression for xk−c1q, and explain how the value of |λ2| affects the speed with which {xk} converges to c1q.</item>
-                </list>
-              </statement>
-            </problem>
-          </exercise_group>
-    </exercises>
-  </section>
-</section_file>
+<section>
+  <heading level="1">10.2 The Steady-State Vector and Google’s PageRank</heading>
+  <paragraph>As was seen in Section 5.9, the most interesting aspect of a Markov chain is its long-range behavior: the behavior of $$\textbf{x}_{n}$$ as $$n$$ increases without bound. In many cases, the sequence of vectors $$\{\textbf{x}_{n}\}$$ is converging to a vector that is called the steady-state vector for the Markov chain. This section will review how to compute the steady-state vector of a Markov chain, explain how to interpret this vector if it exists, and offer an expanded version of Theorem 11 in Section 5.9, which describes the circumstances under which $$\{\textbf{x}_{n}\}$$ converges to a steady-state vector. This theorem will be applied to the Markov chain model used for the World Wide Web in the previous section and will show how the PageRank method for ordering the importance of webpages is derived.</paragraph>
+  <heading level="2">Steady-State Vectors</heading>
+  <paragraph>In many cases, the Markov chain $$\textbf{x}_{n}$$ and the matrix $$P^{n}$$ change very little for large values of $$n$$ .</paragraph>
+  <example number="1">
+    <heading level="2">Example 1</heading>
+    <paragraph>To begin, recall Example 3 in Section 5.9. That example concerned a Markov chain with transition matrix $$P = \left\lbrack \begin{array}{rrr} .5 &amp; .2 &amp; .3 \\ .3 &amp; .8 &amp; .3 \\ .2 &amp; 0 &amp; .4 \end{array} \right\rbrack$$ and initial probability vector $$\mathbf{x}_{0} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$$ . The vectors $$\textbf{x}_{n}$$ were seen to be converging to the vector $$\mathbf{q} = \left\lbrack \begin{array}{r} .3 \\ .6 \\ .1 \end{array} \right\rbrack$$ . This result may be written as $$\underset{n\rightarrow\infty}{\lim }\mathbf{x}_{n} = \mathbf{q}$$ . Increasing powers of the transition matrix $$P$$ may also be computed, as follows:</paragraph>
+    <paragraph>$$P^{2} &amp; = &amp; \left[\right. \begin{matrix}.3700 &amp; .2600 &amp; .3300 \\ .4500 &amp; .7000 &amp; .4500 \\ .1800 &amp; .0400 &amp; .2200\end{matrix} \left]\right. &amp; &amp; P^{3} &amp; = &amp; \left[\right. \begin{matrix}.3290 &amp; .2820 &amp; .3210 \\ .5250 &amp; .6500 &amp; .5250 \\ .1460 &amp; .0680 &amp; .1540\end{matrix} \left]\right. P^{4} &amp; = &amp; \left[\right. \begin{matrix}.3133 &amp; .2914 &amp; .3117 \\ .5625 &amp; .6250 &amp; .5625 \\ .1242 &amp; .0836 &amp; .1258\end{matrix} \left]\right. &amp; &amp; P^{5} &amp; = &amp; \left[\right. \begin{matrix}.3064 &amp; .2958 &amp; .3061 \\ .5813 &amp; .6125 &amp; .5813 \\ .1123 &amp; .0917 &amp; .1127\end{matrix} \left]\right. P^{10} &amp; = &amp; \left[\right. \begin{matrix}.3002 &amp; .2999 &amp; .3002 \\ .5994 &amp; .6004 &amp; .5994 \\ .1004 &amp; .0994 &amp; .1004\end{matrix} \left]\right. &amp; &amp; P^{15} &amp; = &amp; \left[\right. \begin{matrix}.3000 &amp; .3000 &amp; .3000 \\ .6000 &amp; .6000 &amp; .6000 \\ .1000 &amp; .1000 &amp; .1000\end{matrix} \left]\right.$$</paragraph>
+    <paragraph>so the sequence of matrices $$\{ P^{n}\}$$ also seems to be converging to a matrix as $$n$$ increases, and this matrix has the unusual property that all of its columns equal $$\textbf{q}$$ . The example also showed that $$P\textbf{q} = \textbf{q}$$ . This equation forms the definition of the steady-state vector and is a straightforward way to calculate it.</paragraph>
+  </example>
+  <note type="definition" source_type="definition" title="Definition">
+    <heading level="2">Definition</heading>
+    <paragraph>If $$P$$ is a stochastic matrix, then a steady-state vector (or equilibrium vector or invariant probability vector) for $$P$$ is a probability vector $$\textbf{q}$$ such that</paragraph>
+    <paragraph>$$P \textbf{q} = \textbf{q}$$</paragraph>
+  </note>
+  <paragraph>Exercises 40 and 41 will show that every stochastic matrix $$P$$ has a steady-state vector $$\textbf{q}$$ . Notice that $$1$$ must be an eigenvalue of any stochastic matrix, and the steady-state vector is a probability vector that also an eigenvector of $$P$$ associated with the eigenvalue $$1$$ .</paragraph>
+  <paragraph>Although the definition of the steady-state vector makes the calculation of $$\textbf{q}$$ straightforward, it has the major drawback that there are Markov chains that have a steady-state vector $$\textbf{q}$$ but for which $$\underset{n\rightarrow\infty}{\lim }\mathbf{x}_{n} \neq \mathbf{q}$$ the definition is not sufficient for $$\textbf{x}_{n}$$ to converge. Examples 3 to 5 will show different ways in which $$\textbf{x}_{n}$$ can fail to converge. Later in this section, the conditions under which $$\underset{n\rightarrow\infty}{\lim }\mathbf{x}_{n} = \mathbf{q}$$ will be restated. For now, consider what $$\textbf{q}$$ means when $$\underset{n\rightarrow\infty}{\lim }\mathbf{x}_{n} = \mathbf{q}$$ , as it does in the previous example. When $$\underset{n\rightarrow\infty}{\lim }\mathbf{x}_{n} = \mathbf{q}$$ , there are two ways to interpret this vector.</paragraph>
+  <list type="unordered">
+    <item>Since $$\textbf{x}_{n}$$ is approximately equal to $$\textbf{q}$$ for large $$n$$ , the entries in $$\textbf{q}$$ approximate the probability that the chain is in each state after $$n$$ time steps. Thus in the previous example, no matter what the value of the initial probability vector is, after many steps the probability that the chain will be in state $$1$$ is approximately $$q_{1} = .3$$ . Likewise, the probability that the chain will be in state $$2$$ in the distant future is approximately $$q_{2} = .6$$ , and the probability that the chain will be in state $$3$$ in the distant future is approximately $$q_{3} = .1$$ . So the entries in $$\mathbf{q}$$ give long-run probabilities.</item>
+    <item>When $$N$$ is large, $$\textbf{q}$$ approximates $$\textbf{x}_{n}$$ for almost all values of $$n \leq N$$ . Thus the entries in $$\textbf{q}$$ approximate the proportion of time steps that the chain spends in each state. In the previous example the chain will end up spending $$.3$$ of the time steps in state $$1$$ , $$.6$$ of the time steps in state $$2$$ , and $$.1$$ of the time steps in state $$3$$ . So the entries in $$\textbf{q}$$ give the proportion of the time steps spent in each state, which are called the occupation times for each state.</item>
+  </list>
+  <example number="2">
+    <heading level="2">Example 2</heading>
+    <paragraph>For an application of computing $$\textbf{q}$$ , consider the mouse-in-the-maze example (Example 6, Section 10.1). In this example, the position of a mouse in a five-room maze is modeled by a Markov chain with states $$\left\{ 1 \text{,} 2 \text{,} 3 \text{,} 4 \text{,} 5 \right\}$$ and transition matrix</paragraph>
+    <paragraph>$$1 2 3 4 5 P = \left[\right. \begin{matrix}0 &amp; 1 / \text{3} &amp; 1 / 4 &amp; 0 &amp; 0 \\ 1 / 2 &amp; 0 &amp; 1 / 4 &amp; 1 / \text{3} &amp; 0 \\ 1 / 2 &amp; 1 / 3 &amp; 0 &amp; 1 / 3 &amp; 1 / \text{2} \\ 0 &amp; 1 / 3 &amp; 1 / 4 &amp; 0 &amp; 1 / 2 \\ 0 &amp; 0 &amp; 1 / 4 &amp; 1 / 3 &amp; 0\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 4 \\ 5\end{matrix}$$</paragraph>
+    <paragraph>The steady-state vector may be computed by solving the system $$P\textbf{q} = \textbf{q}$$ , which is equivalent to the homogeneous system $$(P - I)\textbf{q} = \textbf{0}$$ . Row reduction yields</paragraph>
+    <paragraph>$$\left[\right. - 1 &amp; 1 / \text{3} &amp; 1 / 4 &amp; 0 &amp; 0 &amp; 0 1 / 2 &amp; - 1 &amp; 1 / 4 &amp; 1 / 3 &amp; 0 &amp; 0 1 / 2 &amp; 1 / 3 &amp; - 1 &amp; 1 / 3 &amp; 1 / 2 &amp; 0 0 &amp; 1 / 3 &amp; 1 / 4 &amp; - 1 &amp; 1 / 2 &amp; 0 0 &amp; 0 &amp; 1 / 4 &amp; 1 / 3 &amp; - 1 &amp; 0 \left]\right. sim \left[\right. 1 &amp; 0 &amp; 0 &amp; 0 &amp; - 1 &amp; 0 0 &amp; 1 &amp; 0 &amp; 0 &amp; - 3 / \text{2} &amp; 0 0 &amp; 0 &amp; 1 &amp; 0 &amp; - 2 &amp; 0 0 &amp; 0 &amp; 0 &amp; 1 &amp; - 3 / 2 &amp; 0 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \left]\right.$$</paragraph>
+    <paragraph>so a general solution is</paragraph>
+    <paragraph>$$q_{5} \left[\right. 1 3 / \text{2} 2 3 / \text{2} 1 \left]\right.$$</paragraph>
+    <paragraph>Letting $$q_{5}$$ be the reciprocal of the sum of the entries in the vector results in the steady-state vector</paragraph>
+    <paragraph>$$\mathbf{q} = \frac{1}{7} \left[\right. 1 3 / \text{2} 2 3 / \text{2} 1 \left]\right. = \left[\right. 1 / \text{7} 3 / \text{14} 2 / \text{7} 3 / \text{14} 1 / \text{7} \left]\right. \approx \left[\right. .142857 .214286 .285714 .214286 .142857 \left]\right.$$</paragraph>
+    <paragraph>There are again two interpretations for $$q$$ : long-run probabilities and occupation times. After many moves, the probability that the mouse will be in room $$1$$ at a given time is approximately $$1/7$$ no matter where the mouse began its journey. Put another way, the mouse is expected to be in room $$1$$ for $$1/7$$ (or about $$14.3\%$$ ) of the time.</paragraph>
+    <paragraph>Again notice that taking high powers of the transition matrix $$P$$ gives matrices whose columns are converging to $$\textbf{q}$$ ; for example,</paragraph>
+    <paragraph>$$P^{10} = \left[\right. .144169 &amp; .141561 &amp; .142613 &amp; .144153 &amp; .142034 .212342 &amp; .216649 &amp; .214286 &amp; .211922 &amp; .216230 .285226 &amp; .285714 &amp; .286203 &amp; .285714 &amp; .285226 .216230 &amp; .211922 &amp; .214286 &amp; .216649 &amp; .212342 .142034 &amp; .144153 &amp; .142613 &amp; .141561 &amp; .144169 \left]\right.$$</paragraph>
+    <paragraph>The columns of $$P^{10}$$ are very nearly equal to each other, and each column is also nearly equal to $$\textbf{q}$$ .</paragraph>
+  </example>
+  <heading level="2">Interpreting the Steady-State Vector</heading>
+  <paragraph>As noted previously, every stochastic matrix will have a steady-state vector, but in some cases steady-state vectors cannot be interpreted as vectors of long-run probabilities or of occupation times. The following examples show some difficulties.</paragraph>
+  <example number="3">
+    <heading level="2">Example 3</heading>
+    <paragraph>Consider an unbiased random walk on $$\left\{ 1 \text{,} 2 \text{,} 3 \text{,} 4 \text{,} 5 \right\}$$ with absorbing boundaries. The transition matrix is</paragraph>
+    <paragraph>$$1 2 3 4 5 P = \left[\right. \begin{matrix}1 &amp; 1 / \text{2} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 0 &amp; 1 / 2 &amp; 0 &amp; 1 / 2 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 2 &amp; 1\end{matrix} \left]\right. \begin{matrix}1 \\ 2 \\ 3 \\ 4 \\ 5\end{matrix}$$</paragraph>
+    <paragraph>Notice that only two long-term possibilities exist for this chain: it must end up in state $$1$$ or state $$5$$ . Thus the probability that the chain is in state $$2$$ , $$3$$ , or $$4$$ becomes smaller and smaller as $$n$$ increases, as $$P^{n}$$ illustrates:</paragraph>
+    <paragraph>$$P^{20} &amp; = &amp; \left[\right. \begin{matrix}1 &amp; .74951 &amp; .49951 &amp; .24951 &amp; 0 \\ 0 &amp; .00049 &amp; 0 &amp; .00049 &amp; 0 \\ 0 &amp; 0 &amp; .00098 &amp; 0 &amp; 0 \\ 0 &amp; .00049 &amp; 0 &amp; .00049 &amp; 0 \\ 0 &amp; .24951 &amp; .49951 &amp; .74951 &amp; 1\end{matrix} \left]\right. P^{30} &amp; = &amp; \left[\right. \begin{matrix}1 &amp; .749985 &amp; .499985 &amp; .249985 &amp; 0 \\ 0 &amp; .000015 &amp; 0 &amp; .000015 &amp; 0 \\ 0 &amp; 0 &amp; .000030 &amp; 0 &amp; 0 \\ 0 &amp; .000015 &amp; 0 &amp; .000015 &amp; 0 \\ 0 &amp; .249985 &amp; .499985 &amp; .749985 &amp; 1\end{matrix} \left]\right.$$</paragraph>
+    <paragraph>It seems that $$P^{n}$$ converges to the matrix</paragraph>
+    <paragraph>$$\left[\right. 1 &amp; .75 &amp; .5 &amp; .25 &amp; 0 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; .25 &amp; .5 &amp; .75 &amp; 1 \left]\right.$$</paragraph>
+    <paragraph>as $$n$$ increases. But the columns of this matrix are not equal; the probability of ending up either at $$1$$ or at $$5$$ depends on where the chain begins. Although the chain has steady-state vectors, they cannot be interpreted as in Example 1. Exercise 35 confirms that if $$0 \leq q \leq 1$$ the vector</paragraph>
+    <paragraph>$$\left[\right. q 0 0 0 1 - q \left]\right.$$</paragraph>
+    <paragraph>is a steady-state vector for $$P$$ . This matrix then has an infinite number of possible steady-state vectors, which shows in another way that $$\textbf{x}_{n}$$ cannot be expected to have convergent behavior that does not depend on $$\textbf{x}_{0}$$ .</paragraph>
+  </example>
+  <example number="4">
+    <heading level="2">Example 4</heading>
+    <paragraph>Consider an unbiased random walk on $$\left\{ 1 \text{,} 2 \text{,} 3 \text{,} 4 \text{,} 5 \right\}$$ with reflecting boundaries. The transition matrix is</paragraph>
+    <paragraph>$$1 2 3 4 5 P = \left[\right. \begin{matrix}0 &amp; 1 / \text{2} &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 0 &amp; 1 / 2 &amp; 0 &amp; 1 / 2 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 2 &amp; 0\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 4 \\ 5\end{matrix}$$</paragraph>
+    <paragraph>If the chain $$\textbf{x}_{n}$$ starts at state $$1$$ , notice that it can return to $$1$$ only when $$n$$ is even, while the chain can be at state $$2$$ only when $$n$$ is odd. In fact, the chain must be at an even-numbered site when $$n$$ is odd and at an odd-numbered site when $$n$$ is even. If the chain were to start at state $$2$$ , however, this situation would be reversed: the chain must be at an odd-numbered site when $$n$$ is odd and at an even-numbered site when $$n$$ is even. Therefore, $$P^{n}$$ cannot converge to a unique matrix since $$P^{n}$$ looks very different depending on whether $$n$$ is even or odd, as shown:</paragraph>
+    <paragraph>$$P^{20} &amp; = &amp; \left[\right. \begin{matrix}.2505 &amp; 0 &amp; .2500 &amp; 0 &amp; .2495 \\ 0 &amp; .5005 &amp; 0 &amp; .4995 &amp; 0 \\ .5000 &amp; 0 &amp; .5000 &amp; 0 &amp; .5000 \\ 0 &amp; .4995 &amp; 0 &amp; .5005 &amp; 0 \\ .2495 &amp; 0 &amp; .2500 &amp; 0 &amp; .2505\end{matrix} \left]\right. P^{21} &amp; = &amp; \left[\right. \begin{matrix}0 &amp; .2502 &amp; 0 &amp; .2498 &amp; 0 \\ .5005 &amp; 0 &amp; .5000 &amp; 0 &amp; .4995 \\ 0 &amp; .5000 &amp; 0 &amp; .5000 &amp; 0 \\ .4995 &amp; 0 &amp; .5000 &amp; 0 &amp; .5005 \\ 0 &amp; .2498 &amp; 0 &amp; .2502 &amp; 0\end{matrix} \left]\right.$$</paragraph>
+    <paragraph>Even though $$P^{n}$$ does not converge to a unique matrix, $$P$$ does have a steady-state vector. In fact,</paragraph>
+    <paragraph>$$\begin{bmatrix} 1 / 8 \\ 1 / 4 \\ 1 / 4 \\ 1 / 4 \\ 1 / 8 \end{bmatrix}$$</paragraph>
+    <paragraph>is a steady-state vector for $$P$$ (see Exercise 36). This vector can be interpreted as giving long-run probabilities and occupation times in a sense that will be made precise in Section 10.4.</paragraph>
+  </example>
+  <example number="5">
+    <heading level="2">Example 5</heading>
+    <paragraph>Consider a Markov chain on $$\left\{ 1 \text{,} 2 \text{,} 3 \text{,} 4 \text{,} 5 \right\}$$ with transition matrix</paragraph>
+    <paragraph>$$1 2 3 4 5 P = \left[\right. \begin{matrix}1 / \text{4} &amp; 1 / \text{3} &amp; 1 / 2 &amp; 0 &amp; 0 \\ 1 / 4 &amp; 1 / 3 &amp; 1 / \text{4} &amp; 0 &amp; 0 \\ 1 / 2 &amp; 1 / 3 &amp; 1 / 4 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 3 / 4 \\ 0 &amp; 0 &amp; 0 &amp; 2 / 3 &amp; 1 / 4\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 4 \\ 5\end{matrix}$$</paragraph>
+    <paragraph>If this Markov chain begins at state $$1$$ , $$2$$ , or $$3$$ , then it must always be at one of those states. Likewise if the chain starts at state $$4$$ or $$5$$ , then it must always be at one of those states. The chain splits into two separate chains, each with its own steady-state vector. In this case $$P^{n}$$ converges to a matrix whose columns are not equal. The vectors</paragraph>
+    <paragraph>$$\left[\right. 4 / \text{11} 3 / 11 4 / 11 0 0 \left]\right. \text{and} \left[\right. 0 0 0 9 / \text{17} 8 / \text{17} \left]\right.$$</paragraph>
+    <paragraph>both satisfy the definition of steady-state vector (Exercise 37). The first vector gives the limiting probabilities if the chain starts at state $$1$$ , $$2$$ , or $$3$$ , and the second does the same for states $$4$$ and $$5$$ .﻿</paragraph>
+  </example>
+  <heading level="2">Regular Matrices</heading>
+  <paragraph>Examples 1 and 2 show that in some cases a Markov chain $$\textbf{x}_{n}$$ with transition matrix $$P$$ has a steady-state vector $$\textbf{q}$$ for which</paragraph>
+  <paragraph>$$\underset{n \rightarrow \infty}{lim } P^{n} = \left[\right. q &amp; q &amp; \hdots &amp; q \left]\right.$$</paragraph>
+  <paragraph>In these cases, $$\textbf{q}$$ can be interpreted as a vector of long-run probabilities or occupation times for the chain. These probabilities or occupation times do not depend on the initial probability vector; that is, for any probability vector $$\textbf{x}_{0}$$ ,</paragraph>
+  <paragraph>$$\underset{n \rightarrow \infty}{lim} P^{n} \textbf{x}_{0} = \underset{n \rightarrow \infty}{lim} \textbf{x}_{n} = \textbf{q}$$</paragraph>
+  <paragraph>Notice also that $$\textbf{q}$$ is the only probability vector that is also an eigenvector of $$P$$ associated with the eigenvalue $$1$$ .</paragraph>
+  <paragraph>Examples 3, 4, and 5 do not have such a steady-state vector $$\textbf{q}$$ . In Examples 3 and 5, the steady-state vector is not unique; in all three examples the matrix $$P^{n}$$ does not converge to a matrix with equal columns as $$n$$ increases. The goal is then to find some property of the transition matrix $$P$$ that leads to these different behaviors, and to show that this property causes the differences in behavior.</paragraph>
+  <paragraph>A little calculation shows that in Examples 3, 4, and 5, every matrix of the form $$P^{k}$$ has some zero entries. In Examples 1 and 2, however, some power of $$P$$ has all positive entries. As was mentioned in Section 5.9, this is exactly the property that is needed.</paragraph>
+  <note type="definition" source_type="definition" title="Definition">
+    <heading level="2">Definition</heading>
+    <paragraph>A stochastic matrix $$P$$ is regular if some power $$P^{k}$$ contains only strictly positive entries.</paragraph>
+  </note>
+  <paragraph>Since the matrix $$P^{k}$$ contains the probabilities of a $$k$$ -step move from one state to another, a Markov chain with a regular transition matrix has the property that, for some $$k$$ , it is possible to move from any state to any other in exactly $$k$$ steps. The following theorem expands on the content of Theorem 11 in Section 5.9. One idea must be defined before the theorem is presented. The limit of a sequence of $$m \times n$$ matrices is the $$m \times n$$ matrix (if one exists) whose $$(i,j)$$ -entry is the limit of the $$(i,j)$$ -entries in the sequence of matrices. With that understanding, here is the theorem.</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem 1">
+    <heading level="2">Theorem 1</heading>
+    <paragraph>If $$P$$ is a regular $$m \times m$$ transition matrix with $$m \geq 2$$ , then the following statements are all true.</paragraph>
+    <list type="ordered">
+      <item>There is a stochastic matrix $$\Pi$$ such that $$\underset{n\rightarrow\infty}{\lim }P^{n} = \text{Π}$$ .﻿</item>
+      <item>Each column of $$\Pi$$ is the same probability vector $$\textbf{q}$$ .</item>
+      <item>For any initial probability vector $$\textbf{x}_{0}$$ , $$\underset{n\rightarrow\infty}{\lim }P^{n}\mathbf{x}_{0} = \mathbf{q}$$ .﻿</item>
+      <item>The vector $$\textbf{q}$$ is the unique probability vector that is an eigenvector of $$P$$ associated with the eigenvalue $$1$$ .</item>
+      <item>All eigenvalues $$\text{λ}$$ of $$P$$ other than $$1$$ have $$| \text{λ} | &lt; 1$$ .</item>
+    </list>
+  </note>
+  <paragraph>A proof of Theorem 1 is given in Appendix 1. Theorem 1 is a special case of the Perron-Frobenius Theorem, which is used in applications of linear algebra to economics, graph theory, and systems analysis. Theorem 1 shows that a Markov chain with a regular transition matrix has the properties found in Examples 1 and 2. For example, since the transition matrix $$P$$ in Example 1 is regular, Theorem 1 justifies the conclusion that $$P^{n}$$ converges to a stochastic matrix all of whose columns equal $$\mathbf{q} = \begin{bmatrix} .3 \\ .6 \\ .1 \end{bmatrix}$$ , as numerical evidence seemed to indicate.</paragraph>
+  <heading level="2">PageRank and the Google Matrix</heading>
+  <paragraph>In Section 10.1, the notion of a simple random walk on a graph was defined. The World Wide Web can be modeled as a directed graph, with the vertices representing the webpages and the arrows representing the links between webpages. Let $$P$$ be the huge transition matrix for this Markov chain. If the matrix $$P$$ were regular, then Theorem 1 would show that there is a steady-state vector $$\textbf{q}$$ for the chain, and that the entries in $$\textbf{q}$$ can be interpreted as occupation times for each state. In terms of the model, the entries in $$\textbf{q}$$ would tell what fraction of the random surfer’s time was spent at each webpage. The founders of Google, Sergey Brin and Lawrence Page, reasoned that “important” pages had links coming from other “important” pages. Thus the random surfer would spend more time at more important pages and less time at less important pages. But the amount of time spent at each page is just the occupation time for each state in the Markov chain.</paragraph>
+  <paragraph>This observation is the basis for PageRank, which is the model that Google uses to rank the importance of all webpages it catalogs:</paragraph>
+  <note type="procedure" source_type="procedure_box">
+    <paragraph>The importance of a webpage may be measured by the relative size of the corresponding entry in the steady-state vector $$\textbf{q}$$ for an appropriately chosen Markov chain.</paragraph>
+  </note>
+  <paragraph>Unfortunately, a simple random walk on the directed graph model for the Web is not the appropriate Markov chain, because the matrix $$P$$ is not regular. Thus Theorem 1 will not apply. For example, consider the seven-page Web modeled in Section 10.1 using the directed graph in Figure 1. The transition matrix is</paragraph>
+  <figure>
+    <image alt="A graph with 7 nodes is shown. The nodes 1, 2, and 3 are arranged in a triangular shape with 1 as the top vertex, and 2, and 3 as the lower left, and lower right vertices, respectively."/>
+    <caption>Figure 1 A seven-page Web</caption>
+  </figure>
+  <paragraph>$$1 2 3 4 5 6 7 P = \left[\right. \begin{matrix}0 &amp; 1 / \text{2} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 3 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 3 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 / 2 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 3 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 1\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 4 \\ 5 \\ 6 \\ 7\end{matrix}$$</paragraph>
+  <paragraph>Pages 4 and 7 are dangling nodes, and so are absorbing states for the chain. Just as in Example 3, the presence of absorbing states implies that the state vectors $$\textbf{x}_{n}$$ do not approach a unique limit as $$n\rightarrow\infty$$ . To handle dangling nodes, an adjustment is made to $$P$$ :</paragraph>
+  <paragraph>Adjustment 1: If the surfer reaches a dangling node, the surfer will pick any page in the Web with equal probability and will move to that page. In terms of the transition matrix $$P$$ , if state $$j$$ is an absorbing state, replace column $$j$$ of $$P$$ with the vector</paragraph>
+  <paragraph>$$\left[\right. 1 / n 1 / n \vdots 1 / n \left]\right.$$</paragraph>
+  <paragraph>where $$n$$ is the number of rows (and columns) in $$P$$ .</paragraph>
+  <paragraph>In the seven-page example, the transition matrix is now</paragraph>
+  <paragraph>$$1 2 3 4 5 6 7 P_{*} = \left[\right. \begin{matrix}0 &amp; 1 / \text{2} &amp; 0 &amp; 1 / 7 &amp; 0 &amp; 0 &amp; 1 / 7 \\ 0 &amp; 0 &amp; 1 / 3 &amp; 1 / 7 &amp; 1 / 2 &amp; 0 &amp; 1 / 7 \\ 1 &amp; 0 &amp; 0 &amp; 1 / 7 &amp; 0 &amp; 1 / 3 &amp; 1 / 7 \\ 0 &amp; 0 &amp; 1 / 3 &amp; 1 / 7 &amp; 0 &amp; 0 &amp; 1 / 7 \\ 0 &amp; 1 / 2 &amp; 0 &amp; 1 / 7 &amp; 0 &amp; 1 / 3 &amp; 1 / 7 \\ 0 &amp; 0 &amp; 1 / 3 &amp; 1 / 7 &amp; 1 / 2 &amp; 0 &amp; 1 / 7 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 7 &amp; 0 &amp; 1 / 3 &amp; 1 / 7\end{matrix} \left]\right. \begin{matrix}1 \\ 2 \\ 3 \\ 4 \\ 5 \\ 6 \\ 7 \end{matrix}$$</paragraph>
+  <paragraph>Yet even this adjustment is not sufficient to ensure that the transition matrix is regular: while dangling nodes are no longer possible, it is still possible to have “cycles” of pages. If page $$j$$ linked only to page $$i$$ and page $$i$$ linked only to page $$j$$ , a random surfer entering either page would be condemned to spend eternity linking from page $$i$$ to page $$j$$ and back again. Thus the columns of $$P_{\ast}^{k}$$ corresponding to these pages would always have zeros in them, and the transition matrix $$P_{\ast}$$ would not be regular. Another adjustment is needed.</paragraph>
+  <paragraph>Adjustment 2: Let $$p$$ be a number between $$0$$ and $$1$$ . Assume the surfer is now at page $$j$$ . With probability $$p$$ the surfer will pick from among all possible links from page $$j$$ with equal probability and will move to that page. With probability $$1 - p$$ , the surfer will pick any page in the Web with equal probability and will move to that page. In terms of the transition matrix $$P_{\ast}$$ , the new transition matrix will be</paragraph>
+  <paragraph>$$G = p P_{*} + \left(\right. 1 - p \left.\right) K$$</paragraph>
+  <paragraph>where $$K$$ is an $$n \times n$$ matrix all of whose columns are1</paragraph>
+  <paragraph>$$\left[\right. 1 / n 1 / n \vdots 1 / n \left]\right.$$</paragraph>
+  <paragraph>The matrix $$G$$ is called the Google matrix, and $$G$$ is now a regular matrix since all entries in $$G^{1} = G$$ are positive. Although any value of $$p$$ between $$0$$ and $$1$$ is allowed, Google is said to use a value of $$p = .85$$ for their PageRank calculations. In the seven-page Web example, the Google matrix is thus</paragraph>
+  <paragraph>$$G &amp; = &amp; .85 \left[\right. \begin{matrix}0 &amp; 1 / \text{2} &amp; 0 &amp; 1 / 7 &amp; 0 &amp; 0 &amp; 1 / 7 \\ 0 &amp; 0 &amp; 1 / \text{3} &amp; 1 / 7 &amp; 1 / 2 &amp; 0 &amp; 1 / 7 \\ 1 &amp; 0 &amp; 0 &amp; 1 / 7 &amp; 0 &amp; 1 / 3 &amp; 1 / 7 \\ 0 &amp; 0 &amp; 1 / 3 &amp; 1 / 7 &amp; 0 &amp; 0 &amp; 1 / 7 \\ 0 &amp; 1 / 2 &amp; 0 &amp; 1 / 7 &amp; 0 &amp; 1 / 3 &amp; 1 / 7 \\ 0 &amp; 0 &amp; 1 / 3 &amp; 1 / 7 &amp; 1 / 2 &amp; 0 &amp; 1 / 7 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 7 &amp; 0 &amp; 1 / 3 &amp; 1 / 7\end{matrix} \left]\right. &amp; &amp; + .15 \left[\right. \begin{matrix}1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 \\ 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 \\ 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 \\ 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 \\ 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 \\ 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 \\ 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7 &amp; 1 / 7\end{matrix} \left]\right. &amp; = &amp; \left[\right. \begin{matrix}.021429 &amp; .446429 &amp; .021429 &amp; .142857 &amp; .021429 &amp; .021429 &amp; .142857 \\ .021429 &amp; .021429 &amp; .304762 &amp; .142857 &amp; .446429 &amp; .021429 &amp; .142857 \\ .871429 &amp; .021429 &amp; .021429 &amp; .142857 &amp; .021429 &amp; .304762 &amp; .142857 \\ .021429 &amp; .021429 &amp; .304762 &amp; .142857 &amp; .021429 &amp; .021429 &amp; .142857 \\ .021429 &amp; .446429 &amp; .021429 &amp; .142857 &amp; .021429 &amp; .304762 &amp; .142857 \\ .021429 &amp; .021429 &amp; .304762 &amp; .142857 &amp; .446429 &amp; .021429 &amp; .142857 \\ .021429 &amp; .021429 &amp; .021429 &amp; .142857 &amp; .021429 &amp; .304762 &amp; .142857\end{matrix} \left]\right.$$</paragraph>
+  <paragraph>It is now possible to find the steady-state vector by the methods of this section:</paragraph>
+  <paragraph>$$\textbf{q} = \begin{bmatrix} .116293 \\ .168567 \\ .191263 \\ .098844 \\ .164054 \\ .168567 \\ .092413 \end{bmatrix}$$</paragraph>
+  <paragraph>so the most important page according to PageRank is page $$3$$ , which has the largest entry in $$\textbf{q}$$ . The complete ranking is $$3$$ , $$2$$ and $$6$$ , $$5$$ , $$1$$ , $$4$$ , and $$7$$ .</paragraph>
+  <note type="caution" source_type="caution" title="Numerical Note">
+    <heading level="2">Numerical Note</heading>
+    <paragraph>The computation of $$\textbf{q}$$ is not a trivial task, since the Google matrix has more than $$8 \text{billion}$$ rows and columns. Google uses a version of the power method introduced in Section 5.8 to compute $$\textbf{q}$$ . While the power method was used in that section to estimate the eigenvalues of a matrix, it can also be used to provide estimates for eigenvectors. Since $$\textbf{q}$$ is an eigenvector of $$G$$ corresponding to the eigenvalue $$1$$ , the power method applies. It turns out that only between $$50$$ and $$100$$ iterations of the method are needed to get the vector $$\textbf{q}$$ to the accuracy that Google needs for its rankings. It still takes days for Google to compute a new $$\textbf{q}$$ , which it does every month.</paragraph>
+  </note>
+  <note type="practice" source_type="practice" title="Practice Problem">
+    <heading level="2">Practice Problem</heading>
+    <list type="ordered">
+      <item>Consider the Markov chain on $$\left\{ 1 \text{,} 2 \text{,} 3 \right\}$$ with transition matrix $$P = \begin{bmatrix} 1 / 2 &amp; 0 &amp; 1 / 2 \\ 1 / 2 &amp; 1 / 2 &amp; 0 \\ 0 &amp; 1 / 2 &amp; 1 / 2 \end{bmatrix}$$ Show that $$P$$ is a regular matrix. Find the steady-state vector for this Markov chain. What fraction of the time does this chain spend in state $$2$$ ? Explain your answer.</item>
+    </list>
+  </note>
+  <paragraph>1 PageRank really uses a $$K$$ that has all its columns equal to a probability vector $$\mathbf{v}$$ , which could be linked to an individual searcher or group of searchers. This modification also makes it easier to police the Web for websites attempting to generate Web traffic. See Google’s PageRank and Beyond: The Science of Search Engine Rankings by Amy N. Langville and Carl D. Meyer (Princeton: Princeton University Press, 2006) for more information.</paragraph>
+</section>

@@ -1,596 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch05" chapter_number="5" unit_code="5.5">
-  <section number="5.5" title="Complex Eigenvalues">
-    <metadata>
-      <source_pages count="5">
-        <page global_index="263" type="content"/>
-        <page global_index="264" type="content"/>
-        <page global_index="265" type="content"/>
-        <page global_index="266" type="exercises"/>
-        <page global_index="267" type="exercises"/>
-      </source_pages>
-    </metadata>
-    <content>
-      <heading level="1">5.5 Complex Eigenvalues</heading>
-      <video title="Watch Video"/>
-      <paragraph>Since the characteristic equation of an <math display="inline">$n \times n$</math> matrix involves a polynomial of degree <math display="inline">$n$</math>, the equation always has exactly <math display="inline">$n$</math> roots, counting multiplicities, <em>provided that possibly complex roots are included</em>. This section shows that if the characteristic equation of a real matrix <math display="inline">$A$</math> has some complex roots, then these roots provide critical information about <math display="inline">$A$</math>. The key is to let <math display="inline">$A$</math> act on the space <math display="inline">$\text{ℂ}^{n}$</math> of <math display="inline">$n\text{-tuples}$</math> of complex numbers.1<sup/></paragraph>
-      <paragraph>Our interest in <math display="inline">$\text{ℂ}^{n}$</math> does not arise from a desire to “generalize” the results of the earlier chapters, although that would in fact open up significant new applications of linear algebra.2 Rather, this study of complex eigenvalues is essential in order to uncover “hidden” information about certain matrices with real entries that arise in a variety of real-life problems. Such problems include many real dynamical systems that involve periodic motion, vibration, or some type of rotation in space.</paragraph>
-      <paragraph>The matrix eigenvalue–eigenvector theory already developed for <math display="inline">$\text{ℝ}^{n}$</math> applies equally well to <math display="inline">$\text{ℂ}^{n}$</math>. So a complex scalar <math display="inline">$\text{λ}$</math> satisfies <math display="inline">$\text{det}(A - \text{λ}I) = 0$</math> if and only if there is a nonzero vector <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℂ}^{n}$</math> such that <math display="inline">$A\textbf{x} = \text{λ}\textbf{x}$</math>. We call <math display="inline">$\text{λ}$</math> a (complex) eigenvalue and <math display="inline">$\textbf{x}$</math> a (complex) eigenvector corresponding to <math display="inline">$\text{λ}$</math>.</paragraph>
-      <example number="1">
-          <heading level="2">Example 1</heading>
-              <paragraph>If <math display="inline">$A = \left\lbrack \begin{array}{rr}
-      0 &amp; {- 1} \\
-      1 &amp; 0
-      \end{array} \right\rbrack$</math>, then the linear transformation <math display="inline">$\textbf{x}\mapsto A\textbf{x}$</math> on <math display="inline">$\text{ℝ}^{2}$</math> rotates the plane counterclockwise through a quarter-turn. The action of <math display="inline">$A$</math> is periodic, since after four quarter-turns, a vector is back where it started. Obviously, no nonzero vector is mapped into a multiple of itself, so <math display="inline">$A$</math> has no eigenvectors in <math display="inline">$\textbf{ℝ}^{2}$</math> and hence no real eigenvalues. In fact, the characteristic equation of <math display="inline">$A$</math> is</paragraph>
-              <paragraph><math display="block">$$\text{λ}^{2} + 1 = 0$$</math></paragraph>
-              <paragraph>The only roots are complex: <math display="inline">$\text{λ} = i$</math> and <math display="inline">$\text{λ} = - i$</math>. However, if we permit <math display="inline">$A$</math> to act on <math display="inline">$\textbf{ℂ}^{2}$</math>, then</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-       &amp; {\left\lbrack \begin{array}{rr}
-      0 &amp; {- 1} \\
-      1 &amp; 0
-      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
-      1 \\
-      {- i}
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
-      i \\
-      1
-      \end{array} \right\rbrack = i\left\lbrack \begin{array}{r}
-      1 \\
-      {- i}
-      \end{array} \right\rbrack} \\
-       &amp; {\left\lbrack \begin{array}{rr}
-      0 &amp; {- 1} \\
-      1 &amp; 0
-      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
-      1 \\
-      i
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
-      {- i} \\
-      1
-      \end{array} \right\rbrack = - i\left\lbrack \begin{array}{r}
-      1 \\
-      i
-      \end{array} \right\rbrack}
-      \end{matrix}$$</math></paragraph>
-              <paragraph>Thus <math display="inline">$i$</math> and <math display="inline">$- i$</math> are eigenvalues, with <math display="inline">$\left\lbrack \begin{array}{r}
-      1 \\
-      {- i}
-      \end{array} \right\rbrack$</math> and <math display="inline">$\left\lbrack \begin{array}{r}
-      1 \\
-      i
-      \end{array} \right\rbrack$</math> as corresponding eigenvectors. (A method for <em>finding</em> complex eigenvectors is discussed in Example 2.)</paragraph>
-        </example>
-      <paragraph>The main focus of this section will be on the matrix in the next example.</paragraph>
-      <example number="2">
-          <heading level="2">Example 2</heading>
-              <paragraph>Let <math display="inline">$A = \left\lbrack \begin{array}{rr}
-      .5 &amp; {{- \text{.}}6} \\
-      .75 &amp; 1.1
-      \end{array} \right\rbrack$</math>. Find the eigenvalues of <math display="inline">$A$</math>, and find a basis for each eigenspace.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>The characteristic equation of <math display="inline">$A$</math> is</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      {0 = \det\begin{bmatrix}
-      {.5 - \text{λ}} &amp; {- .6} \\
-      .75 &amp; {1.1 - \text{λ}}
-      \end{bmatrix}} &amp; {= (.5 - \text{λ})(1.1 - \text{λ}) - ( - .6)(.75)} \\
-       &amp; {= \text{λ}^{2} - 1.6\text{λ} + 1}
-      \end{matrix}$$</math></paragraph>
-              <paragraph>From the quadratic formula, <math display="inline">$\text{λ} = \frac{1}{2}\lbrack 1.6 \pm \sqrt{( - 1.6)^{2} - 4}\rbrack = .8 \pm .6i$</math>. For the eigenvalue <math display="inline">$\text{λ} = .8 - .6i$</math>, construct</paragraph>
-              <paragraph><math display="block">$$\begin{array}{lll}
-      {A - (.8 - .6i)I} &amp; = &amp; {\left\lbrack \begin{array}{ll}
-      .5 &amp; {- .6} \\
-      .75 &amp; 1.1
-      \end{array} \right\rbrack - \left\lbrack \begin{array}{ll}
-      {.8 - .6i} &amp; 0 \\
-      0 &amp; {.8 - .6i}
-      \end{array} \right\rbrack} \\
-       &amp; = &amp; \left\lbrack \begin{array}{ll}
-      {- .3 + .6i} &amp; {- .6} \\
-      .75 &amp; {.3 + .6i}
-      \end{array} \right\rbrack
-      \end{array}$$</math></paragraph>
-              <paragraph>Row reduction of the usual augmented matrix is quite unpleasant by hand because of the complex arithmetic. However, here is a nice observation that really simplifies matters: Since <math display="inline">$.8 - .6i$</math> is an eigenvalue, the system</paragraph>
-              <paragraph><math display="block">$$\begin{array}{rrr}
-      {( - .3 + .6i)x_{1} -} &amp; {.6x_{2}} &amp; {= 0} \\
-      {.75x_{1} +} &amp; {(.3 + 6i)x_{2}} &amp; {= 0}
-      \end{array}$$</math></paragraph>
-              <paragraph>has a nontrivial solution (with <math display="inline">$x_{1}$</math> and <math display="inline">$x_{2}$</math> possibly complex numbers). Therefore, <em>both equations in</em><em><strong>(2)</strong></em><em>determine the same relationship between</em><math display="inline">$x_{1}$</math><em>and</em><math display="inline">$x_{2}$</math><em>, and either equation can be used to express one variable in terms of the other</em>.3<sup/></paragraph>
-              <paragraph>The second equation in <strong>(2)</strong> leads to</paragraph>
-              <paragraph><math display="block">$$\begin{array}{rr}
-      {.75x_{1}} &amp; {= ( - .3 - .6i)x_{2}} \\
-      x_{1} &amp; {= ( - .4 - .8i)x_{2}}
-      \end{array}$$</math></paragraph>
-              <paragraph>Choose <math display="inline">$x_{2} = 5$</math> to eliminate the decimals, and obtain <math display="inline">$x_{1} = - 2 - 4i$</math>. A basis for the eigenspace corresponding to <math display="inline">$\text{λ} = .8 - .6i$</math> is</paragraph>
-              <paragraph><math display="block">$$\textbf{v}_{1} = \begin{bmatrix}
-      {- 2 - 4i} \\
-      5
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>Analogous calculations for <math display="inline">$\text{λ} = .8 + .6i$</math> produce the eigenvector</paragraph>
-              <paragraph><math display="block">$$\textbf{v}_{2} = \begin{bmatrix}
-      {- 2 + 4i} \\
-      5
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>As a check on the work, compute</paragraph>
-              <paragraph><math display="block">$$A\textbf{v}_{2} = \left\lbrack \begin{array}{rr}
-      {.5\phantom{5}} &amp; {- .6} \\
-      .75 &amp; 1.1
-      \end{array} \right\rbrack\begin{bmatrix}
-      {- 2 + 4i} \\
-      5
-      \end{bmatrix} = \left\lbrack \begin{array}{r}
-      {- 4 + 2i} \\
-      {4 + 3i}
-      \end{array} \right\rbrack = (.8 + .6i)\textbf{v}_{2}$$</math></paragraph>
-        </example>
-      <paragraph>Surprisingly, the matrix <math display="inline">$A$</math> in <strong>Example 2</strong> determines a transformation <math display="inline">$\textbf{x}\mapsto\! A\textbf{x}$</math> that is essentially a rotation. This fact becomes evident when appropriate points are plotted, as illustrated in <strong>Figure 1</strong>.</paragraph>
-      <example number="3">
-          <heading level="2">Example 3</heading>
-              <paragraph>One way to see how multiplication by the matrix <math display="inline">$A$</math> in Example 2 affects points is to plot an arbitrary initial point—say, <math display="inline">$\textbf{x}_{0} = (2,0)$</math>—and then to plot successive images of this point under repeated multiplications by <math display="inline">$A$</math>. That is, plot</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      \textbf{x}_{1} &amp; {= A\textbf{x}_{0} = \left\lbrack \begin{array}{rr}
-      {.5\phantom{5}} &amp; {- .6} \\
-      .75 &amp; 1.1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
-      2 \\
-      0
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
-      1.0 \\
-      1.5
-      \end{array} \right\rbrack} \\
-      \textbf{x}_{2} &amp; {= A\textbf{x}_{1} = \left\lbrack \begin{array}{rr}
-      {.5\phantom{5}} &amp; {- .6} \\
-      .75 &amp; 1.1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
-      1.0 \\
-      1.5
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
-      {- .4} \\
-      2.4
-      \end{array} \right\rbrack} \\
-      \textbf{x}_{3} &amp; {= A\textbf{x}_{2},\ldots}
-      \end{matrix}$$</math></paragraph>
-              <paragraph>Figure 1 shows <math display="inline">$\textbf{x}_{0},\ldots,\textbf{x}_{8}$</math> as larger dots. The smaller dots are the locations of <math display="inline">$\textbf{x}_{9},\ldots,$</math> <math display="inline">$\textbf{x}_{100}$</math>. The sequence lies along an elliptical orbit.</paragraph>
-          <heading level="4">Figure 1
-              Iterates of a point  x0 under the action of a matrix with a complex eigenvalue</heading>
-          <figure caption="Watch Video">
-            <image alt="A graph shows a dotted ellipse tilted to its left. The major portions of the ellipse lie in the second and fourth quadrants."/>
-          </figure>
-        </example>
-      <paragraph>Of course, Figure 1 does not explain <em>why</em> the rotation occurs. The secret to the rotation is hidden in the real and imaginary parts of a complex eigenvector.</paragraph>
-      <heading level="2">Real and Imaginary Parts of Vectors</heading>
-      <paragraph>The complex conjugate of a complex vector <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℂ}^{n}$</math> is the vector <math display="inline">$\overset{‾}{\textbf{x}}$</math> in <math display="inline">$\text{ℂ}^{n}$</math> whose entries are the complex conjugates of the entries in <math display="inline">$\textbf{x}$</math>. The real part and imaginary parts of a complex vector <math display="inline">$\textbf{x}$</math> are the vectors Re x and Im x in <math display="inline">$\text{ℝ}^{n}$</math> formed from the real and imaginary parts of the entries of <math display="inline">$\textbf{x}$</math>. Thus,</paragraph>
-      <paragraph>
-        <math display="block">$$\boxed{\textbf{x} = \text{Re~}\textbf{x} + \textit{i}\text{Im~}\textbf{x}}$$</math>
-      </paragraph>
-      <example number="4">
-          <heading level="2">Example 4</heading>
-              <paragraph>If <math display="inline">$\textbf{x} = \,\,\begin{bmatrix}
-      {3 - i} \\
-      i \\
-      {2 + 5i}
-      \end{bmatrix}~ = ~\begin{bmatrix}
-      3 \\
-      0 \\
-      2
-      \end{bmatrix}~ + ~i\left\lbrack \begin{array}{r}
-      {- 1} \\
-      1 \\
-      5
-      \end{array} \right\rbrack$</math>, then</paragraph>
-              <paragraph><math display="inline">$\text{Re~}\textbf{x} = \,\,\begin{bmatrix}
-      3 \\
-      0 \\
-      2
-      \end{bmatrix},\quad\text{Im~}\textbf{x} = \,\,\begin{bmatrix}
-      {- 1} \\
-      1 \\
-      5
-      \end{bmatrix},\quad\text{and}\quad\overline{\mathbf{x}} = \,\,\begin{bmatrix}
-      3 \\
-      0 \\
-      2
-      \end{bmatrix} - i\left\lbrack \begin{array}{r}
-      {- 1} \\
-      1 \\
-      5
-      \end{array} \right\rbrack~ = ~\begin{bmatrix}
-      {3 + i} \\
-      {- i} \\
-      {2 - 5i}
-      \end{bmatrix}$</math></paragraph>
-        </example>
-      <paragraph>If <math display="inline">$B$</math> is an <math display="inline">$m \times n$</math> matrix with possibly complex entries, then <math display="inline">$\overset{‾}{B}$</math> denotes the matrix whose entries are the complex conjugates of the entries in <math display="inline">$B$</math>. Let <math display="inline">$r$</math> be a complex number and <math display="inline">$\textbf{x}$</math> any vector. Properties of conjugates for complex numbers carry over to complex matrix algebra:</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{array}{lllll}
-      {\overline{r\mathbf{x}} = \overline{r}\overline{\textbf{x}}\text{,}} &amp; {\overline{B\textbf{x}} = \overline{B}\overline{\textbf{x}}\text{,}} &amp; {\overline{BC} = \overline{B}\overline{C},} &amp; \text{and} &amp; {\overline{rB} = \overline{r}\overline{B}}
-      \end{array}$$</math>
-      </paragraph>
-      <heading level="2">Eigenvalues and Eigenvectors of a Real Matrix That Acts on ℂn</heading>
-      <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> matrix whose entries are real. Then <math display="inline">$\overset{‾}{A\textbf{x}} = \overset{‾}{A}\overset{‾}{\textbf{x}} = A\overset{‾}{\textbf{x}}$</math>. If <math display="inline">$\text{λ}$</math> is an eigenvalue of <math display="inline">$A$</math> and <math display="inline">$\textbf{x}$</math> is a corresponding eigenvector in <math display="inline">$\text{ℂ}^{n}$</math>, then</paragraph>
-      <paragraph>
-        <math display="block">$$A\overline{\mathbf{x}} = \overline{A\mathbf{x}} = \overline{\text{λ}\mathbf{x}} = \overline{\text{λ}}\overline{\mathbf{x}}$$</math>
-      </paragraph>
-      <paragraph>Hence <math display="inline">$\overset{‾}{\text{λ}}$</math> is also an eigenvalue of <math display="inline">$A$</math>, with <math display="inline">$\overset{‾}{\textbf{x}}$</math> a corresponding eigenvector. This shows that <em>when</em><math display="inline">$A$</math><em>is real, its complex eigenvalues occur in conjugate pairs</em>. (Here and elsewhere, we use the term <em>complex eigenvalue</em> to refer to an eigenvalue <math display="inline">$\text{λ} = a + bi$</math>, with <math display="inline">$b \neq 0$</math>.)</paragraph>
-      <example number="5">
-          <heading level="2">Example 5</heading>
-              <paragraph>The eigenvalues of the real matrix in Example 2 are complex conjugates, namely <math display="inline">$.8 - .6i$</math> and <math display="inline">$.8 + .6i$</math>. The corresponding eigenvectors found in Example 2 are also conjugates:</paragraph>
-              <paragraph><math display="block">$$\textbf{v}_{1} = \begin{bmatrix}
-      {- 2 - 4i} \\
-      5
-      \end{bmatrix}\quad\text{and}\quad\textbf{v}_{2} = \begin{bmatrix}
-      {- 2 + 4i} \\
-      5
-      \end{bmatrix} = {\overset{‾}{\textbf{v}}}_{1}$$</math></paragraph>
-        </example>
-      <paragraph>The next example provides the basic “building block” for all real <math display="inline">$2 \times 2$</math> matrices with complex eigenvalues.</paragraph>
-      <example number="6">
-          <heading level="2">Example 6</heading>
-              <paragraph>If <math display="inline">$C = \left\lbrack \begin{array}{rr}
-      a &amp; {- b} \\
-      b &amp; a
-      \end{array} \right\rbrack$</math>, where <math display="inline">$a$</math> and <math display="inline">$b$</math> are real and not both zero, then the eigenvalues of <math display="inline">$C$</math> are <math display="inline">$\text{λ} = a \pm bi$</math>. (See the Practice Problem at the end of this section.) Also, if <math display="inline">$r = |\text{λ}| = \sqrt{a^{2} + b^{2}}$</math>, then</paragraph>
-              <paragraph><math display="block">$$C = r\left\lbrack \begin{array}{rr}
-      {a\text{/}r} &amp; {- b\text{/}r} \\
-      {b\text{/}r} &amp; {a\text{/}r}
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
-      r &amp; 0 \\
-      0 &amp; r
-      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
-      {\cos\varphi} &amp; {- \sin\varphi} \\
-      {\sin\varphi} &amp; {\cos\varphi}
-      \end{array} \right\rbrack$$</math></paragraph>
-              <paragraph>where <math display="inline">$\varphi$</math> is the angle between the positive <math display="inline">$x\text{-axis}$</math> and the ray from <math display="inline">$(0,0)$</math> through <math display="inline">$(a,b)$</math>. See <strong>Figure 2</strong> and Appendix B. The angle <math display="inline">$\varphi$</math> is called the <em>argument</em> of <math display="inline">$\text{λ} = a + bi$</math>. Thus the transformation <math display="inline">$\textbf{x}\mapsto\! C\textbf{x}$</math> may be viewed as the composition of a rotation through the angle <math display="inline">$\varphi$</math> and a scaling by <math display="inline">$|\text{λ}|$</math> (see <strong>Figure 3</strong>).</paragraph>
-          <figure caption="Figure 2">
-            <image alt="A graph shows a right-angled triangle in the first quadrant. The adjacent side is on the horizontal axis. The left end of the adjacent side is on the origin."/>
-          </figure>
-          <figure label="Figure 3" caption="A rotation followed by a scaling">
-            <image alt="A graph shows scaling up as well as rotating a vector x. The graph consists of two vectors starting from the origin pointing in the second quadrant with one being smaller than the other."/>
-          </figure>
-        </example>
-      <paragraph>Finally, we are ready to uncover the rotation that is hidden within a real matrix having a complex eigenvalue.</paragraph>
-      <example number="7">
-          <heading level="2">Example 7</heading>
-              <paragraph>Let <math display="inline">$A = \begin{bmatrix}
-      .5 &amp; {{- \text{.}}6} \\
-      .75 &amp; 1.1
-      \end{bmatrix}$</math>, <math display="inline">$\text{λ} = .8 - .6i$</math>, and <math display="inline">$\textbf{v}_{1} = \begin{bmatrix}
-      {- 2 - 4i} \\
-      5
-      \end{bmatrix}$</math>, as in Example 2. Also, let <math display="inline">$P$</math> be the <math display="inline">$2 \times 2$</math> real matrix, described in Theorem 9,</paragraph>
-              <paragraph><math display="block">$$P = \left\lbrack \begin{array}{rr}
-      {\text{Re~}\textbf{v}_{1}} &amp; {\text{Im~}\textbf{v}_{1}}
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
-      {- 2} &amp; {- 4} \\
-      5 &amp; 0
-      \end{array} \right\rbrack$$</math></paragraph>
-              <paragraph>and let</paragraph>
-              <paragraph><math display="block">$$C = P^{- 1}AP = \frac{1}{20}\left\lbrack \begin{array}{rr}
-      0 &amp; 4 \\
-      {- 5} &amp; {- 2}
-      \end{array} \right\rbrack\left\lbrack \begin{array}{lr}
-      .5 &amp; {{- \text{.}}6} \\
-      .75 &amp; 1.1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{rr}
-      {- 2} &amp; {- 4} \\
-      5 &amp; 0
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{rr}
-      .8 &amp; {{- \text{.}}6} \\
-      .6 &amp; .8
-      \end{array} \right\rbrack$$</math></paragraph>
-              <paragraph>By <strong>Example 6</strong>, <math display="inline">$C$</math> is a pure rotation because <math display="inline">$|\text{λ}|^{2} = (.8)^{2} + (.6)^{2} = 1$</math>. From <math display="inline">$C = P^{- 1}AP$</math>, we obtain</paragraph>
-              <paragraph><math display="block">$$A = PCP^{- 1} = P\left\lbrack \begin{array}{rr}
-      .8 &amp; {{- \text{.}}6} \\
-      .6 &amp; .8
-      \end{array} \right\rbrack P^{- 1}$$</math></paragraph>
-              <paragraph>Here is the rotation “inside” <math display="inline">$A$</math>! The matrix <math display="inline">$P$</math> provides a change of variable, say, <math display="inline">$\textbf{x} = P\textbf{u}$</math>. The action of <math display="inline">$A$</math> amounts to a change of variable from <math display="inline">$\textbf{x}$</math> to <math display="inline">$\textbf{u}$</math>, followed by a rotation, and then a return to the original variable. See <strong>Figure 4</strong>. The rotation produces an ellipse, as in <strong>Figure 1</strong>, instead of a circle, because the coordinate system determined by the columns of <math display="inline">$P$</math> is not rectangular and does not have equal unit lengths on the two axes.</paragraph>
-          <figure label="Figure 4" caption="Rotation due to a complex eigenvalue">
-            <image alt="A figure shows four arrows forming a rectangle having different matrix notations on its vertices."/>
-          </figure>
-        </example>
-      <paragraph>The next theorem shows that the calculations in <strong>Example 7</strong> can be carried out for any <math display="inline">$2 \times 2$</math> real matrix <math display="inline">$A$</math> having a complex eigenvalue <math display="inline">$\text{λ}$</math>. The proof uses the fact that if the entries in <math display="inline">$A$</math> are real, then <math display="inline">$A\left( \text{Re~}\textbf{x} \right) = \text{Re}\left( A\textbf{x} \right)$</math> and <math display="inline">$A\left( \text{Im~}\textbf{x} \right) = \text{Im}\left( A\textbf{x} \right)$</math>, and if <math display="inline">$\textbf{x}$</math> is an eigenvector for a complex eigenvalue, then <math display="inline">$\text{Re~}\textbf{x}$</math> and <math display="inline">$\text{Im~}\textbf{x}$</math> are linearly independent in <math display="inline">$\textbf{R}^{2}$</math>. (See Exercises 29 and 30.) The details are omitted.</paragraph>
-      <note type="procedure" title="Theorem 9">
-          <heading level="2">Theorem 9</heading>
-              <paragraph>Let <math display="inline">$A$</math> be a real <math display="inline">$2 \times 2$</math> matrix with a complex eigenvalue <math display="inline">$\text{λ} = a - bi(b \neq 0)$</math> and an associated eigenvector <strong>v</strong> in <math display="inline">$\text{ℂ}^{2}$</math>. Then</paragraph>
-              <paragraph><math display="block">$$\begin{array}{r}
-      {A = PCP^{- 1},\quad\text{where}\quad P = \left\lbrack \begin{array}{rr}
-      {\text{Re~}\textbf{v}} &amp; {\text{Im~}\textbf{v}}
-      \end{array} \right\rbrack\quad\text{and}\quad C = \left\lbrack \begin{array}{rr}
-      a &amp; {- b} \\
-      b &amp; a
-      \end{array} \right\rbrack}
-      \end{array}$$</math></paragraph>
-        </note>
-      <paragraph>The phenomenon displayed in Example 7 persists in higher dimensions. For instance, if <math display="inline">$A$</math> is a <math display="inline">$3 \times 3$</math> matrix with a complex eigenvalue, then there is a plane in <math display="inline">$\text{ℝ}^{3}$</math> on which <math display="inline">$A$</math> acts as a rotation (possibly combined with scaling). Every vector in that plane is rotated into another point on the same plane. We say that the plane is invariant under <math display="inline">$A$</math>.</paragraph>
-      <example number="8">
-          <heading level="2">Example 8</heading>
-              <paragraph>The matrix <math display="inline">$A = \left\lbrack \begin{array}{rrc}
-      .8 &amp; {{- \text{.}}6} &amp; 0 \\
-      .6 &amp; {\text{.}8} &amp; 0 \\
-      0 &amp; 0 &amp; {1.07}
-      \end{array} \right\rbrack$</math> has eigenvalues <math display="inline">$.8 \pm .6i$</math> and <math display="inline">$1.07$</math>. Any vector <math display="inline">$\textbf{w}_{0}$</math> in the <math display="inline">$x_{1}x_{2}\text{-plane}$</math> (with third coordinate <math display="inline">$0$</math>) is rotated by <math display="inline">$A$</math> into another point in the plane. Any vector <math display="inline">$\textbf{x}_{0}$</math> not in the plane has its <math display="inline">$x_{3}\text{-coordinate}$</math> multiplied by <math display="inline">$1.07$</math>. The iterates of the points <math display="inline">$\textbf{w}_{0} = (2,0,0)$</math> and <math display="inline">$\textbf{x}_{0} = (2,0,1)$</math> under multiplication by <math display="inline">$A$</math> are shown in <strong>Figure 5</strong>.</paragraph>
-          <figure label="Figure 5" caption="Iterates of two points under the action of a  3×3 matrix with a complex eigenvalue">
-            <image alt="A graph shows a hollow cylinder placed around the z axis with a spiral curve along its surface. The centerline of the hollow cylinder coincides with the z axis."/>
-          </figure>
-        </example>
-      <example number="9">
-          <heading level="2">Example 9</heading>
-              <paragraph>Many robots work by rotating at various joints, just as matrices with complex eigenvalues rotate points in space. <strong>Figure</strong><strong>6</strong> illustrates a robot arm made using linear transformations, each with a pair of complex eigenvalues. In Project C, at the end of the chapter, you will be asked to find videos of robots on the web that use rotations as a key element of their functioning.</paragraph>
-          <figure caption="Figure 6">
-            <image alt="A diagram shows a 3-dimensional model of a robotic arm with three rotating joints."/>
-          </figure>
-        </example>
-      <note type="practice" title="Practice Problems">
-          <heading level="2">Practice Problems</heading>
-          <list ordered="false">
-                  <item>Show that if a and b are real, then the eigenvalues of A=a−bba are a±bi, with corresponding eigenvectors 1−i and 1i.</item>
-          </list>
-        </note>
-      <paragraph><sup>1 </sup>Refer to Appendix B for a brief discussion of complex numbers. Matrix algebra and concepts about real vector spaces carry over to the case with complex entries and scalars. In particular, <math display="inline">$A(c\textbf{x} + d\textbf{y})\, = cA\textbf{x} + dA\textbf{y}$</math>, for <math display="inline">$A$</math> an <math display="inline">$m \times n$</math> matrix with complex entries, <math display="inline">$\textbf{x}$</math>, <math display="inline">$\textbf{y}$</math> in <math display="inline">$\textbf{ℂ}^{n}$</math>, and <math display="inline">$c$</math>, <math display="inline">$d$</math> in <math display="inline">$\mathbf{C}$</math>.</paragraph>
-      <paragraph><sup>2</sup> A second course in linear algebra often discusses such topics. They are of particular importance in electrical engineering.</paragraph>
-      <paragraph><sup>3 </sup>Another way to see this is to realize that the matrix in equation (1) is not invertible, so its rows are linearly dependent (as vectors in <math display="inline">$\text{ℂ}^{2}$</math>), and hence one row is a (complex) multiple of the other.</paragraph>
-    </content>
-    <exercises title="5.5 Exercises">
-      <heading level="1">5.5 Exercises</heading>
-      <exercise_group start="1">
-                  <instructions>Let each matrix in Exercises 1–6 act on <math display="inline">$\text{ℂ}^{2}$</math>. Find the eigenvalues and a basis for each eigenspace in <math display="inline">$\text{ℂ}^{2}$</math>.</instructions>
-            <problem number="1">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      1 &amp; {- 2} \\
-      1 &amp; 3
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="2">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      {- 1} &amp; {- 1} \\
-      5 &amp; {- 5}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="3">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      1 &amp; 5 \\
-      {- 2} &amp; 3
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="4">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      {- 3} &amp; {- 1} \\
-      2 &amp; {- 5}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="5">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      0 &amp; 1 \\
-      {- 8} &amp; 4
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="6">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      4 &amp; 3 \\
-      {- 3} &amp; 4
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="7">
-                  <instructions>In Exercises 7–12, use Example 6 to list the eigenvalues of <math display="inline">$A$</math>. In each case, the transformation <math display="inline">$\textbf{x}\mapsto A\textbf{x}$</math> is the composition of a rotation and a scaling. Give the angle <math display="inline">$\varphi$</math> of the rotation, where <math display="inline">$- \pi &lt; \varphi \leq \pi$</math>, and give the scale factor <math display="inline">$r$</math>.</instructions>
-            <problem number="7">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      \sqrt{3} &amp; {- 1} \\
-      1 &amp; \sqrt{3}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="8">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      \sqrt{3} &amp; 3 \\
-      {- 3} &amp; \sqrt{3}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="9">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      {- \sqrt{3}\text{/}2} &amp; {1\text{/}2} \\
-      {- 1\text{/}2} &amp; {- \sqrt{3}\text{/}2}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="10">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      3 &amp; 3 \\
-      {- 3} &amp; 3
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="11">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      .1 &amp; {\text{.}1} \\
-      {- .1} &amp; {\text{.}1}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="12">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      0 &amp; 4 \\
-      {- 4} &amp; 0
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="13">
-                  <instructions>In Exercises 13–20, find an invertible matrix <math display="inline">$P$</math> and a matrix <math display="inline">$C$</math> of the form <math display="inline">$\left\lbrack \begin{array}{rr}
-      a &amp; {- b} \\
-      b &amp; a
-      \end{array} \right\rbrack$</math> such that the given matrix has the form <math display="inline">$A = PCP^{- 1}$</math>. For Exercises 13–16, use information from Exercises 1–4.</instructions>
-            <problem number="13">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      1 &amp; {- 2} \\
-      1 &amp; 3
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="14">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      {- 1} &amp; {- 1} \\
-      5 &amp; {- 5}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="15">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      1 &amp; 5 \\
-      {- 2} &amp; 3
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="16">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      {- 3} &amp; {- 1} \\
-      2 &amp; {- 5}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="17">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      1 &amp; {{- \text{.}}8} \\
-      4 &amp; {- 2.2}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="18">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      1 &amp; {- 1} \\
-      .4 &amp; {\text{.}6}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="19">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      1.52 &amp; {{- \text{.}}7} \\
-      .56 &amp; {\text{.}4}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="20">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      {- 1.64} &amp; {- 2.4} \\
-      1.92 &amp; 2.2
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="21">
-            <problem number="21">
-              <statement>
-                          <paragraph>In Example 2, solve the first equation in <strong>(</strong>2<strong>)</strong> for <math display="inline">$x_{2}$</math> in terms of <math display="inline">$x_{1}$</math>, and from that produce the eigenvector <math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      2 \\
-      {- 1 + 2i}
-      \end{array} \right\rbrack$</math> for the matrix <math display="inline">$A$</math>. Show that this <math display="inline">$\textbf{y}$</math> is a (complex) multiple of the vector <math display="inline">$\textbf{v}_{1}$</math> used in Example 2.</paragraph>
-              </statement>
-            </problem>
-            <problem number="22">
-              <statement>
-                          <paragraph>Let <math display="inline">$A$</math> be a complex (or real) <math display="inline">$n \times n$</math> matrix, and let <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℂ}^{n}$</math> be an eigenvector corresponding to an eigenvalue <math display="inline">$\text{λ}$</math> in <math display="inline">$\text{ℂ}$</math>. Show that for each nonzero complex scalar <math display="inline">$\mu$</math>, the vector <math display="inline">$\mu\textbf{x}$</math> is an eigenvector of <math display="inline">$A$</math>.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="23">
-                  <instructions>In Exercises 23–26, <math display="inline">$A$</math> is a <math display="inline">$2 \times 2$</math> matrix with real entries, and <math display="inline">$\textbf{x}$</math> is a vector in <math display="inline">$\text{ℝ}^{2}$</math>. Mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
-            <problem number="23">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The matrix <math display="inline">$A$</math> can have one real and one complex eigenvalue.</paragraph>
-              </statement>
-            </problem>
-            <problem number="24">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The points <math display="inline">$A\textbf{x},A^{2}\,\textbf{x},A^{3}\,\textbf{x},\ldots$</math> always lie on the same circle.</paragraph>
-              </statement>
-            </problem>
-            <problem number="25">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The matrix <math display="inline">$A$</math> always has two eigenvalues, but sometimes they have algebraic multiplicity <math display="inline">$2$</math> or are complex numbers.</paragraph>
-              </statement>
-            </problem>
-            <problem number="26">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If the matrix <math display="inline">$A$</math> has two complex eigenvalues, then it also has two linearly independent real eigenvectors.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="27">
-                  <instructions>Chapter 7 will focus on matrices <math display="inline">$A$</math> with the property that <math display="inline">$A^{T} = A$</math>. Exercises 27 and 28 show that every eigenvalue of such a matrix is necessarily real.</instructions>
-            <problem number="27">
-              <statement>
-                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> real matrix with the property that <math display="inline">$A^{T} = A$</math>, let <math display="inline">$\textbf{x}$</math> be any vector in <math display="inline">$\text{ℂ}^{n}$</math>, and let <math display="inline">$q = {\overset{‾}{\textbf{x}}}^{T} A\textbf{x}$</math>. The equalities below show that <math display="inline">$q$</math> is a real number by verifying that <math display="inline">$\overset{‾}{q} = q$</math>. Give a reason for each step.</paragraph>
-                <math display="block">$$q~ = ~{x^{T}AX} = x^{T}\overline{Ax}~ = x^{T}\overline{Ax}~ = ~\left( {x^{T}\overline{Ax}} \right)^{T} = {\overline{x}}^{T}A^{T}x~ = ~q~~~~~~~~~~~~~~~~~~~~~~~~~~~(a)~~~~~~~~~~(b)~~~~~~~~~~~~(c)~~~~~~~~~~~~~~~~(d)~~~~~~~~~~~~~(e)$$</math>
-              </statement>
-            </problem>
-            <problem number="28">
-              <statement>
-                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> real matrix with the property that <math display="inline">$A^{T} = A$</math>. Show that if <math display="inline">$A\textbf{x} = \text{λ}\textbf{x}$</math> for some nonzero vector <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℂ}^{n}$</math>, then, in fact, <math display="inline">$\text{λ}$</math> is real and the real part of <math display="inline">$\textbf{x}$</math> is an eigenvector of <math display="inline">$A$</math>. [<em>Hint:</em><strong/>Compute <math display="inline">${\overset{‾}{\textbf{x}}}^{T} A\textbf{x}$</math>, and use Exercise 27. Also, examine the real and imaginary parts of <math display="inline">$A\textbf{x}$</math>.]</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="29">
-            <problem number="29">
-              <statement>
-                          <paragraph>Let <math display="inline">$A$</math> be a real <math display="inline">$n \times n$</math> matrix, and let <math display="inline">$\textbf{x}$</math> be a vector in <math display="inline">$\text{ℂ}^{n}$</math>. Show that <math display="inline">$\text{Re}\left( A\textbf{x} \right) = A\left( \text{Re~}\textbf{x} \right)$</math> and <math display="inline">$\text{Im}\left( A\textbf{x} \right) = A\left( \text{Im~}\textbf{x} \right)$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="30">
-              <statement>
-                          <paragraph>Let <math display="inline">$A$</math> be a real <math display="inline">$2 \times 2$</math> matrix with a complex eigenvalue <math display="inline">$\text{λ} = a - bi$</math> (<math display="inline">$b \neq 0$</math>) and an associated eigenvector <math display="inline">$\mathbf{v}$</math> in <math display="inline">$\text{ℂ}^{2}$</math>.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="31">
-                  <instructions><strong>[T]</strong> In Exercises 31 and 32, find a factorization of the given matrix <math display="inline">$A$</math> in the form <math display="inline">$A = PCP^{- 1}$</math>, where <math display="inline">$C$</math> is a block-diagonal matrix with <math display="inline">$2 \times 2$</math> blocks of the form shown in Example 6. (For each conjugate pair of eigenvalues, use the real and imaginary parts of one eigenvector in <math display="inline">$\text{ℂ}^{4}$</math> to create two columns of <math display="inline">$P$</math>.)</instructions>
-            <problem number="31">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
-      .7 &amp; 1.1 &amp; 2.0 &amp; 1.7 \\
-      {- 2.0} &amp; {- 4.0} &amp; {- 8.6} &amp; {- 7.4} \\
-      0 &amp; {- .5} &amp; {- 1.0} &amp; {- 1.0} \\
-      1.0 &amp; 2.8 &amp; 6.0 &amp; 5.3
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="32">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
-      {- 1.4} &amp; {- 2.0} &amp; {- 2.0} &amp; {- 2.0} \\
-      {- 1.3} &amp; {- .8} &amp; {- .1} &amp; {- .6} \\
-      .3 &amp; {- 1.9} &amp; {- 1.6} &amp; {- 1.4} \\
-      2.0 &amp; 3.3 &amp; 2.3 &amp; 2.6
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-    </exercises>
-  </section>
-</section_file>
+<section>
+  <heading level="1">5.5 Complex Eigenvalues</heading>
+  <paragraph>Since the characteristic equation of an $$n \times n$$ matrix involves a polynomial of degree $$n$$ , the equation always has exactly $$n$$ roots, counting multiplicities, provided that possibly complex roots are included. This section shows that if the characteristic equation of a real matrix $$A$$ has some complex roots, then these roots provide critical information about $$A$$ . The key is to let $$A$$ act on the space $$\mathbb{C}^{n}$$ of $$n \text{-tuples}$$ of complex numbers.1</paragraph>
+  <paragraph>Our interest in $$\mathbb{C}^{n}$$ does not arise from a desire to “generalize” the results of the earlier chapters, although that would in fact open up significant new applications of linear algebra.2 Rather, this study of complex eigenvalues is essential in order to uncover “hidden” information about certain matrices with real entries that arise in a variety of real-life problems. Such problems include many real dynamical systems that involve periodic motion, vibration, or some type of rotation in space.</paragraph>
+  <paragraph>The matrix eigenvalue–eigenvector theory already developed for $$\mathbb{R}^{n}$$ applies equally well to $$\mathbb{C}^{n}$$ . So a complex scalar $$\text{λ}$$ satisfies $$\det (A - \text{λ} I) = 0$$ if and only if there is a nonzero vector $$\textbf{x}$$ in $$\mathbb{C}^{n}$$ such that $$A\textbf{x} = \text{λ} \textbf{x}$$ . We call $$\text{λ}$$ a (complex) eigenvalue and $$\textbf{x}$$ a (complex) eigenvector corresponding to $$\text{λ}$$ .</paragraph>
+  <example number="1">
+    <heading level="2">Example 1</heading>
+    <paragraph>If $$A = \left\lbrack \begin{array}{rr} 0 &amp; {- 1} \\ 1 &amp; 0 \end{array} \right\rbrack$$ , then the linear transformation $$\textbf{x}\mapsto A\textbf{x}$$ on $$\mathbb{R}^{2}$$ rotates the plane counterclockwise through a quarter-turn. The action of $$A$$ is periodic, since after four quarter-turns, a vector is back where it started. Obviously, no nonzero vector is mapped into a multiple of itself, so $$A$$ has no eigenvectors in $$\textbf{\mathbb{R}}^{2}$$ and hence no real eigenvalues. In fact, the characteristic equation of $$A$$ is</paragraph>
+    <paragraph>$$\lambda^{2} + 1 = 0$$</paragraph>
+    <paragraph>The only roots are complex: $$\text{λ} = i$$ and $$\text{λ} = - i$$ . However, if we permit $$A$$ to act on $$\textbf{\mathbb{C}}^{2}$$ , then</paragraph>
+    <paragraph>$$&amp; \begin{bmatrix} \begin{matrix}0 &amp; - 1 \\ 1 &amp; 0\end{matrix} \end{bmatrix} \begin{bmatrix} \begin{matrix}1 \\ - i\end{matrix} \end{bmatrix} = \begin{bmatrix} \begin{matrix}i \\ 1\end{matrix} \end{bmatrix} = i \begin{bmatrix} \begin{matrix}1 \\ - i\end{matrix} \end{bmatrix} &amp; \begin{bmatrix} \begin{matrix}0 &amp; - 1 \\ 1 &amp; 0\end{matrix} \end{bmatrix} \begin{bmatrix} \begin{matrix}1 \\ i\end{matrix} \end{bmatrix} = \begin{bmatrix} \begin{matrix}- i \\ 1\end{matrix} \end{bmatrix} = - i \begin{bmatrix} \begin{matrix}1 \\ i\end{matrix} \end{bmatrix}$$</paragraph>
+    <paragraph>Thus $$i$$ and $$- i$$ are eigenvalues, with $$\left\lbrack \begin{array}{r} 1 \\ {- i} \end{array} \right\rbrack$$ and $$\left\lbrack \begin{array}{r} 1 \\ i \end{array} \right\rbrack$$ as corresponding eigenvectors. (A method for finding complex eigenvectors is discussed in Example 2.)</paragraph>
+  </example>
+  <paragraph>The main focus of this section will be on the matrix in the next example.</paragraph>
+  <example number="2">
+    <heading level="2">Example 2</heading>
+    <paragraph>Let $$A = \left\lbrack \begin{array}{rr} .5 &amp; {{- .}6} \\ .75 &amp; 1.1 \end{array} \right\rbrack$$ . Find the eigenvalues of $$A$$ , and find a basis for each eigenspace.</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>The characteristic equation of $$A$$ is</paragraph>
+    <paragraph>$$0 = det \begin{bmatrix} \begin{matrix}.5 - \lambda &amp; - .6 \\ .75 &amp; 1.1 - \lambda\end{matrix} \end{bmatrix} &amp; = \left(\right. .5 - \lambda \left.\right) \left(\right. 1.1 - \lambda \left.\right) - \left(\right. - .6 \left.\right) \left(\right. .75 \left.\right) &amp; = \lambda^{2} - 1.6 \lambda + 1$$</paragraph>
+    <paragraph>From the quadratic formula, $$\text{λ} = \frac{1}{2}\lbrack 1.6 \pm \sqrt{( - 1.6)^{2} - 4}\rbrack = .8 \pm .6i$$ . For the eigenvalue $$\text{λ} = .8 - .6i$$ , construct</paragraph>
+    <paragraph>(1)</paragraph>
+    <paragraph>$$A - \left(\right. .8 - .6 i \left.\right) I &amp; = &amp; \left[\right. \begin{matrix}.5 &amp; - .6 \\ .75 &amp; 1.1\end{matrix} \left]\right. - \left[\right. \begin{matrix}.8 - .6 i &amp; 0 \\ 0 &amp; .8 - .6 i\end{matrix} \left]\right. &amp; = &amp; \left[\right. \begin{matrix}- .3 + .6 i &amp; - .6 \\ .75 &amp; .3 + .6 i\end{matrix} \left]\right.$$</paragraph>
+    <paragraph>Row reduction of the usual augmented matrix is quite unpleasant by hand because of the complex arithmetic. However, here is a nice observation that really simplifies matters: Since $$.8 - .6i$$ is an eigenvalue, the system</paragraph>
+    <paragraph>(2)</paragraph>
+    <paragraph>$$\left(\right. - .3 + .6 i \left.\right) x_{1} - &amp; .6 x_{2} &amp; = 0 .75 x_{1} + &amp; \left(\right. .3 + 6 i \left.\right) x_{2} &amp; = 0$$</paragraph>
+    <paragraph>has a nontrivial solution (with $$x_{1}$$ and $$x_{2}$$ possibly complex numbers). Therefore, both equations in (2) determine the same relationship between $$x_{1}$$ and $$x_{2}$$ , and either equation can be used to express one variable in terms of the other.3</paragraph>
+    <paragraph>The second equation in (2) leads to</paragraph>
+    <paragraph>$$.75 x_{1} &amp; = \left(\right. - .3 - .6 i \left.\right) x_{2} x_{1} &amp; = \left(\right. - .4 - .8 i \left.\right) x_{2}$$</paragraph>
+    <paragraph>Choose $$x_{2} = 5$$ to eliminate the decimals, and obtain $$x_{1} = - 2 - 4i$$ . A basis for the eigenspace corresponding to $$\text{λ} = .8 - .6i$$ is</paragraph>
+    <paragraph>$$\textbf{v}_{1} = \begin{bmatrix} - 2 - 4 i \\ 5 \end{bmatrix}$$</paragraph>
+    <paragraph>Analogous calculations for $$\text{λ} = .8 + .6i$$ produce the eigenvector</paragraph>
+    <paragraph>$$\textbf{v}_{2} = \begin{bmatrix} - 2 + 4 i \\ 5 \end{bmatrix}$$</paragraph>
+    <paragraph>As a check on the work, compute</paragraph>
+    <paragraph>$$A \textbf{v}_{2} = \begin{bmatrix} .5 &amp; - .6 \\ .75 &amp; 1.1 \end{bmatrix} \begin{bmatrix} - 2 + 4 i \\ 5 \end{bmatrix} = \begin{bmatrix} - 4 + 2 i \\ 4 + 3 i \end{bmatrix} = \left(\right. .8 + .6 i \left.\right) \textbf{v}_{2}$$</paragraph>
+  </example>
+  <paragraph>Surprisingly, the matrix $$A$$ in Example 2 determines a transformation $$\textbf{x}\mapsto A\textbf{x}$$ that is essentially a rotation. This fact becomes evident when appropriate points are plotted, as illustrated in Figure 1.</paragraph>
+  <example number="3">
+    <heading level="2">Example 3</heading>
+    <paragraph>One way to see how multiplication by the matrix $$A$$ in Example 2 affects points is to plot an arbitrary initial point—say, $$\textbf{x}_{0} = (2,0)$$ —and then to plot successive images of this point under repeated multiplications by $$A$$ . That is, plot</paragraph>
+    <paragraph>$$\textbf{x}_{1} &amp; = A \textbf{x}_{0} = \begin{bmatrix} \begin{matrix}.5 &amp; - .6 \\ .75 &amp; 1.1\end{matrix} \end{bmatrix} \begin{bmatrix} \begin{matrix}2 \\ 0\end{matrix} \end{bmatrix} = \begin{bmatrix} \begin{matrix}1.0 \\ 1.5\end{matrix} \end{bmatrix} \textbf{x}_{2} &amp; = A \textbf{x}_{1} = \begin{bmatrix} \begin{matrix}.5 &amp; - .6 \\ .75 &amp; 1.1\end{matrix} \end{bmatrix} \begin{bmatrix} \begin{matrix}1.0 \\ 1.5\end{matrix} \end{bmatrix} = \begin{bmatrix} \begin{matrix}- .4 \\ 2.4\end{matrix} \end{bmatrix} \textbf{x}_{3} &amp; = A \textbf{x}_{2} , \ldots$$</paragraph>
+    <paragraph>Figure 1 shows $$\textbf{x}_{0},\ldots,\textbf{x}_{8}$$ as larger dots. The smaller dots are the locations of $$\textbf{x}_{9} , \ldots ,$$ $$\textbf{x}_{100}$$ . The sequence lies along an elliptical orbit.</paragraph>
+    <heading level="4">Figure 1</heading>
+    <paragraph>Iterates of a point $$\mathbf{x}_{0}$$ under the action of a matrix with a complex eigenvalue</paragraph>
+    <figure>
+      <image alt="A graph shows a dotted ellipse tilted to its left. The major portions of the ellipse lie in the second and fourth quadrants."/>
+      <caption>Watch Video</caption>
+    </figure>
+  </example>
+  <paragraph>Of course, Figure 1 does not explain why the rotation occurs. The secret to the rotation is hidden in the real and imaginary parts of a complex eigenvector.</paragraph>
+  <heading level="2">Real and Imaginary Parts of Vectors</heading>
+  <paragraph>The complex conjugate of a complex vector $$\textbf{x}$$ in $$\mathbb{C}^{n}$$ is the vector $$\overset{‾}{\textbf{x}}$$ in $$\mathbb{C}^{n}$$ whose entries are the complex conjugates of the entries in $$\textbf{x}$$ . The real part and imaginary parts of a complex vector $$\textbf{x}$$ are the vectors $$\textbf{Re}\textbf{x}$$ and $$\textbf{Im}\textbf{x}$$ in $$\mathbb{R}^{n}$$ formed from the real and imaginary parts of the entries of $$\textbf{x}$$ . Thus,</paragraph>
+  <paragraph>(3)</paragraph>
+  <paragraph>$$\boxed{\textbf{x} = \text{Re} \textbf{x} + \textit{i} \text{Im} \textbf{x}}$$</paragraph>
+  <example number="4">
+    <heading level="2">Example 4</heading>
+    <paragraph>If $$\textbf{x} = \begin{bmatrix} {3 - i} \\ i \\ {2 + 5i} \end{bmatrix} = \begin{bmatrix} 3 \\ 0 \\ 2 \end{bmatrix} + i\left\lbrack \begin{array}{r} {- 1} \\ 1 \\ 5 \end{array} \right\rbrack$$ , then</paragraph>
+    <paragraph>$$\text{Re} \textbf{x} = \begin{bmatrix} 3 \\ 0 \\ 2 \end{bmatrix} , \text{Im} \textbf{x} = \begin{bmatrix} - 1 \\ 1 \\ 5 \end{bmatrix} , \text{and} \bar{\mathbf{x}} = \begin{bmatrix} 3 \\ 0 \\ 2 \end{bmatrix} - i \begin{bmatrix} - 1 \\ 1 \\ 5 \end{bmatrix} = \begin{bmatrix} 3 + i \\ - i \\ 2 - 5 i \end{bmatrix}$$</paragraph>
+  </example>
+  <paragraph>If $$B$$ is an $$m \times n$$ matrix with possibly complex entries, then $$\overset{‾}{B}$$ denotes the matrix whose entries are the complex conjugates of the entries in $$B$$ . Let $$r$$ be a complex number and $$\textbf{x}$$ any vector. Properties of conjugates for complex numbers carry over to complex matrix algebra:</paragraph>
+  <paragraph>$$\bar{r \mathbf{x}} = \bar{r} \bar{\textbf{x}} , &amp; \bar{B \textbf{x}} = \bar{B} \bar{\textbf{x}} , &amp; \bar{B C} = \bar{B} \bar{C} , &amp; \text{and} &amp; \bar{r B} = \bar{r} \bar{B}$$</paragraph>
+  <heading level="2">Eigenvalues and Eigenvectors of a Real Matrix That Acts on ℂn</heading>
+  <paragraph>Let $$A$$ be an $$n \times n$$ matrix whose entries are real. Then $$\overset{‾}{A\textbf{x}} = \overset{‾}{A}\overset{‾}{\textbf{x}} = A\overset{‾}{\textbf{x}}$$ . If $$\text{λ}$$ is an eigenvalue of $$A$$ and $$\textbf{x}$$ is a corresponding eigenvector in $$\mathbb{C}^{n}$$ , then</paragraph>
+  <paragraph>$$A \bar{x} = \bar{A x} = \bar{\lambda x} = \bar{\lambda} \bar{x}$$</paragraph>
+  <paragraph>Hence $$\overset{‾}{ \text{λ} }$$ is also an eigenvalue of $$A$$ , with $$\overset{‾}{\textbf{x}}$$ a corresponding eigenvector. This shows that when $$A$$ is real, its complex eigenvalues occur in conjugate pairs. (Here and elsewhere, we use the term complex eigenvalue to refer to an eigenvalue $$\text{λ} = a + bi$$ , with $$b \neq 0$$ .)</paragraph>
+  <example number="5">
+    <heading level="2">Example 5</heading>
+    <paragraph>The eigenvalues of the real matrix in Example 2 are complex conjugates, namely $$.8 - .6i$$ and $$.8 + .6i$$ . The corresponding eigenvectors found in Example 2 are also conjugates:</paragraph>
+    <paragraph>$$\textbf{v}_{1} = \begin{bmatrix} - 2 - 4 i \\ 5 \end{bmatrix} \text{and} \textbf{v}_{2} = \begin{bmatrix} - 2 + 4 i \\ 5 \end{bmatrix} = \left(\overset{\overline}{\textbf{v}}\right)_{1}$$</paragraph>
+  </example>
+  <paragraph>The next example provides the basic “building block” for all real $$2 \times 2$$ matrices with complex eigenvalues.</paragraph>
+  <example number="6">
+    <heading level="2">Example 6</heading>
+    <paragraph>If $$C = \left\lbrack \begin{array}{rr} a &amp; {- b} \\ b &amp; a \end{array} \right\rbrack$$ , where $$a$$ and $$b$$ are real and not both zero, then the eigenvalues of $$C$$ are $$\text{λ} = a \pm bi$$ . (See the Practice Problem at the end of this section.) Also, if $$r = | \text{λ} | = \sqrt{a^{2} + b^{2}}$$ , then</paragraph>
+    <paragraph>$$C = r \begin{bmatrix} a / r &amp; - b / r \\ b / r &amp; a / r \end{bmatrix} = \begin{bmatrix} r &amp; 0 \\ 0 &amp; r \end{bmatrix} \begin{bmatrix} cos \varphi &amp; - sin \varphi \\ sin \varphi &amp; cos \varphi \end{bmatrix}$$</paragraph>
+    <paragraph>where $$\varphi$$ is the angle between the positive $$x \text{-axis}$$ and the ray from $$(0,0)$$ through $$(a,b)$$ . See Figure 2 and Appendix B. The angle $$\varphi$$ is called the argument of $$\text{λ} = a + bi$$ . Thus the transformation $$\textbf{x}\mapsto C\textbf{x}$$ may be viewed as the composition of a rotation through the angle $$\varphi$$ and a scaling by $$| \text{λ} |$$ (see Figure 3).</paragraph>
+    <figure>
+      <image alt="A graph shows a right-angled triangle in the first quadrant. The adjacent side is on the horizontal axis. The left end of the adjacent side is on the origin."/>
+      <caption>Figure 2</caption>
+    </figure>
+    <figure>
+      <image alt="A graph shows scaling up as well as rotating a vector x. The graph consists of two vectors starting from the origin pointing in the second quadrant with one being smaller than the other."/>
+      <caption>Figure 3 A rotation followed by a scaling</caption>
+    </figure>
+  </example>
+  <paragraph>Finally, we are ready to uncover the rotation that is hidden within a real matrix having a complex eigenvalue.</paragraph>
+  <example number="7">
+    <heading level="2">Example 7</heading>
+    <paragraph>Let $$A = \begin{bmatrix} .5 &amp; {{- .}6} \\ .75 &amp; 1.1 \end{bmatrix}$$ , $$\text{λ} = .8 - .6i$$ , and $$\textbf{v}_{1} = \begin{bmatrix} {- 2 - 4i} \\ 5 \end{bmatrix}$$ , as in Example 2. Also, let $$P$$ be the $$2 \times 2$$ real matrix, described in Theorem 9,</paragraph>
+    <paragraph>$$P = \begin{bmatrix} \text{Re} \textbf{v}_{1} &amp; \text{Im} \textbf{v}_{1} \end{bmatrix} = \begin{bmatrix} - 2 &amp; - 4 \\ 5 &amp; 0 \end{bmatrix}$$</paragraph>
+    <paragraph>and let</paragraph>
+    <paragraph>$$C = P^{- 1} A P = \frac{1}{20} \begin{bmatrix} 0 &amp; 4 \\ - 5 &amp; - 2 \end{bmatrix} \begin{bmatrix} .5 &amp; - . 6 \\ .75 &amp; 1.1 \end{bmatrix} \begin{bmatrix} - 2 &amp; - 4 \\ 5 &amp; 0 \end{bmatrix} = \begin{bmatrix} .8 &amp; - . 6 \\ .6 &amp; .8 \end{bmatrix}$$</paragraph>
+    <paragraph>By Example 6, $$C$$ is a pure rotation because $$| \text{λ} |^{2} = (.8)^{2} + (.6)^{2} = 1$$ . From $$C = P^{- 1}AP$$ , we obtain</paragraph>
+    <paragraph>$$A = P C P^{- 1} = P \begin{bmatrix} .8 &amp; - . 6 \\ .6 &amp; .8 \end{bmatrix} P^{- 1}$$</paragraph>
+    <paragraph>Here is the rotation “inside” $$A$$ ! The matrix $$P$$ provides a change of variable, say, $$\textbf{x} = P\textbf{u}$$ . The action of $$A$$ amounts to a change of variable from $$\textbf{x}$$ to $$\textbf{u}$$ , followed by a rotation, and then a return to the original variable. See Figure 4. The rotation produces an ellipse, as in Figure 1, instead of a circle, because the coordinate system determined by the columns of $$P$$ is not rectangular and does not have equal unit lengths on the two axes.</paragraph>
+    <figure>
+      <image alt="A figure shows four arrows forming a rectangle having different matrix notations on its vertices."/>
+      <caption>Figure 4 Rotation due to a complex eigenvalue</caption>
+    </figure>
+  </example>
+  <paragraph>The next theorem shows that the calculations in Example 7 can be carried out for any $$2 \times 2$$ real matrix $$A$$ having a complex eigenvalue $$\text{λ}$$ . The proof uses the fact that if the entries in $$A$$ are real, then $$A\left( \text{Re} \textbf{x} \right) = \text{Re} \left( A\textbf{x} \right)$$ and $$A\left( \text{Im} \textbf{x} \right) = \text{Im} \left( A\textbf{x} \right)$$ , and if $$\textbf{x}$$ is an eigenvector for a complex eigenvalue, then $$\text{Re} \textbf{x}$$ and $$\text{Im} \textbf{x}$$ are linearly independent in $$\textbf{R}^{2}$$ . (See Exercises 29 and 30.) The details are omitted.</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem 9">
+    <heading level="2">Theorem 9</heading>
+    <paragraph>Let $$A$$ be a real $$2 \times 2$$ matrix with a complex eigenvalue $$\text{λ} = a - bi(b \neq 0)$$ and an associated eigenvector v in $$\mathbb{C}^{2}$$ . Then</paragraph>
+    <paragraph>$$A = P C P^{- 1} , \text{where} P = \begin{bmatrix} \begin{matrix} \text{Re} \textbf{v} &amp; \text{Im} \textbf{v}\end{matrix} \end{bmatrix} \text{and} C = \begin{bmatrix} \begin{matrix}a &amp; - b \\ b &amp; a\end{matrix} \end{bmatrix}$$</paragraph>
+  </note>
+  <paragraph>The phenomenon displayed in Example 7 persists in higher dimensions. For instance, if $$A$$ is a $$3 \times 3$$ matrix with a complex eigenvalue, then there is a plane in $$\mathbb{R}^{3}$$ on which $$A$$ acts as a rotation (possibly combined with scaling). Every vector in that plane is rotated into another point on the same plane. We say that the plane is invariant under $$A$$ .</paragraph>
+  <example number="8">
+    <heading level="2">Example 8</heading>
+    <paragraph>The matrix $$A = \left\lbrack \begin{array}{rrc} .8 &amp; {{- .}6} &amp; 0 \\ .6 &amp; {.8} &amp; 0 \\ 0 &amp; 0 &amp; {1.07} \end{array} \right\rbrack$$ has eigenvalues $$.8 \pm .6i$$ and $$1.07$$ . Any vector $$\textbf{w}_{0}$$ in the $$x_{1}x_{2} \text{-plane}$$ (with third coordinate $$0$$ ) is rotated by $$A$$ into another point in the plane. Any vector $$\textbf{x}_{0}$$ not in the plane has its $$x_{3} \text{-coordinate}$$ multiplied by $$1.07$$ . The iterates of the points $$\textbf{w}_{0} = (2,0,0)$$ and $$\textbf{x}_{0} = (2,0,1)$$ under multiplication by $$A$$ are shown in Figure 5.</paragraph>
+    <figure>
+      <image alt="A graph shows a hollow cylinder placed around the z axis with a spiral curve along its surface. The centerline of the hollow cylinder coincides with the z axis."/>
+      <caption>Figure 5 Iterates of two points under the action of a 3×3 matrix with a complex eigenvalue</caption>
+    </figure>
+  </example>
+  <example number="9">
+    <heading level="2">Example 9</heading>
+    <paragraph>Many robots work by rotating at various joints, just as matrices with complex eigenvalues rotate points in space. Figure 6 illustrates a robot arm made using linear transformations, each with a pair of complex eigenvalues. In Project C, at the end of the chapter, you will be asked to find videos of robots on the web that use rotations as a key element of their functioning.</paragraph>
+    <figure>
+      <image alt="A diagram shows a 3-dimensional model of a robotic arm with three rotating joints."/>
+      <caption>Figure 6</caption>
+    </figure>
+  </example>
+  <note type="practice" source_type="practice" title="Practice Problems">
+    <heading level="2">Practice Problems</heading>
+    <list type="unordered">
+      <item>Show that if $$a$$ and $$b$$ are real, then the eigenvalues of $$A = \left\lbrack \begin{array}{rr} a &amp; {- b} \\ b &amp; a \end{array} \right\rbrack$$ are $$a \pm bi$$ , with corresponding eigenvectors $$\left\lbrack \begin{array}{r} 1 \\ {- i} \end{array} \right\rbrack$$ and $$\left\lbrack \begin{array}{r} 1 \\ i \end{array} \right\rbrack$$ .</item>
+    </list>
+  </note>
+  <paragraph>1 Refer to Appendix B for a brief discussion of complex numbers. Matrix algebra and concepts about real vector spaces carry over to the case with complex entries and scalars. In particular, $$A(c\textbf{x} + d\textbf{y}) = cA\textbf{x} + dA\textbf{y}$$ , for $$A$$ an $$m \times n$$ matrix with complex entries, $$\textbf{x}$$ , $$\textbf{y}$$ in $$\textbf{\mathbb{C}}^{n}$$ , and $$c$$ , $$d$$ in $$\mathbf{C}$$ .</paragraph>
+  <paragraph>2 A second course in linear algebra often discusses such topics. They are of particular importance in electrical engineering.</paragraph>
+  <paragraph>3 Another way to see this is to realize that the matrix in equation (1) is not invertible, so its rows are linearly dependent (as vectors in $$\mathbb{C}^{2}$$ ), and hence one row is a (complex) multiple of the other.</paragraph>
+</section>

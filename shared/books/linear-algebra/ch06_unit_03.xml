@@ -1,839 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch06" chapter_number="6" unit_code="6.3">
-  <section number="6.3" title="Orthogonal Projections">
-    <metadata>
-      <source_pages count="6">
-        <page global_index="313" type="content"/>
-        <page global_index="314" type="content"/>
-        <page global_index="315" type="content"/>
-        <page global_index="316" type="exercises"/>
-        <page global_index="317" type="exercises"/>
-        <page global_index="318" type="exercises"/>
-      </source_pages>
-    </metadata>
-    <content>
-      <heading level="1">6.3 Orthogonal Projections</heading>
-      <video title="Watch Video"/>
-      <paragraph>The orthogonal projection of a point in <math display="inline">$\text{ℝ}^{2}$</math> onto a line through the origin has an important analogue in <math display="inline">$\text{ℝ}^{n}$</math>. Given a vector <math display="inline">$\textbf{y}$</math> and a subspace <math display="inline">$W$</math> in <math display="inline">$\text{ℝ}^{n}$</math>, there is a vector <math display="inline">$\widehat{\textbf{y}}$</math> in <math display="inline">$W$</math> such that (1) <math display="inline">$\widehat{\textbf{y}}$</math> is the unique vector in <math display="inline">$W$</math> for which <math display="inline">$\textbf{y} - \widehat{\textbf{y}}$</math> is orthogonal to <math display="inline">$W$</math>, and (2) <math display="inline">$\widehat{\textbf{y}}$</math> is the unique vector in <math display="inline">$W$</math> closest to <math display="inline">$\textbf{y}$</math>. See <strong>Figure 1</strong>. These two properties of <math display="inline">$\widehat{\textbf{y}}$</math> provide the key to finding least-squares solutions of linear systems.</paragraph>
-      <figure caption="Watch Video">
-          <image alt="A figure shows a horizontal plane W with two vectors projecting from point 0 on the plane in the form of a right-angled triangle."/>
-        </figure>
-      <paragraph>To prepare for the first theorem, observe that whenever a vector <math display="inline">$\textbf{y}$</math> is written as a linear combination of vectors <math display="inline">$\mathbf{u}_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\mathbf{u}_{n}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>, the terms in the sum for <math display="inline">$\textbf{y}$</math> can be grouped into two parts so that <math display="inline">$\textbf{y}$</math> can be written as</paragraph>
-      <paragraph>
-        <math display="block">$$\textbf{y} = \textbf{z}_{1} + \textbf{z}_{2}$$</math>
-      </paragraph>
-      <paragraph>where <math display="inline">$\textbf{z}_{1}$</math> is a linear combination of some of the <math display="inline">$\mathbf{u}_{i}$</math> and <math display="inline">$\textbf{z}_{2}$</math> is a linear combination of the rest of the <math display="inline">$\mathbf{u}_{i}$</math>. This idea is particularly useful when <math display="inline">$\left\{ \mathbf{u}_{1}\text{,~}\ldots\text{,~}\mathbf{u}_{n} \right\}$</math> is an orthogonal basis. Recall from Section 6.1 that <math display="inline">$W^{\bot}$</math> denotes the set of all vectors orthogonal to a subspace <math display="inline">$W$</math>.</paragraph>
-      <example number="1">
-          <heading level="2">Example 1</heading>
-              <paragraph>Let <math display="inline">$\left\{ \textbf{u}_{1}\text{,~}\ldots\text{,~}\textbf{u}_{5} \right\}$</math> be an orthogonal basis for <math display="inline">$\text{ℝ}^{5}$</math> and let</paragraph>
-              <paragraph><math display="block">$$\textbf{y} = c_{1}\textbf{u}_{1} + \cdots + c_{5}\textbf{u}_{5}$$</math></paragraph>
-              <paragraph>Consider the subspace <math display="inline">$W = \text{Span~}\left\{ \textbf{u}_{1}\text{,~}\textbf{u}_{2} \right\}$</math>, and write <math display="inline">$\textbf{y}$</math> as the sum of a vector <math display="inline">$\textbf{z}_{1}$</math> in <math display="inline">$W$</math> and a vector <math display="inline">$\textbf{z}_{2}$</math> in <math display="inline">$W^{\bot}$</math>.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>Write</paragraph>
-              <paragraph><math display="block">$$\mathbf{y} = \underset{\mathbf{z}_{1}}{\underset{︸}{c_{1}\textbf{u}_{1} + c_{2}\textbf{u}_{2}}} + \underset{\mathbf{z}_{2}}{\underset{︸}{c_{3}\textbf{u}_{3} + c_{4}\textbf{u}_{4} + c_{5}\textbf{u}_{5}}}$$</math></paragraph>
-              <paragraph>where <math display="block">$$\textbf{z}_{1} = c_{1}\textbf{u}_{1} + c_{2}\textbf{u}_{2}\quad\text{is in Span~}\left\{ \textbf{u}_{1}\text{,~}\textbf{u}_{2} \right\}$$</math></paragraph>
-              <paragraph>and <math display="block">$$\textbf{z}_{2} = c_{3}\textbf{u}_{3} + c_{4}\textbf{u}_{4} + c_{5}\textbf{u}_{5}\quad\text{is in Span~}\left\{ \textbf{u}_{3}\text{,~}\textbf{u}_{4}\text{,~}\textbf{u}_{5} \right\}.$$</math></paragraph>
-              <paragraph>To show that <math display="inline">$\textbf{z}_{2}$</math> is in <math display="inline">$W^{\bot}$</math>, it suffices to show that <math display="inline">$\textbf{z}_{2}$</math> is orthogonal to the vectors in the basis <math display="inline">$\left\{ \textbf{u}_{1}\text{,~}\textbf{u}_{2} \right\}$</math> for <math display="inline">$W$</math>. (See Section 6.1.) Using properties of the inner product, compute</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      {\textbf{z}_{2} \cdot \textbf{u}_{1}} &amp; = &amp; {\left( c_{3}\textbf{u}_{3} + c_{4}\textbf{u}_{4} + c_{5}\textbf{u}_{5} \right) \cdot \textbf{u}_{1}} \\
-       &amp; = &amp; {c_{3}\textbf{u}_{3} \cdot \textbf{u}_{1} + c_{4}\textbf{u}_{4} \cdot \textbf{u}_{1} + c_{5}\textbf{u}_{5} \cdot \textbf{u}_{1}} \\
-       &amp; = &amp; 0
-      \end{matrix}$$</math></paragraph>
-              <paragraph>because <math display="inline">$\textbf{u}_{1}$</math> is orthogonal to <math display="inline">$\textbf{u}_{3}$</math>, <math display="inline">$\textbf{u}_{4}$</math>, and <math display="inline">$\textbf{u}_{5}$</math>. A similar calculation shows that <math display="inline">$\textbf{z}_{2} \cdot \textbf{u}_{2} = 0$</math>. Thus <math display="inline">$\textbf{z}_{2}$</math> is in <math display="inline">$W^{\bot}$</math>.</paragraph>
-        </example>
-      <paragraph>The next theorem shows that the decomposition <math display="inline">$\textbf{y} = \textbf{z}_{1} + \textbf{z}_{2}$</math> in <strong>Example 1</strong> can be computed without having an orthogonal basis for <math display="inline">$\text{ℝ}^{n}$</math>. It is enough to have an orthogonal basis only for <math display="inline">$W$</math>.</paragraph>
-      <note type="procedure" title="Theorem 8">
-          <heading level="2">Theorem 8</heading>
-          <heading level="3">The Orthogonal Decomposition Theorem</heading>
-              <paragraph>Let <math display="inline">$W$</math> be a subspace of <math display="inline">$\text{ℝ}^{n}$</math>. Then each <math display="inline">$\textbf{y}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> can be written uniquely in the form</paragraph>
-              <paragraph><math display="block">$$\textbf{y} = \widehat{\textbf{y}} + \textbf{z}$$</math></paragraph>
-              <paragraph>where <math display="inline">$\widehat{\textbf{y}}$</math> is in <math display="inline">$W$</math> and <math display="inline">$\textbf{z}$</math> is in <math display="inline">$W^{\bot}$</math>. In fact, if <math display="inline">$\left\{ \mathbf{u}_{1}\text{,~}\ldots\text{,~}\mathbf{u}_{p} \right\}$</math> is any orthogonal basis of <math display="inline">$W$</math>, then</paragraph>
-              <paragraph><math display="block">$$\widehat{\textbf{y}} = \frac{\textbf{y} \cdot \mathbf{u}_{1}}{\mathbf{u}_{1} \cdot \mathbf{u}_{1}}\mathbf{u}_{1} + \cdots + \frac{\textbf{y} \cdot \mathbf{u}_{p}}{\mathbf{u}_{p} \cdot \mathbf{u}_{p}}\mathbf{u}_{p}$$</math></paragraph>
-              <paragraph>and <math display="inline">$\textbf{z} = \textbf{y} - \widehat{\textbf{y}}$</math>.</paragraph>
-        </note>
-      <paragraph>The vector <math display="inline">$\widehat{\textbf{y}}$</math> in (2) is called the orthogonal projection of y onto<strong/><math display="inline">$W$</math> and often is written as <math display="inline">$\text{proj}_{W}{\textbf{y}}$</math>. See <strong>Figure 2</strong>. When <math display="inline">$W$</math> is a one-dimensional subspace, the formula for <math display="inline">$\widehat{\textbf{y}}$</math> matches the formula given in Section 6.2.</paragraph>
-      <heading level="4">Figure 2
-              The orthogonal projection of  y ﻿onto  W</heading>
-      <figure caption="Figure 1">
-          <image alt="A figure shows a horizontal plane W with three vectors projecting from point 0 on the plane."/>
-        </figure>
-      <heading level="3">Proof﻿</heading>
-      <paragraph>Let <math display="inline">$\left\{ \mathbf{u}_{1}\text{,~}\ldots\text{,~}\mathbf{u}_{p} \right\}$</math> be any orthogonal basis for <math display="inline">$W$</math>, and define <math display="inline">$\widehat{\textbf{y}}$</math> by <strong>(2)</strong>.1 Then <math display="inline">$\widehat{\textbf{y}}$</math> is in <math display="inline">$W$</math> because <math display="inline">$\widehat{\textbf{y}}$</math> is a linear combination of the basis <math display="inline">$\mathbf{u}_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\mathbf{u}_{p}$</math>. Let <math display="inline">$\textbf{z} = \textbf{y} - \widehat{\textbf{y}}$</math>. Since <math display="inline">$\mathbf{u}_{1}$</math> is orthogonal to <math display="inline">$\mathbf{u}_{2}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\mathbf{u}_{p}$</math>, it follows from (<math display="inline">$2$</math>) that</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{matrix}
-      {{\textbf{z} \cdot \mathbf{u}}_{1} = (\textbf{y} - \widehat{\textbf{y}}) \cdot \mathbf{u}_{1}} &amp; = &amp; {{\textbf{y} \cdot \mathbf{u}}_{1} - \,\left( \frac{\textbf{y~⋅~u}_{1}}{\textbf{u}_{1}{\cdot \mathbf{u}_{1}}} \right)\mathbf{u}_{1} \cdot \mathbf{u}_{1} - 0 - \cdots - 0} \\
-       &amp; = &amp; {{\textbf{y} \cdot \mathbf{u}}_{1} - {\textbf{y} \cdot \mathbf{u}}_{1} = 0}
-      \end{matrix}$$</math>
-      </paragraph>
-      <paragraph>Thus <math display="inline">$\textbf{z}$</math> is orthogonal to <math display="inline">$\mathbf{u}_{1}$</math>. Similarly, <math display="inline">$\textbf{z}$</math> is orthogonal to each <math display="inline">$\mathbf{u}_{j}$</math> in the basis for <math display="inline">$W$</math>. Hence <math display="inline">$\textbf{z}$</math> is orthogonal to every vector in <math display="inline">$W$</math>. That is, <math display="inline">$\textbf{z}$</math> is in <math display="inline">$W^{\bot}$</math>.</paragraph>
-      <paragraph>To show that the decomposition in (1) is unique, suppose <math display="inline">$\textbf{y}$</math> can also be written as <math display="inline">$\textbf{y} = {\widehat{\textbf{y}}}_{1} + \textbf{z}_{1}$</math>, with <math display="inline">${\widehat{\textbf{y}}}_{1}$</math> in <math display="inline">$W$</math> and <math display="inline">$\textbf{z}_{1}$</math> in <math display="inline">$W^{\bot}$</math>. Then <math display="inline">$\widehat{\textbf{y}} + \textbf{z} = {\widehat{\textbf{y}}}_{1} + \textbf{z}_{1}$</math> (since both sides equal <math display="inline">$\textbf{y}$</math>), and so</paragraph>
-      <paragraph>
-        <math display="block">$$\widehat{\textbf{y}} - {\widehat{\textbf{y}}}_{1} = \textbf{z}_{1} - \textbf{z}$$</math>
-      </paragraph>
-      <paragraph>This equality shows that the vector <math display="inline">$\mathbf{v} = \widehat{\textbf{y}} - {\widehat{\textbf{y}}}_{1}$</math> is in <math display="inline">$W$</math> and in <math display="inline">$W^{\bot}$</math> (because <math display="inline">$\textbf{z}_{1}$</math> and <math display="inline">$\textbf{z}$</math> are both in <math display="inline">$W^{\bot}$</math>, and <math display="inline">$W^{\bot}$</math> is a subspace). Hence <math display="inline">$\mathbf{v} \cdot \mathbf{v} = 0$</math>, which shows that <math display="inline">$\mathbf{v} = \textbf{0}$</math>. This proves that <math display="inline">$\widehat{\textbf{y}} = {\widehat{\textbf{y}}}_{1}$</math> and also <math display="inline">$\textbf{z}_{1} = \textbf{z}$</math>.</paragraph>
-      <paragraph>The uniqueness of the decomposition (1) shows that the orthogonal projection <math display="inline">$\widehat{\textbf{y}}$</math> depends only on <math display="inline">$W$</math> and not on the particular basis used in (2).</paragraph>
-      <example number="2">
-          <heading level="2">Example 2</heading>
-              <paragraph>Let <math display="inline">$\mathbf{u}_{1} = \mspace{-180mu}\left\lbrack \begin{array}{r}
-      2 \\
-      5 \\
-      {- 1}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \mspace{-180mu}\left\lbrack \begin{array}{r}
-      {- 2} \\
-      1 \\
-      1
-      \end{array} \right\rbrack$</math>, and <math display="inline">$\textbf{y} = \mspace{-180mu}\left\lbrack \begin{array}{r}
-      1 \\
-      2 \\
-      3
-      \end{array} \right\rbrack$</math>. Observe that <math display="inline">$\left\{ \mathbf{u}_{1},\mathbf{u}_{2} \right\}$</math> is an orthogonal basis for <math display="inline">$W = \text{Span}\left\{ \mathbf{u}_{1},\mathbf{u}_{2} \right\}$</math>. Write <math display="inline">$\textbf{y}$</math> as the sum of a vector in <math display="inline">$W$</math> and a vector orthogonal to <math display="inline">$W$</math>.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>The orthogonal projection of <math display="inline">$\textbf{y}$</math> onto <math display="inline">$W$</math> is</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      \widehat{\textbf{y}} &amp; = &amp; {\frac{\textbf{y} \cdot \mathbf{u}_{1}}{\mathbf{u}_{1} \cdot \mathbf{u}_{1}}\mathbf{u}_{1} + \frac{{\textbf{y} \cdot \mathbf{u}}_{2}}{\mathbf{u}_{2} \cdot \mathbf{u}_{2}}\mathbf{u}_{2}} \\
-       &amp; = &amp; {\frac{9}{30}\left\lbrack \begin{array}{r}
-      2 \\
-      5 \\
-      {- 1}
-      \end{array} \right\rbrack + \frac{3}{6}\left\lbrack \begin{array}{r}
-      {- 2} \\
-      1 \\
-      1
-      \end{array} \right\rbrack = \frac{9}{30}\left\lbrack \begin{array}{r}
-      2 \\
-      5 \\
-      {- 1}
-      \end{array} \right\rbrack + \frac{15}{30}\left\lbrack \begin{array}{r}
-      {- 2} \\
-      1 \\
-      1
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
-      {- 2\text{/}5} \\
-      2 \\
-      {1\text{/}5}
-      \end{array} \right\rbrack}
-      \end{matrix}$$</math></paragraph>
-              <paragraph>Also</paragraph>
-              <paragraph><math display="block">$$\textbf{y} - \widehat{\textbf{y}} = \left\lbrack \begin{array}{r}
-      1 \\
-      2 \\
-      3
-      \end{array} \right\rbrack - \begin{bmatrix}
-      {- 2\text{/}5} \\
-      {2} \\
-      {1\text{/}5}
-      \end{bmatrix} = \begin{bmatrix}
-      {7\text{/}5} \\
-      0 \\
-      {14\text{/}5}
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph><strong>Theorem 8</strong> ensures that <math display="inline">$\textbf{y} - \widehat{\textbf{y}}$</math> is in <math display="inline">$W^{\bot}$</math>. To check the calculations, however, it is a good idea to verify that <math display="inline">$\textbf{y} - \widehat{\textbf{y}}$</math> is orthogonal to both <math display="inline">$\mathbf{u}_{1}$</math> and <math display="inline">$\mathbf{u}_{2}$</math> and hence to all of <math display="inline">$W$</math>. The desired decomposition of <math display="inline">$\textbf{y}$</math> is</paragraph>
-              <paragraph><math display="block">$$\textbf{y} = \left\lbrack \begin{array}{r}
-      1 \\
-      2 \\
-      3
-      \end{array} \right\rbrack = \begin{bmatrix}
-      {- 2\text{/}5} \\
-      2 \\
-      {1\text{/}5}
-      \end{bmatrix} + \begin{bmatrix}
-      {7\text{/}5} \\
-      0 \\
-      {14\text{/}5}
-      \end{bmatrix}$$</math></paragraph>
-        </example>
-      <heading level="2">A Geometric Interpretation of the Orthogonal Projection</heading>
-      <paragraph>When <math display="inline">$W$</math> is a one-dimensional subspace, the formula (2) for <math display="inline">$\text{proj}_{W}\mspace{2mu}\textbf{y}$</math> contains just one term. Thus, when <math display="inline">$\dim W &gt; 1$</math>, each term in (2) is itself an orthogonal projection of <math display="inline">$\textbf{y}$</math> onto a one-dimensional subspace spanned by one of the <math display="inline">$\mathbf{u}’s$</math> in the basis for <math display="inline">$W$</math>. <strong>Figure 3</strong> illustrates this when <math display="inline">$W$</math> is a subspace of <math display="inline">$\text{ℝ}^{3}$</math> spanned by <math display="inline">$\mathbf{u}_{1}$</math> and <math display="inline">$\mathbf{u}_{2}$</math>. Here <math display="inline">${\widehat{\textbf{y}}}_{1}$</math> and <math display="inline">${\widehat{\textbf{y}}}_{2}$</math> denote the projections of <math display="inline">$\textbf{y}$</math> onto the lines spanned by <math display="inline">$\mathbf{u}_{1}$</math> and <math display="inline">$\mathbf{u}_{2}$</math>, respectively. The orthogonal projection <math display="inline">$\widehat{\textbf{y}}$</math> of <math display="inline">$\textbf{y}$</math> onto <math display="inline">$W$</math> is the sum of the projections of <math display="inline">$\textbf{y}$</math> onto one-dimensional subspaces that are orthogonal to each other. The vector <math display="inline">$\widehat{\textbf{y}}$</math> in Figure 3 corresponds to the vector <math display="inline">$\textbf{y}$</math> in Figure 4 of Section 6.2, because now it is <math display="inline">$\widehat{\textbf{y}}$</math> that is in <math display="inline">$W$</math>.</paragraph>
-      <figure label="Figure 3" caption="The orthogonal projection of  y ﻿is the sum of its projections onto one-dimensional subspaces that are mutually orthogonal">
-          <image alt="A graph shows the orthogonal projection of y with mutually orthogonal subspaces on a three-dimensional axis."/>
-        </figure>
-      <heading level="2">Properties of Orthogonal Projections</heading>
-      <paragraph>If <math display="inline">$\left\{ \mathbf{u}_{1}\text{,~}\ldots\text{,~}\mathbf{u}_{p} \right\}$</math> is an orthogonal basis for <math display="inline">$W$</math> and if <math display="inline">$\textbf{y}$</math> happens to be in <math display="inline">$W$</math>, then the formula for <math display="inline">$\text{proj}_{W}\mspace{2mu}\textbf{y}$</math> is exactly the same as the representation of <math display="inline">$\textbf{y}$</math> given in Theorem 5 in Section 6.2. In this case, <math display="inline">$\text{proj}_{W}\mspace{2mu}\textbf{y} = \textbf{y}$</math>.</paragraph>
-      <paragraph>This fact also follows from the next theorem.</paragraph>
-      <note type="procedure" title="Theorem 9">
-          <heading level="2">Theorem 9</heading>
-          <heading level="3">T﻿he Best Approximation Theorem</heading>
-              <paragraph>Let <math display="inline">$W$</math> be a subspace of <math display="inline">$\text{ℝ}^{n}$</math>, let <math display="inline">$\textbf{y}$</math> be any vector in <math display="inline">$\text{ℝ}^{n}$</math>, and let <math display="inline">$\widehat{\textbf{y}}$</math> be the orthogonal projection of <math display="inline">$\textbf{y}$</math> onto <math display="inline">$W$</math>. Then <math display="inline">$\widehat{\textbf{y}}$</math> is the closest point in <math display="inline">$W$</math> to <math display="inline">$\textbf{y}$</math>, in the sense that</paragraph>
-              <paragraph><math display="block">$$\parallel \textbf{y} - \widehat{\textbf{y}} \parallel &lt; \parallel \textbf{y} - \mathbf{v} \parallel$$</math></paragraph>
-              <paragraph>for all <math display="inline">$\mathbf{v}$</math> in <math display="inline">$W$</math> distinct from <math display="inline">$\widehat{\textbf{y}}$</math>.</paragraph>
-        </note>
-      <paragraph>The vector <math display="inline">$\widehat{\textbf{y}}$</math> in <strong>Theorem 9</strong> is called the best approximation to y by elements of W. Later sections in the text will examine problems where a given <math display="inline">$\textbf{y}$</math> must be replaced, or <em>approximated</em>, by a vector <math display="inline">$\mathbf{v}$</math> in some fixed subspace <math display="inline">$W$</math>. The distance from <math display="inline">$\textbf{y}$</math> to <math display="inline">$\mathbf{v}$</math>, given by <math display="inline">$\parallel \textbf{y} - \mathbf{v} \parallel$</math>, can be regarded as the “error” of using <math display="inline">$\mathbf{v}$</math> in place of <math display="inline">$\textbf{y}$</math>. Theorem 9 says that this error is minimized when <math display="inline">$\mathbf{v} = \widehat{\textbf{y}}$</math>.</paragraph>
-      <paragraph>Inequality (3) leads to a new proof that <math display="inline">$\widehat{\textbf{y}}$</math> does not depend on the particular orthogonal basis used to compute it. If a different orthogonal basis for <math display="inline">$W$</math> was used to construct an orthogonal projection of <math display="inline">$\textbf{y}$</math>, then this projection would also be the closest point in <math display="inline">$W$</math> to <math display="inline">$\textbf{y}$</math>, namely <math display="inline">$\widehat{\textbf{y}}$</math>.</paragraph>
-      <heading level="3">Proof</heading>
-      <paragraph>Take <math display="inline">$\mathbf{v}$</math> in <math display="inline">$W$</math> distinct from <math display="inline">$\widehat{\textbf{y}}$</math>. See <strong>Figure 4</strong>. Then <math display="inline">$\widehat{\textbf{y}} - \mathbf{v}$</math> is in <math display="inline">$W$</math>. By the Orthogonal Decomposition Theorem, <math display="inline">$\textbf{y} - \widehat{\textbf{y}}$</math> is orthogonal to <math display="inline">$W$</math>. In particular, <math display="inline">$\textbf{y} - \widehat{\textbf{y}}$</math> is orthogonal to <math display="inline">$\widehat{\textbf{y}} - \mathbf{v}$</math> (which is in <math display="inline">$W$</math>). Since</paragraph>
-      <paragraph>
-        <math display="block">$$\textbf{y} - \mathbf{v} = \left( \textbf{y} - \widehat{\textbf{y}} \right) + \left( \widehat{\textbf{y}} - \mathbf{v} \right)$$</math>
-      </paragraph>
-      <paragraph>the Pythagorean Theorem gives</paragraph>
-      <paragraph>
-        <math display="block">$$\text{∥}\textbf{y} - \mathbf{v}\text{∥}^{2} = \,\text{∥}\textbf{y} - \widehat{\textbf{y}}\text{∥}^{2} + \text{∥}\widehat{\textbf{y}} - \mathbf{v}\text{∥}^{2}$$</math>
-      </paragraph>
-      <paragraph>(See the right triangle outlined in teal in Figure 4. The length of each side is labeled.) Now <math display="inline">$\text{∥}\widehat{\textbf{y}} - \mathbf{v}\text{∥}^{2} &gt; 0$</math> because <math display="inline">$\widehat{\textbf{y}} - \mathbf{v} \neq \textbf{0}$</math>, and so inequality (3) follows immediately.</paragraph>
-      <figure label="Figure 4" caption="The orthogonal projection of   y onto ﻿ W is the closest point in ﻿ W ﻿to  y">
-          <image alt="A figure shows the orthogonal projection of y onto a horizontal plane W with two right-angled triangles with the same altitude."/>
-        </figure>
-      <example number="3">
-          <heading level="2">Example 3</heading>
-              <paragraph>If <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      2 \\
-      5 \\
-      {- 1}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      {- 2} \\
-      1 \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      1 \\
-      2 \\
-      3
-      \end{array} \right\rbrack$</math>, and <math display="inline">$W = \text{Span~}\left\{ \mathbf{u}_{1}\text{,~}\mathbf{u}_{2} \right\}$</math>, as in Example 2, then the closest point in <math display="inline">$W$</math> to <math display="inline">$\textbf{y}$</math> is</paragraph>
-              <paragraph><math display="block">$$\widehat{\textbf{y}} = \frac{\textbf{y} \cdot \mathbf{u}_{1}}{\mathbf{u}_{1} \cdot \mathbf{u}_{1}}\mathbf{u}_{1} + \frac{\textbf{y} \cdot \mathbf{u}_{2}}{\mathbf{u}_{2} \cdot \mathbf{u}_{2}}\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      {- 2\text{/}5} \\
-      2 \\
-      {1\text{/}5}
-      \end{array} \right\rbrack$$</math></paragraph>
-        </example>
-      <example number="4">
-          <heading level="2">Example 4</heading>
-              <paragraph>The distance from a point <math display="inline">$\textbf{y}$</math> in <math display="inline">${\mathbb{R}}^{n}$</math> to a subspace <math display="inline">$W$</math> is defined as the distance from <math display="inline">$\textbf{y}$</math> to the nearest point in <math display="inline">$W$</math>. Find the distance from <math display="inline">$\textbf{y}$</math> to <math display="inline">$W\mspace{-360mu} = \text{Span~}\left\{ \mathbf{u}_{1}\text{,~}\mathbf{u}_{2} \right\}$</math>, where</paragraph>
-              <paragraph><math display="block">$$\textbf{y} = \left\lbrack \begin{array}{r}
-      {- 1} \\
-      {- 5} \\
-      10
-      \end{array} \right\rbrack\text{,~}\quad\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      5 \\
-      {- 2} \\
-      1
-      \end{array} \right\rbrack\text{,~}\quad\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      1 \\
-      2 \\
-      {- 1}
-      \end{array} \right\rbrack$$</math></paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>By the Best Approximation Theorem, the distance from <math display="inline">$\textbf{y}$</math> to <math display="inline">$W$</math> is <math display="inline">$\parallel \textbf{y} - \widehat{\textbf{y}} \parallel$</math>, where <math display="inline">$\widehat{\textbf{y}} = \text{proj}_{W}\text{\,\,}\textbf{y}$</math>. Since <math display="inline">$\left\{ \mathbf{u}_{1}\text{,~}\mathbf{u}_{2} \right\}$</math> is an orthogonal basis for <math display="inline">$W$</math>,</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      \widehat{\textbf{y}} &amp; = &amp; {\frac{15}{30}\mathbf{u}_{1} + \frac{- 21}{6}\mathbf{u}_{2} = \frac{1}{2}\left\lbrack \begin{array}{r}
-      5 \\
-      {- 2} \\
-      1
-      \end{array} \right\rbrack - \frac{7}{2}\left\lbrack \begin{array}{r}
-      1 \\
-      2 \\
-      {- 1}
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
-      {- 1} \\
-      {- 8} \\
-      4
-      \end{array} \right\rbrack} \\
-      {\textbf{y} - \widehat{\textbf{y}}} &amp; = &amp; {\left\lbrack \begin{array}{r}
-      {- 1} \\
-      {- 5} \\
-      10
-      \end{array} \right\rbrack - \left\lbrack \begin{array}{r}
-      {- 1} \\
-      {- 8} \\
-      4
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{r}
-      0 \\
-      3 \\
-      6
-      \end{array} \right\rbrack} \\
-      {\parallel \textbf{y} - \widehat{\textbf{y}} \parallel^{2}} &amp; = &amp; {3^{2} + 6^{2} = 45}
-      \end{matrix}$$</math></paragraph>
-              <paragraph>The distance from <math display="inline">$\textbf{y}$</math> to <math display="inline">$W$</math> is <math display="inline">$\sqrt{45} = 3\sqrt{5}$</math>.</paragraph>
-        </example>
-      <paragraph>The final theorem in this section shows how formula (2) for <math display="inline">$\text{proj}_{W}\text{\,\,}\textbf{y}$</math> is simplified when the basis for <math display="inline">$W$</math> is an orthonormal set.</paragraph>
-      <note type="procedure" title="Theorem ﻿10">
-          <heading level="2">Theorem ﻿10</heading>
-              <paragraph>If <math display="inline">$\left\{ \mathbf{u}_{1}\text{,~}\ldots\text{,~}\mathbf{u}_{p} \right\}$</math> is an orthonormal basis for a subspace <math display="inline">$W$</math> of <math display="inline">$\text{ℝ}^{n}$</math>, then</paragraph>
-              <paragraph><math display="block">$$\text{proj}_{W\,\,}\textbf{y} = (\textbf{y} \cdot \mathbf{u}_{1})\mathbf{u}_{1} + (\textbf{y} \cdot \mathbf{u}_{2})\mathbf{u}_{2} + \cdots + (\textbf{y} \cdot \mathbf{u}_{p})\mathbf{u}_{p}$$</math></paragraph>
-              <paragraph>If <math display="inline">$U = \left\lbrack \begin{array}{rrrr}
-      \mathbf{u}_{1} &amp; \mathbf{u}_{2} &amp; \cdots &amp; \mathbf{u}_{p}
-      \end{array} \right\rbrack$</math>, then</paragraph>
-              <paragraph><math display="block">$$\text{proj}_{W}\text{\,\,\,}\textbf{y} = UU^{T}\textbf{y}\quad\text{for all~}\textbf{y}\text{~in~}\text{ℝ}^{n}$$</math></paragraph>
-        </note>
-      <heading level="3">Proof﻿</heading>
-      <paragraph>Formula (4) follows immediately from (2) in Theorem 8. Also, (4) shows that <math display="inline">$\text{proj}_{W}\text{\,\,}\textbf{y}$</math> is a linear combination of the columns of <math display="inline">$U$</math> using the weights <math display="inline">$\textbf{y} \cdot \mathbf{u}_{1}$</math>, <math display="inline">$\mathbf{y} \cdot \mathbf{u}_{2},\ldots,\mathbf{y} \cdot \mathbf{u}_{p}$</math>. The weights can be written as <math display="inline">$\mathbf{u}_{1}^{T}\textbf{y}$</math>, <math display="inline">$\mathbf{u}_{2}^{T}\textbf{y}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\mathbf{u}_{p}^{T}\textbf{y}$</math>, showing that they are the entries in <math display="inline">$U^{T}\textbf{y}$</math> and justifying (5).</paragraph>
-      <paragraph>Suppose <math display="inline">$U$</math> is an <math display="inline">$n \times p$</math> matrix with orthonormal columns, and let <math display="inline">$W$</math> be the column space of <math display="inline">$U$</math>. Then</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{matrix}
-      {U^{T} U\textbf{x}} &amp; = &amp; {I_{p}\textbf{x} = \textbf{x}} &amp; {\quad\text{for all~}\textbf{x}\text{~in~}\text{ℝ}^{p}} &amp; {\qquad\text{Theorem~}6} \\
-      {UU^{T}\textbf{y}} &amp; = &amp; {\text{proj}_{W}\textbf{y}} &amp; {\quad\text{for all~}\textbf{y}\text{~in~}\text{ℝ}^{n}} &amp; {\qquad\text{Theorem~}10}
-      \end{matrix}$$</math>
-      </paragraph>
-      <paragraph>If <math display="inline">$U$</math> is an <math display="inline">$n \times n$</math> (square) matrix with orthonormal columns, then <math display="inline">$U$</math> is an <em>orthogonal</em> matrix, the column space <math display="inline">$W$</math> is all of <math display="inline">$\text{ℝ}^{n}$</math>, and <math display="inline">$UU^{T}\textbf{y} = I\textbf{y} = \textbf{y}$</math> for all <math display="inline">$\textbf{y}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>.</paragraph>
-      <paragraph>Although formula (4) is important for theoretical purposes, in practice it usually involves calculations with square roots of numbers (in the entries of the <math display="inline">$\mathbf{u}_{i}$</math>). Formula (2) is recommended for hand calculations.</paragraph>
-      <paragraph>Example 9 of Section 2.1 illustrates how matrix multiplication and transposition are used to detect a specified pattern illustrated using blue and white squares. Now that we have more experience working with bases for <math display="inline">$W$</math> and <math display="inline">$W^{\bot}$</math>, we are ready to discuss how to set up the matrix <math display="inline">$M$</math> in <strong>Figure 6</strong>. Let <math display="inline">$\textbf{w}$</math> be the vector generated from a pattern of blue and white squares by turning each blue square into a <math display="inline">$1$</math> and each white square into a <math display="inline">$0$</math>, and then lining up each column below the column before it. See <strong>Figure 5</strong>.</paragraph>
-      <figure label="Figure 5" caption="Creating a vector from colored squares">
-          <image alt="A figure shows creation of a vector from colored squares."/>
-        </figure>
-      <paragraph>Let <math display="inline">$W = \text{span}\left\{ \textbf{w} \right\}$</math>. Choose a basis <math display="inline">$\left\{ \textbf{v}_{1}\text{,}\textbf{v}_{2}\text{,}\ldots\text{,}\textbf{v}_{n - 1} \right\}$</math> for <math display="inline">$W^{\bot}$</math>. Create the matrix <math display="inline">$B = \begin{bmatrix}
-      {\textbf{v}_{1}}^{T} \\
-      {\textbf{v}_{2}}^{T} \\
-       \vdots \\
-      {\textbf{v}_{n - 1}}^{T}
-      \end{bmatrix}$</math>. Notice <math display="inline">$B\textbf{u} = \textbf{0}$</math> if and only if <math display="inline">$\textbf{u}$</math> is orthogonal to a set of basis vectors for <math display="inline">$W^{\bot}$</math>, which happens if and only if <math display="inline">$\textbf{u}$</math> is in <math display="inline">$W$</math>. Set <math display="inline">$M = B^{T}B$</math>. Then <math display="inline">$\textbf{u}^{T}M\textbf{u} = \textbf{u}^{T}B^{T}B\textbf{u} = {(B\textbf{u})}^{T}B\textbf{u}$</math>. By Theorem 1, <math display="inline">${(B\textbf{u})}^{T}B\textbf{u} = 0$</math> if and only if <math display="inline">$B\textbf{u} = 0$</math>, and hence <math display="inline">$\textbf{u}^{T}M\textbf{u} = 0$</math> if and only if <math display="inline">$\textbf{u} \in W$</math>. But there are only two vectors in <math display="inline">$W$</math> consisting of zeros and ones: <math display="inline">$1\textbf{w} = \textbf{w}$</math> and <math display="inline">$0\textbf{w} = \textbf{0}$</math>. Thus we can conclude that if <math display="inline">$\textbf{u}^{T}M\textbf{u} = 0$</math>, but <math display="inline">$\textbf{u}^{T}\textbf{u} \neq 0$</math>, then <math display="inline">$\textbf{u} = \textbf{w}$</math>. See Figure 6.</paragraph>
-      <example number="5">
-          <heading level="2">Example 5</heading>
-              <paragraph>Find a matrix <math display="inline">$M$</math> that can be used in Figure 6 to identify the perp symbol.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>First change the symbol into a vector. Set <math display="inline">$\textbf{w} = \,\left\lbrack \text{0~0~1~1~1~1~0~0~1} \right\rbrack^{T}$</math>. Next set <math display="inline">$W = \text{span}\left\{ \textbf{w} \right\}$</math> and find a basis for <math display="inline">$W^{\bot}$</math>: solving <math display="inline">$\textbf{x}^{T}\textbf{w} = 0$</math> creates the homogeneous system of equations:</paragraph>
-              <paragraph><math display="block">$$x_{3} + x_{4} + x_{5} + x_{6} + x_{9} = 0$$</math></paragraph>
-              <paragraph>Treating <math display="inline">$x_{3}$</math> as the basic variable and the remaining variables as free variables we get a basis for <math display="inline">$W^{\bot}$</math>. Transposing each vector in the basis and inserting it as a row of <math display="inline">$B$</math> we get</paragraph>
-          <figure label="Figure 6" caption="How AI detects the perp symbol">
-            <image alt="Two figures show the transformation of a shaded grid into a vector to check the perpendicular pattern."/>
-          </figure>
-              <paragraph><math display="block">$$B = \left\lbrack \begin{matrix}
-      1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {- 1} &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {- 1} &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {- 1} &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
-      0 &amp; 0 &amp; {- 1} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
-      \end{matrix}~ \right\rbrack\text{~and~}M = B^{T}B = \begin{bmatrix}
-      1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 4 &amp; {- 1} &amp; {- 1} &amp; {- 1} &amp; 0 &amp; 0 &amp; {- 1} \\
-      0 &amp; 0 &amp; {- 1} &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {- 1} &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {- 1} &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
-      0 &amp; 0 &amp; {- 1} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>Notice <math display="inline">$\textbf{w}^{T}M\textbf{w} = 0$</math>, but <math display="inline">$\textbf{w}^{T}\textbf{w} \neq 0$</math>.</paragraph>
-        </example>
-      <note type="practice" title="Practice Problems">
-          <heading level="2">Practice Problems</heading>
-          <list ordered="true">
-                  <item>Let u1=[−714], u2=[−11−2], y=[−916], and W=Span {u1, u2}. Use the fact that u1 and u2 are orthogonal to compute projW y.</item>
-                  <item>Let W be a subspace of ℝn. Let x and y be vectors in ℝn and let z=x+y. If u is the projection of x onto W and v is the projection of y onto W, show that u+v is the projection of z onto W.</item>
-          </list>
-        </note>
-      <paragraph><sup>1 </sup>We may assume that <math display="inline">$W$</math> is not the zero subspace, for otherwise <math display="inline">$W^{\bot} = \text{ℝ}^{n}$</math> and (1) is simply <math display="inline">$\textbf{y} = \textbf{0} + \textbf{y}$</math>. The next section will show that any nonzero subspace of <math display="inline">$\text{ℝ}^{n}$</math> has an orthogonal basis.</paragraph>
-    </content>
-    <exercises title="6.3 Exercises">
-      <heading level="1">6.3 Exercises</heading>
-      <exercise_group start="1">
-                  <instructions>In Exercises 1 and 2, you may assume that <math display="inline">$\left\{ \mathbf{u}_{1},\ldots,\mathbf{u}_{4} \right\}$</math> is an orthogonal basis for <math display="inline">$\text{ℝ}^{4}$</math>.</instructions>
-            <problem number="1">
-              <statement>
-                          <paragraph><math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      0 \\
-      1 \\
-      {- 4} \\
-      {- 1}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      3 \\
-      5 \\
-      1 \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{3} = \left\lbrack \begin{array}{r}
-      1 \\
-      0 \\
-      1 \\
-      {- 4}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{4} = \left\lbrack \begin{array}{r}
-      5 \\
-      {- 3} \\
-      {- 1} \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\textbf{x} = \left\lbrack \begin{array}{r}
-      10 \\
-      {- 8} \\
-      2 \\
-      0
-      \end{array} \right\rbrack$</math>. Write <math display="inline">$\textbf{x}$</math> as the sum of two vectors, one in <math display="inline">$\text{Span~}\left\{ \mathbf{u}_{1}\text{,~}\mathbf{u}_{2}\text{,~}\mathbf{u}_{3} \right\}$</math> and the other in <math display="inline">$\text{Span~}\left\{ \mathbf{u}_{4} \right\}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="2">
-              <statement>
-                          <paragraph><math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      1 \\
-      2 \\
-      1 \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      {- 2} \\
-      1 \\
-      {- 1} \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{3} = \left\lbrack \begin{array}{r}
-      1 \\
-      1 \\
-      {- 2} \\
-      {- 1}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{4} = \left\lbrack \begin{array}{r}
-      {- 1} \\
-      1 \\
-      1 \\
-      {- 2}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v} = \left\lbrack \begin{array}{r}
-      4 \\
-      5 \\
-      {- 2} \\
-      2
-      \end{array} \right\rbrack$</math>. Write <math display="inline">$\mathbf{v}$</math> as the sum of two vectors, one in <math display="inline">$\text{Span~}\left\{ \mathbf{u}_{1} \right\}$</math> and the other in <math display="inline">$\text{Span~}\left\{ \mathbf{u}_{2}\text{,~}\mathbf{u}_{3}\text{,~}\mathbf{u}_{4} \right\}$</math>.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="3">
-                  <instructions>In Exercises 3–6, verify that <math display="inline">$\left\{ \mathbf{u}_{1}\text{,}\mathbf{u}_{2} \right\}$</math> is an orthogonal set, and then find the orthogonal projection of <math display="inline">$\textbf{y}$</math> onto <math display="inline">$\text{Span}\left\{ \mathbf{u}_{1}\text{,}\mathbf{u}_{2} \right\}$</math>.</instructions>
-            <problem number="3">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      {- 1} \\
-      4 \\
-      3
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      1 \\
-      1 \\
-      0
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      {- 1} \\
-      1 \\
-      0
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="4">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      4 \\
-      3 \\
-      {- 2}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      3 \\
-      4 \\
-      0
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      {- 4} \\
-      3 \\
-      0
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="5">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      {- 1} \\
-      2 \\
-      6
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      3 \\
-      {- 1} \\
-      2
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      1 \\
-      {- 1} \\
-      {- 2}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="6">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      4 \\
-      4 \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      {- 4} \\
-      {- 1} \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      0 \\
-      1 \\
-      1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="7">
-                  <instructions>In Exercises 7–10, let <math display="inline">$W$</math> be the subspace spanned by the <math display="inline">$\mathbf{u}’s$</math>, and write <math display="inline">$\textbf{y}$</math> as the sum of a vector in <math display="inline">$W$</math> and a vector orthogonal to <math display="inline">$W$</math>.</instructions>
-            <problem number="7">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      1 \\
-      3 \\
-      5
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      1 \\
-      3 \\
-      {- 2}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      5 \\
-      1 \\
-      4
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="8">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      {- 1} \\
-      4 \\
-      3
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      1 \\
-      1 \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      {- 1} \\
-      3 \\
-      {- 2}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="9">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      4 \\
-      3 \\
-      3 \\
-      {- 1}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      1 \\
-      1 \\
-      0 \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      {- 1} \\
-      3 \\
-      1 \\
-      {- 2}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{3} = \left\lbrack \begin{array}{r}
-      {- 1} \\
-      0 \\
-      1 \\
-      1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="10">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      3 \\
-      4 \\
-      5 \\
-      4
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      1 \\
-      1 \\
-      0 \\
-      {- 1}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      1 \\
-      0 \\
-      1 \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{3} = \left\lbrack \begin{array}{r}
-      0 \\
-      {- 1} \\
-      1 \\
-      {- 1}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="11">
-                  <instructions>In Exercises 11 and 12, find the closest point to <math display="inline">$\textbf{y}$</math> in the subspace <math display="inline">$W$</math> spanned by <math display="inline">$\mathbf{v}_{1}$</math> and <math display="inline">$\mathbf{v}_{2}$</math>.</instructions>
-            <problem number="11">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      3 \\
-      1 \\
-      5 \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v}_{1} = \left\lbrack \begin{array}{r}
-      3 \\
-      1 \\
-      {- 1} \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v}_{2} = \left\lbrack \begin{array}{r}
-      1 \\
-      {- 1} \\
-      1 \\
-      {- 1}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="12">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      3 \\
-      {- 1} \\
-      1 \\
-      13
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v}_{1} = \left\lbrack \begin{array}{r}
-      1 \\
-      {- 2} \\
-      {- 1} \\
-      2
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v}_{2} = \left\lbrack \begin{array}{r}
-      {- 4} \\
-      1 \\
-      0 \\
-      3
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="13">
-                  <instructions>In Exercises 13 and 14, find the best approximation to <math display="inline">$\textbf{z}$</math> by vectors of the form <math display="inline">$c_{1}\mathbf{v}_{1} + c_{2}\mathbf{v}_{2}$</math>.</instructions>
-            <problem number="13">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{z} = \left\lbrack \begin{array}{r}
-      3 \\
-      {- 7} \\
-      2 \\
-      3
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v}_{1} = \left\lbrack \begin{array}{r}
-      2 \\
-      {- 1} \\
-      {- 3} \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v}_{2} = \left\lbrack \begin{array}{r}
-      1 \\
-      1 \\
-      0 \\
-      {- 1}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="14">
-              <statement>
-                          <paragraph><math display="inline">$\textbf{z} = \left\lbrack \begin{array}{r}
-      2 \\
-      4 \\
-      0 \\
-      {- 1}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v}_{1} = \left\lbrack \begin{array}{r}
-      2 \\
-      0 \\
-      {- 1} \\
-      {- 3}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{v}_{2} = \left\lbrack \begin{array}{r}
-      5 \\
-      {- 2} \\
-      4 \\
-      2
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="15">
-            <problem number="15">
-              <statement>
-                          <paragraph>Let <math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      5 \\
-      {- 9} \\
-      5
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      {- 3} \\
-      {- 5} \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      {- 3} \\
-      2 \\
-      1
-      \end{array} \right\rbrack$</math>. Find the distance from <math display="inline">$\textbf{y}$</math> to the plane in <math display="inline">$\text{ℝ}^{3}$</math> spanned by <math display="inline">$\mathbf{u}_{1}$</math> and <math display="inline">$\mathbf{u}_{2}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="16">
-              <statement>
-                          <paragraph>Let <math display="inline">$\textbf{y}$</math>, <math display="inline">$\mathbf{v}_{1}$</math>, and <math display="inline">$\mathbf{v}_{2}$</math> be as in Exercise 12. Find the distance from <math display="inline">$\textbf{y}$</math> to the subspace of <math display="inline">$\text{ℝ}^{4}$</math> spanned by <math display="inline">$\mathbf{v}_{1}$</math> and <math display="inline">$\mathbf{v}_{2}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="17">
-              <statement>
-                          <paragraph>Let <math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      4 \\
-      8 \\
-      1
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      {2\text{/}3} \\
-      {1\text{/}3} \\
-      {2\text{/}3}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      {- 2\text{/}3} \\
-      {2\text{/}3} \\
-      {1\text{/}3}
-      \end{array} \right\rbrack$</math>, and <math display="inline">$W = \text{Span~}\left\{ \mathbf{u}_{1}\text{,~}\mathbf{u}_{2} \right\}$</math>.</paragraph>
-                <list ordered="true">
-                              <item>Let U=[u1u2]. Compute UTU and UUT.</item>
-                              <item>Compute projW y and (UUT)y.</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="18">
-              <statement>
-                          <paragraph>Let <math display="inline">$\textbf{y} = \left\lbrack \begin{array}{r}
-      7 \\
-      9
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      {1\text{/}\sqrt{10}} \\
-      {- 3\text{/}\sqrt{10}}
-      \end{array} \right\rbrack$</math>, and <math display="inline">$W = \text{Span~}\left\{ \mathbf{u}_{1}{\}.} \right.$</math></paragraph>
-                <list ordered="true">
-                              <item>Let U be the 2×1 matrix whose only column is u1. Compute UTU and UUT.</item>
-                              <item>Compute projW y and (UUT)y.</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="19">
-              <statement>
-                          <paragraph>Let <math display="inline">$\mathbf{u}_{1} = \left\lbrack \begin{array}{r}
-      1 \\
-      1 \\
-      {- 2}
-      \end{array} \right\rbrack$</math>, <math display="inline">$\mathbf{u}_{2} = \left\lbrack \begin{array}{r}
-      5 \\
-      {- 1} \\
-      2
-      \end{array} \right\rbrack$</math>, and <math display="inline">$\mathbf{u}_{3} = \left\lbrack \begin{array}{r}
-      0 \\
-      0 \\
-      1
-      \end{array} \right\rbrack$</math>. Note that <math display="inline">$\mathbf{u}_{1}$</math> and <math display="inline">$\mathbf{u}_{2}$</math> are orthogonal but that <math display="inline">$\mathbf{u}_{3}$</math> is not orthogonal to <math display="inline">$\mathbf{u}_{1}$</math> or <math display="inline">$\mathbf{u}_{2}$</math>. It can be shown that <math display="inline">$\mathbf{u}_{3}$</math> is not in the subspace <math display="inline">$W$</math> spanned by <math display="inline">$\mathbf{u}_{1}$</math> and <math display="inline">$\mathbf{u}_{2}$</math>. Use this fact to construct a nonzero vector <math display="inline">$\mathbf{v}$</math> in <math display="inline">$\text{ℝ}^{3}$</math> that is orthogonal to <math display="inline">$\mathbf{u}_{1}$</math> and <math display="inline">$\mathbf{u}_{2}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="20">
-              <statement>
-                          <paragraph>Let <math display="inline">$\mathbf{u}_{1}$</math> and <math display="inline">$\mathbf{u}_{2}$</math> be as in Exercise 19, and let <math display="inline">$\mathbf{u}_{4} = \left\lbrack \begin{array}{r}
-      0 \\
-      1 \\
-      0
-      \end{array} \right\rbrack$</math>. It can be shown that <math display="inline">$\mathbf{u}_{4}$</math> is not in the subspace <math display="inline">$W$</math> spanned by <math display="inline">$\mathbf{u}_{1}$</math> and <math display="inline">$\mathbf{u}_{2}$</math>. Use this fact to construct a nonzero vector <math display="inline">$\mathbf{v}$</math> in <math display="inline">$\text{ℝ}^{3}$</math> that is orthogonal to <math display="inline">$\mathbf{u}_{1}$</math> and <math display="inline">$\mathbf{u}_{2}$</math>.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="21">
-                  <instructions>In Exercises 21–30, all vectors and subspaces are in <math display="inline">$\text{ℝ}^{n}$</math>. Mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
-            <problem number="21">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\textbf{z}$</math> is orthogonal to <math display="inline">$\mathbf{u}_{1}$</math> and to <math display="inline">$\mathbf{u}_{2}$</math> and if <math display="inline">$W = \text{Span~}\left\{ \mathbf{u}_{1}\text{,~}\mathbf{u}_{2} \right\}$</math>, then <math display="inline">$\textbf{z}$</math> must be in <math display="inline">$W^{\bot}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="22">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> For each <math display="inline">$\textbf{y}$</math> and each subspace <math display="inline">$W$</math>, the vector <math display="inline">$\textbf{y} - \text{proj}_{W\,\,}\textbf{y}$</math> is orthogonal to <math display="inline">$W$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="23">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The orthogonal projection <math display="inline">$\widehat{\textbf{y}}$</math> of <math display="inline">$\textbf{y}$</math> onto a subspace <math display="inline">$W$</math> can sometimes depend on the orthogonal basis for <math display="inline">$W$</math> used to compute <math display="inline">$\widehat{\textbf{y}}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="24">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\textbf{y}$</math> is in a subspace <math display="inline">$W$</math>, then the orthogonal projection of <math display="inline">$\textbf{y}$</math> onto <math display="inline">$W$</math> is <math display="inline">$\textbf{y}$</math> itself.</paragraph>
-              </statement>
-            </problem>
-            <problem number="25">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The best approximation to <math display="inline">$\textbf{y}$</math> by elements of a subspace <math display="inline">$W$</math> is given by the vector <math display="inline">$\textbf{y} - \text{proj}_{W}\text{\,\,}\textbf{y}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="26">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If <math display="inline">$W$</math> is a subspace of <math display="inline">$\text{ℝ}^{n}$</math> and if <math display="inline">$\mathbf{v}$</math> is in both <math display="inline">$W$</math> and <math display="inline">$W^{\bot}$</math>, then <math display="inline">$\mathbf{v}$</math> must be the zero vector.</paragraph>
-              </statement>
-            </problem>
-            <problem number="27">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> In the Orthogonal Decomposition Theorem, each term in formula <strong>(</strong>2<strong>)</strong> for <math display="inline">$\widehat{\textbf{y}}$</math> is itself an orthogonal projection of <math display="inline">$\textbf{y}$</math> onto a subspace of <math display="inline">$W$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="28">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If <math display="inline">$\textbf{y} = \textbf{z}_{1} + \textbf{z}_{2}$</math>, where <math display="inline">$\textbf{z}_{1}$</math> is in a subspace <math display="inline">$W$</math> and <math display="inline">$\textbf{z}_{2}$</math> is in <math display="inline">$W^{\bot}$</math>, then <math display="inline">$\textbf{z}_{1}$</math> must be the orthogonal projection of <math display="inline">$\textbf{y}$</math> onto <math display="inline">$W$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="29">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If the columns of an <math display="inline">$n \times p$</math> matrix <math display="inline">$U$</math> are orthonormal, then <math display="inline">$UU^{T}{\textbf{y}}$</math> is the orthogonal projection of <math display="inline">$\textbf{y}$</math> onto the column space of <math display="inline">$U$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="30">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If an <math display="inline">$n \times p$</math> matrix <math display="inline">$U$</math> has orthonormal columns, then <math display="inline">$UU^{T}\textbf{x} = \textbf{x}$</math> for all <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math>.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="31">
-            <problem number="31">
-              <statement>
-                          <paragraph>Let <math display="inline">$A$</math> be an <math display="inline">$m \times n$</math> matrix. Prove that every vector <math display="inline">$\textbf{x}$</math> in <math display="inline">$\text{ℝ}^{n}$</math> can be written in the form <math display="inline">$\textbf{x} = \textbf{p} + \mathbf{u}$</math>, where <math display="inline">$\textbf{p}$</math> is in <math display="inline">$\text{Row~}A$</math> and <math display="inline">$\mathbf{u}$</math> is in <math display="inline">$\text{Nul~}A$</math>. Also, show that if the equation <math display="inline">$A\textbf{x} = \textbf{b}$</math> is consistent, then there is a unique <math display="inline">$\textbf{p}$</math> in <math display="inline">$\text{Row~}A$</math> such that <math display="inline">$A\textbf{p} = \textbf{b}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="32">
-              <statement>
-                          <paragraph>Let <math display="inline">$W$</math> be a subspace of <math display="inline">$\text{ℝ}^{n}$</math> with an orthogonal basis <math display="inline">$\left\{ \textbf{w}_{1}\text{,~}\ldots\text{,~}\textbf{w}_{p} \right\}$</math>, and let <math display="inline">$\left\{ \mathbf{v}_{1}\text{,~}\ldots\text{,~}\mathbf{v}_{q} \right\}$</math> be an orthogonal basis for <math display="inline">$W^{\bot}$</math>.</paragraph>
-                <list ordered="true">
-                              <item>Explain why {w1, …, wp, v1, …, vq} is an orthogonal set.</item>
-                              <item>Explain why the set in part (a) spans ℝn.</item>
-                              <item>Show that dimW+dimW⊥=n.</item>
-                </list>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="33">
-                  <instructions>In Exercises 33–36, first change the given pattern into a vector <math display="inline">$\textbf{w}$</math> of zeros and ones and then use the method illustrated in Example 5 to find a matrix <math display="inline">$M$</math> so that <math display="inline">$\mathbf{w}^{T}M\mathbf{w} = 0$</math>, but <math display="inline">$\mathbf{u}^{T}M\mathbf{u} \neq 0$</math> for all other nonzero vectors <math display="inline">$\mathbf{u}$</math> of zeros and ones.</instructions>
-            <problem number="33">
-              <statement>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a 2 by 2 grid with its upper left and lower right squares shaded."/>
-            </figure>
-            <problem number="34">
-              <statement>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a 2 by 2 grid with its left squares shaded."/>
-            </figure>
-            <problem number="35">
-              <statement>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a 3 by 3 grid with its squares shaded in the form of an inverted u with the first column, first row, and third column shaded."/>
-            </figure>
-            <problem number="36">
-              <statement>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a 3 by 3 grid with its squares shaded in the form of S with the second column, the first two squares of the third row, and the last two squares of the first row shaded."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="37">
-            <figure>
-              <image alt="A figure shows a 2 by 2 grid with its upper left and lower right squares shaded."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows a 2 by 2 grid with its left squares shaded."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows a 3 by 3 grid with its squares shaded in the form of an inverted u with the first column, first row, and third column shaded."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows a 3 by 3 grid with its squares shaded in the form of S with the second column, the first two squares of the third row, and the last two squares of the first row shaded."/>
-            </figure>
-            <problem number="37">
-              <statement>
-                          <paragraph><strong>[T]</strong> Let <math display="inline">$U$</math> be the <math display="inline">$8 \times 4$</math> matrix in Exercise 43 in Section 6.2. Find the closest point to <math display="inline">$\textbf{y} = \left( 1\text{,~}1\text{,~}1\text{,~}1\text{,~}1\text{,~}1\text{,~}1\text{,~}1 \right)$</math> in <math display="inline">$\text{Col~}U$</math>. Write the keystrokes or commands you use to solve this problem.</paragraph>
-              </statement>
-            </problem>
-            <problem number="38">
-              <statement>
-                          <paragraph><strong>[T]</strong> Let <math display="inline">$U$</math> be the matrix in Exercise 37. Find the distance from <math display="inline">$\mathbf{b} = \left( {1,1,1,1, - 1, - 1, - 1, - 1} \right)$</math> to <math display="inline">$\text{Col~}U$</math>.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-    </exercises>
-  </section>
-</section_file>
+<section>
+  <heading level="1">6.3 Orthogonal Projections</heading>
+  <paragraph>The orthogonal projection of a point in $$\mathbb{R}^{2}$$ onto a line through the origin has an important analogue in $$\mathbb{R}^{n}$$ . Given a vector $$\textbf{y}$$ and a subspace $$W$$ in $$\mathbb{R}^{n}$$ , there is a vector $$\widehat{\textbf{y}}$$ in $$W$$ such that (1) $$\widehat{\textbf{y}}$$ is the unique vector in $$W$$ for which $$\textbf{y} - \widehat{\textbf{y}}$$ is orthogonal to $$W$$ , and (2) $$\widehat{\textbf{y}}$$ is the unique vector in $$W$$ closest to $$\textbf{y}$$ . See Figure 1. These two properties of $$\widehat{\textbf{y}}$$ provide the key to finding least-squares solutions of linear systems.</paragraph>
+  <figure>
+    <image alt="A figure shows a horizontal plane W with two vectors projecting from point 0 on the plane in the form of a right-angled triangle."/>
+    <caption>Watch Video</caption>
+  </figure>
+  <paragraph>To prepare for the first theorem, observe that whenever a vector $$\textbf{y}$$ is written as a linear combination of vectors $$\mathbf{u}_{1}$$ , $$\ldots$$ , $$\mathbf{u}_{n}$$ in $$\mathbb{R}^{n}$$ , the terms in the sum for $$\textbf{y}$$ can be grouped into two parts so that $$\textbf{y}$$ can be written as</paragraph>
+  <paragraph>$$\textbf{y} = \textbf{z}_{1} + \textbf{z}_{2}$$</paragraph>
+  <paragraph>where $$\textbf{z}_{1}$$ is a linear combination of some of the $$\mathbf{u}_{i}$$ and $$\textbf{z}_{2}$$ is a linear combination of the rest of the $$\mathbf{u}_{i}$$ . This idea is particularly useful when $$\left\{ \mathbf{u}_{1} \text{,} \ldots \text{,} \mathbf{u}_{n} \right\}$$ is an orthogonal basis. Recall from Section 6.1 that $$W^{\bot}$$ denotes the set of all vectors orthogonal to a subspace $$W$$ .</paragraph>
+  <example number="1">
+    <heading level="2">Example 1</heading>
+    <paragraph>Let $$\left\{ \textbf{u}_{1} \text{,} \ldots \text{,} \textbf{u}_{5} \right\}$$ be an orthogonal basis for $$\mathbb{R}^{5}$$ and let</paragraph>
+    <paragraph>$$\textbf{y} = c_{1} \textbf{u}_{1} + \hdots + c_{5} \textbf{u}_{5}$$</paragraph>
+    <paragraph>Consider the subspace $$W = \text{Span} \left\{ \textbf{u}_{1} \text{,} \textbf{u}_{2} \right\}$$ , and write $$\textbf{y}$$ as the sum of a vector $$\textbf{z}_{1}$$ in $$W$$ and a vector $$\textbf{z}_{2}$$ in $$W^{\bot}$$ .</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>Write</paragraph>
+    <paragraph>$$\mathbf{y} = \underset{\mathbf{z}_{1}}{\underset{︸}{c_{1} \textbf{u}_{1} + c_{2} \textbf{u}_{2}}} + \underset{\mathbf{z}_{2}}{\underset{︸}{c_{3} \textbf{u}_{3} + c_{4} \textbf{u}_{4} + c_{5} \textbf{u}_{5}}}$$</paragraph>
+    <paragraph>where $$\textbf{z}_{1} = c_{1} \textbf{u}_{1} + c_{2} \textbf{u}_{2} \text{is in Span} \left{\right. \textbf{u}_{1} , \textbf{u}_{2} \left.\right}$$</paragraph>
+    <paragraph>and $$\textbf{z}_{2} = c_{3} \textbf{u}_{3} + c_{4} \textbf{u}_{4} + c_{5} \textbf{u}_{5} \text{is in Span} \left{\right. \textbf{u}_{3} , \textbf{u}_{4} , \textbf{u}_{5} \left.\right} .$$</paragraph>
+    <paragraph>To show that $$\textbf{z}_{2}$$ is in $$W^{\bot}$$ , it suffices to show that $$\textbf{z}_{2}$$ is orthogonal to the vectors in the basis $$\left\{ \textbf{u}_{1} \text{,} \textbf{u}_{2} \right\}$$ for $$W$$ . (See Section 6.1.) Using properties of the inner product, compute</paragraph>
+    <paragraph>$$\textbf{z}_{2} \cdot \textbf{u}_{1} &amp; = &amp; \left(\right. c_{3} \textbf{u}_{3} + c_{4} \textbf{u}_{4} + c_{5} \textbf{u}_{5} \left.\right) \cdot \textbf{u}_{1} &amp; = &amp; c_{3} \textbf{u}_{3} \cdot \textbf{u}_{1} + c_{4} \textbf{u}_{4} \cdot \textbf{u}_{1} + c_{5} \textbf{u}_{5} \cdot \textbf{u}_{1} &amp; = &amp; 0$$</paragraph>
+    <paragraph>because $$\textbf{u}_{1}$$ is orthogonal to $$\textbf{u}_{3}$$ , $$\textbf{u}_{4}$$ , and $$\textbf{u}_{5}$$ . A similar calculation shows that $$\textbf{z}_{2} \cdot \textbf{u}_{2} = 0$$ . Thus $$\textbf{z}_{2}$$ is in $$W^{\bot}$$ .</paragraph>
+  </example>
+  <paragraph>The next theorem shows that the decomposition $$\textbf{y} = \textbf{z}_{1} + \textbf{z}_{2}$$ in Example 1 can be computed without having an orthogonal basis for $$\mathbb{R}^{n}$$ . It is enough to have an orthogonal basis only for $$W$$ .</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem 8">
+    <heading level="2">Theorem 8</heading>
+    <heading level="3">The Orthogonal Decomposition Theorem</heading>
+    <paragraph>Let $$W$$ be a subspace of $$\mathbb{R}^{n}$$ . Then each $$\textbf{y}$$ in $$\mathbb{R}^{n}$$ can be written uniquely in the form</paragraph>
+    <paragraph>(1)</paragraph>
+    <paragraph>$$\textbf{y} = \hat{\textbf{y}} + \textbf{z}$$</paragraph>
+    <paragraph>where $$\widehat{\textbf{y}}$$ is in $$W$$ and $$\textbf{z}$$ is in $$W^{\bot}$$ . In fact, if $$\left\{ \mathbf{u}_{1} \text{,} \ldots \text{,} \mathbf{u}_{p} \right\}$$ is any orthogonal basis of $$W$$ , then</paragraph>
+    <paragraph>(2)</paragraph>
+    <paragraph>$$\hat{\textbf{y}} = \frac{\textbf{y} \cdot \mathbf{u}_{1}}{\mathbf{u}_{1} \cdot \mathbf{u}_{1}} \mathbf{u}_{1} + \hdots + \frac{\textbf{y} \cdot \mathbf{u}_{p}}{\mathbf{u}_{p} \cdot \mathbf{u}_{p}} \mathbf{u}_{p}$$</paragraph>
+    <paragraph>and $$\textbf{z} = \textbf{y} - \widehat{\textbf{y}}$$ .</paragraph>
+  </note>
+  <paragraph>The vector $$\widehat{\textbf{y}}$$ in (2) is called the orthogonal projection of y onto $$W$$ and often is written as $$\text{proj} _{W}{\textbf{y}}$$ . See Figure 2. When $$W$$ is a one-dimensional subspace, the formula for $$\widehat{\textbf{y}}$$ matches the formula given in Section 6.2.</paragraph>
+  <heading level="4">Figure 2</heading>
+  <paragraph>The orthogonal projection of $$\textbf{y}$$ ﻿onto $$W$$</paragraph>
+  <figure>
+    <image alt="A figure shows a horizontal plane W with three vectors projecting from point 0 on the plane."/>
+    <caption>Figure 1</caption>
+  </figure>
+  <heading level="3">Proof﻿</heading>
+  <paragraph>Let $$\left\{ \mathbf{u}_{1} \text{,} \ldots \text{,} \mathbf{u}_{p} \right\}$$ be any orthogonal basis for $$W$$ , and define $$\widehat{\textbf{y}}$$ by (2).1 Then $$\widehat{\textbf{y}}$$ is in $$W$$ because $$\widehat{\textbf{y}}$$ is a linear combination of the basis $$\mathbf{u}_{1}$$ , $$\ldots$$ , $$\mathbf{u}_{p}$$ . Let $$\textbf{z} = \textbf{y} - \widehat{\textbf{y}}$$ . Since $$\mathbf{u}_{1}$$ is orthogonal to $$\mathbf{u}_{2}$$ , $$\ldots$$ , $$\mathbf{u}_{p}$$ , it follows from ( $$2$$ ) that</paragraph>
+  <paragraph>$$\left(\textbf{z} \cdot \mathbf{u}\right)_{1} = ( \textbf{y} - \hat{\textbf{y}} ) \cdot \mathbf{u}_{1} &amp; = &amp; \left(\textbf{y} \cdot \mathbf{u}\right)_{1} - \left(\frac{\textbf{y}\cdot\textbf{u}_{1}}{\textbf{u}_{1} \cdot \mathbf{u}_{1}}\right) \mathbf{u}_{1} \cdot \mathbf{u}_{1} - 0 - \hdots - 0 &amp; = &amp; \left(\textbf{y} \cdot \mathbf{u}\right)_{1} - \left(\textbf{y} \cdot \mathbf{u}\right)_{1} = 0$$</paragraph>
+  <paragraph>Thus $$\textbf{z}$$ is orthogonal to $$\mathbf{u}_{1}$$ . Similarly, $$\textbf{z}$$ is orthogonal to each $$\mathbf{u}_{j}$$ in the basis for $$W$$ . Hence $$\textbf{z}$$ is orthogonal to every vector in $$W$$ . That is, $$\textbf{z}$$ is in $$W^{\bot}$$ .</paragraph>
+  <paragraph>To show that the decomposition in (1) is unique, suppose $$\textbf{y}$$ can also be written as $$\textbf{y} = {\widehat{\textbf{y}}}_{1} + \textbf{z}_{1}$$ , with $${\widehat{\textbf{y}}}_{1}$$ in $$W$$ and $$\textbf{z}_{1}$$ in $$W^{\bot}$$ . Then $$\widehat{\textbf{y}} + \textbf{z} = {\widehat{\textbf{y}}}_{1} + \textbf{z}_{1}$$ (since both sides equal $$\textbf{y}$$ ), and so</paragraph>
+  <paragraph>$$\hat{\textbf{y}} - \left(\hat{\textbf{y}}\right)_{1} = \textbf{z}_{1} - \textbf{z}$$</paragraph>
+  <paragraph>This equality shows that the vector $$\mathbf{v} = \widehat{\textbf{y}} - {\widehat{\textbf{y}}}_{1}$$ is in $$W$$ and in $$W^{\bot}$$ (because $$\textbf{z}_{1}$$ and $$\textbf{z}$$ are both in $$W^{\bot}$$ , and $$W^{\bot}$$ is a subspace). Hence $$\mathbf{v} \cdot \mathbf{v} = 0$$ , which shows that $$\mathbf{v} = \textbf{0}$$ . This proves that $$\widehat{\textbf{y}} = {\widehat{\textbf{y}}}_{1}$$ and also $$\textbf{z}_{1} = \textbf{z}$$ .</paragraph>
+  <paragraph>The uniqueness of the decomposition (1) shows that the orthogonal projection $$\widehat{\textbf{y}}$$ depends only on $$W$$ and not on the particular basis used in (2).</paragraph>
+  <example number="2">
+    <heading level="2">Example 2</heading>
+    <paragraph>Let $$\mathbf{u}_{1} = \left\lbrack \begin{array}{r} 2 \\ 5 \\ {- 1} \end{array} \right\rbrack$$ , $$\mathbf{u}_{2} = \left\lbrack \begin{array}{r} {- 2} \\ 1 \\ 1 \end{array} \right\rbrack$$ , and $$\textbf{y} = \left\lbrack \begin{array}{r} 1 \\ 2 \\ 3 \end{array} \right\rbrack$$ . Observe that $$\left\{ \mathbf{u}_{1},\mathbf{u}_{2} \right\}$$ is an orthogonal basis for $$W = \text{Span} \left\{ \mathbf{u}_{1},\mathbf{u}_{2} \right\}$$ . Write $$\textbf{y}$$ as the sum of a vector in $$W$$ and a vector orthogonal to $$W$$ .</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>The orthogonal projection of $$\textbf{y}$$ onto $$W$$ is</paragraph>
+    <paragraph>$$\hat{\textbf{y}} &amp; = &amp; \frac{\textbf{y} \cdot \mathbf{u}_{1}}{\mathbf{u}_{1} \cdot \mathbf{u}_{1}} \mathbf{u}_{1} + \frac{\left(\textbf{y} \cdot \mathbf{u}\right)_{2}}{\mathbf{u}_{2} \cdot \mathbf{u}_{2}} \mathbf{u}_{2} &amp; = &amp; \frac{9}{30} \left[\right. \begin{matrix}2 \\ 5 \\ - 1\end{matrix} \left]\right. + \frac{3}{6} \left[\right. \begin{matrix}- 2 \\ 1 \\ 1\end{matrix} \left]\right. = \frac{9}{30} \left[\right. \begin{matrix}2 \\ 5 \\ - 1\end{matrix} \left]\right. + \frac{15}{30} \left[\right. \begin{matrix}- 2 \\ 1 \\ 1\end{matrix} \left]\right. = \left[\right. \begin{matrix}- 2 / 5 \\ 2 \\ 1 / 5\end{matrix} \left]\right.$$</paragraph>
+    <paragraph>Also</paragraph>
+    <paragraph>$$\textbf{y} - \hat{\textbf{y}} = \left[\right. 1 2 3 \left]\right. - \left[\right. - 2 / 5 2 1 / 5 \left]\right. = \left[\right. 7 / 5 0 14 / 5 \left]\right.$$</paragraph>
+    <paragraph>Theorem 8 ensures that $$\textbf{y} - \widehat{\textbf{y}}$$ is in $$W^{\bot}$$ . To check the calculations, however, it is a good idea to verify that $$\textbf{y} - \widehat{\textbf{y}}$$ is orthogonal to both $$\mathbf{u}_{1}$$ and $$\mathbf{u}_{2}$$ and hence to all of $$W$$ . The desired decomposition of $$\textbf{y}$$ is</paragraph>
+    <paragraph>$$\textbf{y} = \left[\right. 1 2 3 \left]\right. = \left[\right. - 2 / 5 2 1 / 5 \left]\right. + \left[\right. 7 / 5 0 14 / 5 \left]\right.$$</paragraph>
+  </example>
+  <heading level="2">A Geometric Interpretation of the Orthogonal Projection</heading>
+  <paragraph>When $$W$$ is a one-dimensional subspace, the formula (2) for $$\text{proj} _{W}\textbf{y}$$ contains just one term. Thus, when $$\dim W &gt; 1$$ , each term in (2) is itself an orthogonal projection of $$\textbf{y}$$ onto a one-dimensional subspace spanned by one of the $$\mathbf{u}’s$$ in the basis for $$W$$ . Figure 3 illustrates this when $$W$$ is a subspace of $$\mathbb{R}^{3}$$ spanned by $$\mathbf{u}_{1}$$ and $$\mathbf{u}_{2}$$ . Here $${\widehat{\textbf{y}}}_{1}$$ and $${\widehat{\textbf{y}}}_{2}$$ denote the projections of $$\textbf{y}$$ onto the lines spanned by $$\mathbf{u}_{1}$$ and $$\mathbf{u}_{2}$$ , respectively. The orthogonal projection $$\widehat{\textbf{y}}$$ of $$\textbf{y}$$ onto $$W$$ is the sum of the projections of $$\textbf{y}$$ onto one-dimensional subspaces that are orthogonal to each other. The vector $$\widehat{\textbf{y}}$$ in Figure 3 corresponds to the vector $$\textbf{y}$$ in Figure 4 of Section 6.2, because now it is $$\widehat{\textbf{y}}$$ that is in $$W$$ .</paragraph>
+  <figure>
+    <image alt="A graph shows the orthogonal projection of y with mutually orthogonal subspaces on a three-dimensional axis."/>
+    <caption>Figure 3 The orthogonal projection of y ﻿is the sum of its projections onto one-dimensional subspaces that are mutually orthogonal</caption>
+  </figure>
+  <heading level="2">Properties of Orthogonal Projections</heading>
+  <paragraph>If $$\left\{ \mathbf{u}_{1} \text{,} \ldots \text{,} \mathbf{u}_{p} \right\}$$ is an orthogonal basis for $$W$$ and if $$\textbf{y}$$ happens to be in $$W$$ , then the formula for $$\text{proj} _{W}\textbf{y}$$ is exactly the same as the representation of $$\textbf{y}$$ given in Theorem 5 in Section 6.2. In this case, $$\text{proj} _{W}\textbf{y} = \textbf{y}$$ .</paragraph>
+  <paragraph>This fact also follows from the next theorem.</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem 9">
+    <heading level="2">Theorem 9</heading>
+    <heading level="3">T﻿he Best Approximation Theorem</heading>
+    <paragraph>Let $$W$$ be a subspace of $$\mathbb{R}^{n}$$ , let $$\textbf{y}$$ be any vector in $$\mathbb{R}^{n}$$ , and let $$\widehat{\textbf{y}}$$ be the orthogonal projection of $$\textbf{y}$$ onto $$W$$ . Then $$\widehat{\textbf{y}}$$ is the closest point in $$W$$ to $$\textbf{y}$$ , in the sense that</paragraph>
+    <paragraph>(3)</paragraph>
+    <paragraph>$$\parallel \textbf{y} - \hat{\textbf{y}} \parallel &lt; \parallel \textbf{y} - \mathbf{v} \parallel$$</paragraph>
+    <paragraph>for all $$\mathbf{v}$$ in $$W$$ distinct from $$\widehat{\textbf{y}}$$ .</paragraph>
+  </note>
+  <paragraph>The vector $$\widehat{\textbf{y}}$$ in Theorem 9 is called the best approximation to $$\mathbf{y}$$ by elements of $$W$$ . Later sections in the text will examine problems where a given $$\textbf{y}$$ must be replaced, or approximated, by a vector $$\mathbf{v}$$ in some fixed subspace $$W$$ . The distance from $$\textbf{y}$$ to $$\mathbf{v}$$ , given by $$\parallel \textbf{y} - \mathbf{v} \parallel$$ , can be regarded as the “error” of using $$\mathbf{v}$$ in place of $$\textbf{y}$$ . Theorem 9 says that this error is minimized when $$\mathbf{v} = \widehat{\textbf{y}}$$ .</paragraph>
+  <paragraph>Inequality (3) leads to a new proof that $$\widehat{\textbf{y}}$$ does not depend on the particular orthogonal basis used to compute it. If a different orthogonal basis for $$W$$ was used to construct an orthogonal projection of $$\textbf{y}$$ , then this projection would also be the closest point in $$W$$ to $$\textbf{y}$$ , namely $$\widehat{\textbf{y}}$$ .</paragraph>
+  <heading level="3">Proof</heading>
+  <paragraph>Take $$\mathbf{v}$$ in $$W$$ distinct from $$\widehat{\textbf{y}}$$ . See Figure 4. Then $$\widehat{\textbf{y}} - \mathbf{v}$$ is in $$W$$ . By the Orthogonal Decomposition Theorem, $$\textbf{y} - \widehat{\textbf{y}}$$ is orthogonal to $$W$$ . In particular, $$\textbf{y} - \widehat{\textbf{y}}$$ is orthogonal to $$\widehat{\textbf{y}} - \mathbf{v}$$ (which is in $$W$$ ). Since</paragraph>
+  <paragraph>$$\textbf{y} - \mathbf{v} = \left(\right. \textbf{y} - \hat{\textbf{y}} \left.\right) + \left(\right. \hat{\textbf{y}} - \mathbf{v} \left.\right)$$</paragraph>
+  <paragraph>the Pythagorean Theorem gives</paragraph>
+  <paragraph>$$\parallel \textbf{y} - \mathbf{v} \parallel^{2} = \parallel \textbf{y} - \hat{\textbf{y}} \parallel^{2} + \parallel \hat{\textbf{y}} - \mathbf{v} \parallel^{2}$$</paragraph>
+  <paragraph>(See the right triangle outlined in teal in Figure 4. The length of each side is labeled.) Now $$\text{∥} \widehat{\textbf{y}} - \mathbf{v} \text{∥} ^{2} &gt; 0$$ because $$\widehat{\textbf{y}} - \mathbf{v} \neq \textbf{0}$$ , and so inequality (3) follows immediately.</paragraph>
+  <figure>
+    <image alt="A figure shows the orthogonal projection of y onto a horizontal plane W with two right-angled triangles with the same altitude."/>
+    <caption>Figure 4 The orthogonal projection of y onto ﻿ W is the closest point in ﻿ W ﻿to y</caption>
+  </figure>
+  <example number="3">
+    <heading level="2">Example 3</heading>
+    <paragraph>If $$\mathbf{u}_{1} = \left\lbrack \begin{array}{r} 2 \\ 5 \\ {- 1} \end{array} \right\rbrack$$ , $$\mathbf{u}_{2} = \left\lbrack \begin{array}{r} {- 2} \\ 1 \\ 1 \end{array} \right\rbrack$$ , $$\textbf{y} = \left\lbrack \begin{array}{r} 1 \\ 2 \\ 3 \end{array} \right\rbrack$$ , and $$W = \text{Span} \left\{ \mathbf{u}_{1} \text{,} \mathbf{u}_{2} \right\}$$ , as in Example 2, then the closest point in $$W$$ to $$\textbf{y}$$ is</paragraph>
+    <paragraph>$$\hat{\textbf{y}} = \frac{\textbf{y} \cdot \mathbf{u}_{1}}{\mathbf{u}_{1} \cdot \mathbf{u}_{1}} \mathbf{u}_{1} + \frac{\textbf{y} \cdot \mathbf{u}_{2}}{\mathbf{u}_{2} \cdot \mathbf{u}_{2}} \mathbf{u}_{2} = \left[\right. - 2 / 5 2 1 / 5 \left]\right.$$</paragraph>
+  </example>
+  <example number="4">
+    <heading level="2">Example 4</heading>
+    <paragraph>The distance from a point $$\textbf{y}$$ in $${\mathbb{R}}^{n}$$ to a subspace $$W$$ is defined as the distance from $$\textbf{y}$$ to the nearest point in $$W$$ . Find the distance from $$\textbf{y}$$ to $$W = \text{Span} \left\{ \mathbf{u}_{1} \text{,} \mathbf{u}_{2} \right\}$$ , where</paragraph>
+    <paragraph>$$\textbf{y} = \left[\right. - 1 - 5 10 \left]\right. , \mathbf{u}_{1} = \left[\right. 5 - 2 1 \left]\right. , \mathbf{u}_{2} = \left[\right. 1 2 - 1 \left]\right.$$</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>By the Best Approximation Theorem, the distance from $$\textbf{y}$$ to $$W$$ is $$\parallel \textbf{y} - \widehat{\textbf{y}} \parallel$$ , where $$\widehat{\textbf{y}} = \text{proj} _{W}\textbf{y}$$ . Since $$\left\{ \mathbf{u}_{1} \text{,} \mathbf{u}_{2} \right\}$$ is an orthogonal basis for $$W$$ ,</paragraph>
+    <paragraph>$$\hat{\textbf{y}} &amp; = &amp; \frac{15}{30} \mathbf{u}_{1} + \frac{- 21}{6} \mathbf{u}_{2} = \frac{1}{2} \left[\right. \begin{matrix}5 \\ - 2 \\ 1\end{matrix} \left]\right. - \frac{7}{2} \left[\right. \begin{matrix}1 \\ 2 \\ - 1\end{matrix} \left]\right. = \left[\right. \begin{matrix}- 1 \\ - 8 \\ 4\end{matrix} \left]\right. \textbf{y} - \hat{\textbf{y}} &amp; = &amp; \left[\right. \begin{matrix}- 1 \\ - 5 \\ 10\end{matrix} \left]\right. - \left[\right. \begin{matrix}- 1 \\ - 8 \\ 4\end{matrix} \left]\right. = \left[\right. \begin{matrix}0 \\ 3 \\ 6\end{matrix} \left]\right. \parallel \textbf{y} - \hat{\textbf{y}} \parallel^{2} &amp; = &amp; 3^{2} + 6^{2} = 45$$</paragraph>
+    <paragraph>The distance from $$\textbf{y}$$ to $$W$$ is $$\sqrt{45} = 3\sqrt{5}$$ .</paragraph>
+  </example>
+  <paragraph>The final theorem in this section shows how formula (2) for $$\text{proj} _{W}\textbf{y}$$ is simplified when the basis for $$W$$ is an orthonormal set.</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem ﻿10">
+    <heading level="2">Theorem ﻿10</heading>
+    <paragraph>If $$\left\{ \mathbf{u}_{1} \text{,} \ldots \text{,} \mathbf{u}_{p} \right\}$$ is an orthonormal basis for a subspace $$W$$ of $$\mathbb{R}^{n}$$ , then</paragraph>
+    <paragraph>(4)</paragraph>
+    <paragraph>$$\text{proj} _{W } \textbf{y} = ( \textbf{y} \cdot \mathbf{u}_{1} ) \mathbf{u}_{1} + ( \textbf{y} \cdot \mathbf{u}_{2} ) \mathbf{u}_{2} + \hdots + ( \textbf{y} \cdot \mathbf{u}_{p} ) \mathbf{u}_{p}$$</paragraph>
+    <paragraph>If $$U = \left\lbrack \begin{array}{rrrr} \mathbf{u}_{1} &amp; \mathbf{u}_{2} &amp; \cdots &amp; \mathbf{u}_{p} \end{array} \right\rbrack$$ , then</paragraph>
+    <paragraph>(5)</paragraph>
+    <paragraph>$$\text{proj} _{W} \textbf{y} = U U^{T} \textbf{y} \text{for all} \textbf{y} \text{in} \mathbb{R}^{n}$$</paragraph>
+  </note>
+  <heading level="3">Proof﻿</heading>
+  <paragraph>Formula (4) follows immediately from (2) in Theorem 8. Also, (4) shows that $$\text{proj} _{W}\textbf{y}$$ is a linear combination of the columns of $$U$$ using the weights $$\textbf{y} \cdot \mathbf{u}_{1}$$ , $$\mathbf{y} \cdot \mathbf{u}_{2},\ldots,\mathbf{y} \cdot \mathbf{u}_{p}$$ . The weights can be written as $$\mathbf{u}_{1}^{T}\textbf{y}$$ , $$\mathbf{u}_{2}^{T}\textbf{y}$$ , $$\ldots$$ , $$\mathbf{u}_{p}^{T}\textbf{y}$$ , showing that they are the entries in $$U^{T}\textbf{y}$$ and justifying (5).</paragraph>
+  <paragraph>Suppose $$U$$ is an $$n \times p$$ matrix with orthonormal columns, and let $$W$$ be the column space of $$U$$ . Then</paragraph>
+  <paragraph>$$U^{T} U \textbf{x} &amp; = &amp; I_{p} \textbf{x} = \textbf{x} &amp; \text{for all} \textbf{x} \text{in} \mathbb{R}^{p} &amp; \text{Theorem} 6 U U^{T} \textbf{y} &amp; = &amp; \text{proj} _{W} \textbf{y} &amp; \text{for all} \textbf{y} \text{in} \mathbb{R}^{n} &amp; \text{Theorem} 10$$</paragraph>
+  <paragraph>If $$U$$ is an $$n \times n$$ (square) matrix with orthonormal columns, then $$U$$ is an orthogonal matrix, the column space $$W$$ is all of $$\mathbb{R}^{n}$$ , and $$UU^{T}\textbf{y} = I\textbf{y} = \textbf{y}$$ for all $$\textbf{y}$$ in $$\mathbb{R}^{n}$$ .</paragraph>
+  <paragraph>Although formula (4) is important for theoretical purposes, in practice it usually involves calculations with square roots of numbers (in the entries of the $$\mathbf{u}_{i}$$ ). Formula (2) is recommended for hand calculations.</paragraph>
+  <paragraph>Example 9 of Section 2.1 illustrates how matrix multiplication and transposition are used to detect a specified pattern illustrated using blue and white squares. Now that we have more experience working with bases for $$W$$ and $$W^{\bot}$$ , we are ready to discuss how to set up the matrix $$M$$ in Figure 6. Let $$\textbf{w}$$ be the vector generated from a pattern of blue and white squares by turning each blue square into a $$1$$ and each white square into a $$0$$ , and then lining up each column below the column before it. See Figure 5.</paragraph>
+  <figure>
+    <image alt="A figure shows creation of a vector from colored squares."/>
+    <caption>Figure 5 Creating a vector from colored squares</caption>
+  </figure>
+  <paragraph>Let $$W = \text{span} \left\{ \textbf{w} \right\}$$ . Choose a basis $$\left\{ \textbf{v}_{1},\textbf{v}_{2},\ldots,\textbf{v}_{n - 1} \right\}$$ for $$W^{\bot}$$ . Create the matrix $$B = \begin{bmatrix} {\textbf{v}_{1}}^{T} \\ {\textbf{v}_{2}}^{T} \\ \vdots \\ {\textbf{v}_{n - 1}}^{T} \end{bmatrix}$$ . Notice $$B\textbf{u} = \textbf{0}$$ if and only if $$\textbf{u}$$ is orthogonal to a set of basis vectors for $$W^{\bot}$$ , which happens if and only if $$\textbf{u}$$ is in $$W$$ . Set $$M = B^{T}B$$ . Then $$\textbf{u}^{T}M\textbf{u} = \textbf{u}^{T}B^{T}B\textbf{u} = {(B\textbf{u})}^{T}B\textbf{u}$$ . By Theorem 1, $${(B\textbf{u})}^{T}B\textbf{u} = 0$$ if and only if $$B\textbf{u} = 0$$ , and hence $$\textbf{u}^{T}M\textbf{u} = 0$$ if and only if $$\textbf{u} \in W$$ . But there are only two vectors in $$W$$ consisting of zeros and ones: $$1\textbf{w} = \textbf{w}$$ and $$0\textbf{w} = \textbf{0}$$ . Thus we can conclude that if $$\textbf{u}^{T}M\textbf{u} = 0$$ , but $$\textbf{u}^{T}\textbf{u} \neq 0$$ , then $$\textbf{u} = \textbf{w}$$ . See Figure 6.</paragraph>
+  <example number="5">
+    <heading level="2">Example 5</heading>
+    <paragraph>Find a matrix $$M$$ that can be used in Figure 6 to identify the perp symbol.</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>First change the symbol into a vector. Set $$\textbf{w} = \left\lbrack \text{0 0 1 1 1 1 0 0 1} \right\rbrack^{T}$$ . Next set $$W = \text{span} \left\{ \textbf{w} \right\}$$ and find a basis for $$W^{\bot}$$ : solving $$\textbf{x}^{T}\textbf{w} = 0$$ creates the homogeneous system of equations:</paragraph>
+    <paragraph>$$x_{3} + x_{4} + x_{5} + x_{6} + x_{9} = 0$$</paragraph>
+    <paragraph>Treating $$x_{3}$$ as the basic variable and the remaining variables as free variables we get a basis for $$W^{\bot}$$ . Transposing each vector in the basis and inserting it as a row of $$B$$ we get</paragraph>
+    <figure>
+      <image alt="Two figures show the transformation of a shaded grid into a vector to check the perpendicular pattern."/>
+      <caption>Figure 6 How AI detects the perp symbol</caption>
+    </figure>
+    <paragraph>$$B = \left[\right. 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; - 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; - 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; - 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 0 &amp; 0 &amp; - 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \left]\right. \text{and} M = B^{T} B = \left[\right. 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; 4 &amp; - 1 &amp; - 1 &amp; - 1 &amp; 0 &amp; 0 &amp; - 1 0 &amp; 0 &amp; - 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; - 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; - 1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 0 &amp; 0 &amp; - 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \left]\right.$$</paragraph>
+    <paragraph>Notice $$\textbf{w}^{T}M\textbf{w} = 0$$ , but $$\textbf{w}^{T}\textbf{w} \neq 0$$ .</paragraph>
+  </example>
+  <note type="practice" source_type="practice" title="Practice Problems">
+    <heading level="2">Practice Problems</heading>
+    <list type="ordered">
+      <item>Let $$\mathbf{u}_{1} = \left\lbrack \begin{array}{r} {- 7} \\ 1 \\ 4 \end{array} \right\rbrack$$ , $$\mathbf{u}_{2} = \left\lbrack \begin{array}{r} {- 1} \\ 1 \\ {- 2} \end{array} \right\rbrack$$ , $$\textbf{y} = \left\lbrack \begin{array}{r} {- 9} \\ 1 \\ 6 \end{array} \right\rbrack$$ , and $$W = \text{Span} \left\{ \mathbf{u}_{1},\mathbf{u}_{2} \right\}$$ . Use the fact that $$\mathbf{u}_{1}$$ and $$\mathbf{u}_{2}$$ are orthogonal to compute $$\text{proj} _{W}\textbf{y}$$ .</item>
+      <item>Let $$W$$ be a subspace of $${\mathbb{R}}^{n}$$ . Let $$\textbf{x}$$ and $$\textbf{y}$$ be vectors in $${\mathbb{R}}^{n}$$ and let $$\textbf{z} = \textbf{x} + \textbf{y}$$ . If $$\mathbf{u}$$ is the projection of $$\textbf{x}$$ onto $$W$$ and $$\mathbf{v}$$ is the projection of $$\textbf{y}$$ onto $$W$$ , show that $$\mathbf{u} + \mathbf{v}$$ is the projection of $$\textbf{z}$$ onto $$W$$ .</item>
+    </list>
+  </note>
+  <paragraph>1 We may assume that $$W$$ is not the zero subspace, for otherwise $$W^{\bot} = \mathbb{R}^{n}$$ and (1) is simply $$\textbf{y} = \textbf{0} + \textbf{y}$$ . The next section will show that any nonzero subspace of $$\mathbb{R}^{n}$$ has an orthogonal basis.</paragraph>
+</section>

@@ -1,0 +1,2874 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">Introduction</heading>
+  <figure number="10.1">
+    <image alt="This is a photo of a plate with a large pile of eggs in the foreground and six slices of toast in the background. There is a small dish of red jam sitting near the toast on the plate."/>
+    <caption>If you want to test a claim that involves two groups (the types of breakfasts eaten east and west of the Mississippi River) you can use a slightly different technique when conducting a hypothesis test. (credit: modification of work “scrambled egg, toast and home-made berry jam (no added sugar) for breakfast” by Chloe Lim/ Flickr, CC BY 2.0)</caption>
+  </figure>
+  <paragraph>Studies often compare two groups. For example, researchers are interested in the effect aspirin has in preventing heart attacks. Over the last few years, newspapers and magazines have reported various aspirin studies involving two groups. Typically, one group is given aspirin and the other group is given a placebo. Then, the heart attack rate is studied over several years.</paragraph>
+  <paragraph>There are other situations that deal with the comparison of two groups. For example, studies compare various diet and exercise programs. Politicians compare the proportion of individuals from different income brackets who might vote for them. Students are interested in whether SAT or GRE preparatory courses really help raise their scores. Many business applications require comparing two groups. It may be the investment returns of two different investment strategies, or the differences in production efficiency of different management styles.</paragraph>
+  <paragraph>To compare two means or two proportions, you work with two groups. The groups are classified either as independent or matched pairs. Independent groups consist of two samples that are independent, that is, sample values selected from one population are not related in any way to sample values selected from the other population. Matched pairs consist of two samples that are dependent. The parameter tested using matched pairs is the population mean. The parameters tested using independent groups are either population means or population proportions of each group.</paragraph>
+  <heading level="1">10.1 Comparing Two Independent Population Means</heading>
+  <paragraph>The comparison of two independent population means is very common and provides a way to test the hypothesis that the two groups differ from each other. Is the night shift less productive than the day shift, are the rates of return from fixed asset investments different from those from common stock investments, and so on? An observed difference between two sample means depends on both the means and the sample standard deviations. Very different means can occur by chance if there is great variation among the individual samples. The test statistic will have to account for this fact. The test comparing two independent population means with unknown and possibly unequal population standard deviations is called the Aspin-Welch t-test. The degrees of freedom formula we will see later was developed by Aspin-Welch.</paragraph>
+  <paragraph>When we developed the hypothesis test for the mean and proportions we began with the Central Limit Theorem. We recognized that a sample mean came from a distribution of sample means, and sample proportions came from the sampling distribution of sample proportions. This made our sample parameters, the sample means and sample proportions, into random variables. It was important for us to know the distribution that these random variables came from. The Central Limit Theorem gave us the answer: the normal distribution. Our Z and t statistics came from this theorem. This provided us with the solution to our question of how to measure the probability that a sample mean came from a distribution with a particular hypothesized value of the mean or proportion. In both cases that was the question: what is the probability that the mean (or proportion) from our sample data came from a population distribution with the hypothesized value we are interested in?</paragraph>
+  <paragraph>Now we are interested in whether or not two samples have the same mean. Our question has not changed: Do these two samples come from the same population distribution? To approach this problem we create a new random variable. We recognize that we have two sample means, one from each set of data, and thus we have two random variables coming from two unknown distributions. To solve the problem we create a new random variable, the difference between the sample means. This new random variable also has a distribution and, again, the Central Limit Theorem tells us that this new distribution is normally distributed, regardless of the underlying distributions of the original data. A graph may help to understand this concept.</paragraph>
+  <figure number="10.2">
+    <image alt="Depicts two population distributions forming a normal sampling distribution of the difference in means (X1-X2), then standardized into a Z-distribution for hypothesis testing (H0, H1)."/>
+  </figure>
+  <paragraph>Pictured are two distributions of data, X1 and X2, with unknown means and standard deviations. The second panel shows the sampling distribution of the newly created random variable ( $${\overline{X}}_{1} - {\overline{X}}_{2}$$ ). This distribution is the theoretical distribution of many sample means from population 1 minus sample means from population 2. The Central Limit Theorem tells us that this theoretical sampling distribution of differences in sample means is normally distributed, regardless of the distribution of the actual population data shown in the top panel. Because the sampling distribution is normally distributed, we can develop a standardizing formula and calculate probabilities from the standard normal distribution in the bottom panel, the Z distribution. We have seen this same analysis before in The Central Limit Theorem Figure 7.2 .</paragraph>
+  <paragraph>The Central Limit Theorem, as before, provides us with the standard deviation of the sampling distribution, and further, that the expected value of the mean of the distribution of differences in sample means is equal to the differences in the population means. Mathematically this can be stated:</paragraph>
+  <paragraph math="block">$$E\left( µ_{{\overline{x}}_{1}} - µ_{{\overline{x}}_{2}} \right) = µ_{1} - µ_{2}$$</paragraph>
+  <paragraph>Because we do not know the population standard deviations, we estimate them using the two sample standard deviations from our independent samples. For the hypothesis test, we calculate the estimated standard deviation, or standard error, of the difference in sample means, $${\overline{X}}_{1}$$ – $${\overline{X}}_{2}$$ .</paragraph>
+  <paragraph math="block">$$\sqrt{\frac{\left( s_{1} \right)^{2}}{n_{1}} + \frac{\left( s_{2} \right)^{2}}{n_{2}}}$$</paragraph>
+  <paragraph>We remember that substituting the sample variance for the population variance when we did not have the population variance was the technique we used when building the confidence interval and the test statistic for the test of hypothesis for a single mean back in Confidence Intervals and Hypothesis Testing with One Sample. The test statistic (t-score) is calculated as follows:</paragraph>
+  <paragraph math="block">$$t_{c} = \frac{({\overset{-}{x}}_{1}-{\overset{-}{x}}_{2})-\delta_{0}}{\sqrt{\frac{{(s_{1})}^{2}}{n_{1}} + \frac{{(s_{2})}^{2}}{n_{2}}}}$$</paragraph>
+  <list type="unordered">
+    <item>s1 and s2, the sample standard deviations, are estimates of σ1 and σ2, respectively and</item>
+    <item>σ1 and σ2 are the unknown population standard deviations.</item>
+    <item>$${\overset{-}{x}}_{1}$$ and $${\overset{-}{x}}_{2}$$ are the sample means. μ1 and μ2 are the unknown population means.</item>
+  </list>
+  <paragraph>$$\delta$$ = the hypothesized differences between the two populations means.</paragraph>
+  <paragraph>Substituting the sample variances of the two sample groups when the populations variances are unknown and the sample size is large, the t-distribution will provide good estimates using degrees of freedom:</paragraph>
+  <paragraph>$$v = n_{1} + n_{2} - 2$$ .</paragraph>
+  <paragraph>Large in this case would be greater than 100 observations from the combined two groups $$\left( n_{1} + n_{2} \right)$$ although other statisticians suggest that the definition of large is greater than 30 observations for each of the two groups.</paragraph>
+  <paragraph>The number of degrees of freedom (df) requires a somewhat complicated calculation. The df are not always a whole number. The test statistic above is approximated by the Student's t-distribution with df as follows:</paragraph>
+  <paragraph math="block">$$\text{The standard error is:} df = \frac{\left( {\frac{{(s_{1})}^{2}}{n_{1}} + \frac{{(s_{2})}^{2}}{n_{2}}} \right)^{2}}{\left( \frac{1}{n_{1}-1} \right)\left( \frac{{(s_{1})}^{2}}{n_{1}} \right)^{2} + \left( \frac{1}{n_{2}-1} \right)\left( \frac{{(s_{2})}^{2}}{n_{2}} \right)^{2}}$$</paragraph>
+  <paragraph>When both sample sizes n1 and n2 are 30 or larger, the Student's t approximation is very good. If each sample has more than 30 observations then the degrees of freedom can be calculated as $$n_{1} + n_{2} - 2$$ .</paragraph>
+  <paragraph>The format of the sampling distribution, differences in sample means, specifies that the format of the null and alternative hypothesis is:</paragraph>
+  <paragraph math="block">$$H_{0}:µ_{1} - µ_{2} = \delta_{0}$$</paragraph>
+  <paragraph math="block">$$H_{a}:µ_{1} - µ_{2} \neq \delta_{0}$$</paragraph>
+  <paragraph>where δ0 is the hypothesized difference between the two means. If the question is simply “is there any difference between the means?” then δ0 = 0 and the null and alternative hypotheses becomes:</paragraph>
+  <paragraph math="block">$$H_{0}:µ_{1} = µ_{2}$$</paragraph>
+  <paragraph math="block">$$H_{a}:µ_{1} \neq µ_{2}$$</paragraph>
+  <paragraph>An example of when δ0 might not be zero is when the comparison of the two groups requires a specific difference for the decision to be meaningful. Imagine that you are making a capital investment. You are considering changing from your current model machine to another. You measure the productivity of your machines by the speed they produce the product. It may be that a contender to replace the old model is faster in terms of product throughput, but is also more expensive. The second machine may also have more maintenance costs, setup costs, etc. The null hypothesis would be set up so that the new machine would have to be better than the old one by enough to cover these extra costs in terms of speed and cost of production. This form of the null and alternative hypothesis shows how valuable this particular hypothesis test can be. For most of our work we will be testing simple hypotheses asking if there is any difference between the two distribution means.</paragraph>
+  <example number="10.1" title="Independent groups">
+    <paragraph>The Kona Iki Corporation produces coconut milk. They take coconuts and extract the milk inside by drilling a hole and pouring the milk into a vat for processing. They have both a day shift (called the B shift) and a night shift (called the G shift) to do this part of the process. They would like to know if the day shift and the night shift are equally efficient in processing the coconuts. A study is done sampling 9 shifts of the G shift and 16 shifts of the B shift. The results of the number of hours required to process 100 pounds of coconuts is presented in Table 10.1. A study is done and data are collected, resulting in the data in Table 10.1.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true"/>
+          <cell header="true">Sample Size</cell>
+          <cell header="true">Average Number of Hours to Process 100 Pounds of Coconuts</cell>
+          <cell header="true">Sample Standard Deviation</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>G Shift</cell>
+          <cell>9</cell>
+          <cell>2</cell>
+          <cell>0.866</cell>
+        </row>
+        <row>
+          <cell>B Shift</cell>
+          <cell>16</cell>
+          <cell>3.2</cell>
+          <cell>1.00</cell>
+        </row>
+      </tbody>
+    </table>
+    <problem>
+      <paragraph>Is there a difference in the mean amount of time for each shift to process 100 pounds of coconuts? Test at the 5% level of significance.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The population standard deviations are not known and cannot be assumed to equal each other. Let g be the subscript for the G Shift and b be the subscript for the B Shift. Then, μg is the population mean for G Shift and μb is the population mean for B Shift. This is a test of two independent groups, two population means.</paragraph>
+      <paragraph>Random variable: $${\overline{X}}_{g} - {\overline{X}}_{b}$$ = difference in the sample mean amount of time between the G Shift and the B Shift takes to process the coconuts. H0: μg = μb H0: μg – μb = 0 Ha: μg ≠ μb Ha: μg – μb ≠ 0 The words "the same" tell you H0 has an "=". Since there are no other words to indicate Ha, is either faster or slower. This is a two tailed test.</paragraph>
+      <paragraph>Distribution for the test: Use tdf where df is calculated using the df formula for independent groups, two population means above. Using a calculator, df is approximately 18.8462.</paragraph>
+      <paragraph>Graph:</paragraph>
+      <figure number="10.3">
+        <image alt="This is a normal distribution curve representing the difference in the average amount of time girls and boys play sports all day. The mean is equal to zero, and the values -1.2, 0, and 1.2 are labeled on the horizontal axis. Two vertical lines extend from -1.2 and 1.2 to the curve. The region to the left of x = -1.2 and the region to the right of x = 1.2 are shaded to represent the p-value. The area of each region is 0.0028."/>
+      </figure>
+      <paragraph math="block">$$\text{t} _{ \text{c} } = \frac{\left( {\overline{X}}_{1} - {\overline{X}}_{2} \right) - \delta_{0}}{\sqrt{\frac{S_{1}^{2}}{n_{1}} + \frac{S_{2}^{2}}{n_{2}}}} = -3.01$$</paragraph>
+      <paragraph>We next find the critical value on the t-table using the degrees of freedom from above. The critical value, 2.093, is found in the .025 column, this is α/2, at 19 degrees of freedom. (The convention is to round up the degrees of freedom to make the conclusion more conservative.) Next we calculate the test statistic and mark this on the t-distribution graph.</paragraph>
+      <paragraph>Make a decision: Since the calculated t-value is in the tail we cannot accept the null hypothesis that there is no difference between the two groups. The means are different.</paragraph>
+      <paragraph>The graph has included the sampling distribution of the differences in the sample means to show how the t-distribution aligns with the sampling distribution data. We see in the top panel that the calculated difference in the two means is -1.2 and the bottom panel shows that this is 3.01 standard deviations from the mean. Typically we do not need to show the sampling distribution graph and can rely on the graph of the test statistic, the t-distribution in this case, to reach our conclusion.</paragraph>
+      <paragraph>Conclusion: At the 5% level of significance, the sample data show there is sufficient evidence to conclude that the mean number of hours that the G Shift takes to process 100 pounds of coconuts is different from the B Shift (mean number of hours for the B Shift is greater than the mean number of hours for the G Shift).</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.1">
+    <paragraph>Two samples are shown in Table 10.2. Both have normal distributions. The means for the two populations are thought to be the same. Is there a difference in the means? Test at the 5% level of significance.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true"/>
+          <cell header="true">Sample Size</cell>
+          <cell header="true">Sample Mean</cell>
+          <cell header="true">Sample Standard Deviation</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Population A</cell>
+          <cell>25</cell>
+          <cell>5</cell>
+          <cell>1</cell>
+        </row>
+        <row>
+          <cell>Population B</cell>
+          <cell>16</cell>
+          <cell>4.7</cell>
+          <cell>1.2</cell>
+        </row>
+      </tbody>
+    </table>
+  </note>
+  <note type="sidebar" source_type="NOTE" title="NOTE">
+    <paragraph>When the sum of the sample sizes is larger than 30 (n1 + n2 &gt; 30) you can use the normal distribution to approximate the Student's t. Use the Student's t distribution, however, whenever possible.</paragraph>
+  </note>
+  <example number="10.2">
+    <paragraph>A study is done to determine if Company A retains its workers longer than Company B. It is believed that Company A has a higher retention than Company B. The study finds that in a sample of 11 workers at Company A their average time with the company is four years with a standard deviation of 1.5 years. A sample of 9 workers at Company B finds that the average time with the company was 3.5 years with a standard deviation of 1 year. Test this proposition at the 1% level of significance.</paragraph>
+    <problem>
+      <paragraph>a. Is this a test of two means or two proportions?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>a. two means because time is a continuous random variable.</paragraph>
+    </solution>
+    <problem>
+      <paragraph>b. Are the populations standard deviations known or unknown?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>b. unknown</paragraph>
+    </solution>
+    <problem>
+      <paragraph>c. Which distribution do you use to perform the test?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>c. Student's t</paragraph>
+    </solution>
+    <problem>
+      <paragraph>d. What is the random variable?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>d. $${\overline{X}}_{A} - {\overline{X}}_{B}$$</paragraph>
+    </solution>
+    <problem>
+      <paragraph>e. What are the null and alternate hypotheses?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>e.</paragraph>
+      <list type="unordered">
+        <item>$$H_{Ø}:\mu_{A} \leq \mu_{B}$$</item>
+        <item>$$H_{a}:\mu_{A} &gt; \mu_{B}$$</item>
+      </list>
+    </solution>
+    <problem>
+      <paragraph>f. Is this test right-, left-, or two-tailed?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>f. right one-tailed test</paragraph>
+      <figure number="10.4">
+        <image alt="This is a normal distribution curve with mean equal to 0. A vertical line near the tail of the curve to the right of zero extends from the axis to the curve. The region under the curve to the right of the line is shaded."/>
+      </figure>
+    </solution>
+    <problem>
+      <paragraph>g. What is the value of the test statistic?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$\text{t} _{ \text{c} } = \frac{\left( {\overline{X}}_{1} - {\overline{X}}_{2} \right) - \delta_{0}}{\sqrt{\frac{S_{1}^{2}}{n_{1}} + \frac{S_{2}^{2}}{n_{2}}}} = 0.89$$</paragraph>
+    </solution>
+    <problem>
+      <paragraph>h. Can you accept/reject the null hypothesis?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>h. Cannot reject the null hypothesis that there is no difference between the two groups. Test statistic is not in the tail. The critical value of the t-distribution is 2.764 with 10 degrees of freedom. This example shows how difficult it is to reject a null hypothesis with a very small sample. The critical values require very large test statistics to reach the tail.</paragraph>
+    </solution>
+    <problem>
+      <paragraph>i. Conclusion:</paragraph>
+    </problem>
+    <solution>
+      <paragraph>i. At the 1% level of significance, from the sample data, there is not sufficient evidence to conclude that the retention of workers at Company A is longer than Company B, on average.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.2">
+    <paragraph>A study is done to determine if Company A retains its workers longer than Company B. Company A samples 15 workers, and their average time with the company is five years with a standard deviation of 1.2. Company B samples 20 workers, and their average time with the company is 4.5 years with a standard deviation of 0.8. The populations are normally distributed.</paragraph>
+    <list type="ordered">
+      <item>Are the population standard deviations known?</item>
+      <item>Conduct an appropriate hypothesis test. At the 5% significance level, what is your conclusion?</item>
+    </list>
+  </note>
+  <example number="10.3">
+    <problem>
+      <paragraph>An interesting research question is the effect, if any, that different types of teaching formats have on the grade outcomes of students. To investigate this issue one sample of students' grades was taken from a hybrid class and another sample taken from a standard lecture format class. Both classes were for the same subject. The mean course grade in percent for the 35 hybrid students is 74 with a standard deviation of 16. The mean grades of the 40 students form the standard lecture class was 76 percent with a standard deviation of 9. Test at 5% to see if there is any significant difference in the population mean grades between standard lecture course and hybrid class.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>We begin by noting that we have two groups, students from a hybrid class and students from a standard lecture format class. We also note that the random variable, what we are interested in, is students' grades, a continuous random variable. We could have asked the research question in a different way and had a binary random variable. For example, we could have studied the percentage of students with a failing grade, or with an A grade. Both of these would be binary and thus a test of proportions and not a test of means as is the case here. Finally, there is no presumption as to which format might lead to higher grades so the hypothesis is stated as a two-tailed test.</paragraph>
+      <paragraph>H0: µ1 = µ2 Ha: µ1 ≠ µ2</paragraph>
+      <paragraph>As would virtually always be the case, we do not know the population variances of the two distributions and thus our test statistic is:</paragraph>
+      <paragraph math="block">$$t_{c} = \frac{\left( {\overline{x}}_{1} - {\overline{x}}_{2} \right) - \delta_{0}}{\sqrt{\frac{s^{2}}{n_{1}} + \frac{s^{2}}{n_{2}}}} = \frac{(74 - 76) - 0}{\sqrt{\frac{16^{2}}{35} + \frac{9^{2}}{40}}} = -0.65$$</paragraph>
+      <paragraph>To determine the critical value of the Student's t we need the degrees of freedom. For this case we use: df = n1 + n2 - 2 = 35 + 40 -2 = 73. This is large enough to consider it the normal distribution thus ta/2 = 1.96. Again as always we determine if the calculated value is in the tail determined by the critical value. In this case we do not even need to look up the critical value: the calculated value of the difference in these two average grades is not even one standard deviation apart. Certainly not in the tail.</paragraph>
+      <paragraph>Conclusion: Cannot reject the null at α=5%. Therefore, evidence does not exist to prove that the grades in hybrid and standard classes differ.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.3">
+    <paragraph>Two professors, A and B, teach classes on the same subjects. Scores of 10 students from each class are selected randomly. The final exam scores of the students are as follows:</paragraph>
+    <paragraph>Professor A:</paragraph>
+    <table>
+      <tbody>
+        <row>
+          <cell>97</cell>
+          <cell>62</cell>
+          <cell>73</cell>
+          <cell>58</cell>
+          <cell>84</cell>
+        </row>
+        <row>
+          <cell>74</cell>
+          <cell>66</cell>
+          <cell>93</cell>
+          <cell>73</cell>
+          <cell>85</cell>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>Professor B:</paragraph>
+    <table>
+      <tbody>
+        <row>
+          <cell>85</cell>
+          <cell>64</cell>
+          <cell>74</cell>
+          <cell>55</cell>
+          <cell>76</cell>
+        </row>
+        <row>
+          <cell>67</cell>
+          <cell>72</cell>
+          <cell>84</cell>
+          <cell>71</cell>
+          <cell>98</cell>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>Professor A says that the mean score of their class is more than the mean of professor B’s class. Is professor A correct? Test at a 5% significance level. Answer the following questions:</paragraph>
+    <list type="ordered">
+      <item>Is this a test of two means or two proportions?</item>
+      <item>Are the population standard deviations known or unknown?</item>
+      <item>Which distribution do you use to perform the test?</item>
+      <item>What is the random variable?</item>
+      <item>What are the null and alternative hypotheses? Write the null and alternative hypotheses in words and in symbols.</item>
+      <item>Is this test right-, left-, or two-tailed?</item>
+      <item>What is the p-value?</item>
+      <item>Do you reject or not reject the null hypothesis?</item>
+      <item>At the ___ level of significance, from the sample data, there ___ (is/is not) sufficient evidence to conclude that ___.</item>
+    </list>
+  </note>
+  <heading level="1">10.2 Cohen's Standards for Small, Medium, and Large Effect Sizes</heading>
+  <paragraph>Cohen's d is a measure of "effect size" based on the differences between two means. Cohen’s d, named for United States statistician Jacob Cohen, measures the relative strength of the differences between the means of two populations based on sample data. The calculated value of effect size is then compared to Cohen’s standards of small, medium, and large effect sizes.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Size of effect</cell>
+        <cell header="true">d</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>Small</cell>
+        <cell>0.2</cell>
+      </row>
+      <row>
+        <cell>Medium</cell>
+        <cell>0.5</cell>
+      </row>
+      <row>
+        <cell>Large</cell>
+        <cell>0.8</cell>
+      </row>
+    </tbody>
+  </table>
+  <paragraph>Cohen's d is the measure of the difference between two means divided by the pooled standard deviation: $$d = \frac{{\overline{x}}_{1}-{\overline{x}}_{2}}{s_{pooled}}$$ where $$s_{pooled} = \sqrt{\frac{(n_{1}-1)s_{1}^{2} + (n_{2}-1)s_{2}^{2}}{n_{1} + n_{2}-2}}$$</paragraph>
+  <paragraph>It is important to note that Cohen's d does not provide a level of confidence as to the magnitude of the size of the effect comparable to the other tests of hypothesis we have studied. The sizes of the effects are simply indicative.</paragraph>
+  <example number="10.4">
+    <problem>
+      <paragraph>Calculate Cohen’s d for Example 10.2. Is the size of the effect small, medium, or large? Explain what the size of the effect means for this problem.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>x̅1 = 4 s1 = 1.5 n1 = 11 x̅2 = 3.5 s2 = 1 n2 = 9 d = 0.384 The effect is small because 0.384 is between Cohen’s value of 0.2 for small effect size and 0.5 for medium effect size. The size of the differences of the means for the two companies is small indicating that there is not a significant difference between them.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.4">
+    <paragraph>Calculate Cohen’s d for Try It 10.4. Is the size of the effect small, medium, or large? Explain what the size of the effect means for this problem.</paragraph>
+  </note>
+  <heading level="1">10.3 Test for Differences in Means: Assuming Equal Population Variances</heading>
+  <paragraph>Typically we can never expect to know any of the population parameters, mean, proportion, or standard deviation. When testing hypotheses concerning differences in means we are faced with the difficulty of two unknown variances that play a critical role in the test statistic. We have been substituting the sample variances just as we did when testing hypotheses for a single mean. And as we did before, we used a Student's t to compensate for this lack of information on the population variance. There may be situations, however, when we do not know the population variances, but we can assume that the two populations have the same variance. If this is true then the pooled sample variance will be smaller than the individual sample variances. This will give more precise estimates and reduce the probability of discarding a good null. The null and alternative hypotheses remain the same, but the test statistic changes to:</paragraph>
+  <paragraph math="block">$$t_{c} = \frac{\left( {\overset{-}{x}}_{1} - {\overset{-}{x}}_{2} \right) - \delta_{0}}{\sqrt{S\overset{2}{p}\left( \frac{1}{n_{1}} + \frac{1}{n_{2}} \right)}}$$</paragraph>
+  <paragraph>where $$S\overset{2}{p}$$ is the pooled variance given by the formula:</paragraph>
+  <paragraph math="block">$$s_{p}^{2} = \frac{(n1 - 1)s_{1}^{2} + (n_{2} - 1)s_{2}^{2}}{n_{1} + n_{2} - 2}$$</paragraph>
+  <example number="10.5">
+    <problem>
+      <paragraph>A drug trial is attempted using a real drug and a pill made of just sugar. 18 people are given the real drug in hopes of increasing the production of endorphins. The increase in endorphins is found to be on average 8 micrograms per person, and the sample standard deviation is 5.4 micrograms. 11 people are given the sugar pill, and their average endorphin increase is 4 micrograms with a standard deviation of 2.4. From previous research on endorphins it is determined that it can be assumed that the variances within the two samples can be assumed to be the same. Test at 5% to see if the population mean for the real drug had a significantly greater impact on the endorphins than the population mean with the sugar pill.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First we begin by designating one of the two groups Group 1 and the other Group 2. This will be needed to keep track of the null and alternative hypotheses. Let's set Group 1 as those who received the actual new medicine being tested and therefore Group 2 is those who received the sugar pill. We can now set up the null and alternative hypothesis as: H0: µ1 ≤ µ2 H1: µ1 &gt; µ2 This is set up as a one-tailed test with the claim in the alternative hypothesis that the medicine will produce more endorphins than the sugar pill. We now calculate the test statistic which requires us to calculate the pooled variance, $$S\overset{2}{p}$$ using the formula above.</paragraph>
+      <paragraph math="block">$$t_{c} = \frac{\left( {\overline{x}}_{1} - {\overline{x}}_{2} \right) - \delta_{0}}{\sqrt{S\overset{2}{p}\left( \frac{1}{n_{1}} + \frac{1}{n_{2}} \right)}} = \frac{(8 - 4) - 0}{\sqrt{20.4933\left( \frac{1}{18} + \frac{1}{11} \right)}} = 2.31$$</paragraph>
+      <paragraph>tα, allows us to compare the test statistic and the critical value.</paragraph>
+      <paragraph math="block">$$t_{\alpha} = 1.703 \text{at} df = n_{1} + n_{2} - 2 = 18 + 11 - 2 = 27$$</paragraph>
+      <paragraph>The test statistic is clearly in the tail, 2.31 is larger than the critical value of 1.703, and therefore we cannot maintain the null hypothesis. Thus, we conclude that there is significant evidence at the 95% level of confidence that the new medicine produces the effect desired.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.5">
+    <paragraph>Weighted alpha is a measure of risk-adjusted performance of stocks over a period of a year. A high positive weighted alpha signifies a stock whose price has risen while a small positive weighted alpha indicates an unchanged stock price during the time period. Weighted alpha is used to identify companies with strong upward or downward trends. The weighted alpha for the top 30 stocks of banks in the northeast and in the west as identified by Nasdaq on May 24, 2013 are listed in Table 10.6 and Table 10.7, respectively.</paragraph>
+    <table>
+      <tbody>
+        <row>
+          <cell>94.2</cell>
+          <cell>75.2</cell>
+          <cell>69.6</cell>
+          <cell>52.0</cell>
+          <cell>48.0</cell>
+          <cell>41.9</cell>
+          <cell>36.4</cell>
+          <cell>33.4</cell>
+          <cell>31.5</cell>
+          <cell>27.6</cell>
+        </row>
+        <row>
+          <cell>77.3</cell>
+          <cell>71.9</cell>
+          <cell>67.5</cell>
+          <cell>50.6</cell>
+          <cell>46.2</cell>
+          <cell>38.4</cell>
+          <cell>35.2</cell>
+          <cell>33.0</cell>
+          <cell>28.7</cell>
+          <cell>26.5</cell>
+        </row>
+        <row>
+          <cell>76.3</cell>
+          <cell>71.7</cell>
+          <cell>56.3</cell>
+          <cell>48.7</cell>
+          <cell>43.2</cell>
+          <cell>37.6</cell>
+          <cell>33.7</cell>
+          <cell>31.8</cell>
+          <cell>28.5</cell>
+          <cell>26.0</cell>
+        </row>
+      </tbody>
+    </table>
+    <table>
+      <tbody>
+        <row>
+          <cell>126.0</cell>
+          <cell>70.6</cell>
+          <cell>65.2</cell>
+          <cell>51.4</cell>
+          <cell>45.5</cell>
+          <cell>37.0</cell>
+          <cell>33.0</cell>
+          <cell>29.6</cell>
+          <cell>23.7</cell>
+          <cell>22.6</cell>
+        </row>
+        <row>
+          <cell>116.1</cell>
+          <cell>70.6</cell>
+          <cell>58.2</cell>
+          <cell>51.2</cell>
+          <cell>43.2</cell>
+          <cell>36.0</cell>
+          <cell>31.4</cell>
+          <cell>28.7</cell>
+          <cell>23.5</cell>
+          <cell>21.6</cell>
+        </row>
+        <row>
+          <cell>78.2</cell>
+          <cell>68.2</cell>
+          <cell>55.6</cell>
+          <cell>50.3</cell>
+          <cell>39.0</cell>
+          <cell>34.1</cell>
+          <cell>31.0</cell>
+          <cell>25.3</cell>
+          <cell>23.4</cell>
+          <cell>21.5</cell>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>Is there a difference in the weighted alpha of the top 30 stocks of banks in the northeast and in the west? Test at a 5% significance level. Answer the following questions:</paragraph>
+    <list type="ordered">
+      <item>Is this a test of two means or two proportions?</item>
+      <item>Are the population standard deviations known or unknown?</item>
+      <item>Which distribution do you use to perform the test?</item>
+      <item>What is the random variable?</item>
+      <item>What are the null and alternative hypotheses? Write the null and alternative hypotheses in words and in symbols.</item>
+      <item>Is this test right, left, or two tailed?</item>
+      <item>What is the p-value?</item>
+      <item>Do you reject or not reject the null hypothesis?</item>
+      <item>At the ___ level of significance, from the sample data, there ______ (is/is not) sufficient evidence to conclude that ______.</item>
+      <item>Calculate Cohen’s d and interpret it.</item>
+    </list>
+  </note>
+  <heading level="1">10.4 Comparing Two Independent Population Proportions</heading>
+  <paragraph>Proportions have their base in the binomial probability distribution. As a probability distribution, we know the mean and standard deviation of the distribution. As a binary or categorical sample data set, we lose this knowledge from when we knew the population parameters. We do not know the population mean, $$µ = np$$ , or variance, $$\sigma^{\angle} = npq$$ . We can gather data that we know comes from a binary distribution but not know the specific parameter. It is then that we have moved from probability to inferential statistics.</paragraph>
+  <paragraph>When conducting a hypothesis test that compares two independent population proportions, the following characteristics should be present:</paragraph>
+  <list type="ordered">
+    <item>The two independent samples are random samples that are independent.</item>
+    <item>The number of successes is at least five, and the number of failures is at least five, for each of the samples.</item>
+    <item>Growing literature states that the population must be at least ten or even perhaps 20 times the size of the sample. This keeps each population from being over-sampled and causing biased results.</item>
+  </list>
+  <paragraph>Comparing two proportions, like comparing two means, is common. If two estimated proportions are different, it may be due to a difference in the populations or it may be due to chance in the sampling. A hypothesis test can help determine if a difference in the estimated proportions reflects a difference in the two population proportions.</paragraph>
+  <paragraph>Like the case of differences in sample means, we construct a sampling distribution for differences in sample proportions: $$\left( p_{A}^{'} - p_{B}^{'} \right)$$ where $$p'_{A} = \frac{X_{A}}{n_{A}}$$ and $$p'_{B} = \frac{X'_{B}}{n_{{}_{B}}}$$ are the sample proportions for the two sets of data in question. XA and XB are the number of successes in each sample group respectively, and nA and nB are the respective sample sizes from the two groups. Again we go the Central Limit theorem to find the distribution of this sampling distribution for the differences in sample proportions. And again we find that this sampling distribution, like the ones past, are normally distributed as proved by the Central Limit Theorem, as seen in Figure 10.5 .</paragraph>
+  <figure number="10.5">
+    <image alt="This diagram illustrates how two distinct populations lead to a sampling distribution of the difference in sample proportions (p'1 - p'2), which is then standardized for hypothesis testing (Z-distribution)."/>
+  </figure>
+  <paragraph>Generally, the null hypothesis allows for the test of a difference of a particular value, 𝛿0, just as we did for the case of differences in means.</paragraph>
+  <paragraph math="block">$$H_{0}:p_{1} - p_{2} = \delta_{0}$$</paragraph>
+  <paragraph math="block">$$H_{1}:p_{1} - p_{2} \neq \delta_{0}$$</paragraph>
+  <paragraph>Most common, however, is the test that the two proportions are the same. That is,</paragraph>
+  <paragraph math="block">$$H_{0}:p_{A} = p_{B}$$</paragraph>
+  <paragraph math="block">$$H_{a}:p_{A} \neq p_{B}$$</paragraph>
+  <paragraph>To conduct the test, we use a pooled proportion, pc.</paragraph>
+  <paragraph math="block">$$p_{c} = \frac{x_{A} + x_{B}}{n_{A} + n_{B}}$$</paragraph>
+  <paragraph math="block">$$Z_{c} = \frac{(p_{A}^{\prime} - p_{B}^{\prime}) - \delta_{0}}{\sqrt{p_{c}(1 - p_{c})(\frac{1}{n_{A}} + \frac{1}{n_{B}})}}$$</paragraph>
+  <paragraph>where δ0 is the hypothesized differences between the two proportions and pc is the pooled variance from the formula above.</paragraph>
+  <example number="10.6">
+    <problem>
+      <paragraph>A bank has recently acquired a new branch and thus has customers in this new territory. They are interested in the default rate in their new territory. They wish to test the hypothesis that the default rate is different from their current customer base. They sample 200 files in area A, their current customers, and find that 20 have defaulted. In area B, the new customers, another sample of 200 files shows 12 have defaulted on their loans. At a 10% level of significance can we say that the default rates are the same or different?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>This is a test of proportions. We know this because the underlying random variable is binary, default or not default. Further, we know it is a test of differences in proportions because we have two sample groups, the current customer base and the newly acquired customer base. Let A and B be the subscripts for the two customer groups. Then pA and pB are the two population proportions we wish to test.</paragraph>
+      <paragraph>Random Variable: P′A – P′B = difference in the proportions of customers who defaulted in the two groups.</paragraph>
+      <paragraph>$$H_{0}:p_{A} = p_{B}$$</paragraph>
+      <paragraph>$$H_{a}:p_{A} \neq p_{B}$$</paragraph>
+      <paragraph>The words "is a difference" tell you the test is two-tailed.</paragraph>
+      <paragraph>Distribution for the test: Since this is a test of two binomial population proportions, the distribution is normal:</paragraph>
+      <paragraph>$$p_{c} = \frac{x_{A} + x_{B}}{n_{A} + n_{B}} = \frac{20 + 12}{200 + 200} = 0.08 1-p_{c} = 0.92$$</paragraph>
+      <paragraph>(p′A – p′B) = 0.04 follows an approximate normal distribution.</paragraph>
+      <paragraph>Estimated proportion for group A: $${p^{\prime}}_{A} = \frac{x_{A}}{n_{A}} = \frac{20}{200} = 0.1$$</paragraph>
+      <paragraph>Estimated proportion for group B: $${p^{\prime}}_{B} = \frac{x_{B}}{n_{B}} = \frac{12}{200} = 0.06$$</paragraph>
+      <paragraph>The estimated difference between the two groups is : p′A – p′B = 0.1 – 0.06 = 0.04.</paragraph>
+      <figure number="10.6">
+        <image alt="Normal distribution curve of the difference in the percentages of adult patients who don't react to medication A and B after 30 minutes. The mean is equal to zero, and the values -0.04, 0, and 0.04 are labeled on the horizontal axis. Two vertical lines extend from -0.04 and 0.04 to the curve. The region to the left of -0.04 and the region to the right of 0.04 are each shaded to represent 1/2(p-value) = 0.0702."/>
+      </figure>
+      <paragraph math="block">$$Z_{c} = \frac{\left( {P\prime}_{A} - {P\prime}_{B} \right) - \delta_{0}}{\sqrt{P_{c}(1 - P_{c})\left( \frac{1}{n_{A}} + \frac{1}{n_{B}} \right)}} = 1.47$$</paragraph>
+      <paragraph>The calculated test statistic is 1.47 and is not in the tail of the distribution.</paragraph>
+      <paragraph>Make a decision: Since the calculate test statistic is not in the tail of the distribution we cannot reject H0.</paragraph>
+      <paragraph>Conclusion: At a 1% level of significance, from the sample data, there is not sufficient evidence to conclude that there is a difference between the proportions of customers who defaulted in the two groups.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.6">
+    <paragraph>Two types of valves are being tested to determine if there is a difference in pressure tolerances. Fifteen out of a random sample of 100 of Valve A cracked under 4,500 psi. Six out of a random sample of 100 of Valve B cracked under 4,500 psi. Test at a 5% level of significance.</paragraph>
+  </note>
+  <heading level="1">10.5 Two Population Means with Known Standard Deviations</heading>
+  <paragraph>Even though this situation is not likely (knowing the population standard deviations is very unlikely), the following example illustrates hypothesis testing for independent means with known population standard deviations. The sampling distribution for the difference between the means is normal in accordance with the central limit theorem. The random variable is $$\overset{-}{X_{1}}-\overset{-}{X_{2}}$$ . The normal distribution has the following format:</paragraph>
+  <paragraph math="block">$$\sqrt{\frac{{(\sigma_{1})}^{2}}{n_{1}} + \frac{{(\sigma_{2})}^{2}}{n_{2}}}$$</paragraph>
+  <paragraph math="block">$$Z_{c} = \frac{({\overset{-}{x}}_{1}-{\overset{-}{x}}_{2})-\delta_{0}}{\sqrt{\frac{{(\sigma_{1})}^{2}}{n_{1}} + \frac{{(\sigma_{2})}^{2}}{n_{2}}}}$$</paragraph>
+  <example number="10.7">
+    <paragraph>Independent groups, population standard deviations known: The mean lasting time of two competing floor waxes is to be compared. Twenty floors are randomly assigned to test each wax. Both populations have a normal distributions. The data are recorded in Table 10.8.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Wax</cell>
+          <cell header="true">Sample mean number of months floor wax lasts</cell>
+          <cell header="true">Population standard deviation</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>1</cell>
+          <cell>3</cell>
+          <cell>0.33</cell>
+        </row>
+        <row>
+          <cell>2</cell>
+          <cell>2.9</cell>
+          <cell>0.36</cell>
+        </row>
+      </tbody>
+    </table>
+    <problem>
+      <paragraph>Does the data indicate that wax 1 is more effective than wax 2? Test at a 5% level of significance.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>This is a test of two independent groups, two population means, population standard deviations known.</paragraph>
+      <paragraph>Random Variable: $${\overset{-}{X}}_{1} \text{–} {\overset{-}{X}}_{2}$$ = difference in the mean number of months the competing floor waxes last.</paragraph>
+      <paragraph>$$H_{0}:\mu_{1} \leq \mu_{2}$$</paragraph>
+      <paragraph>$$H_{a}:\mu_{1} &gt; \mu_{2}$$</paragraph>
+      <paragraph>The words "is more effective" says that wax 1 lasts longer than wax 2, on average. "Longer" is a “&gt;” symbol and goes into Ha. Therefore, this is a right-tailed test.</paragraph>
+      <paragraph>Distribution for the test: The population standard deviations are known so the distribution is normal. Using the formula for the test statistic we find the calculated value for the problem.</paragraph>
+      <paragraph math="block">$$Z_{c} = \frac{\left( \mu_{1} - \mu_{2} \right) - \delta_{0}}{\sqrt{\frac{\sigma_{1}^{2}}{n_{1}} + \frac{\sigma_{2}^{2}}{n_{2}}}} = 0.1$$</paragraph>
+      <figure number="10.7">
+        <image alt="This is a normal distribution curve with mean equal to zero. The values 0 and 0.1 are labeled on the horiztonal axis. A vertical line extends from 0.1 to the curve. The region under the curve to the right of the line is shaded to represent p-value = 0.1799."/>
+      </figure>
+      <paragraph>The estimated difference between he two means is : $${\overset{-}{X}}_{1}$$ – $${\overset{-}{X}}_{2}$$ = 3 – 2.9 = 0.1</paragraph>
+      <paragraph>Compare calculated value and critical value and Zα: We mark the calculated value on the graph and find the calculated value is not in the tail therefore we cannot reject the null hypothesis.</paragraph>
+      <paragraph>Make a decision: the calculated value of the test statistic is not in the tail, therefore you cannot reject H0.</paragraph>
+      <paragraph>Conclusion: At the 5% level of significance, from the sample data, there is not sufficient evidence to conclude that the mean time wax 1 lasts is longer (wax 1 is more effective) than the mean time wax 2 lasts.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.7">
+    <paragraph>The means of the number of revolutions per minute of two competing engines are to be compared. Thirty engines of each type are randomly assigned to be tested. Both populations have normal distributions. Table 10.9 shows the result. Do the data indicate that Engine 2 has higher RPM than Engine 1? Test at a 5% level of significance.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Engine</cell>
+          <cell header="true">Sample mean number of RPM</cell>
+          <cell header="true">Population standard deviation</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>1</cell>
+          <cell>1,500</cell>
+          <cell>50</cell>
+        </row>
+        <row>
+          <cell>2</cell>
+          <cell>1,600</cell>
+          <cell>60</cell>
+        </row>
+      </tbody>
+    </table>
+  </note>
+  <example number="10.8">
+    <paragraph>An interested citizen wanted to know if Democratic U. S. senators are older than Republican U.S. senators, on average. On May 26 2013, the mean age of 30 randomly selected Republican Senators was 61 years 247 days old (61.675 years) with a standard deviation of 10.17 years. The mean age of 30 randomly selected Democratic senators was 61 years 257 days old (61.704 years) with a standard deviation of 9.55 years.</paragraph>
+    <problem>
+      <paragraph>Do the data indicate that Democratic senators are older than Republican senators, on average? Test at a 5% level of significance.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>This is a test of two independent groups, two population means. The population standard deviations are unknown, but the sum of the sample sizes is 30 + 30 = 60, which is greater than 30, so we can use the normal approximation to the Student’s-t distribution. Subscripts: 1: Democratic senators 2: Republican senators</paragraph>
+      <paragraph>Random variable: $${\overset{-}{X}}_{1} \text{–} {\overset{-}{X}}_{2}$$ = difference in the mean age of Democratic and Republican U.S. senators.</paragraph>
+      <paragraph>$$H_{0}:\mu_{1} \leq \mu_{2}$$ $$H_{0}:\mu_{1} - \mu_{2} \leq 0$$</paragraph>
+      <paragraph>$$H_{a}:\mu_{1} &gt; \mu_{2}$$ $$H_{a}:\mu_{1} - \mu_{2} &gt; 0$$</paragraph>
+      <paragraph>The words "older than" translates as a “&gt;” symbol and goes into Ha. Therefore, this is a right-tailed test.</paragraph>
+      <figure number="10.8">
+        <image alt="This is a normal distribution curve with mean equal to zero. A vertical line to the right of zero extends from the axis to the curve. The region under the curve to the right of the line is shaded representing p-value = 0.4955."/>
+      </figure>
+      <paragraph>Make a decision: The p-value is larger than 5%, therefore we cannot reject the null hypothesis. By calculating the test statistic we would find that the test statistic does not fall in the tail, therefore we cannot reject the null hypothesis. We reach the same conclusion using either method of a making this statistical decision.</paragraph>
+      <paragraph>Conclusion: At the 5% level of significance, from the sample data, there is not sufficient evidence to conclude that the mean age of Democratic senators is greater than the mean age of the Republican senators.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.8">
+    <paragraph>The average age of 10 professors selected randomly in university A is 46.672 with a standard deviation of 8.53. The average age of 10 professors selected randomly in university B is 47.531 with a standard deviation of 7.83.</paragraph>
+    <paragraph>Does the data indicate that university A has older professors than university B, on average? Test at a 5% level of significance.</paragraph>
+  </note>
+  <heading level="1">10.6 Matched or Paired Samples</heading>
+  <paragraph>In most cases of economic or business data we have little or no control over the process of how the data are gathered. In this sense the data are not the result of a planned controlled experiment. In some cases, however, we can develop data that are part of a controlled experiment. This situation occurs frequently in quality control situations. Imagine that the production rates of two machines built to the same design, but at different manufacturing plants, are being tested for differences in some production metric such as speed of output or meeting some production specification such as strength of the product. The test is the same in format to what we have been testing, but here we can have matched pairs for which we can test if differences exist. Each observation has its matched pair against which differences are calculated. First, the differences in the metric to be tested between the two lists of observations must be calculated, and this is typically labeled with the letter "d." Then, the average of these matched differences, $${\overset{-}{X}}_{d} = \frac{\sum\left( x_{1} - x_{2} \right)}{n}$$ is calculated as is its standard deviation, Sd. We expect that the standard deviation of the differences of the matched pairs will be smaller than unmatched pairs because presumably fewer differences should exist because of the correlation between the two groups.</paragraph>
+  <paragraph>When using a hypothesis test for matched or paired samples, the following characteristics may be present:</paragraph>
+  <list type="ordered">
+    <item>Simple random sampling is used.</item>
+    <item>Sample sizes are often small.</item>
+    <item>Two measurements (samples) are drawn from the same pair of individuals or objects.</item>
+    <item>Differences are calculated from the matched or paired samples.</item>
+    <item>The differences from the sample that is used for the hypothesis test.</item>
+    <item>Either the matched pairs have differences that come from a population that is normal or the number of differences is sufficiently large so that distribution of the sample mean of differences is approximately normal, as has been the case using the Central Limit Theorem.</item>
+  </list>
+  <paragraph>In a hypothesis test for matched or paired samples, subjects are matched in pairs and differences are calculated. The differences are the data. The population mean for the differences, μd, is then tested using a Student's-t test for a single population mean with n – 1 degrees of freedom, where n is the number of differences, that is, the number of pairs not the number of observations.</paragraph>
+  <paragraph math="block">$$H_{0}:µ_{d} = 0$$</paragraph>
+  <paragraph math="block">$$H_{a}:µ_{d} \neq 0$$</paragraph>
+  <paragraph math="block">$$t_{c} = \frac{{\overset{-}{x}}_{d} - \mu_{d}}{\left( \frac{s_{d}}{\sqrt{n}} \right)}$$</paragraph>
+  <example number="10.9">
+    <problem>
+      <paragraph>A company has developed a training program for its entering employees because management has become concerned with the results of the six-month employee review. They hope that the training program can result in better six-month reviews. Each trainee constitutes a “pair”, the entering score the employee received when first entering the firm and the score given at the six-month review. The difference in the two scores were calculated for each employee and the means for before and after the training program was calculated. The sample mean before the training program was 20.4 and the sample mean after the training program was 23.9. The standard deviation of the differences in the two scores across the 20 employees was 3.8 points. Test at the 10% significance level the null hypothesis that the two population means are equal against the alternative that the training program helps improve the employees’ scores.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The first step is to identify this as a two sample case: before the training and after the training. This differentiates this problem from simple one sample issues. Second, we determine that the two samples are "paired." Each observation in the first sample has a paired observation in the second sample. This information tells us that the null and alternative hypotheses should be:</paragraph>
+      <paragraph math="block">$$H_{0}:µ_{d} \leq 0$$</paragraph>
+      <paragraph math="block">$$H_{a}:µ_{d} &gt; 0$$</paragraph>
+      <paragraph>This form reflects the implied claim that the training course improves scores; the test is one-tailed and the claim is in the alternative hypothesis. Because the experiment was conducted as a matched paired sample rather than simply taking scores from people who took the training course those who didn't, we use the matched pair test statistic:</paragraph>
+      <paragraph math="block">$$\text{Test Statistic:} t_{c} = \frac{{\overline{X}}_{d} - µ_{d}}{\frac{S_{d}}{\sqrt{n}}} = \frac{(23.9 - 20.4) - 0}{\left( \frac{3.8}{\sqrt{20}} \right)} = 4.12$$</paragraph>
+      <paragraph>In order to solve this equation, the individual scores, pre-training course and post-training course need to be used to calculate the individual differences. These scores are then averaged and the average difference is calculated:</paragraph>
+      <paragraph math="block">$${\overline{X}}_{d} = \frac{\sum\left( x_{1} - x_{2} \right)}{n}$$</paragraph>
+      <paragraph>From these differences we can calculate the standard deviation across the individual differences:</paragraph>
+      <paragraph math="block">$$S_{d} = \sqrt{\frac{\sum\left( {d_{i} - {\overline{X}}_{d}} \right)^{2}}{n - 1}}where d_{i} = {x_{1}}_{i} - {x_{2}}_{i}$$</paragraph>
+      <paragraph>We can now compare the calculated value of the test statistic, 4.12, with the critical value. The critical value is a Student's t with degrees of freedom equal to the number of pairs, not observations, minus 1. In this case 20 pairs and at 90% confidence level ta/2 = ±1.729 at df = 20 - 1 = 19. The calculated test statistic is most certainly in the tail of the distribution and thus we cannot accept the null hypothesis that there is no difference from the training program. Evidence seems indicate that the training aids employees in gaining higher scores.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.9">
+    <paragraph>Five ball players think they can throw the same distance with their dominant hand (throwing) and off-hand (catching hand). The data were collected and recorded in Table 10.10. Conduct a hypothesis test to determine whether the mean difference in distances between the dominant and off-hand is significant. Test at the 5% level.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true"/>
+          <cell header="true">Player 1</cell>
+          <cell header="true">Player 2</cell>
+          <cell header="true">Player 3</cell>
+          <cell header="true">Player 4</cell>
+          <cell header="true">Player 5</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Dominant Hand</cell>
+          <cell>120</cell>
+          <cell>111</cell>
+          <cell>135</cell>
+          <cell>140</cell>
+          <cell>125</cell>
+        </row>
+        <row>
+          <cell>Off-hand</cell>
+          <cell>105</cell>
+          <cell>109</cell>
+          <cell>98</cell>
+          <cell>111</cell>
+          <cell>99</cell>
+        </row>
+      </tbody>
+    </table>
+  </note>
+  <example number="10.10">
+    <problem>
+      <paragraph>A study was conducted to investigate the effectiveness of hypnotism in reducing pain. Results for randomly selected subjects are shown in Table 10.11. A lower score indicates less pain. The "before" value is matched to an "after" value and the differences are calculated. Are the sensory measurements, on average, lower after hypnotism? Test at a 5% significance level.</paragraph>
+      <table>
+        <thead>
+          <row>
+            <cell header="true">Subject:</cell>
+            <cell header="true">A</cell>
+            <cell header="true">B</cell>
+            <cell header="true">C</cell>
+            <cell header="true">D</cell>
+            <cell header="true">E</cell>
+            <cell header="true">F</cell>
+            <cell header="true">G</cell>
+            <cell header="true">H</cell>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <cell>Before</cell>
+            <cell>6.6</cell>
+            <cell>6.5</cell>
+            <cell>9.0</cell>
+            <cell>10.3</cell>
+            <cell>11.3</cell>
+            <cell>8.1</cell>
+            <cell>6.3</cell>
+            <cell>11.6</cell>
+          </row>
+          <row>
+            <cell>After</cell>
+            <cell>6.8</cell>
+            <cell>2.4</cell>
+            <cell>7.4</cell>
+            <cell>8.5</cell>
+            <cell>8.1</cell>
+            <cell>6.1</cell>
+            <cell>3.4</cell>
+            <cell>2.0</cell>
+          </row>
+        </tbody>
+      </table>
+    </problem>
+    <solution>
+      <paragraph>Corresponding "before" and "after" values form matched pairs. (Calculate "after" – "before.")</paragraph>
+      <table>
+        <thead>
+          <row>
+            <cell header="true">After data</cell>
+            <cell header="true">Before data</cell>
+            <cell header="true">Difference</cell>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <cell>6.8</cell>
+            <cell>6.6</cell>
+            <cell>0.2</cell>
+          </row>
+          <row>
+            <cell>2.4</cell>
+            <cell>6.5</cell>
+            <cell>-4.1</cell>
+          </row>
+          <row>
+            <cell>7.4</cell>
+            <cell>9</cell>
+            <cell>-1.6</cell>
+          </row>
+          <row>
+            <cell>8.5</cell>
+            <cell>10.3</cell>
+            <cell>-1.8</cell>
+          </row>
+          <row>
+            <cell>8.1</cell>
+            <cell>11.3</cell>
+            <cell>-3.2</cell>
+          </row>
+          <row>
+            <cell>6.1</cell>
+            <cell>8.1</cell>
+            <cell>-2</cell>
+          </row>
+          <row>
+            <cell>3.4</cell>
+            <cell>6.3</cell>
+            <cell>-2.9</cell>
+          </row>
+          <row>
+            <cell>2</cell>
+            <cell>11.6</cell>
+            <cell>-9.6</cell>
+          </row>
+        </tbody>
+      </table>
+      <paragraph>The data for the test are the differences: {0.2, –4.1, –1.6, –1.8, –3.2, –2, –2.9, –9.6}</paragraph>
+      <paragraph>The sample mean and sample standard deviation of the differences are: $${\overset{-}{x}}_{d} = -3.13$$ and $$s_{d} = 2.91$$ Verify these values.</paragraph>
+      <paragraph>Let $$\mu_{d}$$ be the population mean for the differences. We use the subscript $$d$$ to denote "differences."</paragraph>
+      <paragraph>Random variable: $${\overset{-}{X}}_{d}$$ = the mean difference of the sensory measurements</paragraph>
+      <paragraph>H0: μd ≥ 0</paragraph>
+      <paragraph>The null hypothesis is zero or positive, meaning that there is the same or more pain felt after hypnotism. That means the subject shows no improvement. μd is the population mean of the differences.)</paragraph>
+      <paragraph>Ha: μd &lt; 0</paragraph>
+      <paragraph>The alternative hypothesis is negative, meaning there is less pain felt after hypnotism. That means the subject shows improvement. The score should be lower after hypnotism, so the difference ought to be negative to indicate improvement.</paragraph>
+      <paragraph>Distribution for the test: The distribution is a Student's t with df = n – 1 = 8 – 1 = 7. Use t7. (Notice that the test is for a single population mean.)</paragraph>
+      <paragraph>Calculate the test statistic and look up the critical value using the Student's-t distribution: The calculated value of the test statistic is 3.06 and the critical value of the t-distribution with 7 degrees of freedom at the 5% level of confidence is 1.895 with a one-tailed test.</paragraph>
+      <figure number="10.9">
+        <image alt="Normal distribution curve of the average difference of sensory measurements with values of -3.13 and 0. A vertical upward line extends from -3.13 to the curve, and the p-value is indicated in the area to the left of this value."/>
+      </figure>
+      <paragraph>$${\overset{-}{X}}_{d}$$ is the random variable for the differences.</paragraph>
+      <paragraph>The sample mean and sample standard deviation of the differences are:</paragraph>
+      <paragraph>$${\overset{-}{x}}_{d}$$ = –3.13</paragraph>
+      <paragraph>$${\overset{-}{s}}_{d}$$ = 2.91</paragraph>
+      <paragraph>Compare the critical value for alpha against the calculated test statistic.</paragraph>
+      <paragraph>The conclusion from using the comparison of the calculated test statistic and the critical value will gives us the result. In this question the calculated test statistic is 3.06 and the critical value is 1.895. The test statistic is clearly in the tail and thus we cannot accept the null hypotheses that there is no difference between the two situations, hypnotized and not hypnotized.</paragraph>
+      <paragraph>Make a decision: Cannot accept the null hypothesis, H0. This means that μd &lt; 0 and there is a statistically significant improvement.</paragraph>
+      <paragraph>Conclusion: At a 5% level of significance, from the sample data, there is sufficient evidence to conclude that the sensory measurements, on average, are lower after hypnotism. Hypnotism appears to be effective in reducing pain.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.10">
+    <paragraph>A study was conducted to investigate how effective a new diet was in lowering cholesterol. Results for the randomly selected subjects are shown in the table. The differences have a normal distribution. Are the subjects’ cholesterol levels lower on average after the diet? Test at the 5% level.</paragraph>
+    <table>
+      <tbody>
+        <row>
+          <cell>Subject</cell>
+          <cell>A</cell>
+          <cell>B</cell>
+          <cell>C</cell>
+          <cell>D</cell>
+          <cell>E</cell>
+          <cell>F</cell>
+          <cell>G</cell>
+          <cell>H</cell>
+          <cell>I</cell>
+        </row>
+        <row>
+          <cell>Before</cell>
+          <cell>209</cell>
+          <cell>210</cell>
+          <cell>205</cell>
+          <cell>198</cell>
+          <cell>216</cell>
+          <cell>217</cell>
+          <cell>238</cell>
+          <cell>240</cell>
+          <cell>222</cell>
+        </row>
+        <row>
+          <cell>After</cell>
+          <cell>199</cell>
+          <cell>207</cell>
+          <cell>189</cell>
+          <cell>209</cell>
+          <cell>217</cell>
+          <cell>202</cell>
+          <cell>211</cell>
+          <cell>223</cell>
+          <cell>201</cell>
+        </row>
+      </tbody>
+    </table>
+  </note>
+  <example number="10.11">
+    <paragraph>A college softball coach was interested in whether the college's strength development class increased their players' maximum lift (in pounds). Four players were asked to participate in the study. The amount of weight they could each lift was recorded before they took the strength development class. After completing the class, the amount of weight they could each lift was again measured. The data are as follows:</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Weight (in pounds)</cell>
+          <cell header="true">Player 1</cell>
+          <cell header="true">Player 2</cell>
+          <cell header="true">Player 3</cell>
+          <cell header="true">Player 4</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Amount of weight lifted prior to the class</cell>
+          <cell>205</cell>
+          <cell>241</cell>
+          <cell>338</cell>
+          <cell>368</cell>
+        </row>
+        <row>
+          <cell>Amount of weight lifted after the class</cell>
+          <cell>295</cell>
+          <cell>252</cell>
+          <cell>330</cell>
+          <cell>360</cell>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>The coach wants to know if the strength development class makes the players stronger, on average. Record the differences data. Calculate the differences by subtracting the amount of weight lifted prior to the class from the weight lifted after completing the class. The data for the differences are: {90, 11, -8, -8}.</paragraph>
+    <paragraph>$${\overset{-}{x}}_{d}$$ = 21.3, sd = 46.7</paragraph>
+    <paragraph>Using the difference data, this becomes a test of a single mean.</paragraph>
+    <paragraph>Define the random variable: $${\overset{-}{X}}_{d}$$ mean difference in the maximum lift per player.</paragraph>
+    <paragraph>The distribution for the hypothesis test is a student's t with 3 degrees of freedom.</paragraph>
+    <paragraph>H0: μd ≤ 0, Ha: μd &gt; 0</paragraph>
+    <figure number="10.10">
+      <image alt="Normal distribution curve with values of 0 and 21.3. A vertical upward line extends from 21.3 to the curve and the p-value is indicated in the area to the right of this value."/>
+    </figure>
+    <paragraph>Calculate the test statistic look up the critical value: The calculated value of the test statistic is 0.91. The critical value of the student's t at 5% level of significance and 3 degrees of freedom is 2.353.</paragraph>
+    <paragraph>Decision: If the level of significance is 5%, we cannot reject the null hypothesis, because the calculated value of the test statistic is not in the tail.</paragraph>
+    <paragraph>What is the conclusion?</paragraph>
+    <paragraph>At a 5% level of significance, from the sample data, there is not sufficient evidence to conclude that the strength development class helped to make the players stronger, on average. Be sure to note in your conclusion that a sample size of only 4 leaves a degree of freedom of only 3 and sets the critical value very large. In short, sample size so small cannot result in always meaningful conclusions.</paragraph>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="10.11">
+    <paragraph>A new prep class was designed to improve SAT test scores. Four students were selected at random. Their scores on two practice exams were recorded, one before the class and one after. The data recorded in Table 10.15. Are the scores, on average, higher after the class? Test at a 5% level.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">SAT Scores</cell>
+          <cell header="true">Student 1</cell>
+          <cell header="true">Student 2</cell>
+          <cell header="true">Student 3</cell>
+          <cell header="true">Student 4</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Score before class</cell>
+          <cell>1840</cell>
+          <cell>1960</cell>
+          <cell>1920</cell>
+          <cell>2150</cell>
+        </row>
+        <row>
+          <cell>Score after class</cell>
+          <cell>1920</cell>
+          <cell>2160</cell>
+          <cell>2200</cell>
+          <cell>2100</cell>
+        </row>
+      </tbody>
+    </table>
+  </note>
+  <heading level="1">Key Terms</heading>
+  <list type="unordered">
+    <item>Cohen’s d: a measure of effect size based on the differences between two means. If d is between 0 and 0.2 then the effect is small. If d approaches is 0.5, then the effect is medium, and if d approaches 0.8, then it is a large effect.</item>
+  </list>
+  <list type="unordered">
+    <item>Independent Groups: two samples that are selected from two populations, and the values from one population are not related in any way to the values from the other population.</item>
+  </list>
+  <list type="unordered">
+    <item>Matched Pairs: two samples that are dependent. Differences between a before and after scenario are tested by testing one population mean of differences.</item>
+  </list>
+  <list type="unordered">
+    <item>Pooled Variance: a weighted average of two variances that can then be used when calculating standard error.</item>
+  </list>
+  <heading level="1">Chapter Review</heading>
+  <paragraph>Two population means from independent samples where the population standard deviations are not known</paragraph>
+  <list type="unordered">
+    <item>Random Variable: $${\overset{-}{X}}_{1} - {\overset{-}{X}}_{2}$$ = the difference of the sampling means</item>
+    <item>Distribution: Student's t-distribution with degrees of freedom (variances not pooled)</item>
+  </list>
+  <paragraph>Cohen's d is a measure of “effect size” based on the differences between two means.</paragraph>
+  <paragraph>It is important to note that Cohen's d does not provide a level of confidence as to the magnitude of the size of the effect comparable to the other tests of hypothesis we have studied. The sizes of the effects are simply indicative.</paragraph>
+  <paragraph>In situations when we do not know the population variances but assume the variances are the same, the pooled sample variance will be smaller than the individual sample variances.</paragraph>
+  <paragraph>This will give more precise estimates and reduce the probability of discarding a good null.</paragraph>
+  <paragraph>Test of two population proportions from independent samples.</paragraph>
+  <list type="unordered">
+    <item>Random variable: $${p'}_{A}-{p'}_{B} =$$ difference between the two estimated proportions</item>
+    <item>Distribution: normal distribution</item>
+  </list>
+  <paragraph>A hypothesis test of two population means from independent samples where the population standard deviations are known will have these characteristics:</paragraph>
+  <list type="unordered">
+    <item>Random variable: $${\overset{-}{X}}_{1} - {\overset{-}{X}}_{2}$$ = the difference of the means</item>
+    <item>Distribution: normal distribution</item>
+  </list>
+  <paragraph>A hypothesis test for matched or paired samples (t-test) has these characteristics:</paragraph>
+  <list type="unordered">
+    <item>Test the differences by subtracting one measurement from the other measurement</item>
+    <item>Random Variable: $${\overset{-}{x}}_{d}$$ = mean of the differences</item>
+    <item>Distribution: Student’s-t distribution with n – 1 degrees of freedom</item>
+    <item>If the number of differences is small (less than 30), the differences must follow a normal distribution.</item>
+    <item>Two samples are drawn from the same set of objects.</item>
+    <item>Samples are dependent.</item>
+  </list>
+  <heading level="1">Bringing It Together: Homework</heading>
+  <exercises>
+    <heading level="1">Bringing It Together: Homework</heading>
+    <paragraph>Use the following information to answer the next ten exercises. indicate which of the following choices best identifies the hypothesis test.</paragraph>
+    <list type="ordered">
+      <item>independent group means, population standard deviations and/or variances known</item>
+      <item>independent group means, population standard deviations and/or variances unknown</item>
+      <item>matched or paired samples</item>
+      <item>single mean</item>
+      <item>two proportions</item>
+      <item>single proportion</item>
+    </list>
+    <exercise number="106" has_solution="false">
+      <problem>
+        <paragraph>A powder diet is tested on 49 people, and a liquid diet is tested on 36 different people. The population standard deviations are two pounds and three pounds, respectively. Of interest is whether the liquid diet yields a higher mean weight loss than the powder diet.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="107" has_solution="false">
+      <problem>
+        <paragraph>A new chocolate bar is taste-tested on consumers. Of interest is whether the proportion of children who like the new chocolate bar is greater than the proportion of adults who like it.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="108" has_solution="false">
+      <problem>
+        <paragraph>The mean number of English courses taken in a two–year time period by men and women college students is believed to be about the same. An experiment is conducted and data are collected from nine men and 16 women.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="109" has_solution="false">
+      <problem>
+        <paragraph>A football league reported that the mean number of touchdowns per game was five. A study is done to determine if the mean number of touchdowns has decreased.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="110" has_solution="false">
+      <problem>
+        <paragraph>A study is done to determine if students in the California state university system take longer to graduate than students enrolled in private universities. One hundred students from both the California state university system and private universities are surveyed. From years of research, it is known that the population standard deviations are 1.5811 years and one year, respectively.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="111" has_solution="false">
+      <problem>
+        <paragraph>According to a YWCA Rape Crisis Center newsletter, 75% of rape victims know their attackers. A study is done to verify this.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="112" has_solution="false">
+      <problem>
+        <paragraph>According to a recent study, U.S. companies have a mean maternity-leave of six weeks.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="113" has_solution="false">
+      <problem>
+        <paragraph>A recent drug survey showed an increase in use of drugs and alcohol among local high school students as compared to the national percent. Suppose that a survey of 100 local youths and 100 national youths is conducted to see if the proportion of drug and alcohol use is higher locally than nationally.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="114" has_solution="false">
+      <problem>
+        <paragraph>A new SAT study course is tested on 12 individuals. Pre-course and post-course scores are recorded. Of interest is the mean increase in SAT scores. The following data are collected:</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Pre-course score</cell>
+              <cell header="true">Post-course score</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>1</cell>
+              <cell>300</cell>
+            </row>
+            <row>
+              <cell>960</cell>
+              <cell>920</cell>
+            </row>
+            <row>
+              <cell>1010</cell>
+              <cell>1100</cell>
+            </row>
+            <row>
+              <cell>840</cell>
+              <cell>880</cell>
+            </row>
+            <row>
+              <cell>1100</cell>
+              <cell>1070</cell>
+            </row>
+            <row>
+              <cell>1250</cell>
+              <cell>1320</cell>
+            </row>
+            <row>
+              <cell>860</cell>
+              <cell>860</cell>
+            </row>
+            <row>
+              <cell>1330</cell>
+              <cell>1370</cell>
+            </row>
+            <row>
+              <cell>790</cell>
+              <cell>770</cell>
+            </row>
+            <row>
+              <cell>990</cell>
+              <cell>1040</cell>
+            </row>
+            <row>
+              <cell>1110</cell>
+              <cell>1200</cell>
+            </row>
+            <row>
+              <cell>740</cell>
+              <cell>850</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="115" has_solution="false">
+      <problem>
+        <paragraph>University of Michigan researchers reported in the Journal of the National Cancer Institute that quitting smoking is especially beneficial for those under age 49. In this American Cancer Society study, the risk (probability) of dying of lung cancer was about the same as for those who had never smoked.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="116" has_solution="false">
+      <problem>
+        <paragraph>Lesley E. Tan investigated the relationship between left-handedness vs. right-handedness and motor competence in preschool children. Random samples of 41 left-handed preschool children and 41 right-handed preschool children were given several tests of motor skills to determine if there is evidence of a difference between the children based on this experiment. The experiment produced the means and standard deviations shown Table 10.34. Determine the appropriate test and best distribution to use for that test.</paragraph>
+        <table>
+          <tbody>
+            <row>
+              <cell/>
+              <cell>Left-handed</cell>
+              <cell>Right-handed</cell>
+            </row>
+            <row>
+              <cell>Sample size</cell>
+              <cell>41</cell>
+              <cell>41</cell>
+            </row>
+            <row>
+              <cell>Sample mean</cell>
+              <cell>97.5</cell>
+              <cell>98.1</cell>
+            </row>
+            <row>
+              <cell>Sample standard deviation</cell>
+              <cell>17.5</cell>
+              <cell>19.2</cell>
+            </row>
+          </tbody>
+        </table>
+        <list type="ordered">
+          <item>Two independent means, normal distribution</item>
+          <item>Two independent means, Student’s-t distribution</item>
+          <item>Matched or paired samples, Student’s-t distribution</item>
+          <item>Two population proportions, normal distribution</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="117" has_solution="false">
+      <problem>
+        <paragraph>A golf instructor is interested in determining if a new technique for improving players’ golf scores is effective. The instructor takes four (4) new students and records their 18-hole scores before learning the technique and then after having taken the class. The instructor conducts a hypothesis test. The data are as Table 10.35.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true"/>
+              <cell header="true">Player 1</cell>
+              <cell header="true">Player 2</cell>
+              <cell header="true">Player 3</cell>
+              <cell header="true">Player 4</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Mean score before class</cell>
+              <cell>83</cell>
+              <cell>78</cell>
+              <cell>93</cell>
+              <cell>87</cell>
+            </row>
+            <row>
+              <cell>Mean score after class</cell>
+              <cell>80</cell>
+              <cell>80</cell>
+              <cell>86</cell>
+              <cell>86</cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>This is:</paragraph>
+        <list type="ordered">
+          <item>a test of two independent means.</item>
+          <item>a test of two proportions.</item>
+          <item>a test of a single mean.</item>
+          <item>a test of a single proportion.</item>
+        </list>
+      </problem>
+    </exercise>
+  </exercises>
+  <heading level="1">Formula Review</heading>
+  <paragraph>Standard error: SE = $$\sqrt{\frac{{(s_{1})}^{2}}{n_{1}} + \frac{{(s_{2})}^{2}}{n_{2}}}$$</paragraph>
+  <paragraph>Test statistic (t-score): tc = $$\frac{({\overline{x}}_{1} - {\overline{x}}_{2}) - \delta_{0}}{\sqrt{\frac{{(s_{1})}^{2}}{n_{1}} + \frac{{(s_{2})}^{2}}{n_{2}}}}$$</paragraph>
+  <paragraph>Degrees of freedom: $$df = \frac{\left( {\frac{{(s_{1})}^{2}}{n_{1}} + \frac{{(s_{2})}^{2}}{n_{2}}} \right)^{2}}{\left( \frac{1}{n_{1} - 1} \right)\left( \frac{{(s_{1})}^{2}}{n_{1}} \right)^{2} + \left( \frac{1}{n_{2} - 1} \right)\left( \frac{{(s_{2})}^{2}}{n_{2}} \right)^{2}}$$</paragraph>
+  <paragraph>where:</paragraph>
+  <paragraph>$$s_{1}$$ and $$s_{2}$$ are the sample standard deviations, and $$n_{1}$$ and $$n_{2}$$ are the sample sizes.</paragraph>
+  <paragraph>$${\overline{x}}_{1}$$ and $${\overline{x}}_{2}$$ are the sample means.</paragraph>
+  <paragraph>Cohen’s d is the measure of effect size:</paragraph>
+  <paragraph>$$d = \frac{{\overline{x}}_{1} - {\overline{x}}_{2}}{s_{pooled}}$$ where $$s_{pooled} = \sqrt{\frac{(n_{1} - 1)s_{1}^{2} + (n_{2} - 1)s_{2}^{2}}{n_{1} + n_{2} - 2}}$$</paragraph>
+  <paragraph math="block">$$t_{c} = \frac{\left( {\overline{x}}_{1} - {\overline{x}}_{2} \right) - \delta_{0}}{\sqrt{S\overset{2}{p}\left( \frac{1}{n_{1}} + \frac{1}{n_{2}} \right)}}$$</paragraph>
+  <paragraph>where $$S\overset{2}{p}$$ is the pooled variance given by the formula:</paragraph>
+  <paragraph math="block">$$S\overset{2}{p} = \frac{\left( n_{1} - 1 \right)s_{1}^{2} + \left( n_{2} - 1 \right)s_{2}^{2}}{n_{1} + n_{2} - 2}$$</paragraph>
+  <paragraph>Pooled Proportion: pc = $$\frac{x_{A} + x_{B}}{n_{A} + n_{B}}$$</paragraph>
+  <paragraph>Test Statistic (z-score): $$Z_{c} = \frac{(p^{\prime}{}_{A} - p^{\prime}{}_{B})}{\sqrt{p_{c}(1 - p_{c})\left( {\frac{1}{n_{A}} + \frac{1}{n_{B}}} \right)}}$$</paragraph>
+  <paragraph>where</paragraph>
+  <paragraph>$$p_{A}^{'}$$ and $$p_{B}^{'}$$ are the sample proportions, $$p_{A}$$ and $$p_{B}$$ are the population proportions,</paragraph>
+  <paragraph>Pc is the pooled proportion, and nA and nB are the sample sizes.</paragraph>
+  <paragraph>Test Statistic (z-score): $$Z_{c} = \frac{({\overset{-}{x}}_{1} - {\overset{-}{x}}_{2}) - \delta_{0}}{\sqrt{\frac{{(\sigma_{1})}^{2}}{n_{1}} + \frac{{(\sigma_{2})}^{2}}{n_{2}}}}$$</paragraph>
+  <paragraph>where: $$\sigma_{1}$$ and $$\sigma_{2}$$ are the known population standard deviations. n1 and n2 are the sample sizes. $${\overset{-}{x}}_{1}$$ and $${\overset{-}{x}}_{2}$$ are the sample means. μ1 and μ2 are the population means.</paragraph>
+  <paragraph>Test Statistic (t-score): tc = $$\frac{{\overset{-}{x}}_{d} - \mu_{d}}{\left( \frac{s_{d}}{\sqrt{n}} \right)}$$</paragraph>
+  <paragraph>where:</paragraph>
+  <paragraph>$${\overset{-}{x}}_{d}$$ is the mean of the sample differences. μd is the mean of the population differences. sd is the sample standard deviation of the differences. n is the sample size.</paragraph>
+  <heading level="1">Homework</heading>
+  <exercises>
+    <heading level="1">Homework</heading>
+    <exercise number="64" has_solution="false">
+      <problem>
+        <paragraph>The mean number of English courses taken in a two–year time period by men and women college students is believed to be about the same. An experiment is conducted and data are collected from 29 men and 16 women. The men took an average of three English courses with a standard deviation of 0.8. The women took an average of four English courses with a standard deviation of 1.0. Are the means statistically the same?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="65" has_solution="false">
+      <problem>
+        <paragraph>A student at a four-year college claims that mean enrollment at four–year colleges is higher than at two–year colleges in the United States. Two surveys are conducted. Of the 35 two–year colleges surveyed, the mean enrollment was 5,068 with a standard deviation of 4,777. Of the 35 four-year colleges surveyed, the mean enrollment was 5,466 with a standard deviation of 8,191.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="66" has_solution="false">
+      <problem>
+        <paragraph>At Rachel’s 11th birthday party, eight guests were timed to see how long (in seconds) they could hold their breath in a relaxed position. After a two-minute rest, they timed themselves while jumping. The children thought that the mean difference between their jumping and relaxed times would be zero. Test their hypothesis.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Relaxed time (seconds)</cell>
+              <cell header="true">Jumping time (seconds)</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>26</cell>
+              <cell>21</cell>
+            </row>
+            <row>
+              <cell>47</cell>
+              <cell>40</cell>
+            </row>
+            <row>
+              <cell>30</cell>
+              <cell>28</cell>
+            </row>
+            <row>
+              <cell>22</cell>
+              <cell>21</cell>
+            </row>
+            <row>
+              <cell>23</cell>
+              <cell>25</cell>
+            </row>
+            <row>
+              <cell>45</cell>
+              <cell>43</cell>
+            </row>
+            <row>
+              <cell>37</cell>
+              <cell>35</cell>
+            </row>
+            <row>
+              <cell>29</cell>
+              <cell>32</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="67" has_solution="false">
+      <problem>
+        <paragraph>Mean entry-level salaries for college graduates with mechanical engineering degrees and electrical engineering degrees are believed to be approximately the same. A recruiting office thinks that the mean mechanical engineering salary is actually lower than the mean electrical engineering salary. The recruiting office randomly surveys 50 entry level mechanical engineers and 60 entry level electrical engineers. Their mean salaries were \$46,100 and \$46,700, respectively. Their standard deviations were \$3,450 and \$4,210, respectively. Conduct a hypothesis test to determine if you agree that the mean entry-level mechanical engineering salary is lower than the mean entry-level electrical engineering salary.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="68" has_solution="false">
+      <problem>
+        <paragraph>Marketing companies have collected data implying that teenage girls use more social media apps on their smartphones than teenage boys do. In one particular study of 40 randomly chosen teenage girls and boys (20 of each) with smartphones, the mean number of social media apps for the girls was 3.2 with a standard deviation of 1.5. The mean for the boys was 1.7 with a standard deviation of 0.8. Conduct a hypothesis test to determine if the means are approximately the same or if the girls’ mean is higher than the boys’ mean.</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the information from Data Sets in Appendix A: Statistical Tables to answer the next four exercises.</paragraph>
+    <exercise number="69" has_solution="false">
+      <problem>
+        <paragraph>Using the data from Lap 1 only, conduct a hypothesis test to determine if the mean time for completing a lap in races is the same as it is in practices.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="70" has_solution="false">
+      <problem>
+        <paragraph>Repeat the test in Exercise 10.69, but use Lap 5 data this time.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="71" has_solution="false">
+      <problem>
+        <paragraph>Repeat the test in Exercise 10.69, but this time combine the data from Laps 1 and 5.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="72" has_solution="false">
+      <problem>
+        <paragraph>In two to three complete sentences, explain in detail how you might use Terri Vogel’s data to answer the following question. “Does Terri Vogel drive faster in races than she does in practices?”</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next two exercises. The Eastern and Western Major League Soccer conferences have a new Reserve Division that allows new players to develop their skills. Data for a randomly picked date showed the following annual goals.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Western</cell>
+          <cell header="true">Eastern</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Los Angeles 9</cell>
+          <cell>D.C. United 9</cell>
+        </row>
+        <row>
+          <cell>FC Dallas 3</cell>
+          <cell>Chicago 8</cell>
+        </row>
+        <row>
+          <cell>Chivas USA 4</cell>
+          <cell>Columbus 7</cell>
+        </row>
+        <row>
+          <cell>Real Salt Lake 3</cell>
+          <cell>New England 6</cell>
+        </row>
+        <row>
+          <cell>Colorado 4</cell>
+          <cell>MetroStars 5</cell>
+        </row>
+        <row>
+          <cell>San Jose 4</cell>
+          <cell>Kansas City 3</cell>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>Conduct a hypothesis test to answer the next two exercises.</paragraph>
+    <exercise number="73" has_solution="false">
+      <problem>
+        <paragraph>The exact distribution for the hypothesis test is:</paragraph>
+        <list type="ordered">
+          <item>the normal distribution</item>
+          <item>the Student's t-distribution</item>
+          <item>the uniform distribution</item>
+          <item>the exponential distribution</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="74" has_solution="false">
+      <problem>
+        <paragraph>If the level of significance is 0.05, the conclusion is:</paragraph>
+        <list type="ordered">
+          <item>There is sufficient evidence to conclude that the W Division teams score fewer goals, on average, than the E teams</item>
+          <item>There is insufficient evidence to conclude that the W Division teams score more goals, on average, than the E teams.</item>
+          <item>There is insufficient evidence to conclude that the W teams score fewer goals, on average, than the E teams score.</item>
+          <item>Unable to determine</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="75" has_solution="false">
+      <problem>
+        <paragraph>Suppose a statistics instructor believes that there is no significant difference between the mean class scores of statistics day students on Exam 2 and statistics night students on Exam 2. They take random samples from each of the populations. The mean and standard deviation for 35 statistics day students were 75.86 and 16.91. The mean and standard deviation for 37 statistics night students were 75.41 and 19.73. The “day” subscript refers to the statistics day students. The “night” subscript refers to the statistics night students. A concluding statement is:</paragraph>
+        <list type="ordered">
+          <item>There is sufficient evidence to conclude that statistics night students' mean on Exam 2 is better than the statistics day students' mean on Exam 2.</item>
+          <item>There is insufficient evidence to conclude that the statistics day students' mean on Exam 2 is better than the statistics night students' mean on Exam 2.</item>
+          <item>There is insufficient evidence to conclude that there is a significant difference between the means of the statistics day students and night students on Exam 2.</item>
+          <item>There is sufficient evidence to conclude that there is a significant difference between the means of the statistics day students and night students on Exam 2.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="76" has_solution="false">
+      <problem>
+        <paragraph>Elijah wants to know whether textbook costs are different for different courses of study. He selects a random sample of 33 sociology textbooks offered on a popular online site. The mean price of his sample is \$74.64 with a standard deviation of \$49.36. He then selects a random sample of 33 math and science textbooks from the same site. The mean price of this sample is \$111.56 with a standard deviation of \$66.90. Is the mean price of a sociology textbook lower than the mean price of a math or science textbook? Test at a 1% significance level.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="77" has_solution="false">
+      <problem>
+        <paragraph>A powder diet is tested on 49 people, and a liquid diet is tested on 36 different people. Of interest is whether the liquid diet yields a higher mean weight loss than the powder diet. The powder diet group had a mean weight loss of 42 pounds with a standard deviation of 12 pounds. The liquid diet group had a mean weight loss of 45 pounds with a standard deviation of 14 pounds.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="78" has_solution="false">
+      <problem>
+        <paragraph>Suppose a statistics instructor believes that there is no significant difference between the mean class scores of statistics day students on Exam 2 and statistics night students on Exam 2. They take random samples from each of the populations. The mean and standard deviation for 35 statistics day students were 75.86 and 16.91, respectively. The mean and standard deviation for 37 statistics night students were 75.41 and 19.73. The “day” subscript refers to the statistics day students. The “night” subscript refers to the statistics night students. An appropriate alternative hypothesis for the hypothesis test is:</paragraph>
+        <list type="ordered">
+          <item>μday &gt; μnight</item>
+          <item>μday &lt; μnight</item>
+          <item>μday = μnight</item>
+          <item>μday ≠ μnight</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="79" has_solution="false">
+      <problem>
+        <paragraph>A recent drug survey showed an increase in the use of drugs and alcohol among local high school seniors as compared to the national percent. Suppose that a survey of 100 local seniors and 100 national seniors is conducted to see if the proportion of drug and alcohol use is higher locally than nationally. Locally, 65 seniors reported using drugs or alcohol within the past month, while 60 national seniors reported using them.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="80" has_solution="false">
+      <problem>
+        <paragraph>We are interested in whether the proportions of conferred physical science degrees for people aged 21 to 24 are the same for White people and Black people in the United States. The number of conferred degrees for White people in a given year is 4,930. Five hundred eighty were aged 21 to 24. The estimate for Black people is 330. Forty were aged 21 to 24. We will let people with conferred physical science degrees be our population.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="81" has_solution="false">
+      <problem>
+        <paragraph>Elizabeth Mjelde, an art history professor, was interested in whether the value from the Golden Ratio formula, $$\left( \frac{ \text{larger + smaller dimension} }{ \text{larger dimension} } \right)$$ was the same in the Whitney Exhibit for works from 1900 to 1919 as for works from 1920 to 1942. Thirty-seven early works were sampled, averaging 1.74 with a standard deviation of 0.11. Sixty-five of the later works were sampled, averaging 1.746 with a standard deviation of 0.1064. Do you think that there is a significant difference in the Golden Ratio calculation?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="82" has_solution="false">
+      <problem>
+        <paragraph>A recent year was randomly picked from 1985 to the present. In that year, there were 2,051 Hispanic/Latino students at Cabrillo College out of a total of 12,328 students. At Lake Tahoe College, there were 321 Hispanic/Latino students out of a total of 2,441 students. In general, do you think that the percent of Hispanic/Latino students at the two colleges is basically the same or different?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next two exercises. Some individuals who were exposed to the COVID-19 virus experienced a loss of taste. In a sample of COVID patients during 2022, there were 629 reported cases of loss of taste out of a total of 1,021 reported cases. In 2021, there were 486 reported cases of loss of taste out of a sample of 712 cases. Is the 2022 proportion of loss of taste more than the 2021 proportion? Using a 1% level of significance, conduct an appropriate hypothesis test.</paragraph>
+    <list type="unordered">
+      <item>“2022” subscript: 2022 group.</item>
+      <item>“2021” subscript: 2021 group</item>
+    </list>
+    <exercise number="83" has_solution="false">
+      <problem>
+        <paragraph>This is:</paragraph>
+        <list type="ordered">
+          <item>a test of two proportions</item>
+          <item>a test of two independent means</item>
+          <item>a test of a single mean</item>
+          <item>a test of matched pairs</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="84" has_solution="false">
+      <problem>
+        <paragraph>An appropriate null hypothesis is:</paragraph>
+        <list type="ordered">
+          <item>$$p2022 \leq p2021$$</item>
+          <item>$$p2022 \geq p2021$$</item>
+          <item>$$\mu 2022 \leq \mu 2021$$</item>
+          <item>$$p2022 &gt; p2021$$</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="85" has_solution="false">
+      <problem>
+        <paragraph>Researchers conducted a study to find out if there is a difference in the use of eReaders by different age groups. Randomly selected participants were divided into two age groups. In the 16- to 29-year-old group, 7% of the 628 surveyed use eReaders, while 11% of the 2,309 participants 30 years old and older use eReaders.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="86" has_solution="false">
+      <problem>
+        <paragraph>Adults aged 18 years old and older from a certain city were randomly selected for a survey on working from home. The researchers wanted to determine if the proportion of women who work from home is less than the proportion of men who work from home. The results are shown in Table 10.24. Test at the 1% level of significance.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true"/>
+              <cell header="true">Number who work at home</cell>
+              <cell header="true">Sample size</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Men</cell>
+              <cell>42,769</cell>
+              <cell>155,525</cell>
+            </row>
+            <row>
+              <cell>Women</cell>
+              <cell>67,169</cell>
+              <cell>248,775</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="87" has_solution="false">
+      <problem>
+        <paragraph>Two computer users were discussing tablet computers. A higher proportion of people ages 16 to 29 use tablets than the proportion of people age 30 and older. Table 10.25 details the number of tablet owners for each age group. Test at the 1% level of significance.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true"/>
+              <cell header="true">16–29 year olds</cell>
+              <cell header="true">30 years old and older</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Own a tablet</cell>
+              <cell>69</cell>
+              <cell>231</cell>
+            </row>
+            <row>
+              <cell>Sample size</cell>
+              <cell>628</cell>
+              <cell>2,309</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="88" has_solution="false">
+      <problem>
+        <paragraph>A group of friends debated whether more people in their twenties use wearable fitness devices than people in their thirties. They consulted a research study of wearable fitness device use among adults. The results of the survey indicate that of the 973 randomly sampled people in their twenties, 379 use such devices. For people in their thirties, 404 of the 1,304 who were randomly sampled use wearable fitness devices. Test at the 5% level of significance.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="89" has_solution="false">
+      <problem>
+        <paragraph>While her husband spent 2½ hours picking out new speakers, a statistician decided to determine whether the percent of men who enjoy shopping for electronic equipment is higher than the percent of women who enjoy shopping for electronic equipment. The population was Saturday afternoon shoppers. Out of 67 men, 24 said they enjoyed the activity. Eight of the 24 women surveyed claimed to enjoy the activity. Interpret the results of the survey.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="90" has_solution="false">
+      <problem>
+        <paragraph>We are interested in whether children’s educational computer software costs less, on average, than children’s entertainment software. Thirty-six educational software titles were randomly picked from a catalog. The mean cost was \$31.14 with a standard deviation of \$4.69. Thirty-five entertainment software titles were randomly picked from the same catalog. The mean cost was \$33.86 with a standard deviation of \$10.87. Decide whether children’s educational software costs less, on average, than children’s entertainment software.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="91" has_solution="false">
+      <problem>
+        <paragraph>Joan Nguyen recently claimed that the proportion of college-age men with at least one pierced ear is as high as the proportion of college-age women. She conducted a survey in her classes. Out of 107 men, 20 had at least one pierced ear. Out of 92 women, 47 had at least one pierced ear. Do you believe that the proportion of men has reached the proportion of women?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="92" has_solution="false">
+      <problem>
+        <paragraph>"To Breakfast or Not to Breakfast?" by Richard Ayore</paragraph>
+        <paragraph>In the American society, birthdays are one of those days that everyone looks forward to. People of different ages and peer groups gather to mark the 18th, 20th, …, birthdays. During this time, one looks back to see what they have achieved for the past year and also focuses ahead for more to come.</paragraph>
+        <paragraph>If, by any chance, I am invited to one of these parties, my experience is always different. Instead of dancing around with my friends while the music is booming, I get carried away by memories of my family back home in Kenya. I remember the good times I had with my brothers and sister while we did our daily routine.</paragraph>
+        <paragraph>Every morning, I remember we went to the shamba (garden) to weed our crops. I remember one day arguing with my brother as to why he always remained behind just to join us an hour later. In his defense, he said that he preferred waiting for breakfast before he came to weed. He said, “This is why I always work more hours than you guys!”</paragraph>
+        <paragraph>And so, to prove him wrong or right, we decided to give it a try. One day we went to work as usual without breakfast, and recorded the time we could work before getting tired and stopping. On the next day, we all ate breakfast before going to work. We recorded how long we worked again before getting tired and stopping. Of interest was our mean increase in work time. Though not sure, my brother insisted that it was more than two hours. Using the data in Table 10.26, solve our problem.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Work hours with breakfast</cell>
+              <cell header="true">Work hours without breakfast</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>8</cell>
+              <cell>6</cell>
+            </row>
+            <row>
+              <cell>7</cell>
+              <cell>5</cell>
+            </row>
+            <row>
+              <cell>9</cell>
+              <cell>5</cell>
+            </row>
+            <row>
+              <cell>5</cell>
+              <cell>4</cell>
+            </row>
+            <row>
+              <cell>9</cell>
+              <cell>7</cell>
+            </row>
+            <row>
+              <cell>8</cell>
+              <cell>7</cell>
+            </row>
+            <row>
+              <cell>10</cell>
+              <cell>7</cell>
+            </row>
+            <row>
+              <cell>7</cell>
+              <cell>5</cell>
+            </row>
+            <row>
+              <cell>6</cell>
+              <cell>6</cell>
+            </row>
+            <row>
+              <cell>9</cell>
+              <cell>5</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <note type="sidebar" source_type="NOTE" title="NOTE">
+      <paragraph>If you are using a Student's t-distribution for one of the following homework problems, including for paired data, you may assume that the underlying population is normally distributed. (When using these tests in a real situation, you must first prove that assumption, however.)</paragraph>
+    </note>
+    <exercise number="93" has_solution="false">
+      <problem>
+        <paragraph>A study is done to determine if students in the California state university system take longer to graduate, on average, than students enrolled in private universities. One hundred students from both the California state university system and private universities are surveyed. Suppose that from years of research, it is known that the population standard deviations are 1.5811 years and 1 year, respectively. The following data are collected. The California state university system students took on average 4.5 years with a standard deviation of 0.8. The private university students took on average 4.1 years with a standard deviation of 0.3.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="94" has_solution="false">
+      <problem>
+        <paragraph>Parents of teenage boys often complain that auto insurance costs more, on average, for teenage boys than for teenage girls. A group of concerned parents examines a random sample of insurance bills. The mean annual cost for 36 teenage boys was \$679. For 23 teenage girls, it was \$559. From past years, it is known that the population standard deviation for each group is \$180. Determine whether or not you believe that the mean cost for auto insurance for teenage boys is greater than that for teenage girls.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="95" has_solution="false">
+      <problem>
+        <paragraph>A group of transfer bound students wondered if they will spend the same mean amount on texts and supplies each year at their four-year university as they have at their community college. They conducted a random survey of 54 students at their community college and 66 students at their local four-year university. The sample means were \$947 and \$1,011, respectively. The population standard deviations are known to be \$254 and \$87, respectively. Conduct a hypothesis test to determine if the means are statistically the same.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="96" has_solution="false">
+      <problem>
+        <paragraph>Some manufacturers claim that non-hybrid sedan cars have a lower mean miles-per-gallon (mpg) than hybrid ones. Suppose that consumers test 21 hybrid sedans and get a mean of 31 mpg with a standard deviation of seven mpg. Thirty-one non-hybrid sedans get a mean of 22 mpg with a standard deviation of four mpg. Suppose that the population standard deviations are known to be six and three, respectively. Conduct a hypothesis test to evaluate the manufacturers claim.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="97" has_solution="false">
+      <problem>
+        <paragraph>A baseball fan wanted to know if there is a difference between the number of games played in a World Series when the American League won the series versus when the National League won the series. From 1922 to 2012, the population standard deviation of games won by the American League was 1.14, and the population standard deviation of games won by the National League was 1.11. Of 19 randomly selected World Series games won by the American League, the mean number of games won was 5.76. The mean number of 17 randomly selected games won by the National League was 5.42. Conduct a hypothesis test.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="98" has_solution="false">
+      <problem>
+        <paragraph>One of the questions in a study of marital satisfaction of dual-career couples was to rate the statement “I’m pleased with the way we divide the responsibilities for childcare.” The ratings went from one (strongly agree) to five (strongly disagree). Table 10.27 contains ten of the paired responses for husbands and wives. Conduct a hypothesis test to see if the mean difference in the husband’s versus the wife’s satisfaction level is negative (meaning that, within the partnership, the husband is happier than the wife).</paragraph>
+        <table>
+          <tbody>
+            <row>
+              <cell>Wife’s score</cell>
+              <cell>2</cell>
+              <cell>2</cell>
+              <cell>3</cell>
+              <cell>3</cell>
+              <cell>4</cell>
+              <cell>2</cell>
+              <cell>1</cell>
+              <cell>1</cell>
+              <cell>2</cell>
+              <cell>4</cell>
+            </row>
+            <row>
+              <cell>Husband’s score</cell>
+              <cell>2</cell>
+              <cell>2</cell>
+              <cell>1</cell>
+              <cell>3</cell>
+              <cell>2</cell>
+              <cell>1</cell>
+              <cell>1</cell>
+              <cell>1</cell>
+              <cell>2</cell>
+              <cell>4</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="99" has_solution="false">
+      <problem>
+        <paragraph>Ten individuals went on a low–fat diet for 12 weeks to lower their cholesterol. The data are recorded in Table 10.28. Do you think that their cholesterol levels were significantly lowered?</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Starting cholesterol level</cell>
+              <cell header="true">Ending cholesterol level</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>140</cell>
+              <cell>140</cell>
+            </row>
+            <row>
+              <cell>220</cell>
+              <cell>230</cell>
+            </row>
+            <row>
+              <cell>110</cell>
+              <cell>120</cell>
+            </row>
+            <row>
+              <cell>240</cell>
+              <cell>220</cell>
+            </row>
+            <row>
+              <cell>200</cell>
+              <cell>190</cell>
+            </row>
+            <row>
+              <cell>180</cell>
+              <cell>150</cell>
+            </row>
+            <row>
+              <cell>190</cell>
+              <cell>200</cell>
+            </row>
+            <row>
+              <cell>360</cell>
+              <cell>300</cell>
+            </row>
+            <row>
+              <cell>280</cell>
+              <cell>300</cell>
+            </row>
+            <row>
+              <cell>260</cell>
+              <cell>240</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="100" has_solution="false">
+      <problem>
+        <paragraph>A new heart disease prevention drug was tried on a group of 224 patients. Forty-five patients developed heart disease after four years. In a control group of 224 patients, 68 developed heart disease after four years. We want to test whether the method of treatment reduces the proportion of patients that develop heart disease after four years or if the proportions of the treated group and the untreated group stay the same.</paragraph>
+        <paragraph>Let the subscript t = treated patient and ut = untreated patient.</paragraph>
+        <paragraph>The appropriate hypotheses are:</paragraph>
+        <list type="ordered">
+          <item>H0: pt &lt; put and Ha: pt ≥ put</item>
+          <item>H0: pt ≤ put and Ha: pt &gt; put</item>
+          <item>H0: pt = put and Ha: pt ≠ put</item>
+          <item>H0: pt = put and Ha: pt &lt; put</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="101" has_solution="false">
+      <problem>
+        <paragraph>An experiment is conducted to show that blood pressure can be consciously reduced in people trained in a “biofeedback exercise program.” Six subjects were randomly selected and blood pressure measurements were recorded before and after the training. The difference between blood pressures was calculated (after - before) producing the following results: $${\overset{-}{x}}_{d}$$ = −10.2 sd = 8.4. Using the data, test the hypothesis that the blood pressure has decreased after the training.</paragraph>
+        <paragraph>The distribution for the test is:</paragraph>
+        <list type="ordered">
+          <item>t5</item>
+          <item>t6</item>
+          <item>N(−10.2, 8.4)</item>
+          <item>N(−10.2, $$\frac{8.4}{\sqrt{6}}$$ )</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="102" has_solution="false">
+      <problem>
+        <paragraph>A golf instructor is interested in determining if their new technique for improving players’ golf scores is effective. The instructor takes four new students and records their 18-hole scores before learning the technique and then after having taken the class. The instructor conducts a hypothesis test. The data are as follows.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true"/>
+              <cell header="true">Player 1</cell>
+              <cell header="true">Player 2</cell>
+              <cell header="true">Player 3</cell>
+              <cell header="true">Player 4</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Mean score before class</cell>
+              <cell>83</cell>
+              <cell>78</cell>
+              <cell>93</cell>
+              <cell>87</cell>
+            </row>
+            <row>
+              <cell>Mean score after class</cell>
+              <cell>80</cell>
+              <cell>80</cell>
+              <cell>86</cell>
+              <cell>86</cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>The correct decision is:</paragraph>
+        <list type="ordered">
+          <item>Reject H0.</item>
+          <item>Do not reject the H0.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="103" has_solution="false">
+      <problem>
+        <paragraph>A local cancer support group believes that the estimate for new female breast cancer cases in the south is higher in Year 2 than in Year 1. The group compared the estimates of new female breast cancer cases by southern state in Year 1 and in Year 2. The results are in Table 10.30.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Southern states</cell>
+              <cell header="true">Year 1</cell>
+              <cell header="true">Year 2</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Alabama</cell>
+              <cell>3,450</cell>
+              <cell>3,720</cell>
+            </row>
+            <row>
+              <cell>Arkansas</cell>
+              <cell>2,150</cell>
+              <cell>2,280</cell>
+            </row>
+            <row>
+              <cell>Florida</cell>
+              <cell>15,540</cell>
+              <cell>15,710</cell>
+            </row>
+            <row>
+              <cell>Georgia</cell>
+              <cell>6,970</cell>
+              <cell>7,310</cell>
+            </row>
+            <row>
+              <cell>Kentucky</cell>
+              <cell>3,160</cell>
+              <cell>3,300</cell>
+            </row>
+            <row>
+              <cell>Louisiana</cell>
+              <cell>3,320</cell>
+              <cell>3,630</cell>
+            </row>
+            <row>
+              <cell>Mississippi</cell>
+              <cell>1,990</cell>
+              <cell>2,080</cell>
+            </row>
+            <row>
+              <cell>North Carolina</cell>
+              <cell>7,090</cell>
+              <cell>7,430</cell>
+            </row>
+            <row>
+              <cell>Oklahoma</cell>
+              <cell>2,630</cell>
+              <cell>2,690</cell>
+            </row>
+            <row>
+              <cell>South Carolina</cell>
+              <cell>3,570</cell>
+              <cell>3,580</cell>
+            </row>
+            <row>
+              <cell>Tennessee</cell>
+              <cell>4,680</cell>
+              <cell>5,070</cell>
+            </row>
+            <row>
+              <cell>Texas</cell>
+              <cell>15,050</cell>
+              <cell>14,980</cell>
+            </row>
+            <row>
+              <cell>Virginia</cell>
+              <cell>6,190</cell>
+              <cell>6,280</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="104" has_solution="false">
+      <problem>
+        <paragraph>A traveler wanted to know if the prices of hotels are different in the ten cities that he visits the most often. The list of the cities with the corresponding hotel prices for his two favorite hotel chains is in Table 10.31. Test at the 1% level of significance.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Cities</cell>
+              <cell header="true">Hyatt Regency prices in dollars</cell>
+              <cell header="true">Hilton prices in dollars</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Atlanta</cell>
+              <cell>107</cell>
+              <cell>169</cell>
+            </row>
+            <row>
+              <cell>Boston</cell>
+              <cell>358</cell>
+              <cell>289</cell>
+            </row>
+            <row>
+              <cell>Chicago</cell>
+              <cell>209</cell>
+              <cell>299</cell>
+            </row>
+            <row>
+              <cell>Dallas</cell>
+              <cell>209</cell>
+              <cell>198</cell>
+            </row>
+            <row>
+              <cell>Denver</cell>
+              <cell>167</cell>
+              <cell>169</cell>
+            </row>
+            <row>
+              <cell>Indianapolis</cell>
+              <cell>179</cell>
+              <cell>214</cell>
+            </row>
+            <row>
+              <cell>Los Angeles</cell>
+              <cell>179</cell>
+              <cell>169</cell>
+            </row>
+            <row>
+              <cell>New York City</cell>
+              <cell>625</cell>
+              <cell>459</cell>
+            </row>
+            <row>
+              <cell>Philadelphia</cell>
+              <cell>179</cell>
+              <cell>159</cell>
+            </row>
+            <row>
+              <cell>Washington, DC</cell>
+              <cell>245</cell>
+              <cell>239</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="105" has_solution="false">
+      <problem>
+        <paragraph>A politician asked their staff to determine whether the underemployment rate in the northeast decreased year over year. The results are in Table 10.32.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Northeastern states</cell>
+              <cell header="true">Year 1</cell>
+              <cell header="true">Year 2</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Connecticut</cell>
+              <cell>17.3</cell>
+              <cell>16.4</cell>
+            </row>
+            <row>
+              <cell>Delaware</cell>
+              <cell>17.4</cell>
+              <cell>13.7</cell>
+            </row>
+            <row>
+              <cell>Maine</cell>
+              <cell>19.3</cell>
+              <cell>16.1</cell>
+            </row>
+            <row>
+              <cell>Maryland</cell>
+              <cell>16.0</cell>
+              <cell>15.5</cell>
+            </row>
+            <row>
+              <cell>Massachusetts</cell>
+              <cell>17.6</cell>
+              <cell>18.2</cell>
+            </row>
+            <row>
+              <cell>New Hampshire</cell>
+              <cell>15.4</cell>
+              <cell>13.5</cell>
+            </row>
+            <row>
+              <cell>New Jersey</cell>
+              <cell>19.2</cell>
+              <cell>18.7</cell>
+            </row>
+            <row>
+              <cell>New York</cell>
+              <cell>18.5</cell>
+              <cell>18.7</cell>
+            </row>
+            <row>
+              <cell>Ohio</cell>
+              <cell>18.2</cell>
+              <cell>18.8</cell>
+            </row>
+            <row>
+              <cell>Pennsylvania</cell>
+              <cell>16.5</cell>
+              <cell>16.9</cell>
+            </row>
+            <row>
+              <cell>Rhode Island</cell>
+              <cell>20.7</cell>
+              <cell>22.4</cell>
+            </row>
+            <row>
+              <cell>Vermont</cell>
+              <cell>14.7</cell>
+              <cell>12.3</cell>
+            </row>
+            <row>
+              <cell>West Virginia</cell>
+              <cell>15.5</cell>
+              <cell>17.3</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+  </exercises>
+  <heading level="1">Practice</heading>
+  <exercises>
+    <heading level="1">Practice</heading>
+    <paragraph>Use the following information to answer the next 15 exercises: Indicate if the hypothesis test is for</paragraph>
+    <list type="ordered">
+      <item>independent group means, population standard deviations, and/or variances known</item>
+      <item>independent group means, population standard deviations, and/or variances unknown</item>
+      <item>matched or paired samples</item>
+      <item>single mean</item>
+      <item>two proportions</item>
+      <item>single proportion</item>
+    </list>
+    <exercise number="1" has_solution="false">
+      <problem>
+        <paragraph>It is believed that 70% of men pass their drivers test in the first attempt, while 65% of women pass the test in the first attempt. Of interest is whether the proportions are in fact equal.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <paragraph>A new laundry detergent is tested on consumers. Of interest is the proportion of consumers who prefer the new brand over the leading competitor. A study is done to test this.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="false">
+      <problem>
+        <paragraph>A new windshield treatment claims to repel water more effectively. Ten windshields are tested by simulating rain without the new treatment. The same windshields are then treated, and the experiment is run again. A hypothesis test is conducted.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <paragraph>The known standard deviation in salary for all mid-level professionals in the financial industry is \$11,000. Company A and Company B are in the financial industry. Suppose samples are taken of mid-level professionals from Company A and from Company B. The sample mean salary for mid-level professionals in Company A is \$80,000. The sample mean salary for mid-level professionals in Company B is \$96,000. Company A and Company B management want to know if their mid-level professionals are paid differently, on average.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="5" has_solution="false">
+      <problem>
+        <paragraph>The average worker in Germany gets eight weeks of paid vacation.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <paragraph>According to a television commercial, 80% of dentists agree that Ultrafresh toothpaste is the best on the market.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="7" has_solution="false">
+      <problem>
+        <paragraph>It is believed that the average grade on an English essay in a particular school system for women is higher than for men. A random sample of 31 women had a mean score of 82 with a standard deviation of three, and a random sample of 25 men had a mean score of 76 with a standard deviation of four.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <paragraph>The league mean batting average is 0.280 with a known standard deviation of 0.06. The Rattlers and the Vikings belong to the league. The mean batting average for a sample of eight Rattlers is 0.210, and the mean batting average for a sample of eight Vikings is 0.260. There are 24 players on the Rattlers and 19 players on the Vikings. Are the batting averages of the Rattlers and Vikings statistically different?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="9" has_solution="false">
+      <problem>
+        <paragraph>In a random sample of 100 forests in the United States, 56 were coniferous or contained conifers. In a random sample of 80 forests in Mexico, 40 were coniferous or contained conifers. Is the proportion of conifers in the United States statistically more than the proportion of conifers in Mexico?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <paragraph>A new medicine is said to help improve sleep. Eight subjects are picked at random and given the medicine. The means hours slept for each person were recorded before starting the medication and after.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="11" has_solution="false">
+      <problem>
+        <paragraph>It is thought that teenagers sleep more than adults on average. A study is done to verify this. A sample of 16 teenagers has a mean of 8.9 hours slept and a standard deviation of 1.2. A sample of 12 adults has a mean of 6.9 hours slept and a standard deviation of 0.6.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <paragraph>Varsity athletes practice five times a week, on average.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="13" has_solution="false">
+      <problem>
+        <paragraph>A sample of 12 in-state graduate school programs at school A has a mean tuition of \$64,000 with a standard deviation of \$8,000. At school B, a sample of 16 in-state graduate programs has a mean of \$80,000 with a standard deviation of \$6,000. On average, are the mean tuitions different?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <paragraph>A new WiFi range booster is being offered to consumers. A researcher tests the native range of 12 different routers under the same conditions. The ranges are recorded. Then the researcher uses the new WiFi range booster and records the new ranges. Does the new WiFi range booster do a better job?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="15" has_solution="false">
+      <problem>
+        <paragraph>A high school principal claims that 30% of student athletes drive themselves to school, while 4% of non-athletes drive themselves to school. In a sample of 20 student athletes, 45% drive themselves to school. In a sample of 35 non-athlete students, 6% drive themselves to school. Is the percent of student athletes who drive themselves to school more than the percent of nonathletes?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next three exercises: A study is done to determine which of two soft drinks has more sugar. There are 13 cans of Beverage A in a sample and six cans of Beverage B. The mean amount of sugar in Beverage A is 36 grams with a standard deviation of 0.6 grams. The mean amount of sugar in Beverage B is 38 grams with a standard deviation of 0.8 grams. The researchers believe that Beverage B has more sugar than Beverage A, on average. Both populations have normal distributions.</paragraph>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <paragraph>Are standard deviations known or unknown?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="17" has_solution="false">
+      <problem>
+        <paragraph>What is the random variable?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <paragraph>Is this a one-tailed or two-tailed test?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next 12 exercises: The U.S. Center for Disease Control reports that the mean life expectancy was 47.6 years for White people born in 1900 and 33.0 years for non-White people. Suppose that you randomly survey death records for people born in 1900 in a certain county. Of the 124 White people, the mean life span was 45.3 years with a standard deviation of 12.7 years. Of the 82 non-White people, the mean life span was 34.1 years with a standard deviation of 15.6 years. Conduct a hypothesis test to see if the mean life spans in the county were the same for White people and non-White people.</paragraph>
+    <exercise number="19" has_solution="false">
+      <problem>
+        <paragraph>Is this a test of means or proportions?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+        <list type="ordered">
+          <item>H0: __________</item>
+          <item>Ha: __________</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="false">
+      <problem>
+        <paragraph>Is this a right-tailed, left-tailed, or two-tailed test?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <paragraph>In symbols, what is the random variable of interest for this test?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="23" has_solution="false">
+      <problem>
+        <paragraph>In words, define the random variable of interest for this test.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="24" has_solution="false">
+      <problem>
+        <paragraph>Which distribution (normal or Student's t) would you use for this hypothesis test?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="25" has_solution="false">
+      <problem>
+        <paragraph>Explain why you chose the distribution you did for Exercise 10.24.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="26" has_solution="false">
+      <problem>
+        <paragraph>Calculate the test statistic.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="27" has_solution="false">
+      <problem>
+        <paragraph>Sketch a graph of the situation. Label the horizontal axis. Mark the hypothesized difference and the sample difference. Shade the area corresponding to the p-value.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="28" has_solution="false">
+      <problem>
+        <paragraph>At a pre-conceived α = 0.05, what is your:</paragraph>
+        <list type="ordered">
+          <item>Decision:</item>
+          <item>Reason for the decision:</item>
+          <item>Conclusion (write out in a complete sentence):</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="29" has_solution="false">
+      <problem>
+        <paragraph>Does it appear that the means are the same? Why or why not?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information for the next five exercises. Two types of phone operating system are being tested to determine if there is a difference in the proportions of system failures (crashes). Fifteen out of a random sample of 150 phones with OS1 had system failures within the first eight hours of operation. Nine out of another random sample of 150 phones with OS2 had system failures within the first eight hours of operation. OS2 is believed to be more stable (have fewer crashes) than OS1.</paragraph>
+    <exercise number="30" has_solution="false">
+      <problem>
+        <paragraph>Is this a test of means or proportions?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="31" has_solution="false">
+      <problem>
+        <paragraph>What is the random variable?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="32" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="33" has_solution="false">
+      <problem>
+        <paragraph>What can you conclude about the two operating systems?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next twelve exercises. In the recent Census, three percent of the U.S. population reported being of two or more races. However, the percent varies tremendously from state to state. Suppose that two random surveys are conducted. In the first random survey, out of 1,000 North Dakotans, only nine people reported being of two or more races. In the second random survey, out of 500 Nevadans, 17 people reported being of two or more races. Conduct a hypothesis test to determine if the population percents are the same for the two states or if the percent for Nevada is statistically higher than for North Dakota.</paragraph>
+    <exercise number="34" has_solution="false">
+      <problem>
+        <paragraph>Is this a test of means or proportions?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="35" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+        <list type="ordered">
+          <item>H0: _________</item>
+          <item>Ha: _________</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="36" has_solution="false">
+      <problem>
+        <paragraph>Is this a right-tailed, left-tailed, or two-tailed test? How do you know?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="37" has_solution="false">
+      <problem>
+        <paragraph>What is the random variable of interest for this test?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="38" has_solution="false">
+      <problem>
+        <paragraph>In words, define the random variable for this test.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="39" has_solution="false">
+      <problem>
+        <paragraph>Which distribution (normal or Student's t) would you use for this hypothesis test?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="40" has_solution="false">
+      <problem>
+        <paragraph>Explain why you chose the distribution you did for the Exercise 10.39.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="41" has_solution="false">
+      <problem>
+        <paragraph>Calculate the test statistic.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="42" has_solution="false">
+      <problem>
+        <paragraph>At a pre-conceived α = 0.05, what is your:</paragraph>
+        <list type="ordered">
+          <item>Decision:</item>
+          <item>Reason for the decision:</item>
+          <item>Conclusion (write out in a complete sentence):</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="43" has_solution="false">
+      <problem>
+        <paragraph>Does it appear that the proportion of Nevadans who are two or more races is higher than the proportion of North Dakotans? Why or why not?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next five exercises. The mean speeds of fastball pitches from two different baseball pitchers are to be compared. A sample of 14 fastball pitches is measured from each pitcher. The populations have normal distributions. Table 10.16 shows the result. Scouters believe that Rodriguez pitches a speedier fastball.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Pitcher</cell>
+          <cell header="true">Sample mean speed of pitches (mph)</cell>
+          <cell header="true">Population standard deviation</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Wesley</cell>
+          <cell>86</cell>
+          <cell>3</cell>
+        </row>
+        <row>
+          <cell>Rodriguez</cell>
+          <cell>91</cell>
+          <cell>7</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="44" has_solution="false">
+      <problem>
+        <paragraph>What is the random variable?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="45" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="46" has_solution="false">
+      <problem>
+        <paragraph>What is the test statistic?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="47" has_solution="false">
+      <problem>
+        <paragraph>At the 1% significance level, what is your conclusion?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next five exercises. A researcher is testing the effects of plant food on plant growth. Nine plants have been given the plant food. Another nine plants have not been given the plant food. The heights of the plants are recorded after eight weeks. The populations have normal distributions. The following table is the result. The researcher thinks the food makes the plants grow taller.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Plant group</cell>
+          <cell header="true">Sample mean height of plants (inches)</cell>
+          <cell header="true">Population standard deviation</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Food</cell>
+          <cell>16</cell>
+          <cell>2.5</cell>
+        </row>
+        <row>
+          <cell>No food</cell>
+          <cell>14</cell>
+          <cell>1.5</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="48" has_solution="false">
+      <problem>
+        <paragraph>Is the population standard deviation known or unknown?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="49" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="50" has_solution="false">
+      <problem>
+        <paragraph>At the 1% significance level, what is your conclusion?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next five exercises. Two metal alloys are being considered as material for ball bearings. The mean melting point of the two alloys is to be compared. 15 pieces of each metal are being tested. Both populations have normal distributions. The following table is the result. It is believed that Alloy Zeta has a different melting point.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true"/>
+          <cell header="true">Sample mean melting temperatures (°F)</cell>
+          <cell header="true">Population standard deviation</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Alloy Gamma</cell>
+          <cell>800</cell>
+          <cell>95</cell>
+        </row>
+        <row>
+          <cell>Alloy Zeta</cell>
+          <cell>900</cell>
+          <cell>105</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="51" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="52" has_solution="false">
+      <problem>
+        <paragraph>Is this a right-, left-, or two-tailed test?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="53" has_solution="false">
+      <problem>
+        <paragraph>At the 1% significance level, what is your conclusion?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next five exercises. A study was conducted to test the effectiveness of a software patch in reducing system failures over a six-month period. Results for randomly selected installations are shown in Table 10.19. The “before” value is matched to an “after” value, and the differences are calculated. The differences have a normal distribution. Test at the 1% significance level.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Installation</cell>
+          <cell header="true">A</cell>
+          <cell header="true">B</cell>
+          <cell header="true">C</cell>
+          <cell header="true">D</cell>
+          <cell header="true">E</cell>
+          <cell header="true">F</cell>
+          <cell header="true">G</cell>
+          <cell header="true">H</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Before</cell>
+          <cell>3</cell>
+          <cell>6</cell>
+          <cell>4</cell>
+          <cell>2</cell>
+          <cell>5</cell>
+          <cell>8</cell>
+          <cell>2</cell>
+          <cell>6</cell>
+        </row>
+        <row>
+          <cell>After</cell>
+          <cell>1</cell>
+          <cell>5</cell>
+          <cell>2</cell>
+          <cell>0</cell>
+          <cell>1</cell>
+          <cell>0</cell>
+          <cell>2</cell>
+          <cell>2</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="54" has_solution="false">
+      <problem>
+        <paragraph>What is the random variable?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="55" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="56" has_solution="false">
+      <problem>
+        <paragraph>What conclusion can you draw about the software patch?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer next five exercises. A study was conducted to test the effectiveness of a juggling class. Before the class started, six subjects juggled as many balls as they could at once. After the class, the same six subjects juggled as many balls as they could. The differences in the number of balls are calculated. The differences have a normal distribution. Test at the 1% significance level.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Subject</cell>
+          <cell header="true">A</cell>
+          <cell header="true">B</cell>
+          <cell header="true">C</cell>
+          <cell header="true">D</cell>
+          <cell header="true">E</cell>
+          <cell header="true">F</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Before</cell>
+          <cell>3</cell>
+          <cell>4</cell>
+          <cell>3</cell>
+          <cell>2</cell>
+          <cell>4</cell>
+          <cell>5</cell>
+        </row>
+        <row>
+          <cell>After</cell>
+          <cell>4</cell>
+          <cell>5</cell>
+          <cell>6</cell>
+          <cell>4</cell>
+          <cell>5</cell>
+          <cell>7</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="57" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="58" has_solution="false">
+      <problem>
+        <paragraph>What is the sample mean difference?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="59" has_solution="false">
+      <problem>
+        <paragraph>What conclusion can you draw about the juggling class?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next five exercises. A doctor wants to know if a blood pressure medication is effective. Six subjects have their blood pressures recorded. After twelve weeks on the medication, the same six subjects have their blood pressure recorded again. For this test, only systolic pressure is of concern. Test at the 1% significance level.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Patient</cell>
+          <cell header="true">A</cell>
+          <cell header="true">B</cell>
+          <cell header="true">C</cell>
+          <cell header="true">D</cell>
+          <cell header="true">E</cell>
+          <cell header="true">F</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Before</cell>
+          <cell>161</cell>
+          <cell>162</cell>
+          <cell>165</cell>
+          <cell>162</cell>
+          <cell>166</cell>
+          <cell>171</cell>
+        </row>
+        <row>
+          <cell>After</cell>
+          <cell>158</cell>
+          <cell>159</cell>
+          <cell>166</cell>
+          <cell>160</cell>
+          <cell>167</cell>
+          <cell>169</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="60" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="61" has_solution="false">
+      <problem>
+        <paragraph>What is the test statistic?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="62" has_solution="false">
+      <problem>
+        <paragraph>What is the sample mean difference?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="63" has_solution="false">
+      <problem>
+        <paragraph>What is the conclusion?</paragraph>
+      </problem>
+    </exercise>
+  </exercises>
+  <heading level="1">References</heading>
+  <paragraph>Data from Graduating Engineer + Computer Careers. Available online at http://www.graduatingengineer.com</paragraph>
+  <paragraph>Data from Microsoft Bookshelf.</paragraph>
+  <paragraph>Data from the United States Senate website, available online at www.Senate.gov (accessed June 17, 2013).</paragraph>
+  <paragraph>“List of current United States Senators by Age.” Wikipedia. Available online at http://en.wikipedia.org/wiki/List_of_current_United_States_Senators_by_age (accessed June 17, 2013).</paragraph>
+  <paragraph>“Sectoring by Industry Groups.” Nasdaq. Available online at http://www.nasdaq.com/markets/barchart-sectors.aspx?page=sectors&amp;base=industry (accessed June 17, 2013).</paragraph>
+  <paragraph>“World Series History.” Baseball-Almanac, 2013. Available online at http://www.baseball-almanac.com/ws/wsmenu.shtml (accessed June 17, 2013).</paragraph>
+  <paragraph>Data from Educational Resources, December catalog.</paragraph>
+  <paragraph>Data from Hilton Hotels. Available online at http://www.hilton.com (accessed June 17, 2013).</paragraph>
+  <paragraph>Data from Hyatt Hotels. Available online at http://hyatt.com (accessed June 17, 2013).</paragraph>
+  <paragraph>Data from Statistics, United States Department of Health and Human Services.</paragraph>
+  <paragraph>Data from Whitney Exhibit on loan to San Jose Museum of Art.</paragraph>
+  <paragraph>Data from the American Cancer Society. Available online at http://www.cancer.org/index (accessed June 17, 2013).</paragraph>
+  <paragraph>Data from the Chancellor’s Office, California Community Colleges, November 1994.</paragraph>
+  <paragraph>“State of the States.” Gallup, 2013. Available online at http://www.gallup.com/poll/125066/State-States.aspx?ref=interactive (accessed June 17, 2013).</paragraph>
+  <paragraph>“West Nile Virus.” Centers for Disease Control and Prevention. Available online at http://www.cdc.gov/ncidod/dvbid/westnile/index.htm (accessed June 17, 2013).</paragraph>
+  <paragraph>Data from the United States Census Bureau. Available online at http://www.census.gov/prod/cen2010/briefs/c2010br-02.pdf</paragraph>
+  <paragraph>Hinduja, Sameer. “Sexting Research and Gender Differences.” Cyberbullying Research Center, 2013. Available online at http://cyberbullying.us/blog/sexting-research-and-gender-differences/ (accessed June 17, 2013).</paragraph>
+  <paragraph>“Smart Phone Users, By the Numbers.” Visually, 2013. Available online at http://visual.ly/smart-phone-users-numbers (accessed June 17, 2013).</paragraph>
+  <paragraph>Smith, Aaron. “35% of American adults own a Smartphone.” Pew Internet, 2013. Available online at http://www.pewinternet.org/~/media/Files/Reports/2011/PIP_Smartphones.pdf (accessed June 17, 2013).</paragraph>
+  <paragraph>“State-Specific Prevalence of Obesity AmongAduls—Unites States, 2007.” MMWR, CDC. Available online at http://www.cdc.gov/mmwr/preview/mmwrhtml/mm5728a1.htm (accessed June 17, 2013).</paragraph>
+  <paragraph>“Texas Crime Rates 1960–1012.” FBI, Uniform Crime Reports, 2013. Available online at: http://www.disastercenter.com/crime/txcrime.htm (accessed June 17, 2013).</paragraph>
+  <heading level="1">Solutions</heading>
+  <exercises>
+    <heading level="1">Solutions</heading>
+    <exercise number="1" has_solution="true">
+      <solution>
+        <paragraph>two proportions</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="3" has_solution="true">
+      <solution>
+        <paragraph>matched or paired samples</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="5" has_solution="true">
+      <solution>
+        <paragraph>single mean</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="7" has_solution="true">
+      <solution>
+        <paragraph>independent group means, population standard deviations and/or variances unknown</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="9" has_solution="true">
+      <solution>
+        <paragraph>two proportions</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="11" has_solution="true">
+      <solution>
+        <paragraph>independent group means, population standard deviations and/or variances unknown</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="13" has_solution="true">
+      <solution>
+        <paragraph>independent group means, population standard deviations and/or variances unknown</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="15" has_solution="true">
+      <solution>
+        <paragraph>two proportions</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="17" has_solution="true">
+      <solution>
+        <paragraph>The random variable is the difference between the mean amounts of sugar in the two soft drinks.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="19" has_solution="true">
+      <solution>
+        <paragraph>means</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="21" has_solution="true">
+      <solution>
+        <paragraph>two-tailed</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="23" has_solution="true">
+      <solution>
+        <paragraph>the difference between the mean life spans of White and non-White people</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="25" has_solution="true">
+      <solution>
+        <paragraph>This is a comparison of two population means with unknown population standard deviations.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="27" has_solution="true">
+      <solution>
+        <paragraph>Answers may vary.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="28" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>Cannot accept the null hypothesis</item>
+          <item>p-value &lt; 0.05</item>
+          <item>At the 5% level of significance, the evidence supports the claim that life expectancy in the 1900s was different between White people and non-White people.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="31" has_solution="true">
+      <solution>
+        <paragraph>P′OS1 – P′OS2 = difference in the proportions of phones that had system failures within the first eight hours of operation with OS1 and OS2.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="34" has_solution="true">
+      <solution>
+        <paragraph>proportions</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="36" has_solution="true">
+      <solution>
+        <paragraph>right-tailed</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="38" has_solution="true">
+      <solution>
+        <paragraph>The random variable is the difference in proportions (percents) of the populations that are of two or more races in Nevada and North Dakota.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="40" has_solution="true">
+      <solution>
+        <paragraph>Our sample sizes are much greater than five each, so we use the normal for two proportions distribution for this hypothesis test.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="42" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>Cannot accept the null hypothesis.</item>
+          <item>p-value &lt; alpha</item>
+          <item>At the 5% significance level, there is sufficient evidence to conclude that the proportion (percent) of the population that is of two or more races in Nevada is statistically higher than that in North Dakota.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="44" has_solution="true">
+      <solution>
+        <paragraph>The difference in mean speeds of the fastball pitches of the two pitchers</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="46" has_solution="true">
+      <solution>
+        <paragraph>–2.46</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="47" has_solution="true">
+      <solution>
+        <paragraph>At the 1% significance level, we can reject the null hypothesis. There is sufficient data to conclude that the mean speed of Rodriguez’s fastball is faster than Wesley’s.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="49" has_solution="true">
+      <solution>
+        <paragraph>Subscripts: 1 = Food, 2 = No Food $$H_{0}:\mu_{1} \leq \mu_{2}$$ $$H_{a}:\mu_{1} &gt; \mu_{2}$$</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="51" has_solution="true">
+      <solution>
+        <paragraph>Subscripts: 1 = Gamma, 2 = Zeta $$H_{0}:\mu_{1} = \mu_{2}$$ $$H_{a}:\mu_{1} \neq \mu_{2}$$</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="53" has_solution="true">
+      <solution>
+        <paragraph>There is sufficient evidence so we cannot accept the null hypothesis. The data support that the melting point for Alloy Zeta is different from the melting point of Alloy Gamma.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="54" has_solution="true">
+      <solution>
+        <paragraph>the mean difference of the system failures</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="56" has_solution="true">
+      <solution>
+        <paragraph>With a p-value 0.0067, we can cannot accept the null hypothesis. There is enough evidence to support that the software patch is effective in reducing the number of system failures.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="60" has_solution="true">
+      <solution>
+        <paragraph>H0: μd ≥ 0</paragraph>
+        <paragraph>Ha: μd &lt; 0</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="63" has_solution="true">
+      <solution>
+        <paragraph>We decline to reject the null hypothesis. There is not sufficient evidence to support that the medication is effective.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="65" has_solution="true">
+      <solution>
+        <paragraph>Subscripts: 1: two-year colleges; 2: four-year colleges</paragraph>
+        <list type="ordered">
+          <item>$$H_{0}:\mu_{1} \geq \mu_{2}$$</item>
+          <item>$$H_{a}:\mu_{1} &lt; \mu_{2}$$</item>
+          <item>$${\overline{X}}_{1}-{\overline{X}}_{2}$$ is the difference between the mean enrollments of the two-year colleges and the four-year colleges.</item>
+          <item>Student’s-t</item>
+          <item>test statistic: -0.2480</item>
+          <item>p-value: 0.4019</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot reject Reason for Decision: p-value &gt; alpha Conclusion: At the 5% significance level, there is sufficient evidence to conclude that the mean enrollment at four-year colleges is higher than at two-year colleges.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="67" has_solution="true">
+      <solution>
+        <paragraph>Subscripts: 1: mechanical engineering; 2: electrical engineering</paragraph>
+        <list type="ordered">
+          <item>$$H_{0}:\mu_{1} \geq \mu_{2}$$</item>
+          <item>$$H_{a}:\mu_{1} &lt; \mu_{2}$$</item>
+          <item>$${\overline{X}}_{1} - {\overline{X}}_{2}$$ is the difference between the mean entry level salaries of mechanical engineers and electrical engineers.</item>
+          <item>t108</item>
+          <item>test statistic: t = –0.82</item>
+          <item>p-value: 0.2061</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot reject the null hypothesis. Reason for Decision: p-value &gt; alpha Conclusion: At the 5% significance level, there is insufficient evidence to conclude that the mean entry-level salaries of mechanical engineers is lower than that of electrical engineers.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="69" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>$$H_{0}:\mu_{1} = \mu_{2}$$</item>
+          <item>$$H_{a}:\mu_{1} \neq \mu_{2}$$</item>
+          <item>$${\overline{X}}_{1} - {\overline{X}}_{2}$$ is the difference between the mean times for completing a lap in races and in practices.</item>
+          <item>t20.32</item>
+          <item>test statistic: –4.70</item>
+          <item>p-value: 0.0001</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot accept the null hypothesis. Reason for Decision: p-value &lt; alpha Conclusion: At the 5% significance level, there is sufficient evidence to conclude that the mean time for completing a lap in races is different from that in practices.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="71" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>$$H_{0}:\mu_{1} = \mu_{2}$$</item>
+          <item>$$H_{a}:\mu_{1} \neq \mu_{2}$$</item>
+          <item>is the difference between the mean times for completing a lap in races and in practices.</item>
+          <item>t40.94</item>
+          <item>test statistic: –5.08</item>
+          <item>p-value: zero</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot accept the null hypothesis. Reason for Decision: p-value &lt; alpha Conclusion: At the 5% significance level, there is sufficient evidence to conclude that the mean time for completing a lap in races is different from that in practices.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="74" has_solution="true">
+      <solution>
+        <paragraph>c</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="76" has_solution="true">
+      <solution>
+        <paragraph>Test: two independent sample means, population standard deviations unknown. $$\mu_{1}$$ = the mean price of a sociology text on the selected site $$\mu_{2}$$ = the mean price of a math/science text on the selected siteRandom variable: $$X_{1} - X_{2}$$ = the difference in the sample mean textbook price between sociology texts and math/science texts.Hypotheses: $$H_{0}:\mu_{1} - \mu_{2} = 0, H_{a}:\mu_{1} - \mu_{2} &lt; 0$$ which can be expressed as $$H0s: \mu 1 = \mu 2, Ha: \mu 1 &lt; \mu 2$$ Distribution for the test: Use tdf; because each sample has more than 30 observations, $$df = n_{1} + n_{2} - 2 = 33 + 33 - 2 = 64$$ .</paragraph>
+        <paragraph>Estimate the critical value on the t-table using the nearest available degrees of freedom, 60. The critical value, 2.660, is found in the .0005 column.</paragraph>
+        <paragraph>Calculate the test statistic: $$t_{c} = \frac{\left( X_{1} - X_{2} \right) - 0}{\sqrt{\frac{s_{1}^{2}}{n_{1}} + \frac{s_{2}^{2}}{n_{2}}}} = \frac{\left( 74.64 - 111.56 \right) - 0}{\sqrt{\frac{49.36^{2}}{33} + \frac{66.90^{2}}{33}}} = - 2.55$$</paragraph>
+        <paragraph>Using a calculator with $$t_{c} = - 2.55$$ and $$df = 64$$ , the left-tailed p-value: 0.0066. Decision: Reject $$H_{0}$$ . Conclusion: At the 1% level of significance, from the sample data, there is sufficient evidence to conclude that the mean price of sociology textbooks is less than the mean price of textbooks for math/science.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="78" has_solution="true">
+      <solution>
+        <paragraph>d</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="80" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>H0: PW = PB</item>
+          <item>Ha: PW ≠ PB</item>
+          <item>The random variable is the difference in the proportions of White and Black people with conferred degrees in a given year, aged 21 to 24.</item>
+          <item>normal for two proportions</item>
+          <item>test statistic: –0.1944</item>
+          <item>p-value: 0.8458</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot accept the null hypothesis. Reason for decision: p-value &gt; alpha Conclusion: At the 5% significance level, there is insufficient evidence to conclude that the proportions of White and Black people with conferred physical science degrees, aged 21 to 24, are different.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="82" has_solution="true">
+      <solution>
+        <paragraph>Subscripts: 1 = Cabrillo College, 2 = Lake Tahoe College</paragraph>
+        <list type="ordered">
+          <item>$$H_{0}:p_{1} = p_{2}$$</item>
+          <item>$$H_{a}:p_{1} \neq p_{2}$$</item>
+          <item>The random variable is the difference between the proportions of Hispanic/Latino students at Cabrillo College and Lake Tahoe College.</item>
+          <item>normal for two proportions</item>
+          <item>test statistic: 4.29</item>
+          <item>p-value: 0.00002</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot accept the null hypothesis. Reason for decision: p-value &lt; alpha Conclusion: There is sufficient evidence to conclude that the proportions of Hispanic/Latino students at Cabrillo College and Lake Tahoe College are different.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="84" has_solution="true">
+      <solution>
+        <paragraph>a</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="85" has_solution="true">
+      <solution>
+        <paragraph>Test: two independent sample proportions.</paragraph>
+        <paragraph>Random variable: p′1 - p′2</paragraph>
+        <paragraph>Distribution: $$H_{0}:p_{1} = p_{2}$$ $$H_{a}:p_{1} \neq p_{2}$$</paragraph>
+        <paragraph>The proportion of eReader users is different for the 16- to 29-year-old users from that of the 30 and older users.</paragraph>
+        <paragraph>Graph: two-tailed</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="87" has_solution="true">
+      <solution>
+        <paragraph>Test: two independent sample proportions</paragraph>
+        <paragraph>Random variable: p′1 − p′2</paragraph>
+        <paragraph>Distribution:</paragraph>
+        <paragraph>$$H_{0}:p_{1} = p_{2}$$ $$H_{a}:p_{1} &gt; p_{2}$$</paragraph>
+        <paragraph>A higher proportion of tablet owners are aged 16 to 29 years old than are 30 years old and older.</paragraph>
+        <paragraph>Graph: right-tailed</paragraph>
+        <paragraph>Do not reject the H0.</paragraph>
+        <paragraph>Conclusion: At the 1% level of significance, from the sample data, there is not sufficient evidence to conclude that a higher proportion of tablet owners are aged 16 to 29 years old than are 30 years old and older.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="89" has_solution="true">
+      <solution>
+        <paragraph>Subscripts: 1: men; 2: women</paragraph>
+        <list type="ordered">
+          <item>$$H_{0}:p_{1} \leq p_{2}$$</item>
+          <item>$$H_{a}:p_{1} &gt; p_{2}$$</item>
+          <item>$${P^{\prime}}_{1} - {P^{\prime}}_{2}$$ is the difference between the proportions of men and women who enjoy shopping for electronic equipment.</item>
+          <item>normal for two proportions</item>
+          <item>test statistic: 0.22</item>
+          <item>p-value: 0.4133</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot reject the null hypothesis. Reason for Decision: p-value &gt; alpha Conclusion: At the 5% significance level, there is insufficient evidence to conclude that the proportion of men who enjoy shopping for electronic equipment is more than the proportion of women.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="91" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>$$H_{0}:p_{1} = p_{2}$$</item>
+          <item>$$H_{a}:p_{1} \neq p_{2}$$</item>
+          <item>$${P^{\prime}}_{1} - {P^{\prime}}_{2}$$ is the difference between the proportions of men and women that have at least one pierced ear.</item>
+          <item>normal for two proportions</item>
+          <item>test statistic: –4.82</item>
+          <item>p-value: zero</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot accept the null hypothesis. Reason for Decision: p-value &lt; alpha Conclusion: At the 5% significance level, there is sufficient evidence to conclude that the proportions of males and females with at least one pierced ear is different.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="92" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>H0: µd = 0</item>
+          <item>Ha: µd &gt; 0</item>
+          <item>The random variable Xd is the mean difference in work times on days when eating breakfast and on days when not eating breakfast.</item>
+          <item>t9</item>
+          <item>test statistic: 4.8963</item>
+          <item>p-value: 0.0004</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot accept the null hypothesis. Reason for Decision: p-value &lt; alpha Conclusion: At the 5% level of significance, there is sufficient evidence to conclude that the mean difference in work times on days when eating breakfast and on days when not eating breakfast has increased.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="94" has_solution="true">
+      <solution>
+        <paragraph>Subscripts: 1 = boys, 2 = girls</paragraph>
+        <list type="ordered">
+          <item>$$H_{0}:\mu_{1} \leq \mu_{2}$$</item>
+          <item>$$H_{a}:\mu_{1} &gt; \mu_{2}$$</item>
+          <item>The random variable is the difference in the mean auto insurance costs for boys and girls.</item>
+          <item>normal</item>
+          <item>test statistic: z = 2.50</item>
+          <item>p-value: 0.0062</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot accept the null hypothesis. Reason for Decision: p-value &lt; alpha Conclusion: At the 5% significance level, there is sufficient evidence to conclude that the mean cost of auto insurance for teenage boys is greater than that for girls.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="96" has_solution="true">
+      <solution>
+        <paragraph>Subscripts: 1 = non-hybrid sedans, 2 = hybrid sedans</paragraph>
+        <list type="ordered">
+          <item>$$H_{0}:\mu_{1} \geq \mu_{2}$$</item>
+          <item>$$H_{a}:\mu_{1} &lt; \mu_{2}$$</item>
+          <item>The random variable is the difference in the mean miles per gallon of non-hybrid sedans and hybrid sedans.</item>
+          <item>normal</item>
+          <item>test statistic: 6.36</item>
+          <item>p-value: 0</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot accept the null hypothesis. Reason for decision: p-value &lt; alpha Conclusion: At the 5% significance level, there is sufficient evidence to conclude that the mean miles per gallon of non-hybrid sedans is less than that of hybrid sedans.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="98" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>H0: µd = 0</item>
+          <item>Ha: µd &lt; 0</item>
+          <item>The random variable Xd is the average difference between husband’s and wife’s satisfaction level.</item>
+          <item>t9</item>
+          <item>test statistic: t = –1.86</item>
+          <item>p-value: 0.0479</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Cannot accept the null hypothesis, but run another test. Reason for Decision: p-value &lt; alpha Conclusion: This is a weak test because alpha and the p-value are close. However, there is insufficient evidence to conclude that the mean difference is negative.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="99" has_solution="true">
+      <solution>
+        <paragraph>p-value = 0.1494</paragraph>
+        <paragraph>At the 5% significance level, there is insufficient evidence to conclude that the medication lowered cholesterol levels after 12 weeks.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="103" has_solution="true">
+      <solution>
+        <paragraph>Test: two matched pairs or paired samples (t-test)</paragraph>
+        <paragraph>Random variable: $${\overset{-}{X}}_{d}$$</paragraph>
+        <paragraph>Distribution: t12</paragraph>
+        <paragraph>H0: μd = 0 Ha: μd &gt; 0</paragraph>
+        <paragraph>The mean of the differences of new female breast cancer cases in the south between Year 2 and Year 1 is greater than zero. The estimate for new female breast cancer cases in the south is higher in Year 2 than in Year 1.</paragraph>
+        <paragraph>Graph: right-tailed</paragraph>
+        <paragraph>p-value: 0.0004</paragraph>
+        <paragraph>Decision: Cannot accept H0</paragraph>
+        <paragraph>Conclusion: At the 5% level of significance, from the sample data, there is sufficient evidence to conclude that there was a higher estimate of new female breast cancer cases in Year 2 than in Year 1.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="105" has_solution="true">
+      <solution>
+        <paragraph>Test: matched or paired samples (t-test)</paragraph>
+        <paragraph>Difference data: {–0.9, –3.7, –3.2, –0.5, 0.6, –1.9, –0.5, 0.2, 0.6, 0.4, 1.7, –2.4, 1.8}</paragraph>
+        <paragraph>Random Variable: $${\overset{-}{X}}_{d}$$</paragraph>
+        <paragraph>Distribution: H0: μd = 0 Ha: μd &lt; 0</paragraph>
+        <paragraph>The mean of the differences of the rate of underemployment in the northeastern states between Year 2 and Year 1 is less than zero. The underemployment rate went down from Year 1 to Year 2.</paragraph>
+        <paragraph>Graph: left-tailed.</paragraph>
+        <paragraph>Decision: Cannot reject H0.</paragraph>
+        <paragraph>Conclusion: At the 5% level of significance, from the sample data, there is not sufficient evidence to conclude that there was a decrease in the underemployment rates of the northeastern states from Year 1 to Year 2.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="107" has_solution="true">
+      <solution>
+        <paragraph>e</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="109" has_solution="true">
+      <solution>
+        <paragraph>d</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="111" has_solution="true">
+      <solution>
+        <paragraph>f</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="113" has_solution="true">
+      <solution>
+        <paragraph>e</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="115" has_solution="true">
+      <solution>
+        <paragraph>f</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="117" has_solution="true">
+      <solution>
+        <paragraph>a</paragraph>
+      </solution>
+    </exercise>
+  </exercises>
+</section>

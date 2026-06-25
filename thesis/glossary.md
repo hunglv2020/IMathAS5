@@ -1,7 +1,7 @@
 # Glossary — Thuật ngữ hệ thống
 
 _Định nghĩa chuẩn. Dùng nhất quán trong mọi skill, workflow, và thesis._
-_Last updated: 2026-06-05_
+_Last updated: 2026-06-25_
 
 ---
 
@@ -131,6 +131,7 @@ Insight toán học quan trọng nhất mà bài toán muốn student nắm đư
 
 ### Source brief / KP (Key Point)
 Trong `source_brief.xml`, mỗi `<kp>` element mô tả key idea của một exercise: underlying_skill, question_type, must_cover.
+Artifact này hiện là legacy enrichment, không còn là input trung tâm của active audit path.
 
 ### Exercise analysis
 Artifact `exercise_analysis.xml` chứa lớp phân tích sư phạm sâu đã được human validate cho từng source exercise:
@@ -148,7 +149,7 @@ Artifact `exercise_analysis.xml` chứa lớp phân tích sư phạm sâu đã �
 | `static_question.txt` | Static version câu hỏi (AsciiMath) |
 | `static_solution.txt` | Static version lời giải (AsciiMath) |
 | `blueprint.txt` | Thiết kế parameterization |
-| `source_brief.xml` | Legacy scope-contract artifact; chỉ còn là enrichment tùy chọn cho một số skills nếu file đã tồn tại |
+| `source_brief.xml` | Legacy scope-contract artifact; chỉ còn là enrichment tùy chọn cho một số non-core authoring skills nếu file đã tồn tại |
 | `exercise_analysis.xml` | Phân tích sư phạm sâu (active) |
 | `control.php` | IMathAS variable generation + answer config |
 | `question.txt` | IMathAS question template (AsciiMath) |
@@ -169,7 +170,7 @@ Syntax đặc biệt trong IMathAS để khai báo ô trả lời của student.
 Biến text trong IMathAS, dùng để hiển thị text động.
 
 ### Boundary-safe variable injection
-Quy ước chèn biến vào backticked AsciiMath bằng `{$var}` để biên token luôn rõ ràng. Dùng quy ước này trong `question.txt` và `solution.txt` trước khi cân nhắc tạo thêm display var trong `control.php`.
+Quy ước chèn biến vào backticked AsciiMath bằng `{$var}` để biên token luôn rõ ràng. Dùng quy ước này trong `question.txt` và `solution.txt`; nếu cần display var trong `control.php` ZONE 2 thì build string bằng interpolation-first (ví dụ `"sqrt(({$a}-{$b})^2)"`), không dùng manual dot-concat token assembly.
 
 ### Macro
 Hàm built-in của IMathAS. Không được đoán tên macro — luôn dùng `lookup_macro_with_goldens.py`.

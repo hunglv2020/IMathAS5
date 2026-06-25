@@ -1,543 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch02" chapter_number="2" unit_code="2.7">
-  <section number="2.7" title="Applications to Computer Graphics">
-    <metadata>
-      <source_pages count="9">
-        <page global_index="117" type="content"/>
-        <page global_index="118" type="content"/>
-        <page global_index="119" type="content"/>
-        <page global_index="120" type="content"/>
-        <page global_index="121" type="content"/>
-        <page global_index="122" type="content"/>
-        <page global_index="123" type="content"/>
-        <page global_index="124" type="exercises"/>
-        <page global_index="125" type="exercises"/>
-      </source_pages>
-    </metadata>
-    <content>
-      <heading level="1">2.7 Applications to Computer Graphics</heading>
-      <video title="Watch Video"/>
-      <paragraph>Computer graphics are images displayed or animated on a computer screen. Applications of computer graphics are widespread and growing rapidly. For instance, computer-aided design (CAD) is an integral part of many engineering processes such as the aircraft design process described in the chapter introduction. The entertainment industry has made the most spectacular use of computer graphics—from the special effects in <em>Amazing Spider-Man 2</em> to PlayStation 4 and Xbox One.</paragraph>
-      <paragraph>Most interactive computer software for business and industry makes use of computer graphics in the screen displays and for other functions, such as graphical display of data, desktop publishing, and slide production for commercial and educational presentations. Consequently, anyone studying a computer language invariably spends time learning how to use at least two-dimensional (2D) graphics.</paragraph>
-      <paragraph>This section examines some of the basic mathematics used to manipulate and display graphical images such as a wire-frame model of an airplane. Such an image (or picture) consists of a number of points, connecting lines or curves, and information about how to fill in closed regions bounded by the lines and curves. Often, curved lines are approximated by short straight-line segments, and a figure is defined mathematically by a list of points.</paragraph>
-      <paragraph>Among the simplest 2D graphics symbols are letters used for labels on the screen. Some letters are stored as wire-frame objects; others that have curved portions are stored with additional mathematical formulas for the curves.</paragraph>
-      <example number="1">
-          <heading level="2">Example 1</heading>
-              <paragraph>The capital letter <math display="inline">$N$</math> in <strong>Figure 1</strong> is determined by eight points, or <em>vertices</em>. The coordinates of the points can be stored in a data matrix, <math display="inline">$D$</math>.﻿</paragraph>
-              <paragraph><math display="block">$$\begin{array}{ll}
-       &amp; \text{Vertex:} \\
-       &amp; \begin{array}{llllllll}
-      1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8
-      \end{array} \\
-      \begin{array}{l}
-      {x\text{-coordinate}} \\
-      {y\text{-coordinate}}
-      \end{array} &amp; {\left\lbrack \begin{array}{llllllll}
-      0 &amp; .5 &amp; .5 &amp; 6 &amp; 6 &amp; 5.5 &amp; 5.5 &amp; 0 \\
-      0 &amp; 0 &amp; 6.42 &amp; 0 &amp; 8 &amp; 8 &amp; 1.58 &amp; 8
-      \end{array} \right\rbrack = D}
-      \end{array}$$</math></paragraph>
-          <figure caption="Watch Video">
-            <image alt="A figure shows a structure in the form of the alphabet N with its 8 vertices marked by numbers respectively."/>
-          </figure>
-              <paragraph>In addition to <math display="inline">$D$</math>, it is necessary to specify which vertices are connected by lines, but we omit this detail.</paragraph>
-        </example>
-      <paragraph>The main reason graphical objects are described by collections of straight-line segments is that the standard transformations in computer graphics map line segments onto other line segments. (For instance, see Exercise 35 in Section 1.8.) Once the vertices that describe an object have been transformed, their images can be connected with the appropriate straight lines to produce the complete image of the original object.</paragraph>
-      <example number="2">
-          <heading level="2">Example 2</heading>
-              <paragraph>Given <math display="inline">$A = \begin{bmatrix}
-      1 &amp; .25 \\
-      0 &amp; 1
-      \end{bmatrix}$</math>, describe the effect of the shear transformation <math display="inline">$\textbf{x}\mapsto\! A\textbf{x}$</math> on the letter <math display="inline">$N$</math> in <strong>Example 1</strong>.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>By definition of matrix multiplication, the columns of the product <math display="inline">$A D$</math> contain the images of the vertices of the letter <math display="inline">$N$</math>.</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-      {  {    \begin{array}{llllllll}
-      1 &amp; 2 &amp; { 3} &amp; {  4} &amp; 5 &amp; { 6} &amp; {   \mspace{-4mu}\mspace{-4mu}\,7} &amp; 8
-      \end{array}}} \\
-      {AD = \left\lbrack \begin{array}{llllllll}
-      0 &amp; .5 &amp; 2.105 &amp; 6 &amp; 8 &amp; 7.5 &amp; 5.895 &amp; 2 \\
-      0 &amp; 0 &amp; 6.420 &amp; 0 &amp; 8 &amp; 8 &amp; 1.580 &amp; 8
-      \end{array} \right\rbrack}
-      \end{array}$$</math></paragraph>
-              <paragraph>The transformed vertices are plotted in <strong>Figure</strong><strong>2</strong>, along with connecting line segments that correspond to those in the original figure.</paragraph>
-          <figure label="Figure 1" caption="Regular  N">
-            <image alt="A figure shows a structure in the form of the alphabet N slightly tilted towards the right with 8 vertices marked by numbers respectively."/>
-          </figure>
-        </example>
-      <paragraph>The italic <math display="inline">$N$</math> in Figure 2 looks a bit too wide. To compensate, shrink the width by a scale transformation that affects the <math display="inline">$x\text{-coordinates}$</math> of the points.</paragraph>
-      <example number="3">
-          <heading level="2">Example 3</heading>
-              <paragraph>Compute the matrix of the transformation that performs a shear transformation, as in <strong>Example 2</strong>, and then scales all <math display="inline">$x\text{-coordinates}$</math> by a factor of <math display="inline">$\text{.}75$</math>.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>The matrix that multiplies the <math display="inline">$x\text{-coordinate}$</math> of a point by <math display="inline">$\text{.}75$</math> is</paragraph>
-              <paragraph><math display="block">$$S = \begin{bmatrix}
-      .75 &amp; 0 \\
-      0 &amp; 1
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>So the matrix of the composite transformation is</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      {S\mspace{-270mu} A} &amp; {= \begin{bmatrix}
-      .75 &amp; 0 \\
-      0 &amp; 1
-      \end{bmatrix}\begin{bmatrix}
-      1 &amp; .25 \\
-      0 &amp; 1
-      \end{bmatrix}} \\
-       &amp; {= \begin{bmatrix}
-      .75 &amp; .1875 \\
-      0 &amp; 1
-      \end{bmatrix}}
-      \end{matrix}$$</math></paragraph>
-              <paragraph>The result of this composite transformation is shown in <strong>Figure</strong><strong>3</strong>.</paragraph>
-          <heading level="4">Figure 3
-              Composite transformation of  N</heading>
-          <figure label="Figure 2" caption="Slanted  N">
-            <image alt="A figure shows a structure in the form of the alphabet N slightly tilted towards the right."/>
-          </figure>
-        </example>
-      <paragraph>The mathematics of computer graphics is intimately connected with matrix multiplication. Unfortunately, translating an object on a screen does not correspond directly to matrix multiplication because translation is not a linear transformation. The standard way to avoid this difficulty is to introduce what are called <em>homogeneous coordinates</em>.</paragraph>
-      <heading level="2">Homogeneous Coordinates</heading>
-      <paragraph>Each point <math display="inline">$(x,y)$</math> in <math display="inline">$\mathbf{\mathbb{R}}^{2}$</math> can be identified with the point <math display="inline">$(x,y,1)$</math> on the plane in <math display="inline">$\mathbf{\mathbb{R}}^{3}$</math> that lies one unit above the <math display="inline">$xy$</math>-plane. We say that <math display="inline">$(x,y)$</math> has <em>homogeneous coordinates</em> <math display="inline">$(x,y,1)$</math>. For instance, the point <math display="inline">$(0,0)$</math> has homogeneous coordinates <math display="inline">$(0,0,1)$</math>. Homogeneous coordinates for points are not added or multiplied by scalars, but they can be transformed via multiplication by <math display="inline">$3 \times 3$</math> matrices.</paragraph>
-      <figure caption="Translation by  43">
-          <image alt="A graph shows the translation of a triangle depicted by three different triangles with arrows in between them."/>
-        </figure>
-      <example number="4">
-          <heading level="2">Example 4</heading>
-              <paragraph>A translation of the form <math display="inline">$(x,y)\mapsto\!(x + h,y + k)$</math> is written in homogeneous coordinates as <math display="inline">$(x,y,1)\mapsto\!(x + h,y + k,1)$</math>. This transformation can be computed via matrix multiplication:</paragraph>
-              <paragraph><math display="block">$${\begin{bmatrix}
-      1 &amp; 0 &amp; h \\
-      0 &amp; 1 &amp; k \\
-      0 &amp; 0 &amp; 1
-      \end{bmatrix}\,}\left\lbrack \begin{array}{l}
-      x \\
-      y \\
-      1
-      \end{array} \right\rbrack = \begin{bmatrix}
-      {x + h} \\
-      {y + k} \\
-      1
-      \end{bmatrix}$$</math></paragraph>
-        </example>
-      <example number="5">
-          <heading level="2">Example 5</heading>
-              <paragraph>Any linear transformation on <math display="inline">$\mathbf{\mathbb{R}}^{2}$</math> is represented with respect to homogeneous coordinates by a partitioned matrix of the form <math display="inline">$\begin{bmatrix}
-      A &amp; 0 \\
-      0 &amp; 1
-      \end{bmatrix}$</math>, where <math display="inline">$A$</math> is a <math display="inline">$2 \times 2$</math> matrix. Typical examples are</paragraph>
-          <figure>
-            <image alt="The figure consists of three 3 by 3 matrices, where each matrix has its third row and third column entered with entries 0, 0, 1."/>
-          </figure>
-        </example>
-      <heading level="2">Composite Transformations</heading>
-      <paragraph>The movement of a figure on a computer screen often requires two or more basic transformations. The composition of such transformations corresponds to matrix multiplication when homogeneous coordinates are used.</paragraph>
-      <example number="6">
-          <heading level="2">Example 6</heading>
-              <paragraph>Find the <math display="inline">$3 \times 3$</math> matrix that corresponds to the composite transformation of a scaling by <math display="inline">$\text{.}3$</math>, a rotation of <math display="inline">$90{^\circ}$</math> about the origin, and finally a translation that adds <math display="inline">$( - .5,2)$</math> to each point of a figure.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>If <math display="inline">$\varphi = \pi/2$</math>, then <math display="inline">$\sin\varphi = 1$</math> and <math display="inline">$\cos\varphi = 0$</math>. From Examples 4 and 5, we have</paragraph>
-              <paragraph><math display="block">$$\begin{array}{lll}
-      \left\lbrack \begin{array}{r}
-      x \\
-      y \\
-      1
-      \end{array} \right\rbrack &amp; \overset{\text{Scale}}{\rightarrow} &amp; {\left\lbrack \begin{array}{rrr}
-      .3 &amp; 0 &amp; 0 \\
-      0 &amp; .3 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
-      x \\
-      y \\
-      1
-      \end{array} \right\rbrack} \\
-       &amp; \overset{\text{Rotate}}{\rightarrow} &amp; {\left\lbrack \begin{array}{rrr}
-      0 &amp; {- 1} &amp; 0 \\
-      1 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{rrr}
-      .3 &amp; 0 &amp; 0 \\
-      0 &amp; .3 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
-      x \\
-      y \\
-      1
-      \end{array} \right\rbrack} \\
-       &amp; \overset{\text{Translate}}{\rightarrow} &amp; {\left\lbrack \begin{array}{rrr}
-      1 &amp; 0 &amp; {- .5} \\
-      0 &amp; 1 &amp; 2 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{rrr}
-      0 &amp; {- 1} &amp; 0 \\
-      1 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{rrr}
-      .3 &amp; 0 &amp; 0 \\
-      0 &amp; .3 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{r}
-      x \\
-      y \\
-      1
-      \end{array} \right\rbrack}
-      \end{array}$$</math></paragraph>
-              <paragraph>The matrix for the composite transformation is</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-      {\left\lbrack \begin{array}{rrr}
-      1 &amp; 0 &amp; {- .5} \\
-      0 &amp; 1 &amp; 2 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{rrr}
-      0 &amp; {- 1} &amp; 0 \\
-      1 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{rrr}
-      .3 &amp; 0 &amp; 0 \\
-      0 &amp; .3 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack} \\
-      {= \left\lbrack \begin{array}{rrr}
-      0 &amp; {- 1} &amp; {- .5} \\
-      1 &amp; 0 &amp; 2 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{rrr}
-      .3 &amp; 0 &amp; 0 \\
-      0 &amp; .3 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{rrr}
-      0 &amp; {- .3} &amp; {- .5} \\
-      .3 &amp; 0 &amp; 2 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack}
-      \end{array}$$</math></paragraph>
-          <figure>
-            <image alt="The figure consists of four parts that illustrate successive geometric transformations on a triangle: scaling down, rotating, and translating, showing alterations in size, orientation, and position."/>
-          </figure>
-        </example>
-      <heading level="2">3D Computer Graphics</heading>
-      <paragraph>Some of the newest and most exciting work in computer graphics is connected with molecular modeling. With 3D (three-dimensional) graphics, a biologist can examine a simulated protein molecule and search for active sites that might accept a drug molecule. The biologist can rotate and translate an experimental drug and attempt to attach it to the protein. This ability to <em>visualize</em> potential chemical reactions is vital to modern drug and cancer research. In fact, advances in drug design depend to some extent upon progress in the ability of computer graphics to construct realistic simulations of molecules and their interactions.1<sup/></paragraph>
-      <paragraph>Current research in molecular modeling is focused on <em>virtual reality</em>, an environment in which a researcher can see and <em>feel</em> the drug molecule slide into the protein. In <strong>Figure</strong><strong>4</strong>, such tactile feedback is provided by a force-displaying remote manipulator.</paragraph>
-      <figure label="Figure 4" caption="Molecular modeling in virtual reality">
-          <image alt="A photo shows a lab technician peeking through a microscope with unknown chemicals contained in nearby beakers along with a monitor displaying a molecular structure."/>
-        </figure>
-      <paragraph>Another design for virtual reality involves a helmet and glove that detect head, hand, and finger movements. The helmet contains two tiny computer screens, one for each eye. Making this virtual environment more realistic is a challenge to engineers, scientists, and mathematicians. The mathematics we examine here barely opens the door to this interesting field of research.</paragraph>
-      <heading level="2">Homogeneous 3D Coordinates</heading>
-      <paragraph>By analogy with the 2D case, we say that <math display="inline">$(x,y,z,1)$</math> are homogeneous coordinates for the point <math display="inline">$(x,y,z)$</math> in <math display="inline">$\mathbf{\mathbb{R}}^{3}$</math>. In general, <math display="inline">$(X,Y,Z,H)$</math> are homogeneous coordinates for <math display="inline">$(x,y,z)$</math> if <math display="inline">$H \neq 0$</math> and</paragraph>
-      <paragraph>(1)﻿</paragraph>
-      <paragraph>
-        <math display="block">$$x = \frac{X}{H}, y = \frac{Y}{H}, {and} z = \frac{Z}{H}$$</math>
-      </paragraph>
-      <paragraph>Each nonzero scalar multiple of <math display="inline">$(x,y,z,1)$</math> gives a set of homogeneous coordinates for <math display="inline">$(x,y,z)$</math>. For instance, both <math display="inline">$(10, - 6,14,2)$</math> and <math display="inline">$( - 15,9, - 21, - 3)$</math> are homogeneous coordinates for <math display="inline">$(5, - 3,7)$</math>.﻿</paragraph>
-      <paragraph>The next example illustrates the transformations used in molecular modeling to move a drug into a protein molecule.</paragraph>
-      <example number="7">
-          <heading level="2">Example 7</heading>
-              <paragraph>Give <math display="inline">$4 \times 4$</math> matrices for the following transformations:</paragraph>
-          <list ordered="true">
-                  <item>Rotation about the y-axis through an angle of 30° (By convention, a positive angle is the counterclockwise direction when looking toward the origin from the positive half of the axis of rotation—in this case, the y-axis.)</item>
-                  <item>Translation by the vector p=(−6,4,5).﻿</item>
-          </list>
-          <heading level="3">Solution</heading>
-          <list ordered="true">
-                  <item>First, construct the 3×3 matrix for the rotation. The vector e1 rotates down toward the negative z-axis, stopping at (cos 30°,0,−sin 30°)=(3/2,0,−.5). The vector e2 on the y-axis does not move, but e3 on the z-axis rotates down toward the positive x-axis, stopping at (sin 30°,0,cos 30°)=(.5,0,3/2). See Figure 5. From Section 1.9, the standard matrix for this rotation is [ 3 / 2 0 .5 0 1 0 − .5 0 3 / 2 ] So the rotation matrix for homogeneous coordinates isA= [3/20.500100−.503/200001]</item>
-          </list>
-          <figure caption="Figure 5">
-            <image alt="A figure shows a ring resting on an x z-plane in a three-dimensional axis."/>
-          </figure>
-          <list ordered="true">
-                  <item>We want (x,y,z,1) to map to (x−6,y+4,z+5,1). The matrix that does this is 1 0 0 − 6 0 1 0 4 0 0 1 5 0 0 0 1</item>
-          </list>
-        </example>
-      <heading level="2">Perspective Projections</heading>
-      <paragraph>A three-dimensional object is represented on the two-dimensional computer screen by projecting the object onto a <em>viewing plane</em>. (We ignore other important steps, such as selecting the portion of the viewing plane to display on the screen.) For simplicity, let the <math display="inline">$xy\text{-plane}$</math> represent the computer screen, and imagine that the eye of a viewer is along the positive <math display="inline">$z\text{-axis}$</math>, at a point <math display="inline">$(0,0,d)$</math>. A <em>perspective projection</em> maps each point <math display="inline">$(x,\,y,\,z)$</math> onto an image point <math display="inline">$(x^{\ast},\,y^{\ast},\,0)$</math> so that the two points and the eye position, called the <em>center of projection</em>, are on a line. See <strong>Figure 6(a)</strong>.</paragraph>
-      <figure label="Figure 6" caption="Perspective projection of  (x,y,z) onto   (x∗,y∗,0)">
-          <image alt="A figure shows a rectangle resting on an x y-plane with its vertices projecting towards a point on the z axis. Another figure shows a right-angled triangle with dimensions."/>
-        </figure>
-      <paragraph>The triangle in the <math display="inline">$xz\text{-plane}$</math> in Figure 6(a) is redrawn in part (b) showing the lengths of line segments. Similar triangles show that</paragraph>
-      <paragraph>
-        <math display="block">$$\frac{x^{\ast}}{d} = \frac{x}{d - z}\quad\text{and}\quad x^{\ast} = \frac{dx}{d - z} = \frac{x}{1 - z/d}$$</math>
-      </paragraph>
-      <paragraph>Similarly,</paragraph>
-      <paragraph>
-        <math display="block">$$y^{\ast} = \frac{y}{1 - z/d}$$</math>
-      </paragraph>
-      <paragraph>Using homogeneous coordinates, we can represent the perspective projection by a matrix, say, <math display="inline">$P$</math>. We want <math display="inline">$(x,y,z,1)$</math> to map into <math display="inline">$\left( {\frac{x}{1 - z/d},\frac{y}{1 - z/d},0,1} \right)$</math>. Scaling these coordinates by <math display="inline">$1 - z/d\text{,}$</math> we can also use <math display="inline">$(x,y,0,1 - z/d)$</math> as homogeneous coordinates for the image. Now it is easy to display <math display="inline">$P$</math>. In fact,</paragraph>
-      <paragraph>
-        <math display="block">$$P\left\lbrack \begin{array}{r}
-      x \\
-      y \\
-      z \\
-      1
-      \end{array} \right\rbrack = \begin{bmatrix}
-      1 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {- 1\text{/}d} &amp; 1
-      \end{bmatrix}\begin{bmatrix}
-      x \\
-      y \\
-      z \\
-      1
-      \end{bmatrix} = \begin{bmatrix}
-      x \\
-      y \\
-      0 \\
-      {1 - z\text{/}d}
-      \end{bmatrix}$$</math>
-      </paragraph>
-      <example number="8">
-          <heading level="2">Example 8</heading>
-              <paragraph>Let <math display="inline">$S$</math> be the box with vertices <math display="inline">$(3,1,5)\text{,}$</math> <math display="inline">$(5,1,5)\text{,}$</math> <math display="inline">$(5,0,5)\text{,}$</math> <math display="inline">$(3,0,5)\text{,}$</math> <math display="inline">$(3,1,4)\text{,}$</math> <math display="inline">$(5,1,4)\text{,}$</math> <math display="inline">$(5,0,4)\text{,}$</math> and <math display="inline">$(3,0,4)$</math>. Find the image of <math display="inline">$S$</math> under the perspective projection with center of projection at <math display="inline">$(0,0,10)$</math>.﻿</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>Let <math display="inline">$P$</math> be the projection matrix, and let <math display="inline">$D$</math> be the data matrix for <math display="inline">$S$</math> using homogeneous coordinates. The data matrix for the image of <math display="inline">$S$</math> is</paragraph>
-              <paragraph><math display="block">$$\begin{array}{lll}
-      {PD} &amp; = &amp; \begin{array}{ll}
-       &amp; \begin{array}{l}
-      \text{Vertex:} \\
-      \begin{array}{llllllll}
-      1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8
-      \end{array}
-      \end{array} \\
-      \left\lbrack \begin{array}{llll}
-      1 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {- 1\text{/10}} &amp; 1
-      \end{array} \right\rbrack &amp; \left\lbrack \begin{array}{llllllll}
-      3 &amp; 5 &amp; 5 &amp; 3 &amp; 3 &amp; 5 &amp; 5 &amp; 3 \\
-      1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
-      5 &amp; 5 &amp; 5 &amp; 5 &amp; 4 &amp; 4 &amp; 4 &amp; 4 \\
-      1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1
-      \end{array} \right\rbrack
-      \end{array} \\
-       &amp; = &amp; \left\lbrack \begin{array}{rrrrrrrr}
-      3 &amp; 5 &amp; 5 &amp; 3 &amp; 3 &amp; 5 &amp; 5 &amp; 3 \\
-      1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      .5 &amp; .5 &amp; .5 &amp; .5 &amp; .6 &amp; .6 &amp; .6 &amp; .6
-      \end{array} \right\rbrack \\
-       &amp; &amp; 
-      \end{array}$$</math></paragraph>
-              <paragraph>To obtain <math display="inline">$\mathbf{\mathbb{R}}^{3}$</math> coordinates, use equation (1) before Example 7, and divide the top three entries in each column by the corresponding entry in the fourth row:</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      \text{Vertex:} \\
-      \begin{matrix}
-      \begin{matrix}
-       &amp; 1 &amp; 2 &amp; &amp; 3
-      \end{matrix} &amp; 4 &amp; 5 &amp; &amp; 6 &amp; &amp; 7 &amp; 8
-      \end{matrix} \\
-      \begin{bmatrix}
-      6 &amp; 10 &amp; 10 &amp; 6 &amp; 5 &amp; 8.3 &amp; 8.3 &amp; 5 \\
-      2 &amp; 2 &amp; 0 &amp; 0 &amp; 1.7 &amp; 1.7 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
-      \end{bmatrix}
-      \end{matrix}$$</math></paragraph>
-          <figure>
-            <image alt="A figure shows projecting a rectangle."/>
-          </figure>
-        </example>
-      <paragraph>This text’s web site has some interesting applications of computer graphics, including a further discussion of perspective projections. One of the chapter projects involves simple animation.</paragraph>
-      <note type="caution" title="Numerical Note">
-          <heading level="2">Numerical Note</heading>
-              <paragraph>Continuous movement of graphical <math display="inline">$3\text{D}$</math> objects requires intensive computation with <math display="inline">$4 \times 4$</math> matrices, particularly when the surfaces are <em>rendered</em> to appear realistic, with texture and appropriate lighting. <em>High-end computer graphics boards</em> have <math display="inline">$4 \times 4$</math> matrix operations and graphics algorithms embedded in their microchips and circuitry. Such boards can perform the billions of matrix multiplications per second needed for realistic color animation in <math display="inline">$3D$</math> gaming programs.2<sup/></paragraph>
-        </note>
-      <heading level="2">Further Reading</heading>
-      <paragraph>James D. Foley, Andries van Dam, Steven K. Feiner, and John F. Hughes, <em>Computer Graphics: Principles and Practice</em>, 3rd ed. (Boston, MA: Addison-Wesley, 2002), Chapters 5 and 6.</paragraph>
-      <note type="practice" title="Practice Problem">
-          <heading level="2">Practice Problem</heading>
-              <paragraph>Rotation of a figure about a point <math display="inline">$\textbf{p}$</math> in <math display="inline">$\mathbf{\mathbb{R}}^{2}$</math> is accomplished by first translating the figure by <math display="inline">$- \textbf{p}\text{,}$</math> rotating about the origin, and then translating back by <math display="inline">$\mathbf{p}$</math>. See <strong>Figure 7</strong>. Construct the <math display="inline">$3 \times 3$</math> matrix that rotates points <math display="inline">$- 30{^\circ}$</math> about the point <math display="inline">$( - 2,6)\text{,}$</math> using homogeneous coordinates.</paragraph>
-          <figure label="Figure 7" caption="Rotation of figure about point  p">
-            <image alt="The figure consists of four parts that illustrate the process of translating and rotating a snowflake figure in a coordinate plane."/>
-          </figure>
-        </note>
-      <paragraph><sup>1</sup> Robert Pool, “Computing in Science,” <em>Science</em> <math display="inline">$256$</math>, 3 April 1992, p. 45.</paragraph>
-      <paragraph><sup>2</sup> See Jan Ozer, “High-Performance Graphics Boards,” <em>PC Magazine</em> <math display="inline">$19$</math>, September 1, 2000, pp. 187–200. Also, “The Ultimate Upgrade Guide: Moving On Up,” <em>PC Magazine</em> <math display="inline">$21$</math>, January 29, 2002, pp. 82–91.</paragraph>
-    </content>
-    <exercises title="2.7 Exercises">
-      <heading level="1">2.7 Exercises</heading>
-      <exercise_group start="1">
-            <problem number="1">
-              <statement>
-                          <paragraph>What <math display="inline">$3 \times 3$</math> matrix will have the same effect on homogeneous coordinates for <math display="inline">$\mathbf{\mathbb{R}}^{2}$</math> that the shear matrix <math display="inline">$A$</math> has in Example 2?</paragraph>
-              </statement>
-            </problem>
-            <problem number="2">
-              <statement>
-                          <paragraph>Use matrix multiplication to find the image of the triangle with data matrix <math display="inline">$D = \begin{bmatrix}
-      5 &amp; 2 &amp; 4 \\
-      0 &amp; 2 &amp; 3
-      \end{bmatrix}$</math> under the transformation that reflects points through the <math display="inline">$y\text{-axis}$</math>. Sketch both the original triangle and its image.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="3">
-                  <instructions>In Exercises 3–8, find the <math display="inline">$3 \times 3$</math> matrices that produce the described composite <math display="inline">$2D$</math> transformations, using homogeneous coordinates.</instructions>
-            <problem number="3">
-              <statement>
-                          <paragraph>Translate by <math display="inline">$(3,1)$</math>, and then rotate <math display="inline">$45{^\circ}$</math> about the origin.</paragraph>
-              </statement>
-            </problem>
-            <problem number="4">
-              <statement>
-                          <paragraph>Translate by <math display="inline">$( - 2,3),$</math> and then scale the <math display="inline">$x\text{-coordinated}$</math> by <math display="inline">$\text{.}8$</math> and the <math display="inline">$y\text{-coordinated}$</math> by <math display="inline">$1.2$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="5">
-              <statement>
-                          <paragraph>Reflect points through the <math display="inline">$x\text{-axis}$</math>, and then rotate <math display="inline">$30{^\circ}$</math> about the origin.</paragraph>
-              </statement>
-            </problem>
-            <problem number="6">
-              <statement>
-                          <paragraph>Rotate points <math display="inline">$30{^\circ}\text{,}$</math> and then reflect through the <math display="inline">$x\text{-axis}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="7">
-              <statement>
-                          <paragraph>Rotate points through <math display="inline">$60{^\circ}$</math> about the point <math display="inline">$(6,8)$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="8">
-              <statement>
-                          <paragraph>Rotate points through <math display="inline">$45{^\circ}$</math> about the point <math display="inline">$(3,7)$</math>.</paragraph>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a picture of a lamb standing on a grass field in three different orientations. The first picture shows the front view. The second picture shows the vertically rotated view. The third picture shows the lateral front view rotation."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows a ring resting on the y-z plane of a three-dimensional axis."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="9">
-            <problem number="9">
-              <statement>
-                          <paragraph>A <math display="inline">$2 \times 200$</math> data matrix <math display="inline">$D$</math> contains the coordinates of <math display="inline">$200$</math> points. Compute the number of multiplications required to transform these points using two arbitrary <math display="inline">$2 \times 2$</math> matrices <math display="inline">$A$</math> and <math display="inline">$B$</math>. Consider the two possibilities <math display="inline">$A(BD)$</math> and <math display="inline">$(AB)$</math> <math display="inline">$D$</math>. Discuss the implications of your results for computer graphics calculations.</paragraph>
-              </statement>
-            </problem>
-            <problem number="10">
-              <statement>
-                          <paragraph>Consider the following geometric <math display="inline">$2D$</math> transformations: <math display="inline">$D$</math>, a dilation (in which <math display="inline">$x\text{-coordinates}$</math> and <math display="inline">$y\text{-coordinates}$</math> are scaled by the same factor); <math display="inline">$R$</math>, a rotation; and <math display="inline">$T$</math>, a translation. Does <math display="inline">$D$</math><em>commute</em> with <math display="inline">$R$</math>? That is, is <math display="inline">$D\,\left( {R\left( \textbf{x} \right)} \right)\, = R\,\left( {D\left( \textbf{x} \right)} \right)$</math> for all <math display="inline">$\mathbf{x}$</math> in <math display="inline">$\mathbf{\mathbb{R}}^{2}$</math>? Does <math display="inline">$D$</math> commute with <math display="inline">$T$</math>? Does <math display="inline">$R$</math> commute with <math display="inline">$T$</math>?</paragraph>
-              </statement>
-            </problem>
-            <problem number="11">
-              <statement>
-                          <paragraph>A rotation on a computer screen is sometimes implemented as the product of two shear-and-scale transformations, which can speed up calculations that determine how a graphic image actually appears in terms of screen pixels. (The screen consists of rows and columns of small dots, called <em>pixels</em>.) The first transformation <math display="inline">$A_{1}$</math> shears vertically and then compresses each column of pixels; the second transformation <math display="inline">$A_{2}$</math> shears horizontally and then stretches each row of pixels. Let</paragraph>
-                <list ordered="false">
-                              <item>A1=[100sin φcos φ0001],</item>
-                              <item>A2=[sec φ−tan φ0010001]</item>
-                              <item>﻿Show that the composition of the two transformations is a rotation in ℝ2.﻿</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a picture of a lamb standing on a grass field in three different orientations. The first picture shows the front view. The second picture shows the vertically rotated view. The third picture shows the lateral front view rotation."/>
-            </figure>
-            <problem number="12">
-              <statement>
-                          <paragraph>A rotation in <math display="inline">$\mathbf{\mathbb{R}}^{2}$</math> usually requires four multiplications. Compute the product below, and show that the matrix for a rotation can be factored into three shear transformations (each of which requires only one multiplication).<math display="block">$$\begin{matrix}
-      {\begin{bmatrix}
-      1 &amp; {- \text{tan\,}\varphi/2} &amp; 0 \\
-      0 &amp; 1 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{bmatrix}\begin{bmatrix}
-      1 &amp; 0 &amp; 0 \\
-      {\text{sin\,}\varphi} &amp; 1 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{bmatrix}} \\
-      \begin{bmatrix}
-      1 &amp; {- \text{tan\,}\varphi/2} &amp; 0 \\
-      0 &amp; 1 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{bmatrix}
-      \end{matrix}$$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="13">
-              <statement>
-                          <paragraph>The usual transformations on homogeneous coordinates for <math display="inline">$2D$</math> computer graphics involve <math display="inline">$3 \times 3$</math> matrices of the form <math display="inline">$\begin{bmatrix}
-      A &amp; \mathbf{p} \\
-      \mathbf{0}^{T} &amp; 1
-      \end{bmatrix}$</math> where <math display="inline">$A$</math> is a <math display="inline">$2 \times 2$</math> matrix and <math display="inline">$\mathbf{p}$</math> is in <math display="inline">$\mathbf{\mathbb{R}}^{2}$</math>. Show that such a transformation amounts to a linear transformation on <math display="inline">$\mathbf{\mathbb{R}}^{2}$</math> followed by a translation. [<em>Hint:</em>Find an appropriate matrix factorization involving partitioned matrices.]</paragraph>
-              </statement>
-            </problem>
-            <problem number="14">
-              <statement>
-                          <paragraph>Show that the transformation in Exercise 7 is equivalent to a rotation about the origin followed by a translation by <math display="inline">$\mathbf{p}$</math>. Find <math display="inline">$\mathbf{p}$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="15">
-              <statement>
-                          <paragraph>What vector in <math display="inline">$\mathbf{\mathbb{R}}^{3}$</math> has homogeneous coordinates <math display="inline">$\left( {\frac{1}{2}, - \frac{1}{4},\frac{1}{8},\frac{1}{24}} \right)?$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="16">
-              <statement>
-                          <paragraph>Are <math display="inline">$(1, - 2,3,4)$</math> and <math display="inline">$(10, - 20,30,40)$</math> homogeneous coordinates for the same point in <math display="inline">$\mathbf{\mathbb{R}}^{3}$</math>? Why or why not?</paragraph>
-              </statement>
-            </problem>
-            <problem number="17">
-              <statement>
-                          <paragraph>Give the <math display="inline">$4 \times 4$</math> matrix that rotates points in <math display="inline">$\mathbf{\mathbb{R}}^{3}$</math> about the <math display="inline">$x\text{-axis}$</math> through an angle of <math display="inline">$60{^\circ}$</math> (See the figure.)</paragraph>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a ring resting on the y-z plane of a three-dimensional axis."/>
-            </figure>
-            <problem number="18">
-              <statement>
-                          <paragraph>Give the <math display="inline">$4 \times 4$</math> matrix that rotates points in <math display="inline">$\mathbf{\mathbb{R}}^{3}$</math> about the <math display="inline">$z\text{-axis}$</math> through an angle of <math display="inline">$- 30{^\circ}$</math>, and then translates by <math display="inline">$\textbf{p} = (5, - 2,1)$</math>.﻿</paragraph>
-              </statement>
-            </problem>
-            <problem number="19">
-              <statement>
-                          <paragraph>Let <math display="inline">$S$</math> be the triangle with vertices <math display="inline">$(4.2,1.2,4),(6,4,2),$</math> <math display="inline">$(2,2,6)\text{.}$</math> Find the image of <math display="inline">$S$</math> under the perspective projection with center of projection at <math display="inline">$(0,0,10)\text{.}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="20">
-              <statement>
-                          <paragraph>Let <math display="inline">$S$</math> be the triangle with vertices <math display="inline">$(9,3, - 5),(12,8,2),(1.8,2.7,1)\text{.}$</math> Find the image of <math display="inline">$S$</math> under the perspective projection with center of projection at <math display="inline">$(0,0,10)$</math>.﻿</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="21">
-                  <instructions>Exercises 21 and 22 concern the way in which color is specified for display in computer graphics. A color on a computer screen is encoded by three numbers <math display="inline">$\left( {R,G,B} \right)$</math> that list the amount of energy an electron gun must transmit to red, green, and blue phosphor dots on the computer screen. (A fourth number specifies the luminance or intensity of the color.)</instructions>
-            <problem number="21">
-              <statement>
-                          <paragraph><strong>[T]</strong> The actual color a viewer sees on a screen is influenced by the specific type and amount of phosphors on the screen. So each computer screen manufacturer must convert between the <math display="inline">$\left( {R,G,B} \right)$</math> data and an international CIE standard for color, which uses three primary colors, called <math display="inline">$X$</math>, <math display="inline">$Y$</math>, and <math display="inline">$Z$</math>. A typical conversion for short-persistence phosphors is<math display="block">$$\begin{bmatrix}
-      .61 &amp; .29 &amp; .150 \\
-      .35 &amp; .59 &amp; .063 \\
-      .04 &amp; .12 &amp; .787
-      \end{bmatrix}\begin{bmatrix}
-      R \\
-      G \\
-      B
-      \end{bmatrix}\, = \,\,\begin{bmatrix}
-      X \\
-      Y \\
-      Z
-      \end{bmatrix}$$</math></paragraph>
-                          <paragraph>A computer program will send a stream of color information to the screen, using standard CIE data <math display="inline">$(X,Y,Z)$</math>. Find the equation that converts these data to the <math display="inline">$\left( {R,G,B} \right)$</math> data needed for the screen’s electron gun.</paragraph>
-              </statement>
-            </problem>
-            <problem number="22">
-              <statement>
-                          <paragraph><strong>[T]</strong> The signal broadcast by commercial television describes each color by a vector <math display="inline">$\left( {Y,I,Q} \right)$</math>. If the screen is black and white, only the <math display="inline">$Y\text{-coordinate}$</math> is used. (This gives a better monochrome picture than using CIE data for colors.) The correspondence between <math display="inline">$YIQ$</math> and a “standard” <em>RGB</em> color is given by <math display="block">$$\begin{bmatrix}
-      Y \\
-      I \\
-      Q
-      \end{bmatrix}\, = \,\,\begin{bmatrix}
-      .299 &amp; {\,\,\,.587} &amp; .114 \\
-      .596 &amp; {- .275} &amp; {\mspace{-4mu}\mspace{-4mu}\mspace{-4mu} - .321} \\
-      .212 &amp; {- .528} &amp; {\,.311}
-      \end{bmatrix}\begin{bmatrix}
-      R \\
-      G \\
-      B
-      \end{bmatrix}$$</math></paragraph>
-                          <paragraph>(A screen manufacturer would change the matrix entries to work for its <math display="inline">$RGB$</math> screens.) Find the equation that converts the <math display="inline">$YIQ$</math> data transmitted by the television station to the <math display="inline">$RGB$</math> data needed for the television screen.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-    </exercises>
-  </section>
-</section_file>
+<section>
+  <heading level="1">2.7 Applications to Computer Graphics</heading>
+  <paragraph>Computer graphics are images displayed or animated on a computer screen. Applications of computer graphics are widespread and growing rapidly. For instance, computer-aided design (CAD) is an integral part of many engineering processes such as the aircraft design process described in the chapter introduction. The entertainment industry has made the most spectacular use of computer graphics—from the special effects in Amazing Spider-Man 2 to PlayStation 4 and Xbox One.</paragraph>
+  <paragraph>Most interactive computer software for business and industry makes use of computer graphics in the screen displays and for other functions, such as graphical display of data, desktop publishing, and slide production for commercial and educational presentations. Consequently, anyone studying a computer language invariably spends time learning how to use at least two-dimensional (2D) graphics.</paragraph>
+  <paragraph>This section examines some of the basic mathematics used to manipulate and display graphical images such as a wire-frame model of an airplane. Such an image (or picture) consists of a number of points, connecting lines or curves, and information about how to fill in closed regions bounded by the lines and curves. Often, curved lines are approximated by short straight-line segments, and a figure is defined mathematically by a list of points.</paragraph>
+  <paragraph>Among the simplest 2D graphics symbols are letters used for labels on the screen. Some letters are stored as wire-frame objects; others that have curved portions are stored with additional mathematical formulas for the curves.</paragraph>
+  <example number="1">
+    <heading level="2">Example 1</heading>
+    <paragraph>The capital letter $$N$$ in Figure 1 is determined by eight points, or vertices. The coordinates of the points can be stored in a data matrix, $$D$$ .﻿</paragraph>
+    <paragraph>$$&amp; \text{Vertex} : &amp; \begin{matrix}1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8\end{matrix} \begin{matrix}x - \text{coordinate} \\ y - \text{coordinate} \end{matrix} &amp; \left[\right. \begin{matrix}0 &amp; .5 &amp; .5 &amp; 6 &amp; 6 &amp; 5.5 &amp; 5.5 &amp; 0 \\ 0 &amp; 0 &amp; 6.42 &amp; 0 &amp; 8 &amp; 8 &amp; 1.58 &amp; 8\end{matrix} \left]\right. = D$$</paragraph>
+    <figure>
+      <image alt="A figure shows a structure in the form of the alphabet N with its 8 vertices marked by numbers respectively."/>
+      <caption>Watch Video</caption>
+    </figure>
+    <paragraph>In addition to $$D$$ , it is necessary to specify which vertices are connected by lines, but we omit this detail.</paragraph>
+  </example>
+  <paragraph>The main reason graphical objects are described by collections of straight-line segments is that the standard transformations in computer graphics map line segments onto other line segments. (For instance, see Exercise 35 in Section 1.8.) Once the vertices that describe an object have been transformed, their images can be connected with the appropriate straight lines to produce the complete image of the original object.</paragraph>
+  <example number="2">
+    <heading level="2">Example 2</heading>
+    <paragraph>Given $$A = \begin{bmatrix} 1 &amp; .25 \\ 0 &amp; 1 \end{bmatrix}$$ , describe the effect of the shear transformation $$\textbf{x}\mapsto A\textbf{x}$$ on the letter $$N$$ in Example 1.</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>By definition of matrix multiplication, the columns of the product $$A D$$ contain the images of the vertices of the letter $$N$$ .</paragraph>
+    <paragraph>$$\begin{matrix}1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8\end{matrix} A D = \left[\right. \begin{matrix}0 &amp; .5 &amp; 2.105 &amp; 6 &amp; 8 &amp; 7.5 &amp; 5.895 &amp; 2 \\ 0 &amp; 0 &amp; 6.420 &amp; 0 &amp; 8 &amp; 8 &amp; 1.580 &amp; 8\end{matrix} \left]\right.$$</paragraph>
+    <paragraph>The transformed vertices are plotted in Figure 2, along with connecting line segments that correspond to those in the original figure.</paragraph>
+    <figure>
+      <image alt="A figure shows a structure in the form of the alphabet N slightly tilted towards the right with 8 vertices marked by numbers respectively."/>
+      <caption>Figure 1 Regular N</caption>
+    </figure>
+  </example>
+  <paragraph>The italic $$N$$ in Figure 2 looks a bit too wide. To compensate, shrink the width by a scale transformation that affects the $$x \text{-coordinates}$$ of the points.</paragraph>
+  <example number="3">
+    <heading level="2">Example 3</heading>
+    <paragraph>Compute the matrix of the transformation that performs a shear transformation, as in Example 2, and then scales all $$x \text{-coordinates}$$ by a factor of $$.75$$ .</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>The matrix that multiplies the $$x \text{-coordinate}$$ of a point by $$.75$$ is</paragraph>
+    <paragraph>$$S = \begin{bmatrix} .75 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}$$</paragraph>
+    <paragraph>So the matrix of the composite transformation is</paragraph>
+    <paragraph>$$S A &amp; = \begin{bmatrix} \begin{matrix}.75 &amp; 0 \\ 0 &amp; 1\end{matrix} \end{bmatrix} \begin{bmatrix} \begin{matrix}1 &amp; .25 \\ 0 &amp; 1\end{matrix} \end{bmatrix} &amp; = \begin{bmatrix} \begin{matrix}.75 &amp; .1875 \\ 0 &amp; 1\end{matrix} \end{bmatrix}$$</paragraph>
+    <paragraph>The result of this composite transformation is shown in Figure 3.</paragraph>
+    <heading level="4">Figure 3</heading>
+    <paragraph>Composite transformation of $$N$$</paragraph>
+    <figure>
+      <image alt="A figure shows a structure in the form of the alphabet N slightly tilted towards the right."/>
+      <caption>Figure 2 Slanted N</caption>
+    </figure>
+  </example>
+  <paragraph>The mathematics of computer graphics is intimately connected with matrix multiplication. Unfortunately, translating an object on a screen does not correspond directly to matrix multiplication because translation is not a linear transformation. The standard way to avoid this difficulty is to introduce what are called homogeneous coordinates.</paragraph>
+  <heading level="2">Homogeneous Coordinates</heading>
+  <paragraph>Each point $$(x,y)$$ in $$\mathbf{\mathbb{R}}^{2}$$ can be identified with the point $$(x,y,1)$$ on the plane in $$\mathbf{\mathbb{R}}^{3}$$ that lies one unit above the $$xy$$ -plane. We say that $$(x,y)$$ has homogeneous coordinates $$(x,y,1)$$ . For instance, the point $$(0,0)$$ has homogeneous coordinates $$(0,0,1)$$ . Homogeneous coordinates for points are not added or multiplied by scalars, but they can be transformed via multiplication by $$3 \times 3$$ matrices.</paragraph>
+  <figure>
+    <image alt="A graph shows the translation of a triangle depicted by three different triangles with arrows in between them."/>
+    <caption>Translation by 43</caption>
+  </figure>
+  <example number="4">
+    <heading level="2">Example 4</heading>
+    <paragraph>A translation of the form $$(x,y)\mapsto(x + h,y + k)$$ is written in homogeneous coordinates as $$(x,y,1)\mapsto(x + h,y + k,1)$$ . This transformation can be computed via matrix multiplication:</paragraph>
+    <paragraph>$$\left[\right. 1 &amp; 0 &amp; h 0 &amp; 1 &amp; k 0 &amp; 0 &amp; 1 \left]\right. \left[\right. x y 1 \left]\right. = \left[\right. x + h y + k 1 \left]\right.$$</paragraph>
+  </example>
+  <example number="5">
+    <heading level="2">Example 5</heading>
+    <paragraph>Any linear transformation on $$\mathbf{\mathbb{R}}^{2}$$ is represented with respect to homogeneous coordinates by a partitioned matrix of the form $$\begin{bmatrix} A &amp; 0 \\ 0 &amp; 1 \end{bmatrix}$$ , where $$A$$ is a $$2 \times 2$$ matrix. Typical examples are</paragraph>
+    <figure>
+      <image alt="The figure consists of three 3 by 3 matrices, where each matrix has its third row and third column entered with entries 0, 0, 1."/>
+    </figure>
+  </example>
+  <heading level="2">Composite Transformations</heading>
+  <paragraph>The movement of a figure on a computer screen often requires two or more basic transformations. The composition of such transformations corresponds to matrix multiplication when homogeneous coordinates are used.</paragraph>
+  <example number="6">
+    <heading level="2">Example 6</heading>
+    <paragraph>Find the $$3 \times 3$$ matrix that corresponds to the composite transformation of a scaling by $$.3$$ , a rotation of $$90{^\circ}$$ about the origin, and finally a translation that adds $$( - .5,2)$$ to each point of a figure.</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>If $$\varphi = \pi/2$$ , then $$\sin\varphi = 1$$ and $$\cos\varphi = 0$$ . From Examples 4 and 5, we have</paragraph>
+    <paragraph>$$\left[\right. \begin{matrix}x \\ y \\ 1\end{matrix} \left]\right. &amp; \overset{ \text{Scale} }{\rightarrow} &amp; \left[\right. \begin{matrix}.3 &amp; 0 &amp; 0 \\ 0 &amp; .3 &amp; 0 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. \left[\right. \begin{matrix}x \\ y \\ 1\end{matrix} \left]\right. &amp; \overset{ \text{Rotate} }{\rightarrow} &amp; \left[\right. \begin{matrix}0 &amp; - 1 &amp; 0 \\ 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. \left[\right. \begin{matrix}.3 &amp; 0 &amp; 0 \\ 0 &amp; .3 &amp; 0 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. \left[\right. \begin{matrix}x \\ y \\ 1\end{matrix} \left]\right. &amp; \overset{ \text{Translate} }{\rightarrow} &amp; \left[\right. \begin{matrix}1 &amp; 0 &amp; - .5 \\ 0 &amp; 1 &amp; 2 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. \left[\right. \begin{matrix}0 &amp; - 1 &amp; 0 \\ 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. \left[\right. \begin{matrix}.3 &amp; 0 &amp; 0 \\ 0 &amp; .3 &amp; 0 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. \left[\right. \begin{matrix}x \\ y \\ 1\end{matrix} \left]\right.$$</paragraph>
+    <paragraph>The matrix for the composite transformation is</paragraph>
+    <paragraph>$$\left[\right. \begin{matrix}1 &amp; 0 &amp; - .5 \\ 0 &amp; 1 &amp; 2 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. \left[\right. \begin{matrix}0 &amp; - 1 &amp; 0 \\ 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. \left[\right. \begin{matrix}.3 &amp; 0 &amp; 0 \\ 0 &amp; .3 &amp; 0 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. = \left[\right. \begin{matrix}0 &amp; - 1 &amp; - .5 \\ 1 &amp; 0 &amp; 2 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. \left[\right. \begin{matrix}.3 &amp; 0 &amp; 0 \\ 0 &amp; .3 &amp; 0 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right. = \left[\right. \begin{matrix}0 &amp; - .3 &amp; - .5 \\ .3 &amp; 0 &amp; 2 \\ 0 &amp; 0 &amp; 1\end{matrix} \left]\right.$$</paragraph>
+    <figure>
+      <image alt="The figure consists of four parts that illustrate successive geometric transformations on a triangle: scaling down, rotating, and translating, showing alterations in size, orientation, and position."/>
+    </figure>
+  </example>
+  <heading level="2">3D Computer Graphics</heading>
+  <paragraph>Some of the newest and most exciting work in computer graphics is connected with molecular modeling. With 3D (three-dimensional) graphics, a biologist can examine a simulated protein molecule and search for active sites that might accept a drug molecule. The biologist can rotate and translate an experimental drug and attempt to attach it to the protein. This ability to visualize potential chemical reactions is vital to modern drug and cancer research. In fact, advances in drug design depend to some extent upon progress in the ability of computer graphics to construct realistic simulations of molecules and their interactions.1</paragraph>
+  <paragraph>Current research in molecular modeling is focused on virtual reality, an environment in which a researcher can see and feel the drug molecule slide into the protein. In Figure 4, such tactile feedback is provided by a force-displaying remote manipulator.</paragraph>
+  <figure>
+    <image alt="A photo shows a lab technician peeking through a microscope with unknown chemicals contained in nearby beakers along with a monitor displaying a molecular structure."/>
+    <caption>Figure 4 Molecular modeling in virtual reality</caption>
+  </figure>
+  <paragraph>Another design for virtual reality involves a helmet and glove that detect head, hand, and finger movements. The helmet contains two tiny computer screens, one for each eye. Making this virtual environment more realistic is a challenge to engineers, scientists, and mathematicians. The mathematics we examine here barely opens the door to this interesting field of research.</paragraph>
+  <heading level="2">Homogeneous 3D Coordinates</heading>
+  <paragraph>By analogy with the 2D case, we say that $$(x,y,z,1)$$ are homogeneous coordinates for the point $$(x,y,z)$$ in $$\mathbf{\mathbb{R}}^{3}$$ . In general, $$(X,Y,Z,H)$$ are homogeneous coordinates for $$(x,y,z)$$ if $$H \neq 0$$ and</paragraph>
+  <paragraph>(1)﻿</paragraph>
+  <paragraph>$$x = \frac{X}{H} , y = \frac{Y}{H} , and z = \frac{Z}{H}$$</paragraph>
+  <paragraph>Each nonzero scalar multiple of $$(x,y,z,1)$$ gives a set of homogeneous coordinates for $$(x,y,z)$$ . For instance, both $$(10, - 6,14,2)$$ and $$( - 15,9, - 21, - 3)$$ are homogeneous coordinates for $$(5, - 3,7)$$ .﻿</paragraph>
+  <paragraph>The next example illustrates the transformations used in molecular modeling to move a drug into a protein molecule.</paragraph>
+  <example number="7">
+    <heading level="2">Example 7</heading>
+    <paragraph>Give $$4 \times 4$$ matrices for the following transformations:</paragraph>
+    <list type="ordered">
+      <item>Rotation about the $$y \text{-axis}$$ through an angle of $$30{^\circ}$$ (By convention, a positive angle is the counterclockwise direction when looking toward the origin from the positive half of the axis of rotation—in this case, the $$y \text{-axis}$$ .)</item>
+      <item>Translation by the vector $$\textbf{p} = ( - 6,4,5)$$ .﻿</item>
+    </list>
+    <heading level="3">Solution</heading>
+    <list type="ordered">
+      <item>First, construct the $$3 \times 3$$ matrix for the rotation. The vector $$\textbf{e}_{1}$$ rotates down toward the negative $$z \text{-axis}$$ , stopping at $$( \text{cos} 30{^\circ},0, - \text{sin} 30{^\circ}) = (\sqrt{3}/2,0, - .5)$$ . The vector $$\textbf{e}_{2}$$ on the $$y \text{-axis}$$ does not move, but $$\textbf{e}_{3}$$ on the $$z \text{-axis}$$ rotates down toward the positive $$x \text{-axis}$$ , stopping at $$( \text{sin} 30{^\circ},0, \text{cos} 30{^\circ}) = (.5,0,\sqrt{3}/2)$$ . See Figure 5. From Section 1.9, the standard matrix for this rotation is $$\begin{bmatrix} {\sqrt{3}/2} &amp; 0 &amp; .5 \\ 0 &amp; 1 &amp; 0 \\ {- .5} &amp; 0 &amp; {\sqrt{3}/2} \end{bmatrix}$$ So the rotation matrix for homogeneous coordinates is $$A = \left[\right. \sqrt{3} / 2 &amp; 0 &amp; .5 &amp; 0 0 &amp; 1 &amp; 0 &amp; 0 - .5 &amp; 0 &amp; \sqrt{3} / 2 &amp; 0 0 &amp; 0 &amp; 0 &amp; 1 \left]\right.$$</item>
+    </list>
+    <figure>
+      <image alt="A figure shows a ring resting on an x z-plane in a three-dimensional axis."/>
+      <caption>Figure 5</caption>
+    </figure>
+    <list type="ordered">
+      <item>We want $$(x,y,z,1)$$ to map to $$(x - 6,y + 4,z + 5,1)$$ . The matrix that does this is $$\begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; - 6 \\ 0 &amp; 1 &amp; 0 &amp; 4 \\ 0 &amp; 0 &amp; 1 &amp; 5 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix}$$</item>
+    </list>
+  </example>
+  <heading level="2">Perspective Projections</heading>
+  <paragraph>A three-dimensional object is represented on the two-dimensional computer screen by projecting the object onto a viewing plane. (We ignore other important steps, such as selecting the portion of the viewing plane to display on the screen.) For simplicity, let the $$xy \text{-plane}$$ represent the computer screen, and imagine that the eye of a viewer is along the positive $$z \text{-axis}$$ , at a point $$(0,0,d)$$ . A perspective projection maps each point $$(x,y,z)$$ onto an image point $$(x^{\ast},y^{\ast},0)$$ so that the two points and the eye position, called the center of projection, are on a line. See Figure 6(a).</paragraph>
+  <figure>
+    <image alt="A figure shows a rectangle resting on an x y-plane with its vertices projecting towards a point on the z axis. Another figure shows a right-angled triangle with dimensions."/>
+    <caption>Figure 6 Perspective projection of (x,y,z) onto (x∗,y∗,0)</caption>
+  </figure>
+  <paragraph>The triangle in the $$xz \text{-plane}$$ in Figure 6(a) is redrawn in part (b) showing the lengths of line segments. Similar triangles show that</paragraph>
+  <paragraph>$$\frac{x^{*}}{d} = \frac{x}{d - z} \text{and} x^{*} = \frac{d x}{d - z} = \frac{x}{1 - z / d}$$</paragraph>
+  <paragraph>Similarly,</paragraph>
+  <paragraph>$$y^{*} = \frac{y}{1 - z / d}$$</paragraph>
+  <paragraph>Using homogeneous coordinates, we can represent the perspective projection by a matrix, say, $$P$$ . We want $$(x,y,z,1)$$ to map into $$\left( {\frac{x}{1 - z/d},\frac{y}{1 - z/d},0,1} \right)$$ . Scaling these coordinates by $$1 - z/d,$$ we can also use $$(x,y,0,1 - z/d)$$ as homogeneous coordinates for the image. Now it is easy to display $$P$$ . In fact,</paragraph>
+  <paragraph>$$P \left[\right. x y z 1 \left]\right. = \left[\right. 1 &amp; 0 &amp; 0 &amp; 0 0 &amp; 1 &amp; 0 &amp; 0 0 &amp; 0 &amp; 0 &amp; 0 0 &amp; 0 &amp; - 1 / d &amp; 1 \left]\right. \left[\right. x y z 1 \left]\right. = \left[\right. x y 0 1 - z / d \left]\right.$$</paragraph>
+  <example number="8">
+    <heading level="2">Example 8</heading>
+    <paragraph>Let $$S$$ be the box with vertices $$\left(\right. 3 , 1 , 5 \left.\right) ,$$ $$\left(\right. 5 , 1 , 5 \left.\right) ,$$ $$\left(\right. 5 , 0 , 5 \left.\right) ,$$ $$\left(\right. 3 , 0 , 5 \left.\right) ,$$ $$\left(\right. 3 , 1 , 4 \left.\right) ,$$ $$\left(\right. 5 , 1 , 4 \left.\right) ,$$ $$(5,0,4),$$ and $$(3,0,4)$$ . Find the image of $$S$$ under the perspective projection with center of projection at $$(0,0,10)$$ .﻿</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>Let $$P$$ be the projection matrix, and let $$D$$ be the data matrix for $$S$$ using homogeneous coordinates. The data matrix for the image of $$S$$ is</paragraph>
+    <paragraph>$$P D &amp; = &amp; \begin{matrix} &amp; \begin{matrix} \text{Vertex} : \\ \begin{matrix}1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8\end{matrix}\end{matrix} \\ \left[\right. \begin{matrix}1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; - 1 / \text{10} &amp; 1\end{matrix} \left]\right. &amp; \left[\right. \begin{matrix}3 &amp; 5 &amp; 5 &amp; 3 &amp; 3 &amp; 5 &amp; 5 &amp; 3 \\ 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ 5 &amp; 5 &amp; 5 &amp; 5 &amp; 4 &amp; 4 &amp; 4 &amp; 4 \\ 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1\end{matrix} \left]\right.\end{matrix} &amp; = &amp; \left[\right. \begin{matrix}3 &amp; 5 &amp; 5 &amp; 3 &amp; 3 &amp; 5 &amp; 5 &amp; 3 \\ 1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ .5 &amp; .5 &amp; .5 &amp; .5 &amp; .6 &amp; .6 &amp; .6 &amp; .6\end{matrix} \left]\right. &amp; &amp;$$</paragraph>
+    <paragraph>To obtain $$\mathbf{\mathbb{R}}^{3}$$ coordinates, use equation (1) before Example 7, and divide the top three entries in each column by the corresponding entry in the fourth row:</paragraph>
+    <paragraph>$$\text{Vertex} : \begin{matrix}\begin{matrix} &amp; 1 &amp; 2 &amp; &amp; 3\end{matrix} &amp; 4 &amp; 5 &amp; &amp; 6 &amp; &amp; 7 &amp; 8\end{matrix} \begin{bmatrix} \begin{matrix}6 &amp; 10 &amp; 10 &amp; 6 &amp; 5 &amp; 8.3 &amp; 8.3 &amp; 5 \\ 2 &amp; 2 &amp; 0 &amp; 0 &amp; 1.7 &amp; 1.7 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\end{matrix} \end{bmatrix}$$</paragraph>
+    <figure>
+      <image alt="A figure shows projecting a rectangle."/>
+    </figure>
+  </example>
+  <paragraph>This text’s web site has some interesting applications of computer graphics, including a further discussion of perspective projections. One of the chapter projects involves simple animation.</paragraph>
+  <note type="caution" source_type="caution" title="Numerical Note">
+    <heading level="2">Numerical Note</heading>
+    <paragraph>Continuous movement of graphical $$3 \text{D}$$ objects requires intensive computation with $$4 \times 4$$ matrices, particularly when the surfaces are rendered to appear realistic, with texture and appropriate lighting. High-end computer graphics boards have $$4 \times 4$$ matrix operations and graphics algorithms embedded in their microchips and circuitry. Such boards can perform the billions of matrix multiplications per second needed for realistic color animation in $$3D$$ gaming programs.2</paragraph>
+  </note>
+  <heading level="2">Further Reading</heading>
+  <paragraph>James D. Foley, Andries van Dam, Steven K. Feiner, and John F. Hughes, Computer Graphics: Principles and Practice, 3rd ed. (Boston, MA: Addison-Wesley, 2002), Chapters 5 and 6.</paragraph>
+  <note type="practice" source_type="practice" title="Practice Problem">
+    <heading level="2">Practice Problem</heading>
+    <paragraph>Rotation of a figure about a point $$\textbf{p}$$ in $$\mathbf{\mathbb{R}}^{2}$$ is accomplished by first translating the figure by $$- \textbf{p},$$ rotating about the origin, and then translating back by $$\mathbf{p}$$ . See Figure 7. Construct the $$3 \times 3$$ matrix that rotates points $$- 30{^\circ}$$ about the point $$( - 2,6),$$ using homogeneous coordinates.</paragraph>
+    <figure>
+      <image alt="The figure consists of four parts that illustrate the process of translating and rotating a snowflake figure in a coordinate plane."/>
+      <caption>Figure 7 Rotation of figure about point p</caption>
+    </figure>
+  </note>
+  <paragraph>1 Robert Pool, “Computing in Science,” Science $$256$$ , 3 April 1992, p. 45.</paragraph>
+  <paragraph>2 See Jan Ozer, “High-Performance Graphics Boards,” PC Magazine $$19$$ , September 1, 2000, pp. 187–200. Also, “The Ultimate Upgrade Guide: Moving On Up,” PC Magazine $$21$$ , January 29, 2002, pp. 82–91.</paragraph>
+</section>

@@ -1,653 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch02" chapter_number="2" unit_code="2.5">
-  <section number="2.5" title="Matrix Factorizations">
-    <metadata>
-      <source_pages count="6">
-        <page global_index="106" type="content"/>
-        <page global_index="107" type="content"/>
-        <page global_index="108" type="content"/>
-        <page global_index="109" type="content"/>
-        <page global_index="110" type="exercises"/>
-        <page global_index="111" type="exercises"/>
-      </source_pages>
-    </metadata>
-    <content>
-      <heading level="1">2.5 Matrix Factorizations</heading>
-      <video title="Watch Video"/>
-      <paragraph>A <em>factorization</em> of a matrix <math display="inline">$A$</math> is an equation that expresses <math display="inline">$A$</math> as a product of two or more matrices. Whereas matrix multiplication involves a <em>synthesis</em> of data (combining the effects of two or more linear transformations into a single matrix), matrix factorization is an <em>analysis</em> of data. In the language of computer science, the expression of <math display="inline">$A$</math> as a product amounts to a <em>preprocessing</em> of the data in <math display="inline">$A\text{,}$</math> organizing that data into two or more parts whose structures are more useful in some way, perhaps more accessible for computation.</paragraph>
-      <paragraph>Matrix factorizations and, later, factorizations of linear transformations will appear at a number of key points throughout the text. This section focuses on a factorization that lies at the heart of several important computer programs widely used in applications, such as the airflow problem described in the chapter introduction. Several other factorizations, to be studied later, are introduced in the exercises.</paragraph>
-      <heading level="2">The LU Factorization</heading>
-      <paragraph>The <math display="inline">$LU$</math> factorization, described below, is motivated by the fairly common industrial and business problem of solving a sequence of equations, all with the same coefficient matrix:</paragraph>
-      <paragraph>
-        <math display="block">$$A\textbf{x} = \textbf{b}_{1},\quad A\textbf{x} = \textbf{b}_{2},\quad\ldots,\quad A\textbf{x} = \textbf{b}_{p}$$</math>
-      </paragraph>
-      <paragraph>See Exercise 32, for example. Also see Section 5.8, where the inverse power method is used to estimate eigenvalues of a matrix by solving equations like those in sequence (1), one at a time.</paragraph>
-      <paragraph>When <math display="inline">$A$</math> is invertible, one could compute <math display="inline">$A^{- 1}$</math> and then compute <math display="inline">$A^{- 1}\textbf{b}_{1}$</math>, <math display="inline">$A^{- 1}\textbf{b}_{2}$</math>, and so on. However, it is more efficient to solve the first equation in sequence (1) by row reduction and obtain an <math display="inline">$LU$</math> factorization of <math display="inline">$A$</math> at the same time. Thereafter, the remaining equations in sequence (1) are solved with the <math display="inline">$LU$</math> factorization.</paragraph>
-      <paragraph>At first, assume that <math display="inline">$A$</math> is an <math display="inline">$m \times n$</math> matrix that can be row reduced to echelon form, <em>without row interchanges</em>. (Later, we will treat the general case.) Then <math display="inline">$A$</math> can be written in the form <math display="inline">$A = LU$</math>, where <math display="inline">$L$</math> is an <math display="inline">$m \times m$</math> lower triangular matrix with <math display="inline">$1\text{’s}$</math> on the diagonal and <math display="inline">$U$</math> is an <math display="inline">$m \times n$</math> echelon form of <math display="inline">$A$</math> For instance, see <strong>Figure 1</strong>. Such a factorization is called an LU factorization of <math display="inline">$A$</math> The matrix <math display="inline">$L$</math> is invertible and is called a unit lower triangular matrix.</paragraph>
-      <figure label="Figure 1" caption="An  LU factorization">
-          <image alt="A figure shows the multiplication of a 4 by 4 upper triangular matrix and a 4 by 5 lower triangular matrix."/>
-        </figure>
-      <paragraph>Before studying how to construct <math display="inline">$L$</math> and <math display="inline">$U$</math>, we should look at why they are so useful. When <math display="inline">$A = LU$</math>, the equation <math display="inline">$A\textbf{x} = \textbf{b}$</math> can be written as <math display="inline">$L(U\textbf{x}) = \textbf{b}$</math>. Writing <math display="inline">$\textbf{y}$</math> for <math display="inline">$U\textbf{x}$</math>, we can find <math display="inline">$\textbf{x}$</math> by solving the <em>pair</em> of equations</paragraph>
-      <paragraph>
-        <math display="block">$$\boxed{\begin{array}{lll}
-      {L\mathbf{y}} &amp; = &amp; \mathbf{b} \\
-      {U\mathbf{x}} &amp; = &amp; \mathbf{y}
-      \end{array}}$$</math>
-      </paragraph>
-      <paragraph>First solve <math display="inline">$L\textbf{y} = \textbf{b}$</math> for <math display="inline">$\textbf{y}$</math>, and then solve <math display="inline">$U\textbf{x} = \textbf{y}$</math> for <math display="inline">$\mathbf{x}$</math>. See <strong>Figure 2</strong>. Each equation is easy to solve because <math display="inline">$L$</math> and <math display="inline">$U$</math> are triangular.</paragraph>
-      <figure label="Figure 2" caption="Factorization of the mapping  x↦Ax">
-          <image alt="A figure shows three parallelograms each with a point labeled x, y, and b respectively. The arrows between them indicate the multiplication process."/>
-        </figure>
-      <example number="1">
-          <heading level="2">Example 1</heading>
-              <paragraph>It can be verified that</paragraph>
-              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rrrr}
-      3 &amp; {- 7} &amp; {- 2} &amp; 2 \\
-      {- 3} &amp; 5 &amp; 1 &amp; 0 \\
-      6 &amp; {- 4} &amp; 0 &amp; {- 5} \\
-      {- 9} &amp; 5 &amp; {- 5} &amp; 12
-      \end{array} \right\rbrack = \left\lbrack \begin{array}{rrrr}
-      1 &amp; 0 &amp; 0 &amp; 0 \\
-      {- 1} &amp; 1 &amp; 0 &amp; 0 \\
-      2 &amp; {- 5} &amp; 1 &amp; 0 \\
-      {- 3} &amp; 8 &amp; 3 &amp; 1
-      \end{array} \right\rbrack\left\lbrack \begin{array}{rrrr}
-      3 &amp; {- 7} &amp; {- 2} &amp; 2 \\
-      0 &amp; {- 2} &amp; {- 1} &amp; 2 \\
-      0 &amp; 0 &amp; {- 1} &amp; 1 \\
-      0 &amp; 0 &amp; 0 &amp; {- 1}
-      \end{array} \right\rbrack = LU$$</math></paragraph>
-              <paragraph>Use this <math display="inline">$LU$</math> factorization of <math display="inline">$A$</math> to solve <math display="inline">$A\textbf{x} = \textbf{b}$</math>, where <math display="inline">$\mathbf{b} = \left\lbrack \begin{array}{r}
-      {- 9} \\
-      5 \\
-      7 \\
-      11
-      \end{array} \right\rbrack$</math>.﻿</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>The solution of <math display="inline">$L\textbf{y} = \textbf{b}$</math> needs only <math display="inline">$6$</math> multiplications and <math display="inline">$6$</math> additions, because the arithmetic takes place only in column <math display="inline">$5$</math>. (The zeros below each pivot in <math display="inline">$L$</math> are created automatically by the choice of row operations.)</paragraph>
-              <paragraph><math display="block">$$\left. \begin{bmatrix}
-      L &amp; \textbf{b}
-      \end{bmatrix}\, = \,\,\left\lbrack \begin{array}{rrrrr}
-      1 &amp; 0 &amp; 0 &amp; 0 &amp; {- 9} \\
-      {- 1} &amp; 1 &amp; 0 &amp; 0 &amp; 5 \\
-      2 &amp; {- 5} &amp; 1 &amp; 0 &amp; 7 \\
-      {- 3} &amp; 8 &amp; 3 &amp; 1 &amp; 11
-      \end{array} \right\rbrack\, \right.\sim\,\,\left\lbrack \begin{array}{rrrrr}
-      1 &amp; 0 &amp; 0 &amp; 0 &amp; {- 9} \\
-      0 &amp; 1 &amp; 0 &amp; 0 &amp; {- 4} \\
-      0 &amp; 0 &amp; 1 &amp; 0 &amp; 5 \\
-      0 &amp; 0 &amp; 0 &amp; 1 &amp; 1
-      \end{array} \right\rbrack\, = \,\begin{bmatrix}
-      I &amp; \textbf{y}
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>Then, for <math display="inline">$U\textbf{x} = \textbf{y}$</math>, the “backward” phase of row reduction requires <math display="inline">$4$</math> divisions, <math display="inline">$6$</math> multiplications, and <math display="inline">$6$</math> additions. (For instance, creating the zeros in column <math display="inline">$4$</math> of <math display="inline">$\begin{bmatrix}
-      U &amp; \textbf{y}
-      \end{bmatrix}$</math> requires <math display="inline">$1$</math> division in row <math display="inline">$4$</math> and <math display="inline">$3$</math> multiplication–addition pairs to add multiples of row <math display="inline">$4$</math> to the rows above.)</paragraph>
-              <paragraph><math display="block">$$\left. \begin{bmatrix}
-      U &amp; \mathbf{y}
-      \end{bmatrix} = \left\lbrack \begin{array}{rrrrr}
-      3 &amp; {- 7} &amp; {- 2} &amp; 2 &amp; {- 9} \\
-      0 &amp; {- 2} &amp; {- 1} &amp; 2 &amp; {- 4} \\
-      0 &amp; 0 &amp; {- 1} &amp; 1 &amp; 5 \\
-      0 &amp; 0 &amp; 0 &amp; {- 1} &amp; 1
-      \end{array} \right\rbrack\, \right.\sim\,\left\lbrack \begin{array}{rrrrr}
-      1 &amp; 0 &amp; 0 &amp; 0 &amp; 3 \\
-      0 &amp; 1 &amp; 0 &amp; 0 &amp; 4 \\
-      0 &amp; 0 &amp; 1 &amp; 0 &amp; {- 6} \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; {- 1}
-      \end{array} \right\rbrack, \mathbf{x} = \left\lbrack \begin{array}{r}
-      3 \\
-      4 \\
-      {- 6} \\
-      {- 1}
-      \end{array} \right\rbrack$$</math></paragraph>
-              <paragraph>To find <math display="inline">$\textbf{x}$</math> requires <math display="inline">$28$</math> arithmetic operations, or “flops” (floating point operations), excluding the cost of finding <math display="inline">$L$</math> and <math display="inline">$U$</math>. In contrast, row reduction of <math display="inline">$\begin{bmatrix}
-      A &amp; \textbf{b}
-      \end{bmatrix}$</math> to <math display="inline">$\begin{bmatrix}
-      I &amp; \textbf{x}
-      \end{bmatrix}$</math> takes <math display="inline">$62$</math> operations.</paragraph>
-        </example>
-      <paragraph>The computational efficiency of the <math display="inline">$LU$</math> factorization depends on knowing <math display="inline">$L$</math> and <math display="inline">$U$</math> The next algorithm shows that the row reduction of <math display="inline">$A$</math> to an echelon form <math display="inline">$U$</math> amounts to an <math display="inline">$LU$</math> factorization because it produces <math display="inline">$L$</math> with essentially no extra work. After the first row reduction, <math display="inline">$L$</math> and <math display="inline">$U$</math> are available for solving additional equations whose coefficient matrix is <math display="inline">$A$</math>.﻿</paragraph>
-      <heading level="2">An LU Factorization Algorithm</heading>
-      <paragraph>Suppose <math display="inline">$A$</math> can be reduced to an echelon form <math display="inline">$U$</math> using only row replacements that add a multiple of one row to another row <em>below it</em>. In this case, there exist unit lower triangular elementary matrices <math display="inline">$E_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$E_{p}$</math>, such that</paragraph>
-      <paragraph>
-        <math display="block">$$E_{p}\cdots E_{1}A = U$$</math>
-      </paragraph>
-      <paragraph>Then</paragraph>
-      <paragraph>
-        <math display="block">$$A = (E_{p}\cdots E_{1})^{- 1}U = LU$$</math>
-      </paragraph>
-      <paragraph>where</paragraph>
-      <paragraph>
-        <math display="block">$$L = (E_{p}\cdots E_{1})^{- 1}$$</math>
-      </paragraph>
-      <paragraph>It can be shown that products and inverses of unit lower triangular matrices are also unit lower triangular. (For instance, see Exercise 19.) Thus <math display="inline">$L$</math> is unit lower triangular.</paragraph>
-      <paragraph>Note that the row operations in equation (3), which reduce <math display="inline">$A$</math> to <math display="inline">$U$</math>, also reduce the <math display="inline">$L$</math> in equation (4) to <math display="inline">$I$</math>, because <math display="inline">$E_{p}\cdots E_{1}L = (E_{p}\cdots E_{1})(E_{p}\cdots E_{1})^{- 1} = I$</math>. This observation is the key to <em>constructing</em><math display="inline">$L$</math>.</paragraph>
-      <note type="procedure_box" title="Algorithm for an LU Factorization">
-          <heading level="2">Algorithm for an LU Factorization</heading>
-          <list ordered="true">
-                  <item>Reduce A to an echelon form U by a sequence of row replacement operations, if possible.</item>
-                  <item>Place entries in L such that the same sequence of row operations reduces L to I.﻿</item>
-          </list>
-        </note>
-      <paragraph>Step 1 is not always possible, but when it is, the argument above shows that an <math display="inline">$LU$</math> factorization exists. <strong>Example 2</strong> will show how to implement step 2. By construction, <math display="inline">$L$</math> will satisfy</paragraph>
-      <paragraph>
-        <math display="block">$$(E_{p}\cdots E_{1})L = I$$</math>
-      </paragraph>
-      <paragraph>using the same <math display="inline">$E_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$E_{p}$</math>, as in equation (3). Thus <math display="inline">$L$</math> will be invertible, by the Invertible Matrix Theorem, with <math display="inline">$(E_{p}\cdots E_{1}) = L^{- 1}$</math>. From (3), <math display="inline">$L^{- 1}A = U$</math>, and <math display="inline">$A = LU$</math>. So step 2 will produce an acceptable <math display="inline">$L$</math>.﻿</paragraph>
-      <example number="2">
-          <heading level="2">Example 2</heading>
-              <paragraph>Find an <math display="inline">$LU$</math> factorization of</paragraph>
-              <paragraph><math display="block">$$A = \,\,\left\lbrack \begin{array}{rrrrr}
-      2 &amp; 4 &amp; {- 1} &amp; 5 &amp; {- 2} \\
-      {- 4} &amp; {- 5} &amp; 3 &amp; {- 8} &amp; 1 \\
-      2 &amp; {- 5} &amp; {- 4} &amp; 1 &amp; 8 \\
-      {- 6} &amp; 0 &amp; 7 &amp; {- 3} &amp; 1
-      \end{array} \right\rbrack$$</math></paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>Since <math display="inline">$A$</math> has four rows, <math display="inline">$L$</math> should be <math display="inline">$4 \times 4$</math>. The first column of <math display="inline">$L$</math> is the first column of <math display="inline">$A$</math> divided by the top pivot entry:</paragraph>
-              <paragraph><math display="block">$$L = \,\,\left\lbrack \begin{array}{rrrr}
-      1 &amp; 0 &amp; 0 &amp; 0 \\
-      {- 2} &amp; 1 &amp; 0 &amp; 0 \\
-      1 &amp; &amp; 1 &amp; 0 \\
-      {- 3} &amp; &amp; &amp; 1
-      \end{array} \right\rbrack$$</math></paragraph>
-              <paragraph>Compare the first columns of <math display="inline">$A$</math> and <math display="inline">$L$</math>. <em>The row operations that create zeros in the first column of</em><math display="inline">$A$</math><em>will also create zeros in the first column of</em><math display="inline">$L$</math>. To make this same correspondence of row operations on <math display="inline">$A$</math> hold for the rest of <math display="inline">$L\text{,}$</math> watch a row reduction of <math display="inline">$A$</math> to an echelon form <math display="inline">$U$</math>. That is, <em>highlight the entries</em> in each matrix that are used to determine the sequence of row operations that transform <math display="inline">$A$</math> into <math display="inline">$U$</math>. [See the highlighted entries in equation (5).]</paragraph>
-          <figure>
-            <image alt="The figure illustrates matrix A transformed into its equivalent echelon form matrix U via two intermediary matrices A subscript 1 and A subscript 2."/>
-          </figure>
-              <paragraph>These highlighted entries determine the row reduction of <math display="inline">$A$</math> to <math display="inline">$U$</math>. At each pivot column, divide the highlighted entries by the pivot and place the result into <math display="inline">$L$</math>:</paragraph>
-          <figure>
-            <image alt="The figure illustrates four column vectors of varying lengths, where the first element of each vector divides all subsequent entries within that column, forming a lower triangular matrix."/>
-          </figure>
-              <paragraph>An easy calculation verifies that this <math display="inline">$L$</math> and <math display="inline">$U$</math> satisfy <math display="inline">$L U = A$</math>.﻿</paragraph>
-        </example>
-      <paragraph>In practical work, row interchanges are nearly always needed, because partial pivoting is used for high accuracy. (Recall that this procedure selects, among the possible choices for a pivot, an entry in the column having the largest absolute value.) To handle row interchanges, the <math display="inline">$LU$</math> factorization above can be modified easily to produce an <math display="inline">$L$</math> that is permuted lower triangular, in the sense that a rearrangement (called a permutation) of the rows of <math display="inline">$L$</math> can make <math display="inline">$L\ \left( \text{u}\text{n}\text{i}\text{t} \right)$</math> lower triangular. The resulting permuted LU factorization solves <math display="inline">$A\textbf{x} = \textbf{b}$</math> in the same way as before, except that the reduction of <math display="inline">$\begin{bmatrix}
-      L &amp; \textbf{b}
-      \end{bmatrix}$</math> to <math display="inline">$\begin{bmatrix}
-      I &amp; \textbf{y}
-      \end{bmatrix}$</math> follows the order of the pivots in <math display="inline">$L$</math> from left to right, starting with the pivot in the first column. A reference to an “<math display="inline">$LU$</math> factorization” usually includes the possibility that <math display="inline">$L$</math> might be permuted lower triangular. For details, see the <em>Study Guide</em>.</paragraph>
-      <note type="margin_note">
-              <paragraph><strong>STUDY GUIDE</strong> offers information about permuted <math display="inline">$LU$</math> factorizations.</paragraph>
-        </note>
-      <note type="caution" title="Numerical Notes">
-          <heading level="2">Numerical Notes</heading>
-              <paragraph>The following operation counts apply to an <math display="inline">$n \times n$</math> dense matrix <math display="inline">$A$</math> (with most entries nonzero) for <math display="inline">$n$</math> moderately large, say, <math display="inline">$n \geq 30$</math>.1﻿</paragraph>
-          <list ordered="true">
-                  <item>Computing an LU factorization of A takes about 2n3/3 flops (about the same as row reducing Ab), whereas finding A−1 requires about 2n3 flops.</item>
-                  <item>Solving Ly=b and Ux=y requires about 2n2 flops, because any n×n triangular system can be solved in about n2 flops.</item>
-                  <item>Multiplication of b by A−1 also requires about 2n2 flops, but the result may not be as accurate as that obtained from L and U (because of roundoff error when computing both A−1 and A−1b).﻿</item>
-                  <item>If A is sparse (with mostly zero entries), then L and U may be sparse, too, whereas A−1 is likely to be dense. In this case, a solution of Ax=b with an LU factorization is much faster than using A−1. See Exercise 31.</item>
-          </list>
-        </note>
-      <heading level="2">A Matrix Factorization in Electrical Engineering</heading>
-      <paragraph>Matrix factorization is intimately related to the problem of constructing an electrical network with specified properties. The following discussion gives just a glimpse of the connection between factorization and circuit design.</paragraph>
-      <paragraph>Suppose the box in <strong>Figure 3</strong> represents some sort of electric circuit, with an input and output. Record the input voltage and current by <math display="inline">$\begin{bmatrix}
-      v_{1} \\
-      i_{1}
-      \end{bmatrix}$</math> (with voltage <math display="inline">$v$</math> in volts and current <math display="inline">$i$</math> in amps), and record the output voltage and current by <math display="inline">$\begin{bmatrix}
-      v_{2} \\
-      i_{2}
-      \end{bmatrix}$</math>. Frequently, the transformation <math display="inline">$\begin{bmatrix}
-      v_{1} \\
-      i_{1}
-      \end{bmatrix}\mapsto\begin{bmatrix}
-      v_{2} \\
-      i_{2}
-      \end{bmatrix}$</math> is linear. That is, there is a matrix <math display="inline">$A$</math>, called the transfer matrix, such that</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{bmatrix}
-      v_{2} \\
-      i_{2}
-      \end{bmatrix} = A\begin{bmatrix}
-      v_{1} \\
-      i_{1}
-      \end{bmatrix}$$</math>
-      </paragraph>
-      <figure label="Figure 3" caption="A circuit with input and output terminals">
-          <image alt="A circuit diagram shows four wires connecting to a block named an electric circuit. The top two wires are parallel to the bottom two wires."/>
-        </figure>
-      <paragraph><strong>Figure 4</strong> shows a ladder network, where two circuits (there could be more) are connected in series, so that the output of one circuit becomes the input of the next circuit. The left circuit in Figure 4 is called a <em>series circuit</em>, with resistance <math display="inline">$R_{1}$</math> (in ohms).</paragraph>
-      <figure label="Figure 4" caption="A ladder network">
-          <image alt="A circuit diagram shows a series circuit connected in series with a shunt circuit with open circuits on both ends."/>
-        </figure>
-      <paragraph>The right circuit in Figure 4 is a <em>shunt circuit</em>, with resistance <math display="inline">$R_{2}$</math>. Using Ohm’s law and Kirchhoff’s laws, one can show that the transfer matrices of the series and shunt circuits, respectively, are</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{matrix}
-      \begin{bmatrix}
-      1 &amp; {- R_{1}} \\
-      0 &amp; 1
-      \end{bmatrix} &amp; \text{and} &amp; \begin{bmatrix}
-      1 &amp; 0 \\
-      {- 1\text{/}R_{2}} &amp; 1
-      \end{bmatrix} \\
-      \begin{array}{l}
-      \text{Transfer~matrix} \\
-      \text{of~series~circuit}
-      \end{array} &amp; &amp; \begin{array}{l}
-      \text{Transfer~matrix} \\
-      \text{of~shunt~circuit}
-      \end{array}
-      \end{matrix}$$</math>
-      </paragraph>
-      <example number="3">
-          <heading level="2">Example 3</heading>
-          <list ordered="true">
-                  <item>Compute the transfer matrix of the ladder network in Figure 4.</item>
-                  <item>Design a ladder network whose transfer matrix is 1−8−.55.﻿</item>
-          </list>
-          <heading level="3">Solution</heading>
-          <list ordered="true">
-                  <item>Let A1 and A2 be the transfer matrices of the series and shunt circuits, respectively. Then an input vector x is transformed first into A1x and then into A2(A1x). The series connection of the circuits corresponds to composition of linear transformations, and the transfer matrix of the ladder network is (note the order)</item>
-          </list>
-              <paragraph>(6)﻿</paragraph>
-              <paragraph><math display="block">$$A_{2}A_{1} = \begin{bmatrix}
-      1 &amp; 0 \\
-      {- 1/R_{2}} &amp; 1
-      \end{bmatrix}\begin{bmatrix}
-      1 &amp; {- R_{1}} \\
-      0 &amp; 1
-      \end{bmatrix}\, = \,\begin{bmatrix}
-      1 &amp; {- R_{1}} \\
-      {- 1/R_{2}} &amp; {1 + R_{1}/R_{2}}
-      \end{bmatrix}$$</math></paragraph>
-          <list ordered="true">
-                  <item>To factor the matrix 1−8−.55 into the product of transfer matrices, as in equation (6), look for R1 and R2 in Figure 4 to satisfy 1 − R 1 − 1 / R 2 1 + R 1 / R 2 = 1 − 8 − .5 5 From the (1,2)-entries, R1=8 ohms, and from the (2,1)-entries, 1/R2=.5 ohm and R2=1/.5=2 ohms. With these values, the network in Figure 4 has the desired transfer matrix.</item>
-          </list>
-        </example>
-      <paragraph>A network transfer matrix summarizes the input–output behavior (the design specifications) of the network without reference to the interior circuits. To physically build a network with specified properties, an engineer first determines if such a network can be constructed (or <em>realized</em>). Then the engineer tries to factor the transfer matrix into matrices corresponding to smaller circuits that perhaps are already manufactured and ready for assembly. In the common case of alternating current, the entries in the transfer matrix are usually rational complex-valued functions. (See Exercises 21 and 22 in Section 2.4.) A standard problem is to find a <em>minimal realization</em> that uses the smallest number of electrical components.</paragraph>
-      <note type="practice" title="Practice Problems">
-          <heading level="2">Practice Problems</heading>
-              <paragraph>Find an <math display="inline">$LU$</math> factorization of <math display="inline">$A = \left\lbrack \begin{array}{rrrr}
-      2 &amp; {- 4} &amp; {- 2} &amp; 3 \\
-      6 &amp; {- 9} &amp; {- 5} &amp; 8 \\
-      2 &amp; {- 7} &amp; {- 3} &amp; 9 \\
-      4 &amp; {- 2} &amp; {- 2} &amp; {- 1} \\
-      {- 6} &amp; 3 &amp; 3 &amp; 4
-      \end{array} \right\rbrack$</math>. [<em>Note:</em><strong/>It will turn out that <math display="inline">$A$</math> has only three pivot columns, so the method of Example 2 will produce only the first three columns of <math display="inline">$L$</math> The remaining two columns of <math display="inline">$L$</math> come from <math display="inline">$I_{5}$</math>.]</paragraph>
-        </note>
-      <paragraph><sup>1 </sup>See Section 3.8 in <em>Applied Linear Algebra</em>, 3rd ed., by Ben Noble and James W. Daniel (Englewood Cliffs, NJ: Prentice-Hall, 1988). Recall that for our purposes, a <em>flop</em> is <math display="inline">$+$</math>, <math display="inline">$-$</math>, <math display="inline">$\times$</math>, or <math display="inline">$\div$</math>.﻿</paragraph>
-    </content>
-    <exercises title="2.5 Exercises">
-      <heading level="1">2.5 Exercises</heading>
-      <exercise_group start="1">
-                  <instructions>In Exercises 1–6, solve the equation <math display="inline">$A\textbf{x} = \textbf{b}$</math> by using the <math display="inline">$LU$</math> factorization given for <math display="inline">$A$</math>﻿. In Exercises 1 and 2, also solve <math display="inline">$A\textbf{x} = \textbf{b}$</math> by ordinary row reduction.</instructions>
-            <problem number="1">
-              <statement>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrr}
-      3 &amp; {- 7} &amp; {- 2} \\
-      {- 3} &amp; 5 &amp; 1 \\
-      6 &amp; {- 4} &amp; 0
-      \end{array} \right\rbrack,\textbf{b} = \,\,\left\lbrack \begin{array}{r}
-      {- 7} \\
-      5 \\
-      2
-      \end{array} \right\rbrack$</math></paragraph>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrr}
-      1 &amp; 0 &amp; 0 \\
-      {- 1} &amp; 1 &amp; 0 \\
-      2 &amp; {- 5} &amp; 1
-      \end{array} \right\rbrack\,\,\left\lbrack \begin{array}{rrr}
-      3 &amp; {- 7} &amp; {- 2} \\
-      0 &amp; {- 2} &amp; {- 1} \\
-      0 &amp; 0 &amp; {- 1}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="2">
-              <statement>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrr}
-      4 &amp; 3 &amp; {- 5} \\
-      {- 4} &amp; {- 5} &amp; 7 \\
-      8 &amp; 6 &amp; {- 8}
-      \end{array} \right\rbrack,\textbf{b} = \,\,\left\lbrack \begin{array}{r}
-      2 \\
-      {- 4} \\
-      6
-      \end{array} \right\rbrack$</math></paragraph>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrr}
-      1 &amp; 0 &amp; 0 \\
-      {- 1} &amp; 1 &amp; 0 \\
-      2 &amp; 0 &amp; 1
-      \end{array} \right\rbrack\,\,\left\lbrack \begin{array}{rrr}
-      4 &amp; 3 &amp; {- 5} \\
-      0 &amp; {- 2} &amp; 2 \\
-      0 &amp; 0 &amp; 2
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="3">
-              <statement>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrr}
-      2 &amp; {- 1} &amp; 2 \\
-      {- 6} &amp; 0 &amp; {- 2} \\
-      8 &amp; {- 1} &amp; 5
-      \end{array} \right\rbrack,\textbf{b} = \,\,\left\lbrack \begin{array}{r}
-      1 \\
-      0 \\
-      4
-      \end{array} \right\rbrack$</math></paragraph>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrr}
-      1 &amp; 0 &amp; 0 \\
-      {- 3} &amp; 1 &amp; 0 \\
-      4 &amp; {- 1} &amp; 1
-      \end{array} \right\rbrack\,\,\left\lbrack \begin{array}{rrr}
-      2 &amp; {- 1} &amp; 2 \\
-      0 &amp; {- 3} &amp; 4 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="4">
-              <statement>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrr}
-      2 &amp; {- 2} &amp; 4 \\
-      1 &amp; {- 3} &amp; 1 \\
-      3 &amp; 7 &amp; 5
-      \end{array} \right\rbrack,\textbf{b} = \,\,\left\lbrack \begin{array}{r}
-      0 \\
-      {- 5} \\
-      7
-      \end{array} \right\rbrack$</math></paragraph>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrr}
-      {1\phantom{0}} &amp; 0 &amp; 0 \\
-      {1/2} &amp; 1 &amp; 0 \\
-      {3/2} &amp; {- 5} &amp; 1
-      \end{array} \right\rbrack\,\,\left\lbrack \begin{array}{rrr}
-      2 &amp; {- 2} &amp; 4 \\
-      0 &amp; {- 2} &amp; {- 1} \\
-      0 &amp; 0 &amp; {- 6}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="5">
-              <statement>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrrr}
-      1 &amp; {- 2} &amp; {- 4} &amp; {- 3} \\
-      2 &amp; {- 7} &amp; {- 7} &amp; {- 6} \\
-      {- 1} &amp; 2 &amp; 6 &amp; 4 \\
-      {- 4} &amp; {- 1} &amp; 9 &amp; 8
-      \end{array} \right\rbrack,\textbf{b} = \,\,\begin{bmatrix}
-      1 \\
-      7 \\
-      0 \\
-      3
-      \end{bmatrix}$</math></paragraph>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrrr}
-      1 &amp; 0 &amp; 0 &amp; 0 \\
-      2 &amp; 1 &amp; 0 &amp; 0 \\
-      {- 1} &amp; 0 &amp; 1 &amp; 0 \\
-      {- 4} &amp; 3 &amp; {- 5} &amp; 1
-      \end{array} \right\rbrack\,\,\left\lbrack \begin{array}{rrrr}
-      1 &amp; {- 2} &amp; {- 4} &amp; {- 3} \\
-      0 &amp; {- 3} &amp; 1 &amp; 0 \\
-      0 &amp; 0 &amp; 2 &amp; 1 \\
-      0 &amp; 0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="6">
-              <statement>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrrr}
-      1 &amp; 3 &amp; 4 &amp; 0 \\
-      {- 3} &amp; {- 6} &amp; {- 7} &amp; 2 \\
-      3 &amp; 3 &amp; 0 &amp; {- 4} \\
-      {- 5} &amp; {- 3} &amp; 2 &amp; 9
-      \end{array} \right\rbrack,\textbf{b} = \,\,\left\lbrack \begin{array}{r}
-      1 \\
-      {- 2} \\
-      {- 1} \\
-      2
-      \end{array} \right\rbrack$</math></paragraph>
-                          <paragraph><math display="inline">$A = \,\,\left\lbrack \begin{array}{rrrr}
-      1 &amp; 0 &amp; 0 &amp; 0 \\
-      {- 3} &amp; 1 &amp; 0 &amp; 0 \\
-      3 &amp; {- 2} &amp; 1 &amp; 0 \\
-      {- 5} &amp; 4 &amp; {- 1} &amp; 1
-      \end{array} \right\rbrack\,\,\left\lbrack \begin{array}{rrrr}
-      1 &amp; 3 &amp; 4 &amp; 0 \\
-      0 &amp; 3 &amp; 5 &amp; 2 \\
-      0 &amp; 0 &amp; {- 2} &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="7">
-                  <instructions>Find an <math display="inline">$LU$</math> factorization of the matrices in Exercises 7–16 (with <math display="inline">$L$</math> unit lower triangular). Note that MATLAB will usually produce a permuted <math display="inline">$LU$</math> factorization because it uses partial pivoting for numerical accuracy.</instructions>
-            <problem number="7">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      2 &amp; 5 \\
-      {- 3} &amp; {- 4}
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="8">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      6 &amp; 9 \\
-      4 &amp; 5
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="9">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      3 &amp; {- 1} &amp; 2 \\
-      {- 3} &amp; {- 2} &amp; 10 \\
-      9 &amp; {- 5} &amp; 6
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="10">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      {- 5} &amp; 3 &amp; 4 \\
-      10 &amp; {- 8} &amp; {- 9} \\
-      15 &amp; 1 &amp; 2
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="11">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      3 &amp; {- 6} &amp; 3 \\
-      6 &amp; {- 7} &amp; 2 \\
-      {- 1} &amp; 7 &amp; 0
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="12">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      2 &amp; {- 4} &amp; 2 \\
-      1 &amp; 5 &amp; {- 4} \\
-      {- 6} &amp; {- 2} &amp; 4
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="13">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
-      1 &amp; 3 &amp; {- 5} &amp; {- 3} \\
-      {- 1} &amp; {- 5} &amp; 8 &amp; 4 \\
-      4 &amp; 2 &amp; {- 5} &amp; {- 7} \\
-      {- 2} &amp; {- 4} &amp; 7 &amp; 5
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="14">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
-      1 &amp; 4 &amp; {- 1} &amp; 5 \\
-      3 &amp; 7 &amp; {- 2} &amp; 9 \\
-      {- 2} &amp; {- 3} &amp; 1 &amp; {- 4} \\
-      {- 1} &amp; 6 &amp; {- 1} &amp; 7
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="15">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrrr}
-      2 &amp; {- 4} &amp; 4 &amp; {- 2} \\
-      6 &amp; {- 9} &amp; 7 &amp; {- 3} \\
-      {- 1} &amp; {- 4} &amp; 8 &amp; 0
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="16">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      2 &amp; {- 6} &amp; 6 \\
-      {- 4} &amp; 5 &amp; {- 7} \\
-      3 &amp; 5 &amp; {- 1} \\
-      {- 6} &amp; 4 &amp; {- 8} \\
-      8 &amp; {- 3} &amp; 9
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="17">
-            <problem number="17">
-              <statement>
-                          <paragraph>When <math display="inline">$A$</math> is invertible, MATLAB finds <math display="inline">$A^{- 1}$</math> by factoring <math display="inline">$A = LU$</math> (where <math display="inline">$L$</math> may be permuted lower triangular), inverting <math display="inline">$L$</math> and <math display="inline">$U$</math>, and then computing <math display="inline">$U^{- 1}L^{- 1}$</math>. Use this method to compute the inverse of <math display="inline">$A$</math> in Exercise 2. (Apply the algorithm of Section 2.2 to <math display="inline">$L$</math> and to <math display="inline">$\left. U\text{.} \right)$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="18">
-              <statement>
-                          <paragraph>Find <math display="inline">$A^{- 1}$</math> as in Exercise 17, using <math display="inline">$A$</math> from Exercise 3.</paragraph>
-              </statement>
-            </problem>
-            <problem number="19">
-              <statement>
-                          <paragraph>Let <math display="inline">$A$</math> be a lower triangular <math display="inline">$n \times n$</math> matrix with nonzero entries on the diagonal. Show that <math display="inline">$A$</math> is invertible and <math display="inline">$A^{- 1}$</math> is lower triangular. [<em>Hint:</em><strong/>Explain why <math display="inline">$A$</math> can be changed into <math display="inline">$I$</math> using only row replacements and scaling. (Where are the pivots?) Also, explain why the row operations that reduce <math display="inline">$A$</math> to <math display="inline">$I$</math> change <math display="inline">$I$</math> into a lower triangular matrix.]</paragraph>
-              </statement>
-            </problem>
-            <problem number="20">
-              <statement>
-                          <paragraph>Let <math display="inline">$A = LU$</math> be an <math display="inline">$LU$</math> factorization. Explain why <math display="inline">$A$</math> can be row reduced to <math display="inline">$U$</math> using only replacement operations. (This fact is the converse of what was proved in the text.)</paragraph>
-              </statement>
-            </problem>
-            <problem number="21">
-              <statement>
-                          <paragraph>Suppose <math display="inline">$A = BC$</math>, where <math display="inline">$B$</math> is invertible. Show that any sequence of row operations that reduces <math display="inline">$B$</math> to <math display="inline">$I$</math> also reduces <math display="inline">$A$</math> to <math display="inline">$C$</math>. The converse is not true, since the zero matrix may be factored as <math display="inline">$0 = B(0)$</math>.﻿</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="22">
-                  <instructions>Exercises 22–26 provide a glimpse of some widely used matrix factorizations, some of which are discussed later in the text.</instructions>
-            <problem number="22">
-              <statement>
-                          <paragraph>(<em>Reduced</em><math display="inline">$LU$</math><em>Factorization</em>) With <math display="inline">$A$</math> as in the Practice Problem, find a <math display="inline">$5 \times 3$</math> matrix <math display="inline">$B$</math> and a <math display="inline">$3 \times 4$</math> matrix <math display="inline">$C$</math> such that <math display="inline">$A = BC$</math>. Generalize this idea to the case where <math display="inline">$A$</math> is <math display="inline">$m \times n$</math>, <math display="inline">$A = LU$</math>, and <math display="inline">$U$</math> has only three nonzero rows.</paragraph>
-              </statement>
-            </problem>
-            <problem number="23">
-              <statement>
-                          <paragraph>(<em>Rank Factorization</em>) Suppose an <math display="inline">$m \times n$</math> matrix <math display="inline">$A$</math> admits a factorization <math display="inline">$A = CD$</math> where <math display="inline">$C$</math> is <math display="inline">$m \times 4$</math> and <math display="inline">$D$</math> is <math display="inline">$4 \times n$</math>.﻿</paragraph>
-                <list ordered="true">
-                              <item>Show that A is the sum of four outer products. (See Section 2.4.)</item>
-                              <item>Let m=400 and n=100. Explain why a computer programmer might prefer to store the data from A in the form of two matrices C and D.﻿</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="24">
-              <statement>
-                          <paragraph>(<math display="inline">$QR$</math><em>Factorization</em>) Suppose <math display="inline">$A = QR$</math>, where <math display="inline">$Q$</math> and <math display="inline">$R$</math> are <math display="inline">$n \times n$</math>, <math display="inline">$R$</math> is invertible and upper triangular, and <math display="inline">$Q$</math> has the property that <math display="inline">$Q^{T}Q = I$</math>. Show that for each <math display="inline">$\mathbf{b}$</math> in <math display="inline">$\mathbf{\mathbb{R}}^{n}$</math>, the equation <math display="inline">$A\textbf{x} = \textbf{b}$</math> has a unique solution. What computations with <math display="inline">$Q$</math> and <math display="inline">$R$</math> will produce the solution?</paragraph>
-              </statement>
-            </problem>
-            <problem number="25">
-              <statement>
-                          <paragraph>(<em>Singular Value Decomposition</em>) Suppose <math display="inline">$A = UDV^{T}$</math>, where <math display="inline">$U$</math> and <math display="inline">$V$</math> are <math display="inline">$n \times n$</math> matrices with the property that <math display="inline">$U^{T}U = I$</math> and <math display="inline">$V^{T}V = I$</math>, and where <math display="inline">$D$</math> is a diagonal matrix with positive numbers <math display="inline">$\sigma_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$\sigma_{n}$</math>, on the diagonal. Show that <math display="inline">$A$</math> is invertible, and find a formula for <math display="inline">$A^{- 1}$</math>.﻿</paragraph>
-              </statement>
-            </problem>
-            <problem number="26">
-              <statement>
-                          <paragraph>(<em>Spectral Factorization</em>) Suppose a <math display="inline">$3 \times 3$</math> matrix A admits a factorization as <math display="inline">$A = PDP^{- 1}$</math>, where <math display="inline">$P$</math> is some invertible <math display="inline">$3 \times 3$</math> matrix and <math display="inline">$D$</math> is the diagonal matrix</paragraph>
-                          <paragraph><math display="block">$$D = \,\,\begin{bmatrix}
-      1 &amp; 0 &amp; 0 \\
-      0 &amp; {1\text{/}2} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}3}
-      \end{bmatrix}$$</math>Show that this factorization is useful when computing high powers of <math display="inline">$A$</math> Find fairly simple formulas for <math display="inline">$A^{2}$</math>, <math display="inline">$A^{3}$</math>, and <math display="inline">$A^{k}$</math> (<math display="inline">$k$</math> a positive integer), using <math display="inline">$P$</math> and the entries in <math display="inline">$D$</math>.﻿</paragraph>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A circuit shows three open circuit terminals with two parallel resistors and a series resistor."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows a 3 cross 5 grid with all the joining points depicting values except the four corners of the grid."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows a horizontal cylinder divided into six segments with five points labeled p subscript 1, p subscript 2, p subscript 3, p subscript 4, and p subscript 5. The segments between the points are given as delta x."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="27">
-            <problem number="27">
-              <statement>
-                          <paragraph>Design two different ladder networks that each output <math display="inline">$9$</math> volts and <math display="inline">$4$</math> amps when the input is <math display="inline">$12$</math> volts and <math display="inline">$6$</math> amps.</paragraph>
-              </statement>
-            </problem>
-            <problem number="28">
-              <statement>
-                          <paragraph>Show that if three shunt circuits (with resistances <math display="inline">$R_{1}$</math>, <math display="inline">$R_{2}$</math>, <math display="inline">$R_{3}$</math>) are connected in series, the resulting network has the same transfer matrix as a single shunt circuit. Find a formula for the resistance in that circuit.</paragraph>
-              </statement>
-            </problem>
-            <problem number="29">
-              <statement>
-                <list ordered="true">
-                              <item>Compute the transfer matrix of the network in the figure.</item>
-                              <item>Let A=4/3−12−1/43. Design a ladder network whose transfer matrix is A by finding a suitable matrix factorization of A.﻿</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A circuit shows three open circuit terminals with two parallel resistors and a series resistor."/>
-            </figure>
-            <problem number="30">
-              <statement>
-                          <paragraph>Find a different factorization of the <math display="inline">$A$</math> in Exercise 29, and thereby design a different ladder network whose transfer matrix is <math display="inline">$A$</math>.﻿</paragraph>
-              </statement>
-            </problem>
-            <problem number="31">
-              <statement>
-                          <paragraph><strong>[T]</strong> The solution to the steady-state heat flow problem for the plate in the figure is approximated by the solution to the equation <math display="inline">$A\textbf{x} = \textbf{b}$</math>, where <math display="inline">$\textbf{b} = (5,{15,0,10,0,10,20,30)}$</math> and<math display="block">$$A = \,\,\left\lbrack \begin{array}{rrrrrrrr}
-      4 &amp; {- 1} &amp; {- 1} &amp; &amp; &amp; &amp; &amp; \\
-      {- 1} &amp; 4 &amp; 0 &amp; {- 1} &amp; &amp; &amp; &amp; \\
-      {- 1} &amp; 0 &amp; 4 &amp; {- 1} &amp; {- 1} &amp; &amp; &amp; \\
-       &amp; {- 1} &amp; {- 1} &amp; 4 &amp; 0 &amp; {- 1} &amp; &amp; \\
-       &amp; &amp; {- 1} &amp; 0 &amp; 4 &amp; {- 1} &amp; {- 1} &amp; \\
-       &amp; &amp; &amp; {- 1} &amp; {- 1} &amp; 4 &amp; 0 &amp; {- 1} \\
-       &amp; &amp; &amp; &amp; {- 1} &amp; 0 &amp; 4 &amp; {- 1} \\
-       &amp; &amp; &amp; &amp; &amp; {- 1} &amp; {- 1} &amp; 4
-      \end{array} \right\rbrack$$</math></paragraph>
-                          <paragraph>(Refer to Exercise 43 of Section 1.1.) The missing entries in <math display="inline">$A$</math> are zeros. The nonzero entries of <math display="inline">$A$</math> lie within a band along the main diagonal. Such <em>band matrices</em> occur in a variety of applications and often are extremely large (with thousands of rows and columns but relatively narrow bands).</paragraph>
-                <list ordered="true">
-                              <item>Use the method of Example 2 to construct an LU factorization of A, and note that both factors are band matrices (with two nonzero diagonals below or above the main diagonal). Compute LU−A to check your work.</item>
-                              <item>Use the LU factorization to solve Ax=b.﻿</item>
-                              <item>Obtain A−1 and note that A−1 is a dense matrix with no band structure. When A is large, L and U can be stored in much less space than A−1. This fact is another reason for preferring the LU factorization of A to A−1 itself.</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a 3 cross 5 grid with all the joining points depicting values except the four corners of the grid."/>
-            </figure>
-            <problem number="32">
-              <statement>
-                          <paragraph><strong>[T]</strong> The band matrix <math display="inline">$A$</math> shown below can be used to estimate the unsteady conduction of heat in a rod when the temperatures at points <math display="inline">$p_{1}$</math>, <math display="inline">$\ldots$</math>, <math display="inline">$p_{5}$</math>, on the rod change with time.2<sup/></paragraph>
-                <list ordered="false">
-                              <item>The constant C in the matrix depends on the physical nature of the rod, the distance Δx between the points on the rod, and the length of time Δt between successive temperature measurements. Suppose that for k=0, 1, 2, …, a vector tk in ℝ5 lists the temperatures at time kΔt. If the two ends of the rod are maintained at 0°, then the temperature vectors satisfy the equation Atk+1=tk(k=0,1,…), where A = [ ( 1 + 2 C ) − C − C ( 1 + 2 C ) − C − C ( 1 + 2 C ) − C − C ( 1 + 2 C ) − C − C ( 1 + 2 C ) ]</item>
-                </list>
-                <list ordered="true">
-                              <item>Find the LU factorization of A when C=1, A matrix such as A with three nonzero diagonals is called a tridiagonal matrix. The L and U factors are bidiagonal matrices.</item>
-                              <item>Suppose C=1 and t0=(10,12,12,12,10). Use the LU factorization of A to find the temperature distributions t1, t2, t3, and t4.﻿</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a horizontal cylinder divided into six segments with five points labeled p subscript 1, p subscript 2, p subscript 3, p subscript 4, and p subscript 5. The segments between the points are given as delta x."/>
-            </figure>
-          </exercise_group>
-      <instructions><sup>2</sup> See Biswa N. Datta, <em>Numerical Linear Algebra and Applications</em> (Pacific Grove, CA: Brooks/Cole, 1994), pp. 200–201.</instructions>
-    </exercises>
-  </section>
-</section_file>
+<section>
+  <heading level="1">2.5 Matrix Factorizations</heading>
+  <paragraph>A factorization of a matrix $$A$$ is an equation that expresses $$A$$ as a product of two or more matrices. Whereas matrix multiplication involves a synthesis of data (combining the effects of two or more linear transformations into a single matrix), matrix factorization is an analysis of data. In the language of computer science, the expression of $$A$$ as a product amounts to a preprocessing of the data in $$A,$$ organizing that data into two or more parts whose structures are more useful in some way, perhaps more accessible for computation.</paragraph>
+  <paragraph>Matrix factorizations and, later, factorizations of linear transformations will appear at a number of key points throughout the text. This section focuses on a factorization that lies at the heart of several important computer programs widely used in applications, such as the airflow problem described in the chapter introduction. Several other factorizations, to be studied later, are introduced in the exercises.</paragraph>
+  <heading level="2">The LU Factorization</heading>
+  <paragraph>The $$LU$$ factorization, described below, is motivated by the fairly common industrial and business problem of solving a sequence of equations, all with the same coefficient matrix:</paragraph>
+  <paragraph>(1)</paragraph>
+  <paragraph>$$A \textbf{x} = \textbf{b}_{1} , A \textbf{x} = \textbf{b}_{2} , \ldots , A \textbf{x} = \textbf{b}_{p}$$</paragraph>
+  <paragraph>See Exercise 32, for example. Also see Section 5.8, where the inverse power method is used to estimate eigenvalues of a matrix by solving equations like those in sequence (1), one at a time.</paragraph>
+  <paragraph>When $$A$$ is invertible, one could compute $$A^{- 1}$$ and then compute $$A^{- 1}\textbf{b}_{1}$$ , $$A^{- 1}\textbf{b}_{2}$$ , and so on. However, it is more efficient to solve the first equation in sequence (1) by row reduction and obtain an $$LU$$ factorization of $$A$$ at the same time. Thereafter, the remaining equations in sequence (1) are solved with the $$LU$$ factorization.</paragraph>
+  <paragraph>At first, assume that $$A$$ is an $$m \times n$$ matrix that can be row reduced to echelon form, without row interchanges. (Later, we will treat the general case.) Then $$A$$ can be written in the form $$A = LU$$ , where $$L$$ is an $$m \times m$$ lower triangular matrix with $$1 \text{’s}$$ on the diagonal and $$U$$ is an $$m \times n$$ echelon form of $$A$$ For instance, see Figure 1. Such a factorization is called an LU factorization of $$A$$ The matrix $$L$$ is invertible and is called a unit lower triangular matrix.</paragraph>
+  <figure>
+    <image alt="A figure shows the multiplication of a 4 by 4 upper triangular matrix and a 4 by 5 lower triangular matrix."/>
+    <caption>Figure 1 An LU factorization</caption>
+  </figure>
+  <paragraph>Before studying how to construct $$L$$ and $$U$$ , we should look at why they are so useful. When $$A = LU$$ , the equation $$A\textbf{x} = \textbf{b}$$ can be written as $$L(U\textbf{x}) = \textbf{b}$$ . Writing $$\textbf{y}$$ for $$U\textbf{x}$$ , we can find $$\textbf{x}$$ by solving the pair of equations</paragraph>
+  <paragraph>(2)</paragraph>
+  <paragraph>$$\boxed{L \mathbf{y} &amp; = &amp; b U \mathbf{x} &amp; = &amp; y}$$</paragraph>
+  <paragraph>First solve $$L\textbf{y} = \textbf{b}$$ for $$\textbf{y}$$ , and then solve $$U\textbf{x} = \textbf{y}$$ for $$\mathbf{x}$$ . See Figure 2. Each equation is easy to solve because $$L$$ and $$U$$ are triangular.</paragraph>
+  <figure>
+    <image alt="A figure shows three parallelograms each with a point labeled x, y, and b respectively. The arrows between them indicate the multiplication process."/>
+    <caption>Figure 2 Factorization of the mapping x↦Ax</caption>
+  </figure>
+  <example number="1">
+    <heading level="2">Example 1</heading>
+    <paragraph>It can be verified that</paragraph>
+    <paragraph>$$A = \left[\right. 3 &amp; - 7 &amp; - 2 &amp; 2 - 3 &amp; 5 &amp; 1 &amp; 0 6 &amp; - 4 &amp; 0 &amp; - 5 - 9 &amp; 5 &amp; - 5 &amp; 12 \left]\right. = \left[\right. 1 &amp; 0 &amp; 0 &amp; 0 - 1 &amp; 1 &amp; 0 &amp; 0 2 &amp; - 5 &amp; 1 &amp; 0 - 3 &amp; 8 &amp; 3 &amp; 1 \left]\right. \left[\right. 3 &amp; - 7 &amp; - 2 &amp; 2 0 &amp; - 2 &amp; - 1 &amp; 2 0 &amp; 0 &amp; - 1 &amp; 1 0 &amp; 0 &amp; 0 &amp; - 1 \left]\right. = L U$$</paragraph>
+    <paragraph>Use this $$LU$$ factorization of $$A$$ to solve $$A\textbf{x} = \textbf{b}$$ , where $$\mathbf{b} = \left\lbrack \begin{array}{r} {- 9} \\ 5 \\ 7 \\ 11 \end{array} \right\rbrack$$ .﻿</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>The solution of $$L\textbf{y} = \textbf{b}$$ needs only $$6$$ multiplications and $$6$$ additions, because the arithmetic takes place only in column $$5$$ . (The zeros below each pivot in $$L$$ are created automatically by the choice of row operations.)</paragraph>
+    <paragraph>$$\begin{bmatrix} L &amp; \textbf{b} \end{bmatrix} = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 &amp; - 9 \\ - 1 &amp; 1 &amp; 0 &amp; 0 &amp; 5 \\ 2 &amp; - 5 &amp; 1 &amp; 0 &amp; 7 \\ - 3 &amp; 8 &amp; 3 &amp; 1 &amp; 11 \end{bmatrix} \sim \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 &amp; - 9 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; - 4 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 5 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 \end{bmatrix} = \begin{bmatrix} I &amp; \textbf{y} \end{bmatrix}$$</paragraph>
+    <paragraph>Then, for $$U\textbf{x} = \textbf{y}$$ , the “backward” phase of row reduction requires $$4$$ divisions, $$6$$ multiplications, and $$6$$ additions. (For instance, creating the zeros in column $$4$$ of $$\begin{bmatrix} U &amp; \textbf{y} \end{bmatrix}$$ requires $$1$$ division in row $$4$$ and $$3$$ multiplication–addition pairs to add multiples of row $$4$$ to the rows above.)</paragraph>
+    <paragraph>$$\left[\right. U &amp; y \left]\right. = \left[\right. 3 &amp; - 7 &amp; - 2 &amp; 2 &amp; - 9 0 &amp; - 2 &amp; - 1 &amp; 2 &amp; - 4 0 &amp; 0 &amp; - 1 &amp; 1 &amp; 5 0 &amp; 0 &amp; 0 &amp; - 1 &amp; 1 \left]\right. \sim \left[\right. 1 &amp; 0 &amp; 0 &amp; 0 &amp; 3 0 &amp; 1 &amp; 0 &amp; 0 &amp; 4 0 &amp; 0 &amp; 1 &amp; 0 &amp; - 6 0 &amp; 0 &amp; 0 &amp; 0 &amp; - 1 \left]\right. , \mathbf{x} = \left[\right. 3 4 - 6 - 1 \left]\right.$$</paragraph>
+    <paragraph>To find $$\textbf{x}$$ requires $$28$$ arithmetic operations, or “flops” (floating point operations), excluding the cost of finding $$L$$ and $$U$$ . In contrast, row reduction of $$\begin{bmatrix} A &amp; \textbf{b} \end{bmatrix}$$ to $$\begin{bmatrix} I &amp; \textbf{x} \end{bmatrix}$$ takes $$62$$ operations.</paragraph>
+  </example>
+  <paragraph>The computational efficiency of the $$LU$$ factorization depends on knowing $$L$$ and $$U$$ The next algorithm shows that the row reduction of $$A$$ to an echelon form $$U$$ amounts to an $$LU$$ factorization because it produces $$L$$ with essentially no extra work. After the first row reduction, $$L$$ and $$U$$ are available for solving additional equations whose coefficient matrix is $$A$$ .﻿</paragraph>
+  <heading level="2">An LU Factorization Algorithm</heading>
+  <paragraph>Suppose $$A$$ can be reduced to an echelon form $$U$$ using only row replacements that add a multiple of one row to another row below it. In this case, there exist unit lower triangular elementary matrices $$E_{1}$$ , $$\ldots$$ , $$E_{p}$$ , such that</paragraph>
+  <paragraph>(3)</paragraph>
+  <paragraph>$$E_{p} \hdots E_{1} A = U$$</paragraph>
+  <paragraph>Then</paragraph>
+  <paragraph>$$A = \left(\right. E_{p} \hdots E_{1} \left.\right)^{- 1} U = L U$$</paragraph>
+  <paragraph>where</paragraph>
+  <paragraph>(4)</paragraph>
+  <paragraph>$$L = \left(\right. E_{p} \hdots E_{1} \left.\right)^{- 1}$$</paragraph>
+  <paragraph>It can be shown that products and inverses of unit lower triangular matrices are also unit lower triangular. (For instance, see Exercise 19.) Thus $$L$$ is unit lower triangular.</paragraph>
+  <paragraph>Note that the row operations in equation (3), which reduce $$A$$ to $$U$$ , also reduce the $$L$$ in equation (4) to $$I$$ , because $$E_{p}\cdots E_{1}L = (E_{p}\cdots E_{1})(E_{p}\cdots E_{1})^{- 1} = I$$ . This observation is the key to constructing $$L$$ .</paragraph>
+  <note type="procedure" source_type="procedure_box" title="Algorithm for an LU Factorization">
+    <heading level="2">Algorithm for an LU Factorization</heading>
+    <list type="ordered">
+      <item>Reduce $$A$$ to an echelon form $$U$$ by a sequence of row replacement operations, if possible.</item>
+      <item>Place entries in $$L$$ such that the same sequence of row operations reduces $$L$$ to $$I$$ .﻿</item>
+    </list>
+  </note>
+  <paragraph>Step 1 is not always possible, but when it is, the argument above shows that an $$LU$$ factorization exists. Example 2 will show how to implement step 2. By construction, $$L$$ will satisfy</paragraph>
+  <paragraph>$$\left(\right. E_{p} \hdots E_{1} \left.\right) L = I$$</paragraph>
+  <paragraph>using the same $$E_{1}$$ , $$\ldots$$ , $$E_{p}$$ , as in equation (3). Thus $$L$$ will be invertible, by the Invertible Matrix Theorem, with $$(E_{p}\cdots E_{1}) = L^{- 1}$$ . From (3), $$L^{- 1}A = U$$ , and $$A = LU$$ . So step 2 will produce an acceptable $$L$$ .﻿</paragraph>
+  <example number="2">
+    <heading level="2">Example 2</heading>
+    <paragraph>Find an $$LU$$ factorization of</paragraph>
+    <paragraph>$$A = \begin{bmatrix} 2 &amp; 4 &amp; - 1 &amp; 5 &amp; - 2 \\ - 4 &amp; - 5 &amp; 3 &amp; - 8 &amp; 1 \\ 2 &amp; - 5 &amp; - 4 &amp; 1 &amp; 8 \\ - 6 &amp; 0 &amp; 7 &amp; - 3 &amp; 1 \end{bmatrix}$$</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>Since $$A$$ has four rows, $$L$$ should be $$4 \times 4$$ . The first column of $$L$$ is the first column of $$A$$ divided by the top pivot entry:</paragraph>
+    <paragraph>$$L = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ - 2 &amp; 1 &amp; 0 &amp; 0 \\ 1 &amp; &amp; 1 &amp; 0 \\ - 3 &amp; &amp; &amp; 1 \end{bmatrix}$$</paragraph>
+    <paragraph>Compare the first columns of $$A$$ and $$L$$ . The row operations that create zeros in the first column of $$A$$ will also create zeros in the first column of $$L$$ . To make this same correspondence of row operations on $$A$$ hold for the rest of $$L,$$ watch a row reduction of $$A$$ to an echelon form $$U$$ . That is, highlight the entries in each matrix that are used to determine the sequence of row operations that transform $$A$$ into $$U$$ . [See the highlighted entries in equation (5).]</paragraph>
+    <paragraph>(5)</paragraph>
+    <figure>
+      <image alt="The figure illustrates matrix A transformed into its equivalent echelon form matrix U via two intermediary matrices A subscript 1 and A subscript 2."/>
+    </figure>
+    <paragraph>These highlighted entries determine the row reduction of $$A$$ to $$U$$ . At each pivot column, divide the highlighted entries by the pivot and place the result into $$L$$ :</paragraph>
+    <figure>
+      <image alt="The figure illustrates four column vectors of varying lengths, where the first element of each vector divides all subsequent entries within that column, forming a lower triangular matrix."/>
+    </figure>
+    <paragraph>An easy calculation verifies that this $$L$$ and $$U$$ satisfy $$L U = A$$ .﻿</paragraph>
+  </example>
+  <paragraph>In practical work, row interchanges are nearly always needed, because partial pivoting is used for high accuracy. (Recall that this procedure selects, among the possible choices for a pivot, an entry in the column having the largest absolute value.) To handle row interchanges, the $$LU$$ factorization above can be modified easily to produce an $$L$$ that is permuted lower triangular, in the sense that a rearrangement (called a permutation) of the rows of $$L$$ can make $$L \left( \text{u} \text{n} \text{i} \text{t} \right)$$ lower triangular. The resulting permuted $$\mathbf{LU}$$ factorization solves $$A\textbf{x} = \textbf{b}$$ in the same way as before, except that the reduction of $$\begin{bmatrix} L &amp; \textbf{b} \end{bmatrix}$$ to $$\begin{bmatrix} I &amp; \textbf{y} \end{bmatrix}$$ follows the order of the pivots in $$L$$ from left to right, starting with the pivot in the first column. A reference to an “ $$LU$$ factorization” usually includes the possibility that $$L$$ might be permuted lower triangular. For details, see the Study Guide.</paragraph>
+  <note type="margin_note" source_type="margin_note">
+    <paragraph>STUDY GUIDE offers information about permuted $$LU$$ factorizations.</paragraph>
+  </note>
+  <note type="caution" source_type="caution" title="Numerical Notes">
+    <heading level="2">Numerical Notes</heading>
+    <paragraph>The following operation counts apply to an $$n \times n$$ dense matrix $$A$$ (with most entries nonzero) for $$n$$ moderately large, say, $$n \geq 30$$ .1﻿</paragraph>
+    <list type="ordered">
+      <item>Computing an $$LU$$ factorization of $$A$$ takes about $$2n^{3}/3$$ flops (about the same as row reducing $$\left. \begin{bmatrix} A &amp; \textbf{b} \end{bmatrix} \right)$$ , whereas finding $$A^{- 1}$$ requires about $$2n^{3}$$ flops.</item>
+      <item>Solving $$L\textbf{y} = \textbf{b}$$ and $$U\textbf{x} = \textbf{y}$$ requires about $$2n^{2}$$ flops, because any $$n \times n$$ triangular system can be solved in about $$n^{2}$$ flops.</item>
+      <item>Multiplication of $$\textbf{b}$$ by $$A^{- 1}$$ also requires about $$2n^{2}$$ flops, but the result may not be as accurate as that obtained from $$L$$ and $$U$$ (because of roundoff error when computing both $$A^{- 1}$$ and $$A^{- 1}\textbf{b})$$ .﻿</item>
+      <item>If $$A$$ is sparse (with mostly zero entries), then $$L$$ and $$U$$ may be sparse, too, whereas $$A^{- 1}$$ is likely to be dense. In this case, a solution of $$A\textbf{x} = \textbf{b}$$ with an $$LU$$ factorization is much faster than using $$A^{- 1}$$ . See Exercise 31.</item>
+    </list>
+  </note>
+  <heading level="2">A Matrix Factorization in Electrical Engineering</heading>
+  <paragraph>Matrix factorization is intimately related to the problem of constructing an electrical network with specified properties. The following discussion gives just a glimpse of the connection between factorization and circuit design.</paragraph>
+  <paragraph>Suppose the box in Figure 3 represents some sort of electric circuit, with an input and output. Record the input voltage and current by $$\begin{bmatrix} v_{1} \\ i_{1} \end{bmatrix}$$ (with voltage $$v$$ in volts and current $$i$$ in amps), and record the output voltage and current by $$\begin{bmatrix} v_{2} \\ i_{2} \end{bmatrix}$$ . Frequently, the transformation $$\begin{bmatrix} v_{1} \\ i_{1} \end{bmatrix}\mapsto\begin{bmatrix} v_{2} \\ i_{2} \end{bmatrix}$$ is linear. That is, there is a matrix $$A$$ , called the transfer matrix, such that</paragraph>
+  <paragraph>$$\begin{bmatrix} v_{2} \\ i_{2} \end{bmatrix} = A \begin{bmatrix} v_{1} \\ i_{1} \end{bmatrix}$$</paragraph>
+  <figure>
+    <image alt="A circuit diagram shows four wires connecting to a block named an electric circuit. The top two wires are parallel to the bottom two wires."/>
+    <caption>Figure 3 A circuit with input and output terminals</caption>
+  </figure>
+  <paragraph>Figure 4 shows a ladder network, where two circuits (there could be more) are connected in series, so that the output of one circuit becomes the input of the next circuit. The left circuit in Figure 4 is called a series circuit, with resistance $$R_{1}$$ (in ohms).</paragraph>
+  <figure>
+    <image alt="A circuit diagram shows a series circuit connected in series with a shunt circuit with open circuits on both ends."/>
+    <caption>Figure 4 A ladder network</caption>
+  </figure>
+  <paragraph>The right circuit in Figure 4 is a shunt circuit, with resistance $$R_{2}$$ . Using Ohm’s law and Kirchhoff’s laws, one can show that the transfer matrices of the series and shunt circuits, respectively, are</paragraph>
+  <paragraph>$$\left[\right. \begin{matrix}1 &amp; - R_{1} \\ 0 &amp; 1\end{matrix} \left]\right. &amp; \text{and} &amp; \left[\right. \begin{matrix}1 &amp; 0 \\ - 1 / R_{2} &amp; 1\end{matrix} \left]\right. \begin{matrix} \text{Transfer} \text{matrix} \\ \text{of} \text{series} \text{circuit} \end{matrix} &amp; &amp; \begin{matrix} \text{Transfer} \text{matrix} \\ \text{of} \text{shunt} \text{circuit} \end{matrix}$$</paragraph>
+  <example number="3">
+    <heading level="2">Example 3</heading>
+    <list type="ordered">
+      <item>Compute the transfer matrix of the ladder network in Figure 4.</item>
+      <item>Design a ladder network whose transfer matrix is $$\begin{bmatrix} 1 &amp; {- 8} \\ {- .5} &amp; 5 \end{bmatrix}$$ .﻿</item>
+    </list>
+    <heading level="3">Solution</heading>
+    <list type="ordered">
+      <item>Let $$A_{1}$$ and $$A_{2}$$ be the transfer matrices of the series and shunt circuits, respectively. Then an input vector $$\textbf{x}$$ is transformed first into $$A_{1}\textbf{x}$$ and then into $$A_{2}(A_{1}\textbf{x})$$ . The series connection of the circuits corresponds to composition of linear transformations, and the transfer matrix of the ladder network is (note the order)</item>
+    </list>
+    <paragraph>(6)﻿</paragraph>
+    <paragraph>$$A_{2} A_{1} = \begin{bmatrix} 1 &amp; 0 \\ - 1 / R_{2} &amp; 1 \end{bmatrix} \begin{bmatrix} 1 &amp; - R_{1} \\ 0 &amp; 1 \end{bmatrix} = \begin{bmatrix} 1 &amp; - R_{1} \\ - 1 / R_{2} &amp; 1 + R_{1} / R_{2} \end{bmatrix}$$</paragraph>
+    <list type="ordered">
+      <item>To factor the matrix $$\left\lbrack \begin{array}{rr} 1 &amp; {- 8} \\ {- .5} &amp; 5 \end{array} \right\rbrack$$ into the product of transfer matrices, as in equation (6), look for $$R_{1}$$ and $$R_{2}$$ in Figure 4 to satisfy $$\begin{bmatrix} 1 &amp; {- R_{1}} \\ {- 1/R_{2}} &amp; {1 + R_{1}/R_{2}} \end{bmatrix} = \begin{bmatrix} 1 &amp; {- 8} \\ {- .5} &amp; 5 \end{bmatrix}$$ From the $$(1,2) \text{-entries}$$ , $$R_{1} = 8 \text{o} \text{h} \text{m} \text{s}$$ , and from the $$(2,1) \text{-entries}$$ , $$1/R_{2} = .5 \text{o} \text{h} \text{m}$$ and $$R_{2} = 1/.5 = 2 \text{o} \text{h} \text{m} \text{s}$$ . With these values, the network in Figure 4 has the desired transfer matrix.</item>
+    </list>
+  </example>
+  <paragraph>A network transfer matrix summarizes the input–output behavior (the design specifications) of the network without reference to the interior circuits. To physically build a network with specified properties, an engineer first determines if such a network can be constructed (or realized). Then the engineer tries to factor the transfer matrix into matrices corresponding to smaller circuits that perhaps are already manufactured and ready for assembly. In the common case of alternating current, the entries in the transfer matrix are usually rational complex-valued functions. (See Exercises 21 and 22 in Section 2.4.) A standard problem is to find a minimal realization that uses the smallest number of electrical components.</paragraph>
+  <note type="practice" source_type="practice" title="Practice Problems">
+    <heading level="2">Practice Problems</heading>
+    <paragraph>Find an $$LU$$ factorization of $$A = \left\lbrack \begin{array}{rrrr} 2 &amp; {- 4} &amp; {- 2} &amp; 3 \\ 6 &amp; {- 9} &amp; {- 5} &amp; 8 \\ 2 &amp; {- 7} &amp; {- 3} &amp; 9 \\ 4 &amp; {- 2} &amp; {- 2} &amp; {- 1} \\ {- 6} &amp; 3 &amp; 3 &amp; 4 \end{array} \right\rbrack$$ . [Note: It will turn out that $$A$$ has only three pivot columns, so the method of Example 2 will produce only the first three columns of $$L$$ The remaining two columns of $$L$$ come from $$I_{5}$$ .]</paragraph>
+  </note>
+  <paragraph>1 See Section 3.8 in Applied Linear Algebra, 3rd ed., by Ben Noble and James W. Daniel (Englewood Cliffs, NJ: Prentice-Hall, 1988). Recall that for our purposes, a flop is $$+$$ , $$-$$ , $$\times$$ , or $$\div$$ .﻿</paragraph>
+</section>

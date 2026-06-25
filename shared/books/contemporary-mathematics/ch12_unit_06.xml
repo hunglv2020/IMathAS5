@@ -1,389 +1,250 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="12.6" title="Euler Trails">
-  <image alt="A map of the United States shows the Pony Express mail route. The route began in St. Joseph, Missouri and traveled through Fort Kearney, Nebraska; Julesburg, Colorado; Fort Laramie, Wyoming; Fort Bridger, Wyoming; Salt Lake City, Utah; Fort Ruby, Nevada; Carson City, Nevada; and San Francisco, California." number="12.131" caption="The Pony Express mail route spanned from California to Missouri. (credit: “Map of Pony Express” by Nathan Hughes Hamiltonh/Flickr, CC BY 2.0)" />
-  <subsection title="Learning Objectives">
-    <p>After completing this section, you should be able to:</p>
-    <list type="ol" style="1">
-      <item>Describe and identify Euler trails.</item>
-      <item>Solve applications using Euler trails theorem.</item>
-      <item>Identify bridges in a graph.</item>
-      <item>Apply Fleury’s algorithm.</item>
-      <item>Evaluate Euler trails in real-world applications.</item>
-    </list>
-  </subsection>
-  <subsection title="Euler Trails">
-    <p>If we need a trail that visits every edge in a graph, this would be called an Euler trail. Since trails are walks that do not repeat edges, an Euler trail visits every edge exactly once.</p>
-    <example number="12.29">
-      <problem>
-        <p>Use Figure 12.132 to determine if each series of vertices represents a trail, an Euler trail, both, or neither. Explain your reasoning.</p>
-        <image alt="Graph H has 7 vertices labeled a to g. The edges connect a b, a d, b e, e d, d c, c f, f g, d g, and g e." number="12.132" caption="Graph H" />
-        <list type="ol" style="1">
-          <item>a → b → e → g → f → c → d → e</item>
-          <item>a → b → e → g → f → c → d → e → b → a → d → g</item>
-          <item>g → d → a → b → e → d → c → f → g → e</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>It is a trail only. It is a trail because it is a walk that doesn’t cover any edges twice, but it is not an Euler trail because it didn’t cover edges ad or dg.</item>
-          <item>It is neither. It is not a trail because it visits ab and be twice. Since it is not a trail, it cannot be an Euler trail.</item>
-          <item>It is both. It is a trail because it is a walk that doesn’t cover any edges twice, and it is an Euler trail because it visits all the edges.</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="12.29">
-      <image alt="Graph I has 8 vertices labeled a to h. The edges connect a b, b f, a d, f e, e d, d c, c g, g h, and e h." caption="Graph I" />
-      <p>e → f → b → a → d → c → g → h → e → d</p>
-      <p>d → a → b → f → e → h → g → c</p>
-      <p>d → a → b → e → f → b → e → d → c → g → h → e</p>
-    </note>
-  </subsection>
-  <subsection title="The Five Rooms Puzzle">
-    <p>Just as Euler determined that only graphs with vertices of even degree have Euler circuits, he also realized that the only vertices of odd degree in a graph with an Euler trail are the starting and ending vertices. For example, in Figure 12.132, Graph H has exactly two vertices of odd degree, vertex g and vertex e. Notice the Euler trail we saw in Excercise 3 of Example 12.29 began at vertex g and ended at vertex e.</p>
-    <p>This is consistent with what we learned about vertices off odd degree when we were studying Euler circuits. We saw that a vertex of odd degree couldn't exist in an Euler circuit as depicted in Figure 12.133. If it was a starting vertex, at some point we would leave the vertex and not be able to return without repeating an edge. If it was not a starting vertex, at some point we would return and not be able to leave without repeating an edge. Since the starting and ending vertices in an Euler trail are not the same, the start is a vertex we want to leave without returning, and the end is a vertex we want to return to and never leave. Those two vertices must have odd degree, but the others cannot.</p>
-    <image alt="Two illustrations. The first illustration shows a vertex, 3. Two arrows point to it and an arrow points away from it. The second illustration shows a vertex, 3. Two arrows point away from it and an arrow points to it." number="12.133" caption="A Vertex of Degree 3" />
-    <p>Let’s use the Euler trail theorem to solve a puzzle so you can amaze your friends! This puzzle is called the “Five Rooms Puzzle.” Suppose that you were in a house with five rooms and the exterior. There is a doorway in every shared wall between any two rooms and between any room and the exterior as shown in Figure 12.134. Could you find a route through the house that passes through each doorway exactly once?</p>
-    <image alt="An illustration shows five rooms in a rectangle labeled f. The rooms are labeled a to e." number="12.134" caption="Five Rooms Puzzle" />
-    <p>Let’s represent the puzzle with a graph in which vertices are rooms (or the exterior) and an edge indicates a door between two rooms as shown in Figure 12.135.</p>
-    <image alt="An illustration shows five rooms in a rectangle labeled f. An arrow from the illustration points to a graph with six vertices. In the illustration, the rooms are labeled a to e. The vertices are a to f. Edges interconnect all the vertices. In the graph, the vertices are labeled a to f. edges connect a b, a d, b d, b e, a c, c d, d e, c d, c f, d f, d e, and e f. Double curved edges connect a to f and b to f. Curved edges connect c to f and f to e." number="12.135" caption="Graph of Five Rooms Puzzle" />
-    <p>To pass through each doorway exactly once means that we cross every edge in the graph exactly once. Since we have not been asked to start and end at the same position, but to visit each edge exactly once, we are looking for an Euler trail. Let’s check the degrees of the vertices.</p>
-    <image alt="A graph has six vertices a to f and their degrees are 5, 5, 4, 5, 4, and 9. Edges connect a b, a d, b d, b e, a c, c d, d e, c d, c f, d f, d e, and e f. Double curved edges connect a to f and b to f. Curved edges connect c to f and f to e." number="12.136" caption="Degrees of Vertices in Five Rooms Puzzle" />
-    <p>Since there are more than two vertices of odd degree as shown in Figure 12.136, the graph of the five rooms puzzle contains no Euler path. Now you can amaze and astonish your friends!</p>
-  </subsection>
-  <subsection title="Bridges and Local Bridges">
-    <p>Now that we know which graphs have Euler trails, let’s work on a method to find them. The method we will use involves identifying bridges in our graphs. A bridge is an edge which, if removed, increases the number of components in a graph. Bridges are often referred to as cut-edges. In Figure 12.137, there are several examples of bridges. Notice that an edge that is not part of a cycle is always a bridge, and an edge that is part of a cycle is never a bridge.</p>
-    <image alt="A graph has two triangles and one square. The first triangle has vertices, a, b, and c. The second triangle has vertices, g, k, and j. The square has the vertices, e, f, h, and i. An edge connects e and i. The bridges connect b f, c g, and d g." number="12.137" caption="Graph with Bridges" />
-    <p>Edges bf, cg, and dg are “bridges”</p>
-    <p>The graph in Figure 12.137 is connected, which means it has exactly one component. Each time we remove one of the bridges from the graph the number of components increases by one as shown in Figure 12.138. If we remove all three, the resulting graph in Figure 12.138 has four components.</p>
-    <image alt="Four graphs. The first graph has two triangles and a square. The first triangle has vertices, a, b, and c. The second triangle has vertices, g, k, and j. The square has the vertices, e, f, h, and i. An edge connects e and i. The bridges connect b f, c g, and d g. The second graph is the same. The square is separated. The third graph shows the square and the triangles separated. The second triangle is connected to the vertex, d. In the fourth graph, the triangles, square, and the d vertex are separated." number="12.138" caption="Removing a Bridge Increases Number of Components" />
-    <p>In sociology, bridges are a key part of social network analysis. Sociologists study two kinds of bridges: local bridges and regular bridges. Regular bridges are defined the same in sociology as in graph theory, but they are unusual when studying a large social network because it is very unlikely a group of individuals in a large social network has only one link to the rest of the network. On the other hand, a local bridge occurs much more frequently. A local bridge is a friendship between two individuals who have no other friends in common. If they lose touch, there is no single individual who can pass information between them. In graph theory, a local bridge is an edge between two vertices, which, when removed, increases the length of the shortest path between its vertices to more than two edges. In Figure 12.139, a local bridge between vertices b and e has been removed. As a result, the shortest path between b and e is b → i → j → k → e, which is four edges. On the other hand, if edge ab were removed, then there are still paths between a and b that cover only two edges, like a → i → b.</p>
-    <image alt="Two graphs. The first graph shows a triangle, i a b resting on a square, a b d e, and another triangle, k e f resting on a square, e f g h. The squares have diagonal lines. Edges connect i j and j k. A bridge connects b e. The second graph shows a triangle, i a b resting on a square, a b d e, and another triangle, k e f resting on a square, e f g h. The squares have diagonal lines. Bridges connect i j and j k." number="12.139" caption="Removing a Local Bridge" />
-    <p>The significance of a local bridge in sociology is that it is the shortest communication route between two groups of people. If the local bridge is removed, the flow of information from one group to another becomes more difficult. Let’s say that vertex b is Brielle and vertex e is Ella. Now, Brielle is less likely to hear about things like job opportunities that Ella may know about. This is likely to impact Brielle as well as the friends of Brielle.</p>
-    <example number="12.30">
-      <problem>
-        <p>Use the graph of a social network in Figure 12.140 to answer each question.</p>
-        <image alt="A graph with 23 vertices. The edges are as follows: a b, b c, h i, a d, b e, c e, h g, d e, e f, f g, d n, f j, f k, g k, j k, k u, j o, n m, m o, n p, n q, m q, q o, o r, u v, u w, u x, p q, q r, v w, w x, p s, q t, and s t." number="12.140" caption="Graph of a Social Network" />
-        <list type="ol" style="1">
-          <item>Identify any bridges.</item>
-          <item>If all bridges were removed, how many components would there be in the resulting graph?</item>
-          <item>Identify one local bridge.</item>
-          <item>For the local bridge you identified in part 3, identify the shortest path between the vertices of the local bridge if the local bridge were removed.</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>The edges ku, gh, and hi are bridges.</item>
-          <item>If the bridges were all removed, there would be four components in the resulting graph, {}, {}, {,,,}, and {,,,,,,,,,,,,,,,,} as shown in.<image alt="A graph with 23 vertices. The edges are as follows: a b, b c, a d, b e, c e, d e, e f, f g, d n, f j, f k, g k, j k, j o, n m, m o, n p, n q, m q, q o, o r, u v, u w, u x, p q, q r, v w, w x, p s, q t, and s t. The vertices h and i are separated. The graph is divided into two blocks." number="12.141" caption="Graph of Social Network without Bridges" />
-          </item>
-          <item>Three local bridges are dn, ef, and qt, among others.</item>
-          <item>If dn were removed, the shortest path between d and n would be d → e → f → j → o → m → n.</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="12.30">
-      <p>How many bridges and local bridges are in a complete graph with three or more vertices? Explain your reasoning.</p>
-    </note>
-    <note type="Video">
-      <p>Bridges and Local Bridges in Graph Theory</p>
-    </note>
-  </subsection>
-  <subsection title="Finding an Euler Trail with Fleury’s Algorithm">
-    <p>Now that we are familiar with bridges, we can use a technique called Fleury’s algorithm, which is a series of steps, or algorithm, used to find an Euler trail in any graph that has exactly two vertices of odd degree.</p>
-    <p>Here are the steps involved in applying Fleury’s algorithm.</p>
-    <p>Step 1: Begin at either of the two vertices of odd degree.</p>
-    <p>Step 2: Remove an edge between the vertex and any adjacent vertex that is NOT a bridge, unless there is no other choice, making a note of the edge you removed. Repeat this step until all edges are removed.</p>
-    <p>Step 3: Write out the Euler trail using the sequence of vertices and edges that you found. For example, if you removed ab, bc, cd, de, and ef, in that order, then the Euler trail is a → b → c → d → e → f.</p>
-    <p>Figure 12.142 shows the steps to find an Euler trail in a graph using Fleury’s algorithm.</p>
-    <image alt="Eight graphs. Each graph has six vertices: t, u, v, w, x, and y. In the first graph, the edges are t u, u w, w y, y x, x v, v t, and v w. Text reads, start at odd degree. Choose direction. The edges flowing from t to u, v, and w are highlighted in blue. The second graph is the same as that of the first, with the edge, tv in dashed lines and labeled remove tv. The edges flowing from v to w and x are in blue. Text reads, then choose the direction. The third graph shows edges, t u, u w, w y, y x, x v, and v w. The edge, v w is in dashed lines and labeled remove v w. The edges from w to t and u are in blue and labeled then choose the direction. The edge from w to y is shown in red and labeled no. The fourth graph shows the edges, t u, u w, w y, y x, x v, and t w. The edge, w u is in dashed lines, and remove w u. The edge from w to y is in red and labeled do not remove bridge wy. The edge from u to t is in blue. The fifth graph shows the edge, t u, t w, w y, y x, and x v. The edge, u t is in dashed lines and labeled remove u t. The edge from t to w is in blue. The sixth graph shows the edge, t w, w y, y z, and x v. The edge, t w is in dashed lines and labeled remove t w. The edge from w to y is in blue. The seventh graph shows the edges, w y, y z, and x v. The edge, w y is in dashed lines and labeled remove w y. The edge from y to x is in blue. The eighth graph shows the edges, y x, and x v. The edge, y x is in dashed lines and labeled remove y x then x v. The edge from x to v is in blue." number="12.142" caption="Using Fleury’s Algorithm To Find Euler Trail" />
-    <p>The Euler trail that was found in Figure 12.142 is t → v → w → u → t → w → y → x → v.</p>
-    <example number="12.31">
-      <problem>
-        <p>Use Fleury’s Algorithm to find an Euler trail for Graph J in Figure 12.143.</p>
-        <image alt="Graph J has 9 vertices: a, b, c, d, e, f, g, h, and i. Edges connect a b, b d, d c, c a, b c, b f, e f, f g, g i, I h, and h e." number="12.143" caption="Graph J" />
-      </problem>
-      <solution>
-        <p>Step 1: Choose one of the two vertices of odd degree, c or f, as your starting vertex. We will choose c.</p>
-        <p>Step 2: Remove edge ca, cb, or cd. None of these are cut edges so we can select any of the three. We will choose cb as shown in Figure 12.144 to be the first edge removed.</p>
-        <image alt="Graph J has 9 vertices: a, b, c, d, e, f, g, h, and i. Edges connect a b, b d, d c, c a, b c, b f, e f, f g, g i, I h, and h e. The edge, b c is shown in dashed lines. The edges, b d, and b a are in blue. The edge from b to f is in red and labeled no!" number="12.144" caption="Graph J with cb Removed" />
-        <p>Repeat Step 2 The next choice is to remove edge ba, bd, or bf as shown in Figure 12.144, but bf is not an option since it is a bridge. We will choose ba as shown in Figure 12.145 to be the second edge removed.</p>
-        <image alt="Graph J has 9 vertices: a, b, c, d, e, f, g, h, and i. The edges connect a b, b d, d c, c a, b f, e f, f g, g i, I h, and h e. The edge, a b is in dashed lines. The edges from a to c, c to d, b to f, f to e, and f to g are labeled 3, 4, 5, 6, blank, and blank and shaded in blue." number="12.145" caption="Graph J with cb and ba Removed" />
-        <p>Repeat Step 2 for the third, fourth, fifth, sixth, and seventh edges. As shown in Figure 12.145, until we get to the seventh edge there is only one option each time, ac, cd, db, and bf in that order. For the seventh edge, we must choose between fe and fg. Neither of these are bridges. We choose fe. Figure 12.146 shows that ac, cd, db, bf, and fe have been removed.</p>
-        <image alt="Graph J has 9 vertices: a, b, c, d, e, f, g, h, and i. The edges connect b d, d c, c a, b f, e f, f g, g i, I h, and h e. The edges, a c, c d, d b, b f, and f e are in dashed lines. The edges, e to h, h to i, i to g, and g to f are shaded in blue and labeled 8, 9, 10, and 11." number="12.146" caption="Graph J with Seven Edges Removed" />
-        <p>Repeat Step 2 for the eight, ninth, tenth, and eleventh edges. As shown in Figure 12.146, there is only one option for each of these edges, eh, hi, ig, and gf, in that order.</p>
-        <p>Step 3: Write out the Euler trail using the vertices in the sequence that the edges were removed. We removed cb, ba, ac, cd, db, bf, fe, eh, hi, ig, and gf, in that order. The Euler trail is c → b → a → c → d → b → f → e → h → i → g → f.</p>
-      </solution>
-    </example>
-    <note type="Checkpoint">
-      <p>TIP! To avoid errors, count the number of edges in your graph and make sure that your Euler trail represents that number of edges.</p>
-    </note>
-    <note type="Your Turn" number="12.31">
-      <image alt="Graph L has two quadrilaterals. The vertices of the first quadrilateral are m, o, n, and p. The vertices of the second quadrilateral are q, r, s, and t. Other edges connect m to n, n to q, and q to s." caption="Graph L" />
-      <p>The two vertices that can be used as the starting vertex are ____ and s.</p>
-      <p>If sq is the first edge removed, the three options for the second edge to be removed are qr, ___, and ___; however, ___ cannot be chosen because it is a ________________.</p>
-      <p>If qr is the second edge removed, the next four edges to be removed must be ___, ___, ___, and ___, in that order.</p>
-      <p>After qn is removed, the three options for the next edge to be removed are no, ___, and ___.</p>
-      <p>If no is the next edge removed, the last four edges removed will be ___, ___, ___, and ___, in that order.</p>
-      <p>The final Euler trail using the answers to parts 1 through 5 is _________________________.</p>
-    </note>
-    <p>In the previous section, we found Euler circuits using an algorithm that involved joining circuits together into one large circuit. You can also use Fleury’s algorithm to find Euler circuits in any graph with vertices of all even degree. In that case, you can start at any vertex that you would like to use.</p>
-    <p>Step 1: Begin at any vertex.</p>
-    <p>Step 2: Remove an edge between the vertex and any adjacent vertex that is NOT a bridge, unless there is no other choice, making a note of the edge you removed. Repeat this step until all edges are removed.</p>
-    <p>Step 3: Write out the Euler circuit using the sequence of vertices and edges that you found. For example, if you removed ab, bc, cd, de, and ea, in that order, then the Euler circuit is a → b → c → d → e → a.</p>
-    <note type="Video">
-      <p>Fluery's Algorithm to Find an Euler Circuit</p>
-    </note>
-    <note type="Checkpoint">
-      <p>IMPORTANT! Since a circuit is a closed trail, every Euler circuit is also an Euler trail, but when we say Euler trail in this chapter, we are referring to an open Euler trail that begins and ends at different vertices.</p>
-    </note>
-    <example number="12.32">
-      <problem>
-        <p>Use Fleury’s algorithm to find either an Euler circuit or Euler trail in Graph G in Figure 12.147.</p>
-        <image alt="Graph G has three quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The vertices of the second quadrilateral are i, h, j, and k. The vertices of the third quadrilateral are n, m, o, and p. Other edges connect c to d, d to i, i to j, j to n, and n to o. A curved edge connects c and o." number="12.147" caption="Graph G" />
-      </problem>
-      <solution>
-        <p>Graph G has all vertices of even degree so it has an Euler circuit.</p>
-        <p>Step 1: Choose any vertex. We will choose vertex j.</p>
-        <p>Step 2: Remove one of the four edges that meet at vertex j. Since jn is a bridge, we must remove either jh, ji, or jk. We remove ji as shown in Figure 12.148.</p>
-        <image alt="Graph G has three quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The vertices of the second quadrilateral are i, h, j, and k. The vertices of the third quadrilateral are n, m, o, and p. Other edges connect c to d, d to i, i to j, j to n, and n to o. A curved edge connects c and o. The edge, i j is in dashed lines. The edges, i h, and i k are in blue. The edge, d i is in red and labeled no!" number="12.148" caption="Graph G with 1 Edge Removed" />
-        <p>Repeat Step 2: Since id is a bridge, we can remove either ih or ik next. We remove ih, and then the only option is to remove hj as shown in Figure 12.149.</p>
-        <image alt="Graph G has three quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The vertices of the second quadrilateral are i, h, j, and k. The vertices of the third quadrilateral are n, m, o, and p. Other edges connect c to d, d to i, j to n, and n to o. A curved edge connects c and o. The edges, i h, and hj are in dashed lines. The edges, j k, k i, and i d are in blue. The edge, j n is in red and labeled no!" number="12.149" caption="Graph G with 3 Edges Removed" />
-        <p>Repeat Step 2: Since jn is a bridge, the next edge removed must be jk, and then the only option is to remove ki followed by id as shown in Figure 12.149. Even though id is a bridge, it can be removed because it is the only option at this point. Figure 12.150 shows Graph G with these additional edges removed.</p>
-        <image alt="Graph G has two quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The other vertices are i, h, j, and k. The vertices of the second quadrilateral are n, m, o, and p. Other edges connect c to d, d to i, i to k, k to j, j to n, and n to o. A curved edge connects c and o. The edges, i k, i k, and i d are in dashed lines. The edges d b, d c, and d e are in blue." number="12.150" caption="Graph G with 6 Edges Removed" />
-        <p>Repeat Step 2: Choose any one of the edges db, dc, or de. We remove dc as shown in Figure 12.151.</p>
-        <image alt="Graph G has two quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The other vertices are i, h, j, and k. The vertices of the second quadrilateral are n, m, o, and p. Other edges connect c to d, j to n, and n to o. A curved edge connects c and o. The edge, c d is in dashed lines. The edges, c b, b d, and d e are in blue. The edge c to o is in red and is labeled no!" number="12.151" caption="Graph G with 7 Edges Removed" />
-        <p>Repeat Step 2: Since co is a bridge, choose cb next. We remove cb, then bd, and then de as shown in Figure 12.152.</p>
-        <image alt="Graph G has two quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The other vertices are i, h, j, and k. The vertices of the second quadrilateral are n, m, o, and p. Other edges connect j to n, and n to o. A curved edge connects c and o. The edges, c b, b d, and d e are in dashed lines. The edges, e to c, c to o, o to m, o to n, and o to p are in blue." number="12.152" caption="Graph G with 10 Edges Removed" />
-        <p>Repeat Step 2: Next, remove ec and co. Then choose any of op, pn, or om. We remove on as shown in Figure 12.153.</p>
-        <image alt="Graph G has one quadrilateral. The vertices are b, d, e, c, i, h, j, and k. The vertices of the second quadrilateral are n, m, o, and p. Other edges connect j to n, and n to o. A curved edge connects c and o. The edges, n o, c e, and co are in dashed lines. The edges, n m, and n p are in blue. The edge, n j is in red and labeled no!" number="12.153" caption="Graph G with 13 Edges Removed" />
-        <p>Repeat Step 2: Next, remove either nm, np, or nj, but nj is a So, we remove nm as shown in Figure 12.154.</p>
-        <image alt="Graph G has one quadrilateral. The vertices are b, d, e, c, i, h, j, and k. The vertices of the quadrilateral are n, m, o, and p. An edge connects j to n. The edge, n m is in dashed lines. The edges, m o, o p, p n, and n j are in blue." number="12.154" caption="Graph G with 14 Edges Removed" />
-        <p>Repeat Step 2: Next, remove mo, op, pn, and nj. And we are done!</p>
-        <p>Step 3: Notice that the algorithm brought us back to the vertex where we started, forming an Euler circuit. Write out the Euler circuit:</p>
-        <p>j → i → h → j → k → i → d → c → b → d → e → c → o → n → m → o → p → n → j</p>
-      </solution>
-    </example>
-    <note type="Your Turn" number="12.32">
-      <p>Find an Euler circuit or trail through the graph using Fleury’s algorithm.
-
-
-
-Graph T</p>
-    </note>
-    <note type="WORK IT OUT">
-      <p>We have discussed a lot of subtle concepts in this section. Let’s make sure we are all on the same page. Work with a partner to explain why each of the following facts about bridges are true. Support your explanations with definitions and graphs.</p>
-      <list type="ol" style="1">
-        <item>When a bridge is removed from a graph, the number of components increases.</item>
-        <item>A bridge is never part of a circuit.</item>
-        <item>An edge that is part of a triangle is never a local bridge.</item>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">12.6 Euler Trails</heading>
+  <figure number="12.131">
+    <image alt="A map of the United States shows the Pony Express mail route. The route began in St. Joseph, Missouri and traveled through Fort Kearney, Nebraska; Julesburg, Colorado; Fort Laramie, Wyoming; Fort Bridger, Wyoming; Salt Lake City, Utah; Fort Ruby, Nevada; Carson City, Nevada; and San Francisco, California."/>
+    <caption>The Pony Express mail route spanned from California to Missouri. (credit: “Map of Pony Express” by Nathan Hughes Hamiltonh/Flickr, CC BY 2.0)</caption>
+  </figure>
+  <heading level="2">Learning Objectives</heading>
+  <paragraph>After completing this section, you should be able to:</paragraph>
+  <list type="ordered">
+    <item>Describe and identify Euler trails.</item>
+    <item>Solve applications using Euler trails theorem.</item>
+    <item>Identify bridges in a graph.</item>
+    <item>Apply Fleury’s algorithm.</item>
+    <item>Evaluate Euler trails in real-world applications.</item>
+  </list>
+  <paragraph>We used Euler circuits to help us solve problems in which we needed a route that started and ended at the same place. In many applications, it is not necessary for the route to end where it began. In other words, we may not be looking at circuits, but trails, like the old Pony Express trail that led from Sacramento, California in the west to St. Joseph, Missouri in the east, never backtracking.</paragraph>
+  <heading level="2">Euler Trails</heading>
+  <paragraph>If we need a trail that visits every edge in a graph, this would be called an Euler trail. Since trails are walks that do not repeat edges, an Euler trail visits every edge exactly once.</paragraph>
+  <example number="12.29" title="Recognizing Euler Trails">
+    <problem>
+      <paragraph>Use Figure 12.132 to determine if each series of vertices represents a trail, an Euler trail, both, or neither. Explain your reasoning.</paragraph>
+      <figure number="12.132">
+        <image alt="Graph H has 7 vertices labeled a to g. The edges connect a b, a d, b e, e d, d c, c f, f g, d g, and g e."/>
+        <caption>Graph H</caption>
+      </figure>
+      <list type="ordered">
+        <item>a → b → e → g → f → c → d → e</item>
+        <item>a → b → e → g → f → c → d → e → b → a → d → g</item>
+        <item>g → d → a → b → e → d → c → f → g → e</item>
       </list>
-    </note>
-  </subsection>
-  <subsection title="Check Your Understanding">
-    <p>An Euler trail is a trail that visits each ___________ exactly once.</p>
-    <p>__________ algorithm is a procedure for finding an Euler trail or circuit.</p>
-    <p>An Euler _____ always begins and ends at the same vertex, but an Euler _____ does not.</p>
-    <p>When a bridge is removed from a graph, the number of ________ is increased by one.</p>
-    <p>When a __________ is removed from a graph, the shortest path between its vertices will be greater than two.</p>
-    <p>When using Fleury’s algorithm to find an Euler trail, never remove a _________ unless it is the only option.</p>
-  </subsection>
-  <exercises title="Section 12.6 Exercises">
-    <instruction>Use the figure to answer the following exercises. Identify the graph(s) with the given characteristics, if any.</instruction>
-    <exercise number="1" has_solution="false">
-      <problem>
-        <p>Connected</p>
-      </problem>
-    </exercise>
-    <exercise number="2" has_solution="false">
-      <problem>
-        <p>All vertices of even degree</p>
-      </problem>
-    </exercise>
-    <exercise number="3" has_solution="false">
-      <problem>
-        <p>Exactly two vertices of odd degree</p>
-      </problem>
-    </exercise>
-    <exercise number="4" has_solution="false">
-      <problem>
-        <p>Has an Euler trail</p>
-      </problem>
-    </exercise>
-    <exercise number="5" has_solution="false">
-      <problem>
-        <p>Has an Euler circuit</p>
-      </problem>
-    </exercise>
-    <exercise number="6" has_solution="false">
-      <problem>
-        <p>Has neither an Euler trail nor an Euler circuit</p>
-      </problem>
-    </exercise>
-    <exercise number="7" has_solution="false">
-      <problem>
-        <p>ab is a bridge</p>
-      </problem>
-    </exercise>
-    <exercise number="8" has_solution="false">
-      <problem>
-        <p>ef is a bridge</p>
-      </problem>
-    </exercise>
-    <exercise number="9" has_solution="false">
-      <problem>
-        <p>ab is a local bridge</p>
-      </problem>
-    </exercise>
-    <exercise number="10" has_solution="false">
-      <problem>
-        <p>ef is a local bridge</p>
-      </problem>
-    </exercise>
-    <instruction>Use the figure to answer the following exercises. In each exercise, a graph and a sequence of vertices are given. Determine whether each sequence of vertices is an Euler trail, an Euler circuit, or neither for the graph. If it is neither, explain why.</instruction>
-    <exercise number="11" has_solution="false">
-      <problem>
-        <p>Graph A, w → x → y → z → w → u → t → s → v → u</p>
-      </problem>
-    </exercise>
-    <exercise number="12" has_solution="false">
-      <problem>
-        <p>Graph A, u → v → s → t → u → w → z → y → x → w</p>
-      </problem>
-    </exercise>
-    <exercise number="13" has_solution="false">
-      <problem>
-        <p>Graph A, s → t → u → v → u → w → z → y → x → w</p>
-      </problem>
-    </exercise>
-    <exercise number="14" has_solution="false">
-      <problem>
-        <p>Graph A, w → x → y → z → w → v → u → t → s → v</p>
-      </problem>
-    </exercise>
-    <exercise number="15" has_solution="false">
-      <problem>
-        <p>Graph B, u → v → w → x → r → u → t → s → y → z → u</p>
-      </problem>
-    </exercise>
-    <exercise number="16" has_solution="false">
-      <problem>
-        <p>Graph B, v → w → x → r → u → z → y → s → t → u</p>
-      </problem>
-    </exercise>
-    <exercise number="17" has_solution="false">
-      <problem>
-        <p>Graph C, s → t → u → v → w → x → s</p>
-      </problem>
-    </exercise>
-    <exercise number="18" has_solution="false">
-      <problem>
-        <p>Graph C, t → u → x → w → u → s → t → v → w</p>
-      </problem>
-    </exercise>
-    <exercise number="19" has_solution="false">
-      <problem>
-        <p>Graph D, t → r → s → t → u → v → t → x → v → w → x → y → z → x</p>
-      </problem>
-    </exercise>
-    <exercise number="20" has_solution="false">
-      <problem>
-        <p>Graph D, x → v → w → x → y → z → x → t → r → s → t → u → v → t</p>
-      </problem>
-    </exercise>
-    <instruction>Use the figure to answer the following exercises. For each graph, identify a bridge if one exists. If it does not, state so. If it does, identify any components that are created when the bridge is removed.</instruction>
-    <exercise number="21" has_solution="false">
-      <problem>
-        <p>Graph A</p>
-      </problem>
-    </exercise>
-    <exercise number="22" has_solution="false">
-      <problem>
-        <p>Graph B</p>
-      </problem>
-    </exercise>
-    <exercise number="23" has_solution="false">
-      <problem>
-        <p>Graph C</p>
-      </problem>
-    </exercise>
-    <exercise number="24" has_solution="false">
-      <problem>
-        <p>Graph D</p>
-      </problem>
-    </exercise>
-    <instruction>Use the figuree to answer the following exercises. For each graph, identify a local bridge if one exists. If it does not, state so. If it does, find a shortest path between the vertices of the local bridge if the local bridge is removed.</instruction>
-    <exercise number="25" has_solution="false">
-      <problem>
-        <p>Graph A</p>
-      </problem>
-    </exercise>
-    <exercise number="26" has_solution="false">
-      <problem>
-        <p>Graph B</p>
-      </problem>
-    </exercise>
-    <exercise number="27" has_solution="false">
-      <problem>
-        <p>Graph C</p>
-      </problem>
-    </exercise>
-    <exercise number="28" has_solution="false">
-      <problem>
-        <p>Graph D</p>
-      </problem>
-    </exercise>
-    <instruction>Use the graphs to answer the following exercises. In each exercise, a graph is given. Find two Euler trails in each graph using Fleury’s algorithm.</instruction>
-    <exercise number="29" has_solution="false">
-      <problem>
-        <p>Graph Q</p>
-      </problem>
-    </exercise>
-    <exercise number="30" has_solution="false">
-      <problem>
-        <p>Graph R</p>
-      </problem>
-    </exercise>
-    <exercise number="31" has_solution="false">
-      <problem>
-        <p>Graph S</p>
-      </problem>
-    </exercise>
-    <exercise number="32" has_solution="false">
-      <problem>
-        <p>In chess, a knight can move in any direction, but it must move two spaces then turn and move one more space. The eight possible moves a knight can make from a given space are shown in the figure.
-
-
-
-A graph in which each vertex represents a space on a five-by-six game board and each edge represents a move a knight could make is shown in the figure.
-
-
-
-A knight’s tour is a sequence of moves by a knight on a chessboard (of any size) such that the knight visits every square exactly once. If the knight’s tour brings the knight back to its starting position on the board, it is called a closed knight’s tour. Otherwise, it is called an open knight’s tour. Determine if the closed knight’s tour in the figure is most accurately described as a trail, a circuit, an Euler trail, or an Euler circuit of the graph of all possible knight moves. Explain your reasoning.</p>
-      </problem>
-    </exercise>
-    <exercise number="33" has_solution="false">
-      <problem>
-        <p>Determine if the open knight’s tour in the figure is most accurately described as a trail, a circuit, an Euler trail, or an Euler circuit of the graph of all possible knight moves on a five-by-five game board. Explain your reasoning.</p>
-      </problem>
-    </exercise>
-    <exercise number="34" has_solution="false">
-      <problem>
-        <p>The neighborhood of Pines West has three cul-de-sacs that meet at an intersection as shown in the figure. A postal delivery person starts at the intersection and visits each house in a cul-de-sac once, returns to the intersection, visits each house in the next cul-de-sac, and so on, returning to the intersection when finished. Describe how the route can be represented as a graph. If there is no backtracking, in other words, the person never reverses direction, is the route followed by the postal delivery person best described as a trail, a circuit, an Euler trail, or an Euler circuit? Explain your reasoning.</p>
-      </problem>
-    </exercise>
-    <exercise number="35" has_solution="false">
-      <problem>
-        <p>Recall that the bridges of Konigsberg can be represented as a multigraph as shown in the figure. We have seen that no route through Konigsberg passes over each bridge exactly once and returns to the starting point. Is there a route that passes over each bridge exactly once but does not begin and end at the same point? Explain your reasoning.</p>
-      </problem>
-    </exercise>
-    <exercise number="36" has_solution="false">
-      <problem>
-        <p>The figure shows the map of the exhibits at an indoor aquarium. Use a graph in which the edges represent hallways and the vertices represent turns and intersections to explain why a visitor to the aquarium cannot start at one of the turns or intersections, passes by every exhibit exactly once, and end at one of the turns or intersections.</p>
-      </problem>
-    </exercise>
-    <exercise number="37" has_solution="false">
-      <problem>
-        <p>The map of the states of Imaginaria is given. Use a graph to determine if it is possible to begin in one state, travel through Imaginaria crossing the border between each pair of states exactly once, and end in a different state. If it is possible, find such a route. If it is not, explain why.</p>
-      </problem>
-    </exercise>
-  </exercises>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>It is a trail only. It is a trail because it is a walk that doesn’t cover any edges twice, but it is not an Euler trail because it didn’t cover edges ad or dg.</item>
+        <item>It is neither. It is not a trail because it visits ab and be twice. Since it is not a trail, it cannot be an Euler trail.</item>
+        <item>It is both. It is a trail because it is a walk that doesn’t cover any edges twice, and it is an Euler trail because it visits all the edges.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.29">
+    <paragraph>Use the figure to determine if each sequence of vertices represents an Euler trail or not. If not, explain why. Graph I</paragraph>
+    <paragraph>e → f → b → a → d → c → g → h → e → d</paragraph>
+    <paragraph>d → a → b → f → e → h → g → c</paragraph>
+    <paragraph>d → a → b → e → f → b → e → d → c → g → h → e</paragraph>
+  </note>
+  <heading level="2">The Five Rooms Puzzle</heading>
+  <paragraph>Just as Euler determined that only graphs with vertices of even degree have Euler circuits, he also realized that the only vertices of odd degree in a graph with an Euler trail are the starting and ending vertices. For example, in Figure 12.132, Graph H has exactly two vertices of odd degree, vertex g and vertex e. Notice the Euler trail we saw in Excercise 3 of Example 12.29 began at vertex g and ended at vertex e.</paragraph>
+  <paragraph>This is consistent with what we learned about vertices off odd degree when we were studying Euler circuits. We saw that a vertex of odd degree couldn't exist in an Euler circuit as depicted in Figure 12.133. If it was a starting vertex, at some point we would leave the vertex and not be able to return without repeating an edge. If it was not a starting vertex, at some point we would return and not be able to leave without repeating an edge. Since the starting and ending vertices in an Euler trail are not the same, the start is a vertex we want to leave without returning, and the end is a vertex we want to return to and never leave. Those two vertices must have odd degree, but the others cannot.</paragraph>
+  <figure number="12.133">
+    <image alt="Two illustrations. The first illustration shows a vertex, 3. Two arrows point to it and an arrow points away from it. The second illustration shows a vertex, 3. Two arrows point away from it and an arrow points to it."/>
+    <caption>A Vertex of Degree 3</caption>
+  </figure>
+  <paragraph>Let’s use the Euler trail theorem to solve a puzzle so you can amaze your friends! This puzzle is called the “Five Rooms Puzzle.” Suppose that you were in a house with five rooms and the exterior. There is a doorway in every shared wall between any two rooms and between any room and the exterior as shown in Figure 12.134. Could you find a route through the house that passes through each doorway exactly once?</paragraph>
+  <figure number="12.134">
+    <image alt="An illustration shows five rooms in a rectangle labeled f. The rooms are labeled a to e."/>
+    <caption>Five Rooms Puzzle</caption>
+  </figure>
+  <paragraph>Let’s represent the puzzle with a graph in which vertices are rooms (or the exterior) and an edge indicates a door between two rooms as shown in Figure 12.135.</paragraph>
+  <figure number="12.135">
+    <image alt="An illustration shows five rooms in a rectangle labeled f. An arrow from the illustration points to a graph with six vertices. In the illustration, the rooms are labeled a to e. The vertices are a to f. Edges interconnect all the vertices. In the graph, the vertices are labeled a to f. edges connect a b, a d, b d, b e, a c, c d, d e, c d, c f, d f, d e, and e f. Double curved edges connect a to f and b to f. Curved edges connect c to f and f to e."/>
+    <caption>Graph of Five Rooms Puzzle</caption>
+  </figure>
+  <paragraph>To pass through each doorway exactly once means that we cross every edge in the graph exactly once. Since we have not been asked to start and end at the same position, but to visit each edge exactly once, we are looking for an Euler trail. Let’s check the degrees of the vertices.</paragraph>
+  <figure number="12.136">
+    <image alt="A graph has six vertices a to f and their degrees are 5, 5, 4, 5, 4, and 9. Edges connect a b, a d, b d, b e, a c, c d, d e, c d, c f, d f, d e, and e f. Double curved edges connect a to f and b to f. Curved edges connect c to f and f to e."/>
+    <caption>Degrees of Vertices in Five Rooms Puzzle</caption>
+  </figure>
+  <paragraph>Since there are more than two vertices of odd degree as shown in Figure 12.136, the graph of the five rooms puzzle contains no Euler path. Now you can amaze and astonish your friends!</paragraph>
+  <heading level="2">Bridges and Local Bridges</heading>
+  <paragraph>Now that we know which graphs have Euler trails, let’s work on a method to find them. The method we will use involves identifying bridges in our graphs. A bridge is an edge which, if removed, increases the number of components in a graph. Bridges are often referred to as cut-edges. In Figure 12.137, there are several examples of bridges. Notice that an edge that is not part of a cycle is always a bridge, and an edge that is part of a cycle is never a bridge.</paragraph>
+  <figure number="12.137">
+    <image alt="A graph has two triangles and one square. The first triangle has vertices, a, b, and c. The second triangle has vertices, g, k, and j. The square has the vertices, e, f, h, and i. An edge connects e and i. The bridges connect b f, c g, and d g."/>
+    <caption>Graph with Bridges</caption>
+  </figure>
+  <paragraph>Edges bf, cg, and dg are “bridges”</paragraph>
+  <paragraph>The graph in Figure 12.137 is connected, which means it has exactly one component. Each time we remove one of the bridges from the graph the number of components increases by one as shown in Figure 12.138. If we remove all three, the resulting graph in Figure 12.138 has four components.</paragraph>
+  <figure number="12.138">
+    <image alt="Four graphs. The first graph has two triangles and a square. The first triangle has vertices, a, b, and c. The second triangle has vertices, g, k, and j. The square has the vertices, e, f, h, and i. An edge connects e and i. The bridges connect b f, c g, and d g. The second graph is the same. The square is separated. The third graph shows the square and the triangles separated. The second triangle is connected to the vertex, d. In the fourth graph, the triangles, square, and the d vertex are separated."/>
+    <caption>Removing a Bridge Increases Number of Components</caption>
+  </figure>
+  <paragraph>In sociology, bridges are a key part of social network analysis. Sociologists study two kinds of bridges: local bridges and regular bridges. Regular bridges are defined the same in sociology as in graph theory, but they are unusual when studying a large social network because it is very unlikely a group of individuals in a large social network has only one link to the rest of the network. On the other hand, a local bridge occurs much more frequently. A local bridge is a friendship between two individuals who have no other friends in common. If they lose touch, there is no single individual who can pass information between them. In graph theory, a local bridge is an edge between two vertices, which, when removed, increases the length of the shortest path between its vertices to more than two edges. In Figure 12.139, a local bridge between vertices b and e has been removed. As a result, the shortest path between b and e is b → i → j → k → e, which is four edges. On the other hand, if edge ab were removed, then there are still paths between a and b that cover only two edges, like a → i → b.</paragraph>
+  <figure number="12.139">
+    <image alt="Two graphs. The first graph shows a triangle, i a b resting on a square, a b d e, and another triangle, k e f resting on a square, e f g h. The squares have diagonal lines. Edges connect i j and j k. A bridge connects b e. The second graph shows a triangle, i a b resting on a square, a b d e, and another triangle, k e f resting on a square, e f g h. The squares have diagonal lines. Bridges connect i j and j k."/>
+    <caption>Removing a Local Bridge</caption>
+  </figure>
+  <paragraph>The significance of a local bridge in sociology is that it is the shortest communication route between two groups of people. If the local bridge is removed, the flow of information from one group to another becomes more difficult. Let’s say that vertex b is Brielle and vertex e is Ella. Now, Brielle is less likely to hear about things like job opportunities that Ella may know about. This is likely to impact Brielle as well as the friends of Brielle.</paragraph>
+  <example number="12.30" title="Identifying Bridges and Local Bridges">
+    <problem>
+      <paragraph>Use the graph of a social network in Figure 12.140 to answer each question.</paragraph>
+      <figure number="12.140">
+        <image alt="A graph with 23 vertices. The edges are as follows: a b, b c, h i, a d, b e, c e, h g, d e, e f, f g, d n, f j, f k, g k, j k, k u, j o, n m, m o, n p, n q, m q, q o, o r, u v, u w, u x, p q, q r, v w, w x, p s, q t, and s t."/>
+        <caption>Graph of a Social Network</caption>
+      </figure>
+      <list type="ordered">
+        <item>Identify any bridges.</item>
+        <item>If all bridges were removed, how many components would there be in the resulting graph?</item>
+        <item>Identify one local bridge.</item>
+        <item>For the local bridge you identified in part 3, identify the shortest path between the vertices of the local bridge if the local bridge were removed.</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>The edges ku, gh, and hi are bridges.</item>
+        <item>If the bridges were all removed, there would be four components in the resulting graph, {i}, {h}, {u, v, w, x}, and {a, b, c, d, e, f, g, j, k, m, n, o, p, q, r, s, t} as shown in Figure 12.141. Figure 12.141 Graph of Social Network without Bridges</item>
+        <item>Three local bridges are dn, ef, and qt, among others.</item>
+        <item>If dn were removed, the shortest path between d and n would be d → e → f → j → o → m → n.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.30">
+    <paragraph>How many bridges and local bridges are in a complete graph with three or more vertices? Explain your reasoning.</paragraph>
+  </note>
+  <note type="sidebar" source_type="Video" title="Video">
+    <paragraph>Bridges and Local Bridges in Graph Theory</paragraph>
+  </note>
+  <heading level="2">Finding an Euler Trail with Fleury’s Algorithm</heading>
+  <paragraph>Now that we are familiar with bridges, we can use a technique called Fleury’s algorithm, which is a series of steps, or algorithm, used to find an Euler trail in any graph that has exactly two vertices of odd degree.</paragraph>
+  <paragraph>Here are the steps involved in applying Fleury’s algorithm.</paragraph>
+  <paragraph>Step 1: Begin at either of the two vertices of odd degree.</paragraph>
+  <paragraph>Step 2: Remove an edge between the vertex and any adjacent vertex that is NOT a bridge, unless there is no other choice, making a note of the edge you removed. Repeat this step until all edges are removed.</paragraph>
+  <paragraph>Step 3: Write out the Euler trail using the sequence of vertices and edges that you found. For example, if you removed ab, bc, cd, de, and ef, in that order, then the Euler trail is a → b → c → d → e → f.</paragraph>
+  <paragraph>Figure 12.142 shows the steps to find an Euler trail in a graph using Fleury’s algorithm.</paragraph>
+  <figure number="12.142">
+    <image alt="Eight graphs. Each graph has six vertices: t, u, v, w, x, and y. In the first graph, the edges are t u, u w, w y, y x, x v, v t, and v w. Text reads, start at odd degree. Choose direction. The edges flowing from t to u, v, and w are highlighted in blue. The second graph is the same as that of the first, with the edge, tv in dashed lines and labeled remove tv. The edges flowing from v to w and x are in blue. Text reads, then choose the direction. The third graph shows edges, t u, u w, w y, y x, x v, and v w. The edge, v w is in dashed lines and labeled remove v w. The edges from w to t and u are in blue and labeled then choose the direction. The edge from w to y is shown in red and labeled no. The fourth graph shows the edges, t u, u w, w y, y x, x v, and t w. The edge, w u is in dashed lines, and remove w u. The edge from w to y is in red and labeled do not remove bridge wy. The edge from u to t is in blue. The fifth graph shows the edge, t u, t w, w y, y x, and x v. The edge, u t is in dashed lines and labeled remove u t. The edge from t to w is in blue. The sixth graph shows the edge, t w, w y, y z, and x v. The edge, t w is in dashed lines and labeled remove t w. The edge from w to y is in blue. The seventh graph shows the edges, w y, y z, and x v. The edge, w y is in dashed lines and labeled remove w y. The edge from y to x is in blue. The eighth graph shows the edges, y x, and x v. The edge, y x is in dashed lines and labeled remove y x then x v. The edge from x to v is in blue."/>
+    <caption>Using Fleury’s Algorithm To Find Euler Trail</caption>
+  </figure>
+  <paragraph>The Euler trail that was found in Figure 12.142 is t → v → w → u → t → w → y → x → v.</paragraph>
+  <example number="12.31" title="Finding an Euler Trail with Fleury’s Algorithm">
+    <problem>
+      <paragraph>Use Fleury’s Algorithm to find an Euler trail for Graph J in Figure 12.143.</paragraph>
+      <figure number="12.143">
+        <image alt="Graph J has 9 vertices: a, b, c, d, e, f, g, h, and i. Edges connect a b, b d, d c, c a, b c, b f, e f, f g, g i, I h, and h e."/>
+        <caption>Graph J</caption>
+      </figure>
+    </problem>
+    <solution>
+      <paragraph>Step 1: Choose one of the two vertices of odd degree, c or f, as your starting vertex. We will choose c.</paragraph>
+      <paragraph>Step 2: Remove edge ca, cb, or cd. None of these are cut edges so we can select any of the three. We will choose cb as shown in Figure 12.144 to be the first edge removed.</paragraph>
+      <figure number="12.144">
+        <image alt="Graph J has 9 vertices: a, b, c, d, e, f, g, h, and i. Edges connect a b, b d, d c, c a, b c, b f, e f, f g, g i, I h, and h e. The edge, b c is shown in dashed lines. The edges, b d, and b a are in blue. The edge from b to f is in red and labeled no!"/>
+        <caption>Graph J with cb Removed</caption>
+      </figure>
+      <paragraph>Repeat Step 2 The next choice is to remove edge ba, bd, or bf as shown in Figure 12.144, but bf is not an option since it is a bridge. We will choose ba as shown in Figure 12.145 to be the second edge removed.</paragraph>
+      <figure number="12.145">
+        <image alt="Graph J has 9 vertices: a, b, c, d, e, f, g, h, and i. The edges connect a b, b d, d c, c a, b f, e f, f g, g i, I h, and h e. The edge, a b is in dashed lines. The edges from a to c, c to d, b to f, f to e, and f to g are labeled 3, 4, 5, 6, blank, and blank and shaded in blue."/>
+        <caption>Graph J with cb and ba Removed</caption>
+      </figure>
+      <paragraph>Repeat Step 2 for the third, fourth, fifth, sixth, and seventh edges. As shown in Figure 12.145, until we get to the seventh edge there is only one option each time, ac, cd, db, and bf in that order. For the seventh edge, we must choose between fe and fg. Neither of these are bridges. We choose fe. Figure 12.146 shows that ac, cd, db, bf, and fe have been removed.</paragraph>
+      <figure number="12.146">
+        <image alt="Graph J has 9 vertices: a, b, c, d, e, f, g, h, and i. The edges connect b d, d c, c a, b f, e f, f g, g i, I h, and h e. The edges, a c, c d, d b, b f, and f e are in dashed lines. The edges, e to h, h to i, i to g, and g to f are shaded in blue and labeled 8, 9, 10, and 11."/>
+        <caption>Graph J with Seven Edges Removed</caption>
+      </figure>
+      <paragraph>Repeat Step 2 for the eight, ninth, tenth, and eleventh edges. As shown in Figure 12.146, there is only one option for each of these edges, eh, hi, ig, and gf, in that order.</paragraph>
+      <paragraph>Step 3: Write out the Euler trail using the vertices in the sequence that the edges were removed. We removed cb, ba, ac, cd, db, bf, fe, eh, hi, ig, and gf, in that order. The Euler trail is c → b → a → c → d → b → f → e → h → i → g → f.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Checkpoint" title="Checkpoint">
+    <paragraph>TIP! To avoid errors, count the number of edges in your graph and make sure that your Euler trail represents that number of edges.</paragraph>
+  </note>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.31">
+    <paragraph>Use Graph L to fill in the blanks to complete the steps in Fleury’s algorithm. Graph L</paragraph>
+    <paragraph>The two vertices that can be used as the starting vertex are ____ and s.</paragraph>
+    <paragraph>If sq is the first edge removed, the three options for the second edge to be removed are qr, ___, and ___; however, ___ cannot be chosen because it is a ________________.</paragraph>
+    <paragraph>If qr is the second edge removed, the next four edges to be removed must be ___, ___, ___, and ___, in that order.</paragraph>
+    <paragraph>After qn is removed, the three options for the next edge to be removed are no, ___, and ___.</paragraph>
+    <paragraph>If no is the next edge removed, the last four edges removed will be ___, ___, ___, and ___, in that order.</paragraph>
+    <paragraph>The final Euler trail using the answers to parts 1 through 5 is _________________________.</paragraph>
+  </note>
+  <paragraph>In the previous section, we found Euler circuits using an algorithm that involved joining circuits together into one large circuit. You can also use Fleury’s algorithm to find Euler circuits in any graph with vertices of all even degree. In that case, you can start at any vertex that you would like to use.</paragraph>
+  <paragraph>Step 1: Begin at any vertex.</paragraph>
+  <paragraph>Step 2: Remove an edge between the vertex and any adjacent vertex that is NOT a bridge, unless there is no other choice, making a note of the edge you removed. Repeat this step until all edges are removed.</paragraph>
+  <paragraph>Step 3: Write out the Euler circuit using the sequence of vertices and edges that you found. For example, if you removed ab, bc, cd, de, and ea, in that order, then the Euler circuit is a → b → c → d → e → a.</paragraph>
+  <note type="sidebar" source_type="Video" title="Video">
+    <paragraph>Fluery's Algorithm to Find an Euler Circuit</paragraph>
+  </note>
+  <note type="practice" source_type="Checkpoint" title="Checkpoint">
+    <paragraph>IMPORTANT! Since a circuit is a closed trail, every Euler circuit is also an Euler trail, but when we say Euler trail in this chapter, we are referring to an open Euler trail that begins and ends at different vertices.</paragraph>
+  </note>
+  <example number="12.32" title="Finding an Euler Circuit or Euler Trail Using Fleury’s Algorithm">
+    <problem>
+      <paragraph>Use Fleury’s algorithm to find either an Euler circuit or Euler trail in Graph G in Figure 12.147.</paragraph>
+      <figure number="12.147">
+        <image alt="Graph G has three quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The vertices of the second quadrilateral are i, h, j, and k. The vertices of the third quadrilateral are n, m, o, and p. Other edges connect c to d, d to i, i to j, j to n, and n to o. A curved edge connects c and o."/>
+        <caption>Graph G</caption>
+      </figure>
+    </problem>
+    <solution>
+      <paragraph>Graph G has all vertices of even degree so it has an Euler circuit.</paragraph>
+      <paragraph>Step 1: Choose any vertex. We will choose vertex j.</paragraph>
+      <paragraph>Step 2: Remove one of the four edges that meet at vertex j. Since jn is a bridge, we must remove either jh, ji, or jk. We remove ji as shown in Figure 12.148.</paragraph>
+      <figure number="12.148">
+        <image alt="Graph G has three quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The vertices of the second quadrilateral are i, h, j, and k. The vertices of the third quadrilateral are n, m, o, and p. Other edges connect c to d, d to i, i to j, j to n, and n to o. A curved edge connects c and o. The edge, i j is in dashed lines. The edges, i h, and i k are in blue. The edge, d i is in red and labeled no!"/>
+        <caption>Graph G with 1 Edge Removed</caption>
+      </figure>
+      <paragraph>Repeat Step 2: Since id is a bridge, we can remove either ih or ik next. We remove ih, and then the only option is to remove hj as shown in Figure 12.149.</paragraph>
+      <figure number="12.149">
+        <image alt="Graph G has three quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The vertices of the second quadrilateral are i, h, j, and k. The vertices of the third quadrilateral are n, m, o, and p. Other edges connect c to d, d to i, j to n, and n to o. A curved edge connects c and o. The edges, i h, and hj are in dashed lines. The edges, j k, k i, and i d are in blue. The edge, j n is in red and labeled no!"/>
+        <caption>Graph G with 3 Edges Removed</caption>
+      </figure>
+      <paragraph>Repeat Step 2: Since jn is a bridge, the next edge removed must be jk, and then the only option is to remove ki followed by id as shown in Figure 12.149. Even though id is a bridge, it can be removed because it is the only option at this point. Figure 12.150 shows Graph G with these additional edges removed.</paragraph>
+      <figure number="12.150">
+        <image alt="Graph G has two quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The other vertices are i, h, j, and k. The vertices of the second quadrilateral are n, m, o, and p. Other edges connect c to d, d to i, i to k, k to j, j to n, and n to o. A curved edge connects c and o. The edges, i k, i k, and i d are in dashed lines. The edges d b, d c, and d e are in blue."/>
+        <caption>Graph G with 6 Edges Removed</caption>
+      </figure>
+      <paragraph>Repeat Step 2: Choose any one of the edges db, dc, or de. We remove dc as shown in Figure 12.151.</paragraph>
+      <figure number="12.151">
+        <image alt="Graph G has two quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The other vertices are i, h, j, and k. The vertices of the second quadrilateral are n, m, o, and p. Other edges connect c to d, j to n, and n to o. A curved edge connects c and o. The edge, c d is in dashed lines. The edges, c b, b d, and d e are in blue. The edge c to o is in red and is labeled no!"/>
+        <caption>Graph G with 7 Edges Removed</caption>
+      </figure>
+      <paragraph>Repeat Step 2: Since co is a bridge, choose cb next. We remove cb, then bd, and then de as shown in Figure 12.152.</paragraph>
+      <figure number="12.152">
+        <image alt="Graph G has two quadrilaterals. The vertices of the first quadrilateral are b, d, e, and c. The other vertices are i, h, j, and k. The vertices of the second quadrilateral are n, m, o, and p. Other edges connect j to n, and n to o. A curved edge connects c and o. The edges, c b, b d, and d e are in dashed lines. The edges, e to c, c to o, o to m, o to n, and o to p are in blue."/>
+        <caption>Graph G with 10 Edges Removed</caption>
+      </figure>
+      <paragraph>Repeat Step 2: Next, remove ec and co. Then choose any of op, pn, or om. We remove on as shown in Figure 12.153.</paragraph>
+      <figure number="12.153">
+        <image alt="Graph G has one quadrilateral. The vertices are b, d, e, c, i, h, j, and k. The vertices of the second quadrilateral are n, m, o, and p. Other edges connect j to n, and n to o. A curved edge connects c and o. The edges, n o, c e, and co are in dashed lines. The edges, n m, and n p are in blue. The edge, n j is in red and labeled no!"/>
+        <caption>Graph G with 13 Edges Removed</caption>
+      </figure>
+      <paragraph>Repeat Step 2: Next, remove either nm, np, or nj, but nj is a So, we remove nm as shown in Figure 12.154.</paragraph>
+      <figure number="12.154">
+        <image alt="Graph G has one quadrilateral. The vertices are b, d, e, c, i, h, j, and k. The vertices of the quadrilateral are n, m, o, and p. An edge connects j to n. The edge, n m is in dashed lines. The edges, m o, o p, p n, and n j are in blue."/>
+        <caption>Graph G with 14 Edges Removed</caption>
+      </figure>
+      <paragraph>Repeat Step 2: Next, remove mo, op, pn, and nj. And we are done!</paragraph>
+      <paragraph>Step 3: Notice that the algorithm brought us back to the vertex where we started, forming an Euler circuit. Write out the Euler circuit:</paragraph>
+      <paragraph>j → i → h → j → k → i → d → c → b → d → e → c → o → n → m → o → p → n → j</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.32">
+    <paragraph>Find an Euler circuit or trail through the graph using Fleury’s algorithm. Graph T</paragraph>
+  </note>
+  <note type="practice" source_type="WORK IT OUT" title="WORK IT OUT">
+    <paragraph>We have discussed a lot of subtle concepts in this section. Let’s make sure we are all on the same page. Work with a partner to explain why each of the following facts about bridges are true. Support your explanations with definitions and graphs.</paragraph>
+    <list type="ordered">
+      <item>When a bridge is removed from a graph, the number of components increases.</item>
+      <item>A bridge is never part of a circuit.</item>
+      <item>An edge that is part of a triangle is never a local bridge.</item>
+    </list>
+  </note>
+  <heading level="2">Check Your Understanding</heading>
+  <paragraph>Fill in the blank to make the statement true.</paragraph>
+  <paragraph>An Euler trail is a trail that visits each ___________ exactly once.</paragraph>
+  <paragraph>__________ algorithm is a procedure for finding an Euler trail or circuit.</paragraph>
+  <paragraph>An Euler _____ always begins and ends at the same vertex, but an Euler _____ does not.</paragraph>
+  <paragraph>When a bridge is removed from a graph, the number of ________ is increased by one.</paragraph>
+  <paragraph>When a __________ is removed from a graph, the shortest path between its vertices will be greater than two.</paragraph>
+  <paragraph>When using Fleury’s algorithm to find an Euler trail, never remove a _________ unless it is the only option.</paragraph>
 </section>

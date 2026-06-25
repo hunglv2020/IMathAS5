@@ -1,31 +1,45 @@
 ---
 name: verify-imathas-batch
-description: Checks multiple seeds simultaneously ensuring 100% success rate (no crash/PHP errors) internally on RAM. Provides pass/fail reports on Terminal without writing large JSON files.
+description: Fixed-seed batch validator for completed IMathAS packages. Confirms runtime stability; not a debugging or orchestration skill.
 ---
 
-# Skill: Run Automated Batch Validation on IMathAS Logic
+# Skill: verify-imathas-batch
 
-This skill runs your entire dynamic PHP + Text generation through the actual IMathAS interpreter on a batch of test Seeds and provides an instant Pass/Fail output.
+## Purpose
 
-## WHEN TO USE
-- In **Step 5: VERIFY PROJECT / RESULT VERIFICATION**.
-- After you've fully edited `control.php`, `question.txt`, and optionally text-audited, use this to confirm you haven't caused unexpected logic crashes.
-- Do not use this for "Debug". For Debug, use `render_seeds` MCP to inspect `variable_values`, `question_asciimath`, `solution_asciimath`, `question_md`, and `solution_md` for the failing seed.
+Run fixed-seed validation on a completed IMathAS package to catch crashes or unstable runtime behavior.
 
-## HOW TO USE
-Use the CLI tool provided in this skill's scripts directory internally:
+## Scope
 
-```bash
-uv run python .agents/skills/verify-imathas-batch/scripts/verify.py --dir <directory_containing_code> <seeds>
-```
+In scope:
+- batch verification of an `imathas/` directory
+- pass/fail interpretation of the validator output
 
-**Practical Example:**
-If we want to verify 5 random Seeds locally within the `imathas` package to ensure it's safe for students to use:
+Out of scope:
+- debugging failing seeds in depth
+- authoring decisions
+- mathematical audit reporting
+
+## Read First
+
+1. target `questions/qt-{id}/imathas/` directory
+2. required policy: `p-verify`
+
+## Validator-First Steps
+
+Run:
 
 ```bash
 uv run python .agents/skills/verify-imathas-batch/scripts/verify.py --dir questions/qt-{id}/imathas 11 15 42 77 99
 ```
 
-**Result Analysis:**
-- Output reports `ALL CHECKS PASSED`: The code does not crash mathematically. You can proceed with workflows!
-- Output reports `SOME CHECKS FAILED`: Use `render_seeds` MCP with the failing seed to inspect `variable_values`, `question_asciimath`, `solution_asciimath`, and errors, or look at `validate-control-syntax` again to figure out the fix.
+If validation fails, inspect the failing seed with `render_seeds` or a snapshot; do not treat this skill as the debugging surface.
+
+## Output Contract
+
+- Keep the existing CLI contract unchanged
+- Do not write new repo-tracked artifacts by default
+
+## Stop / Escalate Conditions
+
+- Escalate only if the validator itself is unavailable or blocked

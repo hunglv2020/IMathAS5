@@ -1,175 +1,59 @@
 ---
 name: snapshot-seed
-description: >
-  Snapshot a specific seed render from an existing IMathAS template into seeds/{N}/ folder.
-  Trigger keywords: snapshot seed, seed snapshot, render snapshot, chụp seed, snapshot từ seed.
-  Reads active_qt.md, renders the template at a given seed via MCP, and writes all render
-  outputs to questions/qt-{id}/seeds/{N}/. Pure storage — does not touch static/ files.
-metadata:
-  version: "1.0.0"
-  last_updated: "2026-06-13"
-  status: active
-  related_skills:
-    - draft-static-question
-    - draft-static-solution
+description: Render and store one concrete seed instance under `questions/qt-{id}/seeds/{N}/` for later inspection. Pure storage artifact, not an audit or authoring skill.
 ---
 
 # Skill: snapshot-seed
 
-Snapshots a rendered seed from an existing IMathAS template into a dedicated folder:
+## Purpose
 
-```
-questions/qt-{id}/seeds/{N}/
-  question_asciimath.txt
-  question_md.txt
-  solution_asciimath.txt
-  solution_md.txt
-  variable_values.txt
-  errors.txt      ← only if render returned errors
-  warnings.txt    ← only if render returned warnings
-```
+Create or refresh a concrete rendered seed snapshot for later inspection.
 
-This skill is **storage only**. It does not write to `static/` and does not perform any
-authoring, scope checking, or curriculum validation.
+## Scope
 
----
+In scope:
+- render one seed
+- store render outputs under `questions/qt-{id}/seeds/{N}/`
+- overwrite an existing snapshot for the same seed
 
-## Trigger Conditions
+Out of scope:
+- static authoring
+- coverage/pedagogical/accuracy judgments
+- robustness proof
 
-### Trigger Keywords
+## Read First
 
-**English**: snapshot seed, seed snapshot, render snapshot
+1. `context/active_qt.toml`
+2. `questions/qt-{id}/imathas/qtype.txt`
+3. `questions/qt-{id}/imathas/question.txt`
+4. `questions/qt-{id}/imathas/control.php`
+5. `questions/qt-{id}/imathas/solution.txt` if present
+6. required policy: `p-snapshot`
 
-**Tiếng Việt**: chụp seed, snapshot seed, snapshot từ seed
+## Retrieval Expansion Triggers
 
-### Does NOT Trigger
+No broad context expansion by default. Only inspect additional files if the template is incomplete or the requested seed snapshot depends on understanding missing artifacts.
 
-| Intent | Use instead |
-|---|---|
-| Render seed and update `static/` question files | `draft-static-question` Mode B |
-| Draft a solution from a rendered question | `draft-static-solution` |
-| Author the IMathAS template from scratch | `write-imathas-x` |
+## Validator-First Steps
 
----
+- Hard stop if `context/active_qt.toml` has no active id
+- Hard stop if required template files are missing
+- Use the requested seed; default to `1` only if the user did not specify a seed
 
-## Seed Number
+## Output Contract
 
-Use the seed number from the user's request. Default to `1` if none given.
+Write only to `questions/qt-{id}/seeds/{N}/`:
+- `question_asciimath.txt`
+- `question_md.txt`
+- `solution_asciimath.txt`
+- `solution_md.txt`
+- `variable_values.txt`
+- `errors.txt` when non-empty
+- `warnings.txt` when non-empty
 
----
+Render errors and warnings are stored, not treated as hard-stop output blockers.
 
-## Process
+## Stop / Escalate Conditions
 
-### [READ ACTIVE QT]
-
-Read `context/active_qt.md`. Extract the active `qt-{id}`.
-
-> **Hard stop if file is empty or no id is present:**
-> ```
-> context/active_qt.md has no active id.
-> Please write the qt-id into context/active_qt.md and retry.
-> ```
-
----
-
-### [CHECK TEMPLATE]
-
-Verify that `questions/qt-{id}/imathas/` exists and contains the required files:
-
-```
-questions/qt-{id}/imathas/qtype.txt      ← required
-questions/qt-{id}/imathas/question.txt   ← required
-questions/qt-{id}/imathas/control.php    ← required
-questions/qt-{id}/imathas/solution.txt   ← optional
-```
-
-> **Hard stop if folder or any required file is missing:**
-> ```
-> questions/qt-{id}/imathas/ template incomplete.
-> Missing: <list of missing files>
-> Required: qtype.txt, question.txt, control.php
-> ```
-
-Read all four files. If `solution.txt` is absent, omit the `solution` parameter from the MCP
-call and note this in the report.
-
----
-
-### [RENDER]
-
-Call `mcp__content-workbench__render_seeds`:
-
-```
-seeds    = [<N>]
-question = <content of questions/qt-{id}/imathas/question.txt>
-control  = <content of questions/qt-{id}/imathas/control.php>
-qtype    = <content of questions/qt-{id}/imathas/qtype.txt>
-solution = <content of questions/qt-{id}/imathas/solution.txt>  ← omit if file absent
-```
-
-Render errors and warnings are **not a hard stop**. Capture them and write to the seed
-folder. Continue writing whatever fields were returned.
-
----
-
-### [WRITE SEED FOLDER]
-
-Target directory: `questions/qt-{id}/seeds/{N}/`
-
-If the directory already exists, overwrite all files without prompting. Log one-line notice:
-`→ Overwriting existing questions/qt-{id}/seeds/{N}/`
-
-Write these files from the render result:
-
-| File | Source field | Write condition |
-|---|---|---|
-| `question_asciimath.txt` | `question_asciimath` | Always |
-| `question_md.txt` | `question_md` | Always |
-| `solution_asciimath.txt` | `solution_asciimath` | Always (empty if no solution template) |
-| `solution_md.txt` | `solution_md` | Always (empty if no solution template) |
-| `variable_values.txt` | `variable_values` | Always |
-| `errors.txt` | `errors` | Only if non-empty |
-| `warnings.txt` | `warnings` | Only if non-empty |
-
-**`variable_values.txt` format** — one variable per line, plain text:
-
-```
-$a = 3
-$b = 5
-$c = -2
-```
-
-**`errors.txt` / `warnings.txt` format** — one item per line, plain text.
-
----
-
-### [REPORT]
-
-```
-→ Snapshot seed <N> for qt-{id}
-   variable_values: { $a=3, $b=5 }
-
-→ Written to questions/qt-{id}/seeds/<N>/
-   question_asciimath.txt  ✓
-   question_md.txt         ✓
-   solution_asciimath.txt  ✓  [empty — no solution template]  ← if applicable
-   solution_md.txt         ✓  [empty — no solution template]  ← if applicable
-   variable_values.txt     ✓
-   warnings.txt            ⚠  (1 warning — see file)          ← if applicable
-   errors.txt              ✗  (N errors — see file)           ← if applicable
-```
-
----
-
-## Key Rules Summary
-
-| Rule | Value |
-|---|---|
-| Active QT source | `context/active_qt.md` |
-| Default seed | `1` |
-| Output location | `questions/qt-{id}/seeds/{N}/` only — never writes to `static/` |
-| Overwrite existing seed folder | Yes, no confirm gate |
-| Render errors/warnings | Not a hard stop — stored in `errors.txt` / `warnings.txt` |
-| `solution.txt` absent | Omit from MCP call; solution files written as empty |
-| `static_question_no_answerboxes.txt` | Not written by this skill |
-| Authoring / scope / curriculum | Not applied — pure render snapshot |
+- Stop if the active question id is missing
+- Stop if the IMathAS template is incomplete

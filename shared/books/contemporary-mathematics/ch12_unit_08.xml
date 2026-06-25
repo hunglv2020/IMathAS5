@@ -1,331 +1,234 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="12.8" title="Hamilton Paths">
-  <image alt="A group of children getting on a school bus." number="12.165" caption="A school bus picks up children along a planned route. (credit: “Kids at School Bus Stop” by Ty Hatch/Flickr, CC BY 2.0)" />
-  <subsection title="Learning Objectives">
-    <p>After completing this section, you should be able to:</p>
-    <list type="ol" style="1">
-      <item>Describe and identify Hamilton paths.</item>
-      <item>Evaluate Hamilton paths in real-world applications.</item>
-      <item>Distinguish between Hamilton paths and Euler trails.</item>
-    </list>
-  </subsection>
-  <subsection title="Hamilton Paths">
-    <p>Just as circuits that visit each vertex in a graph exactly once are called Hamilton cycles (or Hamilton circuits), paths that visit each vertex on a graph exactly once are called Hamilton paths. As we explore Hamilton paths, you might find it helpful to refresh your memory about the relationships between walks, trails, and paths by looking at Figure 12.166. We know that paths are walks that don’t repeat any vertices or edges. So, a Hamilton path visits every vertex without repeating any vertices or edges. Figure 12.167 shows a path from vertex A to vertex E and a Hamilton path from vertex A to vertex E.</p>
-    <image alt="Three concentric ovals represent paths, trails, and walks. The first (inner) oval labeled paths reads, no repeated edges or vertices. The second oval labeled trails reads, no repeated edges. The third oval is labeled walks." number="12.166" caption="Walks, Trails, and Paths" />
-    <image alt="Two graphs. Each graph has five vertices: A, B, C, D, and E. In the first graph, directed edges flow from A to B, B to C, and C to E. In the second graph, directed edges flow from A to B, B to C, C to D, and D to E." number="12.167" caption="Path or Hamilton Path?" />
-    <example number="12.38">
-      <problem>
-        <p>Which of the following sequences of vertices is a Hamilton path for Graph Q in Figure 12.168?</p>
-        <image alt="Graph Q has two overlapping quadrilaterals. The vertices of the outer quadrilateral are a, c, h, and f. The vertices of the inner quadrilateral are d, b, e, and g. The vertex, d rests on the edge a f. The vertex, b rests on the edge a c. The vertex, e rests on the edge c h. The vertex, g rests on the edge h f." number="12.168" caption="Graph Q" />
-        <list type="ol" style="1">
-          <item>a → d → b → c → e → g → f</item>
-          <item>c → b → e → h → g → f → d → a</item>
-          <item>h → e → g → d → b → e → g → f → d → a → b → c</item>
-        </list>
-      </problem>
-      <solution>
-        <p>Sequence 1 is a path, because it is a walk that doesn’t repeat any vertices or edges, but not a Hamilton path because it skips vertex h. Sequence 2 is a path that visits each vertex exactly once; so, it is a Hamilton path. Sequence 3 is a walk, but it is not a path because it visits vertices g, e, and b each more than once; so, it cannot be a Hamilton path. So, we can see that only sequence 2 is a Hamilton path.</p>
-      </solution>
-    </example>
-    <note type="Your Turn" number="12.38">
-      <image alt="Two graphs are labeled graph A and graph K. Graph A has five vertices: b, c, d, e, and f. Edges connect b c, c f, b d, b e, d e, and e f. Graph K has five vertices: m, n, o, p, and q. Edges connect m n, n o, n q, q o, o p, n p, and m p." caption="Graphs A and K" />
-      <p>Graph A, b → c → d → e → f</p>
-      <p>Graph A, b → e → f → c → b → d</p>
-      <p>Graph K, n → q → o → p → m</p>
-    </note>
-    <note type="Checkpoint">
-      <p>TIP! Since a Hamilton path visits each vertex exactly once, it must have the same number of vertices listed as appear in the graph.</p>
-    </note>
-    <subsection title="Finding Hamilton Paths">
-      <p>Suppose you were visiting an aquarium with some friends. The map of the aquarium is given in Figure 12.169. The letters represent the exhibits.</p>
-      <image alt="A map of aquarium exhibits. The vertices are labeled A to S. The entrance is at the bottom." number="12.169" caption="Map of Aquarium Exhibits" />
-      <p>Figure 12.170 shows a graph of the aquarium in which each vertex represents an exhibit and each edge is a route between the pair of exhibits that doesn’t bypass another exhibit.</p>
-      <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and S R." number="12.170" caption="Graph of Aquarium" />
-      <p>Let’s see if we can plan a tour of the exhibits that visits each exhibit exactly once, beginning at exhibit O and ending at exhibit C. Suppose that, after exhibit O, we plan to visit exhibit Q and then exhibit M. After M, should we plan to visit N, L, or R? Take a look at Figure 12.171. If R is not chosen next, that will cause a problem later on. Do you see what it is?</p>
-      <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and S R. The edges, O Q, Q M, M R, M L, and M N are directed. A question mark is above M." number="12.171" caption="Choosing Vertex L, N, or R" />
-      <p>If L or N is chosen next, the only way to get to R later will be to go from S to R, and then we will not be able to continue without repeating a vertex. So, we will pick R next, and then the only option is S. After S we have another choice to make. As shown in Figure 12.172, the next choice is between B and E. Keeping in mind that the goal is to end at C, which would be the better choice?</p>
-      <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and S R. The edges, O Q, Q M, M R, R S, S B, and S E are directed. A question mark is above S." number="12.172" caption="Choosing Vertex B or E" />
-      <p>If you said vertex B, you are right! Otherwise, we will not be able to visit B later. After B, the only option is E. Then we can choose either D or G. Either will work fine. Let’s choose G as shown in Figure 12.173. After G, you must visit H, but should you visit K or L after that?</p>
-      <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and S R. The edges, O Q, Q M, M R, R S, S B, B E, E G, G H, H L, and H K are directed. A question mark is above H." number="12.173" caption="Choose Vertex L or K" />
-      <p>If you said to go to vertex L next, you are right! Otherwise, it will be impossible to visit N without repeating a vertex. So, next is L, then N, then K, and then at J you have another decision to make we can see in Figure 12.174. Should you choose F, I, or P next?</p>
-      <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N L K, L M, N M, O Q, M Q, Q R, M R, and S R. The edges, O Q, Q M, M R, R S, S B, B E, E G, G H, H L, L N, N K, K J, J F, J I, and J P are directed. A question mark is above J." number="12.174" caption="Choose Vertex F, I, or P" />
-      <p>If you said P, you are right! If you choose either of the other two vertices, you will not be able to visit P later without passing through another vertex twice. Once P is chosen, vertex I must be next followed by F. Then you have to choose between A and D as shown in Figure 12.175.</p>
-      <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and SR. The edges, O Q, Q M, M R, R S, S B, B E, E G, G H, H L, L N, N K, K J, J P, P I, I F, F A, and F D are directed. A question mark is above F." number="12.175" caption="Choose Vertex A or D" />
-      <p>In this case, we must go to D then to A so that we can visit C without backtracking. The complete Hamilton path is shown in Figure 12.176.</p>
-      <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and S R. The edges, O Q, Q M, M R, R S, S B, B E, E G, G H, H L, L N, N K, K J, J P, P I, I F, F D, D A, and A C are directed." number="12.176" caption="Complete Hamilton Path from O to C" />
-      <p>So, one Hamilton path that begins at O and ends at C is O → Q → M → R → S → B → E → G → H → L → N → K → J → P → I → F → D → A → C.</p>
-      <p>There is no set sequence of steps that can be used to find a Hamilton path if it exists, but it does help to keep in mind where we are headed and avoid choices that will make returning to a particular vertex impossible without repeating vertices. Let’s practice finding Hamilton paths.</p>
-      <example number="12.39">
-        <problem>
-          <p>Use Figure 12.177 to find a Hamilton path between vertices C and D.</p>
-          <image alt="Graph G has six vertices. The vertices are C, A, B, F, D, and E. Edges connect C A, A B, A F, B F, F D, F E, and D E." number="12.177" caption="Graph G" />
-        </problem>
-        <solution>
-          <p>If we start at vertex C, A must be next. Then we must choose between B and F. If we choose F, we will have to backtrack to get to include B; so, we must choose B. Once we choose B, we must choose F next. After F, we choose E, because we want to end at D. So, a Hamilton path between C and D is C → A → B → F → E → D.</p>
-        </solution>
-      </example>
-      <note type="Your Turn" number="12.39">
-        <p>Use  Figure 12.177 to find a Hamilton path between vertices C and E.</p>
-      </note>
-    </subsection>
-  </subsection>
-  <subsection title="Existence of a Hamilton Path">
-    <p>It turns out that there is no Hamilton path between vertices A and E in Graph G in Figure 12.177. To understand why, let’s imagine there is a red apple tree on one side of a bridge and a green apple tree on the other side of the bridge. Now suppose someone asked you to pick up all the fallen apples under each tree without crossing the bridge more than once, and making sure that the first apple you pick up and the last apple you pick up are both red. You would say, that is impossible! To have the first and last apple be red would either require leaving the green apples on the ground or crossing the bridge twice.</p>
-    <p>Let’s see how this relates to finding a Hamilton path between A and E in Graph G. The edge AC is a bridge because, if it were removed, the graph would become disconnected with two components, the component {C} and the component {A, B, D, E, F}. So, we can think of the vertices A, B, D, E, and F as the red apples, vertex C as the green apple, and the edge AC is the bridge between them as in Figure 12.178.</p>
-    <image alt="A graph represents the bridge between green and red apples. The graph has six vertices. The vertices are C, A, B, F, D, and E. Edges connect A B, A F, B F, F D, F E, and D E. Green apples: C. Red apples: A, B, F, D, and E. A bridge is between C and A." number="12.178" caption="Bridge between Red and Green Apples" />
-    <p>The creation of a Hamilton path requires a visit to each vertex, just as picking up all the apples requires a visit to each apple. A and E are both red apples; so, a path from A to E would both start and end at a red apple, just as you were asked to do. And you wouldn’t be able to cross the bridge twice because that would mean visiting A twice, which is not allowed in a Hamilton path. So, it is impossible to find a Hamilton path from A to E just as it was impossible to pick up all the apples without crossing the bridge more than once. By the same reasoning, if a graph has a bridge, there will never be a Hamilton path that begins and ends on the same side of that bridge, meaning beginning and ending at vertices that would be in the same component if the bridge were removed from the graph.</p>
-    <example number="12.40">
-      <problem>
-        <p>Find a Hamilton path from vertex s to vertex v for each graph in Figure 12.179 or indicate that there is none.</p>
-        <image alt="Four graphs. Graph A has two overlapping quadrilaterals, s t u v and w x y z. An edge connects w to u. Graph B has two overlapping quadrilaterals, s t z y, and r v w x. A vertex, u is at the center of r v and t z. Graph C has six vertices. Edges connect s t, t v, v w, w x, x u, w u, u s, and u t. Graph D has 10 vertices. Edges from t lead to x, r, s, u, and q. Edges from x lead to v, w, y, and z. Edges connect r s, u q, v w, and y z." number="12.179" caption="Graphs A, B, C, and D" />
-      </problem>
-      <solution>
-        <p>Graph A: Edge uw is a bridge connecting component {s, t, u, v} to the component {w, x, y, z}. There is no Hamilton path from vertex s to vertex v because they would be part of the same component if the bridge uw were removed.</p>
-        <p>Graph B: There are no bridges in Graph B. The only method we have to determine if a Hamilton path from vertex s to vertex v exists is to try every possibility. From vertex s, we can visit either vertex y or vertex t. We will try vertex y first and then come back to see what happens with vertex t. After visiting y, we must visit z and then u, but then we have to decide between vertices r, t, and v next as shown in Figure 12.180.</p>
-        <image alt="A graph has two overlapping quadrilaterals, s t z y, and r v w x. A vertex, u is at the center of r v and t z. Directed edges flow from s to y, y to z, z to u, u to r, u to v, and u to t. A question mark is above u." number="12.180" caption="Choose Vertex r, t, or v" />
-        <p>Vertex v is not an option since we want to end at v. Vertex t is not an option since that would force us to go to visit s a second time. So, we must go to vertex r next. After vertex r, we must visit x, then w, then v, but we missed vertex t as shown in Figure 12.181.</p>
-        <image alt="A graph has two overlapping quadrilaterals, s t z y, and r v w x. A vertex, u is at the center of r v and t z. Directed edges flow from s to y, y to z, z to u, u to r, r to x, x to w, w to v. t is labeled missed. v is labeled stop." number="12.181" caption="Missed Vertex t" />
-        <p>Let’s go back to the beginning and choose t instead of y. After t, we must go to u and then we have a choice to make between r, v, and z as shown in Figure 12.182.</p>
-        <image alt="A graph has two overlapping quadrilaterals, s t z y, and r v w x. A vertex, u is at the center of r v and t z. Directed edges flow from s to t, t to u, u to b, u to r, and u to z. A question mark is above u." number="12.182" caption="Choose Vertex v, r, or z" />
-        <p>Vertex v is not an option since we want to end at v. Vertex z is not an option since that would force us to go y and then to visit s a second time. So, we must go to vertex r next. After r, we must go to x then w then v, where we have to stop even though we have missed vertices y and z, as shown in Figure 12.183.</p>
-        <image alt="A graph has two overlapping quadrilaterals, s t z y, and r v w x. A vertex, u is at the center of r v and t z. Directed edges flow from s to t, t to u, u to r, r to x, x to w, and w to v. y and z are labeled missed. v is labeled stop." number="12.183" caption="Missed Vertices y and z" />
-        <p>So, we have tried every possible route and there are no Hamilton paths between s and v in Graph B.</p>
-        <p>Graph C: In Graph C, there is a Hamilton path, s → t → u → x → w → v.</p>
-        <p>Graph D: In Graph D, there is a bridge, tx, which would form components {r, s, t, u, q} and {v, w, x, y, z} if it were removed. Since s and v would be in different components, it is possible there is a Hamilton path between them. The only way to know is to try all possibilities. If we begin at s, we can go to r then t, or we can go directly to t, either way, we have a problem as you can see in Figure 12.184.</p>
-        <image alt="Two graphs. Each graph has 10 vertices. The edges from t lead to x, r, s, u, and q. The edges from x lead to v, w, y, and z. The other edges connect rs, u q, v w, and y z. In the first graph, directed edges flow from r to s, s to t, u to t, t to x, t to q, and q to u. t is labeled visited twice. In the second graph, directed edges flow from r to s, s to t, and t to x. u and q are skipped." number="12.184" caption="Vertices Visited Twice or Skipped" />
-        <p>If we visit all the vertices in the component {r, s, t, u, q}, we will have to visit t a second time in order to cross the bridge. If we visit t only once, we have to skip some of the vertices. So, there is no Hamilton path between s and v.</p>
-      </solution>
-    </example>
-    <note type="Your Turn" number="12.40">
-      <image alt="Graph L has two quadrilaterals. The vertices of the first quadrilateral are m, o, n, and p. The vertices of the second quadrilateral are q, r, s, and t. Other edges connect m to n, n to q, and q to s." caption="Graph L" />
-      <p>p to r</p>
-      <p>m to p</p>
-      <p>o to q</p>
-    </note>
-    <p>There is not a short way to determine if there is a Hamilton path between two vertices on a graph that works in every situation. However, there are a few common situations that can help us to quickly determine that there is no Hamilton path. Some of these are listed in Table 12.10.</p>
-    <table summary=" " number="Table 12.10" caption="Some Impossible Hamilton Paths">
-      <thead>
-        <row>
-          <cell>Scenario</cell>
-          <cell>Diagram</cell>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <cell>Scenario 1 If an edge ab is a bridge, then there is no Hamilton path between a pair of vertices that are on the same side of edge ab.
-    We saw this in Graph A of Example 12.40.</cell>
-          <cell>No Hamilton path between any two vertices in the component {a, c, d, f}.
-    No Hamilton path between any two vertices in {b, e, h, g, i}.</cell>
-        </row>
-        <row>
-          <cell>Scenario 2 If an edge ab is a bridge with at least three components on each side, then there is no Hamilton path beginning or ending at a or b. We saw this in Graph D of Example 12.40.</cell>
-          <cell>No Hamilton path beginning or ending at a or b.</cell>
-        </row>
-        <row>
-          <cell>Scenario 3 If a graph is composed of two cycles joined only at a single vertex p, and v is any vertex that is NOT adjacent to p, then there are no Hamilton paths beginning or ending at either p or v. We saw this in Graph B of Example 12.40.</cell>
-          <cell>No Hamilton path can be formed starting or ending at vertices, r, v, or u because they are not adjacent to p.</cell>
-        </row>
-      </tbody>
-    </table>
-    <note type="Checkpoint">
-      <p>There are also many other situations in which a Hamilton path is not possible. These are just a few that you will encounter.</p>
-    </note>
-  </subsection>
-  <subsection title="Hamilton Path or Euler Trail?">
-    <p>We learned in Euler Trails that an Euler trail visits each edge exactly once, whereas a Hamilton path visits each vertex exactly once. Let’s practice distinguishing between the two.</p>
-    <example number="12.41">
-      <problem>
-        <p>Use Figure 12.185 to determine if the given sequence of vertices is a Hamilton path, an Euler trail, both, or neither.</p>
-        <image alt="Three graphs. Graph A has five vertices: a, b, c, d, and e. Edges connect a b, b c, c d, d e, e a, and e b. Graph F has five vertices: f, g, h, i, and j. Edges connect f g, g h, h i, i j, j f, f i, f h, j g, and j h. Graph K has five vertices: k, l, m, n, and o. Edges connect k l, l m, m n, and n o." number="12.185" caption="Graphs A, F, and K" />
-        <list type="ol" style="1">
-          <item>Graph A, e → b → a → e → d → c → b</item>
-          <item>Graph F, f → g → j → h → i</item>
-          <item>Graph K, k → l → m → n → o</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>Since the sequence covers every edge once but visits vertices more than once, it is only an Euler trail.</item>
-          <item>Since the sequence visits every vertex exactly once but skips some edges, it is only a Hamilton path.</item>
-          <item>Since the sequence visits each edge and each vertex exactly once, it is both an Euler trail and a Hamilton path.</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="12.41">
-      <p>Graph A, a → b → e → d → c</p>
-      <p>Graph F, g → h → i → j → h → f → g → j → f → i</p>
-      <p>Graph K, o → n → m → l</p>
-    </note>
-    <note type="WORK IT OUT">
-      <p>As we saw in Figure 12.130, the Emerald City lies at the center of the Magical Land of Oz, with Gillikin Country to the north, Winkie Country to the east, Munchkin Country to the west, and Quadling Country to the south. Munchkin Country and Winkie Country each shares a border with Gillikin Country and Quadling Country. Let’s apply graph theory to Dorothy’s famous journey through Oz one more time!</p>
-      <p>Draw a graph in which each vertex is one of the regions of Oz. Is there a Hamilton path that Dorothy could follow, instead of the yellow brick road, to lead her from the land of the Munchkins, through all the regions of Oz exactly once, and end in the Emerald City? If so, what might it be? Compare your results with those of a classmate.</p>
-    </note>
-  </subsection>
-  <subsection title="Check Your Understanding">
-    <p>Unlike  in a Hamilton cycle, the vertex where the Hamilton path begins is _________ the vertex where the Hamilton path ends.</p>
-    <p>If a sequence of vertices represents a Hamilton path, the number of vertices listed should be _______ the number of vertices in the whole graph.</p>
-    <p>To determine if a graph has a Hamilton path, use a method that is _________ the method used to determine if a graph has an Euler trail.</p>
-    <p>If a graph with a bridge has a Hamilton path, the starting vertex should be on the side of the bridge that is ________ the side of the bridge with the ending vertex.</p>
-    <p>A path between two vertices of a graph that visits each vertex of the graph exactly once is called an Euler path.</p>
-    <list type="ol" style="a">
-      <item />
-      <item />
-    </list>
-    <p>Any graph that has exactly two vertices of odd degree has a Hamilton path.</p>
-    <list type="ol" style="a">
-      <item />
-      <item />
-    </list>
-    <p>If a graph is composed of two cycles joined only at a single vertex p, then no Hamilton path can be formed starting or ending at any vertex that is adjacent to p.</p>
-    <list type="ol" style="a">
-      <item />
-      <item />
-    </list>
-    <p>If an edge ab is a bridge with at least three components on each side, then there is no Hamilton path between vertex a and any vertex on the other side of edge ab.</p>
-    <list type="ol" style="a">
-      <item />
-      <item />
-    </list>
-  </subsection>
-  <exercises title="Section 12.8 Exercises">
-    <instruction>For the following exercises, use the figure to determine whether the sequence of vertices in the given graph is a Hamilton path, an Euler trail, both, or neither.</instruction>
-    <exercise number="1" has_solution="false">
-      <problem>
-        <p>Graph G: f → b → g → e → d → c</p>
-      </problem>
-    </exercise>
-    <exercise number="2" has_solution="false">
-      <problem>
-        <p>Graph G: g → b → f → c → d → e</p>
-      </problem>
-    </exercise>
-    <exercise number="3" has_solution="false">
-      <problem>
-        <p>Graph G: f → b → g → d → f → c → d → e → g</p>
-      </problem>
-    </exercise>
-    <exercise number="4" has_solution="false">
-      <problem>
-        <p>Graph W: v → w → r → s → t → o → q</p>
-      </problem>
-    </exercise>
-    <exercise number="5" has_solution="false">
-      <problem>
-        <p>Graph W: s → r → w → v → q → o → t</p>
-      </problem>
-    </exercise>
-    <exercise number="6" has_solution="false">
-      <problem>
-        <p>Graph N: h → i → k → n → j → h</p>
-      </problem>
-    </exercise>
-    <exercise number="7" has_solution="false">
-      <problem>
-        <p>Graph N: n → i → h → j → m</p>
-      </problem>
-    </exercise>
-    <exercise number="8" has_solution="false">
-      <problem>
-        <p>Graph N: m → j → h → i → k → n → i → j → k</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, use the figure to explain why the given sequence of vertices does not represent a Hamilton path.</instruction>
-    <exercise number="9" has_solution="false">
-      <problem>
-        <p>Graph A: t → s → v → u → x → w → y → z</p>
-      </problem>
-    </exercise>
-    <exercise number="10" has_solution="false">
-      <problem>
-        <p>Graph B: w → x → r → u → z → y → s → t → u → v</p>
-      </problem>
-    </exercise>
-    <exercise number="11" has_solution="false">
-      <problem>
-        <p>Graph C: s → u → w → v → t</p>
-      </problem>
-    </exercise>
-    <exercise number="12" has_solution="false">
-      <problem>
-        <p>Graph D: r →  → t → q → u → t → x → v → w → x → z → y</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, use the figure to find a path that fits the description or indicate which scenario from the figure makes it impossible.</instruction>
-    <exercise number="13" has_solution="false">
-      <problem>
-        <p>A Hamilton path in Graph H that begins at vertex c and ends at vertex e.</p>
-      </problem>
-    </exercise>
-    <exercise number="14" has_solution="false">
-      <problem>
-        <p>A Hamilton path in Graph Q that begins at vertex n and ends at vertex h.</p>
-      </problem>
-    </exercise>
-    <exercise number="15" has_solution="false">
-      <problem>
-        <p>A Hamilton path in Graph H that begins at vertex c and ends at vertex g.</p>
-      </problem>
-    </exercise>
-    <exercise number="16" has_solution="false">
-      <problem>
-        <p>A Hamilton path in Graph Q that begins at vertex m and ends at vertex j.</p>
-      </problem>
-    </exercise>
-    <exercise number="17" has_solution="false">
-      <problem>
-        <p>A Hamilton path in Graph H that begins at vertex g.</p>
-      </problem>
-    </exercise>
-    <exercise number="18" has_solution="false">
-      <problem>
-        <p>A Hamilton path in Graph Q that begins at vertex i.</p>
-      </problem>
-    </exercise>
-    <exercise number="19" has_solution="false">
-      <problem>
-        <p>A path between n and j in Graph Q that is NOT a Hamilton path, and explain why it is not a Hamilton path.</p>
-      </problem>
-    </exercise>
-    <exercise number="20" has_solution="false">
-      <problem>
-        <p>A path between a and c in Graph H that is NOT a Hamilton path, and explain why it is not a Hamilton path.</p>
-      </problem>
-    </exercise>
-    <exercise number="21" has_solution="false">
-      <problem>
-        <p>In chess, a knight can move in any direction, but it must move two spaces then turn and move one more space. The eight possible moves a knight can make from a given space are shown in the figure.
-
-
-
-A knight’s tour is a sequence of moves by a knight on a chessboard (of any size) such that the knight visits every square exactly once. If the knight’s tour brings the knight back to its starting position on the board, it is called a closed knight’s tour. Otherwise, it is called an open knight’s tour. Determine if the Knight’s tour shown in the figure is a Hamilton path, an Euler trail, or both, for the graph of all possible knight moves on an eight-by-eight chess board in which the vertices are spaces on the board and the edges indicate that the knight can move directly from one space to the other. Explain your reasoning.</p>
-      </problem>
-    </exercise>
-    <instruction>Recall from the section Euler Circuits, as part of the Camp Woebegone Olympics, there is a canoeing race with a checkpoint on each of the 11 different streams as shown in the figure. The contestants must visit each checkpoint.</instruction>
-    <exercise number="22" has_solution="false">
-      <problem>
-        <p>Draw a graph in which the vertices represent checkpoints, and an edge indicates that it is possible to travel from one checkpoint to the next without passing through another checkpoint.</p>
-      </problem>
-    </exercise>
-    <exercise number="23" has_solution="false">
-      <problem>
-        <p>Find a Hamilton path beginning at vertex A and ending at vertex E.</p>
-      </problem>
-    </exercise>
-    <exercise number="24" has_solution="false">
-      <problem>
-        <p>What does this Hamilton path represent in the context of the race?</p>
-      </problem>
-    </exercise>
-    <instruction>The figure shows a map of zoo exhibits A through P. Use it to answer each question.</instruction>
-    <exercise number="25" has_solution="false">
-      <problem>
-        <p>Draw a graph to represent the routes through the zoo in which the edges represent walkways and the vertices represent exhibits. Two vertices are connected if a person can walk between the exhibits they represent without passing another exhibit.</p>
-      </problem>
-    </exercise>
-    <exercise number="26" has_solution="false">
-      <problem>
-        <p>Use the graph you created to find a route that begins at exhibit M, ends at exhibit J, and visits each exhibit exactly once.</p>
-      </problem>
-    </exercise>
-  </exercises>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">12.8 Hamilton Paths</heading>
+  <figure number="12.165">
+    <image alt="A group of children getting on a school bus."/>
+    <caption>A school bus picks up children along a planned route. (credit: “Kids at School Bus Stop” by Ty Hatch/Flickr, CC BY 2.0)</caption>
+  </figure>
+  <heading level="2">Learning Objectives</heading>
+  <paragraph>After completing this section, you should be able to:</paragraph>
+  <list type="ordered">
+    <item>Describe and identify Hamilton paths.</item>
+    <item>Evaluate Hamilton paths in real-world applications.</item>
+    <item>Distinguish between Hamilton paths and Euler trails.</item>
+  </list>
+  <paragraph>In the United States, school buses carry 25 million children between school and home every day. The total distance they travel is around 6 billion kilometers per year. In the city of Boston, Massachusetts, the 2016 budget for running those buses was \$120 million dollars. In 2017, the city held a competition to find ways to cut costs and the Quantum Team from the MIT Operations Research Center came to the rescue, using a computer algorithm to identify the most efficient and least costly routes, which saved the city of Boston \$5 million each year and even reduced daily CO2 emissions by 9,000 kilograms! (This U.S. city put an algorithm in charge of its school bus routes and saved \$5 million, Sean Fleming, World Economic Forum)</paragraph>
+  <paragraph>The problem the Quantum Team tackled involves graph theory. Imagine a graph in which vertices are the bus depot, the school, and the bus stops along a particular route. The bus must start at the depot, visit every stop exactly once, and end at the school. The route is a special kind of path that visits every vertex exactly once. Can you guess what those paths are called?</paragraph>
+  <heading level="2">Hamilton Paths</heading>
+  <paragraph>Just as circuits that visit each vertex in a graph exactly once are called Hamilton cycles (or Hamilton circuits), paths that visit each vertex on a graph exactly once are called Hamilton paths. As we explore Hamilton paths, you might find it helpful to refresh your memory about the relationships between walks, trails, and paths by looking at Figure 12.166. We know that paths are walks that don’t repeat any vertices or edges. So, a Hamilton path visits every vertex without repeating any vertices or edges. Figure 12.167 shows a path from vertex A to vertex E and a Hamilton path from vertex A to vertex E.</paragraph>
+  <figure number="12.166">
+    <image alt="Three concentric ovals represent paths, trails, and walks. The first (inner) oval labeled paths reads, no repeated edges or vertices. The second oval labeled trails reads, no repeated edges. The third oval is labeled walks."/>
+    <caption>Walks, Trails, and Paths</caption>
+  </figure>
+  <figure number="12.167">
+    <image alt="Two graphs. Each graph has five vertices: A, B, C, D, and E. In the first graph, directed edges flow from A to B, B to C, and C to E. In the second graph, directed edges flow from A to B, B to C, C to D, and D to E."/>
+    <caption>Path or Hamilton Path?</caption>
+  </figure>
+  <example number="12.38" title="Identifying Hamilton Paths">
+    <problem>
+      <paragraph>Which of the following sequences of vertices is a Hamilton path for Graph Q in Figure 12.168?</paragraph>
+      <figure number="12.168">
+        <image alt="Graph Q has two overlapping quadrilaterals. The vertices of the outer quadrilateral are a, c, h, and f. The vertices of the inner quadrilateral are d, b, e, and g. The vertex, d rests on the edge a f. The vertex, b rests on the edge a c. The vertex, e rests on the edge c h. The vertex, g rests on the edge h f."/>
+        <caption>Graph Q</caption>
+      </figure>
+      <list type="ordered">
+        <item>a → d → b → c → e → g → f</item>
+        <item>c → b → e → h → g → f → d → a</item>
+        <item>h → e → g → d → b → e → g → f → d → a → b → c</item>
+      </list>
+    </problem>
+    <solution>
+      <paragraph>Sequence 1 is a path, because it is a walk that doesn’t repeat any vertices or edges, but not a Hamilton path because it skips vertex h. Sequence 2 is a path that visits each vertex exactly once; so, it is a Hamilton path. Sequence 3 is a walk, but it is not a path because it visits vertices g, e, and b each more than once; so, it cannot be a Hamilton path. So, we can see that only sequence 2 is a Hamilton path.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.38">
+    <paragraph>Use the graphs to determine if the given sequence of vertices represents a Hamilton path or not. Graphs A and K</paragraph>
+    <paragraph>Graph A, b → c → d → e → f</paragraph>
+    <paragraph>Graph A, b → e → f → c → b → d</paragraph>
+    <paragraph>Graph K, n → q → o → p → m</paragraph>
+  </note>
+  <note type="practice" source_type="Checkpoint" title="Checkpoint">
+    <paragraph>TIP! Since a Hamilton path visits each vertex exactly once, it must have the same number of vertices listed as appear in the graph.</paragraph>
+  </note>
+  <heading level="3">Finding Hamilton Paths</heading>
+  <paragraph>Suppose you were visiting an aquarium with some friends. The map of the aquarium is given in Figure 12.169. The letters represent the exhibits.</paragraph>
+  <figure number="12.169">
+    <image alt="A map of aquarium exhibits. The vertices are labeled A to S. The entrance is at the bottom."/>
+    <caption>Map of Aquarium Exhibits</caption>
+  </figure>
+  <paragraph>Figure 12.170 shows a graph of the aquarium in which each vertex represents an exhibit and each edge is a route between the pair of exhibits that doesn’t bypass another exhibit.</paragraph>
+  <figure number="12.170">
+    <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and S R."/>
+    <caption>Graph of Aquarium</caption>
+  </figure>
+  <paragraph>Let’s see if we can plan a tour of the exhibits that visits each exhibit exactly once, beginning at exhibit O and ending at exhibit C. Suppose that, after exhibit O, we plan to visit exhibit Q and then exhibit M. After M, should we plan to visit N, L, or R? Take a look at Figure 12.171. If R is not chosen next, that will cause a problem later on. Do you see what it is?</paragraph>
+  <figure number="12.171">
+    <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and S R. The edges, O Q, Q M, M R, M L, and M N are directed. A question mark is above M."/>
+    <caption>Choosing Vertex L, N, or R</caption>
+  </figure>
+  <paragraph>If L or N is chosen next, the only way to get to R later will be to go from S to R, and then we will not be able to continue without repeating a vertex. So, we will pick R next, and then the only option is S. After S we have another choice to make. As shown in Figure 12.172, the next choice is between B and E. Keeping in mind that the goal is to end at C, which would be the better choice?</paragraph>
+  <figure number="12.172">
+    <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and S R. The edges, O Q, Q M, M R, R S, S B, and S E are directed. A question mark is above S."/>
+    <caption>Choosing Vertex B or E</caption>
+  </figure>
+  <paragraph>If you said vertex B, you are right! Otherwise, we will not be able to visit B later. After B, the only option is E. Then we can choose either D or G. Either will work fine. Let’s choose G as shown in Figure 12.173. After G, you must visit H, but should you visit K or L after that?</paragraph>
+  <figure number="12.173">
+    <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and S R. The edges, O Q, Q M, M R, R S, S B, B E, E G, G H, H L, and H K are directed. A question mark is above H."/>
+    <caption>Choose Vertex L or K</caption>
+  </figure>
+  <paragraph>If you said to go to vertex L next, you are right! Otherwise, it will be impossible to visit N without repeating a vertex. So, next is L, then N, then K, and then at J you have another decision to make we can see in Figure 12.174. Should you choose F, I, or P next?</paragraph>
+  <figure number="12.174">
+    <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N L K, L M, N M, O Q, M Q, Q R, M R, and S R. The edges, O Q, Q M, M R, R S, S B, B E, E G, G H, H L, L N, N K, K J, J F, J I, and J P are directed. A question mark is above J."/>
+    <caption>Choose Vertex F, I, or P</caption>
+  </figure>
+  <paragraph>If you said P, you are right! If you choose either of the other two vertices, you will not be able to visit P later without passing through another vertex twice. Once P is chosen, vertex I must be next followed by F. Then you have to choose between A and D as shown in Figure 12.175.</paragraph>
+  <figure number="12.175">
+    <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and SR. The edges, O Q, Q M, M R, R S, S B, B E, E G, G H, H L, L N, N K, K J, J P, P I, I F, F A, and F D are directed. A question mark is above F."/>
+    <caption>Choose Vertex A or D</caption>
+  </figure>
+  <paragraph>In this case, we must go to D then to A so that we can visit C without backtracking. The complete Hamilton path is shown in Figure 12.176.</paragraph>
+  <figure number="12.176">
+    <image alt="A graph has 19 vertices labeled from A to S. Edges connect A C, C B, B S, B E, S E, E D, A D, D F, A F, D G, G E, F I, F J, I J, I P, J P, J K, P O, G H, H L, L N, N K, K H, H N, L K, L M, N M, O Q, M Q, Q R, M R, and S R. The edges, O Q, Q M, M R, R S, S B, B E, E G, G H, H L, L N, N K, K J, J P, P I, I F, F D, D A, and A C are directed."/>
+    <caption>Complete Hamilton Path from O to C</caption>
+  </figure>
+  <paragraph>So, one Hamilton path that begins at O and ends at C is O → Q → M → R → S → B → E → G → H → L → N → K → J → P → I → F → D → A → C.</paragraph>
+  <paragraph>There is no set sequence of steps that can be used to find a Hamilton path if it exists, but it does help to keep in mind where we are headed and avoid choices that will make returning to a particular vertex impossible without repeating vertices. Let’s practice finding Hamilton paths.</paragraph>
+  <example number="12.39" title="Finding a Hamilton Path">
+    <problem>
+      <paragraph>Use Figure 12.177 to find a Hamilton path between vertices C and D.</paragraph>
+      <figure number="12.177">
+        <image alt="Graph G has six vertices. The vertices are C, A, B, F, D, and E. Edges connect C A, A B, A F, B F, F D, F E, and D E."/>
+        <caption>Graph G</caption>
+      </figure>
+    </problem>
+    <solution>
+      <paragraph>If we start at vertex C, A must be next. Then we must choose between B and F. If we choose F, we will have to backtrack to get to include B; so, we must choose B. Once we choose B, we must choose F next. After F, we choose E, because we want to end at D. So, a Hamilton path between C and D is C → A → B → F → E → D.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.39">
+    <paragraph>Use Figure 12.177 to find a Hamilton path between vertices C and E.</paragraph>
+  </note>
+  <heading level="2">Existence of a Hamilton Path</heading>
+  <paragraph>It turns out that there is no Hamilton path between vertices A and E in Graph G in Figure 12.177. To understand why, let’s imagine there is a red apple tree on one side of a bridge and a green apple tree on the other side of the bridge. Now suppose someone asked you to pick up all the fallen apples under each tree without crossing the bridge more than once, and making sure that the first apple you pick up and the last apple you pick up are both red. You would say, that is impossible! To have the first and last apple be red would either require leaving the green apples on the ground or crossing the bridge twice.</paragraph>
+  <paragraph>Let’s see how this relates to finding a Hamilton path between A and E in Graph G. The edge AC is a bridge because, if it were removed, the graph would become disconnected with two components, the component {C} and the component {A, B, D, E, F}. So, we can think of the vertices A, B, D, E, and F as the red apples, vertex C as the green apple, and the edge AC is the bridge between them as in Figure 12.178.</paragraph>
+  <figure number="12.178">
+    <image alt="A graph represents the bridge between green and red apples. The graph has six vertices. The vertices are C, A, B, F, D, and E. Edges connect A B, A F, B F, F D, F E, and D E. Green apples: C. Red apples: A, B, F, D, and E. A bridge is between C and A."/>
+    <caption>Bridge between Red and Green Apples</caption>
+  </figure>
+  <paragraph>The creation of a Hamilton path requires a visit to each vertex, just as picking up all the apples requires a visit to each apple. A and E are both red apples; so, a path from A to E would both start and end at a red apple, just as you were asked to do. And you wouldn’t be able to cross the bridge twice because that would mean visiting A twice, which is not allowed in a Hamilton path. So, it is impossible to find a Hamilton path from A to E just as it was impossible to pick up all the apples without crossing the bridge more than once. By the same reasoning, if a graph has a bridge, there will never be a Hamilton path that begins and ends on the same side of that bridge, meaning beginning and ending at vertices that would be in the same component if the bridge were removed from the graph.</paragraph>
+  <example number="12.40" title="Finding a Hamilton Path If One Exists">
+    <problem>
+      <paragraph>Find a Hamilton path from vertex s to vertex v for each graph in Figure 12.179 or indicate that there is none.</paragraph>
+      <figure number="12.179">
+        <image alt="Four graphs. Graph A has two overlapping quadrilaterals, s t u v and w x y z. An edge connects w to u. Graph B has two overlapping quadrilaterals, s t z y, and r v w x. A vertex, u is at the center of r v and t z. Graph C has six vertices. Edges connect s t, t v, v w, w x, x u, w u, u s, and u t. Graph D has 10 vertices. Edges from t lead to x, r, s, u, and q. Edges from x lead to v, w, y, and z. Edges connect r s, u q, v w, and y z."/>
+        <caption>Graphs A, B, C, and D</caption>
+      </figure>
+    </problem>
+    <solution>
+      <paragraph>Graph A: Edge uw is a bridge connecting component {s, t, u, v} to the component {w, x, y, z}. There is no Hamilton path from vertex s to vertex v because they would be part of the same component if the bridge uw were removed.</paragraph>
+      <paragraph>Graph B: There are no bridges in Graph B. The only method we have to determine if a Hamilton path from vertex s to vertex v exists is to try every possibility. From vertex s, we can visit either vertex y or vertex t. We will try vertex y first and then come back to see what happens with vertex t. After visiting y, we must visit z and then u, but then we have to decide between vertices r, t, and v next as shown in Figure 12.180.</paragraph>
+      <figure number="12.180">
+        <image alt="A graph has two overlapping quadrilaterals, s t z y, and r v w x. A vertex, u is at the center of r v and t z. Directed edges flow from s to y, y to z, z to u, u to r, u to v, and u to t. A question mark is above u."/>
+        <caption>Choose Vertex r, t, or v</caption>
+      </figure>
+      <paragraph>Vertex v is not an option since we want to end at v. Vertex t is not an option since that would force us to go to visit s a second time. So, we must go to vertex r next. After vertex r, we must visit x, then w, then v, but we missed vertex t as shown in Figure 12.181.</paragraph>
+      <figure number="12.181">
+        <image alt="A graph has two overlapping quadrilaterals, s t z y, and r v w x. A vertex, u is at the center of r v and t z. Directed edges flow from s to y, y to z, z to u, u to r, r to x, x to w, w to v. t is labeled missed. v is labeled stop."/>
+        <caption>Missed Vertex t</caption>
+      </figure>
+      <paragraph>Let’s go back to the beginning and choose t instead of y. After t, we must go to u and then we have a choice to make between r, v, and z as shown in Figure 12.182.</paragraph>
+      <figure number="12.182">
+        <image alt="A graph has two overlapping quadrilaterals, s t z y, and r v w x. A vertex, u is at the center of r v and t z. Directed edges flow from s to t, t to u, u to b, u to r, and u to z. A question mark is above u."/>
+        <caption>Choose Vertex v, r, or z</caption>
+      </figure>
+      <paragraph>Vertex v is not an option since we want to end at v. Vertex z is not an option since that would force us to go y and then to visit s a second time. So, we must go to vertex r next. After r, we must go to x then w then v, where we have to stop even though we have missed vertices y and z, as shown in Figure 12.183.</paragraph>
+      <figure number="12.183">
+        <image alt="A graph has two overlapping quadrilaterals, s t z y, and r v w x. A vertex, u is at the center of r v and t z. Directed edges flow from s to t, t to u, u to r, r to x, x to w, and w to v. y and z are labeled missed. v is labeled stop."/>
+        <caption>Missed Vertices y and z</caption>
+      </figure>
+      <paragraph>So, we have tried every possible route and there are no Hamilton paths between s and v in Graph B.</paragraph>
+      <paragraph>Graph C: In Graph C, there is a Hamilton path, s → t → u → x → w → v.</paragraph>
+      <paragraph>Graph D: In Graph D, there is a bridge, tx, which would form components {r, s, t, u, q} and {v, w, x, y, z} if it were removed. Since s and v would be in different components, it is possible there is a Hamilton path between them. The only way to know is to try all possibilities. If we begin at s, we can go to r then t, or we can go directly to t, either way, we have a problem as you can see in Figure 12.184.</paragraph>
+      <figure number="12.184">
+        <image alt="Two graphs. Each graph has 10 vertices. The edges from t lead to x, r, s, u, and q. The edges from x lead to v, w, y, and z. The other edges connect rs, u q, v w, and y z. In the first graph, directed edges flow from r to s, s to t, u to t, t to x, t to q, and q to u. t is labeled visited twice. In the second graph, directed edges flow from r to s, s to t, and t to x. u and q are skipped."/>
+        <caption>Vertices Visited Twice or Skipped</caption>
+      </figure>
+      <paragraph>If we visit all the vertices in the component {r, s, t, u, q}, we will have to visit t a second time in order to cross the bridge. If we visit t only once, we have to skip some of the vertices. So, there is no Hamilton path between s and v.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.40">
+    <paragraph>Use Graph L to find a Hamilton path between each pair of vertices or indicate that there isn’t one. Graph L</paragraph>
+    <paragraph>p to r</paragraph>
+    <paragraph>m to p</paragraph>
+    <paragraph>o to q</paragraph>
+  </note>
+  <paragraph>There is not a short way to determine if there is a Hamilton path between two vertices on a graph that works in every situation. However, there are a few common situations that can help us to quickly determine that there is no Hamilton path. Some of these are listed in Table 12.10.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Scenario</cell>
+        <cell header="true">Diagram</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>Scenario 1 If an edge ab is a bridge, then there is no Hamilton path between a pair of vertices that are on the same side of edge ab. We saw this in Graph A of Example 12.40.</cell>
+        <cell>No Hamilton path between any two vertices in the component {a, c, d, f}. No Hamilton path between any two vertices in {b, e, h, g, i}.</cell>
+      </row>
+      <row>
+        <cell>Scenario 2 If an edge ab is a bridge with at least three components on each side, then there is no Hamilton path beginning or ending at a or b. We saw this in Graph D of Example 12.40.</cell>
+        <cell>No Hamilton path beginning or ending at a or b.</cell>
+      </row>
+      <row>
+        <cell>Scenario 3 If a graph is composed of two cycles joined only at a single vertex p, and v is any vertex that is NOT adjacent to p, then there are no Hamilton paths beginning or ending at either p or v. We saw this in Graph B of Example 12.40.</cell>
+        <cell>No Hamilton path can be formed starting or ending at vertices, r, v, or u because they are not adjacent to p.</cell>
+      </row>
+    </tbody>
+  </table>
+  <note type="practice" source_type="Checkpoint" title="Checkpoint">
+    <paragraph>There are also many other situations in which a Hamilton path is not possible. These are just a few that you will encounter.</paragraph>
+  </note>
+  <heading level="2">Hamilton Path or Euler Trail?</heading>
+  <paragraph>We learned in Euler Trails that an Euler trail visits each edge exactly once, whereas a Hamilton path visits each vertex exactly once. Let’s practice distinguishing between the two.</paragraph>
+  <example number="12.41" title="Distinguishing between Hamilton Path and Euler Trail">
+    <problem>
+      <paragraph>Use Figure 12.185 to determine if the given sequence of vertices is a Hamilton path, an Euler trail, both, or neither.</paragraph>
+      <figure number="12.185">
+        <image alt="Three graphs. Graph A has five vertices: a, b, c, d, and e. Edges connect a b, b c, c d, d e, e a, and e b. Graph F has five vertices: f, g, h, i, and j. Edges connect f g, g h, h i, i j, j f, f i, f h, j g, and j h. Graph K has five vertices: k, l, m, n, and o. Edges connect k l, l m, m n, and n o."/>
+        <caption>Graphs A, F, and K</caption>
+      </figure>
+      <list type="ordered">
+        <item>Graph A, e → b → a → e → d → c → b</item>
+        <item>Graph F, f → g → j → h → i</item>
+        <item>Graph K, k → l → m → n → o</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>Since the sequence covers every edge once but visits vertices more than once, it is only an Euler trail.</item>
+        <item>Since the sequence visits every vertex exactly once but skips some edges, it is only a Hamilton path.</item>
+        <item>Since the sequence visits each edge and each vertex exactly once, it is both an Euler trail and a Hamilton path.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.41">
+    <paragraph>Use Figure 12.185 to determine if the given sequence of vertices is a Hamilton path, an Euler trail, both, or neither.</paragraph>
+    <paragraph>Graph A, a → b → e → d → c</paragraph>
+    <paragraph>Graph F, g → h → i → j → h → f → g → j → f → i</paragraph>
+    <paragraph>Graph K, o → n → m → l</paragraph>
+  </note>
+  <note type="practice" source_type="WORK IT OUT" title="WORK IT OUT">
+    <paragraph>As we saw in Figure 12.130, the Emerald City lies at the center of the Magical Land of Oz, with Gillikin Country to the north, Winkie Country to the east, Munchkin Country to the west, and Quadling Country to the south. Munchkin Country and Winkie Country each shares a border with Gillikin Country and Quadling Country. Let’s apply graph theory to Dorothy’s famous journey through Oz one more time!</paragraph>
+    <paragraph>Draw a graph in which each vertex is one of the regions of Oz. Is there a Hamilton path that Dorothy could follow, instead of the yellow brick road, to lead her from the land of the Munchkins, through all the regions of Oz exactly once, and end in the Emerald City? If so, what might it be? Compare your results with those of a classmate.</paragraph>
+  </note>
+  <heading level="2">Check Your Understanding</heading>
+  <paragraph>For the following exercises, fill in the blank with the same as or different from to make the statement true.</paragraph>
+  <paragraph>Unlike in a Hamilton cycle, the vertex where the Hamilton path begins is _________ the vertex where the Hamilton path ends.</paragraph>
+  <paragraph>If a sequence of vertices represents a Hamilton path, the number of vertices listed should be _______ the number of vertices in the whole graph.</paragraph>
+  <paragraph>To determine if a graph has a Hamilton path, use a method that is _________ the method used to determine if a graph has an Euler trail.</paragraph>
+  <paragraph>If a graph with a bridge has a Hamilton path, the starting vertex should be on the side of the bridge that is ________ the side of the bridge with the ending vertex.</paragraph>
+  <paragraph>A path between two vertices of a graph that visits each vertex of the graph exactly once is called an Euler path.</paragraph>
+  <paragraph>Any graph that has exactly two vertices of odd degree has a Hamilton path.</paragraph>
+  <paragraph>If a graph is composed of two cycles joined only at a single vertex p, then no Hamilton path can be formed starting or ending at any vertex that is adjacent to p.</paragraph>
+  <paragraph>If an edge ab is a bridge with at least three components on each side, then there is no Hamilton path between vertex a and any vertex on the other side of edge ab.</paragraph>
 </section>

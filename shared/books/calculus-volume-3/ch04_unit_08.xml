@@ -1,497 +1,152 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="4.8" title="Lagrange Multipliers">
-  <learning_objectives>
-    <objective number="4.8.1">Use the method of Lagrange multipliers to solve optimization problems with one constraint.</objective>
-    <objective number="4.8.2">Use the method of Lagrange multipliers to solve optimization problems with two constraints.</objective>
-  </learning_objectives>
-  <p>Solving optimization problems for functions of two or more variables can be similar to solving such problems in single-variable calculus. However, techniques for dealing with multiple variables allow us to solve more varied optimization problems for which we need to deal with additional conditions or constraints. In this section, we examine one of the more common and useful methods for solving optimization problems with constraints.</p>
-  <subsection title="Lagrange Multipliers">
-    <p>Example 4.41 was an applied situation involving maximizing a profit function, subject to certain constraints. In that example, the constraints involved a maximum number of golf balls that could be produced and sold in $$1$$ month $$(x),$$ and a maximum number of advertising hours that could be purchased per month $$(y).$$ Suppose these were combined into a budgetary constraint, such as $$20x + 4y \leq 216,$$ that took into account the cost of producing the golf balls and the number of advertising hours purchased per month. The goal is, still, to maximize profit, but now there is a different type of constraint on the values of $$x$$ and $$y.$$ This constraint, when combined with the profit function $$f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2},$$ is an example of an optimization problem, and the function $$f\left( {x,y} \right)$$ is called the objective function. A graph of various level curves of the function $$f\left( {x,y} \right)$$ follows.</p>
-    <image alt="A series of rotated ellipses that become increasingly large. The smallest one is marked f(x, y) = 400, and the biggest one is marked f(x, y) = 150." number="4.59" caption="Graph of level curves of the function $$f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2}$$ corresponding to $$c = 150,250,350,\ \text{and}\ 400.$$" />
-    <p>In Figure 4.59, the value $$c$$ represents different profit levels (i.e., values of the function $$f).$$ As the value of $$c$$ increases, the curve shifts to the right. Since our goal is to maximize profit, we want to choose a curve as far to the right as possible. If there was no restriction on the number of golf balls the company could produce, or the number of units of advertising available, then we could produce as many golf balls as we want, and advertise as much as we want, and there would not be a maximum profit for the company. Unfortunately, we have a budgetary constraint that is modeled by the inequality $$20x + 4y \leq 216.$$ To see how this constraint interacts with the profit function, Figure 4.60 shows the graph of the line $$20x + 4y = 216$$ superimposed on the previous graph.</p>
-    <image alt="A series of rotated ellipses that become increasingly large. On the smallest ellipse, which is red, there is a tangent line marked with equation 20x + 4y = 216 that appears to touch the ellipse near (10, 4)." number="4.60" caption="Graph of level curves of the function $$f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2}$$ corresponding to $$c = 150,250,350,\ \text{and}\ 395.$$ The red graph is the constraint function." />
-    <p>As mentioned previously, the maximum profit occurs when the level curve is as far to the right as possible. However, the level of production corresponding to this maximum profit must also satisfy the budgetary constraint, so the point at which this profit occurs must also lie on (or to the left of) the red line in Figure 4.60. Inspection of this graph reveals that this point exists where the line is tangent to the level curve of $$f.$$ Trial and error reveals that this profit level seems to be around $$395,$$ when $$x$$ and $$y$$ are both just less than $$5.$$ We return to the solution of this problem later in this section. From a theoretical standpoint, at the point where the profit curve is tangent to the constraint line, the gradient of both of the functions evaluated at that point must point in the same (or opposite) direction. Recall that the gradient of a function of more than one variable is a vector. If two vectors point in the same (or opposite) directions, then one must be a constant multiple of the other. This idea is the basis of the method of Lagrange multipliers.</p>
-    <theorem number="4.20" title="Method of Lagrange Multipliers: One Constraint">
-      <p>Let $$f$$ and $$g$$ be functions of two variables with continuous partial derivatives at every point of some open set containing the smooth curve $$g\left( {x,y} \right) = 0.$$ Suppose that $$f,$$ when restricted to points on the curve $$g\left( {x,y} \right) = 0,$$ has a local extremum at the point $$\left( {x_{0},y_{0}} \right)$$ and that $$\nabla g\left( {x_{0},y_{0}} \right) \neq 0.$$ Then there is a number $$\lambda$$ called a Lagrange multiplier, for which</p>
-      <equation>$$\nabla f\left( {x_{0},y_{0}} \right) = \lambda\nabla g\left( {x_{0},y_{0}} \right).$$</equation>
-    </theorem>
-    <subsection title="Proof">
-      <p>Assume that a constrained extremum occurs at the point $$\left( {x_{0},y_{0}} \right).$$ Furthermore, we assume that the equation $$g\left( {x,y} \right) = 0$$ can be smoothly parameterized as</p>
-      <equation>$$x = x(s)\ \text{and}\ y = y(s)$$</equation>
-      <p>where s is an arc length parameter with reference point $$\left( {x_{0},y_{0}} \right)$$ at $$s = 0.$$ Therefore, the quantity $$z = f\left( {x(s),y(s)} \right)$$ has a relative maximum or relative minimum at $$s = 0,$$ and this implies that $$\frac{dz}{ds} = 0$$ at that point. From the chain rule,</p>
-      <equation>$$\frac{dz}{ds} = \frac{\partial f}{\partial x} \cdot \frac{dx}{ds} + \frac{\partial f}{\partial y} \cdot \frac{dy}{ds} = \left( \frac{\partial f}{\partial x}\hat{\mathbf{i}} + \frac{\partial f}{\partial y}\hat{\mathbf{j}} \right) \cdot \left( \frac{dx}{ds}\hat{\mathbf{i}} + \frac{dy}{ds}\hat{\mathbf{j}} \right) = 0,$$</equation>
-      <p>where the derivatives are all evaluated at $$s = 0.$$ However, the first factor in the dot product is the gradient of $$f,$$ and the second factor is the unit tangent vector $$\text{T}(0)$$ to the constraint curve. Since the point $$\left( {x_{0},y_{0}} \right)$$ corresponds to $$s = 0,$$ it follows from this equation that</p>
-      <equation>$$\nabla f\left( {x_{0},y_{0}} \right) \cdot \text{T}(0) = 0,$$</equation>
-      <p>which implies that the gradient is either $$\mathbf{0}$$ or is normal to the constraint curve at a constrained relative extremum. However, the constraint curve $$g\left( {x,y} \right) = 0$$ is a level curve for the function $$g\left( {x,y} \right)$$ so that if $$\nabla g\left( {x_{0},y_{0}} \right) \neq 0$$ then $$\nabla g\left( {x_{0},y_{0}} \right)$$ is normal to this curve at $$\left( {x_{0},y_{0}} \right)$$ It follows, then, that there is some scalar $$\lambda$$ such that</p>
-      <equation>$$\nabla f\left( {x_{0},y_{0}} \right) = \lambda\nabla g\left( {x_{0},y_{0}} \right)$$</equation>
-      <p>□</p>
-      <p>To apply Method of Lagrange Multipliers: One Constraint to an optimization problem similar to that for the golf ball manufacturer, we need a problem-solving strategy.</p>
-      <note type="Problem-Solving Strategy">
-        <list type="ol" style="1">
-          <item>Determine the objective function $$f\left( {x,y} \right)$$ and the constraint function $$g\left( {x,y} \right).$$ Does the optimization problem involve maximizing or minimizing the objective function?</item>
-          <item>Set up a system of equations using the following template:<equation>$$\begin{array}{rll} {\nabla f\left( {x_{0},y_{0}} \right)} &amp; = &amp; {\lambda\nabla g\left( {x_{0},y_{0}} \right)} \\ {g\left( {x_{0},y_{0}} \right)} &amp; = &amp; {0.} \end{array}$$</equation>
-          </item>
-          <item>Solve for $$x_{0}$$ and $$y_{0}.$$</item>
-          <item>The largest of the values of $$f$$ at the solutions found in step $$3$$ maximizes $$f;$$ the smallest of those values minimizes $$f.$$</item>
-        </list>
-      </note>
-      <example number="4.42">
-        <problem>
-          <title>Using Lagrange Multipliers</title>
-          <p>Use the method of Lagrange multipliers to find the minimum value of $$f\left( {x,y} \right) = x^{2} + 4y^{2} - 2x + 8y$$ subject to the constraint $$x + 2y = 7.$$</p>
-        </problem>
-        <solution>
-          <p>Let’s follow the problem-solving strategy:</p>
-          <list type="ol" style="1">
-            <item>The optimization function isTo determine the constraint function, we must first subtractfrom both sides of the constraint. This givesThe constraint function is equal to the left-hand side, soThe problem asks us to solve for the minimum value ofsubject to the constraint (see the following graph).<equation>$$f\left( {x,y} \right) = x^{2} + 4y^{2} - 2x + 8y.$$</equation>
-              <equation>$$7$$</equation>
-              <equation>$$x + 2y - 7 = 0.$$</equation>
-              <equation>$$g\left( {x,y} \right) = x + 2y - 7.$$</equation>
-              <equation>$$f,$$</equation>
-              <image alt="Two rotated ellipses, one within the other. On the largest ellipse, which is marked f(x, y) = 26, there is a tangent line marked with equation x + 2y = 7 that appears to touch the ellipse near (5, 1)." number="4.61" caption="Graph of level curves of the function $$f\left( {x,y} \right) = x^{2} + 4y^{2} - 2x + 8y$$ corresponding to $$c = 10$$ and $$26.$$ The red graph is the constraint function." />
-            </item>
-            <item>We then must calculate the gradients of bothand:The equationbecomeswhich can be rewritten asNext, we set the coefficients ofequal to each other:The equationbecomesTherefore, the system of equations that needs to be solved is<equation>$$\begin{array}{l} {\nabla f\left( {x,y} \right) = \left( {2x - 2} \right)\mathbf{i} + \left( {8y + 8} \right)\mathbf{j}} \\ {\nabla g\left( {x,y} \right) = \mathbf{i} + 2\mathbf{j}.} \end{array}$$</equation>
-              <equation>$$\nabla f\left( {x_{0},y_{0}} \right) = \lambda\nabla g\left( {x_{0},y_{0}} \right)$$</equation>
-              <equation>$$\left( {2x_{0} - 2} \right)\mathbf{i} + \left( {8y_{0} + 8} \right)\mathbf{j} = \lambda\left( {\mathbf{i} + 2\mathbf{j}} \right),$$</equation>
-              <equation>$$\left( {2x_{0} - 2} \right)\mathbf{i} + \left( {8y_{0} + 8} \right)\mathbf{j} = \lambda\mathbf{i} + {2\lambda}\mathbf{j}.$$</equation>
-              <equation>$$\mathbf{i}\ \text{and}\ \mathbf{j}$$</equation>
-              <equation>$$\begin{array}{l} {2x_{0} - 2 = \lambda} \\ {8y_{0} + 8 = 2\lambda.} \end{array}$$</equation>
-              <equation>$$g\left( {x_{0},y_{0}} \right) = 0$$</equation>
-              <equation>$$x_{0} + 2y_{0} - 7 = 0.$$</equation>
-              <equation>$$\begin{array}{rll} {2x_{0} - 2} &amp; = &amp; \lambda \\ {8y_{0} + 8} &amp; = &amp; {2\lambda} \\ {x_{0} + 2y_{0} - 7} &amp; = &amp; 0. \end{array}$$</equation>
-            </item>
-            <item>This is a linear system of three equations in three variables. We start by solving the second equation forand substituting it into the first equation. This givesso substituting this into the first equation givesSolving this equation forgivesWe then substitute this into the third equation:Sincethis gives<equation>$$\lambda$$</equation>
-              <equation>$$\lambda = 4y_{0} + 4,$$</equation>
-              <equation>$$2x_{0} - 2 = 4y_{0} + 4.$$</equation>
-              <equation>$$x_{0}$$</equation>
-              <equation>$$x_{0} = 2y_{0} + 3.$$</equation>
-              <equation>$$\begin{array}{rll} {\left( {2y_{0} + 3} \right) + 2y_{0} - 7} &amp; = &amp; 0 \\ {4y_{0} - 4} &amp; = &amp; 0 \\ y_{0} &amp; = &amp; 1. \end{array}$$</equation>
-              <equation>$$x_{0} = 2y_{0} + 3,$$</equation>
-              <equation>$$x_{0} = 5.$$</equation>
-            </item>
-            <item>Next, we substitute $$\left( {5,1} \right)$$ into $$f\left( {x,y} \right) = x^{2} + 4y^{2} - 2x + 8y,$$ gives $$f\left( {5,1} \right) = 5^{2} + 4(1)^{2} - 2(5) + 8(1) = 27.$$ To ensure this corresponds to a minimum value on the constraint function, let’s try some other values, such as the intercepts of $$g\left( {x,y} \right) = 0,$$ Which are $$\left( {7,0} \right)$$ and $$\left( {0,3.5} \right).$$ We get $$f\left( {7,0} \right) = 35$$ and $$f\left( {0,3.5} \right) = 77,$$ so it appears $$f$$ has a minimum at $$\left( {5,1} \right).$$</item>
-          </list>
-        </solution>
-      </example>
-      <checkpoint number="4.37">
-        <problem>
-          <p>Use the method of Lagrange multipliers to find the maximum value of $$f\left( {x,y} \right) = 9x^{2} + 36xy - 4y^{2} - 18x - 8y$$ subject to the constraint $$3x + 4y = 32.$$</p>
-        </problem>
-        <solution>
-          <p>$$f$$ has a maximum value of $$976$$ at the point $$\left( {8,2} \right).$$</p>
-        </solution>
-      </checkpoint>
-      <p>Let’s now return to the problem posed at the beginning of the section.</p>
-      <example number="4.43">
-        <problem>
-          <title>Golf Balls and Lagrange Multipliers</title>
-          <p>The golf ball manufacturer, Pro-T, has developed a profit model that depends on the number $$x$$ of golf balls sold per month (measured in thousands), and the number of hours per month of advertising y, according to the function</p>
-          <equation>$$z = f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2},$$</equation>
-          <p>where $$z$$ is measured in thousands of dollars. The budgetary constraint function relating the cost of the production of thousands golf balls and advertising units is given by $$20x + 4y = 216.$$ Find the values of $$x$$ and $$y$$ that maximize profit, and find the maximum profit.</p>
-        </problem>
-        <solution>
-          <p>Again, we follow the problem-solving strategy:</p>
-          <list type="ol" style="1">
-            <item>The optimization function is $$f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2}.$$ To determine the constraint function, we first subtract 216 from both sides of the constraint, then divide both sides by $$4,$$ which gives $$5x + y - 54 = 0.$$ The constraint function is equal to the left-hand side, so $$g\left( {x,y} \right) = 5x + y - 54.$$ The problem asks us to solve for the maximum value of $$f,$$ subject to this constraint.</item>
-            <item>So, we calculate the gradients of bothThe equationbecomeswhich can be rewritten asWe then set the coefficients ofequal to each other:The equationbecomesTherefore, the system of equations that needs to be solved is<equation>$$f\ \text{and}$$</equation>
-              <equation>$$g\text{:}$$</equation>
-              <equation>$$\begin{array}{l} {\nabla f\left( {x,y} \right) = \left( {48 - 2x - 2y} \right)\mathbf{i} + \left( {96 - 2x - 18y} \right)\mathbf{j}} \\ {\nabla g\left( {x,y} \right) = 5\mathbf{i} + \mathbf{j}.} \end{array}$$</equation>
-              <equation>$$\nabla f\left( {x_{0},y_{0}} \right) = \lambda\nabla g\left( {x_{0},y_{0}} \right)$$</equation>
-              <equation>$$\left( {48 - 2x_{0} - 2y_{0}} \right)\mathbf{i} + \left( {96 - 2x_{0} - 18y_{0}} \right)\mathbf{j} = \lambda\left( {5\mathbf{i} + \mathbf{j}} \right),$$</equation>
-              <equation>$$\left( {48 - 2x_{0} - 2y_{0}} \right)\mathbf{i} + \left( {96 - 2x_{0} - 18y_{0}} \right)\mathbf{j} = \lambda 5\mathbf{i} + \lambda\mathbf{j}.$$</equation>
-              <equation>$$\mathbf{i}\ \text{and}\ \mathbf{j}$$</equation>
-              <equation>$$\begin{array}{rll} {48 - 2x_{0} - 2y_{0}} &amp; = &amp; {5\lambda} \\ {96 - 2x_{0} - 18y_{0}} &amp; = &amp; {\lambda.} \end{array}$$</equation>
-              <equation>$$g\left( {x_{0},y_{0}} \right) = 0$$</equation>
-              <equation>$$5x_{0} + y_{0} - 54 = 0.$$</equation>
-              <equation>$$\begin{array}{rll} {48 - 2x_{0} - 2y_{0}} &amp; = &amp; {5\lambda} \\ {96 - 2x_{0} - 18y_{0}} &amp; = &amp; \lambda \\ {5x_{0} + y_{0} - 54} &amp; = &amp; 0. \end{array}$$</equation>
-            </item>
-            <item>We use the left-hand side of the second equation to replacein the first equation:Then we substitute this into the third equation:Sincethis gives<equation>$$\lambda$$</equation>
-              <equation>$$\begin{array}{rll} {48 - 2x_{0} - 2y_{0}} &amp; = &amp; {5\left( {96 - 2x_{0} - 18y_{0}} \right)} \\ {48 - 2x_{0} - 2y_{0}} &amp; = &amp; {480 - 10x_{0} - 90y_{0}} \\ {8x_{0}} &amp; = &amp; {432 - 88y_{0}} \\ x_{0} &amp; = &amp; {54 - 11y_{0}.} \end{array}$$</equation>
-              <equation>$$\begin{array}{rll} {5\left( {54 - 11y_{0}} \right) + y_{0} - 54} &amp; = &amp; 0 \\ {270 - 55y_{0} + y_{0}} &amp; = &amp; 0 \\ {216 - 54y_{0}} &amp; = &amp; 0 \\ y_{0} &amp; = &amp; 4. \end{array}$$</equation>
-              <equation>$$x_{0} = 54 - 11y_{0},$$</equation>
-              <equation>$$x_{0} = 10.$$</equation>
-            </item>
-            <item>We then substituteintowhich givesTherefore the maximum profit that can be attained, subject to budgetary constraints, iswith a production level ofgolf balls andhours of advertising bought per month. Let’s check to make sure this truly is a maximum. The endpoints of the line that defines the constraint areandLet’s evaluateat both of these points:The second value represents a loss, since no golf balls are produced. Neither of these values exceedso it seems that our extremum is a maximum value of<equation>$$\left( {10,4} \right)$$</equation>
-              <equation>$$f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2},$$</equation>
-              <equation>$$\begin{array}{cl} {f\left( {10,4} \right)} &amp; {= 48(10) + 96(4) - (10)^{2} - 2(10)(4) - 9(4)^{2}} \\ &amp; {= 480 + 384 - 100 - 80 - 144 = 540.} \end{array}$$</equation>
-              <equation>$$\text{\$}540,000$$</equation>
-              <equation>$$10,000$$</equation>
-              <equation>$$4$$</equation>
-              <equation>$$\left( {10.8,0} \right)$$</equation>
-              <equation>$$\left( {0,54} \right)$$</equation>
-              <equation>$$f$$</equation>
-              <equation>$$\begin{array}{rll} {f\left( {10.8,0} \right)} &amp; = &amp; {48(10.8) + 96(0) - 10.8^{2} - 2(10.8)(0) - 9\left( 0^{2} \right) = 401.76} \\ {f\left( {0,54} \right)} &amp; = &amp; {48(0) + 96(54) - 0^{2} - 2(0)(54) - 9\left( 54^{2} \right) = -21,060.} \end{array}$$</equation>
-              <equation>$$540,$$</equation>
-              <equation>$$f.$$</equation>
-            </item>
-          </list>
-        </solution>
-      </example>
-      <checkpoint number="4.38">
-        <problem>
-          <p>A company has determined that its production level is given by the Cobb-Douglas function $$f\left( {x,y} \right) = 2.5x^{0.45}y^{0.55}$$ where x represents the total number of labor hours in $$1$$ year and y represents the total capital input for the company. Suppose $$1$$ unit of labor costs $$\text{\$}40$$ and $$1$$ unit of capital costs $$\text{\$}50.$$ Use the method of Lagrange multipliers to find the maximum value of $$f\left( {x,y} \right) = 2.5x^{0.45}y^{0.55}$$ subject to a budgetary constraint of $$\text{\$}500,000$$ per year.</p>
-        </problem>
-        <solution>
-          <p>A maximum production level of $$13890$$ occurs with $$5625$$ labor hours and $$\text{\$}5500$$ of total capital input.</p>
-        </solution>
-      </checkpoint>
-      <p>In the case of an optimization function with three variables and a single constraint function, it is possible to use the method of Lagrange multipliers to solve an optimization problem as well. An example of an optimization function with three variables could be the Cobb-Douglas function in the previous example: $$f\left( {x,y,z} \right) = x^{0.2}y^{0.4}z^{0.4},$$ where $$x$$ represents the cost of labor, $$y$$ represents capital input, and $$z$$ represents the cost of advertising. The method is the same as for the method with a function of two variables; the equations to be solved are</p>
-      <equation>$$\begin{array}{rll} {\nabla f\left( {x,y,z} \right)} &amp; = &amp; {\lambda\nabla g\left( {x,y,z} \right)} \\ {g\left( {x,y,z} \right)} &amp; = &amp; 0. \end{array}$$</equation>
-      <example number="4.44">
-        <problem>
-          <title>Lagrange Multipliers with a Three-Variable Optimization Function</title>
-          <p>Find the minimum of the function $$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}$$ subject to the constraint $$x + y + z = 1.$$</p>
-        </problem>
-        <solution>
-          <list type="ol" style="1">
-            <item>The optimization function is $$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}.$$ To determine the constraint function, we subtract $$1$$ from each side of the constraint: $$x + y + z - 1 = 0$$ which gives the constraint function as $$g\left( {x,y,z} \right) = x + y + z - 1.$$</item>
-            <item>Next, we calculateandThis leads to the equationswhich can be rewritten in the following form:<equation>$$\nabla f\left( {x,y,z} \right)$$</equation>
-              <equation>$$\nabla g\left( {x,y,z} \right)\text{:}$$</equation>
-              <equation>$$\begin{array}{l} {\nabla f\left( {x,y,z} \right) = \left\langle 2x,2y,2z \right\rangle} \\ {\nabla g\left( {x,y,z} \right) = \left\langle 1,1,1 \right\rangle\text{.}} \end{array}$$</equation>
-              <equation>$$\begin{array}{rll} \left\langle 2x_{0},2y_{0},2z_{0} \right\rangle &amp; = &amp; {\lambda\left\langle 1,1,1 \right\rangle} \\ {x_{0} + y_{0} + z_{0} - 1} &amp; = &amp; 0 \end{array}$$</equation>
-              <equation>$$\begin{array}{rll} {2x_{0}} &amp; = &amp; \lambda \\ {2y_{0}} &amp; = &amp; \lambda \\ {2z_{0}} &amp; = &amp; \lambda \\ {x_{0} + y_{0} + z_{0} - 1} &amp; = &amp; 0. \end{array}$$</equation>
-            </item>
-            <item>Since each of the first three equations has $$\lambda$$ on the right-hand side, we know that $$2x_{0} = 2y_{0} = 2z_{0}$$ and all three variables are equal to each other. Substituting $$y_{0} = x_{0}$$ and $$z_{0} = x_{0}$$ into the last equation yields $$3x_{0} - 1 = 0,$$ so $$x_{0} = \frac{1}{3}$$ and $$y_{0} = \frac{1}{3}$$ and $$z_{0} = \frac{1}{3}$$ which corresponds to a critical point on the constraint curve.</item>
-            <item>Then, we evaluateat the pointTherefore, an extremum of the function isTo verify it is a minimum, choose other points that satisfy the constraint and calculateat that point. For example,Both of these values are greater thanleading us to believe the extremum is a minimum.<equation>$$\left( {\frac{1}{3},\frac{1}{3},\frac{1}{3}} \right)\text{:}$$</equation>
-              <equation>$$f\left( {\frac{1}{3},\frac{1}{3},\frac{1}{3}} \right) = \left( \frac{1}{3} \right)^{2} + \left( \frac{1}{3} \right)^{2} + \left( \frac{1}{3} \right)^{2} = \frac{3}{9} = \frac{1}{3}.$$</equation>
-              <equation>$$\frac{1}{3}.$$</equation>
-              <equation>$$f$$</equation>
-              <equation>$$\begin{array}{rll} {f\left( {1,0,0} \right)} &amp; = &amp; {1^{2} + 0^{2} + 0^{2} = 1} \\ {f\left( {0,-2,3} \right)} &amp; = &amp; {0^{2} + (-2)^{2} + 3^{2} = 13.} \end{array}$$</equation>
-              <equation>$$\frac{1}{3},$$</equation>
-            </item>
-          </list>
-        </solution>
-      </example>
-      <checkpoint number="4.39">
-        <problem>
-          <p>Use the method of Lagrange multipliers to find the minimum value of the function</p>
-          <equation>$$f\left( {x,y,z} \right) = x + y + z$$</equation>
-          <p>subject to the constraint $$x^{2} + y^{2} + z^{2} = 1.$$</p>
-        </problem>
-        <solution>
-          <p>$$\begin{array}{rll} {f\left( {\frac{\sqrt{3}}{3},\frac{\sqrt{3}}{3},\frac{\sqrt{3}}{3}} \right)} &amp; = &amp; {\frac{\sqrt{3}}{3} + \frac{\sqrt{3}}{3} + \frac{\sqrt{3}}{3} = \sqrt{3}} \\ {f\left( {- \frac{\sqrt{3}}{3}, - \frac{\sqrt{3}}{3}, - \frac{\sqrt{3}}{3}} \right)} &amp; = &amp; {- \frac{\sqrt{3}}{3} - \frac{\sqrt{3}}{3} - \frac{\sqrt{3}}{3} = \text{−}\sqrt{3}.} \end{array}$$</p>
-        </solution>
-      </checkpoint>
-    </subsection>
-  </subsection>
-  <subsection title="Problems with Two Constraints">
-    <p>The method of Lagrange multipliers can be applied to problems with more than one constraint. In this case the optimization function, $$w$$ is a function of three variables:</p>
-    <equation>$$w = f\left( {x,y,z} \right)$$</equation>
-    <p>and it is subject to two constraints:</p>
-    <equation>$$g\left( {x,y,z} \right) = 0\ \text{and}\ h\left( {x,y,z} \right) = 0.$$</equation>
-    <p>There are two Lagrange multipliers, $$\lambda_{1}$$ and $$\lambda_{2},$$ and the system of equations becomes</p>
-    <equation>$$\begin{array}{rll} {\nabla f\left( {x_{0},y_{0},z_{0}} \right)} &amp; = &amp; {\lambda_{1}\nabla g\left( {x_{0},y_{0},z_{0}} \right) + \lambda_{2}\nabla h\left( {x_{0},y_{0},z_{0}} \right)} \\ {g\left( {x_{0},y_{0},z_{0}} \right)} &amp; = &amp; 0 \\ {h\left( {x_{0},y_{0},z_{0}} \right)} &amp; = &amp; 0. \end{array}$$</equation>
-    <example number="4.45">
-      <problem>
-        <title>Lagrange Multipliers with Two Constraints</title>
-        <p>Find the local extreme values of the function</p>
-        <equation>$$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}$$</equation>
-        <p>subject to the constraints $$z^{2} = x^{2} + y^{2}$$ and $$x + y - z + 1 = 0.$$</p>
-      </problem>
-      <solution>
-        <p>Let’s follow the problem-solving strategy:</p>
-        <list type="ol" style="1">
-          <item>The optimization function is $$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}.$$ To determine the constraint functions, we first subtract $$z^{2}$$ from both sides of the first constraint, which gives $$x^{2} + y^{2} - z^{2} = 0,$$ so $$g\left( {x,y,z} \right) = x^{2} + y^{2} - z^{2}.$$ The second constraint function is $$h\left( {x,y,z} \right) = x + y - z + 1.$$</item>
-          <item>We then calculate the gradients ofThe equationbecomeswhich can be rewritten asNext, we set the coefficients ofequal to each other:The two equations that arise from the constraints areandCombining these equations with the previous three equations gives<equation>$$f,g,\ \text{and}\ h\text{:}$$</equation>
-            <equation>$$\begin{array}{l} {\nabla f\left( {x,y,z} \right) = 2x\mathbf{i} + 2y\mathbf{j} + 2z\mathbf{k}} \\ {\nabla g\left( {x,y,z} \right) = 2x\mathbf{i} + 2y\mathbf{j} - 2z\mathbf{k}} \\ {\nabla h\left( {x,y,z} \right) = \mathbf{i} + \mathbf{j} - \mathbf{k}.} \end{array}$$</equation>
-            <equation>$$\nabla f\left( {x_{0},y_{0},z_{0}} \right) = \lambda_{1}\nabla g\left( {x_{0},y_{0},z_{0}} \right) + \lambda_{2}\nabla h\left( {x_{0},y_{0},z_{0}} \right)$$</equation>
-            <equation>$$2x_{0}\mathbf{i} + 2y_{0}\mathbf{j} + 2z_{0}\mathbf{k} = \lambda_{1}\left( {2x_{0}\mathbf{i} + 2y_{0}\mathbf{j} - 2z_{0}\mathbf{k}} \right) + \lambda_{2}\left( {\mathbf{i} + \mathbf{j} - \mathbf{k}} \right),$$</equation>
-            <equation>$$2x_{0}\mathbf{i} + 2y_{0}\mathbf{j} + 2z_{0}\mathbf{k} = \left( {2\lambda_{1}x_{0} + \lambda_{2}} \right)\mathbf{i} + \left( {2\lambda_{1}y_{0} + \lambda_{2}} \right)\mathbf{j} - \left( {2\lambda_{1}z_{0} + \lambda_{2}} \right)\mathbf{k}.$$</equation>
-            <equation>$$\mathbf{i}\ \text{,}\ \mathbf{j}\text{, and}\ \mathbf{k}$$</equation>
-            <equation>$$\begin{array}{l} {2x_{0} = 2\lambda_{1}x_{0} + \lambda_{2}} \\ {2y_{0} = 2\lambda_{1}y_{0} + \lambda_{2}} \\ {2z_{0} = -2\lambda_{1}z_{0} - \lambda_{2}.} \end{array}$$</equation>
-            <equation>$$z_{0}{}^{2} = x_{0}{}^{2} + y_{0}{}^{2}$$</equation>
-            <equation>$$x_{0} + y_{0} - z_{0} + 1 = 0.$$</equation>
-            <equation>$$\begin{array}{rll} {2x_{0}} &amp; = &amp; {2\lambda_{1}x_{0} + \lambda_{2}} \\ {2y_{0}} &amp; = &amp; {2\lambda_{1}y_{0} + \lambda_{2}} \\ {2z_{0}} &amp; = &amp; {-2\lambda_{1}z_{0} - \lambda_{2}} \\ {z_{0}{}^{2}} &amp; = &amp; {x_{0}{}^{2} + y_{0}{}^{2}} \\ {x_{0} + y_{0} - z_{0} + 1} &amp; = &amp; 0. \end{array}$$</equation>
-          </item>
-          <item>The first three equations contain the variableSolving the third equation forand replacing into the first and second equations reduces the number of equations to four:Next, we solve the first and second equation forThe first equation givesthe second equation givesWe set the right-hand side of each equation equal to each other and cross-multiply:Therefore, eitherorIfthen the first constraint becomesThe only real solution to this equation isandwhich gives the ordered tripleThis point does not satisfy the second constraint, so it is not a solution.Next, we considerwhich reduces the number of equations to three:We substitute the first equation into the second and third equations:Then, we solve the second equation forwhich givesWe then substitute this into the first equation,and use the quadratic formula to solve forRecallso this solves foras well. Then,soTherefore, there are two ordered triplet solutions:<equation>$$\lambda_{2}.$$</equation>
-            <equation>$$\lambda_{2}$$</equation>
-            <equation>$$\begin{array}{rll} {2x_{0}} &amp; = &amp; {2\lambda_{1}x_{0} - 2\lambda_{1}z_{0} - 2z_{0}} \\ {2y_{0}} &amp; = &amp; {2\lambda_{1}y_{0} - 2\lambda_{1}z_{0} - 2z_{0}} \\ {z_{0}{}^{2}} &amp; = &amp; {x_{0}{}^{2} + y_{0}{}^{2}} \\ {x_{0} + y_{0} - z_{0} + 1} &amp; = &amp; 0. \end{array}$$</equation>
-            <equation>$$\lambda_{1}.$$</equation>
-            <equation>$$\lambda_{1} = \frac{x_{0} + z_{0}}{x_{0} - z_{0}},$$</equation>
-            <equation>$$\lambda_{1} = \frac{y_{0} + z_{0}}{y_{0} - z_{0}}.$$</equation>
-            <equation>$$\begin{array}{rll} \frac{x_{0} + z_{0}}{x_{0} - z_{0}} &amp; = &amp; \frac{y_{0} + z_{0}}{y_{0} - z_{0}} \\ {\left( {x_{0} + z_{0}} \right)\left( {y_{0} - z_{0}} \right)} &amp; = &amp; {\left( {x_{0} - z_{0}} \right)\left( {y_{0} + z_{0}} \right)} \\ {x_{0}y_{0} - x_{0}z_{0} + y_{0}z_{0} - z_{0}{}^{2}} &amp; = &amp; {x_{0}y_{0} + x_{0}z_{0} - y_{0}z_{0} - z_{0}2} \\ {2y_{0}z_{0} - 2x_{0}z_{0}} &amp; = &amp; 0 \\ {2z_{0}\left( {y_{0} - x_{0}} \right)} &amp; = &amp; 0. \end{array}.$$</equation>
-            <equation>$$z_{0} = 0$$</equation>
-            <equation>$$y_{0} = x_{0}.$$</equation>
-            <equation>$$z_{0} = 0,$$</equation>
-            <equation>$$0 = x_{0}{}^{2} + y_{0}{}^{2}.$$</equation>
-            <equation>$$x_{0} = 0$$</equation>
-            <equation>$$y_{0} = 0,$$</equation>
-            <equation>$$\left( {0,0,0} \right).$$</equation>
-            <equation>$$y_{0} = x_{0},$$</equation>
-            <equation>$$\begin{array}{rll} y_{0} &amp; = &amp; x_{0} \\ {z_{0}{}^{2}} &amp; = &amp; {x_{0}{}^{2} + y_{0}{}^{2}} \\ {x_{0} + y_{0} - z_{0} + 1} &amp; = &amp; 0. \end{array}$$</equation>
-            <equation>$$\begin{array}{rll} {z_{0}{}^{2}} &amp; = &amp; {x_{0}{}^{2} + x_{0}{}^{2}} \\ {x_{0} + x_{0} - z_{0} + 1} &amp; = &amp; 0. \end{array}$$</equation>
-            <equation>$$z_{0},$$</equation>
-            <equation>$$z_{0} = 2x_{0} + 1.$$</equation>
-            <equation>$$\begin{array}{rll} {z_{0}{}^{2}} &amp; = &amp; {2x_{0}{}^{2}} \\ \left( {2x_{0} + 1} \right)^{2} &amp; = &amp; {2x_{0}{}^{2}} \\ {4x_{0}{}^{2} + 4x_{0} + 1} &amp; = &amp; {2x_{0}{}^{2}} \\ {2x_{0}{}^{2} + 4x_{0} + 1} &amp; = &amp; {0,} \end{array}$$</equation>
-            <equation>$$x_{0}\text{:}$$</equation>
-            <equation>$$x_{0} = \frac{-4 \pm \sqrt{4^{2} - 4(2)(1)}}{2(2)} = \frac{-4 \pm \sqrt{8}}{4} = \frac{-4 \pm 2\sqrt{2}}{4} = -1 \pm \frac{\sqrt{2}}{2}.$$</equation>
-            <equation>$$y_{0} = x_{0},$$</equation>
-            <equation>$$y_{0}$$</equation>
-            <equation>$$z_{0} = 2x_{0} + 1,$$</equation>
-            <equation>$$z_{0} = 2x_{0} + 1 = 2\left( {-1 \pm \frac{\sqrt{2}}{2}} \right) + 1 = -2 + 1 \pm \sqrt{2} = -1 \pm \sqrt{2}.$$</equation>
-            <equation>$$\left( {-1 + \frac{\sqrt{2}}{2},-1 + \frac{\sqrt{2}}{2},-1 + \sqrt{2}} \right)\ \text{and}\ \left( {-1 - \frac{\sqrt{2}}{2},-1 - \frac{\sqrt{2}}{2},-1 - \sqrt{2}} \right).$$</equation>
-          </item>
-          <item>We substituteintowhich givesThen, we substituteintowhich givesandare the local extreme values ofsubject to the given constraints.<equation>$$\left( {-1 + \frac{\sqrt{2}}{2},-1 + \frac{\sqrt{2}}{2},-1 + \sqrt{2}} \right)$$</equation>
-            <equation>$$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2},$$</equation>
-            <equation>$$\begin{array}{cl} {f\left( {-1 + \frac{\sqrt{2}}{2},-1 + \frac{\sqrt{2}}{2},-1 + \sqrt{2}} \right)} &amp; {= \left( {-1 + \frac{\sqrt{2}}{2}} \right)^{2} + \left( {-1 + \frac{\sqrt{2}}{2}} \right)^{2} + \left( {-1 + \sqrt{2}} \right)^{2}} \\ &amp; {= \left( {1 - \sqrt{2} + \frac{1}{2}} \right) + \left( {1 - \sqrt{2} + \frac{1}{2}} \right) + \left( {1 - 2\sqrt{2} + 2} \right)} \\ &amp; {= 6 - 4\sqrt{2}.} \end{array}$$</equation>
-            <equation>$$\left( {-1 - \frac{\sqrt{2}}{2},-1 - \frac{\sqrt{2}}{2},-1 - \sqrt{2}} \right)$$</equation>
-            <equation>$$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2},$$</equation>
-            <equation>$$\begin{array}{cl} {f\left( {-1 - \frac{\sqrt{2}}{2},-1 - \frac{\sqrt{2}}{2},-1 - \sqrt{2}} \right)} &amp; {= \left( {-1 - \frac{\sqrt{2}}{2}} \right)^{2} + \left( {-1 - \frac{\sqrt{2}}{2}} \right)^{2} + \left( {-1 - \sqrt{2}} \right)^{2}} \\ &amp; {= \left( {1 + \sqrt{2} + \frac{1}{2}} \right) + \left( {1 + \sqrt{2} + \frac{1}{2}} \right) + \left( {1 + 2\sqrt{2} + 2} \right)} \\ &amp; {= 6 + 4\sqrt{2}.} \end{array}$$</equation>
-            <equation>$$6 + 4\sqrt{2}$$</equation>
-            <equation>$$6 - 4\sqrt{2}$$</equation>
-            <equation>$$f\left( {x,y,z} \right),$$</equation>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <checkpoint number="4.40">
-      <problem>
-        <p>Use the method of Lagrange multipliers to find the minimum value of the function</p>
-        <equation>$$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}$$</equation>
-        <p>subject to the constraints $$2x + y + 2z = 9$$ and $$5x + 5y + 7z = 29.$$</p>
-      </problem>
-      <solution>
-        <p>$$f\left( {2,1,2} \right) = 9$$ is a minimum.</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <exercises title="Section 4.8 Exercises">
-    <instruction>For the following exercises, use the method of Lagrange multipliers to find the maximum and minimum values of the function subject to the given constraints.</instruction>
-    <exercise number="358" has_solution="false">
-      <problem>
-        <p>$$f(x,y) = x^{2}y;x^{2} + 2y^{2} = 6$$</p>
-      </problem>
-    </exercise>
-    <exercise number="359" has_solution="true">
-      <problem>
-        <p>$$f\left( {x,y,z} \right) = xyz,x^{2} + 2y^{2} + 3z^{2} = 6$$</p>
-      </problem>
-      <solution>
-        <p>maximum: $$2\frac{\sqrt{3}}{3},$$ minimum: $$\frac{-2\sqrt{3}}{3}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="360" has_solution="false">
-      <problem>
-        <p>$$f(x,y) = xy;4x^{2} + 8y^{2} = 16$$</p>
-      </problem>
-    </exercise>
-    <exercise number="361" has_solution="true">
-      <problem>
-        <p>$$f(x,y) = 4x^{3} + y^{2};2x^{2} + y^{2} = 1$$</p>
-      </problem>
-      <solution>
-        <p>maximum: $$\left( {\frac{\sqrt{2}}{2},0,\sqrt{2}} \right),$$ minimum: $$\left( {\frac{\text{−}\sqrt{2}}{2},0,\text{−}\sqrt{2}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="362" has_solution="false">
-      <problem>
-        <p>$$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2},x^{4} + y^{4} + z^{4} = 1$$</p>
-      </problem>
-    </exercise>
-    <exercise number="363" has_solution="true">
-      <problem>
-        <p>$$f\left( {x,y,z} \right) = yz + xy,xy = 1,y^{2} + z^{2} = 1$$</p>
-      </problem>
-      <solution>
-        <p>maximum: $$\frac{3}{2},$$ minimum = $$\frac{1}{2}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="364" has_solution="false">
-      <problem>
-        <p>$$f\left( {x,y} \right) = x^{2} + y^{2},\left( {x - 1} \right)^{2} + 4y^{2} = 4$$</p>
-      </problem>
-    </exercise>
-    <exercise number="365" has_solution="true">
-      <problem>
-        <p>$$f\left( {x,y} \right) = 4xy,\frac{x^{2}}{9} + \frac{y^{2}}{16} = 1$$</p>
-      </problem>
-      <solution>
-        <p>maxima: $$f\left( {\frac{3\sqrt{2}}{2},2\sqrt{2}} \right) = 24,$$ $$f\left( {- \frac{3\sqrt{2}}{2},-2\sqrt{2}} \right) = 24;$$ minima: $$f\left( {- \frac{3\sqrt{2}}{2},2\sqrt{2}} \right) = -24,$$ $$f\left( {\frac{3\sqrt{2}}{2},-2\sqrt{2}} \right) = -24$$</p>
-      </solution>
-    </exercise>
-    <exercise number="366" has_solution="false">
-      <problem>
-        <p>$$f\left( {x,y,z} \right) = x + y + z,\frac{1}{x} + \frac{1}{y} + \frac{1}{z} = 1$$</p>
-      </problem>
-    </exercise>
-    <exercise number="367" has_solution="true">
-      <problem>
-        <p>$$f\left( {x,y,z} \right) = x + 3y - z,x^{2} + y^{2} + z^{2} = 4$$</p>
-      </problem>
-      <solution>
-        <p>maximum: $$2\sqrt{11}$$ at $$f\left( {\frac{2}{\sqrt{11}},\frac{6}{\sqrt{11}},\frac{-2}{\sqrt{11}}} \right);$$ minimum: $$-2\sqrt{11}$$ at $$f\left( {\frac{-2}{\sqrt{11}},\frac{-6}{\sqrt{11}},\frac{2}{\sqrt{11}}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="368" has_solution="false">
-      <problem>
-        <p>$$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2},xyz = 4$$</p>
-      </problem>
-    </exercise>
-    <exercise number="369" has_solution="true">
-      <problem>
-        <p>Minimize $$f\left( {x,y} \right) = x^{2} + y^{2}$$ on the hyperbola $$xy = 1.$$</p>
-      </problem>
-      <solution>
-        <p>$$2.0$$</p>
-      </solution>
-    </exercise>
-    <exercise number="370" has_solution="false">
-      <problem>
-        <p>Minimize $$f\left( {x,y} \right) = xy$$ on the ellipse $$b^{2}x^{2} + a^{2}y^{2} = a^{2}b^{2}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="371" has_solution="true">
-      <problem>
-        <p>Maximize $$f\left( {x,y,z} \right) = 2x + 3y + 5z$$ on the sphere $$x^{2} + y^{2} + z^{2} = 19.$$</p>
-      </problem>
-      <solution>
-        <p>$$19\sqrt{2}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="372" has_solution="false">
-      <problem>
-        <p>Maximize $$\begin{array}{l} {f\left( {x,y} \right) = x^{2} - y^{2};x &gt; 0,y &gt; 0;} \\ {g\left( {x,y} \right) = y - x^{2} = 0} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="373" has_solution="true">
-      <problem>
-        <p>The curve $$x^{3} - y^{3} = 1$$ is asymptotic to the line $$y = x.$$ Find the point(s) on the curve $$x^{3} - y^{3} = 1$$ farthest from the line $$y = x.$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {\frac{1}{\sqrt[3]{2}},\frac{-1}{\sqrt[3]{2}}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="374" has_solution="false">
-      <problem>
-        <p>Maximize $$U\left( {x,y} \right) = 8x^{4\text{/}5}y^{1\text{/}5};4x + 2y = 12$$</p>
-      </problem>
-    </exercise>
-    <exercise number="375" has_solution="true">
-      <problem>
-        <p>Minimize $$f\left( {x,y} \right) = x^{2} + y^{2},x + 2y - 5 = 0.$$</p>
-      </problem>
-      <solution>
-        <p>$$f\left( {1,2} \right) = 5$$</p>
-      </solution>
-    </exercise>
-    <exercise number="376" has_solution="false">
-      <problem>
-        <p>Maximize $$f\left( {x,y} \right) = \sqrt{6 - x^{2} - y^{2}},x + y - 2 = 0.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="377" has_solution="true">
-      <problem>
-        <p>Minimize $$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2},x + y + z = 1.$$</p>
-      </problem>
-      <solution>
-        <p>$$f\left( {\frac{1}{3},\frac{1}{3},\frac{1}{3}} \right) = \frac{1}{3}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="378" has_solution="false">
-      <problem>
-        <p>Minimize $$f\left( {x,y} \right) = x^{2} - y^{2}$$ subject to the constraint $$x - 2y + 6 = 0.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="379" has_solution="true">
-      <problem>
-        <p>Minimize $$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}$$ when $$x + y + z = 9$$ and $$x + 2y + 3z = 20.$$</p>
-      </problem>
-      <solution>
-        <p>minimum: $$f\left( {2,3,4} \right) = 29$$</p>
-      </solution>
-    </exercise>
-    <instruction>For the next group of exercises, use the method of Lagrange multipliers to solve the following applied problems.</instruction>
-    <exercise number="380" has_solution="false">
-      <problem>
-        <p>A pentagon is formed by placing an isosceles triangle on a rectangle, as shown in the diagram. If the perimeter of the pentagon is $$10$$ in., find the lengths of the sides of the pentagon that will maximize the area of the pentagon.</p>
-      </problem>
-    </exercise>
-    <exercise number="381" has_solution="true">
-      <problem>
-        <p>A rectangular box without a top (a topless box) is to be made from $$12$$ ft2 of cardboard. Find the maximum volume of such a box.</p>
-      </problem>
-      <solution>
-        <p>The maximum volume is $$4$$ ft3. The dimensions are $$1\ \times \ 2\ \times \ 2$$ ft.</p>
-      </solution>
-    </exercise>
-    <exercise number="382" has_solution="false">
-      <problem>
-        <p>Find the minimum and maximum distances between the ellipse $$x^{2} + xy + 2y^{2} = 1$$ and the origin.</p>
-      </problem>
-    </exercise>
-    <exercise number="383" has_solution="true">
-      <problem>
-        <p>Find the point on the surface $$x^{2} - 2xy + y^{2} - x + y = 0$$ closest to the point $$\left( {1,2,-3} \right).$$</p>
-      </problem>
-      <solution>
-        <p>The point on the surface $$x^{2} - 2xy + y^{2} - x + y = 0$$ closest to the point $$(1,2, - 3)$$ is $$\left( {\frac{3}{2},\frac{3}{2},-3} \right)$$.</p>
-      </solution>
-    </exercise>
-    <exercise number="384" has_solution="false">
-      <problem>
-        <p>Show that, of all the triangles inscribed in a circle of radius $$R$$ (see diagram), the equilateral triangle has the largest perimeter.</p>
-      </problem>
-    </exercise>
-    <exercise number="385" has_solution="true">
-      <problem>
-        <p>Find the minimum distance from point $$\left( {0,1} \right)$$ to the parabola $$x^{2} = 4y.$$</p>
-      </problem>
-      <solution>
-        <p>$$1.0$$</p>
-      </solution>
-    </exercise>
-    <exercise number="386" has_solution="false">
-      <problem>
-        <p>Find the minimum distance from the parabola $$y = x^{2}$$ to point $$\left( {0,3} \right).$$</p>
-      </problem>
-    </exercise>
-    <exercise number="387" has_solution="true">
-      <problem>
-        <p>Find the minimum distance from the plane $$x + y + z = 1$$ to point $$\left( {2,1,1} \right).$$</p>
-      </problem>
-      <solution>
-        <p>$$\sqrt{3}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="388" has_solution="false">
-      <problem>
-        <p>A large container in the shape of a rectangular solid must have a volume of $$480$$ m3. The bottom of the container costs $5/m2 to construct whereas the top and sides cost $3/m2 to construct. Use Lagrange multipliers to find the dimensions of the container of this size that has the minimum cost.</p>
-      </problem>
-    </exercise>
-    <exercise number="389" has_solution="true">
-      <problem>
-        <p>Find the point on the line $$y = 2x + 3$$ that is closest to point $$\left( {4,2} \right).$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {\frac{2}{5},\frac{19}{5}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="390" has_solution="false">
-      <problem>
-        <p>Find the point on the plane $$4x + 3y + z = 2$$ that is closest to the point $$\left( {1,-1,1} \right).$$</p>
-      </problem>
-    </exercise>
-    <exercise number="391" has_solution="true">
-      <problem>
-        <p>Find the maximum value of $$f\left( {x,y} \right) = \text{sin}\ x\ \text{sin}\ y,$$ where $$x\ \text{and}\ y$$ denote the acute angles of a right triangle. Draw the contours of the function using a CAS.</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{2}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="392" has_solution="false">
-      <problem>
-        <p>A rectangular solid is contained within a tetrahedron with vertices at</p>
-        <p>$$\left( {1,0,0} \right),\left( {0,1,0} \right),\left( {0,0,1} \right),$$ and the origin. The base of the box has dimensions $$x,y,$$ and the height of the box is $$z.$$ If the sum of $$x,y,\ \text{and}\ z$$ is 1.0, find the dimensions that maximizes the volume of the rectangular solid.</p>
-      </problem>
-    </exercise>
-    <exercise number="393" has_solution="true">
-      <problem>
-        <p>[T] By investing x units of labor and y units of capital, a watch manufacturer can produce $$P\left( {x,y} \right) = 50x^{0.4}y^{0.6}$$ watches. Find the maximum number of watches that can be produced on a budget of $$\text{\$}20,000$$ if labor costs $100/unit and capital costs $200/unit. Use a CAS to sketch a contour plot of the function.</p>
-      </problem>
-      <solution>
-        <p>Roughly 3365 watches at the critical point $$\left( {80,60} \right)$$</p>
-      </solution>
-    </exercise>
-  </exercises>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">4.8 Lagrange Multipliers</heading>
+  <heading level="2">Learning Objectives</heading>
+  <list type="unordered">
+    <item>Use the method of Lagrange multipliers to solve optimization problems with one constraint.</item>
+    <item>Use the method of Lagrange multipliers to solve optimization problems with two constraints.</item>
+  </list>
+  <paragraph>Solving optimization problems for functions of two or more variables can be similar to solving such problems in single-variable calculus. However, techniques for dealing with multiple variables allow us to solve more varied optimization problems for which we need to deal with additional conditions or constraints. In this section, we examine one of the more common and useful methods for solving optimization problems with constraints.</paragraph>
+  <heading level="2">Lagrange Multipliers</heading>
+  <paragraph>Example 4.41 was an applied situation involving maximizing a profit function, subject to certain constraints. In that example, the constraints involved a maximum number of golf balls that could be produced and sold in $$1$$ month $$(x),$$ and a maximum number of advertising hours that could be purchased per month $$(y).$$ Suppose these were combined into a budgetary constraint, such as $$20x + 4y \leq 216,$$ that took into account the cost of producing the golf balls and the number of advertising hours purchased per month. The goal is, still, to maximize profit, but now there is a different type of constraint on the values of $$x$$ and $$y.$$ This constraint, when combined with the profit function $$f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2},$$ is an example of an optimization problem, and the function $$f\left( {x,y} \right)$$ is called the objective function. A graph of various level curves of the function $$f\left( {x,y} \right)$$ follows.</paragraph>
+  <figure number="4.59">
+    <image alt="A series of rotated ellipses that become increasingly large. The smallest one is marked f(x, y) = 400, and the biggest one is marked f(x, y) = 150."/>
+    <caption>Graph of level curves of the function $$f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2}$$ corresponding to $$c = 150,250,350, \text{and} 400.$$</caption>
+  </figure>
+  <paragraph>In Figure 4.59, the value $$c$$ represents different profit levels (i.e., values of the function $$f).$$ As the value of $$c$$ increases, the curve shifts to the right. Since our goal is to maximize profit, we want to choose a curve as far to the right as possible. If there was no restriction on the number of golf balls the company could produce, or the number of units of advertising available, then we could produce as many golf balls as we want, and advertise as much as we want, and there would not be a maximum profit for the company. Unfortunately, we have a budgetary constraint that is modeled by the inequality $$20x + 4y \leq 216.$$ To see how this constraint interacts with the profit function, Figure 4.60 shows the graph of the line $$20x + 4y = 216$$ superimposed on the previous graph.</paragraph>
+  <figure number="4.60">
+    <image alt="A series of rotated ellipses that become increasingly large. On the smallest ellipse, which is red, there is a tangent line marked with equation 20x + 4y = 216 that appears to touch the ellipse near (10, 4)."/>
+    <caption>Graph of level curves of the function $$f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2}$$ corresponding to $$c = 150,250,350, \text{and} 395.$$ The red graph is the constraint function.</caption>
+  </figure>
+  <paragraph>As mentioned previously, the maximum profit occurs when the level curve is as far to the right as possible. However, the level of production corresponding to this maximum profit must also satisfy the budgetary constraint, so the point at which this profit occurs must also lie on (or to the left of) the red line in Figure 4.60. Inspection of this graph reveals that this point exists where the line is tangent to the level curve of $$f.$$ Trial and error reveals that this profit level seems to be around $$395,$$ when $$x$$ and $$y$$ are both just less than $$5.$$ We return to the solution of this problem later in this section. From a theoretical standpoint, at the point where the profit curve is tangent to the constraint line, the gradient of both of the functions evaluated at that point must point in the same (or opposite) direction. Recall that the gradient of a function of more than one variable is a vector. If two vectors point in the same (or opposite) directions, then one must be a constant multiple of the other. This idea is the basis of the method of Lagrange multipliers.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="4.20" title="Method of Lagrange Multipliers: One Constraint">
+    <heading level="4">Method of Lagrange Multipliers: One Constraint</heading>
+    <paragraph>Let $$f$$ and $$g$$ be functions of two variables with continuous partial derivatives at every point of some open set containing the smooth curve $$g\left( {x,y} \right) = 0.$$ Suppose that $$f,$$ when restricted to points on the curve $$g\left( {x,y} \right) = 0,$$ has a local extremum at the point $$\left( {x_{0},y_{0}} \right)$$ and that $$\nabla g\left( {x_{0},y_{0}} \right) \neq 0.$$ Then there is a number $$\lambda$$ called a Lagrange multiplier, for which</paragraph>
+    <paragraph math="block">$$\nabla f\left( {x_{0},y_{0}} \right) = \lambda\nabla g\left( {x_{0},y_{0}} \right).$$</paragraph>
+  </note>
+  <heading level="3">Proof</heading>
+  <paragraph>Assume that a constrained extremum occurs at the point $$\left( {x_{0},y_{0}} \right).$$ Furthermore, we assume that the equation $$g\left( {x,y} \right) = 0$$ can be smoothly parameterized as</paragraph>
+  <paragraph math="block">$$x = x(s) \text{and} y = y(s)$$</paragraph>
+  <paragraph>where s is an arc length parameter with reference point $$\left( {x_{0},y_{0}} \right)$$ at $$s = 0.$$ Therefore, the quantity $$z = f\left( {x(s),y(s)} \right)$$ has a relative maximum or relative minimum at $$s = 0,$$ and this implies that $$\frac{dz}{ds} = 0$$ at that point. From the chain rule,</paragraph>
+  <paragraph math="block">$$\frac{dz}{ds} = \frac{\partial f}{\partial x} \cdot \frac{dx}{ds} + \frac{\partial f}{\partial y} \cdot \frac{dy}{ds} = \left( \frac{\partial f}{\partial x}\hat{\mathbf{i}} + \frac{\partial f}{\partial y}\hat{\mathbf{j}} \right) \cdot \left( \frac{dx}{ds}\hat{\mathbf{i}} + \frac{dy}{ds}\hat{\mathbf{j}} \right) = 0,$$</paragraph>
+  <paragraph>where the derivatives are all evaluated at $$s = 0.$$ However, the first factor in the dot product is the gradient of $$f,$$ and the second factor is the unit tangent vector $$\text{T} (0)$$ to the constraint curve. Since the point $$\left( {x_{0},y_{0}} \right)$$ corresponds to $$s = 0,$$ it follows from this equation that</paragraph>
+  <paragraph math="block">$$\nabla f\left( {x_{0},y_{0}} \right) \cdot \text{T} (0) = 0,$$</paragraph>
+  <paragraph>which implies that the gradient is either $$\mathbf{0}$$ or is normal to the constraint curve at a constrained relative extremum. However, the constraint curve $$g\left( {x,y} \right) = 0$$ is a level curve for the function $$g\left( {x,y} \right)$$ so that if $$\nabla g\left( {x_{0},y_{0}} \right) \neq 0$$ then $$\nabla g\left( {x_{0},y_{0}} \right)$$ is normal to this curve at $$\left( {x_{0},y_{0}} \right)$$ It follows, then, that there is some scalar $$\lambda$$ such that</paragraph>
+  <paragraph math="block">$$\nabla f\left( {x_{0},y_{0}} \right) = \lambda\nabla g\left( {x_{0},y_{0}} \right)$$</paragraph>
+  <paragraph>□</paragraph>
+  <paragraph>To apply Method of Lagrange Multipliers: One Constraint to an optimization problem similar to that for the golf ball manufacturer, we need a problem-solving strategy.</paragraph>
+  <note type="procedure" source_type="Problem-Solving Strategy" title="Problem-Solving Strategy">
+    <heading level="4">Steps for Using Lagrange Multipliers</heading>
+    <list type="ordered">
+      <item>Determine the objective function $$f\left( {x,y} \right)$$ and the constraint function $$g\left( {x,y} \right).$$ Does the optimization problem involve maximizing or minimizing the objective function?</item>
+      <item>Set up a system of equations using the following template: $$\begin{array}{rll} {\nabla f\left( {x_{0},y_{0}} \right)} &amp; = &amp; {\lambda\nabla g\left( {x_{0},y_{0}} \right)} \\ {g\left( {x_{0},y_{0}} \right)} &amp; = &amp; {0.} \end{array}$$</item>
+      <item>Solve for $$x_{0}$$ and $$y_{0}.$$</item>
+      <item>The largest of the values of $$f$$ at the solutions found in step $$3$$ maximizes $$f;$$ the smallest of those values minimizes $$f.$$</item>
+    </list>
+  </note>
+  <example number="4.42" title="Using Lagrange Multipliers">
+    <problem>
+      <paragraph>Use the method of Lagrange multipliers to find the minimum value of $$f\left( {x,y} \right) = x^{2} + 4y^{2} - 2x + 8y$$ subject to the constraint $$x + 2y = 7.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let’s follow the problem-solving strategy:</paragraph>
+      <list type="ordered">
+        <item>The optimization function is $$f\left( {x,y} \right) = x^{2} + 4y^{2} - 2x + 8y.$$ To determine the constraint function, we must first subtract $$7$$ from both sides of the constraint. This gives $$x + 2y - 7 = 0.$$ The constraint function is equal to the left-hand side, so $$g\left( {x,y} \right) = x + 2y - 7.$$ The problem asks us to solve for the minimum value of $$f,$$ subject to the constraint (see the following graph). Figure 4.61 Graph of level curves of the function $$f\left( {x,y} \right) = x^{2} + 4y^{2} - 2x + 8y$$ corresponding to $$c = 10$$ and $$26.$$ The red graph is the constraint function.</item>
+        <item>We then must calculate the gradients of both f and g: $$\begin{array}{l} {\nabla f\left( {x,y} \right) = \left( {2x - 2} \right)\mathbf{i} + \left( {8y + 8} \right)\mathbf{j}} \\ {\nabla g\left( {x,y} \right) = \mathbf{i} + 2\mathbf{j}.} \end{array}$$ The equation $$\nabla f\left( {x_{0},y_{0}} \right) = \lambda\nabla g\left( {x_{0},y_{0}} \right)$$ becomes $$\left( {2x_{0} - 2} \right)\mathbf{i} + \left( {8y_{0} + 8} \right)\mathbf{j} = \lambda\left( {\mathbf{i} + 2\mathbf{j}} \right),$$ which can be rewritten as $$\left( {2x_{0} - 2} \right)\mathbf{i} + \left( {8y_{0} + 8} \right)\mathbf{j} = \lambda\mathbf{i} + {2\lambda}\mathbf{j}.$$ Next, we set the coefficients of $$\mathbf{i} \text{and} \mathbf{j}$$ equal to each other: $$\begin{array}{l} {2x_{0} - 2 = \lambda} \\ {8y_{0} + 8 = 2\lambda.} \end{array}$$ The equation $$g\left( {x_{0},y_{0}} \right) = 0$$ becomes $$x_{0} + 2y_{0} - 7 = 0.$$ Therefore, the system of equations that needs to be solved is $$\begin{array}{rll} {2x_{0} - 2} &amp; = &amp; \lambda \\ {8y_{0} + 8} &amp; = &amp; {2\lambda} \\ {x_{0} + 2y_{0} - 7} &amp; = &amp; 0. \end{array}$$</item>
+        <item>This is a linear system of three equations in three variables. We start by solving the second equation for $$\lambda$$ and substituting it into the first equation. This gives $$\lambda = 4y_{0} + 4,$$ so substituting this into the first equation gives $$2x_{0} - 2 = 4y_{0} + 4.$$ Solving this equation for $$x_{0}$$ gives $$x_{0} = 2y_{0} + 3.$$ We then substitute this into the third equation: $$\begin{array}{rll} {\left( {2y_{0} + 3} \right) + 2y_{0} - 7} &amp; = &amp; 0 \\ {4y_{0} - 4} &amp; = &amp; 0 \\ y_{0} &amp; = &amp; 1. \end{array}$$ Since $$x_{0} = 2y_{0} + 3,$$ this gives $$x_{0} = 5.$$</item>
+        <item>Next, we substitute $$\left( {5,1} \right)$$ into $$f\left( {x,y} \right) = x^{2} + 4y^{2} - 2x + 8y,$$ gives $$f\left( {5,1} \right) = 5^{2} + 4(1)^{2} - 2(5) + 8(1) = 27.$$ To ensure this corresponds to a minimum value on the constraint function, let’s try some other values, such as the intercepts of $$g\left( {x,y} \right) = 0,$$ Which are $$\left( {7,0} \right)$$ and $$\left( {0,3.5} \right).$$ We get $$f\left( {7,0} \right) = 35$$ and $$f\left( {0,3.5} \right) = 77,$$ so it appears $$f$$ has a minimum at $$\left( {5,1} \right).$$</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="4.37">
+    <problem>
+      <paragraph>Use the method of Lagrange multipliers to find the maximum value of $$f\left( {x,y} \right) = 9x^{2} + 36xy - 4y^{2} - 18x - 8y$$ subject to the constraint $$3x + 4y = 32.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$ff$$ has a maximum value of $$976976$$ at the point $$(8,2).(8,2).$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>Let’s now return to the problem posed at the beginning of the section.</paragraph>
+  <example number="4.43" title="Golf Balls and Lagrange Multipliers">
+    <problem>
+      <paragraph>The golf ball manufacturer, Pro-T, has developed a profit model that depends on the number $$x$$ of golf balls sold per month (measured in thousands), and the number of hours per month of advertising y, according to the function</paragraph>
+      <paragraph math="block">$$z = f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2},$$</paragraph>
+      <paragraph>where $$z$$ is measured in thousands of dollars. The budgetary constraint function relating the cost of the production of thousands golf balls and advertising units is given by $$20x + 4y = 216.$$ Find the values of $$x$$ and $$y$$ that maximize profit, and find the maximum profit.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Again, we follow the problem-solving strategy:</paragraph>
+      <list type="ordered">
+        <item>The optimization function is $$f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2}.$$ To determine the constraint function, we first subtract 216 from both sides of the constraint, then divide both sides by $$4,$$ which gives $$5x + y - 54 = 0.$$ The constraint function is equal to the left-hand side, so $$g\left( {x,y} \right) = 5x + y - 54.$$ The problem asks us to solve for the maximum value of $$f,$$ subject to this constraint.</item>
+        <item>So, we calculate the gradients of both $$f \text{and}$$ $$g:$$ $$\begin{array}{l} {\nabla f\left( {x,y} \right) = \left( {48 - 2x - 2y} \right)\mathbf{i} + \left( {96 - 2x - 18y} \right)\mathbf{j}} \\ {\nabla g\left( {x,y} \right) = 5\mathbf{i} + \mathbf{j}.} \end{array}$$ The equation $$\nabla f\left( {x_{0},y_{0}} \right) = \lambda\nabla g\left( {x_{0},y_{0}} \right)$$ becomes $$\left( {48 - 2x_{0} - 2y_{0}} \right)\mathbf{i} + \left( {96 - 2x_{0} - 18y_{0}} \right)\mathbf{j} = \lambda\left( {5\mathbf{i} + \mathbf{j}} \right),$$ which can be rewritten as $$\left( {48 - 2x_{0} - 2y_{0}} \right)\mathbf{i} + \left( {96 - 2x_{0} - 18y_{0}} \right)\mathbf{j} = \lambda 5\mathbf{i} + \lambda\mathbf{j}.$$ We then set the coefficients of $$\mathbf{i} \text{and} \mathbf{j}$$ equal to each other: $$\begin{array}{rll} {48 - 2x_{0} - 2y_{0}} &amp; = &amp; {5\lambda} \\ {96 - 2x_{0} - 18y_{0}} &amp; = &amp; {\lambda.} \end{array}$$ The equation $$g\left( {x_{0},y_{0}} \right) = 0$$ becomes $$5x_{0} + y_{0} - 54 = 0.$$ Therefore, the system of equations that needs to be solved is $$\begin{array}{rll} {48 - 2x_{0} - 2y_{0}} &amp; = &amp; {5\lambda} \\ {96 - 2x_{0} - 18y_{0}} &amp; = &amp; \lambda \\ {5x_{0} + y_{0} - 54} &amp; = &amp; 0. \end{array}$$</item>
+        <item>We use the left-hand side of the second equation to replace $$\lambda$$ in the first equation: $$\begin{array}{rll} {48 - 2x_{0} - 2y_{0}} &amp; = &amp; {5\left( {96 - 2x_{0} - 18y_{0}} \right)} \\ {48 - 2x_{0} - 2y_{0}} &amp; = &amp; {480 - 10x_{0} - 90y_{0}} \\ {8x_{0}} &amp; = &amp; {432 - 88y_{0}} \\ x_{0} &amp; = &amp; {54 - 11y_{0}.} \end{array}$$ Then we substitute this into the third equation: $$\begin{array}{rll} {5\left( {54 - 11y_{0}} \right) + y_{0} - 54} &amp; = &amp; 0 \\ {270 - 55y_{0} + y_{0}} &amp; = &amp; 0 \\ {216 - 54y_{0}} &amp; = &amp; 0 \\ y_{0} &amp; = &amp; 4. \end{array}$$ Since $$x_{0} = 54 - 11y_{0},$$ this gives $$x_{0} = 10.$$</item>
+        <item>We then substitute $$\left( {10,4} \right)$$ into $$f\left( {x,y} \right) = 48x + 96y - x^{2} - 2xy - 9y^{2},$$ which gives $$\begin{array}{cl} {f\left( {10,4} \right)} &amp; {= 48(10) + 96(4) - (10)^{2} - 2(10)(4) - 9(4)^{2}} \\ &amp; {= 480 + 384 - 100 - 80 - 144 = 540.} \end{array}$$ Therefore the maximum profit that can be attained, subject to budgetary constraints, is $$\$540,000$$ with a production level of $$10,000$$ golf balls and $$4$$ hours of advertising bought per month. Let’s check to make sure this truly is a maximum. The endpoints of the line that defines the constraint are $$\left( {10.8,0} \right)$$ and $$\left( {0,54} \right)$$ Let’s evaluate $$f$$ at both of these points: $$\begin{array}{rll} {f\left( {10.8,0} \right)} &amp; = &amp; {48(10.8) + 96(0) - 10.8^{2} - 2(10.8)(0) - 9\left( 0^{2} \right) = 401.76} \\ {f\left( {0,54} \right)} &amp; = &amp; {48(0) + 96(54) - 0^{2} - 2(0)(54) - 9\left( 54^{2} \right) = -21,060.} \end{array}$$ The second value represents a loss, since no golf balls are produced. Neither of these values exceed $$540,$$ so it seems that our extremum is a maximum value of $$f.$$</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="4.38">
+    <problem>
+      <paragraph>A company has determined that its production level is given by the Cobb-Douglas function $$f\left( {x,y} \right) = 2.5x^{0.45}y^{0.55}$$ where x represents the total number of labor hours in $$1$$ year and y represents the total capital input for the company. Suppose $$1$$ unit of labor costs $$\$40$$ and $$1$$ unit of capital costs $$\$50.$$ Use the method of Lagrange multipliers to find the maximum value of $$f\left( {x,y} \right) = 2.5x^{0.45}y^{0.55}$$ subject to a budgetary constraint of $$\$500,000$$ per year.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>A maximum production level of $$1389013890$$ occurs with $$56255625$$ labor hours and $$\$5500\$5500$$ of total capital input.</paragraph>
+    </solution>
+  </example>
+  <paragraph>In the case of an optimization function with three variables and a single constraint function, it is possible to use the method of Lagrange multipliers to solve an optimization problem as well. An example of an optimization function with three variables could be the Cobb-Douglas function in the previous example: $$f\left( {x,y,z} \right) = x^{0.2}y^{0.4}z^{0.4},$$ where $$x$$ represents the cost of labor, $$y$$ represents capital input, and $$z$$ represents the cost of advertising. The method is the same as for the method with a function of two variables; the equations to be solved are</paragraph>
+  <paragraph math="block">$$\begin{array}{rll} {\nabla f\left( {x,y,z} \right)} &amp; = &amp; {\lambda\nabla g\left( {x,y,z} \right)} \\ {g\left( {x,y,z} \right)} &amp; = &amp; 0. \end{array}$$</paragraph>
+  <example number="4.44" title="Lagrange Multipliers with a Three-Variable Optimization Function">
+    <problem>
+      <paragraph>Find the minimum of the function $$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}$$ subject to the constraint $$x + y + z = 1.$$</paragraph>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>The optimization function is $$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}.$$ To determine the constraint function, we subtract $$1$$ from each side of the constraint: $$x + y + z - 1 = 0$$ which gives the constraint function as $$g\left( {x,y,z} \right) = x + y + z - 1.$$</item>
+        <item>Next, we calculate $$\nabla f\left( {x,y,z} \right)$$ and $$\nabla g\left( {x,y,z} \right):$$ $$\begin{array}{l} {\nabla f\left( {x,y,z} \right) = \left\langle 2x,2y,2z \right\rangle} \\ {\nabla g\left( {x,y,z} \right) = \left\langle 1,1,1 \right\rangle.} \end{array}$$ This leads to the equations $$\begin{array}{rll} \left\langle 2x_{0},2y_{0},2z_{0} \right\rangle &amp; = &amp; {\lambda\left\langle 1,1,1 \right\rangle} \\ {x_{0} + y_{0} + z_{0} - 1} &amp; = &amp; 0 \end{array}$$ which can be rewritten in the following form: $$\begin{array}{rll} {2x_{0}} &amp; = &amp; \lambda \\ {2y_{0}} &amp; = &amp; \lambda \\ {2z_{0}} &amp; = &amp; \lambda \\ {x_{0} + y_{0} + z_{0} - 1} &amp; = &amp; 0. \end{array}$$</item>
+        <item>Since each of the first three equations has $$\lambda$$ on the right-hand side, we know that $$2x_{0} = 2y_{0} = 2z_{0}$$ and all three variables are equal to each other. Substituting $$y_{0} = x_{0}$$ and $$z_{0} = x_{0}$$ into the last equation yields $$3x_{0} - 1 = 0,$$ so $$x_{0} = \frac{1}{3}$$ and $$y_{0} = \frac{1}{3}$$ and $$z_{0} = \frac{1}{3}$$ which corresponds to a critical point on the constraint curve.</item>
+        <item>Then, we evaluate f at the point $$\left( {\frac{1}{3},\frac{1}{3},\frac{1}{3}} \right):$$ $$f\left( {\frac{1}{3},\frac{1}{3},\frac{1}{3}} \right) = \left( \frac{1}{3} \right)^{2} + \left( \frac{1}{3} \right)^{2} + \left( \frac{1}{3} \right)^{2} = \frac{3}{9} = \frac{1}{3}.$$ Therefore, an extremum of the function is $$\frac{1}{3}.$$ To verify it is a minimum, choose other points that satisfy the constraint and calculate $$f$$ at that point. For example, $$\begin{array}{rll} {f\left( {1,0,0} \right)} &amp; = &amp; {1^{2} + 0^{2} + 0^{2} = 1} \\ {f\left( {0,-2,3} \right)} &amp; = &amp; {0^{2} + (-2)^{2} + 3^{2} = 13.} \end{array}$$ Both of these values are greater than $$\frac{1}{3},$$ leading us to believe the extremum is a minimum.</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="4.39">
+    <problem>
+      <paragraph>Use the method of Lagrange multipliers to find the minimum value of the function</paragraph>
+      <paragraph math="block">$$f\left( {x,y,z} \right) = x + y + z$$</paragraph>
+      <paragraph>subject to the constraint $$x^{2} + y^{2} + z^{2} = 1.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$f ( 3 3 , 3 3 , 3 3 ) = 3 3 + 3 3 + 3 3 = 3 f ( - 3 3 , - 3 3 , - 3 3 ) = - 3 3 - 3 3 - 3 3 = - 3 . f ( 3 3 , 3 3 , 3 3 ) = 3 3 + 3 3 + 3 3 = 3 f ( - 3 3 , - 3 3 , - 3 3 ) = - 3 3 - 3 3 - 3 3 = - 3 .$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Problems with Two Constraints</heading>
+  <paragraph>The method of Lagrange multipliers can be applied to problems with more than one constraint. In this case the optimization function, $$w$$ is a function of three variables:</paragraph>
+  <paragraph math="block">$$w = f\left( {x,y,z} \right)$$</paragraph>
+  <paragraph>and it is subject to two constraints:</paragraph>
+  <paragraph math="block">$$g\left( {x,y,z} \right) = 0 \text{and} h\left( {x,y,z} \right) = 0.$$</paragraph>
+  <paragraph>There are two Lagrange multipliers, $$\lambda_{1}$$ and $$\lambda_{2},$$ and the system of equations becomes</paragraph>
+  <paragraph math="block">$$\begin{array}{rll} {\nabla f\left( {x_{0},y_{0},z_{0}} \right)} &amp; = &amp; {\lambda_{1}\nabla g\left( {x_{0},y_{0},z_{0}} \right) + \lambda_{2}\nabla h\left( {x_{0},y_{0},z_{0}} \right)} \\ {g\left( {x_{0},y_{0},z_{0}} \right)} &amp; = &amp; 0 \\ {h\left( {x_{0},y_{0},z_{0}} \right)} &amp; = &amp; 0. \end{array}$$</paragraph>
+  <example number="4.45" title="Lagrange Multipliers with Two Constraints">
+    <problem>
+      <paragraph>Find the local extreme values of the function</paragraph>
+      <paragraph math="block">$$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}$$</paragraph>
+      <paragraph>subject to the constraints $$z^{2} = x^{2} + y^{2}$$ and $$x + y - z + 1 = 0.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let’s follow the problem-solving strategy:</paragraph>
+      <list type="ordered">
+        <item>The optimization function is $$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}.$$ To determine the constraint functions, we first subtract $$z^{2}$$ from both sides of the first constraint, which gives $$x^{2} + y^{2} - z^{2} = 0,$$ so $$g\left( {x,y,z} \right) = x^{2} + y^{2} - z^{2}.$$ The second constraint function is $$h\left( {x,y,z} \right) = x + y - z + 1.$$</item>
+        <item>We then calculate the gradients of $$f,g, \text{and} h:$$ $$\begin{array}{l} {\nabla f\left( {x,y,z} \right) = 2x\mathbf{i} + 2y\mathbf{j} + 2z\mathbf{k}} \\ {\nabla g\left( {x,y,z} \right) = 2x\mathbf{i} + 2y\mathbf{j} - 2z\mathbf{k}} \\ {\nabla h\left( {x,y,z} \right) = \mathbf{i} + \mathbf{j} - \mathbf{k}.} \end{array}$$ The equation $$\nabla f\left( {x_{0},y_{0},z_{0}} \right) = \lambda_{1}\nabla g\left( {x_{0},y_{0},z_{0}} \right) + \lambda_{2}\nabla h\left( {x_{0},y_{0},z_{0}} \right)$$ becomes $$2x_{0}\mathbf{i} + 2y_{0}\mathbf{j} + 2z_{0}\mathbf{k} = \lambda_{1}\left( {2x_{0}\mathbf{i} + 2y_{0}\mathbf{j} - 2z_{0}\mathbf{k}} \right) + \lambda_{2}\left( {\mathbf{i} + \mathbf{j} - \mathbf{k}} \right),$$ which can be rewritten as $$2x_{0}\mathbf{i} + 2y_{0}\mathbf{j} + 2z_{0}\mathbf{k} = \left( {2\lambda_{1}x_{0} + \lambda_{2}} \right)\mathbf{i} + \left( {2\lambda_{1}y_{0} + \lambda_{2}} \right)\mathbf{j} - \left( {2\lambda_{1}z_{0} + \lambda_{2}} \right)\mathbf{k}.$$ Next, we set the coefficients of $$\mathbf{i} , \mathbf{j} \text{, and} \mathbf{k}$$ equal to each other: $$\begin{array}{l} {2x_{0} = 2\lambda_{1}x_{0} + \lambda_{2}} \\ {2y_{0} = 2\lambda_{1}y_{0} + \lambda_{2}} \\ {2z_{0} = -2\lambda_{1}z_{0} - \lambda_{2}.} \end{array}$$ The two equations that arise from the constraints are $$z_{0}{}^{2} = x_{0}{}^{2} + y_{0}{}^{2}$$ and $$x_{0} + y_{0} - z_{0} + 1 = 0.$$ Combining these equations with the previous three equations gives $$\begin{array}{rll} {2x_{0}} &amp; = &amp; {2\lambda_{1}x_{0} + \lambda_{2}} \\ {2y_{0}} &amp; = &amp; {2\lambda_{1}y_{0} + \lambda_{2}} \\ {2z_{0}} &amp; = &amp; {-2\lambda_{1}z_{0} - \lambda_{2}} \\ {z_{0}{}^{2}} &amp; = &amp; {x_{0}{}^{2} + y_{0}{}^{2}} \\ {x_{0} + y_{0} - z_{0} + 1} &amp; = &amp; 0. \end{array}$$</item>
+        <item>The first three equations contain the variable $$\lambda_{2}.$$ Solving the third equation for $$\lambda_{2}$$ and replacing into the first and second equations reduces the number of equations to four: $$\begin{array}{rll} {2x_{0}} &amp; = &amp; {2\lambda_{1}x_{0} - 2\lambda_{1}z_{0} - 2z_{0}} \\ {2y_{0}} &amp; = &amp; {2\lambda_{1}y_{0} - 2\lambda_{1}z_{0} - 2z_{0}} \\ {z_{0}{}^{2}} &amp; = &amp; {x_{0}{}^{2} + y_{0}{}^{2}} \\ {x_{0} + y_{0} - z_{0} + 1} &amp; = &amp; 0. \end{array}$$ Next, we solve the first and second equation for $$\lambda_{1}.$$ The first equation gives $$\lambda_{1} = \frac{x_{0} + z_{0}}{x_{0} - z_{0}},$$ the second equation gives $$\lambda_{1} = \frac{y_{0} + z_{0}}{y_{0} - z_{0}}.$$ We set the right-hand side of each equation equal to each other and cross-multiply: $$\begin{array}{rll} \frac{x_{0} + z_{0}}{x_{0} - z_{0}} &amp; = &amp; \frac{y_{0} + z_{0}}{y_{0} - z_{0}} \\ {\left( {x_{0} + z_{0}} \right)\left( {y_{0} - z_{0}} \right)} &amp; = &amp; {\left( {x_{0} - z_{0}} \right)\left( {y_{0} + z_{0}} \right)} \\ {x_{0}y_{0} - x_{0}z_{0} + y_{0}z_{0} - z_{0}{}^{2}} &amp; = &amp; {x_{0}y_{0} + x_{0}z_{0} - y_{0}z_{0} - z_{0}2} \\ {2y_{0}z_{0} - 2x_{0}z_{0}} &amp; = &amp; 0 \\ {2z_{0}\left( {y_{0} - x_{0}} \right)} &amp; = &amp; 0. \end{array}.$$ Therefore, either $$z_{0} = 0$$ or $$y_{0} = x_{0}.$$ If $$z_{0} = 0,$$ then the first constraint becomes $$0 = x_{0}{}^{2} + y_{0}{}^{2}.$$ The only real solution to this equation is $$x_{0} = 0$$ and $$y_{0} = 0,$$ which gives the ordered triple $$\left( {0,0,0} \right).$$ This point does not satisfy the second constraint, so it is not a solution. Next, we consider $$y_{0} = x_{0},$$ which reduces the number of equations to three: $$\begin{array}{rll} y_{0} &amp; = &amp; x_{0} \\ {z_{0}{}^{2}} &amp; = &amp; {x_{0}{}^{2} + y_{0}{}^{2}} \\ {x_{0} + y_{0} - z_{0} + 1} &amp; = &amp; 0. \end{array}$$ We substitute the first equation into the second and third equations: $$\begin{array}{rll} {z_{0}{}^{2}} &amp; = &amp; {x_{0}{}^{2} + x_{0}{}^{2}} \\ {x_{0} + x_{0} - z_{0} + 1} &amp; = &amp; 0. \end{array}$$ Then, we solve the second equation for $$z_{0},$$ which gives $$z_{0} = 2x_{0} + 1.$$ We then substitute this into the first equation, $$\begin{array}{rll} {z_{0}{}^{2}} &amp; = &amp; {2x_{0}{}^{2}} \\ \left( {2x_{0} + 1} \right)^{2} &amp; = &amp; {2x_{0}{}^{2}} \\ {4x_{0}{}^{2} + 4x_{0} + 1} &amp; = &amp; {2x_{0}{}^{2}} \\ {2x_{0}{}^{2} + 4x_{0} + 1} &amp; = &amp; {0,} \end{array}$$ and use the quadratic formula to solve for $$x_{0}:$$ $$x_{0} = \frac{-4 \pm \sqrt{4^{2} - 4(2)(1)}}{2(2)} = \frac{-4 \pm \sqrt{8}}{4} = \frac{-4 \pm 2\sqrt{2}}{4} = -1 \pm \frac{\sqrt{2}}{2}.$$ Recall $$y_{0} = x_{0},$$ so this solves for $$y_{0}$$ as well. Then, $$z_{0} = 2x_{0} + 1,$$ so $$z_{0} = 2x_{0} + 1 = 2\left( {-1 \pm \frac{\sqrt{2}}{2}} \right) + 1 = -2 + 1 \pm \sqrt{2} = -1 \pm \sqrt{2}.$$ Therefore, there are two ordered triplet solutions: $$\left( {-1 + \frac{\sqrt{2}}{2},-1 + \frac{\sqrt{2}}{2},-1 + \sqrt{2}} \right) \text{and} \left( {-1 - \frac{\sqrt{2}}{2},-1 - \frac{\sqrt{2}}{2},-1 - \sqrt{2}} \right).$$</item>
+        <item>We substitute $$\left( {-1 + \frac{\sqrt{2}}{2},-1 + \frac{\sqrt{2}}{2},-1 + \sqrt{2}} \right)$$ into $$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2},$$ which gives $$\begin{array}{cl} {f\left( {-1 + \frac{\sqrt{2}}{2},-1 + \frac{\sqrt{2}}{2},-1 + \sqrt{2}} \right)} &amp; {= \left( {-1 + \frac{\sqrt{2}}{2}} \right)^{2} + \left( {-1 + \frac{\sqrt{2}}{2}} \right)^{2} + \left( {-1 + \sqrt{2}} \right)^{2}} \\ &amp; {= \left( {1 - \sqrt{2} + \frac{1}{2}} \right) + \left( {1 - \sqrt{2} + \frac{1}{2}} \right) + \left( {1 - 2\sqrt{2} + 2} \right)} \\ &amp; {= 6 - 4\sqrt{2}.} \end{array}$$ Then, we substitute $$\left( {-1 - \frac{\sqrt{2}}{2},-1 - \frac{\sqrt{2}}{2},-1 - \sqrt{2}} \right)$$ into $$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2},$$ which gives $$\begin{array}{cl} {f\left( {-1 - \frac{\sqrt{2}}{2},-1 - \frac{\sqrt{2}}{2},-1 - \sqrt{2}} \right)} &amp; {= \left( {-1 - \frac{\sqrt{2}}{2}} \right)^{2} + \left( {-1 - \frac{\sqrt{2}}{2}} \right)^{2} + \left( {-1 - \sqrt{2}} \right)^{2}} \\ &amp; {= \left( {1 + \sqrt{2} + \frac{1}{2}} \right) + \left( {1 + \sqrt{2} + \frac{1}{2}} \right) + \left( {1 + 2\sqrt{2} + 2} \right)} \\ &amp; {= 6 + 4\sqrt{2}.} \end{array}$$ $$6 + 4\sqrt{2}$$ and $$6 - 4\sqrt{2}$$ are the local extreme values of $$f\left( {x,y,z} \right),$$ subject to the given constraints.</item>
+      </list>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="4.40">
+    <problem>
+      <paragraph>Use the method of Lagrange multipliers to find the minimum value of the function</paragraph>
+      <paragraph math="block">$$f\left( {x,y,z} \right) = x^{2} + y^{2} + z^{2}$$</paragraph>
+      <paragraph>subject to the constraints $$2x + y + 2z = 9$$ and $$5x + 5y + 7z = 29.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$f(2,1,2)=9f(2,1,2)=9$$ is a minimum.</paragraph>
+    </solution>
+  </example>
 </section>

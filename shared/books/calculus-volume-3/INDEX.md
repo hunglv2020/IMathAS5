@@ -1,105 +1,108 @@
 # Calculus, Volume 3
 
-**Slug:** `calculus-volume-3`  
-**Chapters:** 7
+> Synced: 2026-06-22 · 93 files
 
----
+## How to use
 
-## Chapter 1
+Read this file first to locate the right XML file, then open or grep it.
 
-- `ch01_intro.xml` — Chapter introduction
-- `ch01_unit_01.xml` — 1.1 Parametric Equations
-- `ch01_unit_02.xml` — 1.2 Calculus of Parametric Curves
-- `ch01_unit_03.xml` — 1.3 Polar Coordinates
-- `ch01_unit_04.xml` — 1.4 Area and Arc Length in Polar Coordinates
-- `ch01_unit_05.xml` — 1.5 Conic Sections
-- `ch01_key_concepts.xml` — Key Concepts
-- `ch01_key_equations.xml` — Key Equations
-- `ch01_key_terms.xml` — Key Terms
-- `ch01_review_exercises.xml` — Review Exercises
+- **Chapter files** (`chNN.xml`) — full chapter with all sections. Use for broad context or when the section is unknown.
+- **Unit files** (`chNN_unit_MM.xml`) — one unit only. Prefer when targeting a specific exercise or example.
+- **Exercise files** (`chNN_unit_MM_exercises.xml`) — exercises for one unit, separated from content.
+- Find a specific exercise number: `grep -n 'number="25"' ch04_unit_02_exercises.xml`
+- Find an example: `grep -n '<example' ch04_unit_02.xml`
+- Find a term or keyword: `grep -in "chain rule" ch03_unit_03.xml`
 
-## Chapter 2
+## Table of contents
 
-- `ch02_intro.xml` — Chapter introduction
-- `ch02_unit_01.xml` — 2.1 Vectors in the Plane
-- `ch02_unit_02.xml` — 2.2 Vectors in Three Dimensions
-- `ch02_unit_03.xml` — 2.3 The Dot Product
-- `ch02_unit_04.xml` — 2.4 The Cross Product
-- `ch02_unit_05.xml` — 2.5 Equations of Lines and Planes in Space
-- `ch02_unit_06.xml` — 2.6 Quadric Surfaces
-- `ch02_unit_07.xml` — 2.7 Cylindrical and Spherical Coordinates
-- `ch02_key_concepts.xml` — Key Concepts
-- `ch02_key_equations.xml` — Key Equations
-- `ch02_key_terms.xml` — Key Terms
-- `ch02_review_exercises.xml` — Review Exercises
+### Chapter 1
 
-## Chapter 3
+Full chapter: `ch01.xml`
 
-- `ch03_intro.xml` — Chapter introduction
-- `ch03_unit_01.xml` — 3.1 Vector-Valued Functions and Space Curves
-- `ch03_unit_02.xml` — 3.2 Calculus of Vector-Valued Functions
-- `ch03_unit_03.xml` — 3.3 Arc Length and Curvature
-- `ch03_unit_04.xml` — 3.4 Motion in Space
-- `ch03_key_concepts.xml` — Key Concepts
-- `ch03_key_equations.xml` — Key Equations
-- `ch03_key_terms.xml` — Key Terms
-- `ch03_review_exercises.xml` — Review Exercises
+| File | Section | Title | Exercises |
+|------|---------|-------|-----------|
+| `ch01_unit_01.xml` | 1.1 | Parametric Equations | Ex. 1–61 |
+| `ch01_unit_02.xml` | 1.2 | Calculus of Parametric Curves | Ex. 62–124 |
+| `ch01_unit_03.xml` | 1.3 | Polar Coordinates | Ex. 125–187 |
+| `ch01_unit_04.xml` | 1.4 | Area and Arc Length in Polar Coordinates | Ex. 188–254 |
+| `ch01_unit_05.xml` | 1.5 | Conic Sections | Ex. 255–321 |
 
-## Chapter 4
+### Chapter 2
 
-- `ch04_intro.xml` — Chapter introduction
-- `ch04_unit_01.xml` — 4.1 Functions of Several Variables
-- `ch04_unit_02.xml` — 4.2 Limits and Continuity
-- `ch04_unit_03.xml` — 4.3 Partial Derivatives
-- `ch04_unit_04.xml` — 4.4 Tangent Planes and Linear Approximations
-- `ch04_unit_05.xml` — 4.5 The Chain Rule
-- `ch04_unit_06.xml` — 4.6 Directional Derivatives and the Gradient
-- `ch04_unit_07.xml` — 4.7 Maxima/Minima Problems
-- `ch04_unit_08.xml` — 4.8 Lagrange Multipliers
-- `ch04_key_concepts.xml` — Key Concepts
-- `ch04_key_equations.xml` — Key Equations
-- `ch04_key_terms.xml` — Key Terms
-- `ch04_review_exercises.xml` — Review Exercises
+Full chapter: `ch02.xml`
 
-## Chapter 5
+| File | Section | Title | Exercises |
+|------|---------|-------|-----------|
+| `ch02_unit_01.xml` | 2.1 | Vectors in the Plane | Ex. 1–60 |
+| `ch02_unit_02.xml` | 2.2 | Vectors in Three Dimensions | Ex. 61–122 |
+| `ch02_unit_03.xml` | 2.3 | The Dot Product | Ex. 123–182 |
+| `ch02_unit_04.xml` | 2.4 | The Cross Product | Ex. 183–242 |
+| `ch02_unit_05.xml` | 2.5 | Equations of Lines and Planes in Space | Ex. 243–302 |
+| `ch02_unit_06.xml` | 2.6 | Quadric Surfaces | Ex. 303–362 |
+| `ch02_unit_07.xml` | 2.7 | Cylindrical and Spherical Coordinates | Ex. 363–422 |
 
-- `ch05_intro.xml` — Chapter introduction
-- `ch05_unit_01.xml` — 5.1 Double Integrals over Rectangular Regions
-- `ch05_unit_02.xml` — 5.2 Double Integrals over General Regions
-- `ch05_unit_03.xml` — 5.3 Double Integrals in Polar Coordinates
-- `ch05_unit_04.xml` — 5.4 Triple Integrals
-- `ch05_unit_05.xml` — 5.5 Triple Integrals in Cylindrical and Spherical Coordinates
-- `ch05_unit_06.xml` — 5.6 Calculating Centers of Mass and Moments of Inertia
-- `ch05_unit_07.xml` — 5.7 Change of Variables in Multiple Integrals
-- `ch05_key_concepts.xml` — Key Concepts
-- `ch05_key_equations.xml` — Key Equations
-- `ch05_key_terms.xml` — Key Terms
-- `ch05_review_exercises.xml` — Review Exercises
+### Chapter 3
 
-## Chapter 6
+Full chapter: `ch03.xml`
 
-- `ch06_intro.xml` — Chapter introduction
-- `ch06_unit_01.xml` — 6.1 Vector Fields
-- `ch06_unit_02.xml` — 6.2 Line Integrals
-- `ch06_unit_03.xml` — 6.3 Conservative Vector Fields
-- `ch06_unit_04.xml` — 6.4 Green’s Theorem
-- `ch06_unit_05.xml` — 6.5 Divergence and Curl
-- `ch06_unit_06.xml` — 6.6 Surface Integrals
-- `ch06_unit_07.xml` — 6.7 Stokes’ Theorem
-- `ch06_unit_08.xml` — 6.8 The Divergence Theorem
-- `ch06_key_concepts.xml` — Key Concepts
-- `ch06_key_equations.xml` — Key Equations
-- `ch06_key_terms.xml` — Key Terms
-- `ch06_review_exercises.xml` — Review Exercises
+| File | Section | Title | Exercises |
+|------|---------|-------|-----------|
+| `ch03_unit_01.xml` | 3.1 | Vector-Valued Functions and Space Curves | Ex. 1–40 |
+| `ch03_unit_02.xml` | 3.2 | Calculus of Vector-Valued Functions | Ex. 41–101 |
+| `ch03_unit_03.xml` | 3.3 | Arc Length and Curvature | Ex. 102–154 |
+| `ch03_unit_04.xml` | 3.4 | Motion in Space | Ex. 155–201 |
 
-## Chapter 7
+### Chapter 4
 
-- `ch07_intro.xml` — Chapter introduction
-- `ch07_unit_01.xml` — 7.1 Second-Order Linear Equations
-- `ch07_unit_02.xml` — 7.2 Nonhomogeneous Linear Equations
-- `ch07_unit_03.xml` — 7.3 Applications
-- `ch07_unit_04.xml` — 7.4 Series Solutions of Differential Equations
-- `ch07_key_concepts.xml` — Key Concepts
-- `ch07_key_equations.xml` — Key Equations
-- `ch07_key_terms.xml` — Key Terms
-- `ch07_review_exercises.xml` — Review Exercises
+Full chapter: `ch04.xml`
+
+| File | Section | Title | Exercises |
+|------|---------|-------|-----------|
+| `ch04_unit_01.xml` | 4.1 | Functions of Several Variables | Ex. 1–59 |
+| `ch04_unit_02.xml` | 4.2 | Limits and Continuity | Ex. 60–111 |
+| `ch04_unit_03.xml` | 4.3 | Partial Derivatives | Ex. 112–162 |
+| `ch04_unit_04.xml` | 4.4 | Tangent Planes and Linear Approximations | Ex. 163–214 |
+| `ch04_unit_05.xml` | 4.5 | The Chain Rule | Ex. 215–259 |
+| `ch04_unit_06.xml` | 4.6 | Directional Derivatives and the Gradient | Ex. 260–309 |
+| `ch04_unit_07.xml` | 4.7 | Maxima/Minima Problems | Ex. 310–357 |
+| `ch04_unit_08.xml` | 4.8 | Lagrange Multipliers | Ex. 358–393 |
+
+### Chapter 5
+
+Full chapter: `ch05.xml`
+
+| File | Section | Title | Exercises |
+|------|---------|-------|-----------|
+| `ch05_unit_01.xml` | 5.1 | Double Integrals over Rectangular Regions | Ex. 1–59 |
+| `ch05_unit_02.xml` | 5.2 | Double Integrals over General Regions | Ex. 60–121 |
+| `ch05_unit_03.xml` | 5.3 | Double Integrals in Polar Coordinates | Ex. 122–180 |
+| `ch05_unit_04.xml` | 5.4 | Triple Integrals | Ex. 181–240 |
+| `ch05_unit_05.xml` | 5.5 | Triple Integrals in Cylindrical and Spherical Coordinates | Ex. 241–296 |
+| `ch05_unit_06.xml` | 5.6 | Calculating Centers of Mass and Moments of Inertia | Ex. 297–355 |
+| `ch05_unit_07.xml` | 5.7 | Change of Variables in Multiple Integrals | Ex. 356–415 |
+
+### Chapter 6
+
+Full chapter: `ch06.xml`
+
+| File | Section | Title | Exercises |
+|------|---------|-------|-----------|
+| `ch06_unit_01.xml` | 6.1 | Vector Fields | Ex. 1–38 |
+| `ch06_unit_02.xml` | 6.2 | Line Integrals | Ex. 39–98 |
+| `ch06_unit_03.xml` | 6.3 | Conservative Vector Fields | Ex. 99–145 |
+| `ch06_unit_04.xml` | 6.4 | Green’s Theorem | Ex. 146–205 |
+| `ch06_unit_05.xml` | 6.5 | Divergence and Curl | Ex. 206–268 |
+| `ch06_unit_06.xml` | 6.6 | Surface Integrals | Ex. 269–325 |
+| `ch06_unit_07.xml` | 6.7 | Stokes’ Theorem | Ex. 326–375 |
+| `ch06_unit_08.xml` | 6.8 | The Divergence Theorem | Ex. 376–426 |
+
+### Chapter 7
+
+Full chapter: `ch07.xml`
+
+| File | Section | Title | Exercises |
+|------|---------|-------|-----------|
+| `ch07_unit_01.xml` | 7.1 | Second-Order Linear Equations | Ex. 1–53 |
+| `ch07_unit_02.xml` | 7.2 | Nonhomogeneous Linear Equations | Ex. 54–85 |
+| `ch07_unit_03.xml` | 7.3 | Applications | Ex. 86–103 |
+| `ch07_unit_04.xml` | 7.4 | Series Solutions of Differential Equations | Ex. 104–116 |

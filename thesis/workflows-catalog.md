@@ -1,177 +1,147 @@
 # Workflows Catalog
 
-_Định nghĩa các quy trình multi-skill._
-_Last updated: 2026-06-05_
+_Định nghĩa các quy trình active-core sau refactor._
+_Last updated: 2026-06-25_
 
 ---
 
 ## Workflow: `author-imathas`
 
 **File:** `.agents/workflows/author-imathas.md`
-**Mục đích:** Toàn bộ quy trình tạo IMathAS dynamic question package từ đầu đến cuối.
+**Mục đích:** Quy trình authoring chính cho IMathAS package.
+
+### Shared retrieval discipline
+
+```text
+AGENTS.md
+-> target artifacts for the selected mode
+-> required policy bundles
+-> write-imathas-x/SKILL.md
+-> topic/reference/pattern files only on trigger
+```
 
 ### Mode F — Fresh Build
 
-Khi nào dùng: static files + blueprint có sẵn, `imathas/` trống hoặc cần rebuild hoàn toàn.
+Khi nào dùng:
+- có `static/static_question.txt`
+- có `static/static_solution.txt`
+- có `static/blueprint.txt`
+- `imathas/` cần build hoặc rebuild
 
-```
-Prereqs:
-  static/static_question.txt     ← từ draft-static-question
-  static/static_solution.txt     ← từ draft-static-solution
-  static/blueprint.txt           ← từ generate-blueprint
-
-[LOAD] Context
-  ├── .agents/experience/write-imathas-x/index.md
-  ├── static_question.txt
-  ├── static_solution.txt
-  ├── blueprint.txt
-  └── (topic guides, macro lookup theo yêu cầu)
-
-[BUILD] control.php
-  ├── Lookup macros qua lookup_macro_with_goldens.py
-  ├── Implement variables theo blueprint
-  └── Configure answer types theo qtype
-
-[BUILD] question.txt + solution.txt
-  ├── Substitute variables vào static content
-  ├── Normalize inline injections to `{$var}` when needed for token-boundary safety
-  ├── Only create new display vars for reused / structured / normalization-heavy displays
-  └── Apply AsciiMath formatting
-
-[BUILD] qtype.txt
-  └── Set answer type string
-
-[VERIFY]
-  └── verify-imathas-batch (batch seeds check)
-  └── render_seeds MCP (debug nếu fail)
-```
+Trục chính:
+- preserve static AsciiMath
+- author `control.php` zone-by-zone
+- map answerboxes before finalizing ZONE 4
+- build ZONE 2 display vars with interpolation-first assembly, never manual dot-concat token stitching
+- validate early, then fixed-seed verify
 
 ### Mode P — Targeted Patch
 
-Khi nào dùng: Sửa một lỗi cụ thể, không cần blueprint.
+Khi nào dùng:
+- sửa hẹp một phần của package hiện có
+- không cần rebuild toàn bộ
+
+Trục chính:
+- đọc coupled artifacts trước
+- patch tối thiểu
+- validator-first
+- inspect changed ZONE 2 display strings and rewrite manual concat to interpolation before exit
+- inspect ít nhất một rendered hoặc snapshotted instance sau edit material
 
 ### Mode R — Dynamicize Solution Draft
 
-Khi nào dùng: Có solution draft hardcode, cần convert sang dynamic template.
+Khi nào dùng:
+- có solution hardcoded hoặc partially dynamic
+- cần chuyển sang maintainable dynamic structure
 
-Điểm cần nhớ:
-- Thử inline replacement với `{$var}` trước khi tạo ZONE 2 display var mới
-- Chỉ đưa sang `control.php` khi object thật sự structured, tái sử dụng, hoặc cần macro formatting
-
----
-
-## Workflow: `full-audit`
-
-**File:** `.agents/workflows/full-audit.md`
-**Mục đích:** Sequential audit pipeline — coverage → pedagogical → accuracy.
-
-### Prerequisites
-
-```
-imathas/control.php, question.txt, solution.txt, qtype.txt  — phải có
-source/target_exercises.xml                                  — phải có
-meta.xml                                                     — phải có
-shared/books/{book_slug}/                                    — phải có
-context/active_qt.md                                         — phải populated
-content-workbench MCP                                        — phải running (cho accuracy)
-source/exercise_analysis.xml                                 — optional (human-validated deep audit context)
-```
-
-### Pipeline
-
-```
-[audit-coverage]
-    ├── FAIL → dừng, viết coverage_report.md, done
-    └── PASS / PARTIAL
-            │
-            ▼
-    [audit-pedagogical]
-            ├── Ghi tất cả findings vào Fix Tracker
-            └── (không chặn accuracy)
-                    │
-                    ▼
-            [audit-accuracy]
-                    └── seeds = [1, 2, 3, 4, 123]
-                        Ghi findings vào Fix Tracker
-```
-
-### Kết quả
-
-- `reviews/coverage_report.md`
-- `reviews/pedagogical_report.md`
-- `reviews/accuracy_report_seed{N}.md` (per seed)
+Trục chính:
+- giữ question framing ổn định
+- chỉ move dynamic logic cần thiết vào `control.php`
+- ưu tiên inline-first trong `solution.txt`
+- nếu cần display vars ở ZONE 2 thì vẫn phải interpolation-first
 
 ---
 
-## Authoring End-to-End Flow (Expert perspective)
+## Direct Audit Execution Model
 
-Đây là toàn bộ hành trình của một question template từ lúc bắt đầu đến lúc hoàn thiện:
+Primary audit path sau refactor là direct skill invocation, không còn workflow `full-audit`.
 
+```text
+IMathAS package ready
+   ├── audit-coverage
+   ├── audit-pedagogical
+   └── audit-accuracy
 ```
+
+Thứ tự thường dùng:
+1. `audit-coverage`
+2. `audit-pedagogical`
+3. `audit-accuracy`
+
+Nhưng mỗi skill đều first-class và có thể chạy độc lập theo nhu cầu.
+
+---
+
+## Authoring End-to-End Flow
+
+```text
 1. Setup
-   ├── Tạo questions/qt-{id}/ folder
-   ├── Viết meta.xml (curriculum context)
-   └── Đặt target_exercises.xml vào source/
+   ├── create questions/qt-{id}/
+   ├── write meta.xml
+   └── place target_exercises.xml into source/
 
 2. Static Drafting
-   ├── [draft-static-question]  → static_question.txt
-   └── [draft-static-solution]  → static_solution.txt
-       (Human review cả hai trước khi tiếp tục)
+   ├── draft-static-question
+   ├── build-solution-artifact
+   └── manual static promotion to `static/static_solution*.txt`
 
 3. Parameterization
-   └── [generate-blueprint]     → blueprint.txt
-       (Human có thể adjust blueprint trước khi code)
+   └── generate-blueprint
 
-4. IMathAS Coding (via author-imathas workflow)
-   └── [write-imathas-x]        → control.php, question.txt, solution.txt, qtype.txt
+4. IMathAS Coding
+   └── author-imathas -> write-imathas-x
 
 5. Verification
-   └── [verify-imathas-batch]   → pass/fail report
-       (Nếu fail: debug với render_seeds MCP)
+   ├── verify-imathas-batch
+   └── snapshot-seed or render_seeds when concrete inspection is needed
 
-6. Full Audit (via full-audit workflow)
-   ├── [audit-coverage]
-   ├── [audit-pedagogical]
-   └── [audit-accuracy]
-       (Apply fixes từ Fix Tracker nếu cần)
+6. Direct Audit
+   ├── audit-coverage
+   ├── audit-pedagogical
+   └── audit-accuracy
 
-7. (Optional) Deep Analysis
-   ├── Odoo: render `analyze_source_vi` → validate Part 1 → copy XML → lưu source/exercise_analysis.xml
-   └── [audit-coverage] với L5  → coverage_report.md với deep scoring
+7. Optional Author Feedback
+   └── write-author-feedback-from-solution-artifact
+
+8. Optional Deep Context
+   └── analyze_source_vi -> source/exercise_analysis.xml
 ```
 
 ---
 
-## Skill → Workflow mapping
+## Skill → Execution mapping
 
-| Skill | Workflow | Ghi chú |
-|---|---|---|
-| `draft-static-question` | Authoring (step 2) | Standalone hoặc trong author workflow |
-| `draft-static-solution` | Authoring (step 2) | Sau draft-static-question |
-| `generate-blueprint` | Authoring (step 3) | Standalone hoặc trong author workflow |
-| `write-imathas-x` | `author-imathas` | Entry point chính của author workflow |
-| `verify-imathas-batch` | `author-imathas` (VERIFY step) | Chạy sau khi code xong |
-| `audit-coverage` | `full-audit` (Stage 1) | Có thể chạy standalone |
-| `audit-pedagogical` | `full-audit` (Stage 2) | Có thể chạy standalone |
-| `audit-accuracy` | `full-audit` (Stage 3) | Cần MCP `render_seeds` |
-| `audit-text-integrity` | Standalone / post-audit | Optional |
-| `audit-variable-distribution` | Standalone | Optional |
-| `analyze_source_vi` | Pre-`full-audit` (optional) | **Odoo persona** — không phải IMathAS5 skill; output: `source/exercise_analysis.xml` |
+| Skill | Primary use |
+|---|---|
+| `write-imathas-x` | Authoring and patching IMathAS source |
+| `verify-imathas-batch` | Fixed-seed runtime validation |
+| `snapshot-seed` | Concrete rendered inspection artifact |
+| `build-solution-artifact` | Grounded reference solution with trace + prerequisite bridges |
+| `write-author-feedback-from-solution-artifact` | Author-facing explanation feedback for the original IMathAS writer |
+| `audit-coverage` | Source coverage |
+| `audit-pedagogical` | Terminology/notation/scope/clarity |
+| `audit-accuracy` | Mathematical correctness |
 
 ---
 
-## Trigger từ user → Skill mapping (Quick Reference)
+## Trigger quick reference
 
-| User nói | Skill / Workflow |
+| User intent | Primary skill / workflow |
 |---|---|
-| "tạo câu hỏi", "draft question" | `draft-static-question` |
-| "tạo lời giải", "giải bài" | `draft-static-solution` |
-| "tạo blueprint", "parameterization" | `generate-blueprint` |
-| "viết code", "write imathas", "author" | `author-imathas` workflow → `write-imathas-x` |
-| "render seed", "xem seed" | `draft-static-question` Mode B |
-| "check coverage", "audit coverage" | `audit-coverage` |
-| "check pedagogical", "audit sư phạm" | `audit-pedagogical` |
-| "check accuracy", "audit accuracy" | `audit-accuracy` |
-| "full audit", "kiểm định toàn bộ" | `full-audit` workflow |
+| "write imathas", "author", "patch control" | `author-imathas` / `write-imathas-x` |
+| "snapshot seed", "xem seed cụ thể" | `snapshot-seed` |
+| "feedback from solution artifact", "viết feedback cho author từ solution artifact" | `write-author-feedback-from-solution-artifact` |
 | "verify batch", "check seeds" | `verify-imathas-batch` |
-| "update thesis", "refactor skill" | `update-thesis` |
+| "check coverage" | `audit-coverage` |
+| "check pedagogical" | `audit-pedagogical` |
+| "check accuracy" | `audit-accuracy` |

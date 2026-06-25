@@ -1,975 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch16" chapter_number="16" section="unit_05" section_number="5">
-  <section number="16.5" title="Curl and Divergence">
-    <content>
-      <paragraph>
-        In this section we define two operations that can be performed on vector fields and that play a basic role in the applications of vector calculus to fluid flow and electricity and magnetism. Each operation resembles differentiation, but one produces a vector field whereas the other produces a scalar field.
-      </paragraph>
-    </content>
-  </section>
-  <subsection title="Curl">
-    <figure>
-      <credit>Copyright © Cengage Learning. All Rights Reserved</credit>
-    </figure>
-    <paragraph>
-      If <math display="inline">$$\mathbf{F} = P\mathbf{i} + Q\mathbf{j} + R\mathbf{k}$$</math> is a vector field on <math display="inline">$${\mathbb{R}}^{3}$$</math> and the partial derivatives of <math display="inline">$$P$$</math> , <math display="inline">$$Q$$</math> , and <math display="inline">$$R$$</math> all exist, then the curl of <math display="inline">$$\mathbf{F}$$</math> is the vector field on <math display="inline">$${\mathbb{R}}^{3}$$</math> defined by
-    </paragraph>
-    <paragraph>
-      As an aid to our memory, let’s rewrite Equation 1 using operator notation. We introduce the vector differential operator <math display="inline">$$\nabla$$</math> (“del”) as
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\nabla = \mathbf{i}\frac{\partial}{\partial x} + \mathbf{j}\frac{\partial}{\partial y} + \mathbf{k}\frac{\partial}{\partial z}$$</math>
-    </paragraph>
-    <paragraph>
-      It has meaning when it operates on a scalar function to produce the gradient of <math display="inline">$$f$$</math> :
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\nabla f = \mathbf{i}\frac{\partial f}{\partial x} + \mathbf{j}\frac{\partial f}{\partial y} + \mathbf{k}\frac{\partial f}{\partial z} = \frac{\partial f}{\partial x}\mathbf{i} + \frac{\partial f}{\partial y}\mathbf{j} + \frac{\partial f}{\partial z}\mathbf{k}$$</math>
-    </paragraph>
-    <paragraph>
-      If we think of <math display="inline">$$\nabla$$</math> as a vector with components <math display="inline">$$\partial/\partial x$$</math> , <math display="inline">$$\partial/\partial y$$</math> , and <math display="inline">$$\partial/\partial z$$</math> , we can also consider the formal cross product of <math display="inline">$$\nabla$$</math> with the vector field <math display="inline">$$\mathbf{F}$$</math> as follows:
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\begin{array}{l}
-  {{\nabla \times \mathbf{F}} = \left| \begin{matrix}
-  \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
-  \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp; \frac{\partial}{\partial z} \\
-  P &amp; Q &amp; R
-  \end{matrix} \right|} \\
-  {\phantom{\nabla \times \mathbf{F}} = {\left( {\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}} \right)\mathbf{i} + \left( {\frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}} \right)\mathbf{j} + \left( {\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}} \right)\mathbf{k}}} \\
-  {\phantom{\nabla \times \mathbf{F}} = {{curl}\mathbf{F}}}
-  \end{array}$$</math>
-    </paragraph>
-    <paragraph>
-      So the easiest way to remember Definition 1 is by means of the symbolic expression
-    </paragraph>
-    <example number="1">
-      <problem>
-        <paragraph>
-          If <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = xz\mathbf{i} + xyz\mathbf{j} - y^{2}\mathbf{k}$$</math> , find <math display="inline">$${curl}\mathbf{F}$$</math> .
-        </paragraph>
-        <paragraph>
-          Solution Using Equation 2, we have
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {{{curl}\mathbf{F}} = {\nabla \times \mathbf{F} = \left| \begin{matrix}
-  \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
-  \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp; \frac{\partial}{\partial z} \\
-  {xz} &amp; {xyz} &amp; {- y^{2}}
-  \end{matrix} \right|}} \\
-  {\phantom{{curl}\mathbf{F}} = {\left\lbrack {\frac{\partial}{\partial y}( - y^{2}) - \frac{\partial}{\partial z}(xyz)} \right\rbrack\mathbf{i} - \left\lbrack {\frac{\partial}{\partial x}( - y^{2}) - \frac{\partial}{\partial z}(xz)} \right\rbrack\mathbf{j}}} \\
-  {\phantom{{{curl}\mathbf{F}} = \left\lbrack \frac{\partial}{\partial y} \right.} + \left\lbrack {\frac{\partial}{\partial x}(xyz) - \frac{\partial}{\partial y}(xz)} \right\rbrack\mathbf{k}} \\
-  {\phantom{{curl}\mathbf{F}} = {( - 2y - xy)\mathbf{i} - (0 - x)\mathbf{j} + (yz - 0)\mathbf{k}}} \\
-  {\phantom{{curl}\mathbf{F}} = {- y(2 + x)\mathbf{i} + x\mathbf{j} + yz\mathbf{k}}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          Most computer algebra systems have commands that compute the curl and divergence of vector fields. If you have access to a CAS, use these commands to check the answers to the examples and exercises in this section.
-        </paragraph>
-      </problem>
-    </example>
-    <paragraph>
-      Recall that the gradient of a function <math display="inline">$$f$$</math> of three variables is a vector field on <math display="inline">$${\mathbb{R}}^{3}$$</math> and so we can compute its curl. The following theorem says that the curl of a gradient vector field is <math display="inline">$$0$$</math> .
-    </paragraph>
-    <note title="Theorem">
-      <paragraph>
-        If <math display="inline">$$f$$</math> is a function of three variables that has continuous second-order partial derivatives, then
-      </paragraph>
-    </note>
-    <paragraph>
-      Since a conservative vector field is one for which <math display="inline">$$\mathbf{F} = \nabla f$$</math> , Theorem 3 can be rephrased as follows:
-    </paragraph>
-    <paragraph>
-      <math display="block">$${If}\mathbf{F}\text{is conservative, then curl}\mathbf{F} = 0.$$</math>
-    </paragraph>
-    <paragraph>
-      This gives us a way of verifying that a vector field is <em>not</em> conservative.
-    </paragraph>
-    <example number="2">
-      <problem>
-        <paragraph>
-          Show that the vector field <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = xz\mathbf{i} + xyz\mathbf{j} - y^{2}\mathbf{k}$$</math> is not conservative.
-        </paragraph>
-        <paragraph>
-          Solution In Example 1 we showed that
-        </paragraph>
-        <paragraph>
-          <math display="block">$${curl}\mathbf{F} = - y\left( {2 + x} \right)\mathbf{i} + x\mathbf{j} + yz\mathbf{k}$$</math>
-        </paragraph>
-        <paragraph>
-          This shows that <math display="inline">$${curl}\mathbf{F} \neq 0$$</math> and so, by the remarks preceding this example, <math display="inline">$$\mathbf{F}$$</math> is not conservative.
-        </paragraph>
-      </problem>
-    </example>
-    <paragraph>
-      The converse of Theorem 3 is not true in general, but the following theorem says the converse is true if <math display="inline">$$\mathbf{F}$$</math> is defined everywhere. (More generally it is true if the domain is simply-connected, that is, “has no hole.”) Theorem 4 is the three-dimensional version of Theorem 16.3.6. Its proof requires Stokes’ Theorem and is sketched at the end of Section 16.8.
-    </paragraph>
-    <note title="Theorem">
-      <paragraph>
-        If <math display="inline">$$\mathbf{F}$$</math> is a vector field defined on all of <math display="inline">$${\mathbb{R}}^{3}$$</math> whose component functions have continuous partial derivatives and <math display="inline">$${curl}\mathbf{F} = 0$$</math> , then <math display="inline">$$\mathbf{F}$$</math> is a conservative vector field.
-      </paragraph>
-    </note>
-    <example number="3">
-      <problem>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              Show that
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\mathbf{F}\left( {x,y,z} \right) = y^{2}z^{3}\mathbf{i} + 2xyz^{3}\mathbf{j} + 3xy^{2}z^{2}\mathbf{k}$$</math>
-            </paragraph>
-            <paragraph>
-              is a conservative vector field.
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              Find a function <math display="inline">$$f$$</math> such that <math display="inline">$$\mathbf{F} = \nabla f$$</math> .
-            </paragraph>
-          </item>
-        </list>
-        <paragraph>
-          Solution
-        </paragraph>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              We compute the curl of <math display="inline">$$\mathbf{F}$$</math> :
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {{{curl}\mathbf{F}} = {\nabla \times \mathbf{F} = \left| \begin{matrix}
-  \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
-  \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp; \frac{\partial}{\partial z} \\
-  {y^{2}‍z^{3}} &amp; {2xyz^{3}} &amp; {3xy^{2}‍z^{2}}
-  \end{matrix} \right|}} \\
-  {\phantom{{curl}\mathbf{F}} = {{(6xyz^{2} - 6xyz^{2})}^{}\mathbf{i} - {(3y^{2}‍z^{2} - 3y^{2}‍z^{2})}^{}\mathbf{j} + (2yz^{3} - 2yz^{3})\mathbf{k}}} \\
-  {\phantom{{curl}\mathbf{F}} = 0}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              Since <math display="inline">$${curl}\mathbf{F} = 0$$</math> and the domain of <math display="inline">$$\mathbf{F}$$</math> is <math display="inline">$${\mathbb{R}}^{3}$$</math> , <math display="inline">$$\mathbf{F}$$</math> is a conservative vector field by Theorem 4.
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              The technique for finding <math display="inline">$$f$$</math> was given in Section 16.3. We have
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f_{x}\left( {x,y,z} \right) = y^{2}‍z^{3}$$</math>
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f_{y}\left( {x,y,z} \right) = 2xyz^{3}$$</math>
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f_{z}\left( {x,y,z} \right) = 3xy^{2}‍z^{2}$$</math>
-            </paragraph>
-            <paragraph>
-              Integrating (5) with respect to <math display="inline">$$x$$</math> , we obtain
-            </paragraph>
-            <paragraph>
-              <math display="block">$$f\left( {x,y,z} \right) = xy^{2}‍z^{3} + g\left( {y,z} \right)$$</math>
-            </paragraph>
-          </item>
-        </list>
-        <paragraph>
-          Differentiating (8) with respect to <math display="inline">$$y$$</math> , we get <math display="inline">$$f_{y}\left( {x,y,z} \right) = 2xyz^{3} + g_{y}\left( {y,z} \right)$$</math> , so comparison with (6) gives <math display="inline">$$g_{y}\left( {y,z} \right) = 0$$</math> . Thus <math display="inline">$$g\left( {y,z} \right) = h(z)$$</math> and
-        </paragraph>
-        <paragraph>
-          <math display="block">$$f_{z}\left( {x,y,z} \right) = 3xy^{2}‍z^{2} + h^{\prime}(z)$$</math>
-        </paragraph>
-        <paragraph>
-          Then (7) gives <math display="inline">$$h^{\prime}(z) = 0$$</math> . Therefore
-        </paragraph>
-        <paragraph>
-          <math display="block">$$f\left( {x,y,z} \right) = xy^{2}‍z^{3} + K$$</math>
-        </paragraph>
-      </problem>
-    </example>
-    <paragraph>
-      The reason for the name <em>curl</em> is that the curl vector is associated with rotations. One connection is explained in Exercise 39. Another occurs when <math display="inline">$$\mathbf{F}$$</math> represents the velocity field in fluid flow (see Example 16.1.3). In Section 16.8 we show that particles near <math display="inline">$$\left( {x,y,z} \right)$$</math> in the fluid tend to rotate about the axis that points in the direction of <math display="inline">$${curl}\mathbf{F}\left( {x,y,z} \right)$$</math> , following the right-hand rule, and the length of this curl vector is a measure of how quickly the particles move around the axis (see Figure 1). If <math display="inline">$${curl}\mathbf{F} = 0$$</math> at a point <math display="inline">$$P$$</math> , then the fluid is free from rotations at <math display="inline">$$P$$</math> and <math display="inline">$$\mathbf{F}$$</math> is called <strong>irrotational</strong> at <math display="inline">$$P$$</math> . In this case, a tiny paddle wheel moves with the fluid but doesn’t rotate about its axis. If <math display="inline">$${curl}\mathbf{F} \neq 0$$</math> , the paddle wheel rotates about its axis.
-    </paragraph>
-    <figure number="1">
-      <alt_text>A circular region and a vector are displayed. The circular region is tilted up and to the front, slightly to the right. Three curved arrows are drawn along its circumference and they point anticlockwise. At the center of the circle, a marked point is labeled (x, y, z). A vector labeled curl vector F(x, y, z), rises upward to the right, from (x, y, z), perpendicular to the circular region.</alt_text>
-    </figure>
-    <paragraph>
-      As an illustration, each vector field <math display="inline">$$\mathbf{F}$$</math> in Figure 2 represents the velocity field of a fluid. In Figure 2(a), <math display="inline">$${curl}\mathbf{F} \neq 0$$</math> at most points, including <math display="inline">$$P_{1}$$</math> and <math display="inline">$$P_{2}$$</math> . A tiny paddle wheel placed at <math display="inline">$$P_{1}$$</math> would rotate counterclockwise about its axis (the fluid near <math display="inline">$$P_{1}$$</math> flows roughly in the same direction but with greater velocity on one side of the point than on the other), so the curl vector at <math display="inline">$$P_{1}$$</math> points in the direction of <math display="inline">$$\mathbf{k}$$</math> . Similarly, a paddle wheel at <math display="inline">$$P_{2}$$</math> would rotate clockwise and the curl vector there points in the direction of <math display="inline">$$- \mathbf{k}$$</math> . In Figure 2(b), <math display="inline">$${curl}\mathbf{F} = 0$$</math> everywhere. A paddle wheel placed at <math display="inline">$$P$$</math> moves with the fluid but doesn’t rotate about its axis.
-    </paragraph>
-    <figure number="2" caption="Velocity fields in fluid flow. (Only the part of F in the xy-plane is shown; the vector field looks the same in all horizontal planes because F is independent of z and the z-component is 0 .)">
-      <alt_text>A vector field and two points are graphed in the x y coordinate plane. The first two rows of the vector field enter from the top right corner, trace a wavy path, and exit at the top left corner. The next row has vectors that point upward or downward: the vectors point downward if they are below vectors that point down and to the left and point upward if they are below vectors that point up and to the left. The next three rows enter from the left, trace a wavy path, and exit on the right. The next three rows enter from the right, trace a wavy path, and exit on the left, creating patterns that resemble concentric circles. The next row follows the same trend as the third row with vertical vectors which point upward or downward depending on their position. The last two rows enter from the bottom left corner, trace a wavy path, and exit at the bottom right. Two points are marked in the vector field: P_1 in the second quadrant just above and to the left of the bottom-most point of a concentric circular pattern as the vectors point down and to the right and P_2 in the first quadrant slightly above the positive x-axis, just below and to the right of the top most point of a concentric circular pattern as the vectors point down and to the right. The arrows are shorter in the rows near the centers of the circular patterns and longer near the extremes of the waves. A vector field and a point are graphed in the x y coordinate plane. The arrows are minute near the origin and become longer as we move toward the sides and corners. The pattern of the vector field is symmetric about the y axis. The vectors enter from two places. Half of the vectors enter from the bottom left and branch out into two curved paths. One branch follows a concave down path and exits to the left of the negative y axis. The second branch goes up bulging slightly rightward and exits at the top left. A point labeled P is located near the top left corner of the viewing window. The remaining vectors enter from the bottom right and branch out into two curved paths. One branch follows a concave down path and exits to the right of the negative y axis. The second branch goes up bulging slightly leftward and exits at the top right.</alt_text>
-    </figure>
-  </subsection>
-  <subsection title="Divergence">
-    <paragraph>
-      If <math display="inline">$$\mathbf{F} = P\mathbf{i} + Q\mathbf{j} + R\mathbf{k}$$</math> is a vector field on <math display="inline">$${\mathbb{R}}^{3}$$</math> and <math display="inline">$$\partial P/\partial x$$</math> , <math display="inline">$$\partial Q/\partial y$$</math> and <math display="inline">$$\partial R/\partial z$$</math> exist, then the <strong>divergence of</strong> <math display="inline">$$\mathbf{F}$$</math> is the function of three variables defined by
-    </paragraph>
-    <paragraph>
-      (If <math display="inline">$$\mathbf{F}$$</math> is a vector field on <math display="inline">$${\mathbb{R}}^{2}$$</math> , then <math display="inline">$${div}\mathbf{F}$$</math> is a function of two variables defined similarly to the three-variable case.) Observe that <math display="inline">$${curl}\mathbf{F}$$</math> is a vector field but <math display="inline">$${div}\mathbf{F}$$</math> is a scalar field. In terms of the gradient operator <math display="inline">$$\nabla = \left( {\partial/\partial x} \right)\mathbf{i} + \left( {\partial/\partial y} \right)\mathbf{j} + \left( {\partial/\partial z} \right)\mathbf{k}$$</math> , the divergence of <math display="inline">$$\mathbf{F}$$</math> can be written symbolically as the dot product of <math display="inline">$$\nabla$$</math> and <math display="inline">$$\mathbf{F}$$</math> : , the divergence of <math display="inline">$$\mathbf{F}$$</math> can be written symbolically as the dot product of <math display="inline">$$\nabla$$</math> and <math display="inline">$$\mathbf{F}$$</math> :
-    </paragraph>
-    <example number="4">
-      <problem>
-        <paragraph>
-          If <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = xz\mathbf{i} + xyz\mathbf{j} - y^{2}\mathbf{k}$$</math> , find <math display="inline">$${div}\mathbf{F}$$</math> .
-        </paragraph>
-        <paragraph>
-          Solution By the definition of divergence (Equation 9 or 10), we have
-        </paragraph>
-        <paragraph>
-          <math display="block">$${div}\mathbf{F} = \nabla \cdot \mathbf{F} = \frac{\partial}{\partial x}\left( {xz} \right) + \frac{\partial}{\partial y}\left( {xyz} \right) + \frac{\partial}{\partial z}{({- y^{2}})} = z + xz$$</math>
-        </paragraph>
-      </problem>
-    </example>
-    <paragraph>
-      If <math display="inline">$$\mathbf{F}$$</math> is a vector field on <math display="inline">$${\mathbb{R}}^{3}$$</math> , then <math display="inline">$${curl}\mathbf{F}$$</math> is also a vector field on <math display="inline">$${\mathbb{R}}^{3}$$</math> . As such, we can compute its divergence. The next theorem shows that the result is <math display="inline">$$0$$</math> .
-    </paragraph>
-    <note title="Theorem">
-      <paragraph>
-        If <math display="inline">$$\mathbf{F} = P\mathbf{i} + Q\mathbf{j} + R\mathbf{k}$$</math> is a vector field on <math display="inline">$${\mathbb{R}}^{3}$$</math> and <math display="inline">$$P$$</math> , <math display="inline">$$Q$$</math> , and <math display="inline">$$R$$</math> have continuous second-order partial derivatives, then
-      </paragraph>
-    </note>
-    <note title="Proof">
-      <paragraph>
-        Using the definitions of divergence and curl, we have
-      </paragraph>
-      <paragraph>
-        because the terms cancel in pairs by Clairaut’s Theorem.
-      </paragraph>
-      <paragraph>
-        Note the analogy with the scalar triple product: <math display="inline">$$\mathbf{a} \cdot \left( {\mathbf{a} \times \mathbf{b}} \right) = 0$$</math> .
-      </paragraph>
-    </note>
-    <example number="5">
-      <problem>
-        <paragraph>
-          Show that the vector field <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = xz\mathbf{i} + xyz\mathbf{j} - y^{2}\mathbf{k}$$</math> can’t be written as the curl of another vector field, that is, <math display="inline">$$\mathbf{F} \neq {curl}\mathbf{G}$$</math> for any vector field <math display="inline">$$\mathbf{G}$$</math> .
-        </paragraph>
-        <paragraph>
-          Solution In Example 4 we showed that
-        </paragraph>
-        <paragraph>
-          <math display="block">$${div}\mathbf{F} = z + xz$$</math>
-        </paragraph>
-        <paragraph>
-          and therefore <math display="inline">$${div}\mathbf{F} \neq 0$$</math> . If it were true that <math display="inline">$$\mathbf{F} = {curl}\mathbf{G}$$</math> , then Theorem 11 would give
-        </paragraph>
-        <paragraph>
-          <math display="block">$${div}\mathbf{F} = {div}{curl}\mathbf{G} = 0$$</math>
-        </paragraph>
-        <paragraph>
-          which contradicts <math display="inline">$${div}\mathbf{F} \neq 0$$</math> . Therefore <math display="inline">$$\mathbf{F}$$</math> is not the curl of another vector field.
-        </paragraph>
-      </problem>
-    </example>
-    <paragraph>
-      Again, the reason for the name <em>divergence</em> can be understood in the context of fluid flow. If <math display="inline">$$\mathbf{F}\left( {x,y,z} \right)$$</math> is the velocity of a fluid (or gas), then <math display="inline">$${div}\mathbf{F}\left( {x,y,z} \right)$$</math> represents the net rate of change (with respect to time) of the mass of fluid (or gas) flowing from the point <math display="inline">$$\left( {x,y,z} \right)$$</math> per unit volume. In other words, <math display="inline">$${div}\mathbf{F}\left( {x,y,z} \right)$$</math> measures the tendency of the fluid to diverge from the point <math display="inline">$$\left( {x,y,z} \right)$$</math> . If <math display="inline">$${div}\mathbf{F} = 0$$</math> , then <math display="inline">$$\mathbf{F}$$</math> is said to be <strong>incompressible</strong>.
-    </paragraph>
-    <paragraph>
-      As an illustration, each vector field <math display="inline">$$\mathbf{F}$$</math> in Figure 3 represents the velocity field of a fluid. In Figure 3(a), <math display="inline">$${div}\mathbf{F} \neq 0$$</math> in general. For instance, at the point <math display="inline">$$P_{1}$$</math> , <math display="inline">$${div}\mathbf{F}$$</math> is negative (the vectors that start near <math display="inline">$$P_{1}$$</math> are shorter than those that end near <math display="inline">$$P_{1}$$</math> , so the net flow is inward there). At the point <math display="inline">$$P_{2}$$</math> , <math display="inline">$${div}\mathbf{F}$$</math> is positive (the vectors that start near <math display="inline">$$P_{2}$$</math> are longer than those that end near <math display="inline">$$P_{2}$$</math> , so the net flow is outward there). In Figure 3(b), <math display="inline">$${div}\mathbf{F} = 0$$</math> everywhere (the vectors that start and end near any point <math display="inline">$$P$$</math> are about the same length).
-    </paragraph>
-    <figure number="3" caption="Velocity fields in fluid flow. (Only the part of F in the xy-plane is shown; the vector field looks the same in all horizontal planes because F is independent of z and the z-component is 0 .)">
-      <alt_text>A vector field and two points are graphed in the x y coordinate plane. The arrows are shorter near the y axis and longer as we move to the left or right. The pattern of the vector field is symmetric about the x axis. The vectors enter from the left and exit on the top, bottom, and right sides of the viewing window. The vectors above and below the x-axis appear to veer away from the axis. Two points labeled P_1 and P_2 are marked at approximately the center of the second and first quadrants in the viewing window, respectively. A vector field and a point are graphed in the x y coordinate plane. The arrows are shorter near the origin and longer as we proceed radially outward. The vectors trace the path of a family of hyperbolas with the x and y axes as their asymptotes. A point labeled P is placed at approximately the center of the first quadrant in the viewing window.</alt_text>
-    </figure>
-    <paragraph>
-      Another differential operator occurs when we compute the divergence of a gradient vector field <math display="inline">$$\nabla f$$</math> . If <math display="inline">$$f$$</math> is a function of three variables, we have
-    </paragraph>
-    <paragraph>
-      <math display="block">$${div}{({\nabla ‍f})} = \nabla \cdot {({\nabla ‍f})} = \frac{\partial^{2}‍f}{\partial x^{2}} + \frac{\partial^{2}‍f}{\partial y^{2}} + \frac{\partial^{2}‍f}{\partial z^{2}}$$</math>
-    </paragraph>
-    <paragraph>
-      and this expression occurs so often that we abbreviate it as <math display="inline">$$\nabla^{2}f$$</math> . The operator
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\nabla^{2} = \nabla \cdot \nabla$$</math>
-    </paragraph>
-    <paragraph>
-      is called the <strong>Laplace operator</strong> because of its relation to <strong>Laplace’s equation</strong>
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\nabla^{2}f = \frac{\partial^{2}‍f}{\partial x^{2}} + \frac{\partial^{2}‍f}{\partial y^{2}} + \frac{\partial^{2}‍f}{\partial z^{2}} = 0$$</math>
-    </paragraph>
-    <paragraph>
-      We can also apply the Laplace operator <math display="inline">$$\nabla^{2}$$</math> to a vector field
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\mathbf{F} = P\mathbf{i} + Q\mathbf{j} + R\mathbf{k}$$</math>
-    </paragraph>
-    <paragraph>
-      in terms of its components:
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\nabla^{2}\mathbf{F} = \nabla^{2}P\mathbf{i} + \nabla^{2}Q\mathbf{j} + \nabla^{2}R\mathbf{k}$$</math>
-    </paragraph>
-  </subsection>
-  <subsection title="Vector Forms of Green’s Theorem">
-    <paragraph>
-      The curl and divergence operators allow us to rewrite Green’s Theorem in versions that will be useful in our later work. We suppose that the plane region <math display="inline">$$D$$</math> , its boundary curve <math display="inline">$$C$$</math> , and the functions <math display="inline">$$P$$</math> and <math display="inline">$$Q$$</math> satisfy the hypotheses of Green’s Theorem. Then we consider the vector field <math display="inline">$$\mathbf{F} = P\mathbf{i} + Q\mathbf{j}$$</math> . Its line integral is
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\oint_{C}{\mathbf{F} \cdot d\mathbf{r} = {\oint_{C}{Pdx + Qdy}}}$$</math>
-    </paragraph>
-    <paragraph>
-      and, regarding <math display="inline">$$\mathbf{F}$$</math> as a vector field on <math display="inline">$${\mathbb{R}}^{3}$$</math> with third component <math display="inline">$$0$$</math> , we have
-    </paragraph>
-    <paragraph>
-      <math display="block">$${curl}\mathbf{F} = \left| \begin{matrix}
-  \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
-  \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp; \frac{\partial}{\partial z} \\
-  {P(x,y)} &amp; {Q(x,y)} &amp; 0
-  \end{matrix} \right| = \left( {\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}} \right)\mathbf{k}$$</math>
-    </paragraph>
-    <paragraph>
-      Therefore
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\left( {{curl}\mathbf{F}} \right) \cdot \mathbf{k} = \left( {\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}} \right){\mathbf{k}} \cdot \mathbf{k} = \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}$$</math>
-    </paragraph>
-    <paragraph>
-      and we can now rewrite the equation in Green’s Theorem in the vector form
-    </paragraph>
-    <paragraph>
-      Equation 12 expresses the line integral of the tangential component of <math display="inline">$$\mathbf{F}$$</math> along <math display="inline">$$C$$</math> as the double integral of the vertical component of <math display="inline">$${curl}\mathbf{F}$$</math> over the region <math display="inline">$$D$$</math> enclosed by <math display="inline">$$C$$</math> . We now derive a similar formula involving the <em>normal</em> component of <math display="inline">$$\mathbf{F}$$</math> .
-    </paragraph>
-    <paragraph>
-      If <math display="inline">$$C$$</math> is given by the vector equation
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\mathbf{r}(t) = x(t)\mathbf{i} + y(t)\mathbf{j}\qquad{a \leqslant t \leqslant b}$$</math>
-    </paragraph>
-    <paragraph>
-      then the unit tangent vector (see Section 13.2) is
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\mathbf{T}(t) = \frac{x^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|}\mathbf{i} + \frac{y^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|}\mathbf{j}$$</math>
-    </paragraph>
-    <paragraph>
-      You can verify that the outward unit normal vector to <math display="inline">$$C$$</math> is given by
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\mathbf{n}(t) = \frac{y^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|}\mathbf{i} - \frac{x^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|}\mathbf{j}$$</math>
-    </paragraph>
-    <paragraph>
-      (See Figure 4.) Then, from Equation 16.2.3, we have
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\begin{array}{l}
-  {\oint_{C}{\mathbf{F} \cdot \mathbf{n}ds = {\int_{a}^{b}{\left( {\mathbf{F} \cdot \mathbf{n}} \right)(t)\left| {\mathbf{r}^{\prime}(t)} \right|dt}}}} \\
-  {\phantom{\oint_{C}{\mathbf{F} \cdot \mathbf{n}ds}}{= {\int_{a}^{b}{\left\lbrack {\frac{P{({x(t),y(t)})}y^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|} - \frac{Q{({x(t),y(t)})}x^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|}} \right\rbrack\left| {\mathbf{r}^{\prime}(t)} \right|dt}}}} \\
-  {\phantom{\oint_{C}{\mathbf{F} \cdot \mathbf{n}ds}}{= {\int_{a}^{b}{P{({x(t),y(t)})}y^{\prime}(t)dt - Q\left( {x(t),y(t)} \right)x^{\prime}(t)dt}}}} \\
-  {\phantom{\oint_{C}{\mathbf{F} \cdot \mathbf{n}ds}}{= {\int_{C}{Pdy - Qdx = {\iint\limits_{D}{\left( {\frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y}} \right)dA}}}}}}
-  \end{array}$$</math>
-    </paragraph>
-    <paragraph>
-      by Green’s Theorem. But the integrand in this double integral is just the divergence of <math display="inline">$$\mathbf{F}$$</math> . So we have a second vector form of Green’s Theorem.
-    </paragraph>
-    <figure number="4">
-      <alt_text>A simple closed curve, a shaded region, and two vectors are graphed in the x y coordinate plane. The closed curve, labeled C, resembles a rectangle with curved sides and rounded corners, curved concave up. The region within the curve is shaded and labeled D. Two arrowheads placed on the curve point counterclockwise. A point marked on the curve at the top left is labeled r(t). A vector labeled vector T(t), is tangent to the curve at vector r(t). It begins from vector r(t) and slopes up and slightly to the left. Another vector, labeled vector n(t), slopes slightly upward to the right and is perpendicular to vector T(t).</alt_text>
-    </figure>
-    <paragraph>
-      This version says that the line integral of the normal component of <math display="inline">$$\mathbf{F}$$</math> along <math display="inline">$$C$$</math> is equal to the double integral of the divergence of <math display="inline">$$\mathbf{F}$$</math> over the region <math display="inline">$$D$$</math> enclosed by <math display="inline">$$C$$</math> .
-    </paragraph>
-  </subsection>
-  <subsection number="16.5" title="Exercises">
-    <exercises>
-      <exercise_group>
-        <instructions>
-          1, 2, 3, 4, 5, 6, 7, and 8 Find
-        </instructions>
-        <problem number="1">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = xy^{2}z^{2}\mathbf{i} + x^{2}yz^{2}\mathbf{j} + x^{2}y^{2}z\mathbf{k}$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$0$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$y^{2}‍z^{2} + x^{2}‍z^{2} + x^{2}‍y^{2}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="2">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = x^{3}yz^{2}\mathbf{j} + y^{4}z^{3}\mathbf{k}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="3">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = xye^{ z}\mathbf{i} + yze^{ x}\mathbf{k}$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$ze^{ x}\mathbf{i} + \left( {xye^{ z} - yze^{ x}} \right)\mathbf{j} - xe^{ z}\mathbf{k}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$y\left( {e^{ z} + e^{ x}} \right)$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="4">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = \sin yz\mathbf{i} + \sin zx\mathbf{j} + \sin xy\mathbf{k}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="5">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = \frac{\sqrt{x}}{1 + z}\mathbf{i} + \frac{\sqrt{y}}{1 + x}\mathbf{j} + \frac{\sqrt{z}}{1 + y}\mathbf{k}$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$- \frac{\sqrt{z}}{\left( {1 + y} \right)^{2}}\mathbf{i} - \frac{\sqrt{x}}{\left( {1 + z} \right)^{2}}\mathbf{j} - \frac{\sqrt{y}}{\left( {1 + x} \right)^{2}}\mathbf{k}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$\frac{1}{2\sqrt{x}\left( {1 + z} \right)} + \frac{1}{2\sqrt{y}\left( {1 + x} \right)} + \frac{1}{2\sqrt{z}\left( {1 + y} \right)}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="6">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = \ln\left( {2y + 3z} \right)\mathbf{i} + \ln\left( {x + 3z} \right)\mathbf{j} + \ln\left( {x + 2y} \right)\mathbf{k}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="7">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = {\langle{e^{ x}\sin y,e^{ y}\sin z,e^{ z}\sin x}\rangle}$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$\langle{- e^{ y}\cos z, - e^{ z}\cos x, - e^{ x}\cos y}\rangle$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$e^{ x}\sin y + e^{ y}\sin z + e^{ z}\sin x$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="8">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = {\langle{\arctan\left( {xy} \right),\arctan\left( {yz} \right),\arctan\left( {zx} \right)}\rangle}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          9, 10, 11, and 12 The vector field <math display="inline">$$\mathbf{F}$$</math> is shown in the <math display="inline">$$xy$$</math>-plane and looks the same in all other horizontal planes. (In other words, <math display="inline">$$\mathbf{F}$$</math> is independent of <math display="inline">$$z$$</math> and its <math display="inline">$$z$$</math>-component is <math display="inline">$$0$$</math> .)
-        </instructions>
-        <problem number="9">
-          <statement>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                Negative
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$${curl}\mathbf{F} = 0$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="10">
-          <statement>
-          </statement>
-        </problem>
-        <problem number="11">
-          <statement>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                Zero
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$${curl}\mathbf{F}$$</math> points in the negative <math display="inline">$$z$$</math>-direction.
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="12">
-          <statement>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="13">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Verify Formula 3 for <math display="inline">$$f\left( {x,y,z} \right) = \sin xyz$$</math> .
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Verify Formula 11 for <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = xyz^{2}\mathbf{i} + x^{2}yz^{3}\mathbf{j} + y^{2}\mathbf{k}$$</math> .
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="14">
-          <statement>
-            <paragraph>
-              Let <math display="inline">$$f$$</math> be a scalar field and <math display="inline">$$\mathbf{F}$$</math> a vector field. State whether each expression is meaningful. If not, explain why. If so, state whether it is a scalar field or a vector field.
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$${curl}f$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$${grad}f$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$${div}\mathbf{F}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$${curl}\left( {{grad}f} \right)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$${grad}\mathbf{F}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$${grad}\left( {{div}\mathbf{F}} \right)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$${div}\left( {{grad}f} \right)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$${grad}\left( {{div}f} \right)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$${curl}\left( {{curl}\mathbf{F}} \right)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$${div}\left( {{div}\mathbf{F}} \right)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\left( {{grad}f} \right) \times \left( {{div}\mathbf{F}} \right)$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$${div}\left( {{curl}\left( {{grad}f} \right)} \right)$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          15, 16, 17, 18, 19, and 20 Determine whether or not the vector field is conservative. If it is conservative, find a function <math display="inline">$$f$$</math> such that <math display="inline">$$\mathbf{F} = \nabla f$$</math> .
-        </instructions>
-        <problem number="15">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = \langle 2\mathit{xy}^{3}z^{2},3x^{2}y^{2}z^{2},2x^{2}y^{3}z\rangle$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y,z} \right) = x^{2}‍y^{3}‍z^{2} + K$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="16">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = \langle yz,xz + y,xy - x\rangle$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="17">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = \langle\ln y,(x/y) + \ln z,y/z\rangle$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$f\left( {x,y,z} \right) = x\ln y + y\ln z + K$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="18">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = \mathit{yz}\sin\mathit{xy}\mathbf{i} + \mathit{xz}\sin\mathit{xy}\mathbf{j} - \cos\mathit{xy}\mathbf{k}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="19">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = yz^{2}e^{ xz}\mathbf{i} + ze^{ xz}\mathbf{j} + xyze^{ xz}\mathbf{k}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              Not conservative
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="20">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\mathbf{F}\left( {x,y,z} \right) = e^{ z}\cos x\mathbf{i} + e^{ y}\cos z\mathbf{j} + (e^{ z}\sin x - e^{ y}\sin z)\mathbf{k}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="21">
-          <statement>
-            <paragraph>
-              Is there a vector field <math display="inline">$$\mathbf{G}$$</math> on <math display="inline">$${\mathbb{R}}^{3}$$</math> such that <math display="inline">$${curl}\mathbf{G} = {\langle{x\sin y,\cos y,z - xy}\rangle}$$</math> ? Explain.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              No
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="22">
-          <statement>
-            <paragraph>
-              Is there a vector field <math display="inline">$$\mathbf{G}$$</math> on <math display="inline">$${\mathbb{R}}^{3}$$</math> such that <math display="inline">$${curl}\mathbf{G} = {\langle{x,y,z}\rangle}$$</math> ? Explain.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="23">
-          <statement>
-            <paragraph>
-              Show that any vector field of the form
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\mathbf{F}\left( {x,y,z} \right) = f(x)\mathbf{i} + g(y)\mathbf{j} + h(z)\mathbf{k}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$f$$</math> , <math display="inline">$$g$$</math> , <math display="inline">$$h$$</math> are differentiable functions, is irrotational.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="24">
-          <statement>
-            <paragraph>
-              Show that any vector field of the form
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\mathbf{F}\left( {x,y,z} \right) = f\left( {y,z} \right)\mathbf{i} + g\left( {x,z} \right)\mathbf{j} + h\left( {x,y} \right)\mathbf{k}$$</math>
-            </paragraph>
-            <paragraph>
-              is incompressible.
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          25, 26, 27, 28, 29, 30, and 31 Prove the identity, assuming that the appropriate partial derivatives exist and are continuous. If <math display="inline">$$f$$</math> is a scalar field and <math display="inline">$$\mathbf{F}$$</math> , <math display="inline">$$\mathbf{G}$$</math> are vector fields, then <math display="inline">$$f\mathbf{F}$$</math> , <math display="inline">$$\mathbf{F} \cdot \mathbf{G}$$</math> , and <math display="inline">$$\mathbf{F} \times \mathbf{G}$$</math> are defined by
-        </instructions>
-        <problem number="25">
-          <statement>
-            <paragraph>
-              <math display="inline">$${div}\left( {\mathbf{F} + \mathbf{G}} \right) = {div}\mathbf{F} + {div}\mathbf{G}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="26">
-          <statement>
-            <paragraph>
-              <math display="inline">$${curl}\left( {\mathbf{F} + \mathbf{G}} \right) = {curl}\mathbf{F} + {curl}\mathbf{G}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="27">
-          <statement>
-            <paragraph>
-              <math display="inline">$${div}\left( {f\mathbf{F}} \right) = f{div}\mathbf{F} + \mathbf{F} \cdot \nabla f$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="28">
-          <statement>
-            <paragraph>
-              <math display="inline">$${curl}\left( {f\mathbf{F}} \right) = f{curl}\mathbf{F} + \left( {\nabla f} \right) \times \mathbf{F}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="29">
-          <statement>
-            <paragraph>
-              <math display="inline">$${div}\left( {\mathbf{F} \times \mathbf{G}} \right) = \mathbf{G} \cdot {curl}\mathbf{F} - \mathbf{F} \cdot {curl}\mathbf{G}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="30">
-          <statement>
-            <paragraph>
-              <math display="inline">$${div}\left( {\nabla f \times \nabla g} \right) = 0$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="31">
-          <statement>
-            <paragraph>
-              <math display="inline">$${curl}\left( {{curl}\mathbf{F}} \right) = {grad}\left( {{div}\mathbf{F}} \right) - \nabla^{2}\mathbf{F}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          32, 33, and 34 Let <math display="inline">$$\mathbf{r} = x\mathbf{i} + y\mathbf{j} + z\mathbf{k}$$</math> and <math display="inline">$$r = \left| \mathbf{r} \right|$$</math> .
-        </instructions>
-        <problem number="32">
-          <statement>
-            <paragraph>
-              Verify each identity.
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla \cdot \mathbf{r} = 3$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla \cdot \left( {r\mathbf{r}} \right) = 4r$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla^{2}r^{3} = 12r$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="33">
-          <statement>
-            <paragraph>
-              Verify each identity.
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla r = \mathbf{r}/r$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla \times \mathbf{r} = 0$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla\left( {1/r} \right) = - \mathbf{r}/r^{3}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla\ln r = \mathbf{r}/r^{2}$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="34">
-          <statement>
-            <paragraph>
-              If <math display="inline">$$\mathbf{F} = \mathbf{r}/r^{p}$$</math> , find <math display="inline">$${div}\mathbf{F}$$</math> . Is there a value of <math display="inline">$$p$$</math> for which <math display="inline">$${div}\mathbf{F} = 0$$</math> ?
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="35">
-          <statement>
-            <paragraph>
-              Use Green’s Theorem in the form of Equation 13 to prove <strong>Green’s first identity</strong>:
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\iint\limits_{D}{f\nabla^{2}gdA = {\oint_{C}{f\left( {\nabla g} \right) \cdot \mathbf{n}ds - {\iint\limits_{D}{\nabla f \cdot \nabla gdA}}}}}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$D$$</math> and <math display="inline">$$C$$</math> satisfy the hypotheses of Green’s Theorem and the appropriate partial derivatives of <math display="inline">$$f$$</math> and <math display="inline">$$g$$</math> exist and are continuous. (The quantity <math display="inline">$$\nabla g \cdot \mathbf{n} = D_{\mathbf{n}}g$$</math> occurs in the line integral; it is the directional derivative in the direction of the normal vector <math display="inline">$$\mathbf{n}$$</math> and is called the <strong>normal derivative</strong> of <math display="inline">$$g$$</math> .)
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="36">
-          <statement>
-            <paragraph>
-              Use Green’s first identity (Exercise 35) to prove <strong>Green’s second identity</strong>:
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\iint\limits_{D}{{({f\nabla^{2}g - g\nabla^{2}f})}dA = {\oint_{C}{\left( {f\nabla g - g\nabla f} \right) \cdot \mathbf{n}ds}}}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$D$$</math> and <math display="inline">$$C$$</math> satisfy the hypotheses of Green’s Theorem and the appropriate partial derivatives of <math display="inline">$$f$$</math> and <math display="inline">$$g$$</math> exist and are continuous.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="37">
-          <statement>
-            <paragraph>
-              Recall from Section 14.3 that a function <math display="inline">$$g$$</math> is called <em>harmonic</em> on <math display="inline">$$D$$</math> if it satisfies Laplace’s equation, that is, <math display="inline">$$\nabla^{2}g = 0$$</math> on <math display="inline">$$D$$</math> . Use Green’s first identity (with the same hypotheses as in Exercise 35) to show that if <math display="inline">$$g$$</math> is harmonic on <math display="inline">$$D$$</math> , then <math display="inline">$$\oint_{C}{D_{\mathbf{n}}gds = 0}$$</math> . Here <math display="inline">$$D_{\mathbf{n}}g$$</math> is the normal derivative of <math display="inline">$$g$$</math> defined in Exercise 35.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="38">
-          <statement>
-            <paragraph>
-              Use Green’s first identity to show that if <math display="inline">$$f$$</math> is harmonic on <math display="inline">$$D$$</math> , and if <math display="inline">$$f\left( {x,y} \right) = 0$$</math> on the boundary curve <math display="inline">$$C$$</math> , then <math display="inline">$$\iint_{D}{\left| {\nabla f} \right|^{2}dA = 0}$$</math> . (Assume the same hypotheses as in Exercise 35.)
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="39">
-          <statement>
-            <paragraph>
-              This exercise demonstrates a connection between the curl vector and rotations. Let <math display="inline">$$B$$</math> be a rigid body rotating about the <math display="inline">$$z$$</math>-axis. The rotation can be described by the vector <math display="inline">$$\mathbf{w} = \mathbf{\omega}\mathbf{k}$$</math> , where <math display="inline">$$\omega$$</math> is the angular speed of <math display="inline">$$B$$</math> , that is, the tangential speed of any point <math display="inline">$$P$$</math> in <math display="inline">$$B$$</math> divided by the distance <math display="inline">$$d$$</math> from the axis of rotation. Let <math display="inline">$$\mathbf{r} = {\langle{x,y,z}\rangle}$$</math> be the position vector of <math display="inline">$$P$$</math> .
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  By considering the angle <math display="inline">$$\theta$$</math> in the figure, show that the velocity field of <math display="inline">$$B$$</math> is given by <math display="inline">$$\mathbf{v} = \mathbf{w} \times \mathbf{r}$$</math> .
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Show that <math display="inline">$$\mathbf{v} = - \omega y\mathbf{i} + \omega x\mathbf{j}$$</math> .
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Show that <math display="inline">$${curl}\mathbf{v} = 2\mathbf{w}$$</math> .
-                </paragraph>
-                <figure>
-                  <alt_text>A three-dimensional rendering of a circular disk, 11 vectors, a line segment, and a curved arrow is graphed in the x y z coordinate plane. The positive x axis slopes down and to the left. The positive y axis slopes slightly down and to the right. The positive z axis runs vertically upward. The disk, labeled B, has its center on the positive z-axis. From the center of the top surface of the disk, a vector labeled vector w, rises vertically upward along the positive z axis. A curved arrow around this vector points counterclockwise. From the center of the top surface a short line segment, labeled d, slopes down to the right, perpendicular to the positive z axis, and stops before it reaches the circumference. From its endpoint, a vector labeled vector v, slopes upward to the right, perpendicular to d. From the origin, a vector, labeled P, slopes upward to the right at an angle theta from the positive z-axis, to meet the end point of d and starting point of vector v. Four vectors are tangent to the circumference of the top surface of B. Three vectors are drawn on the top surface of B, perpendicular to the positive z axis, just like vector v.</alt_text>
-                </figure>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="40">
-          <statement>
-            <paragraph>
-              Maxwell’s equations relating the electric field <math display="inline">$$\mathbf{E}$$</math> and magnetic field <math display="inline">$$\mathbf{H}$$</math> as they vary with time in a region containing no charge and no current can be stated as follows:
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{llllll}
-  {{div}\mathbf{E}} &amp; = &amp; 0 &amp; {\qquad{{div}\mathbf{H}}} &amp; = &amp; 0 \\
-  {{curl}\mathbf{E}} &amp; = &amp; {- \frac{1}{c}‍\frac{\partial\mathbf{H}}{\partial t}} &amp; {\qquad{{curl}\mathbf{H}}} &amp; = &amp; {\frac{1}{c}‍\frac{\partial\mathbf{E}}{\partial t}}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$c$$</math> is the speed of light. Use these equations to prove the following:
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla \times \left( {\nabla \times \mathbf{E}} \right) = - \frac{1}{c^{ 2}}\frac{\partial^{2}\mathbf{E}}{\partial t^{2}}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla \times \left( {\nabla \times \mathbf{H}} \right) = - \frac{1}{c^{ 2}}\frac{\partial^{2}\mathbf{H}}{\partial t^{2}}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla^{2}\mathbf{E} = \frac{1}{c^{ 2}}\frac{\partial^{2}\mathbf{E}}{\partial t^{2}}$$</math> [<em>Hint:</em> Use Exercise 31.]
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla^{2}\mathbf{H} = \frac{1}{c^{ 2}}\frac{\partial^{2}\mathbf{H}}{\partial t^{2}}$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="41">
-          <statement>
-            <paragraph>
-              We have seen that all vector fields of the form <math display="inline">$$\mathbf{F} = \nabla g$$</math> satisfy the equation <math display="inline">$${curl}\mathbf{F} = 0$$</math> and that all vector fields of the form <math display="inline">$$\mathbf{F} = {curl}\mathbf{G}$$</math> satisfy the equation <math display="inline">$${div}\mathbf{F} = 0$$</math> (assuming continuity of the appropriate partial derivatives). This suggests the question: are there any equations that all functions of the form <math display="inline">$$f = {div}\mathbf{G}$$</math> must satisfy? Show that the answer to this question is “no” by proving that <em>every</em> continuous function <math display="inline">$$f$$</math> on <math display="inline">$${\mathbb{R}}^{3}$$</math> is the divergence of some vector field.
-            </paragraph>
-            <paragraph>
-              [<em>Hint:</em> Let <math display="inline">$$\mathbf{G}\left( {x,y,z} \right) = {\langle{g\left( {x,y,z} \right),0,0}\rangle}$$</math> , where <math display="inline">$$g\left( {x,y,z} \right) = {\int_{0}^{x}{f\left( {t,y,z} \right)dt}}$$</math> .]
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-    </exercises>
-  </subsection>
-</section_file>
+<section>
+  <heading level="2">16.5. Curl and Divergence</heading>
+  <paragraph>In this section we define two operations that can be performed on vector fields and that play a basic role in the applications of vector calculus to fluid flow and electricity and magnetism. Each operation resembles differentiation, but one produces a vector field whereas the other produces a scalar field.</paragraph>
+  <heading level="3">Curl</heading>
+  <paragraph>If $$\mathbf{F} = P\mathbf{i} + Q\mathbf{j} + R\mathbf{k}$$ is a vector field on $${\mathbb{R}}^{3}$$ and the partial derivatives of $$P$$ , $$Q$$ , and $$R$$ all exist, then the curl of $$\mathbf{F}$$ is the vector field on $${\mathbb{R}}^{3}$$ defined by</paragraph>
+  <paragraph math="block">$${curl}\mathbf{F} = \left( {\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}} \right)\mathbf{i} + \left( {\frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}} \right)\mathbf{j} + \left( {\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}} \right)\mathbf{k}$$</paragraph>
+  <paragraph>As an aid to our memory, let’s rewrite Equation 1 using operator notation. We introduce the vector differential operator $$\nabla$$ (“del”) as</paragraph>
+  <paragraph math="block">$$\nabla = \mathbf{i}\frac{\partial}{\partial x} + \mathbf{j}\frac{\partial}{\partial y} + \mathbf{k}\frac{\partial}{\partial z}$$</paragraph>
+  <paragraph>It has meaning when it operates on a scalar function to produce the gradient of $$f$$ :</paragraph>
+  <paragraph math="block">$$\nabla f = \mathbf{i}\frac{\partial f}{\partial x} + \mathbf{j}\frac{\partial f}{\partial y} + \mathbf{k}\frac{\partial f}{\partial z} = \frac{\partial f}{\partial x}\mathbf{i} + \frac{\partial f}{\partial y}\mathbf{j} + \frac{\partial f}{\partial z}\mathbf{k}$$</paragraph>
+  <paragraph>If we think of $$\nabla$$ as a vector with components $$\partial/\partial x$$ , $$\partial/\partial y$$ , and $$\partial/\partial z$$ , we can also consider the formal cross product of $$\nabla$$ with the vector field $$\mathbf{F}$$ as follows:</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {{\nabla \times \mathbf{F}} = \left| \begin{matrix} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\ \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp; \frac{\partial}{\partial z} \\ P &amp; Q &amp; R \end{matrix} \right|} \\ {\phantom{\nabla \times \mathbf{F}} = {\left( {\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}} \right)\mathbf{i} + \left( {\frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}} \right)\mathbf{j} + \left( {\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}} \right)\mathbf{k}}} \\ {\phantom{\nabla \times \mathbf{F}} = {{curl}\mathbf{F}}} \end{array}$$</paragraph>
+  <paragraph>So the easiest way to remember Definition 1 is by means of the symbolic expression</paragraph>
+  <paragraph math="block">$${curl}\mathbf{F} = \nabla \times \mathbf{F}$$</paragraph>
+  <example number="1">
+    <heading level="4">Example 1</heading>
+    <paragraph>If $$\mathbf{F}\left( {x,y,z} \right) = xz\mathbf{i} + xyz\mathbf{j} - y^{2}\mathbf{k}$$ , find $${curl}\mathbf{F}$$ .</paragraph>
+    <paragraph>Solution Using Equation 2, we have</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {{{curl}\mathbf{F}} = {\nabla \times \mathbf{F} = \left| \begin{matrix} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\ \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp; \frac{\partial}{\partial z} \\ {xz} &amp; {xyz} &amp; {- y^{2}} \end{matrix} \right|}} \\ {\phantom{{curl}\mathbf{F}} = {\left\lbrack {\frac{\partial}{\partial y}( - y^{2}) - \frac{\partial}{\partial z}(xyz)} \right\rbrack\mathbf{i} - \left\lbrack {\frac{\partial}{\partial x}( - y^{2}) - \frac{\partial}{\partial z}(xz)} \right\rbrack\mathbf{j}}} \\ {\phantom{{{curl}\mathbf{F}} = \left\lbrack \frac{\partial}{\partial y} \right.} + \left\lbrack {\frac{\partial}{\partial x}(xyz) - \frac{\partial}{\partial y}(xz)} \right\rbrack\mathbf{k}} \\ {\phantom{{curl}\mathbf{F}} = {( - 2y - xy)\mathbf{i} - (0 - x)\mathbf{j} + (yz - 0)\mathbf{k}}} \\ {\phantom{{curl}\mathbf{F}} = {- y(2 + x)\mathbf{i} + x\mathbf{j} + yz\mathbf{k}}} \end{array}$$</paragraph>
+    <paragraph>Most computer algebra systems have commands that compute the curl and divergence of vector fields. If you have access to a CAS, use these commands to check the answers to the examples and exercises in this section.</paragraph>
+  </example>
+  <paragraph>Recall that the gradient of a function $$f$$ of three variables is a vector field on $${\mathbb{R}}^{3}$$ and so we can compute its curl. The following theorem says that the curl of a gradient vector field is $$0$$ .</paragraph>
+  <note type="theorem" source_type="Theorem" title="Theorem">
+    <heading level="4">Theorem</heading>
+    <paragraph>If $$f$$ is a function of three variables that has continuous second-order partial derivatives, then</paragraph>
+    <paragraph math="block">$${curl}\left( {\nabla f} \right) = 0$$</paragraph>
+  </note>
+  <heading level="4">Proof</heading>
+  <paragraph>We have</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {{{curl}(\nabla f)} = {\nabla \times (\nabla f) = \left| \begin{matrix} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\ \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp; \frac{\partial}{\partial z} \\ \frac{\partial f}{\partial x} &amp; \frac{\partial f}{\partial y} &amp; \frac{\partial f}{\partial z} \end{matrix} \right|}} \\ {\phantom{{curl}(\nabla f)} = {\left( {\frac{\partial^{2}f}{\partial y\partial z} - \frac{\partial^{2}f}{\partial z\partial y}} \right)\mathbf{i} + \left( {\frac{\partial^{2}f}{\partial z\partial x} - \frac{\partial^{2}f}{\partial x\partial z}} \right)\mathbf{j} + \left( {\frac{\partial^{2}f}{\partial x\partial y} - \frac{\partial^{2}f}{\partial y\partial x}} \right)\mathbf{k}}} \\ {\phantom{{curl}(\nabla f)} = {0\mathbf{i} + 0\mathbf{j} + 0\mathbf{k} = 0}} \end{array}$$</paragraph>
+  <paragraph>by Clairaut’s Theorem.</paragraph>
+  <paragraph>Notice the similarity to what we know from Section 12.4: $$\mathbf{a} \times \mathbf{a} = 0$$ for every three-dimensional vector $$\mathbf{a}$$ .</paragraph>
+  <paragraph>Since a conservative vector field is one for which $$\mathbf{F} = \nabla f$$ , Theorem 3 can be rephrased as follows:</paragraph>
+  <paragraph math="block">$${If}\mathbf{F} \text{is conservative, then curl} \mathbf{F} = 0.$$</paragraph>
+  <paragraph>This gives us a way of verifying that a vector field is not conservative.</paragraph>
+  <paragraph>Compare this with Exercise 16.3.35.</paragraph>
+  <example number="2">
+    <heading level="4">Example 2</heading>
+    <paragraph>Show that the vector field $$\mathbf{F}\left( {x,y,z} \right) = xz\mathbf{i} + xyz\mathbf{j} - y^{2}\mathbf{k}$$ is not conservative.</paragraph>
+    <paragraph>Solution In Example 1 we showed that</paragraph>
+    <paragraph math="block">$${curl}\mathbf{F} = - y\left( {2 + x} \right)\mathbf{i} + x\mathbf{j} + yz\mathbf{k}$$</paragraph>
+    <paragraph>This shows that $${curl}\mathbf{F} \neq 0$$ and so, by the remarks preceding this example, $$\mathbf{F}$$ is not conservative.</paragraph>
+  </example>
+  <paragraph>The converse of Theorem 3 is not true in general, but the following theorem says the converse is true if $$\mathbf{F}$$ is defined everywhere. (More generally it is true if the domain is simply-connected, that is, “has no hole.”) Theorem 4 is the three-dimensional version of Theorem 16.3.6. Its proof requires Stokes’ Theorem and is sketched at the end of Section 16.8.</paragraph>
+  <note type="theorem" source_type="Theorem" title="Theorem">
+    <heading level="4">Theorem</heading>
+    <paragraph>If $$\mathbf{F}$$ is a vector field defined on all of $${\mathbb{R}}^{3}$$ whose component functions have continuous partial derivatives and $${curl}\mathbf{F} = 0$$ , then $$\mathbf{F}$$ is a conservative vector field.</paragraph>
+  </note>
+  <example number="3">
+    <heading level="4">Example 3</heading>
+    <list type="unordered">
+      <item>(a) Show that $$\mathbf{F}\left( {x,y,z} \right) = y^{2}z^{3}\mathbf{i} + 2xyz^{3}\mathbf{j} + 3xy^{2}z^{2}\mathbf{k}$$ is a conservative vector field.</item>
+      <item>(b) Find a function $$f$$ such that $$\mathbf{F} = \nabla f$$ .</item>
+    </list>
+    <paragraph>Solution</paragraph>
+    <list type="unordered">
+      <item>(a) We compute the curl of $$\mathbf{F}$$ : $$\begin{array}{l} {{{curl}\mathbf{F}} = {\nabla \times \mathbf{F} = \left| \begin{matrix} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\ \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp; \frac{\partial}{\partial z} \\ {y^{2}z^{3}} &amp; {2xyz^{3}} &amp; {3xy^{2}z^{2}} \end{matrix} \right|}} \\ {\phantom{{curl}\mathbf{F}} = {{(6xyz^{2} - 6xyz^{2})}^{}\mathbf{i} - {(3y^{2}z^{2} - 3y^{2}z^{2})}^{}\mathbf{j} + (2yz^{3} - 2yz^{3})\mathbf{k}}} \\ {\phantom{{curl}\mathbf{F}} = 0} \end{array}$$ Since $${curl}\mathbf{F} = 0$$ and the domain of $$\mathbf{F}$$ is $${\mathbb{R}}^{3}$$ , $$\mathbf{F}$$ is a conservative vector field by Theorem 4.</item>
+      <item>(b) The technique for finding $$f$$ was given in Section 16.3. We have $$f_{x}\left( {x,y,z} \right) = y^{2}z^{3}$$ $$f_{y}\left( {x,y,z} \right) = 2xyz^{3}$$ $$f_{z}\left( {x,y,z} \right) = 3xy^{2}z^{2}$$ Integrating (5) with respect to $$x$$ , we obtain $$f\left( {x,y,z} \right) = xy^{2}z^{3} + g\left( {y,z} \right)$$</item>
+    </list>
+    <paragraph>Differentiating (8) with respect to $$y$$ , we get $$f_{y}\left( {x,y,z} \right) = 2xyz^{3} + g_{y}\left( {y,z} \right)$$ , so comparison with (6) gives $$g_{y}\left( {y,z} \right) = 0$$ . Thus $$g\left( {y,z} \right) = h(z)$$ and</paragraph>
+    <paragraph math="block">$$f_{z}\left( {x,y,z} \right) = 3xy^{2}z^{2} + h^{\prime}(z)$$</paragraph>
+    <paragraph>Then (7) gives $$h^{\prime}(z) = 0$$ . Therefore</paragraph>
+    <paragraph math="block">$$f\left( {x,y,z} \right) = xy^{2}z^{3} + K$$</paragraph>
+  </example>
+  <paragraph>The reason for the name curl is that the curl vector is associated with rotations. One connection is explained in Exercise 39. Another occurs when $$\mathbf{F}$$ represents the velocity field in fluid flow (see Example 16.1.3). In Section 16.8 we show that particles near $$\left( {x,y,z} \right)$$ in the fluid tend to rotate about the axis that points in the direction of $${curl}\mathbf{F}\left( {x,y,z} \right)$$ , following the right-hand rule, and the length of this curl vector is a measure of how quickly the particles move around the axis (see Figure 1). If $${curl}\mathbf{F} = 0$$ at a point $$P$$ , then the fluid is free from rotations at $$P$$ and $$\mathbf{F}$$ is called irrotational at $$P$$ . In this case, a tiny paddle wheel moves with the fluid but doesn’t rotate about its axis. If $${curl}\mathbf{F} \neq 0$$ , the paddle wheel rotates about its axis.</paragraph>
+  <figure>
+    <image alt="Details A circular region and a vector are displayed. The circular region is tilted up and to the front, slightly to the right. Three curved arrows are drawn along its circumference and they point anticlockwise. At the center of the circle, a marked point is labeled (x, y, z). A vector labeled curl vector F(x, y, z), rises upward to the right, from (x, y, z), perpendicular to the circular region."/>
+  </figure>
+  <paragraph>As an illustration, each vector field $$\mathbf{F}$$ in Figure 2 represents the velocity field of a fluid. In Figure 2(a), $${curl}\mathbf{F} \neq 0$$ at most points, including $$P_{1}$$ and $$P_{2}$$ . A tiny paddle wheel placed at $$P_{1}$$ would rotate counterclockwise about its axis (the fluid near $$P_{1}$$ flows roughly in the same direction but with greater velocity on one side of the point than on the other), so the curl vector at $$P_{1}$$ points in the direction of $$\mathbf{k}$$ . Similarly, a paddle wheel at $$P_{2}$$ would rotate clockwise and the curl vector there points in the direction of $$- \mathbf{k}$$ . In Figure 2(b), $${curl}\mathbf{F} = 0$$ everywhere. A paddle wheel placed at $$P$$ moves with the fluid but doesn’t rotate about its axis.</paragraph>
+  <figure>
+    <image alt="Details A vector field and two points are graphed in the x y coordinate plane. The first two rows of the vector field enter from the top right corner, trace a wavy path, and exit at the top left corner. The next row has vectors that point upward or downward: the vectors point downward if they are below vectors that point down and to the left and point upward if they are below vectors that point up and to the left. The next three rows enter from the left, trace a wavy path, and exit on the right. The next three rows enter from the right, trace a wavy path, and exit on the left, creating patterns that resemble concentric circles. The next row follows the same trend as the third row with vertical vectors which point upward or downward depending on their position. The last two rows enter from the bottom left corner, trace a wavy path, and exit at the bottom right. Two points are marked in the vector field: P_1 in the second quadrant just above and to the left of the bottom-most point of a concentric circular pattern as the vectors point down and to the right and P_2 in the first quadrant slightly above the positive x-axis, just below and to the right of the top most point of a concentric circular pattern as the vectors point down and to the right. The arrows are shorter in the rows near the centers of the circular patterns and longer near the extremes of the waves. A vector field and a point are graphed in the x y coordinate plane. The arrows are minute near the origin and become longer as we move toward the sides and corners. The pattern of the vector field is symmetric about the y axis. The vectors enter from two places. Half of the vectors enter from the bottom left and branch out into two curved paths. One branch follows a concave down path and exits to the left of the negative y axis. The second branch goes up bulging slightly rightward and exits at the top left. A point labeled P is located near the top left corner of the viewing window. The remaining vectors enter from the bottom right and branch out into two curved paths. One branch follows a concave down path and exits to the right of the negative y axis. The second branch goes up bulging slightly leftward and exits at the top right."/>
+    <caption>Velocity fields in fluid flow. (Only the part of $$\mathbf{F}$$ in the $$\mathit{xy}$$ -plane is shown; the vector field looks the same in all horizontal planes because $$\mathbf{F}$$ is independent of $$z$$ and the $$z$$ -component is $$0$$ .)</caption>
+  </figure>
+  <paragraph>In Section 16.8 we give a more detailed explanation of curl and its interpretation (as a consequence of Stokes' Theorem).</paragraph>
+  <heading level="3">Divergence</heading>
+  <paragraph>If $$\mathbf{F} = P\mathbf{i} + Q\mathbf{j} + R\mathbf{k}$$ is a vector field on $${\mathbb{R}}^{3}$$ and $$\partial P/\partial x$$ , $$\partial Q/\partial y$$ and $$\partial R/\partial z$$ exist, then the divergence of $$\mathbf{F}$$ is the function of three variables defined by</paragraph>
+  <paragraph math="block">$${div}\mathbf{F} = \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}$$</paragraph>
+  <paragraph>(If $$\mathbf{F}$$ is a vector field on $${\mathbb{R}}^{2}$$ , then $${div}\mathbf{F}$$ is a function of two variables defined similarly to the three-variable case.) Observe that $${curl}\mathbf{F}$$ is a vector field but $${div}\mathbf{F}$$ is a scalar field. In terms of the gradient operator $$\nabla = \left( {\partial/\partial x} \right)\mathbf{i} + \left( {\partial/\partial y} \right)\mathbf{j} + \left( {\partial/\partial z} \right)\mathbf{k}$$ , the divergence of $$\mathbf{F}$$ can be written symbolically as the dot product of $$\nabla$$ and $$\mathbf{F}$$ : , the divergence of $$\mathbf{F}$$ can be written symbolically as the dot product of $$\nabla$$ and $$\mathbf{F}$$ :</paragraph>
+  <paragraph math="block">$${div}\mathbf{F} = \nabla \cdot \mathbf{F}$$</paragraph>
+  <example number="4">
+    <heading level="4">Example 4</heading>
+    <paragraph>If $$\mathbf{F}\left( {x,y,z} \right) = xz\mathbf{i} + xyz\mathbf{j} - y^{2}\mathbf{k}$$ , find $${div}\mathbf{F}$$ .</paragraph>
+    <paragraph>Solution By the definition of divergence (Equation 9 or 10), we have</paragraph>
+    <paragraph math="block">$${div}\mathbf{F} = \nabla \cdot \mathbf{F} = \frac{\partial}{\partial x}\left( {xz} \right) + \frac{\partial}{\partial y}\left( {xyz} \right) + \frac{\partial}{\partial z}{({- y^{2}})} = z + xz$$</paragraph>
+  </example>
+  <paragraph>If $$\mathbf{F}$$ is a vector field on $${\mathbb{R}}^{3}$$ , then $${curl}\mathbf{F}$$ is also a vector field on $${\mathbb{R}}^{3}$$ . As such, we can compute its divergence. The next theorem shows that the result is $$0$$ .</paragraph>
+  <note type="theorem" source_type="Theorem" title="Theorem">
+    <heading level="4">Theorem</heading>
+    <paragraph>If $$\mathbf{F} = P\mathbf{i} + Q\mathbf{j} + R\mathbf{k}$$ is a vector field on $${\mathbb{R}}^{3}$$ and $$P$$ , $$Q$$ , and $$R$$ have continuous second-order partial derivatives, then</paragraph>
+    <paragraph math="block">$${div}{curl}\mathbf{F} = 0$$</paragraph>
+  </note>
+  <note type="sidebar" source_type="Proof" title="Proof">
+    <heading level="4">Proof</heading>
+    <paragraph>Using the definitions of divergence and curl, we have</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {{div}{curl}\mathbf{F} = \nabla \cdot (\nabla \times \mathbf{F})} \\ {\phantom{{div}{curl}\mathbf{F}} = \frac{\partial}{\partial x}\left( {\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}} \right) + \frac{\partial}{\partial y}\left( {\frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}} \right) + \frac{\partial}{\partial z}\left( {\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}} \right)} \\ {\phantom{{div}{curl}\mathbf{F}} = \frac{\partial^{2}R}{\partial x\partial y} - \frac{\partial^{2}Q}{\partial x\partial z} + \frac{\partial^{2}P}{\partial y\partial z} - \frac{\partial^{2}R}{\partial y\partial x} + \frac{\partial^{2}Q}{\partial z\partial x} - \frac{\partial^{2}P}{\partial z\partial y}} \\ {\phantom{{div}{curl}\mathbf{F}} = 0} \end{array}$$</paragraph>
+    <paragraph>because the terms cancel in pairs by Clairaut’s Theorem.</paragraph>
+    <paragraph>Note the analogy with the scalar triple product: $$\mathbf{a} \cdot \left( {\mathbf{a} \times \mathbf{b}} \right) = 0$$ .</paragraph>
+  </note>
+  <example number="5">
+    <heading level="4">Example 5</heading>
+    <paragraph>Show that the vector field $$\mathbf{F}\left( {x,y,z} \right) = xz\mathbf{i} + xyz\mathbf{j} - y^{2}\mathbf{k}$$ can’t be written as the curl of another vector field, that is, $$\mathbf{F} \neq {curl}\mathbf{G}$$ for any vector field $$\mathbf{G}$$ .</paragraph>
+    <paragraph>Solution In Example 4 we showed that</paragraph>
+    <paragraph math="block">$${div}\mathbf{F} = z + xz$$</paragraph>
+    <paragraph>and therefore $${div}\mathbf{F} \neq 0$$ . If it were true that $$\mathbf{F} = {curl}\mathbf{G}$$ , then Theorem 11 would give</paragraph>
+    <paragraph math="block">$${div}\mathbf{F} = {div}{curl}\mathbf{G} = 0$$</paragraph>
+    <paragraph>which contradicts $${div}\mathbf{F} \neq 0$$ . Therefore $$\mathbf{F}$$ is not the curl of another vector field.</paragraph>
+  </example>
+  <paragraph>Again, the reason for the name divergence can be understood in the context of fluid flow. If $$\mathbf{F}\left( {x,y,z} \right)$$ is the velocity of a fluid (or gas), then $${div}\mathbf{F}\left( {x,y,z} \right)$$ represents the net rate of change (with respect to time) of the mass of fluid (or gas) flowing from the point $$\left( {x,y,z} \right)$$ per unit volume. In other words, $${div}\mathbf{F}\left( {x,y,z} \right)$$ measures the tendency of the fluid to diverge from the point $$\left( {x,y,z} \right)$$ . If $${div}\mathbf{F} = 0$$ , then $$\mathbf{F}$$ is said to be incompressible.</paragraph>
+  <paragraph>The reason for this interpretation of $${div}\mathbf{F}$$ will be explained at the end of Section 16.9 as a consequence of the Divergence Theorem.</paragraph>
+  <paragraph>As an illustration, each vector field $$\mathbf{F}$$ in Figure 3 represents the velocity field of a fluid. In Figure 3(a), $${div}\mathbf{F} \neq 0$$ in general. For instance, at the point $$P_{1}$$ , $${div}\mathbf{F}$$ is negative (the vectors that start near $$P_{1}$$ are shorter than those that end near $$P_{1}$$ , so the net flow is inward there). At the point $$P_{2}$$ , $${div}\mathbf{F}$$ is positive (the vectors that start near $$P_{2}$$ are longer than those that end near $$P_{2}$$ , so the net flow is outward there). In Figure 3(b), $${div}\mathbf{F} = 0$$ everywhere (the vectors that start and end near any point $$P$$ are about the same length).</paragraph>
+  <figure>
+    <image alt="Details A vector field and two points are graphed in the x y coordinate plane. The arrows are shorter near the y axis and longer as we move to the left or right. The pattern of the vector field is symmetric about the x axis. The vectors enter from the left and exit on the top, bottom, and right sides of the viewing window. The vectors above and below the x-axis appear to veer away from the axis. Two points labeled P_1 and P_2 are marked at approximately the center of the second and first quadrants in the viewing window, respectively. A vector field and a point are graphed in the x y coordinate plane. The arrows are shorter near the origin and longer as we proceed radially outward. The vectors trace the path of a family of hyperbolas with the x and y axes as their asymptotes. A point labeled P is placed at approximately the center of the first quadrant in the viewing window."/>
+    <caption>Velocity fields in fluid flow. (Only the part of $$\mathbf{F}$$ in the $$\mathit{xy}$$ -plane is shown; the vector field looks the same in all horizontal planes because $$\mathbf{F}$$ is independent of $$z$$ and the $$z$$ -component is $$0$$ .)</caption>
+  </figure>
+  <paragraph>Another differential operator occurs when we compute the divergence of a gradient vector field $$\nabla f$$ . If $$f$$ is a function of three variables, we have</paragraph>
+  <paragraph math="block">$${div}{({\nabla f})} = \nabla \cdot {({\nabla f})} = \frac{\partial^{2}f}{\partial x^{2}} + \frac{\partial^{2}f}{\partial y^{2}} + \frac{\partial^{2}f}{\partial z^{2}}$$</paragraph>
+  <paragraph>and this expression occurs so often that we abbreviate it as $$\nabla^{2}f$$ . The operator</paragraph>
+  <paragraph math="block">$$\nabla^{2} = \nabla \cdot \nabla$$</paragraph>
+  <paragraph>is called the Laplace operator because of its relation to Laplace’s equation</paragraph>
+  <paragraph math="block">$$\nabla^{2}f = \frac{\partial^{2}f}{\partial x^{2}} + \frac{\partial^{2}f}{\partial y^{2}} + \frac{\partial^{2}f}{\partial z^{2}} = 0$$</paragraph>
+  <paragraph>We can also apply the Laplace operator $$\nabla^{2}$$ to a vector field</paragraph>
+  <paragraph math="block">$$\mathbf{F} = P\mathbf{i} + Q\mathbf{j} + R\mathbf{k}$$</paragraph>
+  <paragraph>in terms of its components:</paragraph>
+  <paragraph math="block">$$\nabla^{2}\mathbf{F} = \nabla^{2}P\mathbf{i} + \nabla^{2}Q\mathbf{j} + \nabla^{2}R\mathbf{k}$$</paragraph>
+  <heading level="3">Vector Forms of Green’s Theorem</heading>
+  <paragraph>The curl and divergence operators allow us to rewrite Green’s Theorem in versions that will be useful in our later work. We suppose that the plane region $$D$$ , its boundary curve $$C$$ , and the functions $$P$$ and $$Q$$ satisfy the hypotheses of Green’s Theorem. Then we consider the vector field $$\mathbf{F} = P\mathbf{i} + Q\mathbf{j}$$ . Its line integral is</paragraph>
+  <paragraph math="block">$$\oint_{C}{\mathbf{F} \cdot d\mathbf{r} = {\oint_{C}{Pdx + Qdy}}}$$</paragraph>
+  <paragraph>and, regarding $$\mathbf{F}$$ as a vector field on $${\mathbb{R}}^{3}$$ with third component $$0$$ , we have</paragraph>
+  <paragraph math="block">$${curl}\mathbf{F} = \left| \begin{matrix} \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\ \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y} &amp; \frac{\partial}{\partial z} \\ {P(x,y)} &amp; {Q(x,y)} &amp; 0 \end{matrix} \right| = \left( {\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}} \right)\mathbf{k}$$</paragraph>
+  <paragraph>Therefore</paragraph>
+  <paragraph math="block">$$\left( {{curl}\mathbf{F}} \right) \cdot \mathbf{k} = \left( {\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}} \right){\mathbf{k}} \cdot \mathbf{k} = \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}$$</paragraph>
+  <paragraph>and we can now rewrite the equation in Green’s Theorem in the vector form</paragraph>
+  <paragraph math="block">$${\oint_{C}{\mathbf{F} \cdot d\mathbf{r}}} = {\oint_{C}{\mathbf{F} \cdot \mathbf{T}ds}} = {\iint\limits_{D}{\left( {curl}\mathbf{F} \right) \cdot \mathbf{k}dA}}$$</paragraph>
+  <paragraph>Equation 12 expresses the line integral of the tangential component of $$\mathbf{F}$$ along $$C$$ as the double integral of the vertical component of $${curl}\mathbf{F}$$ over the region $$D$$ enclosed by $$C$$ . We now derive a similar formula involving the normal component of $$\mathbf{F}$$ .</paragraph>
+  <paragraph>If $$C$$ is given by the vector equation</paragraph>
+  <paragraph math="block">$$\mathbf{r}(t) = x(t)\mathbf{i} + y(t)\mathbf{j} {a \leqslant t \leqslant b}$$</paragraph>
+  <paragraph>then the unit tangent vector (see Section 13.2) is</paragraph>
+  <paragraph math="block">$$\mathbf{T}(t) = \frac{x^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|}\mathbf{i} + \frac{y^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|}\mathbf{j}$$</paragraph>
+  <paragraph>You can verify that the outward unit normal vector to $$C$$ is given by</paragraph>
+  <paragraph math="block">$$\mathbf{n}(t) = \frac{y^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|}\mathbf{i} - \frac{x^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|}\mathbf{j}$$</paragraph>
+  <paragraph>(See Figure 4.) Then, from Equation 16.2.3, we have</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {\oint_{C}{\mathbf{F} \cdot \mathbf{n}ds = {\int_{a}^{b}{\left( {\mathbf{F} \cdot \mathbf{n}} \right)(t)\left| {\mathbf{r}^{\prime}(t)} \right|dt}}}} \\ {\phantom{\oint_{C}{\mathbf{F} \cdot \mathbf{n}ds}}{= {\int_{a}^{b}{\left\lbrack {\frac{P{({x(t),y(t)})}y^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|} - \frac{Q{({x(t),y(t)})}x^{\prime}(t)}{\left| {\mathbf{r}^{\prime}(t)} \right|}} \right\rbrack\left| {\mathbf{r}^{\prime}(t)} \right|dt}}}} \\ {\phantom{\oint_{C}{\mathbf{F} \cdot \mathbf{n}ds}}{= {\int_{a}^{b}{P{({x(t),y(t)})}y^{\prime}(t)dt - Q\left( {x(t),y(t)} \right)x^{\prime}(t)dt}}}} \\ {\phantom{\oint_{C}{\mathbf{F} \cdot \mathbf{n}ds}}{= {\int_{C}{Pdy - Qdx = {\iint\limits_{D}{\left( {\frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y}} \right)dA}}}}}} \end{array}$$</paragraph>
+  <paragraph>by Green’s Theorem. But the integrand in this double integral is just the divergence of $$\mathbf{F}$$ . So we have a second vector form of Green’s Theorem.</paragraph>
+  <figure>
+    <image alt="Details A simple closed curve, a shaded region, and two vectors are graphed in the x y coordinate plane. The closed curve, labeled C, resembles a rectangle with curved sides and rounded corners, curved concave up. The region within the curve is shaded and labeled D. Two arrowheads placed on the curve point counterclockwise. A point marked on the curve at the top left is labeled r(t). A vector labeled vector T(t), is tangent to the curve at vector r(t). It begins from vector r(t) and slopes up and slightly to the left. Another vector, labeled vector n(t), slopes slightly upward to the right and is perpendicular to vector T(t)."/>
+  </figure>
+  <paragraph math="block">$$\oint_{C}{\mathbf{F} \cdot \mathbf{n}ds = {\iint\limits_{D}{{div}\mathbf{F}\left( {x,y} \right)dA}}}$$</paragraph>
+  <paragraph>This version says that the line integral of the normal component of $$\mathbf{F}$$ along $$C$$ is equal to the double integral of the divergence of $$\mathbf{F}$$ over the region $$D$$ enclosed by $$C$$ .</paragraph>
+</section>

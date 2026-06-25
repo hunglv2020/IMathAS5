@@ -1,741 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch03" chapter_number="3" unit_code="3.1">
-  <section number="3.1" title="Introduction to Determinants">
-    <metadata>
-      <source_pages count="4">
-        <page global_index="144" type="content"/>
-        <page global_index="145" type="exercises"/>
-        <page global_index="146" type="exercises"/>
-        <page global_index="147" type="exercises"/>
-      </source_pages>
-    </metadata>
-    <content>
-      <heading level="1">3.1 Introduction to Determinants</heading>
-      <video title="Watch Video"/>
-      <paragraph>Recall from Section 2.2 that a <math display="inline">$2 \times 2$</math> matrix is invertible if and only if its determinant is nonzero. To extend this useful fact to larger matrices, we need a definition for the determinant of an <math display="inline">$n \times n$</math> matrix. We can discover the definition for the <math display="inline">$3 \times 3$</math> case by watching what happens when an invertible <math display="inline">$3 \times 3$</math> matrix <math display="inline">$A$</math> is row reduced.</paragraph>
-      <paragraph>Consider <math display="inline">$A = \lbrack a_{ij}\rbrack$</math> with <math display="inline">$a_{11} \neq 0$</math>. If we multiply the second and third rows of <math display="inline">$A$</math> by <math display="inline">$a_{11}$</math> and then subtract appropriate multiples of the first row from the other two rows, we find that <math display="inline">$A$</math> is row equivalent to the following two matrices:</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{bmatrix}
-      a_{11} &amp; a_{12} &amp; a_{13} \\
-      {a_{11}a_{21}} &amp; {a_{11}a_{22}} &amp; {a_{11}a_{23}} \\
-      {a_{11}a_{31}} &amp; {a_{11}a_{32}} &amp; {a_{11}a_{33}}
-      \end{bmatrix} \sim \begin{bmatrix}
-      a_{11} &amp; a_{12} &amp; a_{13} \\
-      0 &amp; {a_{11}a_{22} - a_{12}a_{21}} &amp; {a_{11}a_{23} - a_{13}a_{21}} \\
-      0 &amp; {a_{11}a_{32} - a_{12}a_{31}} &amp; {a_{11}a_{33} - a_{13}a_{31}}
-      \end{bmatrix}$$</math>
-      </paragraph>
-      <paragraph>Since <math display="inline">$A$</math> is invertible, either the <math display="inline">$(2\text{, }2)\text{-entry}$</math> or the <math display="inline">$(3\text{, }2)\text{-entry}$</math> on the right in <strong>(</strong>1<strong>)</strong> is nonzero. Let us suppose that the <math display="inline">$(2\text{, }2)\text{-entry}$</math> is nonzero. (Otherwise, we can make a row interchange before proceeding.) Multiply row <math display="inline">$3$</math> by <math display="inline">$a_{11}a_{22} - a_{12}a_{21}$</math>, and then to the new row <math display="inline">$3$</math> add <math display="inline">$- (a_{11}a_{32} - a_{12}a_{31})$</math> times row <math display="inline">$2$</math>. This will show that</paragraph>
-      <paragraph>
-        <math display="block">$$A \sim \begin{bmatrix}
-      a_{11} &amp; a_{12} &amp; a_{13} \\
-      0 &amp; {a_{11}a_{22} - a_{12}a_{21}} &amp; {a_{11}a_{23} - a_{13}a_{21}} \\
-      0 &amp; 0 &amp; {a_{11}\text{Δ}}
-      \end{bmatrix}$$</math>
-      </paragraph>
-      <paragraph>where</paragraph>
-      <paragraph>
-        <math display="block">$$\text{Δ} = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} - a_{11}a_{23}a_{32} - a_{12}a_{21}a_{33} - a_{13}a_{22}a_{31}$$</math>
-      </paragraph>
-      <paragraph>Since <math display="inline">$A$</math> is invertible, <math display="inline">$\text{Δ}$</math> must be nonzero. The converse is true, too, as we will see in Section 3.2. We call <math display="inline">$\text{Δ}$</math> in <strong>(</strong>2<strong>)</strong> the determinant of the <math display="inline">$3 \times 3$</math> matrix <math display="inline">$A$</math>.</paragraph>
-      <paragraph>Recall that the determinant of a <math display="inline">$2 \times 2$</math> matrix, <math display="inline">$A = \lbrack a_{ij}\rbrack$</math>, is the number</paragraph>
-      <paragraph>
-        <math display="block">$$\text{det }A = a_{11}a_{22} - a_{12}a_{21}$$</math>
-      </paragraph>
-      <paragraph>For a <math display="inline">$\text{1~×~1}$</math> matrix—say, <math display="inline">$A = \lbrack a_{11}\rbrack$</math>—we define <math display="inline">$\text{det }A = a_{11}$</math>. To generalize the definition of the determinant to larger matrices, we’ll use <math display="inline">$2 \times 2$</math> determinants to rewrite the <math display="inline">$3 \times 3$</math> determinant <math display="inline">$\text{Δ}$</math> described above. Since the terms in <math display="inline">$\text{Δ}$</math> can be grouped as <math display="inline">$(a_{11}a_{22}a_{33} - a_{11}a_{23}a_{32}) - (a_{12}a_{21}a_{33} - a_{12}a_{23}a_{31}) + (a_{13}a_{21}a_{32} - a_{13}a_{22}a_{31})$</math>,</paragraph>
-      <paragraph>
-        <math display="block">$$\text{Δ} = a_{11\,}\text{det }\left\lbrack \begin{array}{rr}
-      a_{22} &amp; a_{23} \\
-      a_{32} &amp; a_{33}
-      \end{array} \right\rbrack - a_{12}\,\text{det }\left\lbrack \begin{array}{rr}
-      a_{21} &amp; a_{23} \\
-      a_{31} &amp; a_{33}
-      \end{array} \right\rbrack + a_{13\,\,}\text{det }\left\lbrack \begin{array}{rr}
-      a_{21} &amp; a_{22} \\
-      a_{31} &amp; a_{32}
-      \end{array} \right\rbrack$$</math>
-      </paragraph>
-      <paragraph>For brevity, write</paragraph>
-      <paragraph>
-        <math display="block">$$\text{Δ} = a_{11}\,\text{det }A_{11} - a_{12}\,\text{det }A_{12} + a_{13}\,\text{det }A_{13}$$</math>
-      </paragraph>
-      <paragraph>where <math display="inline">$A_{11}$</math>, <math display="inline">$A_{12}$</math>, and <math display="inline">$A_{13}$</math> are obtained from <math display="inline">$A$</math> by deleting the first row and one of the three columns. For any square matrix <math display="inline">$A$</math>, let <math display="inline">$A_{ij}$</math> denote the submatrix formed by deleting the <math display="inline">$i{th}$</math> row and <math display="inline">$j{th}$</math> column of <math display="inline">$A$</math>. For instance, if</paragraph>
-      <paragraph>
-        <math display="block">$$A = \left\lbrack \begin{array}{rrrr}
-      1 &amp; {- 2} &amp; 5 &amp; 0 \\
-      2 &amp; 0 &amp; 4 &amp; {- 1} \\
-      3 &amp; 1 &amp; 0 &amp; 7 \\
-      0 &amp; 4 &amp; {- 2} &amp; 0
-      \end{array} \right\rbrack$$</math>
-      </paragraph>
-      <paragraph>then <math display="inline">$A_{32}$</math> is obtained by crossing out row <math display="inline">$3$</math> and column <math display="inline">$2$</math>,</paragraph>
-      <figure caption="Watch Video">
-          <image alt="The figure illustrates a 4 by 4 matrix."/>
-        </figure>
-      <paragraph>so that</paragraph>
-      <paragraph>
-        <math display="block">$$A_{32} = \left\lbrack \begin{array}{rrr}
-      1 &amp; 5 &amp; 0 \\
-      2 &amp; 4 &amp; {- 1} \\
-      0 &amp; {- 2} &amp; 0
-      \end{array} \right\rbrack$$</math>
-      </paragraph>
-      <paragraph>Click here for interactive example</paragraph>
-      <paragraph>We can now give a <em>recursive</em> definition of a determinant. When <math display="inline">$n = 3$</math>, <math display="inline">$\text{det }A$</math> is defined using determinants of the <math display="inline">$2 \times 2$</math> submatrices <math display="inline">$A_{1j}$</math>, as in (3) above. When <math display="inline">$n = 4$</math>, <math display="inline">$\text{det }A$</math> uses determinants of the <math display="inline">$3 \times 3$</math> submatrices <math display="inline">$A_{1j}$</math>. In general, an <math display="inline">$n \times n$</math> determinant is defined by determinants of <math display="inline">$(n - 1){} \times {}(n - 1)$</math> submatrices.</paragraph>
-      <note type="definition" title="Definition">
-          <heading level="2">Definition</heading>
-              <paragraph>For <math display="inline">$n \geq 2$</math>, the <strong>determinant</strong> of an <math display="inline">$n \times n$</math> matrix <math display="inline">$A = \lbrack a_{ij}\rbrack$</math> is the sum of <math display="inline">$n$</math> terms of the form <math display="inline">$\pm a_{1j}\,\text{det }A_{1j},$</math> with plus and minus signs alternating, where the entries <math display="inline">$a_{11}\text{, }a_{12}\text{,}\ldots\text{, }a_{1n}$</math> are from the first row of <math display="inline">$A.$</math> In symbols,</paragraph>
-              <paragraph><math display="block">$$\begin{array}{lll}
-      {\text{det\,}{\text{\,\, }A}} &amp; = &amp; {a_{11}\,\text{det\,\,\,}A_{11}\, - \,a_{12}\,{\text{det\,}{\text{\,\, }A_{12} + \cdots + ( - 1)^{1 + n}a_{1n}\,{\text{det\,}{\text{\, }A_{1n}}}}}} \\
-       &amp; = &amp; {\underset{j = 1}{\overset{n}{\sum\,}}( - 1)^{1 + j}a_{1j}{\,\text{det}{\text{\,\, }A_{1j}}}}
-      \end{array}$$</math></paragraph>
-        </note>
-      <example number="1">
-          <heading level="2">Example 1</heading>
-              <paragraph>Compute the determinant of</paragraph>
-              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rrr}
-      1 &amp; 5 &amp; 0 \\
-      2 &amp; 4 &amp; {- 1} \\
-      0 &amp; {- 2} &amp; 0
-      \end{array} \right\rbrack$$</math></paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>Compute <math display="inline">$\text{det \,\,}A = a_{11}\,\text{det\,\,\,}A_{11} - a_{12}\,\text{det \,\,}A_{12} + a_{13}\,\text{det \,\,}A_{13}$</math>:</paragraph>
-              <paragraph><math display="block">$$\begin{array}{lll}
-      {\text{det\,\,\,}A} &amp; = &amp; {1\text{det}\left\lbrack \begin{array}{rr}
-      4 &amp; {- 1} \\
-      {- 2} &amp; 0
-      \end{array} \right\rbrack - 5\text{~det}\left\lbrack \begin{array}{rr}
-      2 &amp; {- 1} \\
-      0 &amp; 0
-      \end{array} \right\rbrack + 0\text{~det}\left\lbrack \begin{array}{rr}
-      2 &amp; 4 \\
-      0 &amp; {- 2}
-      \end{array} \right\rbrack} \\
-       &amp; = &amp; {1(0 - 2) - 5(0 - 0) + 0( - 4 - 0) = - 2}
-      \end{array}$$</math></paragraph>
-        </example>
-      <paragraph>Another common notation for the determinant of a matrix uses a pair of vertical lines in place of brackets. Thus the calculation in <strong>Example 1</strong> can be written as</paragraph>
-      <paragraph>
-        <math display="block">$$\left. \text{det }A = 1 \middle| \begin{array}{rr}
-      4 &amp; {- 1} \\
-      {- 2} &amp; 0
-      \end{array} \middle| - 5 \middle| \begin{array}{rr}
-      2 &amp; {- 1} \\
-      0 &amp; 0
-      \end{array} \middle| + 0 \middle| \begin{array}{rr}
-      2 &amp; 4 \\
-      0 &amp; {- 2}
-      \end{array} \middle| = \cdots = - 2 \right.$$</math>
-      </paragraph>
-      <paragraph>To state the next theorem, it is convenient to write the definition of <math display="inline">$\text{det }A$</math> in a slightly different form. Given <math display="inline">$A = \lbrack a_{ij}\rbrack$</math>, the <math display="inline">$\left( {i,j} \right)$</math>-cofactor of <math display="inline">$A$</math> is the number <math display="inline">$C_{ij}$</math> given by</paragraph>
-      <paragraph>
-        <math display="block">$$C_{ij} = ( - 1)^{i + j}\text{det }A_{ij}$$</math>
-      </paragraph>
-      <paragraph>Then</paragraph>
-      <paragraph>
-        <math display="block">$$\text{det }A = a_{11}C_{11} + a_{12}C_{12} + \cdots + a_{1n}C_{1n}$$</math>
-      </paragraph>
-      <paragraph>This formula is called a cofactor expansion<strong>across the first row</strong> of <math display="inline">$A$</math>. We omit the proof of the following fundamental theorem to avoid a lengthy digression.</paragraph>
-      <note type="procedure" title="Theorem 1">
-          <heading level="2">Theorem 1</heading>
-              <paragraph>The determinant of an <math display="inline">$n \times n$</math> matrix <math display="inline">$A$</math> can be computed by a cofactor expansion across any row or down any column. The expansion across the <math display="inline">$i\text{th}$</math> row using the cofactors in <strong>(</strong>4<strong>)</strong> is</paragraph>
-              <paragraph><math display="block">$$\text{det\,}{\text{\, }A = a_{i1}C_{i1} + a_{i2}C_{i2} + \cdots + a_{in}C_{in}}$$</math></paragraph>
-              <paragraph>The cofactor expansion down the <math display="inline">$j{th}$</math> column is</paragraph>
-              <paragraph><math display="block">$$\text{det\,}{\text{\, }A = a_{1j}C_{1j} + a_{2j}C_{2j} + \cdots + a_{nj}C_{nj}}$$</math></paragraph>
-        </note>
-      <paragraph>The plus or minus sign in the <math display="inline">$\text{(}i,j\text{)-cofactor}$</math> depends on the position of <math display="inline">$a_{ij}$</math> in the matrix, regardless of the sign of <math display="inline">$a_{ij}$</math> itself. The factor <math display="inline">$( - 1)^{i + j}$</math> determines the following checkerboard pattern of signs:</paragraph>
-      <paragraph>
-        <math display="block">$$\left\lbrack \begin{array}{rrrr}
-       + &amp; - &amp; + &amp; {\ldots} \\
-       - &amp; + &amp; - &amp; \\
-       + &amp; - &amp; + &amp; \\
-       \vdots &amp; &amp; &amp; \ddots 
-      \end{array} \right\rbrack$$</math>
-      </paragraph>
-      <example number="2">
-          <heading level="2">Example 2</heading>
-              <paragraph>Use a cofactor expansion across the third row to compute <math display="inline">$\text{det }A$</math>, where</paragraph>
-              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rrr}
-      1 &amp; 5 &amp; 0 \\
-      2 &amp; 4 &amp; {- 1} \\
-      0 &amp; {- 2} &amp; 0
-      \end{array} \right\rbrack$$</math></paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>Compute</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      {\text{det\,}{\text{\, }A}} &amp; {= a_{31}C_{31} + a_{32}C_{32} + a_{33}C_{33}} \\
-       &amp; {= \left( {- 1} \right)^{3 + 1}a_{31\,}\text{det\,}{\text{\, }A_{31} + \left( {- 1} \right)^{3 + 2}a_{32\,}\text{det\,}{\text{\, }A_{32} + \left( {- 1} \right)^{3 + 3}a_{33\,}\text{det\,}{\text{\, }A_{33}}}}} \\
-       &amp; {= 0\left| \begin{array}{rr}
-      5 &amp; 0 \\
-      4 &amp; {- 1}
-      \end{array} \middle| \, - \,\,\left( {- 2} \right) \middle| \begin{array}{rr}
-      1 &amp; 0 \\
-      2 &amp; {- 1}
-      \end{array} \middle| + 0 \middle| \begin{array}{rr}
-      1 &amp; 5 \\
-      2 &amp; 4
-      \end{array} \right|} \\
-       &amp; {= 0 + 2( - 1) + 0 = - 2}
-      \end{matrix}$$</math></paragraph>
-        </example>
-      <paragraph>Click here to practice expanding the determinant</paragraph>
-      <paragraph><strong>Theorem 1</strong> is helpful for computing the determinant of a matrix that contains many zeros. For example, if a row is mostly zeros, then the cofactor expansion across that row has many terms that are zero, and the cofactors in those terms need not be calculated. The same approach works with a column that contains many zeros.</paragraph>
-      <example number="3">
-          <heading level="2">Example 3</heading>
-              <paragraph>Compute <math display="inline">$\text{det}{\text{\,\, }A}$</math>, where</paragraph>
-              <paragraph><math display="block">$$A = \left\lbrack \begin{array}{rrrrr}
-      3 &amp; {- 7} &amp; 8 &amp; 9 &amp; {- 6} \\
-      0 &amp; 2 &amp; {- 5} &amp; 7 &amp; 3 \\
-      0 &amp; 0 &amp; 1 &amp; 5 &amp; 0 \\
-      0 &amp; 0 &amp; 2 &amp; 4 &amp; {- 1} \\
-      0 &amp; 0 &amp; 0 &amp; {- 2} &amp; 0
-      \end{array} \right\rbrack$$</math></paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>The cofactor expansion down the first column of <math display="inline">$A$</math> has all terms equal to zero except the first. Thus</paragraph>
-              <paragraph><math display="block">$$\text{det}\text{\,\, }A = 3\left\lbrack \begin{array}{rrrr}
-      2 &amp; {- 5} &amp; 7 &amp; 3 \\
-      0 &amp; 1 &amp; 5 &amp; 0 \\
-      0 &amp; 2 &amp; 4 &amp; {- 1} \\
-      0 &amp; 0 &amp; {- 2} &amp; 0
-      \end{array} \right\rbrack + 0\,C_{21} + 0\,C_{31} + 0\, C_{41} + 0\,C_{51}$$</math></paragraph>
-              <paragraph>Henceforth we will omit the zero terms in the cofactor expansion. Next, expand this <math display="inline">$4 \times 4$</math> determinant down the first column to take advantage of the zeros there. We have</paragraph>
-              <paragraph><math display="block">$$\text{det }\text{\,\,}A = 3\text{(}2\text{)}\text{\,\,}\left\lbrack \begin{array}{rrr}
-      1 &amp; 5 &amp; 0 \\
-      2 &amp; 4 &amp; {- 1} \\
-      0 &amp; {- 2} &amp; 0
-      \end{array} \right\rbrack$$</math></paragraph>
-              <paragraph>This <math display="inline">$3 \times 3$</math> determinant was computed in Example 1 and found to equal <math display="inline">$- 2$</math>. Hence <math display="inline">$\text{det\,}\text{\, }A = 3\text{(}2\text{)\,(} - 2\text{)} = - 12$</math>.</paragraph>
-        </example>
-      <paragraph>The matrix in <strong>Example ﻿3</strong> was nearly triangular. The method in that example is easily adapted to prove the following theorem.</paragraph>
-      <note type="procedure" title="Theorem 2">
-          <heading level="2">Theorem 2</heading>
-              <paragraph>If <math display="inline">$A$</math> is a triangular matrix, then <math display="inline">$\text{det\,\,\,}A$</math> is the product of the entries on the main diagonal of <math display="inline">$A$</math>.</paragraph>
-        </note>
-      <paragraph>The strategy in Example 3 of looking for zeros works extremely well when an entire row or column consists of zeros. In such a case, the cofactor expansion along such a row or column is a sum of zeros! So the determinant is zero. Unfortunately, most cofactor expansions are not so quickly evaluated.</paragraph>
-      <note type="warning" title="Reasonable Answers">
-          <heading level="2">Reasonable Answers</heading>
-              <paragraph>How big can a determinant be? Let <math display="inline">$A$</math> be an <math display="inline">$n \times n$</math> matrix. Notice that taking the determinant of <math display="inline">$A$</math> consists of adding and subtracting terms with <math display="inline">$n$</math> products each. If <math display="inline">$p$</math> is the product of the <math display="inline">$n$</math> largest elements in absolute value (the same number may be repeated if it occurs more than once as a matrix entry), then the determinant must be between <math display="inline">$- np$</math> and <math display="inline">$np$</math>. For example, consider <math display="inline">$A = \left\lbrack \begin{array}{rr}
-      6 &amp; 5 \\
-      {- 7} &amp; 9
-      \end{array} \right\rbrack$</math> and <math display="inline">$B = \left\lbrack \begin{array}{rr}
-      7 &amp; 6 \\
-      7 &amp; {- 9}
-      \end{array} \right\rbrack$</math>. The largest number in absolute value of each matrix is <math display="inline">$9$</math>, and the second largest number is <math display="inline">$7$</math>. In these two cases, <math display="inline">$p = 7(9) = 63$</math> and <math display="inline">$np = 126$</math>. The determinant of each of these matrices should be a number between <math display="inline">$- 126$</math> and <math display="inline">$126$</math>. Notice that <math display="inline">$\text{det }A = 6(9) - 5( - 7) = 54 + 35 = 89$</math>, <math display="inline">$\text{det }B = 7( - 9) - 6(7) = - 63 - 42 = - 105$</math>, illustrating that because the products are added and subtracted, any number in the range between <math display="inline">$- 126$</math> and <math display="inline">$126$</math> could turn out to be the determinant.</paragraph>
-              <paragraph>Next, consider <math display="inline">$C = \left\lbrack \begin{array}{rr}
-      7 &amp; 9 \\
-      7 &amp; 9
-      \end{array} \right\rbrack$</math> and <math display="inline">$D = \left\lbrack \begin{array}{rr}
-      {- 9} &amp; 9 \\
-      9 &amp; 9
-      \end{array} \right\rbrack$</math>. In matrices <math display="inline">$C$</math> and <math display="inline">$D$</math>, the number <math display="inline">$9$</math> appears twice and so should be selected twice. In this case, <math display="inline">$p = 9(9) = 81$</math> and <math display="inline">$np = 162$</math>, so the determinants of <math display="inline">$C$</math> and <math display="inline">$D$</math> should be numbers between <math display="inline">$- 162$</math> and <math display="inline">$162$</math>. Indeed, <math display="inline">$\text{det }C = (7)(9) - (7)(9) = 0$</math> and <math display="inline">$\text{det }D = ( - 9)(9) - (9)(9) = - 162$</math>. Notice that it is important to choose <math display="inline">$9$</math> twice as the two largest numbers in matrix <math display="inline">$D$</math> in order to get the correct bounds for the determinant of <math display="inline">$D$</math>.</paragraph>
-        </note>
-      <note type="caution" title="Numerical Note">
-          <heading level="2">Numerical Note</heading>
-              <paragraph>By today’s standards, a <math display="inline">$25 \times 25$</math> matrix is small. Yet it would be impossible to calculate a <math display="inline">$25 \times 25$</math> determinant by cofactor expansion. In general, a cofactor expansion requires more than <math display="inline">$n!$</math> multiplications, and <math display="inline">$25!$</math> is approximately <math display="inline">$\text{1.55} \times 10^{25}$</math>.</paragraph>
-              <paragraph>If a computer performs one trillion multiplications per second, it would have to run for almost <math display="inline">$\text{500,000}$</math> years to compute a <math display="inline">$25 \times 25$</math> determinant by this method. Fortunately, there are faster methods, as we’ll soon discover.</paragraph>
-        </note>
-      <paragraph>Exercises 19–38 explore important properties of determinants, mostly for the <math display="inline">$2 \times 2$</math> case. The results from Exercises 33–36 will be used in the next section to derive the analogous properties for <math display="inline">$n \times n$</math> matrices.</paragraph>
-      <note type="practice" title="Practice Problems">
-          <heading level="2">Practice Problems</heading>
-              <paragraph>Compute <math display="inline">$\left\lbrack \begin{array}{rrrr}
-      5 &amp; {- 7} &amp; 2 &amp; 2 \\
-      0 &amp; 3 &amp; 0 &amp; {- 4} \\
-      {- 5} &amp; {- 8} &amp; 0 &amp; 3 \\
-      0 &amp; 5 &amp; 0 &amp; {- 6}
-      \end{array} \right\rbrack.$</math></paragraph>
-        </note>
-    </content>
-    <exercises title="3.1 Exercises">
-      <heading level="1">3.1 Exercises</heading>
-      <exercise_group start="1">
-                  <instructions>Compute the determinants in Exercises 1–8 using a cofactor expansion across the first row. In Exercises 1–4, also compute the determinant by a cofactor expansion down the second column.</instructions>
-            <problem number="1">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      3 &amp; 0 &amp; 4 \\
-      2 &amp; 3 &amp; 2 \\
-      0 &amp; 5 &amp; {- 1}
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="2">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      0 &amp; 4 &amp; 1 \\
-      5 &amp; {- 3} &amp; 0 \\
-      2 &amp; 4 &amp; 1
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="3">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      2 &amp; {- 2} &amp; 3 \\
-      3 &amp; 1 &amp; 2 \\
-      1 &amp; 3 &amp; {- 1}
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="4">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      1 &amp; 2 &amp; 4 \\
-      3 &amp; 1 &amp; 1 \\
-      2 &amp; 4 &amp; 2
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="5">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      2 &amp; 3 &amp; {- 3} \\
-      4 &amp; 0 &amp; 3 \\
-      6 &amp; 1 &amp; 5
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="6">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      5 &amp; {- 2} &amp; 3 \\
-      0 &amp; 3 &amp; {- 3} \\
-      2 &amp; {- 4} &amp; 7
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="7">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      4 &amp; 3 &amp; 0 \\
-      6 &amp; 5 &amp; 2 \\
-      9 &amp; 7 &amp; 3
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="8">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      4 &amp; 1 &amp; 2 \\
-      4 &amp; 0 &amp; 3 \\
-      3 &amp; {- 2} &amp; 5
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="9">
-                  <instructions>Compute the determinants in Exercises 9–14 by cofactor expansions. At each step, choose a row or column that involves the least amount of computation.</instructions>
-            <problem number="9">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrrr}
-      4 &amp; 0 &amp; 0 &amp; 5 \\
-      1 &amp; 7 &amp; 2 &amp; {- 5} \\
-      3 &amp; 0 &amp; 0 &amp; 0 \\
-      8 &amp; 3 &amp; 1 &amp; 7
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="10">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrrr}
-      1 &amp; {- 2} &amp; 4 &amp; 2 \\
-      0 &amp; 0 &amp; 3 &amp; 0 \\
-      2 &amp; {- 4} &amp; {- 3} &amp; 5 \\
-      2 &amp; 0 &amp; 3 &amp; 5
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="11">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrrr}
-      3 &amp; 5 &amp; {- 6} &amp; 4 \\
-      0 &amp; {- 2} &amp; 3 &amp; {- 3} \\
-      0 &amp; 0 &amp; 1 &amp; 5 \\
-      0 &amp; 0 &amp; 0 &amp; 3
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="12">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrrr}
-      3 &amp; 0 &amp; 0 &amp; 0 \\
-      7 &amp; {- 2} &amp; 0 &amp; 0 \\
-      2 &amp; 6 &amp; 3 &amp; 0 \\
-      3 &amp; {- 8} &amp; 4 &amp; {- 3}
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="13">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrrrr}
-      4 &amp; 0 &amp; {- 7} &amp; 3 &amp; {- 5} \\
-      0 &amp; 0 &amp; 2 &amp; 0 &amp; 0 \\
-      7 &amp; 3 &amp; {- 6} &amp; 4 &amp; {- 8} \\
-      5 &amp; 0 &amp; 5 &amp; 2 &amp; {- 3} \\
-      0 &amp; 0 &amp; 9 &amp; {- 1} &amp; 2
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="14">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrrrr}
-      6 &amp; 0 &amp; 2 &amp; 4 &amp; 0 \\
-      9 &amp; 0 &amp; {- 4} &amp; 1 &amp; 0 \\
-      8 &amp; {- 5} &amp; 6 &amp; 7 &amp; 1 \\
-      2 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      4 &amp; 2 &amp; 3 &amp; 2 &amp; 0
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <figure>
-            <image alt="The figure illustrates the method to find the determinant of a 3 by 3 matrix using arrowheads."/>
-          </figure>
-      <exercise_group start="15">
-                  <instructions>Add the downward diagonal products and subtract the upward products. Use this method to compute the determinants in Exercises 15–18. <em><strong>Warning:</strong></em><em>This trick does not generalize in any reasonable way to</em><math display="inline">$4 \times 4$</math><em>or larger matrices.</em></instructions>
-            <problem number="15">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      1 &amp; 0 &amp; 4 \\
-      2 &amp; 3 &amp; 2 \\
-      0 &amp; 5 &amp; {- 2}
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="16">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      0 &amp; 3 &amp; 1 \\
-      4 &amp; {- 5} &amp; 0 \\
-      3 &amp; 4 &amp; 1
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="17">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      2 &amp; {- 3} &amp; 3 \\
-      3 &amp; 2 &amp; 2 \\
-      1 &amp; 3 &amp; {- 1}
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="18">
-              <statement>
-                          <paragraph><math display="inline">$\left| \begin{array}{rrr}
-      1 &amp; 3 &amp; 4 \\
-      2 &amp; 3 &amp; 2 \\
-      3 &amp; 3 &amp; 2
-      \end{array} \right|$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="19">
-                  <instructions>In Exercises 19–24, explore the effect of an elementary row operation on the determinant of a matrix. In each case, state the row operation and describe how it affects the determinant.</instructions>
-            <problem number="19">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      a &amp; b \\
-      c &amp; d
-      \end{array} \right\rbrack$</math>, <math display="inline">$\left\lbrack \begin{array}{rr}
-      c &amp; d \\
-      a &amp; b
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="20">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      a &amp; b \\
-      c &amp; d
-      \end{array} \right\rbrack$</math>, <math display="inline">$\begin{bmatrix}
-      a &amp; b \\
-      {kc} &amp; {kd}
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="21">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      3 &amp; 2 \\
-      5 &amp; 4
-      \end{array} \right\rbrack$</math>, <math display="inline">$\begin{bmatrix}
-      3 &amp; 2 \\
-      {5 + 3k} &amp; {4 + 2k}
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="22">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      a &amp; b \\
-      c &amp; d
-      \end{array} \right\rbrack$</math>, <math display="inline">$\begin{bmatrix}
-      {a + kc} &amp; {b + kd} \\
-      c &amp; d
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="23">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      a &amp; b &amp; c \\
-      3 &amp; 2 &amp; 1 \\
-      4 &amp; 5 &amp; 6
-      \end{array} \right\rbrack,$</math> <math display="inline">$\left\lbrack \begin{array}{rrr}
-      3 &amp; 2 &amp; 1 \\
-      a &amp; b &amp; c \\
-      4 &amp; 5 &amp; 6
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="24">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      1 &amp; 0 &amp; 1 \\
-      {- 3} &amp; 4 &amp; {- 4} \\
-      2 &amp; {- 3} &amp; 1
-      \end{array} \right\rbrack,$</math> <math display="inline">$\left\lbrack \begin{array}{rrr}
-      k &amp; 0 &amp; k \\
-      {- 3} &amp; 4 &amp; {- 4} \\
-      2 &amp; {- 3} &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="25">
-                  <instructions>Compute the determinants of the elementary matrices given in Exercises 25–30. (See Section 2.2, Examples 5 and <strong/><strong/>6.)</instructions>
-            <problem number="25">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      1 &amp; 0 &amp; 0 \\
-      0 &amp; 1 &amp; 0 \\
-      0 &amp; k &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="26">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      0 &amp; 1 &amp; 0 \\
-      1 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="27">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      1 &amp; 0 &amp; 0 \\
-      0 &amp; 1 &amp; 0 \\
-      k &amp; 0 &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="28">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      0 &amp; 0 &amp; 1 \\
-      0 &amp; 1 &amp; 0 \\
-      1 &amp; 0 &amp; 0
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="29">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      1 &amp; 0 &amp; 0 \\
-      0 &amp; k &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="30">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rrr}
-      k &amp; 0 &amp; 0 \\
-      0 &amp; 1 &amp; 0 \\
-      0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="31">
-                  <instructions>Use Exercises 25–30 to answer the questions in Exercises 31 and 32. Give reasons for your answers.</instructions>
-            <problem number="31">
-              <statement>
-                          <paragraph>What is the determinant of an elementary row replacement matrix?</paragraph>
-              </statement>
-            </problem>
-            <problem number="32">
-              <statement>
-                          <paragraph>What is the determinant of an elementary scaling matrix with <math display="inline">$k$</math> on the diagonal?</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="33">
-                  <instructions>In Exercises 33–36, verify that <math display="inline">$\text{det }EA = \text{(det\,\,}E\text{)\,(det\, }A\text{)}$</math>, where <math display="inline">$E$</math> is the elementary matrix shown and <math display="inline">$A = \left\lbrack \begin{array}{rr}
-      a &amp; b \\
-      c &amp; d
-      \end{array} \right\rbrack$</math>.</instructions>
-            <problem number="33">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      1 &amp; k \\
-      0 &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="34">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      1 &amp; 0 \\
-      k &amp; 1
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="35">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      0 &amp; 1 \\
-      1 &amp; 0
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="36">
-              <statement>
-                          <paragraph><math display="inline">$\left\lbrack \begin{array}{rr}
-      1 &amp; 0 \\
-      0 &amp; k
-      \end{array} \right\rbrack$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="37">
-            <problem number="37">
-              <statement>
-                          <paragraph>Let <math display="inline">$A = \left\lbrack \begin{array}{rr}
-      3 &amp; 1 \\
-      4 &amp; 2
-      \end{array} \right\rbrack$</math>. Write <math display="inline">$5A$</math>. Is <math display="inline">$\text{det\,\,}5A = 5\,\text{det\,\,}A$</math>?</paragraph>
-              </statement>
-            </problem>
-            <problem number="38">
-              <statement>
-                          <paragraph>Let <math display="inline">$A = \left\lbrack \begin{array}{rr}
-      a &amp; b \\
-      c &amp; d
-      \end{array} \right\rbrack$</math> and let <math display="inline">$k$</math> be a scalar. Find a formula that relates <math display="inline">$\text{det }kA$</math> to <math display="inline">$k$</math> and <math display="inline">$\text{det }A$</math>.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="39">
-                  <instructions>In Exercises 39 through 42, <math display="inline">$A$</math> is an <math display="inline">$n \times n$</math> matrix. Mark each statement True or False <strong>(T/F)</strong>. Justify each answer.</instructions>
-            <problem number="39">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> An <math display="inline">$n \times n$</math> determinant is defined by determinants of <math display="inline">$(n - 1) \times (n - 1)$</math> submatrices.</paragraph>
-              </statement>
-            </problem>
-            <problem number="40">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The <math display="inline">$(i\text{, }j)$</math><math display="inline">$\text{-cofactor}$</math> of a matrix <math display="inline">$A$</math> is the matrix <math display="inline">$A_{ij}$</math> obtained by deleting from <math display="inline">$A$</math> its <math display="inline">$i\text{th}$</math> row and <math display="inline">$j\text{th}$</math> column.</paragraph>
-              </statement>
-            </problem>
-            <problem number="41">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The cofactor expansion of <math display="inline">$\text{det }A$</math> down a column is equal to the cofactor expansion along a row.</paragraph>
-              </statement>
-            </problem>
-            <problem number="42">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The determinant of a triangular matrix is the sum of the entries on the main diagonal.</paragraph>
-              </statement>
-            </problem>
-            <problem number="43">
-              <statement>
-                          <paragraph>Let <math display="inline">$\textbf{u} = \left\lbrack \begin{array}{r}
-      3 \\
-      0
-      \end{array} \right\rbrack$</math> and <math display="inline">$\textbf{v} = \left\lbrack \begin{array}{r}
-      1 \\
-      2
-      \end{array} \right\rbrack$</math>. Compute the area of the parallelogram determined by <math display="inline">$\textbf{u}$</math>, <math display="inline">$\textbf{v}$</math>, <math display="inline">$\textbf{u} + \textbf{v}$</math>, and <math display="inline">$\textbf{0}$</math>, and compute the determinant of <math display="inline">$\left\lbrack \begin{array}{rr}
-      \textbf{u} &amp; \textbf{v}
-      \end{array} \right\rbrack$</math>. How do they compare? Replace the first entry of <math display="inline">$\textbf{v}$</math> by an arbitrary number <math display="inline">$x$</math>, and repeat the problem. Draw a picture and explain what you find.</paragraph>
-              </statement>
-            </problem>
-            <problem number="44">
-              <statement>
-                          <paragraph>Let <math display="inline">$\textbf{u} = \left\lbrack \begin{array}{r}
-      a \\
-      b
-      \end{array} \right\rbrack$</math> and <math display="inline">$\textbf{v} = \left\lbrack \begin{array}{r}
-      c \\
-      0
-      \end{array} \right\rbrack$</math>, where <math display="inline">$a$</math>, <math display="inline">$b$</math>, and <math display="inline">$c$</math> are positive (for simplicity). Compute the area of the parallelogram determined by <math display="inline">$\textbf{u}$</math>, <math display="inline">$\mathbf{v}$</math>, <math display="inline">$\textbf{u} + \textbf{v}$</math>, and <math display="inline">$\textbf{0}$</math>, and compute the determinants of the matrices <math display="inline">$\left\lbrack \begin{array}{rr}
-      \textbf{u} &amp; \textbf{v}
-      \end{array} \right\rbrack$</math> and <math display="inline">$\left\lbrack \begin{array}{rr}
-      \textbf{v} &amp; \textbf{u}
-      \end{array} \right\rbrack$</math>. Draw a picture and explain what you find.</paragraph>
-              </statement>
-            </problem>
-            <problem number="45">
-              <statement>
-                          <paragraph>Let <math display="inline">$A$</math> be a <math display="inline">$2 \times 2$</math> matrix all of whose entries are numbers that are greater than or equal to <math display="inline">$- 10$</math> and less than or equal to <math display="inline">$10$</math>. Decide if each of the following is a reasonable answer for <math display="inline">$\text{det }A$</math>.</paragraph>
-                <list ordered="true">
-                              <item>0</item>
-                              <item>202</item>
-                              <item>−110</item>
-                              <item>555</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="46">
-              <statement>
-                          <paragraph>Let <math display="inline">$A$</math> be a <math display="inline">$3 \times 3$</math> matrix all of whose entries are numbers that are greater than or equal to <math display="inline">$- 5$</math> and less than or equal to <math display="inline">$5$</math>. Decide if each of the following is a reasonable answer for <math display="inline">$\text{det }A$</math>.</paragraph>
-                <list ordered="true">
-                              <item>300</item>
-                              <item>−220</item>
-                              <item>1000</item>
-                              <item>10</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="47">
-              <statement>
-                          <paragraph><strong>[T]</strong> Construct a random <math display="inline">$4 \times 4$</math> matrix <math display="inline">$A$</math> with integer entries between <math display="inline">$- 9$</math> and <math display="inline">$9$</math>. How is <math display="inline">$\text{det }A^{- 1}$</math> related to <math display="inline">$\text{det }A$</math>? Experiment with random <math display="inline">$n \times n$</math> integer matrices for <math display="inline">$n = 4$</math>, <math display="inline">$5$</math>, and <math display="inline">$6$</math>, and make a conjecture. <em>Note:</em> In the unlikely event that you encounter a matrix with a zero determinant, reduce it to echelon form and discuss what you find.</paragraph>
-              </statement>
-            </problem>
-            <problem number="48">
-              <statement>
-                          <paragraph><strong>[T]</strong> Is it true that <math display="inline">$\text{det\,\,}AB = \text{(det\, }A\text{)\,(det\, }B\text{)}$</math>? To find out, generate random <math display="inline">$5 \times 5$</math> matrices <math display="inline">$A$</math> and <math display="inline">$B$</math>, and compute <math display="inline">$\text{det\,\,}AB - \text{(det\,\,\,}A\text{ det\,}B\text{)}$</math>. Repeat the calculations for three other pairs of <math display="inline">$n \times n$</math> matrices, for various values of <math display="inline">$n$</math>. Report your results.</paragraph>
-              </statement>
-            </problem>
-            <problem number="49">
-              <statement>
-                          <paragraph><strong>[T]</strong> Is it true that <math display="inline">$\text{det(}A + B\text{)} = \text{det\,\,}A + \text{det\,\,}B$</math>? Experiment with four pairs of random matrices as in Exercise 48, and make a conjecture.</paragraph>
-              </statement>
-            </problem>
-            <problem number="50">
-              <statement>
-                          <paragraph><strong>[T]</strong> Construct a random <math display="inline">$4 \times 4$</math> matrix <math display="inline">$A$</math> with integer entries between <math display="inline">$- 9$</math> and <math display="inline">$9$</math>, and compare <math display="inline">$\text{det }A$</math> with <math display="inline">$\text{det }A^{T}$</math>, <math display="inline">$\text{det}( - A)$</math>, <math display="inline">$\text{det}(2A)$</math>, and <math display="inline">$\text{det}(10A)$</math>. Repeat with two other random <math display="inline">$4 \times 4$</math> integer matrices, and make conjectures about how these determinants are related. (Refer to Exercise 44 in Section 2.1.) Then check your conjectures with several random <math display="inline">$5 \times 5$</math> and <math display="inline">$6 \times 6$</math> integer matrices. Modify your conjectures, if necessary, and report your results.</paragraph>
-              </statement>
-            </problem>
-            <problem number="51">
-              <statement>
-                          <paragraph><strong>[T]</strong> Recall from the introductory section that the larger the determinant of <math display="inline">$D^{T}D$</math>, where <math display="inline">$D$</math> is the design matrix, the better will be the accuracy of the calculated weights for small light objects. Which of the following matrices corresponds to the best design for four weighings of four objects? Describe which of the objects <math display="inline">$s_{1}$</math>, <math display="inline">$s_{2}$</math>, <math display="inline">$s_{3}$</math>, and <math display="inline">$s_{4}$</math> you would put in the left and right pans for each weighing corresponding to the best design matrix.</paragraph>
-                <list ordered="true">
-                              <item>D=[11111−111−1−11−1111−1]</item>
-                              <item>D=[−1−1−1−11−1−11−11−11−1−111]</item>
-                              <item>D=[11−1−11−1−11−111−11−11−1]</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="52">
-              <statement>
-                          <paragraph><strong>[T]</strong> Repeat Exercise 51 for the case of five weighings of four objects and the following design matrices.</paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-    </exercises>
-  </section>
-</section_file>
+<section>
+  <heading level="1">3.1 Introduction to Determinants</heading>
+  <paragraph>Recall from Section 2.2 that a $$2 \times 2$$ matrix is invertible if and only if its determinant is nonzero. To extend this useful fact to larger matrices, we need a definition for the determinant of an $$n \times n$$ matrix. We can discover the definition for the $$3 \times 3$$ case by watching what happens when an invertible $$3 \times 3$$ matrix $$A$$ is row reduced.</paragraph>
+  <paragraph>Consider $$A = \lbrack a_{ij}\rbrack$$ with $$a_{11} \neq 0$$ . If we multiply the second and third rows of $$A$$ by $$a_{11}$$ and then subtract appropriate multiples of the first row from the other two rows, we find that $$A$$ is row equivalent to the following two matrices:</paragraph>
+  <paragraph>(1)</paragraph>
+  <paragraph>$$\left[\right. a_{11} &amp; a_{12} &amp; a_{13} a_{11} a_{21} &amp; a_{11} a_{22} &amp; a_{11} a_{23} a_{11} a_{31} &amp; a_{11} a_{32} &amp; a_{11} a_{33} \left]\right. sim \left[\right. a_{11} &amp; a_{12} &amp; a_{13} 0 &amp; a_{11} a_{22} - a_{12} a_{21} &amp; a_{11} a_{23} - a_{13} a_{21} 0 &amp; a_{11} a_{32} - a_{12} a_{31} &amp; a_{11} a_{33} - a_{13} a_{31} \left]\right.$$</paragraph>
+  <paragraph>Since $$A$$ is invertible, either the $$(2,2) \text{-entry}$$ or the $$(3,2) \text{-entry}$$ on the right in (1) is nonzero. Let us suppose that the $$(2,2) \text{-entry}$$ is nonzero. (Otherwise, we can make a row interchange before proceeding.) Multiply row $$3$$ by $$a_{11}a_{22} - a_{12}a_{21}$$ , and then to the new row $$3$$ add $$- (a_{11}a_{32} - a_{12}a_{31})$$ times row $$2$$ . This will show that</paragraph>
+  <paragraph>$$A sim \left[\right. a_{11} &amp; a_{12} &amp; a_{13} 0 &amp; a_{11} a_{22} - a_{12} a_{21} &amp; a_{11} a_{23} - a_{13} a_{21} 0 &amp; 0 &amp; a_{11} \Delta \left]\right.$$</paragraph>
+  <paragraph>where</paragraph>
+  <paragraph>(2)</paragraph>
+  <paragraph>$$\Delta = a_{11} a_{22} a_{33} + a_{12} a_{23} a_{31} + a_{13} a_{21} a_{32} - a_{11} a_{23} a_{32} - a_{12} a_{21} a_{33} - a_{13} a_{22} a_{31}$$</paragraph>
+  <paragraph>Since $$A$$ is invertible, $$\text{Δ}$$ must be nonzero. The converse is true, too, as we will see in Section 3.2. We call $$\text{Δ}$$ in (2) the determinant of the $$3 \times 3$$ matrix $$A$$ .</paragraph>
+  <paragraph>Recall that the determinant of a $$2 \times 2$$ matrix, $$A = \lbrack a_{ij}\rbrack$$ , is the number</paragraph>
+  <paragraph>$$\det A = a_{11} a_{22} - a_{12} a_{21}$$</paragraph>
+  <paragraph>For a $$\text{1} \times \text{1}$$ matrix—say, $$A = \lbrack a_{11}\rbrack$$ —we define $$\det A = a_{11}$$ . To generalize the definition of the determinant to larger matrices, we’ll use $$2 \times 2$$ determinants to rewrite the $$3 \times 3$$ determinant $$\text{Δ}$$ described above. Since the terms in $$\text{Δ}$$ can be grouped as $$(a_{11}a_{22}a_{33} - a_{11}a_{23}a_{32}) - (a_{12}a_{21}a_{33} - a_{12}a_{23}a_{31}) + (a_{13}a_{21}a_{32} - a_{13}a_{22}a_{31})$$ ,</paragraph>
+  <paragraph>$$\Delta = a_{11 } \det \left[\right. a_{22} &amp; a_{23} a_{32} &amp; a_{33} \left]\right. - a_{12} \det \left[\right. a_{21} &amp; a_{23} a_{31} &amp; a_{33} \left]\right. + a_{13 } \det \left[\right. a_{21} &amp; a_{22} a_{31} &amp; a_{32} \left]\right.$$</paragraph>
+  <paragraph>For brevity, write</paragraph>
+  <paragraph>(3)</paragraph>
+  <paragraph>$$\Delta = a_{11} \det A_{11} - a_{12} \det A_{12} + a_{13} \det A_{13}$$</paragraph>
+  <paragraph>where $$A_{11}$$ , $$A_{12}$$ , and $$A_{13}$$ are obtained from $$A$$ by deleting the first row and one of the three columns. For any square matrix $$A$$ , let $$A_{ij}$$ denote the submatrix formed by deleting the $$i{th}$$ row and $$j{th}$$ column of $$A$$ . For instance, if</paragraph>
+  <paragraph>$$A = \left[\right. 1 &amp; - 2 &amp; 5 &amp; 0 2 &amp; 0 &amp; 4 &amp; - 1 3 &amp; 1 &amp; 0 &amp; 7 0 &amp; 4 &amp; - 2 &amp; 0 \left]\right.$$</paragraph>
+  <paragraph>then $$A_{32}$$ is obtained by crossing out row $$3$$ and column $$2$$ ,</paragraph>
+  <figure>
+    <image alt="The figure illustrates a 4 by 4 matrix."/>
+    <caption>Watch Video</caption>
+  </figure>
+  <paragraph>so that</paragraph>
+  <paragraph>$$A_{32} = \left[\right. 1 &amp; 5 &amp; 0 2 &amp; 4 &amp; - 1 0 &amp; - 2 &amp; 0 \left]\right.$$</paragraph>
+  <paragraph>Click here for interactive example</paragraph>
+  <paragraph>We can now give a recursive definition of a determinant. When $$n = 3$$ , $$\det A$$ is defined using determinants of the $$2 \times 2$$ submatrices $$A_{1j}$$ , as in (3) above. When $$n = 4$$ , $$\det A$$ uses determinants of the $$3 \times 3$$ submatrices $$A_{1j}$$ . In general, an $$n \times n$$ determinant is defined by determinants of $$(n - 1){} \times {}(n - 1)$$ submatrices.</paragraph>
+  <note type="definition" source_type="definition" title="Definition">
+    <heading level="2">Definition</heading>
+    <paragraph>For $$n \geq 2$$ , the determinant of an $$n \times n$$ matrix $$A = \lbrack a_{ij}\rbrack$$ is the sum of $$n$$ terms of the form $$\pm a_{1j}\det A_{1j},$$ with plus and minus signs alternating, where the entries $$a_{11},a_{12},\ldots,a_{1n}$$ are from the first row of $$A.$$ In symbols,</paragraph>
+    <paragraph>$$\det A &amp; = &amp; a_{11} \det A_{11} - a_{12} \det A_{12} + \hdots + \left(\left(\right. - 1 \left.\right)\right)^{1 + n} a_{1 n} \det A_{1 n} &amp; = &amp; \sum_{j = 1}^{n} \left(\left(\right. - 1 \left.\right)\right)^{1 + j} a_{1 j} \det A_{1 j}$$</paragraph>
+  </note>
+  <example number="1">
+    <heading level="2">Example 1</heading>
+    <paragraph>Compute the determinant of</paragraph>
+    <paragraph>$$A = \left[\right. 1 &amp; 5 &amp; 0 2 &amp; 4 &amp; - 1 0 &amp; - 2 &amp; 0 \left]\right.$$</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>Compute $$\text{det} A = a_{11} \text{det} A_{11} - a_{12} \text{det} A_{12} + a_{13} \text{det} A_{13}$$ :</paragraph>
+    <paragraph>$$\det A &amp; = &amp; 1 \det \left[\right. \begin{matrix}4 &amp; - 1 \\ - 2 &amp; 0\end{matrix} \left]\right. - 5 \det \left[\right. \begin{matrix}2 &amp; - 1 \\ 0 &amp; 0\end{matrix} \left]\right. + 0 \det \left[\right. \begin{matrix}2 &amp; 4 \\ 0 &amp; - 2\end{matrix} \left]\right. &amp; = &amp; 1 \left(\right. 0 - 2 \left.\right) - 5 \left(\right. 0 - 0 \left.\right) + 0 \left(\right. - 4 - 0 \left.\right) = - 2$$</paragraph>
+  </example>
+  <paragraph>Another common notation for the determinant of a matrix uses a pair of vertical lines in place of brackets. Thus the calculation in Example 1 can be written as</paragraph>
+  <paragraph>$$\det A = 1 \left|\right. 4 &amp; - 1 - 2 &amp; 0 \left|\right. - 5 \left|\right. 2 &amp; - 1 0 &amp; 0 \left|\right. + 0 \left|\right. 2 &amp; 4 0 &amp; - 2 \left|\right. = \hdots = - 2$$</paragraph>
+  <paragraph>To state the next theorem, it is convenient to write the definition of $$\det A$$ in a slightly different form. Given $$A = \lbrack a_{ij}\rbrack$$ , the $$\left( {i,j} \right)$$ -cofactor of $$A$$ is the number $$C_{ij}$$ given by</paragraph>
+  <paragraph>(4)</paragraph>
+  <paragraph>$$C_{i j} = \left(\right. - 1 \left.\right)^{i + j} \det A_{i j}$$</paragraph>
+  <paragraph>Then</paragraph>
+  <paragraph>$$\det A = a_{11} C_{11} + a_{12} C_{12} + \hdots + a_{1 n} C_{1 n}$$</paragraph>
+  <paragraph>This formula is called a cofactor expansion across the first row of $$A$$ . We omit the proof of the following fundamental theorem to avoid a lengthy digression.</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem 1">
+    <heading level="2">Theorem 1</heading>
+    <paragraph>The determinant of an $$n \times n$$ matrix $$A$$ can be computed by a cofactor expansion across any row or down any column. The expansion across the $$i \text{th}$$ row using the cofactors in (4) is</paragraph>
+    <paragraph>$$\det A = a_{i 1} C_{i 1} + a_{i 2} C_{i 2} + \hdots + a_{i n} C_{i n}$$</paragraph>
+    <paragraph>The cofactor expansion down the $$j{th}$$ column is</paragraph>
+    <paragraph>$$\det A = a_{1 j} C_{1 j} + a_{2 j} C_{2 j} + \hdots + a_{n j} C_{n j}$$</paragraph>
+  </note>
+  <paragraph>The plus or minus sign in the $$(i,j \text{)-cofactor}$$ depends on the position of $$a_{ij}$$ in the matrix, regardless of the sign of $$a_{ij}$$ itself. The factor $$( - 1)^{i + j}$$ determines the following checkerboard pattern of signs:</paragraph>
+  <paragraph>$$\left[\right. + &amp; - &amp; + &amp; \ldots - &amp; + &amp; - &amp; + &amp; - &amp; + &amp; \vdots &amp; &amp; &amp; \ddots \left]\right.$$</paragraph>
+  <example number="2">
+    <heading level="2">Example 2</heading>
+    <paragraph>Use a cofactor expansion across the third row to compute $$\det A$$ , where</paragraph>
+    <paragraph>$$A = \left[\right. 1 &amp; 5 &amp; 0 2 &amp; 4 &amp; - 1 0 &amp; - 2 &amp; 0 \left]\right.$$</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>Compute</paragraph>
+    <paragraph>$$\det A &amp; = a_{31} C_{31} + a_{32} C_{32} + a_{33} C_{33} &amp; = \left(- 1\right)^{3 + 1} a_{31 } \det A_{31} + \left(- 1\right)^{3 + 2} a_{32 } \det A_{32} + \left(- 1\right)^{3 + 3} a_{33 } \det A_{33} &amp; = 0 \left|\right. \begin{matrix}5 &amp; 0 \\ 4 &amp; - 1\end{matrix} \left|\right. - \left(- 2\right) \left|\right. \begin{matrix}1 &amp; 0 \\ 2 &amp; - 1\end{matrix} \left|\right. + 0 \left|\right. \begin{matrix}1 &amp; 5 \\ 2 &amp; 4\end{matrix} \left|\right. &amp; = 0 + 2 \left(\right. - 1 \left.\right) + 0 = - 2$$</paragraph>
+  </example>
+  <paragraph>Click here to practice expanding the determinant</paragraph>
+  <paragraph>Theorem 1 is helpful for computing the determinant of a matrix that contains many zeros. For example, if a row is mostly zeros, then the cofactor expansion across that row has many terms that are zero, and the cofactors in those terms need not be calculated. The same approach works with a column that contains many zeros.</paragraph>
+  <example number="3">
+    <heading level="2">Example 3</heading>
+    <paragraph>Compute $$\det {A}$$ , where</paragraph>
+    <paragraph>$$A = \left[\right. 3 &amp; - 7 &amp; 8 &amp; 9 &amp; - 6 0 &amp; 2 &amp; - 5 &amp; 7 &amp; 3 0 &amp; 0 &amp; 1 &amp; 5 &amp; 0 0 &amp; 0 &amp; 2 &amp; 4 &amp; - 1 0 &amp; 0 &amp; 0 &amp; - 2 &amp; 0 \left]\right.$$</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>The cofactor expansion down the first column of $$A$$ has all terms equal to zero except the first. Thus</paragraph>
+    <paragraph>$$\det A = 3 \left[\right. 2 &amp; - 5 &amp; 7 &amp; 3 0 &amp; 1 &amp; 5 &amp; 0 0 &amp; 2 &amp; 4 &amp; - 1 0 &amp; 0 &amp; - 2 &amp; 0 \left]\right. + 0 C_{21} + 0 C_{31} + 0 C_{41} + 0 C_{51}$$</paragraph>
+    <paragraph>Henceforth we will omit the zero terms in the cofactor expansion. Next, expand this $$4 \times 4$$ determinant down the first column to take advantage of the zeros there. We have</paragraph>
+    <paragraph>$$\det A = 3 ( 2 ) \left[\right. 1 &amp; 5 &amp; 0 2 &amp; 4 &amp; - 1 0 &amp; - 2 &amp; 0 \left]\right.$$</paragraph>
+    <paragraph>This $$3 \times 3$$ determinant was computed in Example 1 and found to equal $$- 2$$ . Hence $$\text{det} A = 3(2 \text{)(} - 2) = - 12$$ .</paragraph>
+  </example>
+  <paragraph>The matrix in Example ﻿3 was nearly triangular. The method in that example is easily adapted to prove the following theorem.</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem 2">
+    <heading level="2">Theorem 2</heading>
+    <paragraph>If $$A$$ is a triangular matrix, then $$\text{det} A$$ is the product of the entries on the main diagonal of $$A$$ .</paragraph>
+  </note>
+  <paragraph>The strategy in Example 3 of looking for zeros works extremely well when an entire row or column consists of zeros. In such a case, the cofactor expansion along such a row or column is a sum of zeros! So the determinant is zero. Unfortunately, most cofactor expansions are not so quickly evaluated.</paragraph>
+  <note type="warning" source_type="warning" title="Reasonable Answers">
+    <heading level="2">Reasonable Answers</heading>
+    <paragraph>How big can a determinant be? Let $$A$$ be an $$n \times n$$ matrix. Notice that taking the determinant of $$A$$ consists of adding and subtracting terms with $$n$$ products each. If $$p$$ is the product of the $$n$$ largest elements in absolute value (the same number may be repeated if it occurs more than once as a matrix entry), then the determinant must be between $$- np$$ and $$np$$ . For example, consider $$A = \left\lbrack \begin{array}{rr} 6 &amp; 5 \\ {- 7} &amp; 9 \end{array} \right\rbrack$$ and $$B = \left\lbrack \begin{array}{rr} 7 &amp; 6 \\ 7 &amp; {- 9} \end{array} \right\rbrack$$ . The largest number in absolute value of each matrix is $$9$$ , and the second largest number is $$7$$ . In these two cases, $$p = 7(9) = 63$$ and $$np = 126$$ . The determinant of each of these matrices should be a number between $$- 126$$ and $$126$$ . Notice that $$\det A = 6(9) - 5( - 7) = 54 + 35 = 89$$ , $$\det B = 7( - 9) - 6(7) = - 63 - 42 = - 105$$ , illustrating that because the products are added and subtracted, any number in the range between $$- 126$$ and $$126$$ could turn out to be the determinant.</paragraph>
+    <paragraph>Next, consider $$C = \left\lbrack \begin{array}{rr} 7 &amp; 9 \\ 7 &amp; 9 \end{array} \right\rbrack$$ and $$D = \left\lbrack \begin{array}{rr} {- 9} &amp; 9 \\ 9 &amp; 9 \end{array} \right\rbrack$$ . In matrices $$C$$ and $$D$$ , the number $$9$$ appears twice and so should be selected twice. In this case, $$p = 9(9) = 81$$ and $$np = 162$$ , so the determinants of $$C$$ and $$D$$ should be numbers between $$- 162$$ and $$162$$ . Indeed, $$\det C = (7)(9) - (7)(9) = 0$$ and $$\det D = ( - 9)(9) - (9)(9) = - 162$$ . Notice that it is important to choose $$9$$ twice as the two largest numbers in matrix $$D$$ in order to get the correct bounds for the determinant of $$D$$ .</paragraph>
+  </note>
+  <note type="caution" source_type="caution" title="Numerical Note">
+    <heading level="2">Numerical Note</heading>
+    <paragraph>By today’s standards, a $$25 \times 25$$ matrix is small. Yet it would be impossible to calculate a $$25 \times 25$$ determinant by cofactor expansion. In general, a cofactor expansion requires more than $$n!$$ multiplications, and $$25!$$ is approximately $$\text{1.55} \times 10^{25}$$ .</paragraph>
+    <paragraph>If a computer performs one trillion multiplications per second, it would have to run for almost $$\text{500,000}$$ years to compute a $$25 \times 25$$ determinant by this method. Fortunately, there are faster methods, as we’ll soon discover.</paragraph>
+  </note>
+  <paragraph>Exercises 19–38 explore important properties of determinants, mostly for the $$2 \times 2$$ case. The results from Exercises 33–36 will be used in the next section to derive the analogous properties for $$n \times n$$ matrices.</paragraph>
+  <note type="practice" source_type="practice" title="Practice Problems">
+    <heading level="2">Practice Problems</heading>
+    <paragraph>Compute $$\left[\right. 5 &amp; - 7 &amp; 2 &amp; 2 0 &amp; 3 &amp; 0 &amp; - 4 - 5 &amp; - 8 &amp; 0 &amp; 3 0 &amp; 5 &amp; 0 &amp; - 6 \left]\right. .$$</paragraph>
+  </note>
+</section>

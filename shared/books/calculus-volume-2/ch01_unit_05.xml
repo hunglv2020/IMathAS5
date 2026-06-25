@@ -1,635 +1,195 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="1.5" title="Substitution">
-  <learning_objectives>
-    <objective number="1.5.1">Use substitution to evaluate indefinite integrals.</objective>
-    <objective number="1.5.2">Use substitution to evaluate definite integrals.</objective>
-  </learning_objectives>
-  <p>The Fundamental Theorem of Calculus gave us a method to evaluate integrals without using Riemann sums. The drawback of this method, though, is that we must be able to find an antiderivative, and this is not always easy. In this section we examine a technique, called integration by substitution, to help us find antiderivatives. Specifically, this method helps us find antiderivatives when the integrand is the result of a chain-rule derivative.</p>
-  <p>At first, the approach to the substitution procedure may not appear very obvious. However, it is primarily a visual task—that is, the integrand shows you what to do; it is a matter of recognizing the form of the function. So, what are we supposed to see? We are looking for an integrand of the form $$f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. \text{(}x \right)dx.$$ For example, in the integral $$\left. \int{\left( {x^{2} - 3} \right)^{3}2xdx} \right.,$$ we have $$f(x) = x^{3},g(x) = x^{2} - 3,$$ and $$g\prime(x) = 2x.$$ Then,</p>
-  <equation>$$f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. \text{(}x \right) = \left( {x^{2} - 3} \right)^{3}\left( {2x} \right),$$</equation>
-  <p>and we see that our integrand is in the correct form.</p>
-  <p>The method is called substitution because we substitute part of the integrand with the variable u and part of the integrand with du. It is also referred to as change of variables because we are changing variables to obtain an expression that is easier to work with for applying the integration rules.</p>
-  <theorem number="1.7" title="Substitution with Indefinite Integrals">
-    <p>Let $$u = g(x),$$ where $$g^{\prime}\left. \text{(}x \right)$$ is continuous over an interval, let $$f(x)$$ be continuous over the corresponding range of g, and let $$F(x)$$ be an antiderivative of $$f(x).$$ Then,</p>
-    <equation>$$\begin{array}{cl} \left. \int{f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. \text{(}x \right)dx} \right. &amp; {= {\int f}(u)du} \\ &amp; {= F(u) + C} \\ &amp; {= F\left( {g(x)} \right) + C.} \end{array}$$</equation>
-  </theorem>
-  <subsection title="Proof">
-    <p>Let f, g, u, and F be as specified in the theorem. Then</p>
-    <equation>$$\begin{array}{cl} {\frac{d}{dx}F(g(x))} &amp; {= F^{\prime}\left. \text{(}{g(x)} \right)g^{\prime}\left. \text{(}x \right)} \\ &amp; {= f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. \text{(}x \right).} \end{array}$$</equation>
-    <p>Integrating both sides with respect to x, we see that</p>
-    <equation>$${\int{f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. \text{(}x \right)dx}} = F\left( {g(x)} \right) + C.$$</equation>
-    <p>If we now substitute $$u = g(x),$$ and $$du = g'(x)dx,$$ we get</p>
-    <equation>$$\begin{array}{cl} {\int{f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. \text{(}x \right)dx}} &amp; {= {\int f}(u)du} \\ &amp; {= F(u) + C} \\ &amp; {= F\left( {g(x)} \right) + C.} \end{array}$$</equation>
-    <p>□</p>
-    <p>Returning to the problem we looked at originally, we let $$u = x^{2} - 3$$ and then $$du = 2xdx.$$ Rewrite the integral in terms of u:</p>
-    <equation>$$\left. \int{\underset{u}{\underbrace{\left( x^{2} - 3 \right)}}}^{3} \right.\underset{du}{\underbrace{(2xdx)}} = \int u^{3}du.$$</equation>
-    <p>Using the power rule for integrals, we have</p>
-    <equation>$$\left. \int{u^{3}du = \frac{u^{4}}{4} + C} \right..$$</equation>
-    <p>Substitute the original expression for x back into the solution:</p>
-    <equation>$$\frac{u^{4}}{4} + C = \frac{\left( {x^{2} - 3} \right)^{4}}{4} + C.$$</equation>
-    <p>We can generalize the procedure in the following Problem-Solving Strategy.</p>
-    <note type="Problem-Solving Strategy">
-      <list type="ol" style="1">
-        <item>Look carefully at the integrand and select an expression $$g(x)$$ within the integrand to set equal to u. Let’s select $$g(x)$$ such that $$g^{\prime}\left. \text{(}x \right)$$ is also part of the integrand.</item>
-        <item>Substitute $$u = g(x)$$ and $$du = g^{\prime}\left. \text{(}x \right)dx$$ into the integral.</item>
-        <item>We should now be able to evaluate the integral with respect to u. If the integral can’t be evaluated we need to go back and select a different expression to use as u.</item>
-        <item>Evaluate the integral in terms of u.</item>
-        <item>Write the result in terms of x and the expression $$g(x).$$</item>
-      </list>
-    </note>
-    <example number="1.30">
-      <problem>
-        <title>Using Substitution to Find an Antiderivative</title>
-        <p>Use substitution to find the antiderivative  $$\left. \int{6x\left( {3x^{2} + 4} \right)^{4}dx} \right..$$</p>
-      </problem>
-      <solution>
-        <p>The first step is to choose an expression for u. We choose $$u = 3x^{2} + 4$$ because then $$du = 6xdx,$$ and we already have du in the integrand. Write the integral in terms of u:</p>
-        <equation>$$\left. \int{6x\left( {3x^{2} + 4} \right)^{4}dx} \right. = {\int{u^{4}du}}.$$</equation>
-        <p>Remember that du is the derivative of the expression chosen for u, regardless of what is inside the integrand. Now we can evaluate the integral with respect to u:</p>
-        <equation>$$\begin{array}{ll} \left. \int{u^{4}du} \right. &amp; {= \frac{u^{5}}{5} + C} \\ &amp; \\ &amp; \\ &amp; {= \frac{\left( {3x^{2} + 4} \right)^{5}}{5} + C.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="1.25">
-      <problem>
-        <p>Use substitution to find the antiderivative  $$\left. \int{3x^{2}\left( {x^{3} - 3} \right)^{2}dx} \right..$$</p>
-      </problem>
-      <solution>
-        <p>$$\left. \int{3x^{2}\left( {x^{3} - 3} \right)^{2}dx} \right. = \frac{1}{3}\left( {x^{3} - 3} \right)^{3} + C$$</p>
-      </solution>
-    </checkpoint>
-    <p>Sometimes we need to adjust the constants in our integral if they don’t match up exactly with the expressions we are substituting.</p>
-    <example number="1.31">
-      <problem>
-        <title>Using Substitution with Alteration</title>
-        <p>Use substitution to find  $$\left. \int{z\sqrt{z^{2} - 5}dz} \right..$$</p>
-      </problem>
-      <solution>
-        <p>Rewrite the integral as $$\left. \int{z\left( {z^{2} - 5} \right)^{1\text{/}2}dz} \right..$$ Let $$u = z^{2} - 5$$ and $$du = 2z\ dz.$$ Now we have a problem because $$du = 2z\ dz$$ and the original expression has only $$z\ dz.$$ We have to alter our expression for du or the integral in u will be twice as large as it should be. If we multiply both sides of the du equation by $$\frac{1}{2}.$$ we can solve this problem. Thus,</p>
-        <equation>$$\begin{aligned} &amp; \\ u &amp; {= z^{2} - 5} \\ {du} &amp; {= 2z\ dz} \\ {\frac{1}{2}du} &amp; {= \frac{1}{2}\left( {2z} \right)dz = z\ dz.} \end{aligned}$$</equation>
-        <p>Write the integral in terms of u, but pull the $$\frac{1}{2}$$ outside the integration symbol:</p>
-        <equation>$$\left. \int{z\left( {z^{2} - 5} \right)^{1\text{/}2}dz =} \right.\frac{1}{2}{\int{u^{1\text{/}2}du.}}$$</equation>
-        <p>Integrate the expression in u:</p>
-        <equation>$$\begin{array}{cl} &amp; \\ {\frac{1}{2}{\int{u^{1\text{/}2}du}}} &amp; {= \left( \frac{1}{2} \right)\frac{u^{3\text{/}2}}{\frac{3}{2}} + C} \\ &amp; \\ &amp; {= \left( \frac{1}{2} \right)\left( \frac{2}{3} \right)u^{3\text{/}2} + C} \\ &amp; {= \frac{1}{3}u^{3\text{/}2} + C} \\ &amp; {= \frac{1}{3}\left( {z^{2} - 5} \right)^{3\text{/}2} + C.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="1.26">
-      <problem>
-        <p>Use substitution to find  $$\left. \int{x^{2}\left( {x^{3} + 5} \right)^{9}dx} \right..$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{\left( {x^{3} + 5} \right)^{10}}{30} + C$$</p>
-      </solution>
-    </checkpoint>
-    <example number="1.32">
-      <problem>
-        <title>Using Substitution with Integrals of Trigonometric Functions</title>
-        <p>Use substitution to evaluate the integral $$\left. \int{\frac{\text{sin}\mspace{2mu} t}{\text{cos}^{3}t}dt} \right..$$</p>
-      </problem>
-      <solution>
-        <p>We know the derivative of $$\text{cos}\mspace{2mu} t$$ is $$\text{−}\text{sin}\mspace{2mu} t,$$ so we set $$u = \text{cos}\mspace{2mu} t.$$ Then $$du = \text{−}\text{sin}\mspace{2mu} tdt.$$ Substituting into the integral, we have</p>
-        <equation>$$\left. \int{\frac{\text{sin}\mspace{2mu} t}{\text{cos}^{3}t}dt = \text{−}\left. \int\frac{du}{u^{3}} \right.} \right..$$</equation>
-        <p>Evaluating the integral, we get</p>
-        <equation>$$\begin{array}{cl} &amp; \\ &amp; \\ {\text{−}\left. \int\frac{du}{u^{3}} \right.} &amp; {= \text{−}{\int{u^{-3}du}}} \\ &amp; {= \text{−}\left( {- \frac{1}{2}} \right)u^{-2} + C.} \end{array}$$</equation>
-        <p>Putting the answer back in terms of t, we get</p>
-        <equation>$$\begin{array}{cl} \left. \int{\frac{\text{sin}\mspace{2mu} t}{\text{cos}^{3}t}dt} \right. &amp; {= \frac{1}{2u^{2}} + C} \\ &amp; \\ &amp; {= \frac{1}{2\text{cos}^{2}t} + C.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="1.27">
-      <problem>
-        <p>Use substitution to evaluate the integral $$\left. \int{\frac{\text{cos}\mspace{2mu} t}{\text{sin}^{2}t}dt.} \right.$$</p>
-      </problem>
-      <solution>
-        <p>$$- \frac{1}{\text{sin}\mspace{2mu} t} + C$$</p>
-      </solution>
-    </checkpoint>
-    <p>Sometimes we need to manipulate an integral in ways that are more complicated than just multiplying or dividing by a constant. We need to eliminate all the expressions within the integrand that are in terms of the original variable. When we are done, u should be the only variable in the integrand. In some cases, this means solving for the original variable in terms of u. This technique should become clear in the next example.</p>
-    <example number="1.33">
-      <problem>
-        <title>Finding an Antiderivative Usingu-Substitution</title>
-        <p>Use substitution to find the antiderivative  $$\left. \int{\frac{x}{\sqrt{x - 1}}dx.} \right.$$</p>
-      </problem>
-      <solution>
-        <p>If we let $$u = x - 1,$$ then $$du = dx.$$ But this does not account for the x in the numerator of the integrand. We need to express x in terms of u. If $$u = x - 1,$$ then $$x = u + 1.$$ Now we can rewrite the integral in terms of u:</p>
-        <equation>$$\begin{array}{ll} \left. \int{\frac{x}{\sqrt{x - 1}}dx} \right. &amp; {= \left. \int{\frac{u + 1}{\sqrt{u}}du} \right.} \\ &amp; \\ &amp; {= \left. \int{\sqrt{u} + \frac{1}{\sqrt{u}}du} \right.} \\ &amp; {= \left. \int{\left( {u^{1\text{/}2} + u^{-1\text{/}2}} \right)du} \right..} \end{array}$$</equation>
-        <p>Then we integrate in the usual way, replace u with the original expression, and factor and simplify the result. Thus,</p>
-        <equation>$$\begin{array}{cl} \left. \int{\left( {u^{1\text{/}2} + u^{-1\text{/}2}} \right)du} \right. &amp; {= \frac{2}{3}u^{3\text{/}2} + 2u^{1\text{/}2} + C} \\ &amp; \\ &amp; {= \frac{2}{3}\left( {x - 1} \right)^{3\text{/}2} + 2\left( {x - 1} \right)^{1\text{/}2} + C} \\ &amp; {= \left( {x - 1} \right)^{1\text{/}2}\left\lbrack {\frac{2}{3}\left( {x - 1} \right) + 2} \right\rbrack + C} \\ &amp; {= \left( {x - 1} \right)^{1\text{/}2}{\left( {\frac{2}{3}x - \frac{2}{3} + \frac{6}{3}} \right) + C}} \\ &amp; {= \left( {x - 1} \right)^{1\text{/}2}{\left( {\frac{2}{3}x + \frac{4}{3}} \right) + C}} \\ &amp; {= \frac{2}{3}\left( {x - 1} \right)^{1\text{/}2}\left( {x + 2} \right) + C.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="1.28">
-      <problem>
-        <p>Use substitution to evaluate the indefinite integral $$\left. \int{\text{cos}^{3}t\mspace{2mu}\text{sin}\mspace{2mu} t\ dt} \right..$$</p>
-      </problem>
-      <solution>
-        <p>$$- \frac{\text{cos}^{4}t}{4} + C$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Substitution for Definite Integrals">
-    <p>Substitution can be used with definite integrals, too. However, using substitution to evaluate a definite integral requires a change to the limits of integration. If we change variables in the integrand, the limits of integration change as well.</p>
-    <theorem number="1.8" title="Substitution with Definite Integrals">
-      <p>Let $$u = g(x)$$ and let $$g^{\prime}$$ be continuous over an interval $$\left\lbrack {a,b} \right\rbrack,$$ and let f be continuous over the range of $$u = g(x).$$ Then,</p>
-      <equation>$${\int_{a}^{b}{f\left( {g(x)} \right)g^{\prime}\left. \text{(}x \right)dx = {\int_{g{(a)}}^{g{(b)}}{f(u)du}}}}.$$</equation>
-    </theorem>
-    <p>Although we will not formally prove this theorem, we justify it with some calculations here. From the substitution rule for indefinite integrals, if $$F(x)$$ is an antiderivative of $$f(x),$$ we have</p>
-    <equation>$$\int{f\left( {g(x)} \right)g^{\prime}\text{(}x)dx = F\left( {g(x)} \right) + C.}$$</equation>
-    <p>Then</p>
-    <equation>$$\begin{array}{cl} {\int_{a}^{b}{f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. \text{(}x \right)dx}} &amp; {= \left. {F\left( {g(x)} \right)} \right|_{x = a}^{x = b}} \\ &amp; {= F\left( {g(b)} \right) - F\left( {g(a)} \right)} \\ &amp; {= \left. {F(u)} \right|_{u = g(a)}^{u = g(b)}} \\ &amp; \\ &amp; \\ &amp; {= {\int_{g(a)}^{g(b)}f}(u)du,} \end{array}$$</equation>
-    <p>and we have the desired result.</p>
-    <example number="1.34">
-      <problem>
-        <title>Using Substitution to Evaluate a Definite Integral</title>
-        <p>Use substitution to evaluate $${\int_{0}^{1}{x^{2}\left( {1 + 2x^{3}} \right)^{5}}}dx.$$</p>
-      </problem>
-      <solution>
-        <p>Let $$u = 1 + 2x^{3},$$ so $$du = 6x^{2}dx.$$ Since the original function includes one factor of x2 and $$du = 6x^{2}dx,$$ multiply both sides of the du equation by $$1\text{/}6.$$ Then,</p>
-        <equation>$$\begin{array}{lll} {du} &amp; = &amp; {6x^{2}dx} \\ {\frac{1}{6}du} &amp; = &amp; {x^{2}dx.} \end{array}$$</equation>
-        <p>To adjust the limits of integration, note that when $$x = 0,u = 1 + 2(0) = 1,$$ and when $$x = 1,u = 1 + 2(1) = 3.$$ Then</p>
-        <equation>$${\int_{0}^{1}{x^{2}\left( {1 + 2x^{3}} \right)^{5}dx = \frac{1}{6}{\int_{1}^{3}{u^{5}du}}}}.$$</equation>
-        <p>Evaluating this expression, we get</p>
-        <equation>$$\begin{array}{cl} &amp; \\ &amp; \\ {\frac{1}{6}{\int_{1}^{3}{u^{5}du}}} &amp; {= \left( \frac{1}{6} \right)\left( \frac{u^{6}}{6} \right)|_{1}^{3}} \\ &amp; {= \frac{1}{36}\left\lbrack {(3)^{6} - (1)^{6}} \right\rbrack} \\ &amp; {= \frac{182}{9}.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="1.29">
-      <problem>
-        <p>Use substitution to evaluate the definite integral $${\int_{-1}^{0}{y\left( {2y^{2} - 3} \right)^{5}dy}}.$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{91}{3}$$</p>
-      </solution>
-    </checkpoint>
-    <example number="1.35">
-      <problem>
-        <title>Using Substitution with an Exponential Function</title>
-        <p>Use substitution to evaluate $${\int_{0}^{1}{xe^{4x^{2} + 3}dx}}.$$</p>
-      </problem>
-      <solution>
-        <p>Let $$u = 4x^{2} + 3.$$ Then, $$du = 8xdx.$$ To adjust the limits of integration, we note that when $$x = 0,u = 3,$$ and when $$x = 1,u = 7.$$ So our substitution gives</p>
-        <equation>$$\begin{array}{cl} {\int_{0}^{1}{xe^{4x^{2} + 3}dx}} &amp; {= \frac{1}{8}{\int_{3}^{7}{e^{u}du}}} \\ &amp; \\ &amp; {= \frac{1}{8}e^{u}|_{3}^{7}} \\ &amp; {= \frac{e^{7} - e^{3}}{8}} \\ &amp; {\approx 134.568.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="1.30">
-      <problem>
-        <p>Use substitution to evaluate $${\int_{0}^{1}{x^{2}\text{cos}\left( {\frac{\pi}{2}x^{3}} \right)dx}}.$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{2}{3\pi} \approx 0.2122$$</p>
-      </solution>
-    </checkpoint>
-    <p>Substitution may be only one of the techniques needed to evaluate a definite integral. All of the properties and rules of integration apply independently, and trigonometric functions may need to be rewritten using a trigonometric identity before we can apply substitution. Also, we have the option of replacing the original expression for u after we find the antiderivative, which means that we do not have to change the limits of integration. These two approaches are shown in Example 1.36.</p>
-    <example number="1.36">
-      <problem>
-        <title>Using Substitution to Evaluate a Trigonometric Integral</title>
-        <p>Use substitution to evaluate $${\int_{0}^{\pi\text{/}2}{\text{cos}^{2}\theta\ d\theta}}.$$</p>
-      </problem>
-      <solution>
-        <p>Let us first use a trigonometric identity to rewrite the integral. The trig identity $$\text{cos}^{2}\theta = \frac{1 + \text{cos}\mspace{2mu} 2\theta}{2}$$ allows us to rewrite the integral as</p>
-        <equation>$${\int_{0}^{\pi\text{/}2}{\text{cos}^{2}\theta d\theta}} = {\int_{0}^{\pi\text{/}2}{\frac{1 + \text{cos}\mspace{2mu} 2\theta}{2}d\theta.}}$$</equation>
-        <p>Then,</p>
-        <equation>$$\begin{array}{cl} {{\int_{0}^{\pi\text{/}2}\left( \frac{1 + \text{cos}\mspace{2mu} 2\theta}{2} \right)}d\theta} &amp; {= {\int_{0}^{\pi\text{/}2}{\left( {\frac{1}{2} + \frac{1}{2}\text{cos}\mspace{2mu} 2\theta} \right)d\theta}}} \\ &amp; \\ &amp; \\ &amp; {= \frac{1}{2}{\int_{0}^{\pi\text{/}2}{d\theta}} + \frac{1}{2}{\int_{0}^{\pi\text{/}2}{\text{cos}\mspace{2mu} 2\theta d\theta.}}} \end{array}$$</equation>
-        <p>We can evaluate the first integral as it is, but we need to make a substitution to evaluate the second integral. Let $$u = 2\theta.$$ Then, $$du = 2d\theta,$$ or $$\frac{1}{2}du = d\theta.$$ Also, when $$\theta = 0,u = 0,$$ and when $$\theta = \pi\text{/}2,u = \pi.$$ Expressing the second integral in terms of u, we have</p>
-        <equation>$$\begin{array}{cl} &amp; \\ &amp; \\ {\frac{1}{2}{\int_{0}^{\pi\text{/}2}{d\theta + \frac{1}{2}{\int_{0}^{\pi\text{/}2}{\text{cos}\mspace{2mu} 2\theta d\theta}}}}} &amp; {= \frac{1}{2}{\int_{0}^{\pi\text{/}2}{d\theta + \frac{1}{2}\left( \frac{1}{2} \right){\int_{0}^{\pi}{\text{cos}\mspace{2mu} udu}}}}} \\ &amp; {= \frac{\theta}{2}{|_{\theta = 0}^{\theta = \pi\text{/}2} + \frac{1}{4}\text{sin}\mspace{2mu} u|_{u = 0}^{u = \pi}}} \\ &amp; {= \left( {\frac{\pi}{4} - 0} \right) + \left( {0 - 0} \right) = \frac{\pi}{4}.} \end{array}$$</equation>
-      </solution>
-    </example>
-  </subsection>
-  <exercises title="Section 1.5 Exercises">
-    <exercise number="254" has_solution="false">
-      <problem>
-        <p>Why is u-substitution referred to as change of variable?</p>
-      </problem>
-    </exercise>
-    <exercise number="255" has_solution="true">
-      <problem>
-        <p>2. If $$f = g \circ h,$$ when reversing the chain rule, $$\frac{d}{dx}(g \circ h)(x) = g^{\prime}\left. \text{(}{h(x)} \right)h^{\prime}\text{(}x),$$ should you take $$u = g(x)$$ or $$u = h(x)?$$</p>
-      </problem>
-      <solution>
-        <p>$$u = h(x)$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, verify each identity using differentiation. Then, using the indicated u-substitution, identify f such that the integral takes the form $${\int{f(u)du}}.$$</instruction>
-    <exercise number="256" has_solution="false">
-      <problem>
-        <p>$$\left. \int{x\sqrt{x + 1}} \right.dx = \frac{2}{15}\left( {x + 1} \right)^{3\text{/}2}\left( {3x - 2} \right) + C;u = x + 1$$</p>
-      </problem>
-    </exercise>
-    <exercise number="257" has_solution="true">
-      <problem>
-        <p>For $$x &gt; 1:{\left. \int{\frac{x^{2}}{\sqrt{x - 1}}dx} \right. = \frac{2}{15}\sqrt{x - 1}\left( {3x^{2} + 4x + 8} \right) + C;u = x - 1}$$</p>
-      </problem>
-      <solution>
-        <p>$$f(u) = \frac{\left( {u + 1} \right)^{2}}{\sqrt{u}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="258" has_solution="false">
-      <problem>
-        <p>$${\int{x\sqrt{4x^{2} + 9}dx = \frac{1}{12}\left( {4x^{2} + 9} \right)^{3\text{/}2} + C}};u = 4x^{2} + 9$$</p>
-      </problem>
-    </exercise>
-    <exercise number="259" has_solution="true">
-      <problem>
-        <p>$$\left. \int{\frac{x}{\sqrt{4x^{2} + 9}}dx = \frac{1}{4}\sqrt{4x^{2} + 9} + C} \right.;u = 4x^{2} + 9$$</p>
-      </problem>
-      <solution>
-        <p>$$du = 8xdx;f(u) = \frac{1}{8\sqrt{u}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="260" has_solution="false">
-      <problem>
-        <p>$$\left. \int{\frac{x}{{(4x^{2} + 9)}^{2}}dx = - \frac{1}{8(4x^{2} + 9)}} \right.;u = 4x^{2} + 9$$</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, find the antiderivative using the indicated substitution.</instruction>
-    <exercise number="261" has_solution="true">
-      <problem>
-        <p>$${\int{\left( {x + 1} \right)^{4}dx}};u = x + 1$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{5}\left( {x + 1} \right)^{5} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="262" has_solution="false">
-      <problem>
-        <p>$${\int{\left( {x - 1} \right)^{5}dx}};u = x - 1$$</p>
-      </problem>
-    </exercise>
-    <exercise number="263" has_solution="true">
-      <problem>
-        <p>$${\int{\left( {2x - 3} \right)^{-7}dx}};u = 2x - 3$$</p>
-      </problem>
-      <solution>
-        <p>$$- \frac{1}{12\left( {2x - 3} \right)^{6}} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="264" has_solution="false">
-      <problem>
-        <p>$${\int{\left( {3x - 2} \right)^{-11}dx}};u = 3x - 2$$</p>
-      </problem>
-    </exercise>
-    <exercise number="265" has_solution="true">
-      <problem>
-        <p>$$\left. \int{\frac{x}{\sqrt{x^{2} + 1}}dx} \right.;u = x^{2} + 1$$</p>
-      </problem>
-      <solution>
-        <p>$$\sqrt{x^{2} + 1} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="266" has_solution="false">
-      <problem>
-        <p>$$\left. \int{\frac{x}{\sqrt{1 - x^{2}}}dx} \right.;u = 1 - x^{2}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="267" has_solution="true">
-      <problem>
-        <p>$${\int{\left( {x - 1} \right)\left( {x^{2} - 2x} \right)^{3}dx}};u = x^{2} - 2x$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{8}\left( {x^{2} - 2x} \right)^{4} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="268" has_solution="false">
-      <problem>
-        <p>$${\int{\left( {x^{2} - 2x} \right)\left( {x^{3} - 3x^{2}} \right)^{2}dx}};u = x^{3}–3x^{2}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="269" has_solution="true">
-      <problem>
-        <p>$${\int{\text{cos}^{3}\theta d\theta}};u = \text{sin}\mspace{2mu}\theta$$ $$\text{(}Hint\text{:}\ \text{cos}^{2}\theta = 1 - \text{sin}^{2}\theta\text{)}$$</p>
-      </problem>
-      <solution>
-        <p>$$\text{sin}\mspace{2mu}\theta - \frac{\text{sin}^{3}\theta}{3} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="270" has_solution="false">
-      <problem>
-        <p>$${\int{\text{sin}^{3}\theta d\theta}};u = \text{cos}\mspace{2mu}\theta$$ $$\text{(}Hint\text{:}\ \text{sin}^{2}\theta = 1 - \text{cos}^{2}\theta\text{)}$$</p>
-      </problem>
-    </exercise>
-    <instruction>In the following exercises, use a suitable change of variables to determine the indefinite integral.</instruction>
-    <exercise number="271" has_solution="true">
-      <problem>
-        <p>$$\int{x\left( {1 - x} \right)^{99}dx}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{\left( {1 - x} \right)^{101}}{101} - \frac{\left( {1 - x} \right)^{100}}{100} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="272" has_solution="false">
-      <problem>
-        <p>$$\int{t\left( {1 - t^{2}} \right)^{10}dt}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="273" has_solution="true">
-      <problem>
-        <p>$$\int{\left( {11x - 7} \right)^{-3}dx}$$</p>
-      </problem>
-      <solution>
-        <p>$$\int(11x - 7)^{-2}{dx} = {- \frac{1}{22\left( {11x - 7} \right)^{2}} + C}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="274" has_solution="false">
-      <problem>
-        <p>$$\int{\left( {7x - 11} \right)^{4}dx}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="275" has_solution="true">
-      <problem>
-        <p>$$\int{\text{cos}^{3}\theta\mspace{2mu}\text{sin}\mspace{2mu}\theta d\theta}$$</p>
-      </problem>
-      <solution>
-        <p>$$- \frac{\text{cos}^{4}\theta}{4} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="276" has_solution="false">
-      <problem>
-        <p>$$\int{\text{sin}^{7}\theta\mspace{2mu}\text{cos}\mspace{2mu}\theta d\theta}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="277" has_solution="true">
-      <problem>
-        <p>$$\int{\text{cos}^{2}\left( {\pi t} \right)\text{sin}\left( {\pi t} \right)dt}$$</p>
-      </problem>
-      <solution>
-        <p>$$- \frac{\text{cos}^{3}\left( {\pi t} \right)}{3\pi} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="278" has_solution="false">
-      <problem>
-        <p>$$\int{\text{sin}^{2}x\text{cos}^{3}xdx}$$ $$\text{(}Hint\text{:}\ \text{sin}^{2}x + \text{cos}^{2}x = 1\text{)}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="279" has_solution="true">
-      <problem>
-        <p>$$\int{t\mspace{2mu}\text{sin}\left( t^{2} \right)\text{cos}\left( t^{2} \right)dt}$$</p>
-      </problem>
-      <solution>
-        <p>$$- \frac{1}{4}\mspace{1mu}\text{cos}^{2}\left( t^{2} \right) + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="280" has_solution="false">
-      <problem>
-        <p>$${\int t^{2}}\text{cos}^{2}\left( t^{3} \right)\text{sin}\left( t^{3} \right)dt$$</p>
-      </problem>
-    </exercise>
-    <exercise number="281" has_solution="true">
-      <problem>
-        <p>$$\left. \int{\frac{x^{2}}{\left( {x^{3} - 3} \right)^{2}}dx} \right.$$</p>
-      </problem>
-      <solution>
-        <p>$$- \frac{1}{3(x^{3} - 3)} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="282" has_solution="false">
-      <problem>
-        <p>$$\left. \int{\frac{x^{3}}{\sqrt{1 - x^{2}}}dx} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="283" has_solution="true">
-      <problem>
-        <p>$$\left. \int{\frac{y^{5}}{\left( {1 - y^{3}} \right)^{3\text{/}2}}dy} \right.$$</p>
-      </problem>
-      <solution>
-        <p>$${- \frac{2\left( {y^{3} - 2} \right)}{3\sqrt{1 - y^{3}}}} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="284" has_solution="false">
-      <problem>
-        <p>$${\int{\text{cos}\mspace{2mu}\theta\left( {1 - \text{cos}\mspace{2mu}\theta} \right)}}^{99}\text{sin}\mspace{2mu}\theta d\theta$$</p>
-      </problem>
-    </exercise>
-    <exercise number="285" has_solution="true">
-      <problem>
-        <p>$${\int\left( {1 - \text{cos}^{3}\theta} \right)}^{10}\text{cos}^{2}\theta\mspace{2mu}\text{sin}\mspace{2mu}\theta d\theta$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{33}\left( {1 - \text{cos}^{3}\theta} \right)^{11} + C$$</p>
-      </solution>
-    </exercise>
-    <exercise number="286" has_solution="false">
-      <problem>
-        <p>$$\int{\left( {\text{cos}\mspace{2mu}\theta - 1} \right)\left( {\text{cos}^{2}\theta - 2\mspace{2mu}\text{cos}\mspace{2mu}\theta} \right)^{3}\text{sin}\mspace{2mu}\theta d\theta}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="287" has_solution="true">
-      <problem>
-        <p>$$\int{\left( {\text{sin}^{2}\theta - 2\mspace{2mu}\text{sin}\mspace{2mu}\theta} \right)\left( {\text{sin}^{3}\theta - 3\text{sin}^{2}\theta} \right)^{3}\text{cos}\mspace{2mu}\theta d\theta}$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{1}{12}\left( {\text{sin}^{3}\theta - 3\text{sin}^{2}\theta} \right)^{4} + C$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, use a calculator to estimate the area under the curve using left Riemann sums with 50 terms, then use substitution to solve for the exact answer.</instruction>
-    <exercise number="288" has_solution="false">
-      <problem>
-        <p>[T] $$y = 3\left( {1 - x} \right)^{2}$$ over $$\left\lbrack {0,2} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="289" has_solution="true">
-      <problem>
-        <p>[T] $$y = x\left( {1 - x^{2}} \right)^{3}$$ over $$\left\lbrack {-1,2} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>$$L_{50} = -8.5779.$$ The exact area is $$\frac{-81}{8}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="290" has_solution="false">
-      <problem>
-        <p>[T] $$y = \text{sin}\mspace{2mu} x\left( {1 - \text{cos}\mspace{2mu} x} \right)^{2}$$ over $$\left\lbrack {0,\pi} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="291" has_solution="true">
-      <problem>
-        <p>[T] $$y = \frac{x}{\left( {x^{2} + 1} \right)^{2}}$$ over $$\left\lbrack {-1,1} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>$$L_{50} = -0.006399$$ … The exact area is 0.</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, use a change of variables to evaluate the definite integral.</instruction>
-    <exercise number="292" has_solution="false">
-      <problem>
-        <p>$${\int_{0}^{1}{x\sqrt{1 - x^{2}}}}dx$$</p>
-      </problem>
-    </exercise>
-    <exercise number="293" has_solution="true">
-      <problem>
-        <p>$$\int_{0}^{1}{\frac{x}{\sqrt{1 + x^{2}}}dx}$$</p>
-      </problem>
-      <solution>
-        <p>$$u = 1 + x^{2},du = 2xdx,\frac{1}{2}{\int_{1}^{2}{u^{-1\text{/}2}du = \sqrt{2} - 1}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="294" has_solution="false">
-      <problem>
-        <p>$$\int_{0}^{2}{\frac{t}{\sqrt{5 + t^{2}}}dt}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="295" has_solution="true">
-      <problem>
-        <p>$$\int_{0}^{1}{\frac{t^{2}}{\sqrt{1 + t^{3}}}dt}$$</p>
-      </problem>
-      <solution>
-        <p>$$u = 1 + t^{3},du = 3t^{2}dt,\frac{1}{3}{\int_{1}^{2}{u^{-1\text{/}2}du = \frac{2}{3}\left( {\sqrt{2} - 1} \right)}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="296" has_solution="false">
-      <problem>
-        <p>$$\int_{0}^{\pi\text{/}4}{\text{sec}^{2}\theta\mspace{2mu}\text{tan}\mspace{2mu}\theta d\theta}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="297" has_solution="true">
-      <problem>
-        <p>$$\int_{0}^{\pi\text{/}4}{\frac{\text{sin}\mspace{2mu}\theta}{\text{cos}^{4}\theta}d\theta}$$</p>
-      </problem>
-      <solution>
-        <p>$$u = \text{cos}\mspace{2mu}\theta,du = \text{−}\text{sin}\mspace{2mu}\theta d\theta,{\int_{1\text{/}\sqrt{2}}^{1}{u^{-4}du = \frac{1}{3}\left( {2\sqrt{2} - 1} \right)}}$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, evaluate the indefinite integral $$\int{f(x)dx}$$ with constant $$C = 0$$ using u-substitution. Then, graph the function and the antiderivative over the indicated interval. If possible, estimate a value of C that would need to be added to the antiderivative to make it equal to the definite integral $$F(x) = {\int_{a}^{x}{f(t)dt}},$$ with a the left endpoint of the given interval.</instruction>
-    <exercise number="298" has_solution="false">
-      <problem>
-        <p>[T] $$\int{\left( {2x + 1} \right)e^{x^{2} + x - 6}dx}$$ over $$\left\lbrack {-3,2} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="299" has_solution="true">
-      <problem>
-        <p>[T] $$\left. \int{\frac{\text{cos}\left( {\text{ln}\left( {2x} \right)} \right)}{x}dx} \right.$$ on $$\left\lbrack {0,2} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p />
-        <p>The antiderivative is $$y = \text{sin}\left( {\text{ln}\left( {2x} \right)} \right).$$ Since the antiderivative is not continuous at $$x = 0,$$ one cannot find a value of C that would make $$y = \text{sin}\left( {\text{ln}\left( {2x} \right)} \right) - C$$ work as a definite integral.</p>
-      </solution>
-    </exercise>
-    <exercise number="300" has_solution="false">
-      <problem>
-        <p>[T] $$\left. \int{\frac{3x^{2} + 2x + 1}{\sqrt{x^{3} + x^{2} + x + 4}}dx} \right.$$ over $$\left\lbrack {-1,2} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="301" has_solution="true">
-      <problem>
-        <p>[T] $$\left. \int{\frac{\text{sin}\mspace{2mu} x}{\text{cos}^{3}x}dx} \right.$$ over $$\left\lbrack {- \frac{\pi}{3},\frac{\pi}{3}} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p />
-        <p>The antiderivative is $$y = \frac{1}{2}\mspace{1mu}\text{sec}^{2}x.$$ You should take $$C = -2$$ so that $$F\left( {- \frac{\pi}{3}} \right) = 0.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="302" has_solution="false">
-      <problem>
-        <p>[T] $$\int{\left( {x + 2} \right)e^{\text{−}x^{2} - 4x + 3}dx}$$ over $$\left\lbrack {-5,1} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="303" has_solution="true">
-      <problem>
-        <p>[T] $${\int{3x^{2}\sqrt{2x^{3} + 1}}}dx$$ over $$\left\lbrack {0,1} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p />
-        <p>The antiderivative is $$y = \frac{1}{3}\left( {2x^{3} + 1} \right)^{3\text{/}2}.$$ One should take $$C = - \frac{1}{3}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="304" has_solution="false">
-      <problem>
-        <p>If $$h(a) = h(b)$$ in $$\int_{a}^{b}g\prime\left( h(x) \right)h\prime(x)dx,$$ what can you say about the value of the integral?</p>
-      </problem>
-    </exercise>
-    <exercise number="305" has_solution="true">
-      <problem>
-        <p>Is the substitution $$u = 1 - x^{2}$$ in the definite integral $$\int_{0}^{2}{\frac{x}{1 - x^{2}}dx}$$ okay? If not, why not?</p>
-      </problem>
-      <solution>
-        <p>No, because the integrand is discontinuous at $$x = 1.$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, use a change of variables to show that each definite integral is equal to zero.</instruction>
-    <exercise number="306" has_solution="false">
-      <problem>
-        <p>$$\int_{0}^{\pi}{\text{cos}^{2}\left( {2\theta} \right)\text{sin}\left( {2\theta} \right)d\theta}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="307" has_solution="true">
-      <problem>
-        <p>$$\int_{0}^{\sqrt{\pi}}{t\mspace{2mu}\text{cos}\left( t^{2} \right)\text{sin}\left( t^{2} \right)dt}$$</p>
-      </problem>
-      <solution>
-        <p>$$u = \text{sin}\left( t^{2} \right);$$ the integral becomes $$\frac{1}{2}{\int_{0}^{0}{udu}}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="308" has_solution="false">
-      <problem>
-        <p>$$\int_{0}^{1}{\left( {1 - 2t} \right)dt}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="309" has_solution="true">
-      <problem>
-        <p>$$\int_{0}^{1}{\frac{1 - 2t}{\left( {1 + \left( {t - \frac{1}{2}} \right)^{2}} \right)}dt}$$</p>
-      </problem>
-      <solution>
-        <p>$$u = \left( {1 + \left( {t - \frac{1}{2}} \right)^{2}} \right);$$ the integral becomes $$\text{−}{\int_{5\text{/}4}^{5\text{/}4}{\frac{1}{u}du}}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="310" has_solution="false">
-      <problem>
-        <p>$$\int_{0}^{\pi}{\text{sin}\left( \left( {t - \frac{\pi}{2}} \right)^{3} \right)\text{cos}\left( {t - \frac{\pi}{2}} \right)dt}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="311" has_solution="true">
-      <problem>
-        <p>$$\int_{0}^{2}{\left( {1 - t} \right)\text{cos}\left( {\pi t} \right)dt}$$</p>
-      </problem>
-      <solution>
-        <p>$$u = 1 - t;$$ the integral becomes$$\begin{array}{l} {\int_{1}^{-1}{u\mspace{2mu}\text{cos}\left( {\pi\left( {1 - u} \right)} \right)du}} \\ {= {\int_{1}^{-1}{u\left\lbrack {\text{cos}\mspace{2mu}\pi\mspace{2mu}\text{cos}\mspace{2mu}\pi u - \text{sin}\mspace{2mu}\pi\mspace{2mu}\text{sin}\mspace{2mu}\pi u} \right\rbrack du}}} \\ {= \text{−}{\int_{1}^{-1}{u\mspace{2mu}\text{cos}\mspace{2mu}\pi udu}}} \\ {= {\int_{-1}^{1}{u\mspace{2mu}\text{cos}\mspace{2mu}\pi udu = 0}}} \end{array}$$since the integrand is odd.</p>
-      </solution>
-    </exercise>
-    <exercise number="312" has_solution="false">
-      <problem>
-        <p>$$\int_{\pi\text{/}4}^{3\pi\text{/}4}{\text{sin}^{2}t\mspace{2mu}\text{cos}\mspace{2mu} tdt}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="313" has_solution="true">
-      <problem>
-        <p>Show that the average value of $$f(x)$$ over an interval $$\left\lbrack {a,b} \right\rbrack$$ is the same as the average value of $$f\left( {cx} \right)$$ over the interval $$\left\lbrack {\frac{a}{c},\frac{b}{c}} \right\rbrack$$ for $$c &gt; 0.$$</p>
-      </problem>
-      <solution>
-        <p>Setting $$u = cx$$ and $$du = cdx$$ gets you $$\frac{1}{\frac{b}{c} - \frac{a}{c}}{\int_{a\text{/}c}^{b\text{/}c}{f\left( {cx} \right)dx = \frac{c}{b - a}}}\ {\int_{u = a}^{u = b}{f(u)\frac{du}{c} = \frac{1}{b - a}{\int_{a}^{b}{f(u)du}}}}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="314" has_solution="false">
-      <problem>
-        <p>Find the area under the graph of $$f(t) = \frac{t}{\left( {1 + t^{2}} \right)^{a}}$$ between $$t = 0$$ and $$t = x$$ where $$a &gt; 0$$ and $$a \neq 1$$ is fixed, and evaluate the limit as $$x\rightarrow\infty.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="315" has_solution="true">
-      <problem>
-        <p>Find the area under the graph of $$g(t) = \frac{t}{\left( {1 - t^{2}} \right)^{a}}$$ between $$t = 0$$ and $$t = x,$$ where $$0 &lt; x &lt; 1$$ and $$a &gt; 0$$ is fixed. Evaluate the limit as $$x\rightarrow 1.$$</p>
-      </problem>
-      <solution>
-        <p>$${{\int_{0}^{x}{g(t)dt = \frac{1}{2}{\int_{u = 1 - x^{2}}^{1}\frac{du}{u^{a}}}}} = \frac{1}{2\left( {1 - a} \right)}u^{1 - a}|_{u = 1 - x^{2}}^{1}} = \frac{1}{2\left( {1 - a} \right)}\left( {1 - \left( {1 - x^{2}} \right)^{1 - a}} \right).$$ As $$x\rightarrow 1$$ the limit is $$\frac{1}{2\left( {1 - a} \right)}$$ if $$a &lt; 1,$$ and the limit diverges to +∞ if $$a \geq 1.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="316" has_solution="false">
-      <problem>
-        <p>The area of a semicircle of radius 1 can be expressed as $${\int_{-1}^{1}{\sqrt{1 - x^{2}}dx}}.$$ Use the substitution $$x = \text{cos}\mspace{2mu} t$$ to express the area of a semicircle as the integral of a trigonometric function. You do not need to compute the integral.</p>
-      </problem>
-    </exercise>
-    <exercise number="317" has_solution="true">
-      <problem>
-        <p>The area of the top half of an ellipse with a major axis that is the x-axis from $$x = - a$$ to $$x = a$$ and with a minor axis that is the y-axis from $$y = \text{−}b$$ to $$y = b$$ can be written as $${\int_{\text{−}a}^{a}{b\sqrt{1 - \frac{x^{2}}{a^{2}}}dx}}.$$ Use the substitution $$x = a\mspace{2mu}\text{cos}\mspace{2mu} t$$ to express this area in terms of an integral of a trigonometric function. You do not need to compute the integral.</p>
-      </problem>
-      <solution>
-        <p>$${\int_{t = \pi}^{0}{b\sqrt{1 - \text{cos}^{2}t}}}\ \times \ (\text{−}a\mspace{2mu}\text{sin}\mspace{2mu} t)dt = {\int_{t = 0}^{\pi}{ab\text{sin}^{2}tdt}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="318" has_solution="false">
-      <problem>
-        <p>[T] The following graph is of a function of the form $$f(t) = a\mspace{2mu}\text{sin}(nt) + b\mspace{2mu}\text{sin}(mt).$$ Estimate the coefficients a and b, and the frequency parameters n and m. Use these estimates to approximate $${\int_{0}^{\pi}{f(t)dt}}.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="319" has_solution="true">
-      <problem>
-        <p>[T] The following graph is of a function of the form $$f(x) = a\mspace{2mu}\text{cos}\left( {nt} \right) + b\mspace{2mu}\text{cos}\left( {mt} \right).$$ Estimate the coefficients a and b and the frequency parameters n and m. Use these estimates to approximate $${\int_{0}^{\frac{\pi}{2}}{f(t)dt}}.$$</p>
-      </problem>
-      <solution>
-        <p>$$f(t) = 2\mspace{2mu}\text{cos}(3t) - \text{cos}(2t);\int_{0}^{\pi}\left( 2\mspace{2mu}\text{cos}(3t) - \text{cos}(2t) \right)dt = 0$$</p>
-      </solution>
-    </exercise>
-  </exercises>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">1.5 Substitution</heading>
+  <heading level="2">Learning Objectives</heading>
+  <list type="unordered">
+    <item>Use substitution to evaluate indefinite integrals.</item>
+    <item>Use substitution to evaluate definite integrals.</item>
+  </list>
+  <paragraph>The Fundamental Theorem of Calculus gave us a method to evaluate integrals without using Riemann sums. The drawback of this method, though, is that we must be able to find an antiderivative, and this is not always easy. In this section we examine a technique, called integration by substitution, to help us find antiderivatives. Specifically, this method helps us find antiderivatives when the integrand is the result of a chain-rule derivative.</paragraph>
+  <paragraph>At first, the approach to the substitution procedure may not appear very obvious. However, it is primarily a visual task—that is, the integrand shows you what to do; it is a matter of recognizing the form of the function. So, what are we supposed to see? We are looking for an integrand of the form $$f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. (x \right)dx.$$ For example, in the integral $$\left. \int{\left( {x^{2} - 3} \right)^{3}2xdx} \right.,$$ we have $$f(x) = x^{3},g(x) = x^{2} - 3,$$ and $$g\prime(x) = 2x.$$ Then,</paragraph>
+  <paragraph math="block">$$f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. (x \right) = \left( {x^{2} - 3} \right)^{3}\left( {2x} \right),$$</paragraph>
+  <paragraph>and we see that our integrand is in the correct form.</paragraph>
+  <paragraph>The method is called substitution because we substitute part of the integrand with the variable u and part of the integrand with du. It is also referred to as change of variables because we are changing variables to obtain an expression that is easier to work with for applying the integration rules.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="1.7" title="Substitution with Indefinite Integrals">
+    <heading level="3">Substitution with Indefinite Integrals</heading>
+    <paragraph>Let $$u = g(x),$$ where $$g^{\prime}\left. (x \right)$$ is continuous over an interval, let $$f(x)$$ be continuous over the corresponding range of g, and let $$F(x)$$ be an antiderivative of $$f(x).$$ Then,</paragraph>
+    <paragraph math="block">$$\begin{array}{cl} \left. \int{f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. (x \right)dx} \right. &amp; {= {\int f}(u)du} \\ &amp; {= F(u) + C} \\ &amp; {= F\left( {g(x)} \right) + C.} \end{array}$$</paragraph>
+  </note>
+  <heading level="2">Proof</heading>
+  <paragraph>Let f, g, u, and F be as specified in the theorem. Then</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {\frac{d}{dx}F(g(x))} &amp; {= F^{\prime}\left. ({g(x)} \right)g^{\prime}\left. (x \right)} \\ &amp; {= f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. (x \right).} \end{array}$$</paragraph>
+  <paragraph>Integrating both sides with respect to x, we see that</paragraph>
+  <paragraph math="block">$${\int{f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. (x \right)dx}} = F\left( {g(x)} \right) + C.$$</paragraph>
+  <paragraph>If we now substitute $$u = g(x),$$ and $$du = g'(x)dx,$$ we get</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {\int{f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. (x \right)dx}} &amp; {= {\int f}(u)du} \\ &amp; {= F(u) + C} \\ &amp; {= F\left( {g(x)} \right) + C.} \end{array}$$</paragraph>
+  <paragraph>□</paragraph>
+  <paragraph>Returning to the problem we looked at originally, we let $$u = x^{2} - 3$$ and then $$du = 2xdx.$$ Rewrite the integral in terms of u:</paragraph>
+  <paragraph math="block">$$\left. \int{\underset{u}{\underbrace{\left( x^{2} - 3 \right)}}}^{3} \right.\underset{du}{\underbrace{(2xdx)}} = \int u^{3}du.$$</paragraph>
+  <paragraph>Using the power rule for integrals, we have</paragraph>
+  <paragraph math="block">$$\left. \int{u^{3}du = \frac{u^{4}}{4} + C} \right..$$</paragraph>
+  <paragraph>Substitute the original expression for x back into the solution:</paragraph>
+  <paragraph math="block">$$\frac{u^{4}}{4} + C = \frac{\left( {x^{2} - 3} \right)^{4}}{4} + C.$$</paragraph>
+  <paragraph>We can generalize the procedure in the following Problem-Solving Strategy.</paragraph>
+  <note type="procedure" source_type="Problem-Solving Strategy" title="Problem-Solving Strategy">
+    <heading level="4">Integration by Substitution</heading>
+    <list type="ordered">
+      <item>Look carefully at the integrand and select an expression $$g(x)$$ within the integrand to set equal to u. Let’s select $$g(x)$$ such that $$g^{\prime}\left. (x \right)$$ is also part of the integrand.</item>
+      <item>Substitute $$u = g(x)$$ and $$du = g^{\prime}\left. (x \right)dx$$ into the integral.</item>
+      <item>We should now be able to evaluate the integral with respect to u. If the integral can’t be evaluated we need to go back and select a different expression to use as u.</item>
+      <item>Evaluate the integral in terms of u.</item>
+      <item>Write the result in terms of x and the expression $$g(x).$$</item>
+    </list>
+  </note>
+  <example number="1.30" title="Using Substitution to Find an Antiderivative">
+    <problem>
+      <paragraph>Use substitution to find the antiderivative $$\left. \int{6x\left( {3x^{2} + 4} \right)^{4}dx} \right..$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The first step is to choose an expression for u. We choose $$u = 3x^{2} + 4$$ because then $$du = 6xdx,$$ and we already have du in the integrand. Write the integral in terms of u:</paragraph>
+      <paragraph math="block">$$\left. \int{6x\left( {3x^{2} + 4} \right)^{4}dx} \right. = {\int{u^{4}du}}.$$</paragraph>
+      <paragraph>Remember that du is the derivative of the expression chosen for u, regardless of what is inside the integrand. Now we can evaluate the integral with respect to u:</paragraph>
+      <paragraph math="block">$$\begin{array}{ll} \left. \int{u^{4}du} \right. &amp; {= \frac{u^{5}}{5} + C} \\ &amp; \\ &amp; \\ &amp; {= \frac{\left( {3x^{2} + 4} \right)^{5}}{5} + C.} \end{array}$$</paragraph>
+    </solution>
+    <paragraph>We can check our answer by taking the derivative of the result of integration. We should obtain the integrand. Picking a value for C of 1, we let $$y = \frac{1}{5}\left( {3x^{2} + 4} \right)^{5} + 1.$$ We have</paragraph>
+    <paragraph math="block">$$y = \frac{1}{5}\left( {3x^{2} + 4} \right)^{5} + 1,$$</paragraph>
+    <paragraph>so</paragraph>
+    <paragraph math="block">$$\begin{array}{cl} &amp; \\ y^{\prime} &amp; {= \left( \frac{1}{5} \right)5\left( {3x^{2} + 4} \right)^{4}6x} \\ &amp; {= 6x\left( {3x^{2} + 4} \right)^{4}.} \end{array}$$</paragraph>
+    <paragraph>This is exactly the expression we started with inside the integrand.</paragraph>
+  </example>
+  <example title="Checkpoint" number="1.25">
+    <problem>
+      <paragraph>Use substitution to find the antiderivative $$\left. \int{3x^{2}\left( {x^{3} - 3} \right)^{2}dx} \right..$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$\int 3 x 2 ( x 3 - 3 ) 2 d x = 1 3 ( x 3 - 3 ) 3 + C \int 3 x 2 ( x 3 - 3 ) 2 d x = 1 3 ( x 3 - 3 ) 3 + C$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>Sometimes we need to adjust the constants in our integral if they don’t match up exactly with the expressions we are substituting.</paragraph>
+  <example number="1.31" title="Using Substitution with Alteration">
+    <problem>
+      <paragraph>Use substitution to find $$\left. \int{z\sqrt{z^{2} - 5}dz} \right..$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Rewrite the integral as $$\left. \int{z\left( {z^{2} - 5} \right)^{1/2}dz} \right..$$ Let $$u = z^{2} - 5$$ and $$du = 2z dz.$$ Now we have a problem because $$du = 2z dz$$ and the original expression has only $$z dz.$$ We have to alter our expression for du or the integral in u will be twice as large as it should be. If we multiply both sides of the du equation by $$\frac{1}{2}.$$ we can solve this problem. Thus,</paragraph>
+      <paragraph math="block">$$\begin{aligned} &amp; \\ u &amp; {= z^{2} - 5} \\ {du} &amp; {= 2z dz} \\ {\frac{1}{2}du} &amp; {= \frac{1}{2}\left( {2z} \right)dz = z dz.} \end{aligned}$$</paragraph>
+      <paragraph>Write the integral in terms of u, but pull the $$\frac{1}{2}$$ outside the integration symbol:</paragraph>
+      <paragraph math="block">$$\left. \int{z\left( {z^{2} - 5} \right)^{1/2}dz =} \right.\frac{1}{2}{\int{u^{1/2}du.}}$$</paragraph>
+      <paragraph>Integrate the expression in u:</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} &amp; \\ {\frac{1}{2}{\int{u^{1/2}du}}} &amp; {= \left( \frac{1}{2} \right)\frac{u^{3/2}}{\frac{3}{2}} + C} \\ &amp; \\ &amp; {= \left( \frac{1}{2} \right)\left( \frac{2}{3} \right)u^{3/2} + C} \\ &amp; {= \frac{1}{3}u^{3/2} + C} \\ &amp; {= \frac{1}{3}\left( {z^{2} - 5} \right)^{3/2} + C.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="1.26">
+    <problem>
+      <paragraph>Use substitution to find $$\left. \int{x^{2}\left( {x^{3} + 5} \right)^{9}dx} \right..$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$( x 3 + 5 ) 10 30 + C ( x 3 + 5 ) 10 30 + C$$</paragraph>
+    </solution>
+  </example>
+  <example number="1.32" title="Using Substitution with Integrals of Trigonometric Functions">
+    <problem>
+      <paragraph>Use substitution to evaluate the integral $$\left. \int{\frac{\sin t}{\cos^{3}t}dt} \right..$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>We know the derivative of $$\cos t$$ is $$-\sin t,$$ so we set $$u = \cos t.$$ Then $$du = -\sin tdt.$$ Substituting into the integral, we have</paragraph>
+      <paragraph math="block">$$\left. \int{\frac{\sin t}{\cos^{3}t}dt = -\left. \int\frac{du}{u^{3}} \right.} \right..$$</paragraph>
+      <paragraph>Evaluating the integral, we get</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} &amp; \\ &amp; \\ {-\left. \int\frac{du}{u^{3}} \right.} &amp; {= -{\int{u^{-3}du}}} \\ &amp; {= -\left( {- \frac{1}{2}} \right)u^{-2} + C.} \end{array}$$</paragraph>
+      <paragraph>Putting the answer back in terms of t, we get</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} \left. \int{\frac{\sin t}{\cos^{3}t}dt} \right. &amp; {= \frac{1}{2u^{2}} + C} \\ &amp; \\ &amp; {= \frac{1}{2\cos^{2}t} + C.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="1.27">
+    <problem>
+      <paragraph>Use substitution to evaluate the integral $$\left. \int{\frac{\cos t}{\sin^{2}t}dt.} \right.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$- 1 sin t + C - 1 sin t + C$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>Sometimes we need to manipulate an integral in ways that are more complicated than just multiplying or dividing by a constant. We need to eliminate all the expressions within the integrand that are in terms of the original variable. When we are done, u should be the only variable in the integrand. In some cases, this means solving for the original variable in terms of u. This technique should become clear in the next example.</paragraph>
+  <example number="1.33" title="Finding an Antiderivative Using u-Substitution">
+    <problem>
+      <paragraph>Use substitution to find the antiderivative $$\left. \int{\frac{x}{\sqrt{x - 1}}dx.} \right.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>If we let $$u = x - 1,$$ then $$du = dx.$$ But this does not account for the x in the numerator of the integrand. We need to express x in terms of u. If $$u = x - 1,$$ then $$x = u + 1.$$ Now we can rewrite the integral in terms of u:</paragraph>
+      <paragraph math="block">$$\begin{array}{ll} \left. \int{\frac{x}{\sqrt{x - 1}}dx} \right. &amp; {= \left. \int{\frac{u + 1}{\sqrt{u}}du} \right.} \\ &amp; \\ &amp; {= \left. \int{\sqrt{u} + \frac{1}{\sqrt{u}}du} \right.} \\ &amp; {= \left. \int{\left( {u^{1/2} + u^{-1/2}} \right)du} \right..} \end{array}$$</paragraph>
+      <paragraph>Then we integrate in the usual way, replace u with the original expression, and factor and simplify the result. Thus,</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} \left. \int{\left( {u^{1/2} + u^{-1/2}} \right)du} \right. &amp; {= \frac{2}{3}u^{3/2} + 2u^{1/2} + C} \\ &amp; \\ &amp; {= \frac{2}{3}\left( {x - 1} \right)^{3/2} + 2\left( {x - 1} \right)^{1/2} + C} \\ &amp; {= \left( {x - 1} \right)^{1/2}\left\lbrack {\frac{2}{3}\left( {x - 1} \right) + 2} \right\rbrack + C} \\ &amp; {= \left( {x - 1} \right)^{1/2}{\left( {\frac{2}{3}x - \frac{2}{3} + \frac{6}{3}} \right) + C}} \\ &amp; {= \left( {x - 1} \right)^{1/2}{\left( {\frac{2}{3}x + \frac{4}{3}} \right) + C}} \\ &amp; {= \frac{2}{3}\left( {x - 1} \right)^{1/2}\left( {x + 2} \right) + C.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="1.28">
+    <problem>
+      <paragraph>Use substitution to evaluate the indefinite integral $$\left. \int{\cos^{3}t\sin t dt} \right..$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$- cos 4 t 4 + C - cos 4 t 4 + C$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Substitution for Definite Integrals</heading>
+  <paragraph>Substitution can be used with definite integrals, too. However, using substitution to evaluate a definite integral requires a change to the limits of integration. If we change variables in the integrand, the limits of integration change as well.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="1.8" title="Substitution with Definite Integrals">
+    <heading level="4">Substitution with Definite Integrals</heading>
+    <paragraph>Let $$u = g(x)$$ and let $$g^{\prime}$$ be continuous over an interval $$\left\lbrack {a,b} \right\rbrack,$$ and let f be continuous over the range of $$u = g(x).$$ Then,</paragraph>
+    <paragraph math="block">$${\int_{a}^{b}{f\left( {g(x)} \right)g^{\prime}\left. (x \right)dx = {\int_{g{(a)}}^{g{(b)}}{f(u)du}}}}.$$</paragraph>
+  </note>
+  <paragraph>Although we will not formally prove this theorem, we justify it with some calculations here. From the substitution rule for indefinite integrals, if $$F(x)$$ is an antiderivative of $$f(x),$$ we have</paragraph>
+  <paragraph math="block">$$\int{f\left( {g(x)} \right)g^{\prime}(x)dx = F\left( {g(x)} \right) + C.}$$</paragraph>
+  <paragraph>Then</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} {\int_{a}^{b}{f\left\lbrack {g(x)} \right\rbrack g^{\prime}\left. (x \right)dx}} &amp; {= \left. {F\left( {g(x)} \right)} \right|_{x = a}^{x = b}} \\ &amp; {= F\left( {g(b)} \right) - F\left( {g(a)} \right)} \\ &amp; {= \left. {F(u)} \right|_{u = g(a)}^{u = g(b)}} \\ &amp; \\ &amp; \\ &amp; {= {\int_{g(a)}^{g(b)}f}(u)du,} \end{array}$$</paragraph>
+  <paragraph>and we have the desired result.</paragraph>
+  <example number="1.34" title="Using Substitution to Evaluate a Definite Integral">
+    <problem>
+      <paragraph>Use substitution to evaluate $${\int_{0}^{1}{x^{2}\left( {1 + 2x^{3}} \right)^{5}}}dx.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let $$u = 1 + 2x^{3},$$ so $$du = 6x^{2}dx.$$ Since the original function includes one factor of x2 and $$du = 6x^{2}dx,$$ multiply both sides of the du equation by $$1/6.$$ Then,</paragraph>
+      <paragraph math="block">$$\begin{array}{lll} {du} &amp; = &amp; {6x^{2}dx} \\ {\frac{1}{6}du} &amp; = &amp; {x^{2}dx.} \end{array}$$</paragraph>
+      <paragraph>To adjust the limits of integration, note that when $$x = 0,u = 1 + 2(0) = 1,$$ and when $$x = 1,u = 1 + 2(1) = 3.$$ Then</paragraph>
+      <paragraph math="block">$${\int_{0}^{1}{x^{2}\left( {1 + 2x^{3}} \right)^{5}dx = \frac{1}{6}{\int_{1}^{3}{u^{5}du}}}}.$$</paragraph>
+      <paragraph>Evaluating this expression, we get</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} &amp; \\ &amp; \\ {\frac{1}{6}{\int_{1}^{3}{u^{5}du}}} &amp; {= \left( \frac{1}{6} \right)\left( \frac{u^{6}}{6} \right)|_{1}^{3}} \\ &amp; {= \frac{1}{36}\left\lbrack {(3)^{6} - (1)^{6}} \right\rbrack} \\ &amp; {= \frac{182}{9}.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="1.29">
+    <problem>
+      <paragraph>Use substitution to evaluate the definite integral $${\int_{-1}^{0}{y\left( {2y^{2} - 3} \right)^{5}dy}}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$91 3 91 3$$</paragraph>
+    </solution>
+  </example>
+  <example number="1.35" title="Using Substitution with an Exponential Function">
+    <problem>
+      <paragraph>Use substitution to evaluate $${\int_{0}^{1}{xe^{4x^{2} + 3}dx}}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let $$u = 4x^{2} + 3.$$ Then, $$du = 8xdx.$$ To adjust the limits of integration, we note that when $$x = 0,u = 3,$$ and when $$x = 1,u = 7.$$ So our substitution gives</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} {\int_{0}^{1}{xe^{4x^{2} + 3}dx}} &amp; {= \frac{1}{8}{\int_{3}^{7}{e^{u}du}}} \\ &amp; \\ &amp; {= \frac{1}{8}e^{u}|_{3}^{7}} \\ &amp; {= \frac{e^{7} - e^{3}}{8}} \\ &amp; {\approx 134.568.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="1.30">
+    <problem>
+      <paragraph>Use substitution to evaluate $${\int_{0}^{1}{x^{2}\cos \left( {\frac{\pi}{2}x^{3}} \right)dx}}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$2 3 \pi \approx 0.2122 2 3 \pi \approx 0.2122$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>Substitution may be only one of the techniques needed to evaluate a definite integral. All of the properties and rules of integration apply independently, and trigonometric functions may need to be rewritten using a trigonometric identity before we can apply substitution. Also, we have the option of replacing the original expression for u after we find the antiderivative, which means that we do not have to change the limits of integration. These two approaches are shown in Example 1.36.</paragraph>
+  <example number="1.36" title="Using Substitution to Evaluate a Trigonometric Integral">
+    <problem>
+      <paragraph>Use substitution to evaluate $${\int_{0}^{\pi/2}{\cos^{2}\theta d\theta}}.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let us first use a trigonometric identity to rewrite the integral. The trig identity $$\cos^{2}\theta = \frac{1 + \cos 2\theta}{2}$$ allows us to rewrite the integral as</paragraph>
+      <paragraph math="block">$${\int_{0}^{\pi/2}{\cos^{2}\theta d\theta}} = {\int_{0}^{\pi/2}{\frac{1 + \cos 2\theta}{2}d\theta.}}$$</paragraph>
+      <paragraph>Then,</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} {{\int_{0}^{\pi/2}\left( \frac{1 + \cos 2\theta}{2} \right)}d\theta} &amp; {= {\int_{0}^{\pi/2}{\left( {\frac{1}{2} + \frac{1}{2}\cos 2\theta} \right)d\theta}}} \\ &amp; \\ &amp; \\ &amp; {= \frac{1}{2}{\int_{0}^{\pi/2}{d\theta}} + \frac{1}{2}{\int_{0}^{\pi/2}{\cos 2\theta d\theta.}}} \end{array}$$</paragraph>
+      <paragraph>We can evaluate the first integral as it is, but we need to make a substitution to evaluate the second integral. Let $$u = 2\theta.$$ Then, $$du = 2d\theta,$$ or $$\frac{1}{2}du = d\theta.$$ Also, when $$\theta = 0,u = 0,$$ and when $$\theta = \pi/2,u = \pi.$$ Expressing the second integral in terms of u, we have</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} &amp; \\ &amp; \\ {\frac{1}{2}{\int_{0}^{\pi/2}{d\theta + \frac{1}{2}{\int_{0}^{\pi/2}{\cos 2\theta d\theta}}}}} &amp; {= \frac{1}{2}{\int_{0}^{\pi/2}{d\theta + \frac{1}{2}\left( \frac{1}{2} \right){\int_{0}^{\pi}{\cos udu}}}}} \\ &amp; {= \frac{\theta}{2}{|_{\theta = 0}^{\theta = \pi/2} + \frac{1}{4}\sin u|_{u = 0}^{u = \pi}}} \\ &amp; {= \left( {\frac{\pi}{4} - 0} \right) + \left( {0 - 0} \right) = \frac{\pi}{4}.} \end{array}$$</paragraph>
+    </solution>
+  </example>
 </section>

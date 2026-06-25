@@ -1,1488 +1,745 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="11.2" title="Fairness in Voting Methods">
-  <image alt="A photo shows two men casting their vote in polling booths." number="11.10" caption="Citizens strive to ensure their voting system is fair. (credit: “Governor Votes Early” by Maryland GovPics/Flickr, CC BY 2.0)" />
-  <subsection title="Learning Objectives">
-    <p>After completing this section, you should be able to:</p>
-    <list type="ol" style="1">
-      <item>Compare and contrast fairness of voting using majority criterion.</item>
-      <item>Compare and contrast fairness of voting using head-to-head criterion.</item>
-      <item>Compare and contrast fairness of voting using monotonicity criterion.</item>
-      <item>Compare and contrast fairness of voting using irrelevant alternatives criterion.</item>
-      <item>Apply Arrow’s Impossibility Theorem when evaluating voting fairness.</item>
-    </list>
-  </subsection>
-  <subsection title="The Majority Criterion">
-    <p>One of the most fundamental concepts in voting is the idea that most voters should be in favor of a candidate for a candidate to win, and that a candidate should not win without majority support. This concept is known as the majority criterion.</p>
-    <p>With respect to the four main ranked voting methods we have discussed—plurality, ranked-choice, pairwise comparison, and the Borda count method—we will explore two important questions:</p>
-    <list type="ol" style="1">
-      <item>Which of these voting systems satisfy the majority criterion and which do not?</item>
-      <item>Is it always “fair” for a voting system to satisfy the majority criterion?</item>
-    </list>
-    <p>Keep in mind that this criterion only applies when one of the candidates has a majority. So, the examples we will analyze will be based on scenarios in which a single candidate has more than 50 percent of the vote.</p>
-    <example number="11.16">
-      <problem>
-        <p>It’s final exams week and seven college students are hungry. They must get food, but from which drive thru? Their preferences are listed in the table below. The majority have listed McDonald’s as their top choice. Let’s calculate what the results of the election will be using various voting methods.</p>
-        <table summary=" ">
-          <thead>
-            <row>
-              <cell>Voters</cell>
-              <cell>A</cell>
-              <cell>B</cell>
-              <cell>C</cell>
-              <cell>D</cell>
-              <cell>E</cell>
-              <cell>F</cell>
-              <cell>G</cell>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <cell>(M) McDonald’s</cell>
-              <cell>1</cell>
-              <cell>1</cell>
-              <cell>1</cell>
-              <cell>1</cell>
-              <cell>5</cell>
-              <cell>5</cell>
-              <cell>5</cell>
-            </row>
-            <row>
-              <cell>(B) Burger King</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-            </row>
-            <row>
-              <cell>(T) Taco Bell</cell>
-              <cell>4</cell>
-              <cell>4</cell>
-              <cell>3</cell>
-              <cell>4</cell>
-              <cell>3</cell>
-              <cell>3</cell>
-              <cell>1</cell>
-            </row>
-            <row>
-              <cell>(O) Pollo Tropical</cell>
-              <cell>3</cell>
-              <cell>5</cell>
-              <cell>4</cell>
-              <cell>3</cell>
-              <cell>4</cell>
-              <cell>1</cell>
-              <cell>3</cell>
-            </row>
-            <row>
-              <cell>(I) Pizza Hut</cell>
-              <cell>5</cell>
-              <cell>3</cell>
-              <cell>5</cell>
-              <cell>5</cell>
-              <cell>1</cell>
-              <cell>4</cell>
-              <cell>4</cell>
-            </row>
-          </tbody>
-        </table>
-        <list type="ol" style="1">
-          <item>Which restaurant is the winner using the plurality voting method?</item>
-          <item>Which restaurant is the winner using the ranked-choice voting method?</item>
-          <item>Does the majority criterion apply? If so, for which of voting method(s), if any, did the majority criterion fail?</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>For plurality voting, we only need to count the first-place votes for each candidate. In this case, McDonald’s has four first place votes, which is a majority and wins the election automatically.</item>
-          <item>For ranked-choice voting, McDonald’s also wins because it has a majority at the end of Round 1.</item>
-          <item>The majority criterion does apply because one candidate had a majority of the first-place votes. The majority criterion did not fail by either method, because in each case the majority candidate won.</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="11.16">
-      <p>Use the information in the table to answer the following questions.</p>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">11.2 Fairness in Voting Methods</heading>
+  <figure number="11.10">
+    <image alt="A photo shows two men casting their vote in polling booths."/>
+    <caption>Citizens strive to ensure their voting system is fair. (credit: “Governor Votes Early” by Maryland GovPics/Flickr, CC BY 2.0)</caption>
+  </figure>
+  <heading level="2">Learning Objectives</heading>
+  <paragraph>After completing this section, you should be able to:</paragraph>
+  <list type="ordered">
+    <item>Compare and contrast fairness of voting using majority criterion.</item>
+    <item>Compare and contrast fairness of voting using head-to-head criterion.</item>
+    <item>Compare and contrast fairness of voting using monotonicity criterion.</item>
+    <item>Compare and contrast fairness of voting using irrelevant alternatives criterion.</item>
+    <item>Apply Arrow’s Impossibility Theorem when evaluating voting fairness.</item>
+  </list>
+  <paragraph>Now that we’ve covered a variety of voting methods and discussed their differences and similarities, you might be leaning toward one method over another. You will need to convince the other founders of Imaginaria that your preference will be the best for the country. Before your collaborators approve the inclusion of a voting method in the constitution, they will want to know that the voting method is a fair method. In this section, we will formally define the characteristics of a fair system. We will analyze each voting previously discussed to determine which characteristics of fairness they have, and which they do not. In order to guarantee one ideal, we must often sacrifice others.</paragraph>
+  <heading level="2">The Majority Criterion</heading>
+  <paragraph>One of the most fundamental concepts in voting is the idea that most voters should be in favor of a candidate for a candidate to win, and that a candidate should not win without majority support. This concept is known as the majority criterion.</paragraph>
+  <paragraph>With respect to the four main ranked voting methods we have discussed—plurality, ranked-choice, pairwise comparison, and the Borda count method—we will explore two important questions:</paragraph>
+  <list type="ordered">
+    <item>Which of these voting systems satisfy the majority criterion and which do not?</item>
+    <item>Is it always “fair” for a voting system to satisfy the majority criterion?</item>
+  </list>
+  <paragraph>Keep in mind that this criterion only applies when one of the candidates has a majority. So, the examples we will analyze will be based on scenarios in which a single candidate has more than 50 percent of the vote.</paragraph>
+  <example number="11.16" title="Roommates Choose Fast Food">
+    <problem>
+      <paragraph>It’s final exams week and seven college students are hungry. They must get food, but from which drive thru? Their preferences are listed in the table below. The majority have listed McDonald’s as their top choice. Let’s calculate what the results of the election will be using various voting methods.</paragraph>
       <table>
         <thead>
           <row>
-            <cell>Voters</cell>
-            <cell>L</cell>
-            <cell>M</cell>
-            <cell>N</cell>
-            <cell>O</cell>
-            <cell>P</cell>
+            <cell header="true">Voters</cell>
+            <cell header="true">A</cell>
+            <cell header="true">B</cell>
+            <cell header="true">C</cell>
+            <cell header="true">D</cell>
+            <cell header="true">E</cell>
+            <cell header="true">F</cell>
+            <cell header="true">G</cell>
           </row>
         </thead>
         <tbody>
           <row>
-            <cell>Option A</cell>
+            <cell>(M) McDonald’s</cell>
+            <cell>1</cell>
+            <cell>1</cell>
+            <cell>1</cell>
+            <cell>1</cell>
+            <cell>5</cell>
+            <cell>5</cell>
+            <cell>5</cell>
+          </row>
+          <row>
+            <cell>(B) Burger King</cell>
             <cell>2</cell>
             <cell>2</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+          </row>
+          <row>
+            <cell>(T) Taco Bell</cell>
+            <cell>4</cell>
+            <cell>4</cell>
+            <cell>3</cell>
+            <cell>4</cell>
+            <cell>3</cell>
+            <cell>3</cell>
+            <cell>1</cell>
+          </row>
+          <row>
+            <cell>(O) Pollo Tropical</cell>
+            <cell>3</cell>
+            <cell>5</cell>
+            <cell>4</cell>
+            <cell>3</cell>
+            <cell>4</cell>
+            <cell>1</cell>
+            <cell>3</cell>
+          </row>
+          <row>
+            <cell>(I) Pizza Hut</cell>
+            <cell>5</cell>
+            <cell>3</cell>
+            <cell>5</cell>
+            <cell>5</cell>
+            <cell>1</cell>
+            <cell>4</cell>
+            <cell>4</cell>
+          </row>
+        </tbody>
+      </table>
+      <list type="ordered">
+        <item>Which restaurant is the winner using the plurality voting method?</item>
+        <item>Which restaurant is the winner using the ranked-choice voting method?</item>
+        <item>Does the majority criterion apply? If so, for which of voting method(s), if any, did the majority criterion fail?</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>For plurality voting, we only need to count the first-place votes for each candidate. In this case, McDonald’s has four first place votes, which is a majority and wins the election automatically.</item>
+        <item>For ranked-choice voting, McDonald’s also wins because it has a majority at the end of Round 1.</item>
+        <item>The majority criterion does apply because one candidate had a majority of the first-place votes. The majority criterion did not fail by either method, because in each case the majority candidate won.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="11.16">
+    <paragraph>Use the information in the table to answer the following questions. Voters L M N O P Option A 2 2 3 2 1 Option B 1 4 1 4 2 Option C 3 1 4 1 3 Option D 4 1 2 3 4</paragraph>
+    <paragraph>Which option is the winner when using the plurality voting method?</paragraph>
+    <paragraph>Which option is the winner when using the ranked-choice voting method?</paragraph>
+    <paragraph>Does the majority criterion apply? If so, for which voting method(s), if any, did the majority criterion fail?</paragraph>
+  </note>
+  <paragraph>From Example 11.16, it appears that the plurality and ranked-choice voting methods satisfy the majority criterion. In general, the majority candidate always wins in a plurality election because the candidate that has more than half of the votes has more votes than any other candidate. The same is true for ranked-choice voting; and there will never be a need for a second round when there is a majority candidate. Let’s examine how some of the other voting methods stand up to the majority criterion.</paragraph>
+  <example number="11.17" title="Roommates Choose Fast Food">
+    <problem>
+      <paragraph>Those seven college students are hungry again! Their preferences haven’t changed, as shown below. Let’s calculate if the results change when we use different voting methods.</paragraph>
+      <table>
+        <thead>
+          <row>
+            <cell header="true">VOTERS</cell>
+            <cell header="true">A</cell>
+            <cell header="true">B</cell>
+            <cell header="true">C</cell>
+            <cell header="true">D</cell>
+            <cell header="true">E</cell>
+            <cell header="true">F</cell>
+            <cell header="true">G</cell>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <cell>(M) McDonald’s</cell>
+            <cell>1</cell>
+            <cell>1</cell>
+            <cell>1</cell>
+            <cell>1</cell>
+            <cell>5</cell>
+            <cell>5</cell>
+            <cell>5</cell>
+          </row>
+          <row>
+            <cell>(B) Burger King</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+          </row>
+          <row>
+            <cell>(T) Taco Bell</cell>
+            <cell>4</cell>
+            <cell>4</cell>
+            <cell>3</cell>
+            <cell>4</cell>
+            <cell>3</cell>
+            <cell>3</cell>
+            <cell>1</cell>
+          </row>
+          <row>
+            <cell>(O) Pollo Tropical</cell>
+            <cell>3</cell>
+            <cell>5</cell>
+            <cell>4</cell>
+            <cell>3</cell>
+            <cell>4</cell>
+            <cell>1</cell>
+            <cell>3</cell>
+          </row>
+          <row>
+            <cell>(I) Pizza Hut</cell>
+            <cell>5</cell>
+            <cell>3</cell>
+            <cell>5</cell>
+            <cell>5</cell>
+            <cell>1</cell>
+            <cell>4</cell>
+            <cell>4</cell>
+          </row>
+        </tbody>
+      </table>
+      <list type="ordered">
+        <item>Which restaurant is the winner using the pairwise comparison voting method?</item>
+        <item>Which restaurant is the winner using the Borda count voting method?</item>
+        <item>Does the majority criterion apply? If so, for which voting method(s), if any, did the majority criterion fail?</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>For pairwise comparison, notice that McDonald’s is a Condorcet candidate because it wins every pairwise comparison. So, McDonald’s is the winner.</item>
+        <item>For the Borda count, we must calculate the Borda score for each candidate: McDonald’s is 16, Burger King is 21, Taco Bell is 13, Pollo Tropical is 12, Pizza Hut is 8. The winner is Burger King!</item>
+        <item>Yes, the majority criterion applies because McDonald’s has the majority of first place votes. The majority criterion only fails using the Borda method.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="11.17">
+    <paragraph>Use the information in the following table to find the winner using each of the voting methods in parts 1 and 2, then answer the question in part 3. Voters L M N O P Option A 2 2 3 2 2 Option B 1 4 1 4 1 Option C 3 1 4 1 3 Option D 4 3 2 3 4</paragraph>
+    <paragraph>Pairwise comparison</paragraph>
+    <paragraph>Borda count</paragraph>
+    <paragraph>Does the majority criterion apply? If so, for which voting method(s) did the majority criterion fail?</paragraph>
+  </note>
+  <paragraph>Example 11.17 demonstrates a concept that we also saw in Borda Count Voting—the Borda method frequently favors the compromise candidate over the divisive candidate. This can happen even when the divisive candidate has a majority, as it did in this example. Although a majority of the voters were in favor of McDonald’s, a significant minority was strongly opposed to McDonald’s, ranking it last. Since the Borda score includes all rankings, this strong opposition has an impact on the outcome of the election.</paragraph>
+  <paragraph>Pairwise comparison will always satisfy the majority criterion because the candidate with the majority of first-place votes wins each pairwise matchup. While it is possible for the majority candidate to win by the Borda count method, it is not guaranteed. So, the Borda method fails the majority criterion. A summary of each voting method as it relates to the majority criterion is found in the following table.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Voting Method</cell>
+        <cell header="true">Majority Criterion</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>Plurality</cell>
+        <cell>Satisfies</cell>
+      </row>
+      <row>
+        <cell>Ranked-choice</cell>
+        <cell>Satisfies</cell>
+      </row>
+      <row>
+        <cell>Pairwise comparison</cell>
+        <cell>Satisfies</cell>
+      </row>
+      <row>
+        <cell>Borda count</cell>
+        <cell>Violates</cell>
+      </row>
+    </tbody>
+  </table>
+  <paragraph>If you prefer the Borda method, you might argue that its failure to satisfy the majority criterion is actually one of its strengths. As we saw in Example 11.16 and Example 11.17, the majority have the power to vote for their own benefit at the expense of the minority. While four students were very enthusiastic about McDonald’s, three students were strongly opposed to McDonald’s. It is reasonable to say that the better option would be Burger King, the compromise candidate, which everyone ranked highly and no one strongly opposed. The Borda method is designed to favor a candidate that is acceptable to the population as a whole. In this way, the Borda method avoids a downfall of strict majority rule known as the tyranny of the majority, which occurs when a minority of a population is treated unfairly because their situation is different from the situation of the majority.</paragraph>
+  <paragraph>The people of Imaginaria should know that the power of the majority to vote their will has serious implications for other groups. For example, according to the UCLA School of Law Williams Institute, the LGBTQ+ community in the United States makes up approximately 4.5 percent of the population. When elections occur that include issues that affect the LGBTQ+ community, members of the LGBTQ+ community depend on the 95.5 percent of the population who do not identify as LGBTQ+ to consider their perspectives when voting on issues such as same-sex marriage, the use of public restrooms by transgender people, and adoption by same-sex couples.</paragraph>
+  <note type="sidebar" source_type="People in Mathematics" title="People in Mathematics">
+    <heading level="4">Robert Dahl</heading>
+    <paragraph>In his book, Democracy and Its Critics, Robert Dahl wrote, “If a majority is not entitled to do so, then it is thereby deprived of its rights; but if a majority is entitled to do so, then it can deprive the minority of its rights.” Dahl was a renowned political theorist, but he is also considered to be a mathematician since his work utilizes ideas from an area of mathematics known as Game Theory (Mathematics Genealogy Project, NDSU Department of Mathematics with the American Mathematical Society).</paragraph>
+  </note>
+  <note type="sidebar" source_type="Who Knew?" title="Who Knew?">
+    <heading level="4">Three Branches of Government</heading>
+    <paragraph>Concerns about the consequences of majority rule are not new. In 1788, John Adams warned of the consequences of majority rule and he argued for three branches of government as a way to temper them. In the early 1800s, a young French aristocrat named Alexis de Tocqueville toured the United States and wrote Democracy in America, which focused on the impact of democracy on political and civil societies. He observed, even then, the dominance of the white majority over the Indigenous people and enslaved people, which was perpetuated by majority rule.</paragraph>
+  </note>
+  <note type="sidebar" source_type="Video" title="Video">
+    <paragraph>Separation of Powers and Checks and Balances</paragraph>
+  </note>
+  <heading level="2">Head-to-Head Criterion</heading>
+  <paragraph>Another fairness criterion you must consider as you select a voting method for Imaginaria is the Condorcet criterion, also known as the head-to-head criterion. An election method satisfies the Condorcet criterion provided that the Condorcet candidate wins the election whenever a Condorcet candidate exists. A Condorcet method is any voting method that satisfies the Condorcet criterion.</paragraph>
+  <paragraph>Recall from Three Key Questions that not every election has a Condorcet candidate; the Condorcet criterion will not apply to every election. Also recall that a Condorcet candidate cannot lose an election by pairwise comparison. So, the pairwise comparison voting method is said to satisfy the Condorcet criterion.</paragraph>
+  <example number="11.18" title="Spending Tax Refund">
+    <problem>
+      <paragraph>A survey asked a random sample of 100 people in the United States to rank their priorities for spending their tax refund. The options were (V) go on vacation, (S) put into savings, (D) pay off debt, or (T) other. The pairwise comparison matrix for the results is in Figure 11.11. Determine whether the Condorcet criterion applies.</paragraph>
+      <figure number="11.11">
+        <image alt="A table of tax refund spending shows the options between go on vacation (V), put into savings (S), pay off debt (D), and other (T). The data given in the table are as follows. The table shows four rows and five columns. The column headers are Runner and Opponent, V, S, D, and T. Column one shows V wins, S wins, D wins, and T wins. Column two shows Nil, S V 67 (Blue), D V 63 (Green), and T V 0 (Grey). Column three shows V S 33 (Blue), Nil, D S 64 (Blue), and T S 0 (Green). Column four shows V D 37 (Green), S D 36 (Blue), Nil, and T D 4 (Blue). Column five shows V T 100 (Yellow), S T 100 (Green), D T 96 (Blue), and Nil. The last row of column two is struck off. The first and fourth rows of column three are struck off. The first, second, and fourth rows of column four are struck off."/>
+        <caption>Pairwise Comparison Matrix for Tax Refund Spending</caption>
+      </figure>
+    </problem>
+    <solution>
+      <paragraph>The Condorcet criterion only applies when there is a Condorcet candidate. “Pay off debt” (D) is a Condorcet candidate because D wins every matchup. Yes, the Condorcet criterion applies to this election.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="11.18">
+    <paragraph>Determine whether the Condorcet criterion applies based on the summary of ranked ballots given in the table below. Votes 3 2 Option A 1 3 Option B 2 1 Option C 3 2</paragraph>
+  </note>
+  <example number="11.19" title="Spending Tax Refund">
+    <problem>
+      <paragraph>Let’s return to the survey about tax refund spending from Example 11.18. We know that the Condorcet criterion applies because Option D, “Pay off debt,” is a Condorcet candidate, which wins every pairwise match up.</paragraph>
+      <paragraph>Use the information in the ballot summary from the table below to find the winner and determine whether the Condorcet criterion is satisfied in this election when each of the following voting methods are used.</paragraph>
+      <table>
+        <thead>
+          <row>
+            <cell header="true">Votes</cell>
+            <cell header="true">33</cell>
+            <cell header="true">32</cell>
+            <cell header="true">31</cell>
+            <cell header="true">4</cell>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <cell>On a vacation (V)</cell>
+            <cell>1</cell>
+            <cell>3</cell>
+            <cell>3</cell>
+            <cell>2</cell>
+          </row>
+          <row>
+            <cell>Put into savings (S)</cell>
+            <cell>3</cell>
+            <cell>1</cell>
+            <cell>2</cell>
+            <cell>1</cell>
+          </row>
+          <row>
+            <cell>Pay off debt (D)</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+            <cell>1</cell>
+            <cell>4</cell>
+          </row>
+          <row>
+            <cell>Other (T)</cell>
+            <cell>4</cell>
+            <cell>4</cell>
+            <cell>4</cell>
+            <cell>3</cell>
+          </row>
+        </tbody>
+      </table>
+      <list type="ordered">
+        <item>Plurality</item>
+        <item>Ranked-choice voting</item>
+        <item>Borda count</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>V wins 33 first place votes; S, 36; D, 31; and T, 0. So candidate S, “Put into savings,” has a plurality and wins. Since the Condorcet candidate D didn’t win, the Condorcet criterion is violated.</item>
+        <item>Use the steps outlined in Ranked-Choice Voting for determining the winner of an election by ranked-choice voting, the application of the Hare method in which instant runoffs are used. Step 1: The number of votes needed to achieve a majority is 51. Step 2: As illustrated in part 1, no candidate has a majority of first-place votes; so the candidate with the fewest votes, T, must be eliminated. Step 3: Reallocate votes to the remaining candidates for the second round: Votes 33 32 31 4 On a vacation (V) 1 3 3 2 Put into savings (S) 3 1 2 1 Pay off debt (D) 2 2 1 3 Step 4: Repeat the process from Step 2. Count the first-place votes for each candidate: V has 33 votes, S has 36 votes, D has 31. votes. Eliminate candidate D, “Pay off debt,” for the third round. Step 5: Repeat the process from Step 3. Reallocate votes to the remaining candidates for the third round: Votes 33 32 31 4 On a vacation (V) 1 2 2 2 Put into savings (S) 2 1 1 1 Step 6: Repeat the process from Step 2 one last time. Count the first-place votes for each candidate: V has 33, S has 67. Candidate S, “Put into savings,” has a majority and wins. Since the Condorcet candidate D candidate D, “Pay off debt,” didn’t win, the Condorcet criterion is violated.</item>
+        <item>Calculate the Borda score for each candidate. V: $$33(4 - 1) + 32(4 - 3) + 31(4 - 3) + 4(4 - 2) = 170$$ S: $$33(4 - 3) + 32(4 - 1) + 31(4 - 2) + 4(4 - 1) = 203$$ D: $$33(4 - 2) + 32(4 - 2) + 31(4 - 1) + 4(4 - 4) = 223$$ T: $$33(4 - 4) + 32(4 - 4) + 31(4 - 4) + 4(4 - 3) = 4$$</item>
+      </list>
+      <paragraph>Candidate D, “Pay off debt,” has the highest Borda score and wins. Since D was the Condorcet candidate, this election satisfies the Condorcet criterion.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="11.19">
+    <paragraph>Use the summary of ranked ballots below to find the winner and determine whether the Condorcet criterion is satisfied when each of the following voting methods are used. Recall that Option A is a Condorcet candidate. Votes 3 2 Option A 1 3 Option B 2 1 Option C 3 2</paragraph>
+    <paragraph>Plurality</paragraph>
+    <paragraph>Ranked-choice voting</paragraph>
+    <paragraph>Borda count</paragraph>
+  </note>
+  <paragraph>As we have seen, the plurality method, ranked-choice voting, and the Borda count method each fail the Condorcet criterion in some circumstances. Of the four main ranked voting methods we have discussed, only the pairwise comparison method satisfies the Condorcet criterion every time. A summary of each voting method as it relates to the Condorcet criterion is found in the following table.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Voting Method</cell>
+        <cell header="true">Condorcet Criterion</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>Plurality</cell>
+        <cell>Violates</cell>
+      </row>
+      <row>
+        <cell>Ranked-choice</cell>
+        <cell>Violates</cell>
+      </row>
+      <row>
+        <cell>Pairwise comparison</cell>
+        <cell>Satisfies</cell>
+      </row>
+      <row>
+        <cell>Borda count</cell>
+        <cell>Violates</cell>
+      </row>
+    </tbody>
+  </table>
+  <heading level="2">Monotonicity Criterion</heading>
+  <paragraph>The citizens of Imaginaria might be surprised to learn that it is possible for a voter to cause a candidate to lose by ranking that candidate higher on their ballot. Is that fair? Most voters would say, “Absolutely not!!” This is an example of a violation of the fairness criterion called the monotonicity criterion, which is satisfied when no candidate is harmed by up-ranking nor helped by down-ranking, provided all other votes remain the same.</paragraph>
+  <paragraph>Consider a scenario in which voters are permitted a first round that is not binding, and then they may change their vote before the second round. Such a first round can be called a “straw poll.” Now, let’s suppose that a particular candidate won the straw poll. After that, several voters are convinced to increase their support, or up-rank, that winning candidate and no voters decrease that support. It is reasonable to expect that the winner of the first round will also win the second. Similarly, if some of the voters decide to decrease their support, or down-rank, a losing candidate, it is reasonable to expect that candidate will still lose in the second round.</paragraph>
+  <paragraph>You might be wondering why it’s called the monotonicity criterion. In mathematics, the term monotonicity refers to the quality of always increasing or always decreasing. For example, a person’s age is monotonic because it always increases, whereas a person’s weight is not monotonic because it can increase or decrease. If the only changes to the votes for a particular candidate after a straw poll are in one direction, this change is considered monotonic.</paragraph>
+  <paragraph>If you are going to make an informed decision about which voting method to use in Imaginaria, you need to know which of the four main ranked voting methods we have discussed—plurality, ranked-choice, pairwise comparison, and the Borda count method—satisfy the monotonicity criterion.</paragraph>
+  <example number="11.20" title="Favorite Dog Breed by Plurality">
+    <problem>
+      <paragraph>The local animal shelter is having a vote-by-donation charity event. For a \$10 donation, an individual can complete a ranked ballot indicating their favorite large dog breed: standard poodle, golden retriever, Labrador retriever, or bulldog. Use the summary of ballots below to answer each question.</paragraph>
+      <table>
+        <thead>
+          <row>
+            <cell header="true">Votes</cell>
+            <cell header="true">42</cell>
+            <cell header="true">53</cell>
+            <cell header="true">61</cell>
+            <cell header="true">24</cell>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <cell>(S) Standard Poodle</cell>
+            <cell>1</cell>
             <cell>3</cell>
             <cell>2</cell>
             <cell>1</cell>
           </row>
           <row>
+            <cell>(G) Golden Retriever</cell>
+            <cell>3</cell>
+            <cell>1</cell>
+            <cell>4</cell>
+            <cell>4</cell>
+          </row>
+          <row>
+            <cell>(L) Labrador Retriever</cell>
+            <cell>4</cell>
+            <cell>2</cell>
+            <cell>1</cell>
+            <cell>2</cell>
+          </row>
+          <row>
+            <cell>(B) Bulldog</cell>
+            <cell>2</cell>
+            <cell>4</cell>
+            <cell>3</cell>
+            <cell>3</cell>
+          </row>
+        </tbody>
+      </table>
+      <list type="ordered">
+        <item>Determine the winner of the election by plurality.</item>
+        <item>Suppose that the 53 voters in the second column increased their ranking of the winner by 1. Determine the winner by plurality with the new rankings.</item>
+        <item>Does this election violate the monotonicity criterion?</item>
+        <item>Do you think the result of part 3 is also true for plurality voting and the monotonicity criterion in general? Why or why not?</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>The number of votes for each candidate are: S 66, G 53, L 61, and B 0. The winner is the standard poodle.</item>
+        <item>If the 53 voters in the second column rank S as 2 and L as 3, then the number of votes for each candidate are: S with 66, G with 53, L with 61, and B with 0. The winner is still the standard poodle.</item>
+        <item>This election does not violate the monotonicity criterion because the winner was not hurt by up-ranking.</item>
+        <item>In general, increasing the ranking for a winner of a plurality election will either leave them with the same or more first place votes while leaving the other candidates with the same or fewer first place votes. So a plurality election will never violate the monotonicity criterion.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="11.20">
+    <paragraph>Use the Favorite Large Dog Breed Ballot Summary to answer each question.</paragraph>
+    <paragraph>Determine the winner of the election by Borda count.</paragraph>
+    <paragraph>Suppose that the 61 voters in the third column increased their ranking of the winner by 1. Determine the winner by Borda count with the new rankings.</paragraph>
+    <paragraph>Does this election violate the monotonicity criterion?</paragraph>
+    <paragraph>Do you think the result of part 3 is true for Borda count and the monotonicity criterion in general? Why or why not?</paragraph>
+  </note>
+  <example number="11.21" title="Monotonicity Criterion in a Pairwise Comparison Election">
+    <problem>
+      <paragraph>Earlier, we discovered that the summary of ranked ballots shown in the table below results in the pairwise comparison matrix in Figure 11.12. Use this information to answer the questions.</paragraph>
+      <table>
+        <thead>
+          <row>
+            <cell header="true">Number of Ballots</cell>
+            <cell header="true">95</cell>
+            <cell header="true">90</cell>
+            <cell header="true">110</cell>
+            <cell header="true">115</cell>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <cell>Option A</cell>
+            <cell>4</cell>
+            <cell>4</cell>
+            <cell>1</cell>
+            <cell>1</cell>
+          </row>
+          <row>
             <cell>Option B</cell>
-            <cell>1</cell>
-            <cell>4</cell>
-            <cell>1</cell>
-            <cell>4</cell>
+            <cell>2</cell>
+            <cell>2</cell>
+            <cell>2</cell>
             <cell>2</cell>
           </row>
           <row>
             <cell>Option C</cell>
             <cell>3</cell>
             <cell>1</cell>
-            <cell>4</cell>
-            <cell>1</cell>
             <cell>3</cell>
+            <cell>4</cell>
           </row>
           <row>
             <cell>Option D</cell>
-            <cell>4</cell>
             <cell>1</cell>
-            <cell>2</cell>
             <cell>3</cell>
             <cell>4</cell>
+            <cell>3</cell>
           </row>
         </tbody>
       </table>
-      <p>Which option is the winner when using the plurality voting method?</p>
-      <p>Which option is the winner when using the ranked-choice voting method?</p>
-      <p>Does the majority criterion apply? If so, for which voting method(s), if any, did the majority criterion fail?</p>
-    </note>
-    <p>From Example 11.16, it appears that the plurality and ranked-choice voting methods satisfy the majority criterion. In general, the majority candidate always wins in a plurality election because the candidate that has more than half of the votes has more votes than any other candidate. The same is true for ranked-choice voting; and there will never be a need for a second round when there is a majority candidate. Let’s examine how some of the other voting methods stand up to the majority criterion.</p>
-    <example number="11.17">
-      <problem>
-        <p>Those seven college students are hungry again! Their preferences haven’t changed, as shown below. Let’s calculate if the results change when we use different voting methods.</p>
-        <table summary=" ">
-          <thead>
-            <row>
-              <cell>VOTERS</cell>
-              <cell>A</cell>
-              <cell>B</cell>
-              <cell>C</cell>
-              <cell>D</cell>
-              <cell>E</cell>
-              <cell>F</cell>
-              <cell>G</cell>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <cell>(M) McDonald’s</cell>
-              <cell>1</cell>
-              <cell>1</cell>
-              <cell>1</cell>
-              <cell>1</cell>
-              <cell>5</cell>
-              <cell>5</cell>
-              <cell>5</cell>
-            </row>
-            <row>
-              <cell>(B) Burger King</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-            </row>
-            <row>
-              <cell>(T) Taco Bell</cell>
-              <cell>4</cell>
-              <cell>4</cell>
-              <cell>3</cell>
-              <cell>4</cell>
-              <cell>3</cell>
-              <cell>3</cell>
-              <cell>1</cell>
-            </row>
-            <row>
-              <cell>(O) Pollo Tropical</cell>
-              <cell>3</cell>
-              <cell>5</cell>
-              <cell>4</cell>
-              <cell>3</cell>
-              <cell>4</cell>
-              <cell>1</cell>
-              <cell>3</cell>
-            </row>
-            <row>
-              <cell>(I) Pizza Hut</cell>
-              <cell>5</cell>
-              <cell>3</cell>
-              <cell>5</cell>
-              <cell>5</cell>
-              <cell>1</cell>
-              <cell>4</cell>
-              <cell>4</cell>
-            </row>
-          </tbody>
-        </table>
-        <list type="ol" style="1">
-          <item>Which restaurant is the winner using the pairwise comparison voting method?</item>
-          <item>Which restaurant is the winner using the Borda count voting method?</item>
-          <item>Does the majority criterion apply? If so, for which voting method(s), if any, did the majority criterion fail?</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>For pairwise comparison, notice that McDonald’s is a Condorcet candidate because it wins every pairwise comparison. So, McDonald’s is the winner.</item>
-          <item>For the Borda count, we must calculate the Borda score for each candidate: McDonald’s is 16, Burger King is 21, Taco Bell is 13, Pollo Tropical is 12, Pizza Hut is 8. The winner is Burger King!</item>
-          <item>Yes, the majority criterion applies because McDonald’s has the majority of first place votes. The majority criterion only fails using the Borda method.</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="11.17">
-      <p>Use the information in the following table to find the winner using each of the voting methods in parts 1 and 2, then answer the question in part 3.</p>
+      <figure number="11.12">
+        <image alt="A table of sample summary for ranked ballots shows the comparison between four options Option A, Option B, Option C, and Option D. The data given in the table are as follows. The table shows four rows and six columns. The column headers are Runner and Opponent, Option A, Option B, Option C, Option D, and Points. Column one shows Option A wins, Option B wins, Option C wins, and Option D wins. Column two shows Nil, B A 185, C A 185, and D A 185. Column three shows A B 225, Nil, C B 90, and D B 95. Column four shows A C 225, B C 320, Nil, and D C 210. Column five shows A D 225, B D 315, C D 200, and Nil. Column six shows 3, 2, 0, and 1. The last three rows on column two are struck off. The last two rows on column three are struck off. The third row on column five is struck off."/>
+        <caption>Analyzed Pairwise Comparison Matrix for Sample Summary of Ranked Ballots</caption>
+      </figure>
+      <list type="ordered">
+        <item>Determine the winner of the election by the pairwise comparison method.</item>
+        <item>Suppose that the 95 voters in the first column increased their ranking of the winner by 1. Determine the winner by the pairwise comparison method with the new rankings.</item>
+        <item>Does this election violate the monotonicity criterion?</item>
+        <item>Do you think the result of part 3 is true for the pairwise comparison method and the monotonicity criterion in general? Why or why not?</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>By the pairwise comparison method, Option A wins with three points.</item>
+        <item>If the 95 voters in the first column of Figure 11.12 increased their ranking of the winner by 1, then C would fall into fourth place and A would move up to third place on those ballots. This would only affect the matchup between A and C, and the result would be that A would gain 95 votes while C would lose 95 votes. This means A would have 320 votes and C would have 90. Since A already was ahead of C, this just puts A further ahead and causes no change to the election results.</item>
+        <item>Since the winner A is not hurt by an up-rank, and the loser C is not helped by a down-rank, this election is fair by the monotonicity criterion.</item>
+        <item>Yes, the monotonicity criterion would be satisfied by the pairwise comparison method, because an up-rank of the winner can never decrease the number of pairwise wins. Similarly, a down-rank can never increase the number of pairwise wins.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="11.21">
+    <paragraph>Use the Favorite Large Dog Breed Ballot Summary to answer each question.</paragraph>
+    <paragraph>Determine the winner of the election by the ranked-choice method.</paragraph>
+    <paragraph>Suppose that the 24 voters in the last column of the table increased their ranking of the winner by 1. Determine the winner by the ranked-choice method with the new rankings.</paragraph>
+    <paragraph>Does this election violate the monotonicity criterion?</paragraph>
+    <paragraph>Do you think the result in question 3 is true for the ranked-choice method and the monotonicity criterion in general? Why or why not?</paragraph>
+  </note>
+  <paragraph>The last few examples illustrate that the plurality method, pairwise comparison voting, and the Borda count method each satisfy the monotonicity criterion. Of the four main ranked voting methods we have discussed, only the ranked-choice method violates the monotonicity criterion. A summary of each voting method as it relates to the Condorcet criterion is found in the table below.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Voting Method</cell>
+        <cell header="true">Monotonicity Criterion</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>Plurality</cell>
+        <cell>Satisfies</cell>
+      </row>
+      <row>
+        <cell>Ranked-choice</cell>
+        <cell>Violates</cell>
+      </row>
+      <row>
+        <cell>Pairwise comparison</cell>
+        <cell>Satisfies</cell>
+      </row>
+      <row>
+        <cell>Borda count</cell>
+        <cell>Satisfies</cell>
+      </row>
+    </tbody>
+  </table>
+  <heading level="2">Irrelevant Alternatives Criterion</heading>
+  <paragraph>We have covered a lot about voting fairness, but there is one more fairness criterion that you and the other Imaginarians should know. Consider this well-known anecdote that is sometimes attributed to the American philosopher Sidney Morgenbesser:</paragraph>
+  <paragraph>A man is told by his waiter that the dessert options this evening are blueberry pie or apple pie. The man orders the apple pie. The waiter returns and tells him that there is also a third option, cherry pie. The man says, “In that case, I would like the blueberry pie.” (Gaming the Vote: Why Elections Aren’t Fair (and What We Can Do About It), William Pound stone, p. 50, ISBN 0-8090-4893-0)</paragraph>
+  <paragraph>This story illustrates the concept of the Irrelevant Alternatives Criterion, also known as the Independence of Irrelevant Alternatives Criterion (IIA), which means that the introduction or removal of a third candidate should not change or reverse the rankings of the original two candidates relative to one another. In particular, if a losing candidate is removed from the race or if a new candidate is added, the winner of the race should not change.</paragraph>
+  <example number="11.22" title="Apple, Blueberry, or Cherry?">
+    <problem>
+      <paragraph>Suppose that 30 students in a class are going to vote on whether to have apple, blueberry, or cherry pie. Use the summary of ranked ballots in below to answer each question.</paragraph>
       <table>
         <thead>
           <row>
-            <cell>Voters</cell>
-            <cell>L</cell>
-            <cell>M</cell>
-            <cell>N</cell>
-            <cell>O</cell>
-            <cell>P</cell>
+            <cell header="true">Number of Ballots</cell>
+            <cell header="true">14</cell>
+            <cell header="true">12</cell>
+            <cell header="true">4</cell>
           </row>
         </thead>
         <tbody>
           <row>
-            <cell>Option A</cell>
-            <cell>2</cell>
-            <cell>2</cell>
+            <cell>(A) Apple Pie</cell>
+            <cell>1</cell>
             <cell>3</cell>
-            <cell>2</cell>
-            <cell>2</cell>
-          </row>
-          <row>
-            <cell>Option B</cell>
-            <cell>1</cell>
-            <cell>4</cell>
-            <cell>1</cell>
-            <cell>4</cell>
-            <cell>1</cell>
-          </row>
-          <row>
-            <cell>Option C</cell>
-            <cell>3</cell>
-            <cell>1</cell>
-            <cell>4</cell>
-            <cell>1</cell>
             <cell>3</cell>
           </row>
           <row>
-            <cell>Option D</cell>
-            <cell>4</cell>
+            <cell>(B) Blueberry Pie</cell>
+            <cell>2</cell>
+            <cell>1</cell>
+            <cell>2</cell>
+          </row>
+          <row>
+            <cell>(C) Cherry Pie</cell>
             <cell>3</cell>
             <cell>2</cell>
-            <cell>3</cell>
-            <cell>4</cell>
+            <cell>1</cell>
           </row>
         </tbody>
       </table>
-      <p>Pairwise comparison</p>
-      <p>Borda count</p>
-      <p>Does the majority criterion apply? If so, for which voting method(s) did the majority criterion fail?</p>
-    </note>
-    <p>Example 11.17 demonstrates a concept that we also saw in Borda Count Voting—the Borda method frequently favors the compromise candidate over the divisive candidate. This can happen even when the divisive candidate has a majority, as it did in this example. Although a majority of the voters were in favor of McDonald’s, a significant minority was strongly opposed to McDonald’s, ranking it last. Since the Borda score includes all rankings, this strong opposition has an impact on the outcome of the election.</p>
-    <p>Pairwise comparison will always satisfy the majority criterion because the candidate with the majority of first-place votes wins each pairwise matchup. While it is possible for the majority candidate to win by the Borda count method, it is not guaranteed. So, the Borda method fails the majority criterion. A summary of each voting method as it relates to the majority criterion is found in the following table.</p>
-    <table summary=" ">
-      <thead>
-        <row>
-          <cell>Voting Method</cell>
-          <cell>Majority Criterion</cell>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <cell>Plurality</cell>
-          <cell>Satisfies</cell>
-        </row>
-        <row>
-          <cell>Ranked-choice</cell>
-          <cell>Satisfies</cell>
-        </row>
-        <row>
-          <cell>Pairwise comparison</cell>
-          <cell>Satisfies</cell>
-        </row>
-        <row>
-          <cell>Borda count</cell>
-          <cell>Violates</cell>
-        </row>
-      </tbody>
-    </table>
-    <p>If you prefer the Borda method, you might argue that its failure to satisfy the majority criterion is actually one of its strengths. As we saw in Example 11.16 and Example 11.17, the majority have the power to vote for their own benefit at the expense of the minority. While four students were very enthusiastic about McDonald’s, three students were strongly opposed to McDonald’s. It is reasonable to say that the better option would be Burger King, the compromise candidate, which everyone ranked highly and no one strongly opposed. The Borda method is designed to favor a candidate that is acceptable to the population as a whole. In this way, the Borda method avoids a downfall of strict majority rule known as the tyranny of the majority, which occurs when a minority of a population is treated unfairly because their situation is different from the situation of the majority.</p>
-    <p>The people of Imaginaria should know that the power of the majority to vote their will has serious implications for other groups. For example, according to the UCLA School of Law Williams Institute, the LGBTQ+ community in the United States makes up approximately 4.5 percent of the population. When elections occur that include issues that affect the LGBTQ+ community, members of the LGBTQ+ community depend on the 95.5 percent of the population who do not identify as LGBTQ+ to consider their perspectives when voting on issues such as same-sex marriage, the use of public restrooms by transgender people, and adoption by same-sex couples.</p>
-    <note type="People in Mathematics">
-      <p>In his book, Democracy and Its Critics, Robert Dahl wrote, “If a majority is not entitled to do so, then it is thereby deprived of its rights; but if a majority is entitled to do so, then it can deprive the minority of its rights.” Dahl was a renowned political theorist, but he is also considered to be a mathematician since his work utilizes ideas from an area of mathematics known as Game Theory (Mathematics Genealogy Project, NDSU Department of Mathematics with the American Mathematical Society).</p>
-    </note>
-    <note type="Who Knew?">
-      <p>Concerns about the consequences of majority rule are not new. In 1788, John Adams warned of the consequences of majority rule and he argued for three branches of government as a way to temper them. In the early 1800s, a young French aristocrat named Alexis de Tocqueville toured the United States and wrote Democracy in America, which focused on the impact of democracy on political and civil societies. He observed, even then, the dominance of the white majority over the Indigenous people and enslaved people, which was perpetuated by majority rule.</p>
-    </note>
-    <note type="Video">
-      <p>Separation of Powers and Checks and Balances</p>
-    </note>
-  </subsection>
-  <subsection title="Head-to-Head Criterion">
-    <p>Another fairness criterion you must consider as you select a voting method for Imaginaria is the Condorcet criterion, also known as the head-to-head criterion. An election method satisfies the Condorcet criterion provided that the Condorcet candidate wins the election whenever a Condorcet candidate exists. A Condorcet method is any voting method that satisfies the Condorcet criterion.</p>
-    <p>Recall from Three Key Questions that not every election has a Condorcet candidate; the Condorcet criterion will not apply to every election. Also recall that a Condorcet candidate cannot lose an election by pairwise comparison. So, the pairwise comparison voting method is said to satisfy the Condorcet criterion.</p>
-    <example number="11.18">
-      <problem>
-        <p>A survey asked a random sample of 100 people in the United States to rank their priorities for spending their tax refund. The options were (V) go on vacation, (S) put into savings, (D) pay off debt, or (T) other. The pairwise comparison matrix for the results is in Figure 11.11. Determine whether the Condorcet criterion applies.</p>
-        <image alt="A table of tax refund spending shows the options between go on vacation (V), put into savings (S), pay off debt (D), and other (T). The data given in the table are as follows. The table shows four rows and five columns. The column headers are Runner and Opponent, V, S, D, and T. Column one shows V wins, S wins, D wins, and T wins. Column two shows Nil, S V 67 (Blue), D V 63 (Green), and T V 0 (Grey). Column three shows V S 33 (Blue), Nil, D S 64 (Blue), and T S 0 (Green). Column four shows V D 37 (Green), S D 36 (Blue), Nil, and T D 4 (Blue). Column five shows V T 100 (Yellow), S T 100 (Green), D T 96 (Blue), and Nil. The last row of column two is struck off. The first and fourth rows of column three are struck off. The first, second, and fourth rows of column four are struck off." number="11.11" caption="Pairwise Comparison Matrix for Tax Refund Spending" />
-      </problem>
-      <solution>
-        <p>The Condorcet criterion only applies when there is a Condorcet candidate. “Pay off debt” (D) is a Condorcet candidate because D wins every matchup. Yes, the Condorcet criterion applies to this election.</p>
-      </solution>
-    </example>
-    <note type="Your Turn" number="11.18">
-      <p>Determine whether the Condorcet criterion applies based on the summary of ranked ballots given in the table below.
-
-
-
-Votes
-3
-2
-
-
-
-
-Option A
-1
-3
-
-
-Option B
-2
-1
-
-
-Option C
-3
-2</p>
-    </note>
-    <example number="11.19">
-      <problem>
-        <p>Let’s return to the survey about tax refund spending from Example 11.18. We know that the Condorcet criterion applies because Option D, “Pay off debt,” is a Condorcet candidate, which wins every pairwise match up.</p>
-        <p>Use the information in the ballot summary from the table below to find the winner and determine whether the Condorcet criterion is satisfied in this election when each of the following voting methods are used.</p>
-        <table summary=" ">
-          <thead>
-            <row>
-              <cell>Votes</cell>
-              <cell>33</cell>
-              <cell>32</cell>
-              <cell>31</cell>
-              <cell>4</cell>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <cell>On a vacation (V)</cell>
-              <cell>1</cell>
-              <cell>3</cell>
-              <cell>3</cell>
-              <cell>2</cell>
-            </row>
-            <row>
-              <cell>Put into savings (S)</cell>
-              <cell>3</cell>
-              <cell>1</cell>
-              <cell>2</cell>
-              <cell>1</cell>
-            </row>
-            <row>
-              <cell>Pay off debt (D)</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>1</cell>
-              <cell>4</cell>
-            </row>
-            <row>
-              <cell>Other (T)</cell>
-              <cell>4</cell>
-              <cell>4</cell>
-              <cell>4</cell>
-              <cell>3</cell>
-            </row>
-          </tbody>
-        </table>
-        <list type="ol" style="1">
-          <item>Plurality</item>
-          <item>Ranked-choice voting</item>
-          <item>Borda count</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>V wins 33 first place votes; S, 36; D, 31; and T, 0. So candidate S, “Put into savings,” has a plurality and wins. Since the Condorcet candidate D didn’t win, the Condorcet criterion is violated.</item>
-          <item>Use the steps outlined infor determining the winner of an election by ranked-choice voting, the application of the Hare method in which instant runoffs are used.<p>Step 1: The number of votes needed to achieve a majority is 51.</p>
-            <p>Step 2: As illustrated in part 1, no candidate has a majority of first-place votes; so the candidate with the fewest votes, T, must be eliminated.</p>
-            <p>Step 3: Reallocate votes to the remaining candidates for the second round:</p>
-            <table summary=" ">
-              <thead>
-                <row>
-                  <cell>Votes</cell>
-                  <cell>33</cell>
-                  <cell>32</cell>
-                  <cell>31</cell>
-                  <cell>4</cell>
-                </row>
-              </thead>
-              <tbody>
-                <row>
-                  <cell>On a vacation (V)</cell>
-                  <cell>1</cell>
-                  <cell>3</cell>
-                  <cell>3</cell>
-                  <cell>2</cell>
-                </row>
-                <row>
-                  <cell>Put into savings (S)</cell>
-                  <cell>3</cell>
-                  <cell>1</cell>
-                  <cell>2</cell>
-                  <cell>1</cell>
-                </row>
-                <row>
-                  <cell>Pay off debt (D)</cell>
-                  <cell>2</cell>
-                  <cell>2</cell>
-                  <cell>1</cell>
-                  <cell>3</cell>
-                </row>
-              </tbody>
-            </table>
-            <p>Step 4: Repeat the process from Step 2. Count the first-place votes for each candidate: V has 33 votes, S has 36 votes, D has 31. votes. Eliminate candidate D, “Pay off debt,” for the third round.</p>
-            <p>Step 5: Repeat the process from Step 3. Reallocate votes to the remaining candidates for the third round:</p>
-            <table summary=" ">
-              <thead>
-                <row>
-                  <cell>Votes</cell>
-                  <cell>33</cell>
-                  <cell>32</cell>
-                  <cell>31</cell>
-                  <cell>4</cell>
-                </row>
-              </thead>
-              <tbody>
-                <row>
-                  <cell>On a vacation (V)</cell>
-                  <cell>1</cell>
-                  <cell>2</cell>
-                  <cell>2</cell>
-                  <cell>2</cell>
-                </row>
-                <row>
-                  <cell>Put into savings (S)</cell>
-                  <cell>2</cell>
-                  <cell>1</cell>
-                  <cell>1</cell>
-                  <cell>1</cell>
-                </row>
-              </tbody>
-            </table>
-            <p>Step 6: Repeat the process from Step 2 one last time. Count the first-place votes for each candidate: V has 33, S has 67. Candidate S, “Put into savings,” has a majority and wins. Since the Condorcet candidate D candidate D, “Pay off debt,” didn’t win, the Condorcet criterion is violated.</p>
-          </item>
-          <item>Calculate the Borda score for each candidate.<p>V: $$33(4 - 1) + 32(4 - 3) + 31(4 - 3) + 4(4 - 2) = 170$$</p>
-            <p>S: $$33(4 - 3) + 32(4 - 1) + 31(4 - 2) + 4(4 - 1) = 203$$</p>
-            <p>D: $$33(4 - 2) + 32(4 - 2) + 31(4 - 1) + 4(4 - 4) = 223$$</p>
-            <p>T: $$33(4 - 4) + 32(4 - 4) + 31(4 - 4) + 4(4 - 3) = 4$$</p>
-          </item>
-        </list>
-        <p>Candidate D, “Pay off debt,” has the highest Borda score and wins. Since D was the Condorcet candidate, this election satisfies the Condorcet criterion.</p>
-      </solution>
-    </example>
-    <note type="Your Turn" number="11.19">
+      <list type="ordered">
+        <item>Determine the winner of the election by plurality.</item>
+        <item>Which candidate would win a plurality election if cherry pie were removed from the ballot?</item>
+        <item>Does this election violate the IIA?</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>The number of first place votes for each candidate is: A with 14, B with 12, and C with 4. Apple pie has the most first-place votes and wins the election.</item>
+        <item>If cherry pie is removed from the ballot, then the four voters in the third column now rank blueberry pie as their first choice. So the four votes for C now belong to B. This means that blueberry pie has 16 votes compared to the 14 votes for apple pie. Blueberry pie now wins the plurality election.</item>
+        <item>Yes, the election violates the IIA because the removal of a losing candidate from the ballot changed the winner of the election.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="11.22">
+    <paragraph>The local animal shelter is having another vote-by-donation charity event! This time, for a \$10 donation, an individual can complete a ranked ballot indicating their favorite small dog breed, miniature, from the ones provided: miniature poodle, Yorkshire terrier, or Chihuahua. Use the summary of ballots below to answer each question. Votes 53 42 24 11 (P) Miniature Poodle 1 3 3 2 (Y) Yorkshire Terrier 2 2 1 1 (C) Chihuahua 3 1 2 3</paragraph>
+    <paragraph>Determine the winner of the election by the ranked-choice method.</paragraph>
+    <paragraph>Determine the winner of the election if poodles are removed from the ballot.</paragraph>
+    <paragraph>Does this election violate IIA?</paragraph>
+  </note>
+  <example number="11.23" title="Best Fourth Wall Breaking Stare on The Office">
+    <problem>
+      <paragraph>The NBC sitcom The Office ran for nine years and has been one of the most popular streamed television shows of all time. One of the trademarks of the show was that characters would often break the fourth wall to communicate with the audience just by staring directly into the camera. In fact, there is a website dedicated to "The Office stares" where you can watch over 700 of these stares! Suppose that 36 fans were asked which character had the best "The Office stare." Use the ballot summary in below to answer each question.</paragraph>
       <table>
         <thead>
           <row>
-            <cell>Votes</cell>
-            <cell>3</cell>
-            <cell>2</cell>
+            <cell header="true">Number of Ballots</cell>
+            <cell header="true">9</cell>
+            <cell header="true">11</cell>
+            <cell header="true">7</cell>
+            <cell header="true">6</cell>
+            <cell header="true">3</cell>
           </row>
         </thead>
         <tbody>
           <row>
-            <cell>Option A</cell>
+            <cell>(J) Jim Halpert (John Krasinski)</cell>
             <cell>1</cell>
+            <cell>2</cell>
+            <cell>4</cell>
+            <cell>2</cell>
+            <cell>4</cell>
+          </row>
+          <row>
+            <cell>(P) Pam Beesly-Halpert (Jenna Fischer)</cell>
+            <cell>4</cell>
+            <cell>1</cell>
+            <cell>2</cell>
+            <cell>4</cell>
             <cell>3</cell>
           </row>
           <row>
-            <cell>Option B</cell>
+            <cell>(D) Dwight Schrute (Rainn Wilson)</cell>
             <cell>2</cell>
+            <cell>3</cell>
+            <cell>3</cell>
             <cell>1</cell>
+            <cell>2</cell>
           </row>
           <row>
-            <cell>Option C</cell>
+            <cell>(M) Michael Scott (Steve Carell)</cell>
             <cell>3</cell>
-            <cell>2</cell>
+            <cell>4</cell>
+            <cell>1</cell>
+            <cell>3</cell>
+            <cell>1</cell>
           </row>
         </tbody>
       </table>
-      <p>Plurality</p>
-      <p>Ranked-choice voting</p>
-      <p>Borda count</p>
-    </note>
-    <p>As we have seen, the plurality method, ranked-choice voting, and the Borda count method each fail the Condorcet criterion in some circumstances. Of the four main ranked voting methods we have discussed, only the pairwise comparison method satisfies the Condorcet criterion every time. A summary of each voting method as it relates to the Condorcet criterion is found in the following table.</p>
-    <table summary=" ">
+      <list type="ordered">
+        <item>Determine the winner of the election by the pairwise comparison method.</item>
+        <item>Determine the winner of the election by the pairwise comparison method if Michael Scott is removed from the ballot.</item>
+        <item>Does this election violate IIA?</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>Construct and analyze a pairwise comparison matrix: Figure 11.13 Pairwise Comparison Matrix for Jim, Pam, Dwight, and Michael Jim Halpert wins with 2 points.</item>
+        <item>If Michael Scott is removed, the summary of ranked ballots becomes: Number of Ballots 9 11 7 6 3 (J) Jim Halpert (John Krasinski) 1 2 3 2 3 (P) Pam Beesly-Halpert (Jenna Fischer) 3 1 1 3 2 (D) Dwight Schrute (Rainn Wilson) 2 3 2 1 1 Construct and analyze a pairwise comparison matrix: Figure 11.14 Pairwise Comparison Matrix for Jim, Pam, and Dwight Pam wins with $$1\frac{1}{2}$$ points.</item>
+        <item>Yes, this violates the IIA, because the winning candidate was hurt by the elimination of a losing candidate.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="11.23">
+    <paragraph>Use the initial ballot summary from Example 11.23 to answer the questions.</paragraph>
+    <paragraph>Determine the winner of the election by the Borda count method.</paragraph>
+    <paragraph>Determine the winner of the election by the Borda count method if Michael Scott is removed from the ballot.</paragraph>
+    <paragraph>Does this election violate IIA?</paragraph>
+  </note>
+  <paragraph>We have seen that all four of the main voting systems we are working with fail the Irrelevant Alternatives Criterion (IIA). A summary of each voting method as it relates to the IIA criterion is found in the table below.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Voting Method</cell>
+        <cell header="true">Irrelevant Alternatives Criterion</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>Plurality</cell>
+        <cell>Violates</cell>
+      </row>
+      <row>
+        <cell>Ranked-choice</cell>
+        <cell>Violates</cell>
+      </row>
+      <row>
+        <cell>Pairwise comparison</cell>
+        <cell>Violates</cell>
+      </row>
+      <row>
+        <cell>Borda count</cell>
+        <cell>Violates</cell>
+      </row>
+    </tbody>
+  </table>
+  <note type="sidebar" source_type="Who Knew?" title="Who Knew?">
+    <paragraph>Electronic Voting: Does Your Vote Count?</paragraph>
+    <paragraph>In order for an election to be fair, voting must be accessible to everyone and every vote must be counted. When hundreds of thousands to millions of votes must be collected and counted in a short period of time, deciding it can be challenging to be on counting procedures that are accurate and secure. Electronic voting machines or even Internet voting can speed up the process, but how reliable are these methods? This has been a subject for debate for years.</paragraph>
+    <paragraph>In a press release on August 3, 2007, California Secretary of State Debra Bowen explained the results of an extensive review of electronic voting systems in her state. She said that transparency and auditability were key. She went on to say, “I think voters and counties are the victims of a federal certification process that hasn’t done an adequate job of ensuring that the systems made available to them are secure, accurate, reliable and accessible. Congress enacted the Help America Vote Act, which pushed many counties into buying electronic systems that—as we’ve seen for some time and we saw again in the independent UC review—were not properly reviewed or tested to ensure that they protected the integrity of the vote.” Secretary Bowden subsequently ordered that voting machines must have tighter security to be used in California. (DB07:042, Secretary of State Debra Bowen Moves to Strengthen Voter Confidence in Election Security Following Top-to-Bottom Review of Voting Systems, https://sos.ca.gov/elections.) In some instances, the use of electronic voting in parliamentary elections has been discontinued completely for security reasons. For example, according to the National Democratic Institute, the Netherlands returned to all paper ballots and hand counting in 2006. Will you use voting machines or Internet voting in Imaginaria?</paragraph>
+    <paragraph>So far, every one of the voting methods we have analyzed has failed one or more of the fairness criteria in one election or another.</paragraph>
+    <table>
       <thead>
         <row>
-          <cell>Voting Method</cell>
-          <cell>Condorcet Criterion</cell>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <cell>Plurality</cell>
-          <cell>Violates</cell>
-        </row>
-        <row>
-          <cell>Ranked-choice</cell>
-          <cell>Violates</cell>
-        </row>
-        <row>
-          <cell>Pairwise comparison</cell>
-          <cell>Satisfies</cell>
-        </row>
-        <row>
-          <cell>Borda count</cell>
-          <cell>Violates</cell>
-        </row>
-      </tbody>
-    </table>
-  </subsection>
-  <subsection title="Monotonicity Criterion">
-    <p>The citizens of Imaginaria might be surprised to learn that it is possible for a voter to cause a candidate to lose by ranking that candidate higher on their ballot. Is that fair? Most voters would say, “Absolutely not!!” This is an example of a violation of the fairness criterion called the monotonicity criterion, which is satisfied when no candidate is harmed by up-ranking nor helped by down-ranking, provided all other votes remain the same.</p>
-    <p>Consider a scenario in which voters are permitted a first round that is not binding, and then they may change their vote before the second round. Such a first round can be called a “straw poll.” Now, let’s suppose that a particular candidate won the straw poll. After that, several voters are convinced to increase their support, or up-rank, that winning candidate and no voters decrease that support. It is reasonable to expect that the winner of the first round will also win the second. Similarly, if some of the voters decide to decrease their support, or down-rank, a losing candidate, it is reasonable to expect that candidate will still lose in the second round.</p>
-    <p>You might be wondering why it’s called the monotonicity criterion. In mathematics, the term monotonicity refers to the quality of always increasing or always decreasing. For example, a person’s age is monotonic because it always increases, whereas a person’s weight is not monotonic because it can increase or decrease. If the only changes to the votes for a particular candidate after a straw poll are in one direction, this change is considered monotonic.</p>
-    <p>If you are going to make an informed decision about which voting method to use in Imaginaria, you need to know which of the four main ranked voting methods we have discussed—plurality, ranked-choice, pairwise comparison, and the Borda count method—satisfy the monotonicity criterion.</p>
-    <example number="11.20">
-      <problem>
-        <p>The local animal shelter is having a vote-by-donation charity event. For a $10 donation, an individual can complete a ranked ballot indicating their favorite large dog breed: standard poodle, golden retriever, Labrador retriever, or bulldog. Use the summary of ballots below to answer each question.</p>
-        <table summary=" ">
-          <thead>
-            <row>
-              <cell>Votes</cell>
-              <cell>42</cell>
-              <cell>53</cell>
-              <cell>61</cell>
-              <cell>24</cell>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <cell>(S) Standard Poodle</cell>
-              <cell>1</cell>
-              <cell>3</cell>
-              <cell>2</cell>
-              <cell>1</cell>
-            </row>
-            <row>
-              <cell>(G) Golden Retriever</cell>
-              <cell>3</cell>
-              <cell>1</cell>
-              <cell>4</cell>
-              <cell>4</cell>
-            </row>
-            <row>
-              <cell>(L) Labrador Retriever</cell>
-              <cell>4</cell>
-              <cell>2</cell>
-              <cell>1</cell>
-              <cell>2</cell>
-            </row>
-            <row>
-              <cell>(B) Bulldog</cell>
-              <cell>2</cell>
-              <cell>4</cell>
-              <cell>3</cell>
-              <cell>3</cell>
-            </row>
-          </tbody>
-        </table>
-        <list type="ol" style="1">
-          <item>Determine the winner of the election by plurality.</item>
-          <item>Suppose that the 53 voters in the second column increased their ranking of the winner by 1. Determine the winner by plurality with the new rankings.</item>
-          <item>Does this election violate the monotonicity criterion?</item>
-          <item>Do you think the result of part 3 is also true for plurality voting and the monotonicity criterion in general? Why or why not?</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>The number of votes for each candidate are: S 66, G 53, L 61, and B 0. The winner is the standard poodle.</item>
-          <item>If the 53 voters in the second column rank S as 2 and L as 3, then the number of votes for each candidate are: S with 66, G with 53, L with 61, and B with 0. The winner is still the standard poodle.</item>
-          <item>This election does not violate the monotonicity criterion because the winner was not hurt by up-ranking.</item>
-          <item>In general, increasing the ranking for a winner of a plurality election will either leave them with the same or more first place votes while leaving the other candidates with the same or fewer first place votes. So a plurality election will never violate the monotonicity criterion.</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="11.20">
-      <p>Determine the winner of the election by Borda count.</p>
-      <p>Suppose that the 61 voters in the third column increased their ranking of the winner by 1. Determine the winner by Borda count with the new rankings.</p>
-      <p>Does this election violate the monotonicity criterion?</p>
-      <p>Do you think the result of part 3 is true for Borda count and the monotonicity criterion in general? Why or why not?</p>
-    </note>
-    <example number="11.21">
-      <problem>
-        <p>Earlier, we discovered that the summary of ranked ballots shown in the table below results in the pairwise comparison matrix in Figure 11.12. Use this information to answer the questions.</p>
-        <table summary=" ">
-          <thead>
-            <row>
-              <cell>Number of Ballots</cell>
-              <cell>95</cell>
-              <cell>90</cell>
-              <cell>110</cell>
-              <cell>115</cell>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <cell>Option A</cell>
-              <cell>4</cell>
-              <cell>4</cell>
-              <cell>1</cell>
-              <cell>1</cell>
-            </row>
-            <row>
-              <cell>Option B</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-              <cell>2</cell>
-            </row>
-            <row>
-              <cell>Option C</cell>
-              <cell>3</cell>
-              <cell>1</cell>
-              <cell>3</cell>
-              <cell>4</cell>
-            </row>
-            <row>
-              <cell>Option D</cell>
-              <cell>1</cell>
-              <cell>3</cell>
-              <cell>4</cell>
-              <cell>3</cell>
-            </row>
-          </tbody>
-        </table>
-        <image alt="A table of sample summary for ranked ballots shows the comparison between four options Option A, Option B, Option C, and Option D. The data given in the table are as follows. The table shows four rows and six columns. The column headers are Runner and Opponent, Option A, Option B, Option C, Option D, and Points. Column one shows Option A wins, Option B wins, Option C wins, and Option D wins. Column two shows Nil, B A 185, C A 185, and D A 185. Column three shows A B 225, Nil, C B 90, and D B 95. Column four shows A C 225, B C 320, Nil, and D C 210. Column five shows A D 225, B D 315, C D 200, and Nil. Column six shows 3, 2, 0, and 1. The last three rows on column two are struck off. The last two rows on column three are struck off. The third row on column five is struck off. " number="11.12" caption="Analyzed Pairwise Comparison Matrix for Sample Summary of Ranked Ballots" />
-        <list type="ol" style="1">
-          <item>Determine the winner of the election by the pairwise comparison method.</item>
-          <item>Suppose that the 95 voters in the first column increased their ranking of the winner by 1. Determine the winner by the pairwise comparison method with the new rankings.</item>
-          <item>Does this election violate the monotonicity criterion?</item>
-          <item>Do you think the result of part 3 is true for the pairwise comparison method and the monotonicity criterion in general? Why or why not?</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>By the pairwise comparison method, Option A wins with three points.</item>
-          <item>If the 95 voters in the first column of Figure 11.12 increased their ranking of the winner by 1, then C would fall into fourth place and A would move up to third place on those ballots. This would only affect the matchup between A and C, and the result would be that A would gain 95 votes while C would lose 95 votes. This means A would have 320 votes and C would have 90. Since A already was ahead of C, this just puts A further ahead and causes no change to the election results.</item>
-          <item>Since the winner A is not hurt by an up-rank, and the loser C is not helped by a down-rank, this election is fair by the monotonicity criterion.</item>
-          <item>Yes, the monotonicity criterion would be satisfied by the pairwise comparison method, because an up-rank of the winner can never decrease the number of pairwise wins. Similarly, a down-rank can never increase the number of pairwise wins.</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="11.21">
-      <p>Determine the winner of the election by the ranked-choice method.</p>
-      <p>Suppose that the 24 voters in the last column of  the table increased their ranking of the winner by 1. Determine the winner by the ranked-choice method with the new rankings.</p>
-      <p>Does this election violate the monotonicity criterion?</p>
-      <p>Do you think the result in question 3 is true for the ranked-choice method and the monotonicity criterion in general? Why or why not?</p>
-    </note>
-    <p>The last few examples illustrate that the plurality method, pairwise comparison voting, and the Borda count method each satisfy the monotonicity criterion. Of the four main ranked voting methods we have discussed, only the ranked-choice method violates the monotonicity criterion. A summary of each voting method as it relates to the Condorcet criterion is found in the table below.</p>
-    <table summary=" ">
-      <thead>
-        <row>
-          <cell>Voting Method</cell>
-          <cell>Monotonicity Criterion</cell>
+          <cell header="true">Voting Method</cell>
+          <cell header="true">Majority Criterion</cell>
+          <cell header="true">Condorcet Criterion (Head-to-Head Criterion)</cell>
+          <cell header="true">Monotonicity Criterion</cell>
+          <cell header="true">(Independence of) Irrelevant Alternatives Criterion</cell>
         </row>
       </thead>
       <tbody>
         <row>
           <cell>Plurality</cell>
           <cell>Satisfies</cell>
+          <cell>Violates</cell>
+          <cell>Satisfies</cell>
+          <cell>Violates</cell>
         </row>
         <row>
           <cell>Ranked-choice</cell>
+          <cell>Satisfies</cell>
+          <cell>Violates</cell>
+          <cell>Satisfies</cell>
           <cell>Violates</cell>
         </row>
         <row>
           <cell>Pairwise comparison</cell>
           <cell>Satisfies</cell>
-        </row>
-        <row>
-          <cell>Borda count</cell>
           <cell>Satisfies</cell>
-        </row>
-      </tbody>
-    </table>
-  </subsection>
-  <subsection title="Irrelevant Alternatives Criterion">
-    <p>We have covered a lot about voting fairness, but there is one more fairness criterion that you and the other Imaginarians should know. Consider this well-known anecdote that is sometimes attributed to the American philosopher Sidney Morgenbesser:</p>
-    <p>A man is told by his waiter that the dessert options this evening are blueberry pie or apple pie. The man orders the apple pie. The waiter returns and tells him that there is also a third option, cherry pie. The man says, “In that case, I would like the blueberry pie.” (Gaming the Vote: Why Elections Aren’t Fair (and What We Can Do About It), William Pound stone, p. 50, ISBN 0-8090-4893-0)</p>
-    <p>This story illustrates the concept of the Irrelevant Alternatives Criterion, also known as the Independence of Irrelevant Alternatives Criterion (IIA), which means that the introduction or removal of a third candidate should not change or reverse the rankings of the original two candidates relative to one another. In particular, if a losing candidate is removed from the race or if a new candidate is added, the winner of the race should not change.</p>
-    <example number="11.22">
-      <problem>
-        <p>Suppose that 30 students in a class are going to vote on whether to have apple, blueberry, or cherry pie. Use the summary of ranked ballots in below to answer each question.</p>
-        <table summary=" ">
-          <thead>
-            <row>
-              <cell>Number of Ballots</cell>
-              <cell>14</cell>
-              <cell>12</cell>
-              <cell>4</cell>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <cell>(A) Apple Pie</cell>
-              <cell>1</cell>
-              <cell>3</cell>
-              <cell>3</cell>
-            </row>
-            <row>
-              <cell>(B) Blueberry Pie</cell>
-              <cell>2</cell>
-              <cell>1</cell>
-              <cell>2</cell>
-            </row>
-            <row>
-              <cell>(C) Cherry Pie</cell>
-              <cell>3</cell>
-              <cell>2</cell>
-              <cell>1</cell>
-            </row>
-          </tbody>
-        </table>
-        <list type="ol" style="1">
-          <item>Determine the winner of the election by plurality.</item>
-          <item>Which candidate would win a plurality election if cherry pie were removed from the ballot?</item>
-          <item>Does this election violate the IIA?</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>The number of first place votes for each candidate is: A with 14, B with 12, and C with 4. Apple pie has the most first-place votes and wins the election.</item>
-          <item>If cherry pie is removed from the ballot, then the four voters in the third column now rank blueberry pie as their first choice. So the four votes for C now belong to B. This means that blueberry pie has 16 votes compared to the 14 votes for apple pie. Blueberry pie now wins the plurality election.</item>
-          <item>Yes, the election violates the IIA because the removal of a losing candidate from the ballot changed the winner of the election.</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="11.22">
-      <p>The local animal shelter is having another vote-by-donation charity event! This time, for a $10 donation, an individual can complete a ranked ballot indicating their favorite small dog breed, miniature, from the ones provided: miniature poodle, Yorkshire terrier, or Chihuahua. Use the summary of ballots below to answer each question.</p>
-      <table>
-        <thead>
-          <row>
-            <cell>Votes</cell>
-            <cell>53</cell>
-            <cell>42</cell>
-            <cell>24</cell>
-            <cell>11</cell>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <cell>(P) Miniature Poodle</cell>
-            <cell>1</cell>
-            <cell>3</cell>
-            <cell>3</cell>
-            <cell>2</cell>
-          </row>
-          <row>
-            <cell>(Y) Yorkshire Terrier</cell>
-            <cell>2</cell>
-            <cell>2</cell>
-            <cell>1</cell>
-            <cell>1</cell>
-          </row>
-          <row>
-            <cell>(C) Chihuahua</cell>
-            <cell>3</cell>
-            <cell>1</cell>
-            <cell>2</cell>
-            <cell>3</cell>
-          </row>
-        </tbody>
-      </table>
-      <p>Determine the winner of the election by the ranked-choice method.</p>
-      <p>Determine the winner of the election if poodles are removed from the ballot.</p>
-      <p>Does this election violate IIA?</p>
-    </note>
-    <example number="11.23">
-      <problem>
-        <p>The NBC sitcom The Office ran for nine years and has been one of the most popular streamed television shows of all time. One of the trademarks of the show was that characters would often break the fourth wall to communicate with the audience just by staring directly into the camera. In fact, there is a website dedicated to "The Office stares" where you can watch over 700 of these stares!
-    Suppose that 36 fans were asked which character had the best "The Office stare." Use the ballot summary in below to answer each question.</p>
-        <table summary=" ">
-          <thead>
-            <row>
-              <cell>Number of Ballots</cell>
-              <cell>9</cell>
-              <cell>11</cell>
-              <cell>7</cell>
-              <cell>6</cell>
-              <cell>3</cell>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <cell>(J) Jim Halpert (John Krasinski)</cell>
-              <cell>1</cell>
-              <cell>2</cell>
-              <cell>4</cell>
-              <cell>2</cell>
-              <cell>4</cell>
-            </row>
-            <row>
-              <cell>(P) Pam Beesly-Halpert (Jenna Fischer)</cell>
-              <cell>4</cell>
-              <cell>1</cell>
-              <cell>2</cell>
-              <cell>4</cell>
-              <cell>3</cell>
-            </row>
-            <row>
-              <cell>(D) Dwight Schrute (Rainn Wilson)</cell>
-              <cell>2</cell>
-              <cell>3</cell>
-              <cell>3</cell>
-              <cell>1</cell>
-              <cell>2</cell>
-            </row>
-            <row>
-              <cell>(M) Michael Scott (Steve Carell)</cell>
-              <cell>3</cell>
-              <cell>4</cell>
-              <cell>1</cell>
-              <cell>3</cell>
-              <cell>1</cell>
-            </row>
-          </tbody>
-        </table>
-        <list type="ol" style="1">
-          <item>Determine the winner of the election by the pairwise comparison method.</item>
-          <item>Determine the winner of the election by the pairwise comparison method if Michael Scott is removed from the ballot.</item>
-          <item>Does this election violate IIA?</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>Construct and analyze a pairwise comparison matrix:<image alt="A table shows a comparison between Jim, Pam, Dwight, and Michael. The data given in the table are as follows. The table shows four rows and six columns. The column headers are Runner and Opponent, J, P, D, M, and Points. Column one shows J wins, P wins, D wins, and M wins. Column two shows Nil, P J 21, D J 46, and M J 10. Column three shows J P 15, Nil, D P 18, and M P 25. Column four shows J D 20, P D 18, Nil, and M D 10. Column five shows J M 26, P M 11, D M 26, and Nil. Column six shows 2, 1.5, 1.5, and 1. The last two rows on column two are struck off. The first and third row on column three is struck off. The second and fourth row on column four is struck off. The second row on column five is struck off." number="11.13" caption="Pairwise Comparison Matrix for Jim, Pam, Dwight, and Michael" />
-            <p>Jim Halpert wins with 2 points.</p>
-          </item>
-          <item>If Michael Scott is removed, the summary of ranked ballots becomes:<table summary=" ">
-              <thead>
-                <row>
-                  <cell>Number of Ballots</cell>
-                  <cell>9</cell>
-                  <cell>11</cell>
-                  <cell>7</cell>
-                  <cell>6</cell>
-                  <cell>3</cell>
-                </row>
-              </thead>
-              <tbody>
-                <row>
-                  <cell>(J) Jim Halpert (John Krasinski)</cell>
-                  <cell>1</cell>
-                  <cell>2</cell>
-                  <cell>3</cell>
-                  <cell>2</cell>
-                  <cell>3</cell>
-                </row>
-                <row>
-                  <cell>(P) Pam Beesly-Halpert (Jenna Fischer)</cell>
-                  <cell>3</cell>
-                  <cell>1</cell>
-                  <cell>1</cell>
-                  <cell>3</cell>
-                  <cell>2</cell>
-                </row>
-                <row>
-                  <cell>(D) Dwight Schrute (Rainn Wilson)</cell>
-                  <cell>2</cell>
-                  <cell>3</cell>
-                  <cell>2</cell>
-                  <cell>1</cell>
-                  <cell>1</cell>
-                </row>
-              </tbody>
-            </table>
-            <p>Construct and analyze a pairwise comparison matrix:</p>
-            <image alt="A table shows a comparison between Jim, Pam, Dwight, and Michael. The data given in the table are as follows. The table shows three rows and five columns. The column headers are Runner and Opponent, J, P, D, and Points. Column one shows J wins, P wins, and D wins. Column two shows Nil, P J 21, and D J 46. Column three shows J P 15, Nil, and D P 1. Column four shows J D 20, P D 18, and Nil. Column five shows 1, 1.5, and 0.5. The last row on column two is struck off. The first and third row on column three is struck off. The second row on column four is struck off." number="11.14" caption="Pairwise Comparison Matrix for Jim, Pam, and Dwight" />
-            <p>Pam wins with $$1\frac{1}{2}$$ points.</p>
-          </item>
-          <item>Yes, this violates the IIA, because the winning candidate was hurt by the elimination of a losing candidate.</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="11.23">
-      <p>Determine the winner of the election by the Borda count method.</p>
-      <p>Determine the winner of the election by the Borda count method if Michael Scott is removed from the ballot.</p>
-      <p>Does this election violate IIA?</p>
-    </note>
-    <p>We have seen that all four of the main voting systems we are working with fail the Irrelevant Alternatives Criterion (IIA). A summary of each voting method as it relates to the IIA criterion is found in the table below.</p>
-    <table summary=" ">
-      <thead>
-        <row>
-          <cell>Voting Method</cell>
-          <cell>Irrelevant Alternatives Criterion</cell>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <cell>Plurality</cell>
           <cell>Violates</cell>
-        </row>
-        <row>
-          <cell>Ranked-choice</cell>
-          <cell>Violates</cell>
-        </row>
-        <row>
-          <cell>Pairwise comparison</cell>
           <cell>Violates</cell>
         </row>
         <row>
           <cell>Borda count</cell>
           <cell>Violates</cell>
+          <cell>Violates</cell>
+          <cell>Satisfies</cell>
+          <cell>Violates</cell>
         </row>
       </tbody>
     </table>
-    <note type="Who Knew?">
-      <p>Electronic Voting: Does Your Vote Count?</p>
-      <p>In order for an election to be fair, voting must be accessible to everyone and every vote must be counted. When hundreds of thousands to millions of votes must be collected and counted in a short period of time, deciding it can be challenging to be on counting procedures that are accurate and secure. Electronic voting machines or even Internet voting can speed up the process, but how reliable are these methods? This has been a subject for debate for years.</p>
-      <p>In a press release on August 3, 2007, California Secretary of State Debra Bowen explained the results of an extensive review of electronic voting systems in her state. She said that transparency and auditability were key. She went on to say, “I think voters and counties are the victims of a federal certification process that hasn’t done an adequate job of ensuring that the systems made available to them are secure, accurate, reliable and accessible. Congress enacted the Help America Vote Act, which pushed many counties into buying electronic systems that—as we’ve seen for some time and we saw again in the independent UC review—were not properly reviewed or tested to ensure that they protected the integrity of the vote.” Secretary Bowden subsequently ordered that voting machines must have tighter security to be used in California. (DB07:042, Secretary of State Debra Bowen Moves to Strengthen Voter Confidence in Election Security Following Top-to-Bottom Review of Voting Systems, https://sos.ca.gov/elections.) In some instances, the use of electronic voting in parliamentary elections has been discontinued completely for security reasons. For example, according to the National Democratic Institute, the Netherlands returned to all paper ballots and hand counting in 2006. Will you use voting machines or Internet voting in Imaginaria?</p>
-      <p>So far, every one of the voting methods we have analyzed has failed one or more of the fairness criteria in one election or another.</p>
-      <table summary=" ">
-        <thead>
-          <row>
-            <cell>Voting Method</cell>
-            <cell>Majority Criterion</cell>
-            <cell>Condorcet Criterion (Head-to-Head Criterion)</cell>
-            <cell>Monotonicity Criterion</cell>
-            <cell>(Independence of) Irrelevant Alternatives Criterion</cell>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <cell>Plurality</cell>
-            <cell>Satisfies</cell>
-            <cell>Violates</cell>
-            <cell>Satisfies</cell>
-            <cell>Violates</cell>
-          </row>
-          <row>
-            <cell>Ranked-choice</cell>
-            <cell>Satisfies</cell>
-            <cell>Violates</cell>
-            <cell>Satisfies</cell>
-            <cell>Violates</cell>
-          </row>
-          <row>
-            <cell>Pairwise comparison</cell>
-            <cell>Satisfies</cell>
-            <cell>Satisfies</cell>
-            <cell>Violates</cell>
-            <cell>Violates</cell>
-          </row>
-          <row>
-            <cell>Borda count</cell>
-            <cell>Violates</cell>
-            <cell>Violates</cell>
-            <cell>Satisfies</cell>
-            <cell>Violates</cell>
-          </row>
-        </tbody>
-      </table>
-    </note>
-    <p>You might be wondering if there is a voting system you could recommend for Imaginaria that satisfies all the fairness criteria. If there is one, it remains to be discovered and it is not a voting system that is based solely on preference rankings. In 1972, Harvard Professor of Economics Kenneth J. Arrow received the Nobel Prize in Economics for proving Arrow’s Impossibility Theorem, which states that any voting system, either existing or yet to be created, in which the only information available is the preference rankings of the candidates, will fail to satisfy at least one of the following fairness criteria: the majority criterion, the Condorcet criterion, the monotonicity criterion, and the independence of irrelevant alternatives criterion. This theorem only applies to a specific category of voting systems—those for which the preference ranking is the only information collected. There are other types of voting systems to which the Impossibility Theorem does not apply. For example, there is a class of voting systems called Cardinal voting systems that allow for rating the candidates in some way.</p>
-    <p>“Rating” is different from “ranking” because a voter can give different candidates the same rating. Consider the five-star rating systems used by various industries, or the thumbs up/thumbs down rating system used on YouTube. Could there be a Cardinal voting system that does not violate any of the fairness criteria we have discussed? It’s possible, but more research must be done in order to prove it.</p>
-    <note type="People in Mathematics">
-      <p>In 1972, Kenneth J. Arrow, a Harvard Professor of Economics, received the Nobel Prize in Economics jointly with Sir John Hicks, another world renowned economist, for their contributions to economic theory. In particular, Professor Arrow proved mathematically that no ranked voting system meets all four of the fairness criteria discussed in this section. The statement of this fact is known as Arrow’s Impossibility Theorem. Visit this site for more details on Professor Arrow</p>
-    </note>
-  </subsection>
-  <subsection title="Check Your Understanding">
-    <p>Which fairness criterion is violated by all four of the main ranked voting methods presented in this chapter?</p>
-    <p>Which of the four main ranked voting methods presented in this chapter satisfies the Condorcet criterion?</p>
-    <p>Which of the four main ranked voting methods presented in this section violates the majority criterion?</p>
-    <p>Which of the four main ranked voting methods presented in this section violates the monotonicity criterion?</p>
-    <p>According to Arrow’s Impossibility Theorem, which of the four main ranked voting methods presented in this chapter violate at least one of the fairness criteria?</p>
-    <p>Determine whether the following statement is true or false and explain your reasoning: Any ranked election that violates the majority criterion also violates the Condorcet criterion.</p>
-    <p>Determine whether the following statement is true or false and explain your reasoning: Any ranked election that violates the Condorcet criterion also violates the majority criterion.</p>
-    <p>Does Arrow’s Impossibility Theorem apply to approval voting? Why or why not?</p>
-    <p>Arrow’s Impossibility Theorem guarantees that ranked voting systems always lead to unfair elections.</p>
-    <p>Approval voting is in the class of voting systems called Cardinal Voting systems.</p>
-  </subsection>
-  <exercises title="Section 11.2 Exercises">
-    <instruction>For the following exercises, identify which fairness criteria, if any, are violated by characteristics of the described voter profile. Explain your reasoning.</instruction>
-    <exercise number="1" has_solution="false">
-      <problem>
-        <p>In a plurality election, the candidates have the following vote counts: A 125, B 132, C 149, D 112. The pairwise matchup points for each candidate would have been: A 1, B 3, C 1, D 1.</p>
-      </problem>
-    </exercise>
-    <exercise number="2" has_solution="false">
-      <problem>
-        <p>In a Borda count election, the candidates have the following Borda scores: A 1245, B 1360, C 787. Candidate A received 55 percent of the first-place rankings.</p>
-      </problem>
-    </exercise>
-    <exercise number="3" has_solution="false">
-      <problem>
-        <p>In a pairwise comparison election, the four candidates initially received the following points for winning matchups: A 2, B $$1\frac{1}{2}$$,
-$$1\frac{1}{2}$$, C 1, D  $$1\frac{1}{2}$$. When candidate C dropped out of the election, the remaining candidates received: A 1, B  $$1\frac{1}{2}$$, D $$\frac{1}{2}$$.</p>
-      </problem>
-    </exercise>
-    <exercise number="4" has_solution="false">
-      <problem>
-        <p>In a Borda count election, the candidates have the following Borda scores: A 15, B 11, C 12, D 16. The pairwise matchup points for the same voter profiles would have been: A 2, B 0, C 1, D 3.</p>
-      </problem>
-    </exercise>
-    <exercise number="5" has_solution="false">
-      <problem>
-        <p>In a Borda count election, the candidates have the following Borda scores: A 15, B 11, C 12, D 16. When Candidate E was added to the ballot, the Borda scores became: A 25, B 21, C 15, D 24, E 18.</p>
-      </problem>
-    </exercise>
-    <exercise number="6" has_solution="false">
-      <problem>
-        <p>In a pairwise comparison election, Candidate C was a Condorcet candidate in a straw poll. When the actual election took place, several voters up-ranked Candidate C on their ballots, but no other changes were made to the voter preferences, and Candidate B won the election.</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, use the table below.
-
-
-
-Votes
-49
-51
-
-
-
-
-Candidate A
-3
-1
-
-
-Candidate B
-1
-2
-
-
-Candidate C
-2
-3</instruction>
-    <exercise number="7" has_solution="false">
-      <problem>
-        <p>In a pairwise comparison election, Candidate A was in first place, Candidate B was in second place, and Candidate C was in third place. When the actual election tool place, the only changes were that several voters down-ranked Candidate B on their ballots, but the outcome remained the same.</p>
-      </problem>
-    </exercise>
-    <exercise number="8" has_solution="false">
-      <problem>
-        <p>Determine the Borda score for each candidate and the winner of the election using the Borda count method.</p>
-      </problem>
-    </exercise>
-    <exercise number="9" has_solution="false">
-      <problem>
-        <p>Is there a majority candidate? If so, which candidate?</p>
-      </problem>
-    </exercise>
-    <exercise number="10" has_solution="false">
-      <problem>
-        <p>Does this Borda method election violate the majority criterion? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <exercise number="11" has_solution="false">
-      <problem>
-        <p>Is there a Condorcet candidate? If so, which candidate?</p>
-      </problem>
-    </exercise>
-    <exercise number="12" has_solution="false">
-      <problem>
-        <p>Does this Borda method election violate the Condorcet criterion? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <exercise number="13" has_solution="false">
-      <problem>
-        <p>If Candidate C is removed from the ballot, which candidate wins by the Borda count method?</p>
-      </problem>
-    </exercise>
-    <exercise number="14" has_solution="false">
-      <problem>
-        <p>Does this Borda count method election violate IIA? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <instruction>Use the table below for the following exercises.
-
-
-Votes
-7
-9
-12
-15
-5
-
-
-
-
-Candidate A
-4
-4
-1
-1
-4
-
-
-Candidate B
-1
-1
-2
-2
-3
-
-Candidate C
-3
-2
-3
-4
-1
-
-
-Candidate D
-2
-3
-4
-3
-2</instruction>
-    <exercise number="15" has_solution="false">
-      <problem>
-        <p>Determine Borda score for each candidate and the winner of the election using the Borda count method.</p>
-      </problem>
-    </exercise>
-    <exercise number="16" has_solution="false">
-      <problem>
-        <p>Is there a majority candidate? If so, which candidate?</p>
-      </problem>
-    </exercise>
-    <exercise number="17" has_solution="false">
-      <problem>
-        <p>Does this Borda method election violate the majority criterion? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <exercise number="18" has_solution="false">
-      <problem>
-        <p>Is there a Condorcet candidate? If so, which candidate?</p>
-      </problem>
-    </exercise>
-    <exercise number="19" has_solution="false">
-      <problem>
-        <p>Does the Borda method election violate the Condorcet criterion? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <exercise number="20" has_solution="false">
-      <problem>
-        <p>Can an election that fails the majority criterion satisfy the Condorcet criterion? Why or why not?</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, use the table below.
-
-
-
-Number of Ballots
-10
-7
-5
-5
-4
-
-
-
-
-Candidate A
-1
-3
-3
-3
-4
-
-Candidate B
-3
-2
-1
-4
-1
-
-Candidate C
-2
-4
-2
-1
-2
-
-
-Candidate D
-4
-1
-4
-2
-3</instruction>
-    <exercise number="21" has_solution="false">
-      <problem>
-        <p>Determine the Borda score for each candidate and the winner of the election using the Borda count method.</p>
-      </problem>
-    </exercise>
-    <exercise number="22" has_solution="false">
-      <problem>
-        <p>Is there a majority candidate?</p>
-      </problem>
-    </exercise>
-    <exercise number="23" has_solution="false">
-      <problem>
-        <p>Does the election violate the majority criterion? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <exercise number="24" has_solution="false">
-      <problem>
-        <p>Determine the winner by pairwise comparison.</p>
-      </problem>
-    </exercise>
-    <exercise number="25" has_solution="false">
-      <problem>
-        <p>Is there a Condorcet candidate?</p>
-      </problem>
-    </exercise>
-    <exercise number="26" has_solution="false">
-      <problem>
-        <p>Does the Borda election violate the Condorcet criterion? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <exercise number="27" has_solution="false">
-      <problem>
-        <p>Determine the winner by the ranked-choice method.</p>
-      </problem>
-    </exercise>
-    <exercise number="28" has_solution="false">
-      <problem>
-        <p>Does the ranked-choice election violate the majority criterion? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <exercise number="29" has_solution="false">
-      <problem>
-        <p>Does the ranked-choice election violate the Condorcet criterion? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <exercise number="30" has_solution="false">
-      <problem>
-        <p>Can an election that fails the Condorcet criterion satisfy the majority criterion? Why or why not?</p>
-      </problem>
-    </exercise>
-    <instruction>Use the table below for the following exercises.
-
-
-
-Number of Ballots
-49
-48
-3
-
-
-
-
-Candidate A
-1
-3
-3
-
-
-Candidate B
-2
-1
-2
-
-
-Candidate C
-3
-2
-1</instruction>
-    <exercise number="31" has_solution="false">
-      <problem>
-        <p>Determine the winner of the election using the plurality method.</p>
-      </problem>
-    </exercise>
-    <exercise number="32" has_solution="false">
-      <problem>
-        <p>Determine the winner by pairwise comparison.</p>
-      </problem>
-    </exercise>
-    <exercise number="33" has_solution="false">
-      <problem>
-        <p>Is there a Condorcet candidate?</p>
-      </problem>
-    </exercise>
-    <exercise number="34" has_solution="false">
-      <problem>
-        <p>Does this plurality election violate the Condorcet criterion? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <exercise number="35" has_solution="false">
-      <problem>
-        <p>If Candidate C is removed from the ballot, which candidate wins by plurality?</p>
-      </problem>
-    </exercise>
-    <exercise number="36" has_solution="false">
-      <problem>
-        <p>Does this plurality violate the IIA? Explain your reasoning.</p>
-      </problem>
-    </exercise>
-    <instruction>Use the sample ballot summary below for the following exercises.
-
-
-
-Number of Ballots
-16
-20
-24
-8
-
-
-
-
-Candidate A
-1
-3
-2
-1
-
-
-Candidate B
-3
-1
-4
-4
-
-
-Candidate C
-4
-2
-1
-2
-
-Candidate D
-2
-4
-3
-3</instruction>
-    <exercise number="37" has_solution="false">
-      <problem>
-        <p>Determine the winner of the election using the ranked-choice method.</p>
-      </problem>
-    </exercise>
-    <exercise number="38" has_solution="false">
-      <problem>
-        <p>Determine the winner by pairwise comparison.</p>
-      </problem>
-    </exercise>
-    <exercise number="39" has_solution="false">
-      <problem>
-        <p>Is there a Condorcet candidate?</p>
-      </problem>
-    </exercise>
-    <exercise number="40" has_solution="false">
-      <problem>
-        <p>Does this ranked-choice election violate the Condorcet criterion? Justify your answer.</p>
-      </problem>
-    </exercise>
-    <exercise number="41" has_solution="false">
-      <problem>
-        <p>If the four voters in the last column rank Candidate C ahead of A, which candidate wins by the ranked-choice method?</p>
-      </problem>
-    </exercise>
-    <exercise number="42" has_solution="false">
-      <problem>
-        <p>Does this ranked-choice election violate the monotonicity criterion? Explain your reasoning.</p>
-      </problem>
-    </exercise>
-    <instruction>Use the sample ballot summary below for the following exercises.
-
-
-
-Number of Ballots
-15
-12
-9
-3
-
-
-
-
-Candidate A
-1
-3
-3
-2
-
-
-Candidate B
-2
-2
-1
-1
-
-
-Candidate C
-3
-1
-2
-3</instruction>
-    <exercise number="43" has_solution="false">
-      <problem>
-        <p>Determine the winner of the election using the ranked-choice method.</p>
-      </problem>
-    </exercise>
-    <exercise number="44" has_solution="false">
-      <problem>
-        <p>How could it be demonstrated that this ranked-choice election violates IIA?</p>
-      </problem>
-    </exercise>
-    <exercise number="45" has_solution="false">
-      <problem>
-        <p>Determine the winner of the election by the Borda method.</p>
-      </problem>
-    </exercise>
-    <exercise number="46" has_solution="false">
-      <problem>
-        <p>Does this Borda method election violate the IIA? Why or why not?</p>
-      </problem>
-    </exercise>
-    <exercise number="47" has_solution="false">
-      <problem>
-        <p>Does this Borda method election violate the monotonicity criterion? Why or why not?</p>
-      </problem>
-    </exercise>
-    <instruction>Use the pairwise comparison matrix in the given figure for the following exercises.</instruction>
-    <exercise number="48" has_solution="false">
-      <problem>
-        <p>Which candidate wins the pairwise election?</p>
-      </problem>
-    </exercise>
-    <exercise number="49" has_solution="false">
-      <problem>
-        <p>Determine the winner by pairwise comparison if N were removed from the ballot.</p>
-      </problem>
-    </exercise>
-    <exercise number="50" has_solution="false">
-      <problem>
-        <p>Determine the winner by pairwise comparison if M were removed from the ballot.</p>
-      </problem>
-    </exercise>
-    <exercise number="51" has_solution="false">
-      <problem>
-        <p>Does this pairwise election satisfy the IIA?</p>
-      </problem>
-    </exercise>
-  </exercises>
+  </note>
+  <paragraph>You might be wondering if there is a voting system you could recommend for Imaginaria that satisfies all the fairness criteria. If there is one, it remains to be discovered and it is not a voting system that is based solely on preference rankings. In 1972, Harvard Professor of Economics Kenneth J. Arrow received the Nobel Prize in Economics for proving Arrow’s Impossibility Theorem, which states that any voting system, either existing or yet to be created, in which the only information available is the preference rankings of the candidates, will fail to satisfy at least one of the following fairness criteria: the majority criterion, the Condorcet criterion, the monotonicity criterion, and the independence of irrelevant alternatives criterion. This theorem only applies to a specific category of voting systems—those for which the preference ranking is the only information collected. There are other types of voting systems to which the Impossibility Theorem does not apply. For example, there is a class of voting systems called Cardinal voting systems that allow for rating the candidates in some way.</paragraph>
+  <paragraph>“Rating” is different from “ranking” because a voter can give different candidates the same rating. Consider the five-star rating systems used by various industries, or the thumbs up/thumbs down rating system used on YouTube. Could there be a Cardinal voting system that does not violate any of the fairness criteria we have discussed? It’s possible, but more research must be done in order to prove it.</paragraph>
+  <note type="sidebar" source_type="People in Mathematics" title="People in Mathematics">
+    <heading level="4">Kenneth J. Arrow</heading>
+    <paragraph>In 1972, Kenneth J. Arrow, a Harvard Professor of Economics, received the Nobel Prize in Economics jointly with Sir John Hicks, another world renowned economist, for their contributions to economic theory. In particular, Professor Arrow proved mathematically that no ranked voting system meets all four of the fairness criteria discussed in this section. The statement of this fact is known as Arrow’s Impossibility Theorem. Visit this site for more details on Professor Arrow</paragraph>
+  </note>
+  <heading level="2">Check Your Understanding</heading>
+  <paragraph>Which fairness criterion is violated by all four of the main ranked voting methods presented in this chapter?</paragraph>
+  <paragraph>Which of the four main ranked voting methods presented in this chapter satisfies the Condorcet criterion?</paragraph>
+  <paragraph>Which of the four main ranked voting methods presented in this section violates the majority criterion?</paragraph>
+  <paragraph>Which of the four main ranked voting methods presented in this section violates the monotonicity criterion?</paragraph>
+  <paragraph>According to Arrow’s Impossibility Theorem, which of the four main ranked voting methods presented in this chapter violate at least one of the fairness criteria?</paragraph>
+  <paragraph>Determine whether the following statement is true or false and explain your reasoning: Any ranked election that violates the majority criterion also violates the Condorcet criterion.</paragraph>
+  <paragraph>Determine whether the following statement is true or false and explain your reasoning: Any ranked election that violates the Condorcet criterion also violates the majority criterion.</paragraph>
+  <paragraph>Does Arrow’s Impossibility Theorem apply to approval voting? Why or why not?</paragraph>
+  <paragraph>Determine whether each statement is true or false. Explain your reasoning.</paragraph>
+  <paragraph>Arrow’s Impossibility Theorem guarantees that ranked voting systems always lead to unfair elections.</paragraph>
+  <paragraph>Approval voting is in the class of voting systems called Cardinal Voting systems.</paragraph>
 </section>

@@ -1,7 +1,7 @@
 # Skills Catalog
 
 _Cập nhật mỗi khi thêm, sửa, hoặc xóa một skill._
-_Last updated: 2026-06-07_
+_Last updated: 2026-06-25_
 
 ---
 
@@ -23,21 +23,40 @@ _Last updated: 2026-06-07_
 
 ---
 
-### `draft-static-solution`
+### `build-solution-artifact`
 | Thuộc tính | Giá trị |
 |---|---|
-| **Role** | Tạo lời giải tĩnh step-by-step từ static question |
-| **Version** | 3.2.0 |
+| **Role** | Tạo run artifact cho lời giải có trace nguồn sách + bridge tiền đề; đây là active path để tạo reference solution |
+| **Version** | 1.1.0 |
 | **Status** | Stable |
-| **Trigger** | "draft solution", "tạo lời giải", "solve", "giải bài" |
-| **Mode** | Full (tạo mới) hoặc Patch (sửa bước cụ thể) |
-| **Inputs** | `static/static_question.txt`, `meta.xml`, books XML, `source_brief.xml` (optional enrichment) |
-| **Outputs** | `static/static_solution_latex.txt`, `static/static_solution.txt` |
-| **Books** | Ground truth cho method, notation, scope |
-| **Recall contract** | Bất kỳ recall nào cũng dùng concept name nếu có + sourced statement + immediate application; mặc định giữ recall và application trong cùng step |
-| **Literal blank fidelity** | Nếu bài yêu cầu điền một biểu thức hiển thị, answer line giữ đúng biểu thức thiếu trừ khi prompt yêu cầu biến đổi |
-| **Theorem citation rule** | Nếu dùng theorem/definition từ sách: numbering chỉ là metadata phụ; current-unit anchor có thể đi cùng later prerequisite recalls |
-| **SKILL.md** | `.agents/skills/draft-static-solution/SKILL.md` |
+| **Trigger** | "build solution", "solution artifact", "traceable solution", "giải có truy nguồn", "giải có bridge" |
+| **Inputs** | concrete question, `meta.xml`, books XML, `atoms.json`, `exercise_analysis.xml` (optional) |
+| **Outputs** | `artifacts/solution-runs/{run_id}/solution_latex.txt`, `meta.json`, `knowledge_context.json`, `solution_analysis.xml`, `run_report.md` |
+| **Format contract** | `solution_latex.txt` dùng `$$ $$` cho toàn bộ math (inline + display), mỗi block trên một dòng |
+| **Citation contract** | Student-facing recall dùng concept name + sourced statement + immediate application; section number và theorem number không được làm citation chính |
+| **Bridge policy** | Prior-chapter knowledge phải được re-explain ngắn gọn theo ngữ cảnh bài hiện tại |
+| **Promotion** | Không tự chép vào `static/`; chỉ promote thủ công sau review |
+| **SKILL.md** | `.agents/skills/build-solution-artifact/SKILL.md` |
+
+---
+
+### `write-author-feedback-from-solution-artifact`
+| Thuộc tính | Giá trị |
+|---|---|
+| **Role** | Viết feedback author-facing ngắn gọn từ rendered IMathAS solution và reviewed solution artifact |
+| **Version** | 1.1.0 |
+| **Status** | Stable |
+| **Trigger** | "write author feedback from artifact", "feedback from solution artifact", "viết feedback cho author từ solution artifact" |
+| **Inputs bắt buộc** | `imathas/control.php`, `imathas/solution.txt`, `artifacts/solution-runs/{run_id}/solution_latex.txt` |
+| **Inputs tùy chọn** | `imathas/question.txt`, `seeds/{N}/question_md.txt`, `seeds/{N}/solution_md.txt`, `knowledge_context.json`, audit reports trong `reviews/` |
+| **Run default** | Chọn run folder mới nhất theo timestamp nếu user không chỉ rõ |
+| **Seed default** | Ưu tiên `seeds/1`, nếu không có thì chọn seed nhỏ nhất đang tồn tại |
+| **Output** | `reviews/author_feedback_from_solution_artifact.md` |
+| **Output style** | Bilingual, 2 section top-level, flat bullets, explanation-first |
+| **Evidence status** | `artifact-only` hoặc `artifact+audits` |
+| **Scope** | Tập trung vào explanation/diễn giải; `control.php` chỉ là context để hiểu injected strings; preserve concrete rewrite targets when evidence is strong |
+| **Không làm** | Không rewrite solution, không yêu cầu copy artifact, không biến thành full audit hoặc general code review |
+| **SKILL.md** | `.agents/skills/write-author-feedback-from-solution-artifact/SKILL.md` |
 
 ---
 
@@ -48,11 +67,12 @@ _Last updated: 2026-06-07_
 | **Version** | 1.0.0 |
 | **Status** | Stable |
 | **Trigger** | "snapshot seed", "seed snapshot", "render snapshot", "chụp seed", "snapshot từ seed" |
-| **Inputs** | `context/active_qt.md`, `questions/qt-{id}/imathas/` template files |
+| **Inputs** | `context/active_qt.toml`, `questions/qt-{id}/imathas/` template files |
 | **Outputs** | `questions/qt-{id}/seeds/{N}/question_asciimath.txt`, `question_md.txt`, `solution_asciimath.txt`, `solution_md.txt`, `variable_values.txt` |
 | **Không làm** | Viết vào `static/`, authoring, curriculum scope check |
 | **Render errors** | Không hard stop — lưu vào `errors.txt` / `warnings.txt` trong seed folder |
 | **Default seed** | 1 |
+| **Refactor note** | Snapshot là concrete inspection artifact, không phải proof của template-wide robustness |
 | **SKILL.md** | `.agents/skills/snapshot-seed/SKILL.md` |
 
 ---
@@ -78,12 +98,12 @@ _Last updated: 2026-06-07_
 | **Role** | Viết IMathAS source code (control.php, question.txt, solution.txt, qtype.txt) |
 | **Status** | Stable |
 | **Trigger** | Được gọi bởi workflow `author-imathas`, hoặc direct khi patch code |
-| **Layers** | Language Layer (macro lookup scripts) + Application Layer (topic guides, cheatsheets) |
+| **Layers** | Execution contract + local tooling/topics |
 | **Inputs** | `static/*.txt`, `blueprint.txt`, macro scripts, topic guides |
 | **Outputs** | `imathas/control.php`, `imathas/question.txt`, `imathas/solution.txt`, `imathas/qtype.txt` |
 | **Công cụ** | `lookup_macro_with_goldens.py`, `search_cases.py`, `check.py` |
 | **Quy tắc** | KHÔNG đoán macro name — luôn dùng lookup script |
-| **Injection policy** | Inline-first trong `question.txt` / `solution.txt`; dùng `{$var}` cho boundary-safe interpolation trước khi tạo display var mới |
+| **Injection policy** | Inline-first trong `question.txt` / `solution.txt`; dùng `{$var}` cho boundary-safe interpolation, và nếu cần display var trong `control.php` ZONE 2 thì phải dùng interpolation-first thay vì manual dot-concat |
 | **SKILL.md** | `.agents/skills/write-imathas-x/SKILL.md` |
 
 ---
@@ -128,7 +148,7 @@ _Last updated: 2026-06-07_
 | Thuộc tính | Giá trị |
 |---|---|
 | **Role** | Kiểm tra template có bao quát đủ nội dung bài gốc không |
-| **Status** | Under review — refactor planned (xem [audit-skills-refactor.md](audit-skills-refactor.md)) |
+| **Status** | Stable |
 | **Trigger** | Sau khi tạo template, trước accuracy check |
 | **Perspective** | Student perspective — chỉ nhìn question + answerbox, không phải solution |
 | **Verdict** | PASS ≥ 85, PARTIAL 60–84, FAIL < 60 |
@@ -177,7 +197,7 @@ Ví dụ: bài eigenvalue sensitivity (Exercise 35, Section 5.2) — template ch
 
 | **Outputs** | `reviews/coverage_report.md` |
 |---|---|
-| **Refactor detail** | [audit-skills-refactor.md](audit-skills-refactor.md) |
+| **Refactor detail** | [audit-skills-refactor.md](audit-skills-refactor.md), [active-core-mapping.md](active-core-mapping.md) |
 | **SKILL.md** | `.agents/skills/audit-coverage/SKILL.md` |
 
 ---
@@ -186,7 +206,7 @@ Ví dụ: bài eigenvalue sensitivity (Exercise 35, Section 5.2) — template ch
 | Thuộc tính | Giá trị |
 |---|---|
 | **Role** | Kiểm tra sư phạm: terminology, notation, grammar, step clarity, scope alignment |
-| **Status** | Under review — refactor planned (xem [audit-skills-refactor.md](audit-skills-refactor.md)) |
+| **Status** | Stable |
 | **Finding severity** | P1 = FAIL (phải fix), P2 = CONDITIONAL PASS (nên fix) |
 
 **Dimensions:**
@@ -217,7 +237,7 @@ Ví dụ: bài eigenvalue sensitivity (Exercise 35, Section 5.2) — template ch
 
 | **Outputs** | `reviews/pedagogical_report.md` |
 |---|---|
-| **Refactor detail** | [audit-skills-refactor.md](audit-skills-refactor.md) |
+| **Refactor detail** | [audit-skills-refactor.md](audit-skills-refactor.md), [active-core-mapping.md](active-core-mapping.md) |
 | **SKILL.md** | `.agents/skills/audit-pedagogical/SKILL.md` |
 
 ---
@@ -227,13 +247,14 @@ Ví dụ: bài eigenvalue sensitivity (Exercise 35, Section 5.2) — template ch
 |---|---|
 | **Role** | Kiểm tra tính đúng đắn toán học trên nhiều seed |
 | **Status** | Stable |
-| **Trigger** | Sau PASS/PARTIAL coverage và pedagogical |
-| **Seeds** | 1, 2, 3, 4, 123 (default) |
+| **Trigger** | Sau authoring hoặc sau bất kỳ patch nào đụng toán học |
+| **Seeds** | Explicit when rendering; snapshot-first nếu đã có concrete seed artifact phù hợp |
 | **Inputs** | `imathas/*.txt`, `static/static_solution.txt` (nếu có), MCP render_seeds |
 | **Outputs** | `reviews/accuracy_report_seed{N}.md` |
 | **Tools** | `content-workbench` MCP (render_seeds), `uv run python`, SymPy/CAS |
 | **Runtime policy** | Repo Python chuẩn qua `uv run python`; tránh bare system interpreter; chỉ dùng `uv run --with <package> python` cho ad-hoc overlays |
 | **Render-error policy** | Nếu render có `errors` nhưng output còn usable, tiếp tục audit toán trên realized instance; verdict tổng vẫn `FAIL` |
+| **Snapshot policy** | Snapshot-first cho local inspection; fallback sang render nếu snapshot thiếu/stale/insufficient |
 | **SKILL.md** | `.agents/skills/audit-accuracy/SKILL.md` |
 
 ---
@@ -289,24 +310,6 @@ Ví dụ: bài eigenvalue sensitivity (Exercise 35, Section 5.2) — template ch
 
 ---
 
-### `write-author-feedback-from-refine`
-| Thuộc tính | Giá trị |
-|---|---|
-| **Role** | Viết feedback cho author sau quá trình refine |
-| **Status** | Stable |
-| **SKILL.md** | `.agents/skills/write-author-feedback-from-refine/SKILL.md` |
-
----
-
-### `refine-static-solution`
-| Thuộc tính | Giá trị |
-|---|---|
-| **Role** | Refine (cải thiện) static solution đã có |
-| **Status** | Stable |
-| **SKILL.md** | `.agents/skills/refine-static-solution/SKILL.md` |
-
----
-
 ### `draft-static-question` _(Mode B / Seed Render)_
 
 Xem ở trên — Mode B của `draft-static-question`.
@@ -332,9 +335,9 @@ draft-static-question
     └── cần: target_exercises.xml, meta.xml, books
     └── output → static_question.txt
 
-draft-static-solution
-    └── cần: static_question.txt, meta.xml, books
-    └── output → static_solution.txt
+build-solution-artifact
+    └── cần: static question hoặc user-provided statement, meta.xml, books, atoms.json
+    └── output → artifacts/solution-runs/{run_id}/solution_latex.txt
 
 generate-blueprint
     └── cần: static_question.txt, static_solution.txt

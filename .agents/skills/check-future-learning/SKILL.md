@@ -45,13 +45,13 @@ textbook corpus relative to a given section.
   "term": "eigenvalue",
   "status": "FUTURE",
   "first_match_section": "5.1",
-  "first_match_file": "ch05_sect_5.1.xml",
+  "first_match_file": "ch05_unit_01.xml",
   "score": 87,
   "title": "Eigenvalues and Eigenvectors",
   "snippet": "An eigenvalue of an n×n matrix A is a scalar λ such that...",
   "candidates": [
-    { "section": "5.1", "file": "ch05_sect_5.1.xml", "title": "Eigenvalues and Eigenvectors", "score": 87 },
-    { "section": "5.2", "file": "ch05_sect_5.2.xml", "title": "The Characteristic Equation", "score": 71 }
+    { "section": "5.1", "file": "ch05_unit_01.xml", "title": "Eigenvalues and Eigenvectors", "score": 87 },
+    { "section": "5.2", "file": "ch05_unit_02.xml", "title": "The Characteristic Equation", "score": 71 }
   ]
 }
 ```
@@ -87,11 +87,11 @@ spelling may differ. Fall back to:
 
 ```bash
 # Search all section files for the term (case-insensitive)
-grep -ril "<term>" /home/jerry/project/IMathAS5/shared/books/{book_slug}/ch*_sect_*.xml | sort -V
+grep -ril "<term>" /home/jerry/project/IMathAS5/shared/books/{book_slug}/ch*_unit_*.xml | sort -V
 
 # Search for definition boxes containing related words
-grep -n 'type="definition"\|type="theorem_key"' \
-  /home/jerry/project/IMathAS5/shared/books/{book_slug}/ch*_sect_*.xml | grep -i "<term>"
+grep -n 'type="definition"\|type="theorem_key"\|type="theorem"\|type="rule"' \
+  /home/jerry/project/IMathAS5/shared/books/{book_slug}/ch*_unit_*.xml | grep -i "<term>"
 ```
 
 If grep finds it → use that location for classification.
@@ -102,20 +102,22 @@ In that case, **do not declare forbidden** — note as `evidence_missing` in the
 
 ## What the Script Searches
 
-The script searches only **formal knowledge blocks** inside the `<content>` section:
+The script searches **formal knowledge blocks** (canonical v2 `<note>` elements with type attribute):
 - `<note type="definition">` — formal definitions
-- `<note type="theorem_key">` — key theorems and lemmas
+- `<note type="theorem">` and `<note type="theorem_key">` — theorems
 - `<note type="procedure">` — step-by-step algorithms
+- `<note type="rule">` — named rules and formulas
+- `<note type="key_concept">` — key concept summaries
 
-It does NOT search `<example>`, `<exercises>`, `<chapter_misc>`, or `<supplementary>` blocks.
-Files with `unit_code="chapter_misc"` or `unit_code="supplementary"` are excluded.
+It does NOT search `<example>`, `<exercises>`, or note types like `practice`, `sidebar`.
+Files with names containing `chapter_misc`, `supplementary`, `projects`, or `intro` are excluded.
 
 ---
 
 ## Book Order
 
 Section files are sorted by natural filename order:
-`ch01_sect_1.1 < ch01_sect_1.2 < ... < ch01_sect_1.10 < ch02_sect_2.1 < ...`
+`ch01_unit_01 < ch01_unit_02 < ... < ch01_unit_10 < ch02_unit_01 < ...`
 
 This matches the pedagogical sequence of the book.
 

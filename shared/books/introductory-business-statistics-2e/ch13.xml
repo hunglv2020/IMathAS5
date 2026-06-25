@@ -1,0 +1,1243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">Introduction</heading>
+  <figure number="13.1">
+    <image alt="This is a photo of a car mechanic’s shop. There are three United States Postal Services trucks being serviced, and one not being serviced."/>
+    <caption>Linear regression and correlation can help you determine if an auto mechanic’s salary is related to his work experience. (credit: modification of work “USPS commissions local repair-shop for some needed work on its older trucks” by Joshua Rothhaas/ Flickr, CC BY 2.0)</caption>
+  </figure>
+  <paragraph>Professionals often want to know how two or more numeric variables are related. For example, is there a relationship between the grade on the second math exam a student takes and the grade on the final exam? If there is a relationship, what is the relationship and how strong is it?</paragraph>
+  <paragraph>In another example, your income may be determined by your education, your profession, your years of experience, and your ability, or your gender or color. The amount you pay a repair person for labor is often determined by an initial amount plus an hourly fee.</paragraph>
+  <paragraph>These examples may or may not be tied to a model, meaning that some theory suggested that a relationship exists. This link between a cause and an effect, often referred to as a model, is the foundation of the scientific method and is the core of how we determine what we believe about how the world works. Beginning with a theory and developing a model of the theoretical relationship should result in a prediction, what we have called a hypothesis earlier. Now the hypothesis concerns a full set of relationships. As an example, in Economics the model of consumer choice is based upon assumptions concerning human behavior: a desire to maximize something called utility, knowledge about the benefits of one product over another, likes and dislikes, referred to generally as preferences, and so on. These combined to give us the demand curve. From that we have the prediction that as prices rise the quantity demanded will fall. Economics has models concerning the relationship between what prices are charged for goods and the market structure in which the firm operates, monopoly verse competition, for example. Models for who would be most likely to be chosen for an on-the-job training position, the impacts of Federal Reserve policy changes and the growth of the economy and on and on.</paragraph>
+  <paragraph>Models are not unique to Economics, even within the social sciences. In political science, for example, there are models that predict behavior of bureaucrats to various changes in circumstances based upon assumptions of the goals of the bureaucrats. There are models of political behavior dealing with strategic decision making both for international relations and domestic politics.</paragraph>
+  <paragraph>The so-called hard sciences are, of course, the source of the scientific method as they tried through the centuries to explain the confusing world around us. Some early models today make us laugh; spontaneous generation of life for example. These early models are seen today as not much more than the foundational myths we developed to help us bring some sense of order to what seemed chaos.</paragraph>
+  <paragraph>The foundation of all model building is the perhaps the arrogant statement that we know what caused the result we see. This is embodied in the simple mathematical statement of the functional form that y = f(x). The response, Y, is caused by the stimulus, X. Every model will eventually come to this final place and it will be here that the theory will live or die. Will the data support this hypothesis? If so then fine, we shall believe this version of the world until a better theory comes to replace it. This is the process by which we moved from flat earth to round earth, from earth-center solar system to sun-center solar system, and on and on.</paragraph>
+  <paragraph>The scientific method does not confirm a theory for all time: it does not prove “truth”. All theories are subject to review and may be overturned. These are lessons we learned as we first developed the concept of the hypothesis test earlier in this book. Here, as we begin this section, these concepts deserve review because the tool we will develop here is the cornerstone of the scientific method and the stakes are higher. Full theories will rise or fall because of this statistical tool; regression and the more advanced versions call econometrics.</paragraph>
+  <paragraph>In this chapter we will begin with correlation, the investigation of relationships among variables that may or may not be founded on a cause and effect model. The variables simply move in the same, or opposite, direction. That is to say, they do not move randomly. Correlation provides a measure of the degree to which this is true. From there we develop a tool to measure cause and effect relationships; regression analysis. We will be able to formulate models and tests to determine if they are statistically sound. If they are found to be so, then we can use them to make predictions: if as a matter of policy we changed the value of this variable what would happen to this other variable? If we imposed a gasoline tax of 50 cents per gallon how would that effect the carbon emissions, sales of Hummers/Hybrids, use of mass transit, etc.? The ability to provide answers to these types of questions is the value of regression as both a tool to help us understand our world and to make thoughtful policy decisions.</paragraph>
+  <heading level="1">13.1 The Correlation Coefficient r</heading>
+  <paragraph>As we begin this section we note that the type of data we will be working with has changed. Perhaps unnoticed, all the data we have been using is for a single variable. It may be from two samples, but it is still a univariate variable. The type of data described in the examples above and for any model of cause and effect is bivariate data — "bi" for two variables. In reality, statisticians use multivariate data, meaning many variables.</paragraph>
+  <paragraph>For our work we can classify data into three broad categories, time series data, cross-section data, and panel data. We met the first two very early on. Time series data measures a single unit of observation; say a person, or a company or a country, as time passes. What are measured will be at least two characteristics, say the person’s income, the quantity of a particular good they buy and the price they paid. This would be three pieces of information in one time period, say 1985. If we followed that person across time we would have those same pieces of information for 1985,1986, 1987, etc. This would constitute a times series data set. If we did this for 10 years we would have 30 pieces of information concerning this person’s consumption habits of this good for the past decade and we would know their income and the price they paid.</paragraph>
+  <paragraph>A second type of data set is for cross-section data. Here the variation is not across time for a single unit of observation, but across units of observation during one point in time. For a particular period of time we would gather the price paid, amount purchased, and income of many individual people.</paragraph>
+  <paragraph>A third type of data set is panel data. Here a panel of units of observation is followed across time. If we take our example from above we might follow 500 people, the unit of observation, through time, ten years, and observe their income, price paid and quantity of the good purchased. If we had 500 people and data for ten years for price, income and quantity purchased we would have 15,000 pieces of information. These types of data sets are very expensive to construct and maintain. They do, however, provide a tremendous amount of information that can be used to answer very important questions. As an example, what is the effect on the labor force participation rate of women as their family of origin, mother and father, age? Or are there differential effects on health outcomes depending upon the age at which a person started smoking? Only panel data can give answers to these and related questions because we must follow multiple people across time. The work we do here however will not be fully appropriate for data sets such as these.</paragraph>
+  <paragraph>Beginning with a set of data with two independent variables we ask the question: are these related? One way to visually answer this question is to create a scatter plot of the data. We could not do that before when we were doing descriptive statistics because those data were univariate. Now we have bivariate data so we can plot in two dimensions. Three dimensions are possible on a flat piece of paper, but become very hard to fully conceptualize. Of course, more than three dimensions cannot be graphed although the relationships can be measured mathematically.</paragraph>
+  <paragraph>To provide mathematical precision to the measurement of what we see we use the correlation coefficient. The correlation tells us something about the co-movement of two variables, but nothing about why this movement occurred. Formally, correlation analysis assumes that both variables being analyzed are independent variables. This means that neither one causes the movement in the other. Further, it means that neither variable is dependent on the other, or for that matter, on any other variable. Even with these limitations, correlation analysis can yield some interesting results.</paragraph>
+  <paragraph>The correlation coefficient, ρ (pronounced rho), is the mathematical statistic for a population that provides us with a measurement of the strength of a linear relationship between the two variables. For a sample of data, the statistic, r, developed by Karl Pearson in the early 1900s, is an estimate of the population correlation and is defined mathematically as:</paragraph>
+  <paragraph math="block">$$r = \frac{\frac{1}{n - 1}\Sigma\left( X_{1i} - {\overline{X}}_{1} \right)\left( X_{2i} - {\overline{X}}_{2} \right)}{s_{x_{1}}s_{x_{2}}}$$</paragraph>
+  <paragraph math="block">$$r = \frac{\sum\left( {X_{1}}_{i} - {\overline{X}}_{1} \right)\left( {X_{2}}_{i} - {\overline{X}}_{2} \right)}{\sqrt{\sum\left( {X_{1}}_{i} - {\overline{X}}_{1} \right)^{2}\sum\left( X{{}_{2}}_{i} - {\overline{X}}_{2} \right)^{2}}}$$</paragraph>
+  <paragraph>where sx1 and sx2 are the standard deviations of the two independent variables X1 and X2, $${\overline{X}}_{1}$$ and $${\overline{X}}_{2}$$ are the sample means of the two variables, and X1i and X2i are the individual observations of X1 and X2. The correlation coefficient r ranges in value from -1 to 1. The second equivalent formula is often used because it may be computationally easier. As scary as these formulas look they are really just the ratio of the covariance between the two variables and the product of their two standard deviations. That is to say, it is a measure of relative variances.</paragraph>
+  <paragraph>In practice all correlation and regression analysis will be provided through computer software designed for these purposes. Anything more than perhaps one-half a dozen observations creates immense computational problems. It was because of this fact that correlation, and even more so, regression, were not widely used research tools until after the advent of “computing machines”. Now the computing power required to analyze data using regression packages is deemed almost trivial by comparison to just a decade ago.</paragraph>
+  <paragraph>To visualize any linear relationship that may exist review the plot of a scatter diagrams of the standardized data. Figure 13.2 presents several scatter diagrams and the calculated value of r. In panels (a) and (b) notice that the data generally trend together, (a) upward and (b) downward. Panel (a) is an example of a positive correlation and panel (b) is an example of a negative correlation, or relationship. The sign of the correlation coefficient tells us if the relationship is a positive or negative (inverse) one. If all the values of X1 and X2 are on a straight line the correlation coefficient will be either 1 or -1 depending on whether the line has a positive or negative slope and the closer to one or negative one the stronger the relationship between the two variables. BUT ALWAYS REMEMBER THAT THE CORRELATION COEFFICIENT DOES NOT TELL US THE SLOPE.</paragraph>
+  <figure number="13.2">
+    <image alt="The image shows four scatter plots. Graph (a) shows a positive linear correlation (r = 0.8) with the data points generally trending upward from left to right. Graph (b) shows a negative linear correlation (r = –0.8) with the data points generally trending downward left to right. Graph (c) shows no linear correlation (r = 0.0) with data points scattered randomly like a cloud. Finally, graph (d) shows a non-linear relationship (r = 0.0) with data points forming a circle."/>
+  </figure>
+  <paragraph>Remember, all the correlation coefficient tells us is whether or not the data are linearly related. In panel (d) the variables obviously have some type of very specific relationship to each other, but the correlation coefficient is zero, indicating no linear relationship exists.</paragraph>
+  <paragraph>If you suspect a linear relationship between X1 and X2 then r can measure how strong the linear relationship is.</paragraph>
+  <list type="unordered">
+    <item>The value of r is always between –1 and +1: –1 ≤ r ≤ 1.</item>
+    <item>The size of the correlation r indicates the strength of the linear relationship between X1 and X2. Values of r close to –1 or to +1 indicate a stronger linear relationship between X1 and X2.</item>
+    <item>If r = 0 there is absolutely no linear relationship between X1 and X2 (no linear correlation).</item>
+    <item>If r = 1, there is perfect positive correlation. If r = –1, there is perfect negative correlation. In both these cases, all of the original data points lie on a straight line: ANY straight line no matter what the slope. Of course, in the real world, this will not generally happen.</item>
+  </list>
+  <list type="unordered">
+    <item>A positive value of r means that when X1 increases, X2 tends to increase and when X1 decreases, X2 tends to decrease (positive correlation).</item>
+    <item>A negative value of r means that when X1 increases, X2 tends to decrease and when X1 decreases, X2 tends to increase (negative correlation).</item>
+  </list>
+  <note type="sidebar" source_type="NOTE" title="NOTE"/>
+  <heading level="1">13.2 Testing the Significance of the Correlation Coefficient</heading>
+  <paragraph>The correlation coefficient, r, tells us about the strength and direction of the linear relationship between X1 and X2.</paragraph>
+  <paragraph>The sample data are used to compute r, the correlation coefficient for the sample. If we had data for the entire population, we could find the population correlation coefficient. But because we have only sample data, we cannot calculate the population correlation coefficient. The sample correlation coefficient, r, is our estimate of the unknown population correlation coefficient.</paragraph>
+  <list type="unordered">
+    <item>ρ = population correlation coefficient (unknown)</item>
+    <item>r = sample correlation coefficient (known; calculated from sample data)</item>
+  </list>
+  <paragraph>The hypothesis test lets us decide whether the value of the population correlation coefficient ρ is "close to zero" or "significantly different from zero". We decide this based on the sample correlation coefficient r and the sample size n.</paragraph>
+  <paragraph>If the test concludes that the correlation coefficient is significantly different from zero, we say that the correlation coefficient is "significant."</paragraph>
+  <list type="unordered">
+    <item>Conclusion: There is sufficient evidence to conclude that there is a significant linear relationship between X1 and X2 because the correlation coefficient is significantly different from zero.</item>
+    <item>What the conclusion means: There is a significant linear relationship X1 and X2. If the test concludes that the correlation coefficient is not significantly different from zero (it is close to zero), we say that correlation coefficient is "not significant".</item>
+  </list>
+  <heading level="2">Performing the Hypothesis Test</heading>
+  <list type="unordered">
+    <item>Null Hypothesis: H0: ρ = 0</item>
+    <item>Alternate Hypothesis: Ha: ρ ≠ 0</item>
+  </list>
+  <list type="unordered">
+    <item>Null Hypothesis H0: The population correlation coefficient IS NOT significantly different from zero. There IS NOT a significant linear relationship (correlation) between X1 and X2 in the population.</item>
+    <item>Alternate Hypothesis Ha: The population correlation coefficient is significantly different from zero. There is a significant linear relationship (correlation) between X1 and X2 in the population.</item>
+  </list>
+  <paragraph>Drawing a ConclusionThere are two methods of making the decision concerning the hypothesis. The test statistic to test this hypothesis is:</paragraph>
+  <paragraph math="block">$$t_{c} = \frac{r}{\sqrt{\frac{\left( 1 - r^{2} \right)}{(n - 2)}}}$$</paragraph>
+  <paragraph math="block">$$\text{OR}$$</paragraph>
+  <paragraph math="block">$$t_{c} = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^{2}}}$$</paragraph>
+  <paragraph>Where the second formula is an equivalent form of the test statistic, n is the sample size and the degrees of freedom are n-2. This is a t-statistic and operates in the same way as other t tests. Calculate the t-value and compare that with the critical value from the t-table at the appropriate degrees of freedom and the level of confidence you wish to maintain. If the calculated value is in the tail then cannot accept the null hypothesis that there is no linear relationship between these two independent random variables. If the calculated t-value is NOT in the tailed then cannot reject the null hypothesis that there is no linear relationship between the two variables.</paragraph>
+  <paragraph>A quick shorthand way to test correlations is the relationship between the sample size and the correlation. If:</paragraph>
+  <paragraph math="block">$$|r| \geq \frac{2}{\sqrt{n}}$$</paragraph>
+  <paragraph>then this implies that the correlation between the two variables demonstrates that a linear relationship exists and is statistically significant at approximately the 0.05 level of significance. As the formula indicates, there is an inverse relationship between the sample size and the required correlation for significance of a linear relationship. With only 10 observations, the required correlation for significance is 0.6325, for 30 observations the required correlation for significance decreases to 0.3651 and at 100 observations the required level is only 0.2000.</paragraph>
+  <paragraph>Correlations may be helpful in visualizing the data, but are not appropriately used to "explain" a relationship between two variables. Perhaps no single statistic is more misused than the correlation coefficient. Citing correlations between health conditions and everything from place of residence to eye color have the effect of implying a cause and effect relationship. This simply cannot be accomplished with a correlation coefficient. The correlation coefficient is, of course, innocent of this misinterpretation. It is the duty of the analyst to use a statistic that is designed to test for cause and effect relationships and report only those results if they are intending to make such a claim. The problem is that passing this more rigorous test is difficult so lazy and/or unscrupulous "researchers" fall back on correlations when they cannot make their case legitimately.</paragraph>
+  <heading level="1">13.3 Linear Equations</heading>
+  <paragraph>Linear regression for two variables is based on a linear equation with one independent variable. The equation has the form:</paragraph>
+  <paragraph math="block">$$y = a + \text{bx}$$</paragraph>
+  <paragraph>where a and b are constant numbers.</paragraph>
+  <paragraph>The variable x is the independent variable, and y is the dependent variable. Another way to think about this equation is a statement of cause and effect. The X variable is the cause and the Y variable is the hypothesized effect. Typically, you choose a value to substitute for the independent variable and then solve for the dependent variable.</paragraph>
+  <example number="13.1">
+    <paragraph>The following examples are linear equations.</paragraph>
+    <paragraph math="block">$$y = 3 + \text{2x}$$</paragraph>
+    <paragraph math="block">$$y = -0.01 + \text{1.2x}$$</paragraph>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.1">
+    <paragraph>Is the following an example of a linear equation?</paragraph>
+    <paragraph>y = –0.125 – 3.5x</paragraph>
+  </note>
+  <paragraph>The graph of a linear equation of the form y = a + bx is a straight line. Any line that is not vertical can be described by this equation.</paragraph>
+  <example number="13.2">
+    <paragraph>Graph the equation y = –1 + 2x.</paragraph>
+    <figure number="13.3">
+      <image alt="Graph of the equation y = -1 + 2x. This is a straight line that crosses the y-axis at -1 and is sloped up and to the right, rising 2 units for every one unit of run."/>
+    </figure>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.2">
+    <paragraph>Is the following an example of a linear equation? Why or why not?</paragraph>
+    <figure number="13.4">
+      <image alt="This is a graph of an equation. The x-axis is labeled in intervals of 2 from 0 - 14; the y-axis is labeled in intervals of 2 from 0 - 12. The equation's graph is a curve that crosses the y-axis at 2 and curves upward and to the right."/>
+    </figure>
+  </note>
+  <example number="13.3">
+    <paragraph>A local small business completes federal tax returns for customers. The rate for services is \$32 per hour plus a \$31.50 one-time charge. The total cost to a customer depends on the number of hours it takes to complete the job.</paragraph>
+    <problem>
+      <paragraph>Find the equation that expresses the total cost in terms of the number of hours required to complete the job.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let x = the number of hours it takes to get the job done. Let y = the total cost to the customer.</paragraph>
+      <paragraph>The \$31.50 is a fixed cost. If it takes x hours to complete the job, then (32)(x) is the cost of the tax return processing only. The total cost is: y = 31.50 + 32x</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.3">
+    <paragraph>Emma’s Extreme Sports hires hang-gliding instructors and pays them a fee of \$50 per class as well as \$20 per student in the class. The total cost Emma pays depends on the number of students in a class. Find the equation that expresses the total cost in terms of the number of students in a class.</paragraph>
+  </note>
+  <heading level="2">Slope and Y-Intercept of a Linear Equation</heading>
+  <paragraph>For the linear equation y = a + bx, b = slope and a = y-intercept. From algebra recall that the slope is a number that describes the steepness of a line, and the y-intercept is the y coordinate of the point (0, a) where the line crosses the y-axis. From calculus the slope is the first derivative of the function. For a linear function the slope is dy / dx = b where we can read the mathematical expression as "the change in y (dy) that results from a change in x (dx) = b * dx".</paragraph>
+  <figure number="13.5">
+    <image alt="Three possible graphs of the equation y = a + bx. For the first graph, (a), b > 0 and so the line slopes upward to the right. For the second, b = 0 and the graph of the equation is a horizontal line. In the third graph, (c), b &lt; 0 and the line slopes downward to the right."/>
+    <caption>Three possible graphs of y = a + bx. (a) If b &gt; 0, the line slopes upward to the right. (b) If b = 0, the line is horizontal. (c) If b &lt; 0, the line slopes downward to the right.</caption>
+  </figure>
+  <example number="13.4">
+    <paragraph>Svetlana tutors to make extra money for college. For each tutoring session, she charges a one-time fee of \$25 plus \$15 per hour of tutoring. A linear equation that expresses the total amount of money Svetlana earns for each session she tutors is y = 25 + 15x.</paragraph>
+    <problem>
+      <paragraph>What are the independent and dependent variables? What is the y-intercept and what is the slope? Interpret them using complete sentences.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The independent variable (x) is the number of hours Svetlana tutors each session. The dependent variable (y) is the amount, in dollars, Svetlana earns for each session.</paragraph>
+      <paragraph>The y-intercept is 25 (a = 25). At the start of the tutoring session, Svetlana charges a one-time fee of \$25 (this is when x = 0). The slope is 15 (b = 15). For each session, Svetlana earns \$15 for each hour she tutors.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.4">
+    <paragraph>Ethan repairs household appliances like dishwashers and refrigerators. For each visit, he charges \$25 plus \$20 per hour of work. A linear equation that expresses the total amount of money Ethan earns per visit is y = 25 + 20x.</paragraph>
+    <paragraph>What are the independent and dependent variables? What is the y-intercept and what is the slope? Interpret them using complete sentences.</paragraph>
+  </note>
+  <heading level="1">13.4 The Regression Equation</heading>
+  <paragraph>Regression analysis is a statistical technique that can test the hypothesis that a variable is dependent upon one or more other variables. Further, regression analysis can provide an estimate of the magnitude of the impact of a change in one variable on another. This last feature, of course, is all important in predicting future values.</paragraph>
+  <paragraph>Regression analysis is based upon a functional relationship among variables and further, assumes that the relationship is linear. This linearity assumption is required because, for the most part, the theoretical statistical properties of non-linear estimation are not well worked out yet by the mathematicians and econometricians. This presents us with some difficulties in economic analysis because many of our theoretical models are nonlinear. The marginal cost curve, for example, is decidedly nonlinear as is the total cost function, if we are to believe in the effect of specialization of labor and the Law of Diminishing Marginal Product. There are techniques for overcoming some of these difficulties, exponential and logarithmic transformation of the data for example, but at the outset we must recognize that standard ordinary least squares (OLS) regression analysis will always use a linear function to estimate what might be a nonlinear relationship.</paragraph>
+  <paragraph>The general linear regression model can be stated by the equation:</paragraph>
+  <paragraph math="block">$$y_{i} = \beta_{0} + \beta_{1}X_{1i} + \beta_{2}X_{2i} + \cdots + \beta_{k}X_{ki} + \varepsilon_{i}$$</paragraph>
+  <paragraph>where β0 is the intercept, βi's are the slope between Y and the appropriate Xi, and ε (pronounced epsilon), is the error term that captures errors in measurement of Y and the effect on Y of any variables missing from the equation that would contribute to explaining variations in Y. This equation is the theoretical population equation and therefore uses Greek letters. The equation we will estimate will have the Roman equivalent symbols. This is parallel to how we kept track of the population parameters and sample parameters before. The symbol for the population mean was µ and for the sample mean $$\overline{X}$$ and for the population standard deviation was σ and for the sample standard deviation was s. The equation that will be estimated with a sample of data for two independent variables will thus be:</paragraph>
+  <paragraph math="block">$$y_{i} = b_{0} + b_{1}x_{1i} + b_{2}x_{2i} + e_{i}$$</paragraph>
+  <paragraph>As with our earlier work with probability distributions, this model works only if certain assumptions hold. These are that the Y is normally distributed, the errors are also normally distributed with a mean of zero and a constant standard deviation, and that the error terms are independent of the size of X and independent of each other.</paragraph>
+  <heading level="2">Assumptions of the Ordinary Least Squares Regression Model</heading>
+  <paragraph>Each of these assumptions needs a bit more explanation. If one of these assumptions fails to be true, then it will have an effect on the quality of the estimates. Some of the failures of these assumptions can be fixed while others result in estimates that quite simply provide no insight into the questions the model is trying to answer or worse, give biased estimates.</paragraph>
+  <list type="ordered">
+    <item>The independent variables, $$x_{i}$$ , are all measured without error, and are fixed numbers that are independent of the error term. This assumption is saying in effect that Y is deterministic, the result of a fixed component “X” and a random error component “ϵ.”</item>
+    <item>The error term is a random variable with a mean of zero and a constant variance. The meaning of this is that the variances of the independent variables are independent of the value of the variable. Consider the relationship between personal income and the quantity of a good purchased as an example of a case where the variance is dependent upon the value of the independent variable, income. It is plausible that as income increases the variation around the amount purchased will also increase simply because of the flexibility provided with higher levels of income. The assumption is for constant variance with respect to the magnitude of the independent variable called homoscedasticity. If the assumption fails, then it is called heteroscedasticity. Figure 13.6 shows the case of homoscedasticity where all three distributions have the same variance around the predicted value of Y regardless of the magnitude of X.</item>
+    <item>Error terms should be normally distributed. This can be seen in Figure 13.6 by the shape of the distributions placed on the predicted line at the expected value of the relevant value of Y.</item>
+    <item>The independent variables are independent of Y, but are also assumed to be independent of the other X variables. The model is designed to estimate the effects of independent variables on some dependent variable in accordance with a proposed theory. The case where some or more of the independent variables are correlated is not unusual. There may be no cause and effect relationship among the independent variables, but nevertheless they move together. Take the case of a simple supply curve where quantity supplied is theoretically related to the price of the product and the prices of inputs. There may be multiple inputs that may over time move together from general inflationary pressure. The input prices will therefore violate this assumption of regression analysis. This condition is called multicollinearity, which will be taken up in detail later.</item>
+    <item>The error terms are uncorrelated with each other. This situation arises from an effect on one error term from another error term. While not exclusively a time series problem, it is here that we most often see this case. An X variable in time period one has an effect on the Y variable, but this effect then has an effect in the next time period. This effect gives rise to a relationship among the error terms. This case is called autocorrelation, “self-correlated.” The error terms are now not independent of each other, but rather have their own effect on subsequent error terms.</item>
+  </list>
+  <paragraph>Figure 13.6 shows the case where the assumptions of the regression model are being satisfied. The estimated line is $$\hat{y} = a + b{x.}$$ Three values of X are shown. A normal distribution is placed at each point where X equals the estimated line and the associated error at each value of Y. Notice that the three distributions are normally distributed around the point on the line, and further, the variation, variance, around the predicted value is constant indicating homoscedasticity from assumption 2. Figure 13.6 does not show all the assumptions of the regression model, but it helps visualize these important ones.</paragraph>
+  <figure number="13.6">
+    <image alt="Normal distributions of Y conditional on X are shown for x1, x2, x3, centered on the regression line ŷ = a + bx. Errors e1, e2, e3 represent deviations from the estimated mean."/>
+  </figure>
+  <figure number="13.7">
+    <image alt="A scatter plot showing a positive linear correlation with data points trending upward from left to right."/>
+  </figure>
+  <paragraph>This is the general form that is most often called the multiple regression model. So-called "simple" regression analysis has only one independent (right-hand) variable rather than many independent variables. Simple regression is just a special case of multiple regression. There is some value in beginning with simple regression: it is easy to graph in two dimensions, difficult to graph in three dimensions, and impossible to graph in more than three dimensions. Consequently, our graphs will be for the simple regression case. Figure 13.7 presents the regression problem in the form of a scatter plot graph of the data set where it is hypothesized that Y is dependent upon the single independent variable X.</paragraph>
+  <paragraph>A basic relationship from Macroeconomic Principles is the consumption function. This theoretical relationship states that as a person's income rises, their consumption rises, but by a smaller amount than the rise in income. If Y is consumption and X is income in the equation below Figure 13.7, the regression problem is, first, to establish that this relationship exists, and second, to determine the impact of a change in income on a person's consumption. The parameter β1 was called the Marginal Propensity to Consume in Macroeconomics Principles.</paragraph>
+  <paragraph>Each "dot" in Figure 13.7 represents the consumption and income of different individuals at some point in time. This was called cross-section data earlier; observations on variables at one point in time across different people or other units of measurement. This analysis is often done with time series data, which would be the consumption and income of one individual or country at different points in time. For macroeconomic problems it is common to use times series aggregated data for a whole country. For this particular theoretical concept these data are readily available in the annual report of the President’s Council of Economic Advisors.</paragraph>
+  <paragraph>The regression problem comes down to determining which straight line would best represent the data in Figure 13.8. Regression analysis is sometimes called "least squares" analysis because the method of determining which line best "fits" the data is to minimize the sum of the squared residuals of a line put through the data.</paragraph>
+  <figure number="13.8">
+    <image alt="This graph displays consumption vs. income with a linear regression line. It shows the residual (|e1|) as the vertical distance from an observed data point (I1, C1) to its predicted value (I1, C_hat1) on the regression line."/>
+    <caption>Population Equation: C = β0 + β1 Income + ε Estimated Equation: C = b0 + b1 Income + e</caption>
+  </figure>
+  <paragraph>This figure shows the assumed relationship between consumption and income from macroeconomic theory. Here the data are plotted as a scatter plot and an estimated straight line has been drawn. From this graph we can see an error term, e1. Each data point also has an error term. Again, the error term is put into the equation to capture effects on consumption that are not caused by income changes. Such other effects might be a person’s savings or wealth, or periods of unemployment. We will see how by minimizing the sum of these errors we can get an estimate for the slope and intercept of this line.</paragraph>
+  <paragraph>Consider the graph below. The notation has returned to that for the more general model rather than the specific case of the Macroeconomic consumption function in our example.</paragraph>
+  <figure number="13.9">
+    <image alt="The image illustrates the concept of linear regression and how a regression line is used to predict values and how to measure the error of those predictions. The image shows a data point and a predicted point on the line. The diagonal line moves upward from left to right."/>
+  </figure>
+  <paragraph>The ŷ is read "y hat" and is the estimated value of y. (In Figure 13.8 $$\hat{C}$$ represents the estimated value of consumption because it is on the estimated line.) It is the value of y obtained using the regression line. ŷ is not generally equal to y from the data.</paragraph>
+  <paragraph>The term $$y_{0} - ŷ_{0} = e_{0}$$ is called the residual or "error". It is not an error in the sense of a mistake. The error term was put into the estimating equation to capture missing variables and errors in measurement that may have occurred in the dependent variables. The absolute value of a residual measures the vertical distance between the actual value of y and the estimated value of y. In other words, it measures the vertical distance between the actual data point and the predicted point on the line as can be seen on the graph at point X0.</paragraph>
+  <paragraph>If the observed data point lies above the line, the residual is positive, and the line underestimates the actual data value for y.</paragraph>
+  <paragraph>If the observed data point lies below the line, the residual is negative, and the line overestimates that actual data value for y.</paragraph>
+  <paragraph>In the graph, $$y_{0} - ŷ_{0} = e_{0}$$ is the residual for the point shown. Here the point lies above the line and the residual is positive. For each data point the residuals, or errors, are calculated yi – ŷi = ei for i = 1, 2, 3, ..., n where n is the sample size. Each |e| is a vertical distance.</paragraph>
+  <paragraph>The sum of the errors squared is the term obviously called Sum of Squared Errors (SSE).</paragraph>
+  <paragraph>Using calculus, you can determine the straight line that has the parameter values of b0 and b1 that minimizes the SSE. When you make the SSE a minimum, you have determined the points that are on the line of best fit. It turns out that the line of best fit has the equation:</paragraph>
+  <paragraph math="block">$$ŷ = b_{0} + b_{1}x$$</paragraph>
+  <paragraph>where $$b_{0} = \overset{-}{y} - b_{1}\overline{x}$$ and $$b_{1} = \frac{\Sigma\left( x - \overline{x} \right)\left( y - \overset{-}{y} \right)}{\Sigma\left( x - \overline{x} \right)^{2}} = \frac{ \text{cov} (x,y)}{{s_{x}}^{2}}$$</paragraph>
+  <paragraph>The sample means of the x values and the y values are $$\overline{x}$$ and $$\overset{-}{y}$$ , respectively. The best fit line always passes through the point ( $$\overline{x}$$ , $$\overset{-}{y}$$ ) called the points of means.</paragraph>
+  <paragraph>The slope b can also be written as:</paragraph>
+  <paragraph math="block">$$b_{1} = r_{ \text{y,x} }\left( \frac{s_{y}}{s_{x}} \right)$$</paragraph>
+  <paragraph>where sy = the standard deviation of the y values and sx = the standard deviation of the x values and r is the correlation coefficient between x and y.</paragraph>
+  <paragraph>These equations are called the Normal Equations and come from another very important mathematical finding called the Gauss-Markov Theorem without which we could not do regression analysis. The Gauss-Markov Theorem tells us that the estimates we get from using the ordinary least squares (OLS) regression method will result in estimates that have some very important properties. In the Gauss-Markov Theorem it was proved that a least squares line is BLUE, which is, Best, Linear, Unbiased, Estimator. Best is the statistical property that an estimator is the one with the minimum variance. Linear refers to the property of the type of line being estimated. An unbiased estimator is one whose estimating function has an expected mean equal to the mean of the population. (You will remember that the expected value of $$µ_{\overline{x}}$$ was equal to the population mean µ in accordance with the Central Limit Theorem. This is exactly the same concept here).</paragraph>
+  <paragraph>Both Gauss and Markov were giants in the field of mathematics, and Gauss in physics too, in the 18th century and early 19th century. They barely overlapped chronologically and never in geography, but Markov’s work on this theorem was based extensively on the earlier work of Carl Gauss. The extensive applied value of this theorem had to wait until the middle of this last century.</paragraph>
+  <paragraph>Using the OLS method we can now find the estimate of the error variance which is the variance of the squared errors, e2. This is sometimes called the standard error of the estimate. (Grammatically this is probably best said as the estimate of the error’s variance) The formula for the estimate of the error variance is:</paragraph>
+  <paragraph math="block">$$s_{e}^{2} = \frac{\Sigma{(y_{i} - ŷ_{i})}^{2}}{n - k} = \frac{\Sigma{e_{i}}^{2}}{n - k}$$</paragraph>
+  <paragraph>where ŷ is the predicted value of y and y is the observed value, and thus the term $$\left( y_{i} - ŷ_{i} \right)^{2}$$ is the squared errors that are to be minimized to find the estimates of the regression line parameters. This is really just the variance of the error terms and follows our regular variance formula. One important note is that here we are dividing by $$(n - k)$$ , which is the degrees of freedom. The degrees of freedom of a regression equation will be the number of observations, n, reduced by the number of estimated parameters, which includes the intercept as a parameter.</paragraph>
+  <paragraph>The variance of the errors is fundamental in testing hypotheses for a regression. It tells us just how “tight” the dispersion is about the line. As we will see shortly, the greater the dispersion about the line, meaning the larger the variance of the errors, the less probable that the hypothesized independent variable will be found to have a significant effect on the dependent variable. In short, the theory being tested will more likely fail if the variance of the error term is high. Upon reflection this should not be a surprise. As we tested hypotheses about a mean we observed that large variances reduced the calculated test statistic and thus it failed to reach the tail of the distribution. In those cases, the null hypotheses could not be rejected. If we cannot reject the null hypothesis in a regression problem, we must conclude that the hypothesized independent variable has no effect on the dependent variable.</paragraph>
+  <paragraph>A way to visualize this concept is to draw two scatter plots of x and y data along a predetermined line. The first will have little variance of the errors, meaning that all the data points will move close to the line. Now do the same except the data points will have a large estimate of the error variance, meaning that the data points are scattered widely along the line. Clearly the confidence about a relationship between x and y is effected by this difference between the estimate of the error variance.</paragraph>
+  <heading level="2">Residuals Plots</heading>
+  <paragraph>A residuals plot can be used to help determine if a set of (x, y) data is linearly correlated. For each data point used to create the correlation line, a residual y - ŷ can be calculated, where y is the observed value of the response variable and ŷ is the value predicted by the correlation line. The difference between these values is called the residual. A residuals plot shows the explanatory variable x on the horizontal axis and the residual for that value on the vertical axis. The residuals plot is often shown together with a scatter plot of the data. While a scatter plot of the data should resemble a straight line, a residuals plot should appear random, with no pattern and no outliers. It should also show constant error variance, meaning the residuals should not consistently increase (or decrease) as the explanatory variable x increases.</paragraph>
+  <paragraph>A residuals plot can be created using StatCrunch or a TI calculator. The plot should appear random. A box plot of the residuals is also helpful to verify that there are no outliers in the data. By observing the scatter plot of the data, the residuals plot, and the box plot of residuals, together with the linear correlation coefficient, we can usually determine if it is reasonable to conclude that the data are linearly correlated.</paragraph>
+  <heading level="3">EXAMPLE:</heading>
+  <paragraph>A shop owner uses a straight-line regression to estimate the number of ice cream cones that would be sold in a day based on the temperature at noon. The owner has data for a 2-year period and chose nine days at random. A scatter plot of the data is shown, together with a residuals plot.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Temperature ° F</cell>
+        <cell header="true">Ice cream cones sold</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>70</cell>
+        <cell>105</cell>
+      </row>
+      <row>
+        <cell>85</cell>
+        <cell>240</cell>
+      </row>
+      <row>
+        <cell>65</cell>
+        <cell>49</cell>
+      </row>
+      <row>
+        <cell>72</cell>
+        <cell>147</cell>
+      </row>
+      <row>
+        <cell>80</cell>
+        <cell>231</cell>
+      </row>
+      <row>
+        <cell>61</cell>
+        <cell>38</cell>
+      </row>
+      <row>
+        <cell>75</cell>
+        <cell>193</cell>
+      </row>
+      <row>
+        <cell>78</cell>
+        <cell>196</cell>
+      </row>
+      <row>
+        <cell>68</cell>
+        <cell>89</cell>
+      </row>
+    </tbody>
+  </table>
+  <figure number="13.10">
+    <image alt="Scatter plot of ice creams sold against temperature of the given data. A straight line is constructed for the plot."/>
+    <caption>Scatter plot of the data looks like a straight line.</caption>
+  </figure>
+  <figure number="13.11">
+    <image alt="Residual plot of residuals against temperature of the given data."/>
+    <caption>Residuals plot appears random.</caption>
+  </figure>
+  <heading level="2">Testing the Parameters of the Line</heading>
+  <paragraph>The whole goal of the regression analysis was to test the hypothesis that the dependent variable, Y, was in fact dependent upon the values of the independent variables as asserted by some foundation theory, such as the consumption function example. Looking at the estimated equation under Figure 13.8, we see that this amounts to determining the values of b0 and b1. Notice that again we are using the convention of Greek letters for the population parameters and Roman letters for their estimates.</paragraph>
+  <paragraph>The regression analysis output provided by the computer software will produce an estimate of b0 and b1, and any other b's for other independent variables that were included in the estimated equation. The issue is how good are these estimates? In order to test a hypothesis concerning any estimate, we have found that we need to know the underlying sampling distribution. It should come as no surprise at his stage in the course that the answer is going to be the normal distribution. This can be seen by remembering the assumption that the error term in the population, ε, is normally distributed. If the error term is normally distributed and the variance of the estimates of the equation parameters, b0 and b1, are determined by the variance of the error term, it follows that the variances of the parameter estimates are also normally distributed. And indeed this is just the case.</paragraph>
+  <paragraph>We can see this by the creation of the test statistic for the test of hypothesis for the slope parameter, β1 in our consumption function equation. To test whether or not Y does indeed depend upon X, or in our example, that consumption depends upon income, we need only test the hypothesis that β1 equals zero. This hypothesis would be stated formally as:</paragraph>
+  <paragraph math="block">$$H_{0}:\beta_{1} = 0$$</paragraph>
+  <paragraph math="block">$$H_{a}:\beta_{1} \neq 0$$</paragraph>
+  <paragraph>If we cannot reject the null hypothesis, we must conclude that our theory has no validity. If we cannot reject the null hypothesis that β1 = 0 then b1, the coefficient of Income, is zero and zero times anything is zero. Therefore the effect of Income on Consumption is zero. There is no relationship as our theory had suggested.</paragraph>
+  <paragraph>Notice that we have set up the presumption, the null hypothesis, as "no relationship". This puts the burden of proof on the alternative hypothesis. In other words, if we are to validate our claim of finding a relationship, we must do so with a level of significance greater than 90, 95, or 99 percent. The status quo is ignorance, no relationship exists, and to be able to make the claim that we have actually added to our body of knowledge we must do so with significant probability of being correct. John Maynard Keynes got it right and thus was born Keynesian economics starting with this basic concept in 1936.</paragraph>
+  <paragraph>The test statistic for this test comes directly from our old friend the standardizing formula:</paragraph>
+  <paragraph math="block">$$t_{c} = \frac{b_{1} - \beta_{1}}{S_{b_{1}}}$$</paragraph>
+  <paragraph>where b1 is the estimated value of the slope of the regression line, β1 is the hypothesized value of beta, in this case zero, and $$S_{b_{1}}$$ is the standard deviation of the estimate of b1. In this case we are asking how many standard deviations is the estimated slope away from the hypothesized slope. This is exactly the same question we asked before with respect to a hypothesis about a mean: how many standard deviations is the estimated mean, the sample mean, from the hypothesized mean?</paragraph>
+  <paragraph>The test statistic is written as a student's t-distribution, but if the sample size is larger enough so that the degrees of freedom are greater than 30 we may again use the normal distribution. To see why we can use the student's t or normal distribution we have only to look at $$S_{b_{1}}$$ ,the formula for the standard deviation of the estimate of b1:</paragraph>
+  <paragraph math="block">$$S_{b_{1}} = \frac{S_{e}}{\sqrt{{\Sigma\left( x_{i} - \overset{-}{x} \right)}^{2}}}$$</paragraph>
+  <paragraph math="block">$$S_{b_{1}} = \frac{S_{e}}{\sqrt{(n - 1)S_{x}^{2}}}$$</paragraph>
+  <paragraph>Where Se is the estimate of the error variance and S2x is the variance of x values of the coefficient of the independent variable being tested.</paragraph>
+  <paragraph>We see that Se, the estimate of the error variance, is part of the computation. Because the estimate of the error variance is based on the assumption of normality of the error terms, we can conclude that the sampling distribution of the b's, the coefficients of our hypothesized regression line, are also normally distributed.</paragraph>
+  <paragraph>One last note concerns the degrees of freedom of the test statistic, ν=n-k. Previously we subtracted 1 from the sample size to determine the degrees of freedom in a student's t problem. Here we must subtract one degree of freedom for each parameter estimated in the equation. For the example of the consumption function we lose 2 degrees of freedom, one for $$b_{0}$$ , the intercept, and one for b1, the slope of the consumption function. The degrees of freedom would be n - k - 1, where k is the number of independent variables and the extra one is lost because of the intercept. If we were estimating an equation with three independent variables, we would lose 4 degrees of freedom: three for the independent variables, k, and one more for the intercept.</paragraph>
+  <paragraph>The decision rule for acceptance or rejection of the null hypothesis follows exactly the same form as in all our previous test of hypothesis. Namely, if the calculated value of t (or Z) falls into the tails of the distribution, where the tails are defined by α ,the required significance level in the test, we cannot accept the null hypothesis. If on the other hand, the calculated value of the test statistic is within the critical region, we cannot reject the null hypothesis.</paragraph>
+  <paragraph>If we conclude that we cannot accept the null hypothesis, we are able to state with $$(1 - \alpha)$$ level of confidence that the slope of the line is given by b1. This is an extremely important conclusion. Regression analysis not only allows us to test if a cause and effect relationship exists, we can also determine the magnitude of that relationship, if one is found to exist. It is this feature of regression analysis that makes it so valuable. If models can be developed that have statistical validity, we are then able to simulate the effects of changes in variables that may be under our control with some degree of probability , of course. For example, if advertising is demonstrated to effect sales, we can determine the effects of changing the advertising budget and decide if the increased sales are worth the added expense.</paragraph>
+  <heading level="2">Multicollinearity</heading>
+  <paragraph>Our discussion earlier indicated that like all statistical models, the OLS regression model has important assumptions attached. Each assumption, if violated, has an effect on the ability of the model to provide useful and meaningful estimates. The Gauss-Markov Theorem has assured us that the OLS estimates are unbiased and minimum variance, but this is true only under the assumptions of the model. Here we will look at the effects on OLS estimates if the independent variables are correlated. The other assumptions and the methods to mitigate the difficulties they pose if they are found to be violated are examined in Econometrics courses. We take up multicollinearity because it is so often prevalent in Economic models and it often leads to frustrating results.</paragraph>
+  <paragraph>The OLS model assumes that all the independent variables are independent of each other. This assumption is easy to test for a particular sample of data with simple correlation coefficients. Correlation, like much in statistics, is a matter of degree: a little is not good, and a lot is terrible.</paragraph>
+  <paragraph>The goal of the regression technique is to tease out the independent impacts of each of a set of independent variables on some hypothesized dependent variable. If two 2 independent variables are interrelated, that is, correlated, then we cannot isolate the effects on Y of one from the other. In an extreme case where $$x_{1}$$ is a linear combination of $$x_{2}$$ , correlation equal to one, both variables move in identical ways with Y. In this case it is impossible to determine the variable that is the true cause of the effect on Y. (If the two variables were actually perfectly correlated, then mathematically no regression results could actually be calculated.)</paragraph>
+  <paragraph>The normal equations for the coefficients show the effects of multicollinearity on the coefficients.</paragraph>
+  <paragraph math="block">$$b_{1} = \frac{s_{y}\left( r_{x_{1}y} - r_{x_{1}x_{2}}r_{x_{2}y} \right)}{s_{x_{1}}\left( 1 - r_{x_{1}x_{2}}^{2} \right)}$$</paragraph>
+  <paragraph math="block">$$b_{2} = \frac{s_{y}\left( r_{x_{2}y} - r_{x_{1}x_{2}}r_{x_{1}y} \right)}{s_{x_{2}}\left( 1 - r_{x_{1}x_{2}}^{2} \right)}$$</paragraph>
+  <paragraph math="block">$$b_{0} = \overset{-}{y} - b_{1}{\overline{x}}_{1} - b_{2}{\overline{x}}_{2}$$</paragraph>
+  <paragraph>The correlation between $$x_{1}$$ and $$x_{2}$$ , $$r_{x_{1}x_{2}}^{2}$$ , appears in the denominator of both the estimating formula for $$b_{1}$$ and $$b_{2}$$ . If the assumption of independence holds, then this term is zero. This indicates that there is no effect of the correlation on the coefficient. On the other hand, as the correlation between the two independent variables increases the denominator decreases, and thus the estimate of the coefficient increases. The correlation has the same effect on both of the coefficients of these two variables. In essence, each variable is “taking” part of the effect on Y that should be attributed to the collinear variable. This results in biased estimates.</paragraph>
+  <paragraph>Multicollinearity has a further deleterious impact on the OLS estimates. The correlation between the two independent variables also shows up in the formulas for the estimate of the variance for the coefficients.</paragraph>
+  <paragraph math="block">$$s_{b_{1}}^{2} = \frac{s_{e}^{2}}{(n - 1)s_{x_{1}}^{2}\left( 1 - r_{x_{1}x_{2}}^{2} \right)}$$</paragraph>
+  <paragraph math="block">$$s_{b_{2}}^{2} = \frac{s_{e}^{2}}{(n - 1)s_{x_{2}}^{2}\left( 1 - r_{x_{1}x_{2}}^{2} \right)}$$</paragraph>
+  <paragraph>Here again we see the correlation between $$x_{1}$$ and $$x_{2}$$ in the denominator of the estimates of the variance for the coefficients for both variables. If the correlation is zero as assumed in the regression model, then the formula collapses to the familiar ratio of the variance of the errors to the variance of the relevant independent variable. If however the two independent variables are correlated, then the variance of the estimate of the coefficient increases. This results in a smaller t-value for the test of hypothesis of the coefficient. In short, multicollinearity results in failing to reject the null hypothesis that the X variable has no impact on Y when in fact X does have a statistically significant impact on Y. Said another way, the large standard errors of the estimated coefficient created by multicollinearity suggest statistical insignificance even when the hypothesized relationship is strong.</paragraph>
+  <heading level="2">How Good is the Equation?</heading>
+  <paragraph>In the last section we concerned ourselves with testing the hypothesis that the dependent variable did indeed depend upon the hypothesized independent variable or variables. It may be that we find an independent variable that has some effect on the dependent variable, but it may not be the only one, and it may not even be the most important one. Remember that the error term was placed in the model to capture the effects of any missing independent variables. It follows that the error term may be used to give a measure of the "goodness of fit" of the equation taken as a whole in explaining the variation of the dependent variable, Y.</paragraph>
+  <paragraph>The multiple correlation coefficient, also called the coefficient of multiple determination or the coefficient of determination, is given by the formula:</paragraph>
+  <paragraph math="block">$$R^{2} = \frac{ \text{SSR} }{ \text{SST} }$$</paragraph>
+  <paragraph>where SSR is the regression sum of squares, the squared deviation of the predicted value of y from the mean value of y $$\left( ŷ - \overset{-}{y} \right)$$ , and SST is the total sum of squares which is the total squared deviation of the dependent variable, y, from its mean value, including the error term, SSE, the sum of squared errors. Figure 13.12 shows how the total deviation of the dependent variable, y, is partitioned into these two pieces.</paragraph>
+  <figure number="13.12">
+    <image alt="Linear regression visualizing total sum of squares (SST) decomposed into explained sum of squares (SSR) and error sum of squares (SSE). It shows an observed point (yi) and its predicted value (y_hat)."/>
+  </figure>
+  <paragraph>Figure 13.12 shows the estimated regression line and a single observation, x1. Regression analysis tries to explain the variation of the data about the mean value of the dependent variable, y. The question is, why do the observations of y vary from the average level of y? The value of y at observation x1 varies from the mean of y by the difference ( $$y_{i} - \overset{-}{y}$$ ). The sum of these differences squared is SST, the sum of squares total. The actual value of y at x1 deviates from the estimated value, ŷ, by the difference between the estimated value and the actual value, ( $$y_{i} - ŷ$$ ). We recall that this is the error term, e, and the sum of these errors is SSE, sum of squared errors. The deviation of the predicted value of y, ŷ, from the mean value of y is ( $$ŷ - \overset{-}{y}$$ ) and is the SSR, sum of squares regression. It is called “regression” because it is the deviation explained by the regression. (Sometimes the SSR is called SSM for sum of squares mean because it measures the deviation from the mean value of the dependent variable, y, as shown on the graph.).</paragraph>
+  <paragraph>Because the SST = SSR + SSE we see that the multiple correlation coefficient is the percent of the variance, or deviation in y from its mean value, that is explained by the equation when taken as a whole. R2 will vary between zero and 1, with zero indicating that none of the variation in y was explained by the equation and a value of 1 indicating that 100% of the variation in y was explained by the equation. For time series studies expect a high R2 and for cross-section data expect low R2.</paragraph>
+  <paragraph>While a high R2 is desirable, remember that it is the tests of the hypothesis concerning the existence of a relationship between a set of independent variables and a particular dependent variable that was the motivating factor in using the regression model. It is validating a cause and effect relationship developed by some theory that is the true reason that we chose the regression analysis. Increasing the number of independent variables will have the effect of increasing R2. To account for this effect the proper measure of the coefficient of determination is the $${\overset{-}{R}}^{2}$$ , adjusted for degrees of freedom, to keep down mindless addition of independent variables.</paragraph>
+  <paragraph>There is no statistical test for the R2 and thus little can be said about the model using R2 with our characteristic confidence level. Two models that have the same size of SSE, that is sum of squared errors, may have very different R2 if the competing models have different SST, total sum of squared deviations. The goodness of fit of the two models is the same; they both have the same sum of squares unexplained, errors squared, but because of the larger total sum of squares on one of the models the R2 differs. Again, the real value of regression as a tool is to examine hypotheses developed from a model that predicts certain relationships among the variables. These are tests of hypotheses on the coefficients of the model and not a game of maximizing R2.</paragraph>
+  <paragraph>Another way to test the general quality of the overall model is to test the coefficients as a group rather than independently. Because this is multiple regression (more than one X), we use the F-test to determine if our coefficients collectively affect Y. The hypothesis is:</paragraph>
+  <paragraph>$$H_{o}:\beta_{1} = \beta_{2} = \ldots = \beta_{i} = 0$$</paragraph>
+  <paragraph>$$H_{a}:$$ "at least one of the βi is not equal to 0"</paragraph>
+  <paragraph>If the null hypothesis cannot be rejected, then we conclude that none of the independent variables contribute to explaining the variation in Y. Reviewing Figure 13.12 we see that SSR, the explained sum of squares, is a measure of just how much of the variation in Y is explained by all the variables in the model. SSE, the sum of the errors squared, measures just how much is unexplained. It follows that the ratio of these two can provide us with a statistical test of the model as a whole. Remembering that the F distribution is a ratio of Chi squared distributions and that variances are distributed according to Chi Squared, and the sum of squared errors and the sum of squares are both variances, we have the test statistic for this hypothesis as:</paragraph>
+  <paragraph math="block">$$F_{c} = \frac{\left( \frac{SSR}{k} \right)}{\left( \frac{SSE}{n - k - 1} \right)}$$</paragraph>
+  <paragraph>where n is the number of observations and k is the number of independent variables. It can be shown that this is equivalent to:</paragraph>
+  <paragraph math="block">$$F_{c} = \frac{n - k - 1}{k} \cdot \frac{R^{2}}{1 - R^{2}}$$</paragraph>
+  <paragraph>Figure 13.12 where R2 is the coefficient of determination which is also a measure of the “goodness” of the model.</paragraph>
+  <paragraph>As with all our tests of hypothesis, we reach a conclusion by comparing the calculated F statistic with the critical value given our desired level of confidence. If the calculated test statistic, an F statistic in this case, is in the tail of the distribution, then we cannot accept the null hypothesis. By not being able to accept the null hypotheses we conclude that this specification of this model has validity, because at least one of the estimated coefficients is significantly different from zero.</paragraph>
+  <paragraph>An alternative way to reach this conclusion is to use the p-value comparison rule. The p-value is the area in the tail, given the calculated F statistic. In essence, the computer is finding the F value in the table for us. The computer regression output for the calculated F statistic is typically found in the ANOVA table section labeled “significance F". How to read the output of an Excel regression is presented below. This is the probability of NOT accepting a false null hypothesis. If this probability is less than our pre-determined alpha error, then the conclusion is that we cannot accept the null hypothesis.</paragraph>
+  <heading level="2">Dummy Variables</heading>
+  <paragraph>Thus far the analysis of the OLS regression technique assumed that the independent variables in the models tested were continuous random variables. There are, however, no restrictions in the regression model against independent variables that are binary. This opens the regression model for testing hypotheses concerning categorical variables such as gender, race, region of the country, before a certain data, after a certain date and innumerable others. These categorical variables take on only two values, 1 and 0, success or failure, from the binomial probability distribution. The form of the equation becomes:</paragraph>
+  <paragraph math="block">$$ŷ = b_{0} + b_{2}x_{2} + b_{1}x_{1}$$</paragraph>
+  <figure number="13.13">
+    <image alt="The image shows two parallel lines on a graph moving upward from left to right."/>
+  </figure>
+  <paragraph>where $$x_{2} = 0,1$$ . X2 is the dummy variable and X1 is some continuous random variable. The constant, b0, is the y-intercept, the value where the line crosses the y-axis. When the value of X2 = 0, the estimated line crosses at b0. When the value of X2 = 1 then the estimated line crosses at b0 + b2. In effect the dummy variable causes the estimated line to shift either up or down by the size of the effect of the characteristic captured by the dummy variable. Note that this is a simple parallel shift and does not affect the impact of the other independent variable; X1.This variable is a continuous random variable and predicts different values of y at different values of X1 holding constant the condition of the dummy variable.</paragraph>
+  <paragraph>An example of the use of a dummy variable is the work estimating the impact of gender on salaries. There is a full body of literature on this topic and dummy variables are used extensively. For this example the salaries of elementary and secondary school teachers for a particular state is examined. Using a homogeneous job category, school teachers, and for a single state reduces many of the variations that naturally effect salaries such as differential physical risk, cost of living in a particular state, and other working conditions. The estimating equation in its simplest form specifies salary as a function of various teacher characteristic that economic theory would suggest could affect salary. These would include education level as a measure of potential productivity, age and/or experience to capture on-the-job training, again as a measure of productivity. Because the data are for school teachers employed in a public school districts rather than workers in a for-profit company, the school district’s average revenue per average daily student attendance is included as a measure of ability to pay. The results of the regression analysis using data on 24,916 school teachers are presented below.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Variable</cell>
+        <cell header="true">Regression Coefficients (b)</cell>
+        <cell header="true">Standard Errors of the estimates for teacher's earnings function (sb)</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>Intercept</cell>
+        <cell>4269.9</cell>
+        <cell/>
+      </row>
+      <row>
+        <cell>Gender (man = 1)</cell>
+        <cell>632.38</cell>
+        <cell>13.39</cell>
+      </row>
+      <row>
+        <cell>Total Years of Experience</cell>
+        <cell>52.32</cell>
+        <cell>1.10</cell>
+      </row>
+      <row>
+        <cell>Years of Experience in Current District</cell>
+        <cell>29.97</cell>
+        <cell>1.52</cell>
+      </row>
+      <row>
+        <cell>Education</cell>
+        <cell>629.33</cell>
+        <cell>13.16</cell>
+      </row>
+      <row>
+        <cell>Total Revenue per ADA</cell>
+        <cell>90.24</cell>
+        <cell>3.76</cell>
+      </row>
+      <row>
+        <cell>$${\overset{-}{R}}^{2}$$</cell>
+        <cell>.725</cell>
+        <cell/>
+      </row>
+      <row>
+        <cell>n</cell>
+        <cell>24,916</cell>
+        <cell/>
+      </row>
+    </tbody>
+  </table>
+  <paragraph>The coefficients for all the independent variables are significantly different from zero as indicated by the standard errors. Dividing the standard errors of each coefficient results in a t-value greater than 1.96 which is the required level for 95% significance. The binary variable, our dummy variable of interest in this analysis, is gender where man is given a value of 1 and woman given a value of 0. The coefficient is significantly different from zero with a dramatic t-statistic of 47 standard deviations. We thus cannot accept the null hypothesis that the coefficient is equal to zero. Therefore we conclude that there is a premium paid teachers who are men of \$632 after holding constant experience, education and the wealth of the school district in which the teacher is employed. It is important to note that these data are from some time ago and the \$632 represents a six percent salary premium at that time. A graph of this example of dummy variables is presented below.</paragraph>
+  <figure number="13.14">
+    <image alt="The image shows a graph titled 'Teacher's Salary' with 'Salary' on the y-axis and 'Total years of experience' on the x-axis. Two diagonal parallel lines run upward from left to right, the bottom labeled 'women' and the top line labeled 'men.'"/>
+  </figure>
+  <paragraph>In two dimensions, salary is the dependent variable on the vertical axis and total years of experience was chosen for the continuous independent variable on horizontal axis. Any of the other independent variables could have been chosen to illustrate the effect of the dummy variable. The relationship between total years of experience has a slope of \$52.32 per year of experience and the estimated line has an intercept of \$4,269 if the gender variable is equal to zero, for woman. If the gender variable is equal to 1, for man, the coefficient for the gender variable is added to the intercept and thus the relationship between total years of experience and salary is shifted upward parallel as indicated on the graph. Also marked on the graph are various points for reference. A woman school teacher who is a woman and has 10 years of experience receives a salary of \$4,792 on the basis of her experience only, but this is still \$109 less than a man with zero years of teaching experience.</paragraph>
+  <paragraph>A more complex interaction between a dummy variable and the dependent variable can also be estimated. It may be that the dummy variable has more than a simple shift effect on the dependent variable, but also interacts with one or more of the other continuous independent variables. While not tested in the example above, it could be hypothesized that the impact of gender on salary was not a one-time shift, but impacted the value of additional years of experience on salary also. That is, school teacher’s salaries for women were discounted at the start, and further did not grow at the same rate from the effect of experience as for men. This would show up as a different slope for the relationship between total years of experience for men than for women. If this is so then women school teachers would not just start behind their colleagues who are men (as measured by the shift in the estimated regression line), but would fall further and further behind as time and experienced increased.</paragraph>
+  <paragraph>The graph below shows how this hypothesis can be tested with the use of dummy variables and an interaction variable.</paragraph>
+  <figure number="13.15">
+    <image alt="The image shows a graph with the y-axis labeled 'Salary' and the x-axis labeled 'Total years of experience.' Two diagonal lines move upward from left to right."/>
+  </figure>
+  <paragraph>The estimating equation shows how the slope of X1, the continuous random variable experience, contains two parts, b1 and b3. This occurs because of the new variable X2 X1, called the interaction variable, was created to allow for an effect on the slope of X1 from changes in X2, the binary dummy variable. Note that when the dummy variable, X2 = 0 the interaction variable has a value of 0, but when X2 = 1 the interaction variable has a value of X1. The coefficient b3 is an estimate of the difference in the coefficient of X1 when X2 = 1 compared to when X2 = 0. In the example of teacher’s salaries, if there is a premium paid to teachers who are men that affects the rate of increase in salaries from experience, then the rate at which teachers’ salaries for men rises would be b1 + b3 and the rate at which teachers’ salaries for women rise would be simply b1. This hypothesis can be tested with the hypothesis:</paragraph>
+  <paragraph math="block">$$\left. H_{0}:\beta_{3} = 0 \middle| \beta_{1} = 0,\beta_{2} = 0 \right.$$</paragraph>
+  <paragraph math="block">$$\left. H_{a}:\beta_{3} \neq 0 \middle| \beta_{1} \neq 0,\beta_{2} \neq 0 \right.$$</paragraph>
+  <paragraph>This is a t-test using the test statistic for the parameter β3. If we cannot accept the null hypothesis that β3=0 we conclude there is a difference between the rate of increase for the group for whom the value of the binary variable is set to 1, males in this example. This estimating equation can be combined with our earlier one that tested only a parallel shift in the estimated line. The earnings/experience functions in Figure 13.15 are drawn for this case with a shift in the earnings function and a difference in the slope of the function with respect to total years of experience.</paragraph>
+  <example number="13.5">
+    <paragraph>A random sample of 11 statistics students produced the following data, where x is the third exam score out of 80, and y is the final exam score out of 200. Can you predict the final exam score of a randomly selected student if you know the third exam score?</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">x (third exam score)</cell>
+          <cell header="true">y (final exam score)</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>65</cell>
+          <cell>175</cell>
+        </row>
+        <row>
+          <cell>67</cell>
+          <cell>133</cell>
+        </row>
+        <row>
+          <cell>71</cell>
+          <cell>185</cell>
+        </row>
+        <row>
+          <cell>71</cell>
+          <cell>163</cell>
+        </row>
+        <row>
+          <cell>66</cell>
+          <cell>126</cell>
+        </row>
+        <row>
+          <cell>75</cell>
+          <cell>198</cell>
+        </row>
+        <row>
+          <cell>67</cell>
+          <cell>153</cell>
+        </row>
+        <row>
+          <cell>70</cell>
+          <cell>163</cell>
+        </row>
+        <row>
+          <cell>71</cell>
+          <cell>159</cell>
+        </row>
+        <row>
+          <cell>69</cell>
+          <cell>151</cell>
+        </row>
+        <row>
+          <cell>69</cell>
+          <cell>159</cell>
+        </row>
+      </tbody>
+    </table>
+    <figure number="13.16">
+      <image alt="This is a scatter plot of the data provided. The third exam score is plotted on the x-axis, and the final exam score is plotted on the y-axis. The points form a strong, positive, linear pattern."/>
+      <caption>Scatter plot showing the scores on the final exam based on scores from the third exam.</caption>
+    </figure>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.5">
+    <paragraph>SCUBA divers have maximum dive times they cannot exceed when going to different depths. The data in Table 13.4 show different depths with the maximum dive times in minutes. Use your calculator to find the least squares regression line and predict the maximum dive time for 110 feet.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">X (depth in feet)</cell>
+          <cell header="true">Y (maximum dive time)</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>50</cell>
+          <cell>80</cell>
+        </row>
+        <row>
+          <cell>60</cell>
+          <cell>55</cell>
+        </row>
+        <row>
+          <cell>70</cell>
+          <cell>45</cell>
+        </row>
+        <row>
+          <cell>80</cell>
+          <cell>35</cell>
+        </row>
+        <row>
+          <cell>90</cell>
+          <cell>25</cell>
+        </row>
+        <row>
+          <cell>100</cell>
+          <cell>22</cell>
+        </row>
+      </tbody>
+    </table>
+  </note>
+  <heading level="1">13.5 Interpretation of Regression Coefficients: Elasticity and Logarithmic Transformation</heading>
+  <paragraph>As we have seen, the coefficient of an equation estimated using OLS regression analysis provides an estimate of the slope of a straight line that is assumed be the relationship between the dependent variable and at least one independent variable. From the calculus, the slope of the line is the first derivative and tells us the magnitude of the impact of a one unit change in the $$X$$ variable upon the value of the $$Y$$ variable measured in the units of the $$Y$$ variable. As we saw in the case of dummy variables, this can show up as a parallel shift in the estimated line or even a change in the slope of the line through an interactive variable. Here we wish to explore the concept of elasticity and how we can use a regression analysis to estimate the various elasticities in which economists have an interest.</paragraph>
+  <paragraph>The concept of elasticity is borrowed from engineering and physics where it is used to measure a material’s responsiveness to a force, typically a physical force such as a stretching/pulling force. It is from here that we get the term an “elastic” band. In economics, the force in question is some market force such as a change in price or income. Elasticity is measured as a percentage change/response in both engineering applications and in economics. The value of measuring in percentage terms is that the units of measurement do not play a role in the value of the measurement and thus allows direct comparison between elasticities. As an example, if the price of gasoline increased say 50 cents from an initial price of \$3.00 and generated a decline in monthly consumption for a consumer from 50 gallons to 48 gallons we calculate the elasticity to be 0.25. The price elasticity is the percentage change in quantity resulting from some percentage change in price. A 16 percent increase in price has generated only a 4 percent decrease in demand: 16% price change → 4% quantity change or .04/.16 = .25. This is called an inelastic demand meaning a small response to the price change. This comes about because there are few if any real substitutes for gasoline; perhaps public transportation, a bicycle or walking. Technically, of course, the percentage change in demand from a price increase is a decline in demand thus price elasticity is a negative number. The common convention, however, is to talk about elasticity as the absolute value of the number. Some goods have many substitutes: pears for apples for plums, for grapes, etc. etc. The elasticity for such goods is larger than one and are called elastic in demand. Here a small percentage change in price will induce a large percentage change in quantity demanded. The consumer will easily shift the demand to the close substitute.</paragraph>
+  <paragraph>While this discussion has been about price changes, any of the independent variables in a demand equation will have an associated elasticity. Thus, there is an income elasticity that measures the sensitivity of demand to changes in income: not much for the demand for food, but very sensitive for yachts. If the demand equation contains a term for substitute goods, say candy bars in a demand equation for cookies, then the responsiveness of demand for cookies from changes in prices of candy bars can be measured. This is called the cross-price elasticity of demand and to an extent can be thought of as brand loyalty from a marketing view. How responsive is the demand for Coca-Cola to changes in the price of Pepsi?</paragraph>
+  <paragraph>Now imagine the demand for a product that is very expensive. Again, the measure of elasticity is in percentage terms thus the elasticity can be directly compared to that for gasoline: an elasticity of 0.25 for gasoline conveys the same information as an elasticity of 0.25 for \$25,000 car. Both goods are considered by the consumer to have few substitutes and thus have inelastic demand curves, elasticities less than one.</paragraph>
+  <paragraph>The mathematical formulae for various elasticities are:</paragraph>
+  <paragraph math="block">$$\text{Price elasticity:} \text{η} _{ \text{p} } = \frac{\left( \text{\%∆Q} \right)}{\left( \text{\%∆P} \right)}$$</paragraph>
+  <paragraph>Where η is the Greek small case letter eta used to designate elasticity. ∆ is read as “change”.</paragraph>
+  <paragraph math="block">$$\text{Income elasticity:} \text{η} _{ \text{Y} } = \frac{\left( \text{\%∆Q} \right)}{\left( \text{\%∆Y} \right)}$$</paragraph>
+  <paragraph>Where Y is used as the symbol for income.</paragraph>
+  <paragraph math="block">$$\text{Cross-Price elasticity:} \text{η} _{ \text{p1} } = \frac{\left( \text{\%∆} \text{Q} _{1} \right)}{\left( \text{\%∆} \text{P} _{2} \right)}$$</paragraph>
+  <paragraph>Where P2 is the price of the substitute good.</paragraph>
+  <paragraph>Examining closer the price elasticity we can write the formula as:</paragraph>
+  <paragraph math="block">$$\text{η} _{ \text{p} } = \frac{\left( \text{\%∆Q} \right)}{\left( \text{\%∆P} \right)} = \frac{ \text{dQ} }{ \text{dP} }\left( \frac{ \text{P} }{ \text{Q} } \right) = \text{b} \left( \frac{ \text{P} }{ \text{Q} } \right)$$</paragraph>
+  <paragraph>Where $$\text{b}$$ is the estimated coefficient for price in the OLS regression.</paragraph>
+  <paragraph>The first form of the equation demonstrates the principle that elasticities are measured in percentage terms. Of course, the ordinary least squares coefficients provide an estimate of the impact of a unit change in the independent variable, X, on the dependent variable measured in units of Y. These coefficients are not elasticities, however, and are shown in the second way of writing the formula for elasticity as $$\left( \frac{ \text{d} Q}{ \text{d} P} \right)$$ , the derivative of the estimated demand function which is simply the slope of the regression line. Multiplying the slope times $$\frac{P}{Q}$$ provides an elasticity measured in percentage terms.</paragraph>
+  <paragraph>Along a straight-line demand curve the percentage change, thus elasticity, changes continuously as the scale changes, while the slope, the estimated regression coefficient, remains constant. Going back to the demand for gasoline. A change in price from \$3.00 to \$3.50 was a 16 percent increase in price. If the beginning price were \$5.00 then the same 50¢ increase would be only a 10 percent increase generating a different elasticity. Every straight-line demand curve has a range of elasticities starting at the top left, high prices, with large elasticity numbers, elastic demand, and decreasing as one goes down the demand curve, inelastic demand.</paragraph>
+  <paragraph>In order to provide a meaningful estimate of the elasticity of demand the convention is to estimate the elasticity at the point of means. Remember that all OLS regression lines will go through the point of means. At this point is the greatest weight of the data used to estimate the coefficient. The formula to estimate an elasticity when an OLS demand curve has been estimated becomes:</paragraph>
+  <paragraph math="block">$$\text{η} _{ \text{p} } = \text{b} \left( \frac{\overset{-}{ \text{P} }}{\overset{-}{ \text{Q} }} \right)$$</paragraph>
+  <paragraph>Where $$\overset{-}{ \text{P} }$$ and $$\overset{-}{ \text{Q} }$$ are the mean values of these data used to estimate $$\text{b}$$ , the price coefficient.</paragraph>
+  <paragraph>The same method can be used to estimate the other elasticities for the demand function by using the appropriate mean values of the other variables; income and price of substitute goods for example.</paragraph>
+  <heading level="2">Logarithmic Transformation of the Data</heading>
+  <paragraph>Ordinary least squares estimates typically assume that the population relationship among the variables is linear thus of the form presented in The Regression Equation. In this form the interpretation of the coefficients is as discussed above; quite simply the coefficient provides an estimate of the impact of a one unit change in X on Y measured in units of Y. It does not matter just where along the line one wishes to make the measurement because it is a straight line with a constant slope thus constant estimated level of impact per unit change. It may be, however, that the analyst wishes to estimate not the simple unit measured impact on the Y variable, but the magnitude of the percentage impact on Y of a one unit change in the X variable. Such a case might be how a unit change in experience, say one year, effects not the absolute amount of a worker’s wage, but the percentage impact on the worker’s wage. Alternatively, it may be that the question asked is the unit measured impact on Y of a specific percentage increase in X. An example may be “by how many dollars will sales increase if the firm spends X percent more on advertising?” The third possibility is the case of elasticity discussed above. Here we are interested in the percentage impact on quantity demanded for a given percentage change in price, or income or perhaps the price of a substitute good. All three of these cases can be estimated by transforming the data to logarithms before running the regression. The resulting coefficients will then provide a percentage change measurement of the relevant variable.</paragraph>
+  <paragraph>To summarize, there are four cases:</paragraph>
+  <list type="ordered">
+    <item>Unit ∆X → Unit ∆Y (Standard OLS case)</item>
+    <item>Unit ∆X → %∆Y</item>
+    <item>%∆X → Unit ∆Y</item>
+    <item>%∆X → %∆Y (elasticity case)</item>
+  </list>
+  <paragraph>Case 1: The ordinary least squares case begins with the linear model developed above:</paragraph>
+  <paragraph math="block">$$Y = a + bX$$</paragraph>
+  <paragraph>where the coefficient of the independent variable $$b = \frac{ \text{d} Y}{ \text{d} X}$$ is the slope of a straight line and thus measures the impact of a unit change in X on Y measured in units of Y.</paragraph>
+  <paragraph>Case 2: The underlying estimated equation is:</paragraph>
+  <paragraph math="block">$$\log \left( \text{Y} \right) = a + bX$$</paragraph>
+  <paragraph>The equation is estimated by converting the Y values to logarithms and using OLS techniques to estimate the coefficient of the X variable, b. This is called a semi-log estimation. Again, differentiating both sides of the equation allows us to develop the interpretation of the X coefficient b:</paragraph>
+  <paragraph math="block">$$\text{d} \left( \log_{ \text{Y} } \right) = b \text{d} X$$</paragraph>
+  <paragraph math="block">$$\frac{ \text{d} Y}{Y} = b \text{d} X$$</paragraph>
+  <paragraph>Multiply by 100 to covert to percentages and rearranging terms gives:</paragraph>
+  <paragraph math="block">$$100b = \frac{ \text{\%∆Y} }{ \text{Unit ∆X} }$$</paragraph>
+  <paragraph>$$100b$$ is thus the percentage change in Y resulting from a unit change in X.</paragraph>
+  <paragraph>Case 3: In this case the question is “what is the unit change in Y resulting from a percentage change in X?” What is the dollar loss in revenues of a five percent increase in price or what is the total dollar cost impact of a five percent increase in labor costs? The estimated equation for this case would be:</paragraph>
+  <paragraph math="block">$$Y = a + B\log (X)$$</paragraph>
+  <paragraph>Here the calculus differential of the estimated equation is:</paragraph>
+  <paragraph math="block">$$\text{d} Y = b \text{d} \left( \log X \right)$$</paragraph>
+  <paragraph math="block">$$\text{d} Y = b\frac{ \text{d} X}{X}$$</paragraph>
+  <paragraph>Divide by 100 to get percentage and rearranging terms gives:</paragraph>
+  <paragraph math="block">$$\frac{b}{100} = \frac{ \text{d} Y}{100\frac{ \text{d} X}{X}} = \frac{ \text{Unit ∆Y} }{ \text{\%∆X} }$$</paragraph>
+  <paragraph>Therefore, $$\frac{b}{100}$$ is the increase in Y measured in units from a one percent increase in X.</paragraph>
+  <paragraph>Case 4: This is the elasticity case where both the dependent and independent variables are converted to logs before the OLS estimation. This is known as the log-log case or double log case, and provides us with direct estimates of the elasticities of the independent variables. The estimated equation is:</paragraph>
+  <paragraph math="block">$$\log Y = a + b\log X$$</paragraph>
+  <paragraph>Differentiating we have:</paragraph>
+  <paragraph math="block">$$\text{d} \left( \log Y \right) = b \text{d} \left( \log X \right)$$</paragraph>
+  <paragraph math="block">$$\text{d} \left( \log Y \right) = b\frac{1}{X} \text{d} X$$</paragraph>
+  <paragraph>thus:</paragraph>
+  <paragraph math="block">$$\frac{1}{Y} \text{d} Y = b\frac{1}{X} \text{d} X \text{OR} \frac{ \text{d} Y}{Y} = b\frac{ \text{d} X}{X} \text{OR} b = \frac{ \text{d} Y}{ \text{d} X}\left( \frac{X}{Y} \right)$$</paragraph>
+  <paragraph>and $$b = \frac{ \text{\%∆Y} }{ \text{\%∆X} }$$ our definition of elasticity. We conclude that we can directly estimate the elasticity of a variable through double log transformation of the data. The estimated coefficient is the elasticity. It is common to use double log transformation of all variables in the estimation of demand functions to get estimates of all the various elasticities of the demand curve.</paragraph>
+  <heading level="1">13.6 Predicting with a Regression Equation</heading>
+  <paragraph>One important value of an estimated regression equation is its ability to predict the effects on Y of a change in one or more values of the independent variables. The value of this is obvious. Careful policy cannot be made without estimates of the effects that may result. Indeed, it is the desire for particular results that drive the formation of most policy. Regression models can be, and have been, invaluable aids in forming such policies.</paragraph>
+  <paragraph>The Gauss-Markov theorem assures us that the point estimate of the impact on the dependent variable derived by putting in the equation the hypothetical values of the independent variables one wishes to simulate will result in an estimate of the dependent variable which is minimum variance and unbiased. That is to say that from this equation comes the best unbiased point estimate of y given the values of x.</paragraph>
+  <paragraph math="block">$$ŷ = b_{0} + b,X_{1i} + \cdots + b_{k}X_{ki}$$</paragraph>
+  <paragraph>Remember that point estimates do not carry a particular level of probability, or level of confidence, because points have no “width” above which there is an area to measure. This was why we developed confidence intervals for the mean and proportion earlier. The same concern arises here also. There are actually two different approaches to the issue of developing estimates of changes in the independent variable, or variables, on the dependent variable. The first approach wishes to measure the expected mean value of y from a specific change in the value of x: this specific value implies the expected value. Here the question is: what is the mean impact on y that would result from multiple hypothetical experiments on y at this specific value of x. Remember that there is a variance around the estimated parameter of x and thus each experiment will result in a bit of a different estimate of the predicted value of y.</paragraph>
+  <paragraph>The second approach to estimate the effect of a specific value of x on y treats the event as a single experiment: you choose x and multiply it times the coefficient and that provides a single estimate of y. Because this approach acts as if there were a single experiment the variance that exists in the parameter estimate is larger than the variance associated with the expected value approach.</paragraph>
+  <paragraph>The conclusion is that we have two different ways to predict the effect of values of the independent variable(s) on the dependent variable and thus we have two different intervals. Both are correct answers to the question being asked, but there are two different questions. To avoid confusion, the first case where we are asking for the expected value of the mean of the estimated y, is called a confidence interval as we have named this concept before. The second case, where we are asking for the estimate of the impact on the dependent variable y of a single experiment using a value of x, is called the prediction interval. The test statistics for these two interval measures within which the estimated value of y will fall are:</paragraph>
+  <paragraph>Confidence Interval for Expected Value of Mean Value of y for $$x = x_{p}$$</paragraph>
+  <paragraph math="block">$$\overline{⏜}y = \pm \frac{t_{\alpha}}{2}s_{e}\sqrt{\frac{1}{n} + \frac{n\left( x_{p} - \overline{x} \right)^{2}}{n\left( \sum x^{2} \right) - (\sum x)^{2}}}$$</paragraph>
+  <paragraph>Prediction Interval for an Individual y for $$x = x_{p}$$</paragraph>
+  <paragraph math="block">$$\overset{⏜}{y} = \pm \frac{t_{\alpha}}{2}s_{e}\sqrt{1 + \frac{1}{n} + \frac{n\left( x_{p} - \overline{x} \right)^{2}}{n\left( \sum x^{2} \right) - (\sum x)^{2}}}$$</paragraph>
+  <paragraph>Where se is the standard deviation of the error term.</paragraph>
+  <paragraph>The mathematical computations of these two test statistics are complex. Various computer regression software packages provide programs within the regression functions to provide answers to inquires of estimated predicted values of y given various values chosen for the x variable(s). It is important to know just which interval is being tested in the computer package because the difference in the size of the standard deviations will change the size of the interval estimated. This is shown in Figure 13.17.</paragraph>
+  <figure number="13.17">
+    <image alt="The image shows two different types of statistical intervals used in regression analysis to estimate values for a given input: a 95% confidence interval and a 95% prediction interval. The confidence interval shows a tall, narrow curve. The prediction interval shows a lower and wider curve."/>
+    <caption>Prediction and confidence intervals for regression equation; 95% confidence level.</caption>
+  </figure>
+  <paragraph>Figure 13.17 shows visually the difference the standard deviation makes in the size of the estimated intervals. The confidence interval, measuring the expected value of the dependent variable, is smaller than the prediction interval for the same level of confidence. The expected value method assumes that the experiment is conducted multiple times rather than just once as in the other method. The logic here is similar, although not identical, to that discussed when developing the relationship between the sample size and the confidence interval using the Central Limit Theorem. There, as the number of experiments increased, the distribution narrowed and the confidence interval became tighter around the expected value of the mean.</paragraph>
+  <paragraph>It is also important to note that the intervals around a point estimate are highly dependent upon the range of data used to estimate the equation regardless of which approach is being used for prediction. Remember that all regression equations go through the point of means, that is, the mean value of y and the mean values of all independent variables in the equation. As the value of x chosen to estimate the associated value of y is further from the point of means the width of the estimated interval around the point estimate increases. Choosing values of x beyond the range of the data used to estimate the equation possess even greater danger of creating estimates with little use; very large intervals, and risk of error. Figure 13.18 shows this relationship.</paragraph>
+  <figure number="13.18">
+    <image alt="The image shows a graph with a straight diagonal regression line moving upward from left to right. The regression line is flanked by two curved confidence bands above and below it."/>
+    <caption>Confidence interval for an individual value of x, Xp, at 95% level of confidence</caption>
+  </figure>
+  <paragraph>Figure 13.18 demonstrates the concern for the quality of the estimated interval whether it is a prediction interval or a confidence interval. As the value chosen to predict y, Xp in the graph, is further from the central weight of the data, $$\overline{X}$$ , we see the interval expand in width even while holding constant the level of confidence. This shows that the precision of any estimate will diminish as one tries to predict beyond the largest weight of the data and most certainly will degrade rapidly for predictions beyond the range of the data. Unfortunately, this is just where most predictions are desired. They can be made, but the width of the confidence interval may be so large as to render the prediction useless. Only actual calculation and the particular application can determine this, however.</paragraph>
+  <example number="13.6">
+    <paragraph>Recall the third exam/final exam example.</paragraph>
+    <paragraph>We found the equation of the best-fit line for the final exam grade as a function of the grade on the third-exam. We can now use the least-squares regression line for prediction. Assume the coefficient for X was determined to be significantly different from zero.</paragraph>
+    <paragraph>Suppose you want to estimate, or predict, the mean final exam score of statistics students who received 73 on the third exam. The exam scores (x-values) range from 65 to 75. Since 73 is between the x-values 65 and 75, we feel comfortable to substitute x = 73 into the equation. Then:</paragraph>
+    <paragraph math="block">$$\hat{y} = - 173.51 + 4.83(73) = 179.08$$</paragraph>
+    <paragraph>We predict that statistics students who earn a grade of 73 on the third exam will earn a grade of 179.08 on the final exam, on average.</paragraph>
+    <problem>
+      <paragraph>a. What would you predict the final exam score to be for a student who scored a 66 on the third exam?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>a. 145.27</paragraph>
+    </solution>
+    <problem>
+      <paragraph>b. What would you predict the final exam score to be for a student who scored a 90 on the third exam?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>b. The x values in the data are between 65 and 75. Ninety is outside of the domain of the observed x values in the data (independent variable), so you cannot reliably predict the final exam score for this student. (Even though it is possible to enter 90 into the equation for x and calculate a corresponding y value, the y value that you get will have a confidence interval that may not be meaningful.) To understand really how unreliable the prediction can be outside of the observed x values observed in the data, make the substitution x = 90 into the equation.</paragraph>
+      <paragraph math="block">$$\hat{y} = -173.51 + 4.83(90) = 261.19$$</paragraph>
+      <paragraph>The final-exam score is predicted to be 261.19. The largest the final-exam score can be is 200.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.6">
+    <paragraph>Data are collected on the relationship between the number of hours per week practicing a musical instrument and scores on a math test. The line of best fit is as follows:</paragraph>
+    <paragraph>ŷ = 72.5 + 2.8x What would you predict the score on a math test would be for a student who practices a musical instrument for five hours a week?</paragraph>
+  </note>
+  <heading level="1">13.7 How to Use Microsoft Excel® for Regression Analysis</heading>
+  <paragraph>This section of this chapter is here in recognition that what we are now asking requires much more than a quick calculation of a ratio or a square root. Indeed, the use of regression analysis was almost non- existent before the middle of the last century and did not really become a widely used tool until perhaps the late 1960’s and early 1970’s. Even then the computational ability of even the largest IBM machines is laughable by today’s standards. In the early days programs were developed by the researchers and shared. There was no market for something called “software” and certainly nothing called “apps”, an entrant into the market only a few years old.</paragraph>
+  <paragraph>With the advent of the personal computer and the explosion of a vital software market we have a number of regression and statistical analysis packages to choose from. Each has their merits. We have chosen Microsoft Excel because of the wide-spread availability both on college campuses and in the post-college market place. Stata is an alternative and has features that will be important for more advanced econometrics study if you choose to follow this path. Even more advanced packages exist, but typically require the analyst to do some significant amount of programing to conduct their analysis. The goal of this section is to demonstrate how to use Excel to run a regression and then to do so with an example of a simple version of a demand curve.</paragraph>
+  <paragraph>The first step to doing a regression using Excel is to load the program into your computer. If you have Excel you have the Analysis ToolPak although you may not have it activated. The program calls upon a significant amount of space so is not loaded automatically.</paragraph>
+  <paragraph>To activate the Analysis ToolPak follow these steps:</paragraph>
+  <paragraph>Click “File” &gt; “Options” &gt; “Add-ins” to bring up a menu of the add-in “ToolPaks”. Select “Analysis ToolPak” and click “GO” next to “Manage: excel add-ins” near the bottom of the window. This will open a new window where you click “Analysis ToolPak” (make sure there is a green check mark in the box) and then click “OK”. Now there should be an Analysis tab under the data menu. These steps are presented in the following screen shots.</paragraph>
+  <figure number="13.19">
+    <image alt="The 'Open' menu in Microsoft Excel with options to access recent workbooks, OneDrive, computer files, or add a new place to open documents from."/>
+  </figure>
+  <figure number="13.20">
+    <image alt="The 'Excel Options' menu in Microsoft Excel with 'Add-Ins' options shown."/>
+  </figure>
+  <figure number="13.21">
+    <image alt="The 'Add-Ins' menu shown in Microsoft Excel. The options: Analysis ToolPak and Analysis ToolPak - VBA are selected."/>
+  </figure>
+  <figure number="13.22">
+    <image alt="The top menu bar of an opened spreadsheet in Microsoft Excel. This toolbar shows the 'Data' tab and all the available tools within this tab."/>
+  </figure>
+  <paragraph>Click “Data” then “Data Analysis” and then click “Regression” and “OK”. Congratulations, you have made it to the regression window. The window asks for your inputs. Clicking the box next to the Y and X ranges will allow you to use the click and drag feature of Excel to select your input ranges. Excel has one odd quirk and that is the click and drop feature requires that the independent variables, the X variables, are all together, meaning that they form a single matrix. If your data are set up with the Y variable between two columns of X variables Excel will not allow you to use click and drag. As an example, say Column A and Column C are independent variables and Column B is the Y variable, the dependent variable. Excel will not allow you to click and drop the data ranges. The solution is to move the column with the Y variable to column A and then you can click and drag. The same problem arises again if you want to run the regression with only some of the X variables. You will need to set up the matrix so all the X variables you wish to regress are in a tightly formed matrix. These steps are presented in the following scene shots.</paragraph>
+  <figure number="13.23">
+    <image alt="A screenshot of a 'Data Analysis' window, likely from a spreadsheet program, with 'Regression' highlighted in blue in the 'Analysis Tools' list. 'OK' and 'Cancel' buttons are visible."/>
+  </figure>
+  <figure number="13.24">
+    <image alt="A screenshot of the Microsoft Excel Regression tool dialog box, showing input ranges \$B\$1:\$B\$5 and \$A\$1:\$A\$5, output set to New Worksheet Ply, and Line Fit Plots enabled."/>
+  </figure>
+  <paragraph>Once you have selected the data for your regression analysis and told Excel which one is the dependent variable (Y) and which ones are the independent valuables (X‘s), you have several choices as to the parameters and how the output will be displayed. Refer to screen shot Figure 13.24 under “Input” section. If you check the “labels” box the program will place the entry in the first column of each variable as its name in the output. You can enter an actual name, such as price or income in a demand analysis, in row one of the Excel spreadsheet for each variable and it will be displayed in the output.</paragraph>
+  <paragraph>The level of significance can also be set by the analyst. This will not change the calculated t statistic, called t stat, but will alter the p value for the calculated t statistic. It will also alter the boundaries of the confidence intervals for the coefficients. A 95 percent confidence interval is always presented, but with a change in this you will also get other levels of confidence for the intervals.</paragraph>
+  <paragraph>Excel also will allow you to suppress the intercept. This forces the regression program to minimize the residual sum of squares under the condition that the estimated line must go through the origin. This is done in cases where there is no meaning in the model at some value other than zero, zero for the start of the line. An example is an economic production function that is a relationship between the number of units of an input, say hours of labor, and output. There is no meaning of positive output with zero workers.</paragraph>
+  <paragraph>Once the data are entered and the choices are made click OK and the results will be sent to a separate new worksheet by default. The output from Excel is presented in a way typical of other regression package programs. The first block of information gives the overall statistics of the regression: Multiple R, R Squared, and the R squared adjusted for degrees of freedom, which is the one you want to report. You also get the Standard error (of the estimate) and the number of observations in the regression.</paragraph>
+  <paragraph>The second block of information is titled ANOVA which stands for Analysis of Variance. Our interest in this section is the column marked F. This is the calculated F statistics for the null hypothesis that all of the coefficients are equal to zero verse the alternative that at least one of the coefficients are not equal to zero. This hypothesis test was presented in 13.4 under “How Good is the Equation?” The next column gives the p value for this test under the title “Significance F”. If the p value is less than say 0.05 (the calculated F statistic is in the tail) we can say with 90 % confidence that we cannot accept the null hypotheses that all the coefficients are equal to zero. This is a good thing: it means that at least one of the coefficients is significantly different from zero thus do have an effect on the value of Y.</paragraph>
+  <paragraph>The last block of information contains the hypothesis tests for the individual coefficient. The estimated coefficients, the intercept and the slopes, are first listed and then each standard error (of the estimated coefficient) followed by the t stat (calculated student’s t statistic for the null hypothesis that the coefficient is equal to zero). We compare the t stat and the critical value of the student’s t, dependent on the degrees of freedom, and determine if we have enough evidence to reject the null that the variable has no effect on Y. Remember that we have set up the null hypothesis as the status quo and our claim that we know what caused the Y to change is in the alternative hypothesis. We want to reject the status quo and substitute our version of the world, the alternative hypothesis. The next column contains the p values for this hypothesis test followed by the estimated upper and lower bound of the confidence interval of the estimated slope parameter for various levels of confidence set by us at the beginning.</paragraph>
+  <heading level="2">Estimating the Demand for Roses</heading>
+  <paragraph>Here is an example of using the Excel program to run a regression for a particular specific case: estimating the demand for roses. We are trying to estimate a demand curve, which from economic theory we expect certain variables affect how much of a good we buy. The relationship between the price of a good and the quantity demanded is the demand curve. Beyond that we have the demand function that includes other relevant variables: a person’s income, the price of substitute goods, and perhaps other variables such as season of the year or the price of complimentary goods. Quantity demanded will be our Y variable, and Price of roses, Price of carnations and Income will be our independent variables, the X variables.</paragraph>
+  <paragraph>For all of these variables theory tells us the expected relationship. For the price of the good in question, roses, theory predicts an inverse relationship, the negatively sloped demand curve. Theory also predicts the relationship between the quantity demanded of one good, here roses, and the price of a substitute, carnations in this example. Theory predicts that this should be a positive or direct relationship; as the price of the substitute falls we substitute away from roses to the cheaper substitute, carnations. A reduction in the price of the substitute generates a reduction in demand for the good being analyzed, roses here. Reduction generates reduction is a positive relationship. For normal goods, theory also predicts a positive relationship; as our incomes rise we buy more of the good, roses. We expect these results because that is what is predicted by a hundred years of economic theory and research. Essentially we are testing these century-old hypotheses. The data gathered was determined by the model that is being tested. This should always be the case. One is not doing inferential statistics by throwing a mountain of data into a computer and asking the machine for a theory. Theory first, test follows.</paragraph>
+  <paragraph>These data here are national average prices and income is the nation’s per capita personal income. Quantity demanded is total national annual sales of roses. These are annual time series data; we are tracking the rose market for the United States from 1984-2017, 33 observations.</paragraph>
+  <paragraph>Because of the quirky way Excel requires how the data are entered into the regression package it is best to have the independent variables, price of roses, price of carnations and income next to each other on the spreadsheet. Once your data are entered into the spreadsheet it is always good to look at the data. Examine the range, the means and the standard deviations. Use your understanding of descriptive statistics from the very first part of this course. In large data sets you will not be able to “scan” the data. The Analysis ToolPac makes it easy to get the range, mean, standard deviations and other parameters of the distributions. You can also quickly get the correlations among the variables. Examine for outliers. Review the history. Did something happen? Was here a labor strike, change in import fees, something that makes these observations unusual? Do not take the data without question. There may have been a typo somewhere, who knows without review.</paragraph>
+  <paragraph>Go to the regression window, enter the data and select 95% confidence level and click “OK”. You can include the labels in the input range if you have put a title at the top of each column, but be sure to click the “labels” box on the main regression page if you do.</paragraph>
+  <paragraph>The regression output should show up automatically on a new worksheet.</paragraph>
+  <figure number="13.25">
+    <image alt="A spreadsheet showing the 'Summary Output' of the data entered. The cells are organized into three visual tables: 'Regression Statistics,' 'ANOVA,' and a final table with data on intercept, price of roses and carnations, and income (per capita)."/>
+  </figure>
+  <paragraph>The first results presented is the R-Square, a measure of the strength of the correlation between Y and X1, X2, and X3 taken as a group. Our R-square here of 0.699, adjusted for degrees of freedom, means that 70% of the variation in Y, demand for roses, can be explained by variations in X1, X2, and X3, Price of roses, Price of carnations and Income. There is no statistical test to determine the “significance” of an R2. Of course a higher R2 is preferred, but it is really the significance of the coefficients that will determine the value of the theory being tested and which will become part of any policy discussion if they are demonstrated to be significantly different from zero.</paragraph>
+  <paragraph>Looking at the third panel of output we can write the equation as:</paragraph>
+  <paragraph math="block">$$Y = b_{0} + b_{1}X_{1} + b_{2}X_{2} + b_{3}X_{3} + e$$</paragraph>
+  <paragraph>where b0 is the intercept, b1 is the estimated coefficient on price of roses, and b2 is the estimated coefficient on price of carnations, b3 is the estimated effect of income and e is the error term. The equation is written in Roman letters indicating that these are the estimated values and not the population parameters, β’s.</paragraph>
+  <paragraph>Our estimated equation is:</paragraph>
+  <paragraph math="block">$$\text{Quantity of roses sold} = 183,475 - 1.76 \text{Price of roses} + 1.33 \text{Price of carnations} + 3.03 \text{Income}$$</paragraph>
+  <paragraph>We first observe that the signs of the coefficients are as expected from theory. The demand curve is downward sloping with the negative sign for the price of roses. Further the signs of both the price of carnations and income coefficients are positive as would be expected from economic theory.</paragraph>
+  <paragraph>Interpreting the coefficients can tell us the magnitude of the impact of a change in each variable on the demand for roses. It is the ability to do this which makes regression analysis such a valuable tool. The estimated coefficients tell us that an increase the price of roses by one dollar will lead to a 1.76 reduction in the number roses purchased. The price of carnations seems to play an important role in the demand for roses as we see that increasing the price of carnations by one dollar would increase the demand for roses by 1.33 units as consumers would substitute away from the now more expensive carnations. Similarly, increasing per capita income by one dollar will lead to a 3.03 unit increase in roses purchased.</paragraph>
+  <paragraph>These results are in line with the predictions of economics theory with respect to all three variables included in this estimate of the demand for roses. It is important to have a theory first that predicts the significance or at least the direction of the coefficients. Without a theory to test, this research tool is not much more helpful than the correlation coefficients we learned about earlier.</paragraph>
+  <paragraph>We cannot stop there, however. We need to first check whether our coefficients are statistically significant from zero. We set up a hypothesis of:</paragraph>
+  <paragraph math="block">$$H_{0}:\beta_{1} = 0$$</paragraph>
+  <paragraph math="block">$$H_{a}:\beta_{1} \neq 0$$</paragraph>
+  <paragraph>for all three coefficients in the regression. Recall from earlier that we will not be able to definitively say that our estimated b1 is the actual real population of β1, but rather only that with (1-α)% level of confidence that we cannot reject the null hypothesis that our estimated β1 is significantly different from zero. The analyst is making a claim that the price of roses causes an impact on quantity demanded. Indeed, that each of the included variables has an impact on the quantity of roses demanded. The claim is therefore in the alternative hypotheses. It will take a very large probability, 0.95 in this case, to overthrow the null hypothesis, the status quo, that β = 0. In all regression hypothesis tests the claim is in the alternative and the claim is that the theory has found a variable that has a significant impact on the Y variable.</paragraph>
+  <paragraph>The test statistic for this hypothesis follows the familiar standardizing formula which counts the number of standard deviations, t, that the estimated value of the parameter, b1, is away from the hypothesized value, β0, which is zero in this case:</paragraph>
+  <paragraph math="block">$$t_{c} = \frac{b_{1} - \beta_{0}}{S_{b_{1}}}$$</paragraph>
+  <paragraph>The computer calculates this test statistic and presents it as “t stat”. You can find this value to the right of the standard error of the coefficient estimate. The standard error of the coefficient for b1 is Sb1 in the formula. To reach a conclusion we compare this test statistic with the critical value of the student’s t at degrees of freedom n-3-1 =29, and alpha = 0.025 (5% significance level for a two-tailed test). Our t stat for b1 is approximately 5.90 which is greater than 1.96 (the critical value we looked up in the t-table), so we cannot accept our null hypotheses of no effect. We conclude that Price has a significant effect because the calculated t value is in the tail. We conduct the same test for b2 and b3. For each variable, we find that we cannot accept the null hypothesis of no relationship because the calculated t-statistics are in the tail for each case, that is, greater than the critical value. All variables in this regression have been determined to have a significant effect on the demand for roses.</paragraph>
+  <paragraph>These tests tell us whether or not an individual coefficient is significantly different from zero, but does not address the overall quality of the model. We have seen that the R squared adjusted for degrees of freedom indicates this model with these three variables explains 70% of the variation in quantity of roses demanded. We can also conduct a second test of the model taken as a whole. This is the F test presented in The Regression Equation of this chapter. Because this is a multiple regression (more than one X), we use the F-test to determine if our coefficients collectively affect Y. The hypothesis is:</paragraph>
+  <paragraph math="block">$$H_{0}:\beta_{1} = \beta_{2} = ... = \beta i = 0$$</paragraph>
+  <paragraph math="block">$$H_{a}: \text{"at least one of the} \beta_{i} \text{is not equal to 0"}$$</paragraph>
+  <paragraph>Under the ANOVA section of the output we find the calculated F statistic for this hypotheses. For this example the F statistic is 21.9. Again, comparing the calculated F statistic with the critical value given our desired level of significance and the degrees of freedom will allow us to reach a conclusion.</paragraph>
+  <paragraph>The best way to reach a conclusion for this statistical test is to use the p-value comparison rule. The p-value is the area in the tail, given the calculated F statistic. In essence the computer is finding the F value in the table for us and calculating the p-value. In the Summary Output under “significance F” is this probability. For this example, it is calculated to be 2.6 x 10-5, or 2.6 then moving the decimal five places to the left. (.000026) This is an almost infinitesimal level of probability and is certainly less than our alpha level of .05 for a 5 percent level of significance.</paragraph>
+  <paragraph>By not being able to accept the null hypotheses we conclude that this specification of this model has validity because at least one of the estimated coefficients is significantly different from zero. Since F-calculated is greater than F-critical, we cannot accept H0, meaning that X1, X2 and X3 together has a significant effect on Y.</paragraph>
+  <paragraph>The development of computing machinery and the software useful for academic and business research has made it possible to answer questions that just a few years ago we could not even formulate. Data is available in electronic format and can be moved into place for analysis in ways and at speeds that were unimaginable a decade ago. The sheer magnitude of data sets that can today be used for research and analysis gives us a higher quality of results than in days past. Even with only an Excel spreadsheet we can conduct very high level research. This section gives you the tools to conduct some of this very interesting research with the only limit being your imagination.</paragraph>
+  <heading level="1">Key Terms</heading>
+  <list type="unordered">
+    <item>a is the symbol for the Y-Intercept: Sometimes written as $$b_{0}$$ , because when writing the theoretical linear model $$\beta_{0}$$ is used to represent a coefficient for a population.</item>
+  </list>
+  <list type="unordered">
+    <item>b is the symbol for Slope: The word coefficient will be used regularly for the slope, because it is a number that will always be next to the letter “x.” It will be written as $$b_{1}$$ when a sample is used, and $$\beta_{1}$$ will be used with a population or when writing the theoretical linear model.</item>
+  </list>
+  <list type="unordered">
+    <item>Bivariate: two variables are present in the model where one is the “cause” or independent variable and the other is the “effect” of dependent variable.</item>
+  </list>
+  <list type="unordered">
+    <item>Linear: a model that takes data and regresses it into a straight line equation.</item>
+  </list>
+  <list type="unordered">
+    <item>Multivariate: a system or model where more than one independent variable is being used to predict an outcome. There can only ever be one dependent variable, but there is no limit to the number of independent variables.</item>
+  </list>
+  <list type="unordered">
+    <item>$$R^{2}$$ – Coefficient of Determination: This is a number between 0 and 1 that represents the percentage variation of the dependent variable that can be explained by the variation in the independent variable. Sometimes calculated by the equation $$R^{2} = \frac{SSR}{SST}$$ where SSR is the “Sum of Squares Regression” and SST is the “Sum of Squares Total.” The appropriate coefficient of determination to be reported should always be adjusted for degrees of freedom first.</item>
+  </list>
+  <list type="unordered">
+    <item>Residual or “error”: the value calculated from subtracting $$y_{0} - {\hat{y}}_{0} = e_{0}$$ . The absolute value of a residual measures the vertical distance between the actual value of y and the estimated value of y that appears on the best-fit line.</item>
+  </list>
+  <list type="unordered">
+    <item>$$R$$ – Correlation Coefficient: A number between −1 and 1 that represents the strength and direction of the relationship between “X” and “Y.” The value for “r” will equal 1 or −1 only if all the plotted points form a perfectly straight line.</item>
+  </list>
+  <list type="unordered">
+    <item>Sum of Squared Errors (SSE): the calculated value from adding up all the squared residual terms. The hope is that this value is very small when creating a model.</item>
+  </list>
+  <list type="unordered">
+    <item>X – the independent variable: This will sometimes be referred to as the “predictor” variable, because these values were measured in order to determine what possible outcomes could be predicted.</item>
+  </list>
+  <list type="unordered">
+    <item>Y – the dependent variable: Also, using the letter “y” represents actual values while $$\hat{y}$$ represents predicted or estimated values. Predicted values will come from plugging in observed “x” values into a linear model.</item>
+  </list>
+  <heading level="1">Chapter Review</heading>
+  <paragraph>The most basic type of association is a linear association. This type of relationship can be defined algebraically by the equations used, numerically with actual or predicted data values, or graphically from a plotted curve. (Lines are classified as straight curves.) Algebraically, a linear equation typically takes the form y = mx + b, where m and b are constants, x is the independent variable, y is the dependent variable. In a statistical context, a linear equation is written in the form y = a + bx, where a and b are the constants. This form is used to help readers distinguish the statistical context from the algebraic context. In the equation y = a + bx, the constant b, called the coefficient, represents the slope. The constant a is called the y-intercept.</paragraph>
+  <paragraph>The slope of a line is a value that describes the rate of change between the independent and dependent variables. The slope tells us how the dependent variable (y) changes for every one unit increase in the independent (x) variable, on average. The y-intercept is used to describe the dependent variable when the independent variable equals zero.</paragraph>
+  <paragraph>It is hoped that this discussion of regression analysis has demonstrated the tremendous potential value it has as a tool for testing models and helping to better understand the world around us. The regression model has its limitations, especially the requirement that the underlying relationship be approximately linear. To the extent that the true relationship is nonlinear it may be approximated with a linear relationship or nonlinear forms of transformations that can be estimated with linear techniques. Double logarithmic transformation of the data will provide an easy way to test this particular shape of the relationship. A reasonably good quadratic form (the shape of the total cost curve from Microeconomics Principles) can be generated by the equation:</paragraph>
+  <paragraph math="block">$$Y = a + b_{1}X + b_{2}X^{2}$$</paragraph>
+  <paragraph>where the values of X are simply squared and put into the equation as a separate variable.</paragraph>
+  <paragraph>There is much more in the way of econometric "tricks" that can bypass some of the more troublesome assumptions of the general regression model. This statistical technique is so valuable that further study would provide any student significant, statistically significant, dividends.</paragraph>
+  <heading level="1">Practice</heading>
+  <exercises>
+    <heading level="1">Practice</heading>
+    <exercise number="1" has_solution="false">
+      <problem>
+        <paragraph>In order to have a correlation coefficient between traits A and B, it is necessary to have:</paragraph>
+        <list type="ordered">
+          <item>one group of subjects, some of whom possess characteristics of trait A, the remainder possessing those of trait B</item>
+          <item>measures of trait A on one group of subjects and of trait B on another group</item>
+          <item>two groups of subjects, one which could be classified as A or not A, the other as B or not B</item>
+          <item>two groups of subjects, one which could be classified as A or not A, the other as B or not B</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <paragraph>Define the Correlation Coefficient and give a unique example of its use.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="false">
+      <problem>
+        <paragraph>If the correlation between age of an auto and money spent for repairs is +.90</paragraph>
+        <list type="ordered">
+          <item>81% of the variation in the money spent for repairs is explained by the age of the auto</item>
+          <item>81% of money spent for repairs is unexplained by the age of the auto</item>
+          <item>90% of the money spent for repairs is explained by the age of the auto</item>
+          <item>none of the above</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <paragraph>Suppose that college grade-point average and verbal portion of an IQ test had a correlation of .40. What percentage of the variance do these two have in common?</paragraph>
+        <list type="ordered">
+          <item>20</item>
+          <item>16</item>
+          <item>40</item>
+          <item>80</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="5" has_solution="false">
+      <problem>
+        <paragraph>True or false? If false, explain why: The coefficient of determination can have values between -1 and +1.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <paragraph>True or False: Whenever r is calculated on the basis of a sample, the value which we obtain for r is only an estimate of the true correlation coefficient which we would obtain if we calculated it for the entire population.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="7" has_solution="false">
+      <problem>
+        <paragraph>Under a "scatter diagram" there is a notation that the coefficient of correlation is .10. What does this mean?</paragraph>
+        <list type="ordered">
+          <item>plus and minus 10% from the means includes about 68% of the cases</item>
+          <item>one-tenth of the variance of one variable is shared with the other variable</item>
+          <item>one-tenth of one variable is caused by the other variable</item>
+          <item>on a scale from -1 to +1, the degree of linear relationship between the two variables is +.10</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <paragraph>The correlation coefficient for X and Y is known to be zero. We then can conclude that:</paragraph>
+        <list type="ordered">
+          <item>X and Y have standard distributions</item>
+          <item>the variances of X and Y are equal</item>
+          <item>there exists no relationship between X and Y</item>
+          <item>there exists no linear relationship between X and Y</item>
+          <item>none of these</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="9" has_solution="false">
+      <problem>
+        <paragraph>What would you guess the value of the correlation coefficient to be for the pair of variables: "number of man-hours worked" and "number of units of work completed"?</paragraph>
+        <list type="ordered">
+          <item>Approximately 0.9</item>
+          <item>Approximately 0.4</item>
+          <item>Approximately 0.0</item>
+          <item>Approximately -0.4</item>
+          <item>Approximately -0.9</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <paragraph>In a given group, the correlation between height measured in feet and weight measured in pounds is +.68. Which of the following would alter the value of r?</paragraph>
+        <list type="ordered">
+          <item>height is expressed centimeters.</item>
+          <item>weight is expressed in Kilograms.</item>
+          <item>both of the above will affect r.</item>
+          <item>neither of the above changes will affect r.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="11" has_solution="false">
+      <problem>
+        <paragraph>Define a t Test of a Regression Coefficient, and give a unique example of its use.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <paragraph>The correlation between scores on a neuroticism test and scores on an anxiety test is high and positive; therefore</paragraph>
+        <list type="ordered">
+          <item>anxiety causes neuroticism</item>
+          <item>those who score low on one test tend to score high on the other.</item>
+          <item>those who score low on one test tend to score low on the other.</item>
+          <item>no prediction from one test to the other can be meaningfully made.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="13" has_solution="false">
+      <problem>
+        <paragraph>True or False? If False, correct it: Suppose a 95% confidence interval for the slope β of the straight line regression of Y on X is given by -3.5 &lt; β &lt; -0.5. Then a two-sided test of the hypothesis $$H_{0}: \beta = -1$$ would result in rejection of $$H_{0}$$ at the 1% level of significance.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <paragraph>True or False: It is safer to interpret correlation coefficients as measures of association rather than causation because of the possibility of spurious correlation.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="15" has_solution="false">
+      <problem>
+        <paragraph>We are interested in finding the linear relation between the number of widgets purchased at one time and the cost per widget. The following data has been obtained:</paragraph>
+        <paragraph>X: Number of widgets purchased – 1, 3, 6, 10, 15</paragraph>
+        <paragraph>Y: Cost per widget(in dollars) – 55, 52, 46, 32, 25</paragraph>
+        <paragraph>Suppose the regression line is $$\overset{\hat{}}{y} = -2.5x + 60$$ . We compute the average price per widget if 30 are purchased and observe which of the following?</paragraph>
+        <list type="ordered">
+          <item>$$\overset{\hat{}}{y} = 15 \text{dollars}$$ ; obviously, we are mistaken; the prediction $$\overset{\hat{}}{y}$$ is actually +15 dollars.</item>
+          <item>$$\overset{\hat{}}{y} = 15 \text{dollars}$$ , which seems reasonable judging by the data.</item>
+          <item>$$\overset{\hat{}}{y} = -15 \text{dollars}$$ , which is obvious nonsense. The regression line must be incorrect.</item>
+          <item>$$\overset{\hat{}}{y} = -15 \text{dollars}$$ , which is obvious nonsense. This reminds us that predicting Y outside the range of X values in our data is a very poor practice.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <paragraph>Discuss briefly the distinction between correlation and causality.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="17" has_solution="false">
+      <problem>
+        <paragraph>True or False: If r is close to + or -1, we shall say there is a strong correlation, with the tacit understanding that we are referring to a linear relationship and nothing else.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <paragraph>Suppose that you have at your disposal the information below for each of 30 drivers. Propose a model (including a very brief indication of symbols used to represent independent variables) to explain how miles per gallon vary from driver to driver on the basis of the factors measured.</paragraph>
+        <list type="ordered">
+          <item>miles driven per day</item>
+          <item>weight of car</item>
+          <item>number of cylinders in car</item>
+          <item>average speed</item>
+          <item>miles per gallon</item>
+          <item>number of passengers</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="19" has_solution="false">
+      <problem>
+        <paragraph>Consider a sample least squares regression analysis between a dependent variable (Y) and an independent variable (X). A sample correlation coefficient of −1 (minus one) tells us that</paragraph>
+        <list type="ordered">
+          <item>there is no relationship between Y and X in the sample</item>
+          <item>there is no relationship between Y and X in the population</item>
+          <item>there is a perfect negative relationship between Y and X in the population</item>
+          <item>there is a perfect negative relationship between Y and X in the sample.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <paragraph>In correlational analysis, when the points scatter widely about the regression line, this means that the correlation is</paragraph>
+        <list type="ordered">
+          <item>negative.</item>
+          <item>low.</item>
+          <item>heterogeneous.</item>
+          <item>between two measures that are unreliable.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="false">
+      <problem>
+        <paragraph>In a linear regression, why do we need to be concerned with the range of the independent (X) variable?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <paragraph>Suppose one collected the following information where X is diameter of tree trunk and Y is tree height.</paragraph>
+        <table>
+          <tbody>
+            <row>
+              <cell>X</cell>
+              <cell>Y</cell>
+            </row>
+            <row>
+              <cell>4</cell>
+              <cell>8</cell>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell>4</cell>
+            </row>
+            <row>
+              <cell>8</cell>
+              <cell>18</cell>
+            </row>
+            <row>
+              <cell>6</cell>
+              <cell>22</cell>
+            </row>
+            <row>
+              <cell>10</cell>
+              <cell>30</cell>
+            </row>
+            <row>
+              <cell>6</cell>
+              <cell>8</cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>Regression equation: $${\overset{\hat{}}{y}}_{i} = -3.6 + 3.1 \cdot X_{i}$$</paragraph>
+        <paragraph>What is your estimate of the average height of all trees having a trunk diameter of 7 inches?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="23" has_solution="false">
+      <problem>
+        <paragraph>The manufacturers of a chemical used in flea collars claim that under standard test conditions each additional unit of the chemical will bring about a reduction of 5 fleas (i.e. where $$X_{j} = \text{amount of chemical}$$ and $$Y_{J} = B_{0} + B_{1} \cdot X_{J} + E_{J}$$ , $$H_{0}$$ : $$B_{1} = -5$$</paragraph>
+        <paragraph>Suppose that a test has been conducted and results from a computer include:</paragraph>
+        <paragraph>Intercept = 60</paragraph>
+        <paragraph>Slope = −4</paragraph>
+        <paragraph>Standard error of the regression coefficient = 1.0</paragraph>
+        <paragraph>Degrees of Freedom for Error = 2000</paragraph>
+        <paragraph>95% Confidence Interval for the slope −2.04, −5.96</paragraph>
+        <paragraph>Is this evidence consistent with the claim that the number of fleas is reduced at a rate of 5 fleas per unit chemical?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="24" has_solution="false">
+      <problem>
+        <paragraph>True or False? If False, correct it: Suppose you are performing a simple linear regression of Y on X and you test the hypothesis that the slope β is zero against a two-sided alternative. You have $$n = 25$$ observations and your computed test (t) statistic is 2.6. Then your P-value is given by .01 &lt; P &lt; .02, which gives borderline significance (i.e. you would reject $$H_{0}$$ at $$\alpha = .02$$ but fail to reject $$H_{0}$$ at $$\alpha = .01$$ ).</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="25" has_solution="false">
+      <problem>
+        <paragraph>An economist is interested in the possible influence of "Miracle Wheat" on the average yield of wheat in a district. To do so they fit a linear regression of average yield per year against year after introduction of "Miracle Wheat" for a ten year period.</paragraph>
+        <paragraph>The fitted trend line is</paragraph>
+        <paragraph>$${\overset{\hat{}}{y}}_{j} = 80 + 1.5 \cdot X_{j}$$</paragraph>
+        <paragraph>( $$Y_{j}$$ : Average yield in j year after introduction)</paragraph>
+        <paragraph>( $$X_{j}$$ : j year after introduction).</paragraph>
+        <list type="ordered">
+          <item>What is the estimated average yield for the fourth year after introduction?</item>
+          <item>Do you want to use this trend line to estimate yield for, say, 20 years after introduction? Why? What would your estimate be?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="26" has_solution="false">
+      <problem>
+        <paragraph>An interpretation of $$r = 0.5$$ is that the following part of the Y-variation is associated with which variation in X:</paragraph>
+        <list type="ordered">
+          <item>most</item>
+          <item>half</item>
+          <item>very little</item>
+          <item>one quarter</item>
+          <item>none of these</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="27" has_solution="false">
+      <problem>
+        <paragraph>Which of the following values of r indicates the most accurate prediction of one variable from another?</paragraph>
+        <list type="ordered">
+          <item>$$r = 1.18$$</item>
+          <item>$$r = -.77$$</item>
+          <item>$$r = .68$$</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="28" has_solution="false">
+      <problem>
+        <paragraph>A computer program for multiple regression has been used to fit $${\overset{\hat{}}{y}}_{j} = b_{0} + b_{1} \cdot X_{1j} + b_{2} \cdot X_{2j} + b_{3} \cdot X_{3j}$$ .</paragraph>
+        <paragraph>Part of the computer output includes:</paragraph>
+        <table>
+          <tbody>
+            <row>
+              <cell>i</cell>
+              <cell>$$b_{i}$$</cell>
+              <cell>$$S_{b_{i}}$$</cell>
+            </row>
+            <row>
+              <cell>0</cell>
+              <cell>8</cell>
+              <cell>1.6</cell>
+            </row>
+            <row>
+              <cell>1</cell>
+              <cell>2.2</cell>
+              <cell>.24</cell>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell>-.72</cell>
+              <cell>.32</cell>
+            </row>
+            <row>
+              <cell>3</cell>
+              <cell>0.005</cell>
+              <cell>0.002</cell>
+            </row>
+          </tbody>
+        </table>
+        <list type="ordered">
+          <item>Calculation of confidence interval for $$b_{2}$$ consists of _______± (a student's t value) (_______)</item>
+          <item>The confidence level for this interval is reflected in the value used for _______.</item>
+          <item>The degrees of freedom available for estimating the variance are directly concerned with the value used for _______</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="29" has_solution="false">
+      <problem>
+        <paragraph>An investigator has used a multiple regression program on 20 data points to obtain a regression equation with 3 variables. Part of the computer output is:</paragraph>
+        <table>
+          <tbody>
+            <row>
+              <cell>Variable</cell>
+              <cell>Coefficient</cell>
+              <cell>Standard Error of $$b_{i}$$</cell>
+            </row>
+            <row>
+              <cell>1</cell>
+              <cell>0.45</cell>
+              <cell>0.21</cell>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell>0.80</cell>
+              <cell>0.10</cell>
+            </row>
+            <row>
+              <cell>3</cell>
+              <cell>3.10</cell>
+              <cell>0.86</cell>
+            </row>
+          </tbody>
+        </table>
+        <list type="ordered">
+          <item>0.80 is an estimate of ___________.</item>
+          <item>0.10 is an estimate of ___________.</item>
+          <item>Assuming the responses satisfy the normality assumption, we can be 95% confident that the value of $$\beta_{2}$$ is in the interval,_______ ± [t.025 ⋅ _______], where t.025 is the critical value of the student's t-distribution with ____ degrees of freedom.</item>
+        </list>
+      </problem>
+    </exercise>
+  </exercises>
+  <heading level="1">Solutions</heading>
+  <exercises>
+    <heading level="1">Solutions</heading>
+    <exercise number="1" has_solution="true">
+      <solution>
+        <paragraph>d</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="2" has_solution="true">
+      <solution>
+        <paragraph>A measure of the degree to which variation of one variable is related to variation in one or more other variables. The most commonly used correlation coefficient indicates the degree to which variation in one variable is described by a straight line relation with another variable.</paragraph>
+        <paragraph>Suppose that sample information is available on family income and Years of schooling of the head of the household. A correlation coefficient = 0 would indicate no linear association at all between these two variables. A correlation of 1 would indicate perfect linear association (where all variation in family income could be associated with schooling and vice versa).</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="3" has_solution="true">
+      <solution>
+        <paragraph>a. 81% of the variation in the money spent for repairs is explained by the age of the auto</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="4" has_solution="true">
+      <solution>
+        <paragraph>b. 16</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="5" has_solution="true">
+      <solution>
+        <paragraph>The coefficient of determination is r··2 with 0 ≤ r··2 ≤ 1, since -1 ≤ r ≤ 1.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="6" has_solution="true">
+      <solution>
+        <paragraph>True</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="7" has_solution="true">
+      <solution>
+        <paragraph>d. on a scale from -1 to +1, the degree of linear relationship between the two variables is +.10</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="8" has_solution="true">
+      <solution>
+        <paragraph>d. there exists no linear relationship between X and Y</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="9" has_solution="true">
+      <solution>
+        <paragraph>Approximately 0.9</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="10" has_solution="true">
+      <solution>
+        <paragraph>d. neither of the above changes will affect r.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="11" has_solution="true">
+      <solution>
+        <paragraph>Definition:</paragraph>
+        <paragraph>A t test is obtained by dividing a regression coefficient by its standard error and then comparing the result to critical values for Students' t with Error df. It provides a test of the claim that $$\beta_{i} = 0$$ when all other variables have been included in the relevant regression model.</paragraph>
+        <paragraph>Example:</paragraph>
+        <paragraph>Suppose that 4 variables are suspected of influencing some response. Suppose that the results of fitting $$Y_{i} = \beta_{0} + \beta_{1}X_{1i} + \beta_{2}X_{2i} + \beta_{3}X_{3i} + \beta_{4}X_{4i} + e_{i}$$ include:</paragraph>
+        <table>
+          <tbody>
+            <row>
+              <cell>Variable</cell>
+              <cell>Regression coefficient</cell>
+              <cell>Standard error of regular coefficient</cell>
+            </row>
+            <row>
+              <cell>.5</cell>
+              <cell>1</cell>
+              <cell>-3</cell>
+            </row>
+            <row>
+              <cell>.4</cell>
+              <cell>2</cell>
+              <cell>+2</cell>
+            </row>
+            <row>
+              <cell>.02</cell>
+              <cell>3</cell>
+              <cell>+1</cell>
+            </row>
+            <row>
+              <cell>.6</cell>
+              <cell>4</cell>
+              <cell>-.5</cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>t calculated for variables 1, 2, and 3 would be 5 or larger in absolute value while that for variable 4 would be less than 1. For most significance levels, the hypothesis $$\beta_{1} = 0$$ would be rejected. But, notice that this is for the case when $$X_{2}$$ , $$X_{3}$$ , and $$X_{4}$$ have been included in the regression. For most significance levels, the hypothesis $$\beta_{4} = 0$$ would be continued (retained) for the case where $$X_{1}$$ , $$X_{2}$$ , and $$X_{3}$$ are in the regression. Often this pattern of results will result in computing another regression involving only $$X_{1}$$ , $$X_{2}$$ , $$X_{3}$$ , and examination of the t ratios produced for that case.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="12" has_solution="true">
+      <solution>
+        <paragraph>c. those who score low on one test tend to score low on the other.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="13" has_solution="true">
+      <solution>
+        <paragraph>False. Since $$H_{0}: \beta = -1$$ would not be rejected at $$\alpha = 0.05$$ , it would not be rejected at $$\alpha = 0.01$$ .</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="14" has_solution="true">
+      <solution>
+        <paragraph>True</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="15" has_solution="true">
+      <solution>
+        <paragraph>d</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="16" has_solution="true">
+      <solution>
+        <paragraph>Some variables seem to be related, so that knowing one variable's status allows us to predict the status of the other. This relationship can be measured and is called correlation. However, a high correlation between two variables in no way proves that a cause-and-effect relation exists between them. It is entirely possible that a third factor causes both variables to vary together.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="17" has_solution="true">
+      <solution>
+        <paragraph>True</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="18" has_solution="true">
+      <solution>
+        <paragraph>$$Y_{j} = b_{0} + b_{1} \cdot X_{1} + b_{2} \cdot X_{2} + b_{3} \cdot X_{3} + b_{4} \cdot X_{4} + b_{5} \cdot X_{6} + e_{j}$$</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="19" has_solution="true">
+      <solution>
+        <paragraph>d. there is a perfect negative relationship between Y and X in the sample.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="20" has_solution="true">
+      <solution>
+        <paragraph>b. low</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="21" has_solution="true">
+      <solution>
+        <paragraph>The precision of the estimate of the Y variable depends on the range of the independent (X) variable explored. If we explore a very small range of the X variable, we won't be able to make much use of the regression. Also, extrapolation is not recommended.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="22" has_solution="true">
+      <solution>
+        <paragraph>$$\overset{\hat{}}{y} = -3.6 + (3.1 \cdot 7) = 18.1$$</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="23" has_solution="true">
+      <solution>
+        <paragraph>Most simply, since −5 is included in the confidence interval for the slope, we can conclude that the evidence is consistent with the claim at the 95% confidence level.</paragraph>
+        <paragraph>Using a t test:</paragraph>
+        <paragraph>$$H_{0}$$ : $$B_{1} = -5$$</paragraph>
+        <paragraph>$$H_{A}$$ : $$B_{1} \neq -5$$</paragraph>
+        <paragraph>$$t_{ \text{calculated} } = \frac{-5 - (-4)}{1} = -1$$</paragraph>
+        <paragraph>$$t_{ \text{critical} } = -1.96$$</paragraph>
+        <paragraph>Since $$t_{ \text{calc} }$$ &lt; $$t_{ \text{crit} }$$ we retain the null hypothesis that $$B_{1} = -5$$ .</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="24" has_solution="true">
+      <solution>
+        <paragraph>True.</paragraph>
+        <paragraph>t(critical, df = 23, two-tailed, α = .02) = ± 2.5</paragraph>
+        <paragraph>tcritical, df = 23, two-tailed, α = .01 = ± 2.8</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="25" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>$$80 + 1.5 \cdot 4 = 86$$</item>
+          <item>No. Most business statisticians would not want to extrapolate that far. If someone did, the estimate would be 110, but some other factors probably come into play with 20 years.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="26" has_solution="true">
+      <solution>
+        <paragraph>d. one quarter</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="27" has_solution="true">
+      <solution>
+        <paragraph>b. $$r = -.77$$</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="28" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>−.72, .32</item>
+          <item>the t value</item>
+          <item>the t value</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="29" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>The population value for $$\beta_{2}$$ , the change that occurs in Y with a unit change in $$X_{2}$$ , when the other variables are held constant.</item>
+          <item>The population value for the standard error of the distribution of estimates of $$\beta_{2}$$ .</item>
+          <item>.8, .1, 16 = 20 − 4.</item>
+        </list>
+      </solution>
+    </exercise>
+  </exercises>
+</section>

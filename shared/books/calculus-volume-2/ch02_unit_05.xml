@@ -1,522 +1,296 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="2.5" title="Physical Applications">
-  <learning_objectives>
-    <objective number="2.5.1">Determine the mass of a one-dimensional object from its linear density function.</objective>
-    <objective number="2.5.2">Determine the mass of a two-dimensional circular object from its radial density function.</objective>
-    <objective number="2.5.3">Calculate the work done by a variable force acting along a line.</objective>
-    <objective number="2.5.4">Calculate the work done in pumping a liquid from one height to another.</objective>
-    <objective number="2.5.5">Find the hydrostatic force against a submerged vertical plate.</objective>
-  </learning_objectives>
-  <p>In this section, we examine some physical applications of integration. Let’s begin with a look at calculating mass from a density function. We then turn our attention to work, and close the section with a study of hydrostatic force.</p>
-  <subsection title="Mass and Density">
-    <p>We can use integration to develop a formula for calculating mass based on a density function. First we consider a thin rod or wire. Orient the rod so it aligns with the $$x\text{-axis,}$$ with the left end of the rod at $$x = a$$ and the right end of the rod at $$x = b$$ (Figure 2.48). Note that although we depict the rod with some thickness in the figures, for mathematical purposes we assume the rod is thin enough to be treated as a one-dimensional object.</p>
-    <image alt="This figure has the x and y axes. On the x-axis is a cylinder, beginning at x=a and ending at x=b." number="2.48" caption="We can calculate the mass of a thin rod oriented along the $$x\text{-axis}$$ by integrating its density function." />
-    <p>If the rod has constant density $$\rho,$$ given in terms of mass per unit length, then the mass of the rod is just the product of the density and the length of the rod: $$\left( {b - a} \right)\rho.$$ If the density of the rod is not constant, however, the problem becomes a little more challenging. When the density of the rod varies from point to point, we use a linear density function, $$\rho(x),$$ to denote the density of the rod at any point, $$x.$$ Let $$\rho(x)$$ be an integrable linear density function. Now, for $$i = 0,1,2\text{,…},n$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {a,b} \right\rbrack,$$ and for $$i = 1,2\text{,…},n$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ Figure 2.49 shows a representative segment of the rod.</p>
-    <image alt="This figure has the x and y axes. On the x-axis is a cylinder, beginning at x=a and ending at x=b. The cylinder has been divided into segments. One segment in the middle begins at xsub(i-1) and ends at xsubi." number="2.49" caption="A representative segment of the rod." />
-    <p>The mass $$m_{i}$$ of the segment of the rod from $$x_{i - 1}$$ to $$x_{i}$$ is approximated by</p>
-    <equation>$$m_{i} \approx \rho(x_{i}^{*})\left( {x_{i} - x_{i - 1}} \right) = \rho(x_{i}^{*})\text{Δ}x.$$</equation>
-    <p>Adding the masses of all the segments gives us an approximation for the mass of the entire rod:</p>
-    <equation>$$m = {\sum\limits_{i = 1}^{n}m_{i}} \approx {\sum\limits_{i = 1}^{n}\rho}(x_{i}^{*})\text{Δ}x.$$</equation>
-    <p>This is a Riemann sum. Taking the limit as $$n\rightarrow\infty,$$ we get an expression for the exact mass of the rod:</p>
-    <equation>$$m = \underset{n\rightarrow\infty}{\text{lim}}\sum\limits_{i = 1}^{n}\rho(x_{i}^{*})\text{Δ}x = {\int_{a}^{b}\rho}(x)dx.$$</equation>
-    <p>We state this result in the following theorem.</p>
-    <theorem number="2.7" title="Mass–Density Formula of a One-Dimensional Object">
-      <p>Given a thin rod oriented along the $$x\text{-axis}$$ over the interval $$\left\lbrack {a,b} \right\rbrack,$$ let $$\rho(x)$$ denote a linear density function giving the density of the rod at a point x in the interval. Then the mass of the rod is given by</p>
-      <equation>$$m = {\int_{a}^{b}\rho}(x)dx.$$</equation>
-    </theorem>
-    <p>We apply this theorem in the next example.</p>
-    <example number="2.23">
-      <problem>
-        <title>Calculating Mass from Linear Density</title>
-        <p>Consider a thin rod oriented on the x-axis over the interval $$\left\lbrack {{\pi\text{/}2},\pi} \right\rbrack.$$ If the density of the rod is given by $$\rho(x) = \text{sin}\ x,$$ what is the mass of the rod?</p>
-      </problem>
-      <solution>
-        <p>Applying Equation 2.10 directly, we have</p>
-        <equation>$$m = {\int_{a}^{b}\rho}(x)dx = \int_{\pi\text{/}2}^{\pi}\text{sin}\ x\ dx = \left. {\text{−}\text{cos}\ x} \right|_{\pi\text{/}2}^{\pi} = 1.$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="2.23">
-      <problem>
-        <p>Consider a thin rod oriented on the x-axis over the interval $$\left\lbrack {1,3} \right\rbrack.$$ If the density of the rod is given by $$\rho(x) = 2x^{2} + 3,$$ what is the mass of the rod?</p>
-      </problem>
-      <solution>
-        <p>$$70\text{/}3$$</p>
-      </solution>
-    </checkpoint>
-    <p>We now extend this concept to find the mass of a two-dimensional disk of radius $$r.$$ As with the rod we looked at in the one-dimensional case, here we assume the disk is thin enough that, for mathematical purposes, we can treat it as a two-dimensional object. We assume the density is given in terms of mass per unit area (called area density), and further assume the density varies only along the disk’s radius (called radial density). We orient the disk in the $$xy\text{-plane,}$$ with the center at the origin. Then, the density of the disk can be treated as a function of $$x,$$ denoted $$\rho(x).$$ We assume $$\rho(x)$$ is integrable. Because density is a function of $$x,$$ we partition the interval from $$\left\lbrack {0,r} \right\rbrack$$ along the $$x\text{-axis}.$$ For $$i = 0,1,2\text{,…},n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {0,r} \right\rbrack,$$ and for $$i = 1,2\text{,…},n,$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ Now, use the partition to break up the disk into thin (two-dimensional) washers. A disk and a representative washer are depicted in the following figure.</p>
-    <image alt="This figure has two images. The first is labeled “a” and is a circle with radius r. The center of the circle is labeled 0. The circle also has the positive x-axis beginning at 0, extending through the circle. The second figure is labeled “b”. It has two concentric circles with center at 0 and the x-axis extending out from 0. The concentric circles form a washer. The width of the washer is from xsub(i-1) to xsubi and is labeled delta x." number="2.50" caption="(a) A thin disk in the xy-plane. (b) A representative washer." />
-    <p>We now approximate the density and area of the washer to calculate an approximate mass, $$m_{i}.$$ Note that the area of the washer is given by</p>
-    <equation>$$\begin{array}{cl} A_{i} &amp; {= \pi{(x_{i})}^{2} - \pi{(x_{i - 1})}^{2}} \\ &amp; {= \pi\left\lbrack {x_{i}^{2} - x_{i - 1}^{2}} \right\rbrack} \\ &amp; {= \pi\left( {x_{i} + x_{i - 1}} \right)\left( {x_{i} - x_{i - 1}} \right)} \\ &amp; {= \pi(x_{i} + x_{i - 1})\text{Δ}x.} \end{array}$$</equation>
-    <p>You may recall that we had an expression similar to this when we were computing volumes by shells. As we did there, we use $$x_{i}^{*} \approx (x_{i} + x_{i - 1})\text{/}2$$ to approximate the average radius of the washer. We obtain</p>
-    <equation>$$A_{i} = \pi(x_{i} + x_{i - 1})\text{Δ}x \approx 2\pi x_{i}^{*}\text{Δ}x.$$</equation>
-    <p>Using $$\rho(x_{i}^{*})$$ to approximate the density of the washer, we approximate the mass of the washer by</p>
-    <equation>$$m_{i} \approx 2\pi x_{i}^{*}\rho(x_{i}^{*})\text{Δ}x.$$</equation>
-    <p>Adding up the masses of the washers, we see the mass $$m$$ of the entire disk is approximated by</p>
-    <equation>$$m = {\sum\limits_{i = 1}^{n}m_{i}} \approx {\sum\limits_{i = 1}^{n}2}\pi x_{i}^{*}\rho(x_{i}^{*})\text{Δ}x.$$</equation>
-    <p>We again recognize this as a Riemann sum, and take the limit as $$n\rightarrow\infty.$$ This gives us</p>
-    <equation>$$m = \underset{n\rightarrow\infty}{\text{lim}}\sum\limits_{i = 1}^{n}2\pi x_{i}^{*}\rho(x_{i}^{*})\text{Δ}x = {\int_{0}^{r}2}\pi x\rho(x)dx.$$</equation>
-    <p>We summarize these findings in the following theorem.</p>
-    <theorem number="2.8" title="Mass–Density Formula of a Circular Object">
-      <p>Let $$\rho(x)$$ be an integrable function representing the radial density of a disk of radius $$r.$$ Then the mass of the disk is given by</p>
-      <equation>$$m = {\int_{0}^{r}2}\pi x\rho(x)dx.$$</equation>
-    </theorem>
-    <example number="2.24">
-      <problem>
-        <title>Calculating Mass from Radial Density</title>
-        <p>Let $$\rho(x) = \sqrt{x}$$ represent the radial density of a disk. Calculate the mass of a disk of radius 4.</p>
-      </problem>
-      <solution>
-        <p>Applying the formula, we find</p>
-        <equation>$$\begin{array}{cl} m &amp; {= {\int_{0}^{r}2}\pi x\rho(x)dx} \\ &amp; {= {\int_{0}^{4}2}\pi x\sqrt{x}dx = 2\pi{\int_{0}^{4}x^{3\text{/}2}}dx} \\ &amp; {= 2\pi\left. {\frac{2}{5}x^{5\text{/}2}} \right|_{0}^{4} = \frac{4\pi}{5}\lbrack 32\rbrack = \frac{128\pi}{5}.} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="2.24">
-      <problem>
-        <p>Let $$\rho(x) = 3x + 2$$ represent the radial density of a disk. Calculate the mass of a disk of radius 2.</p>
-      </problem>
-      <solution>
-        <p>$$24\pi$$</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Work Done by a Force">
-    <p>We now consider work. In physics, work is related to force, which is often intuitively defined as a push or pull on an object. When a force moves an object, we say the force does work on the object. In other words, work can be thought of as the amount of energy it takes to move an object. According to physics, when we have a constant force, work can be expressed as the product of force and distance.</p>
-    <p>In the English system, the unit of force is the pound and the unit of distance is the foot, so work is given in foot-pounds. In the metric system, kilograms and meters are used. One newton is the force needed to accelerate $$1$$ kilogram of mass at the rate of $$1$$ m/sec2. Thus, the most common unit of work is the newton-meter. This same unit is also called the joule. Both are defined as kilograms times meters squared over seconds squared $$\left( {{\text{kg} \cdot \text{m}^{2}}\text{/}\text{s}^{2}} \right).$$</p>
-    <p>When we have a constant force, things are pretty easy. It is rare, however, for a force to be constant. The work done to compress (or elongate) a spring, for example, varies depending on how far the spring has already been compressed (or stretched). We look at springs in more detail later in this section.</p>
-    <p>Suppose we have a variable force $$F(x)$$ that moves an object in a positive direction along the x-axis from point $$a$$ to point $$b.$$ To calculate the work done, we partition the interval $$\left\lbrack {a,b} \right\rbrack$$ and estimate the work done over each subinterval. So, for $$i = 0,1,2\text{,…},n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {a,b} \right\rbrack,$$ and for $$i = 1,2\text{,…},n,$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ To calculate the work done to move an object from point $$x_{i - 1}$$ to point $$x_{i},$$ we assume the force is roughly constant over the interval, and use $$F(x_{i}^{*})$$ to approximate the force. The work done over the interval $$\left\lbrack {x_{i - 1},x_{i}} \right\rbrack,$$ then, is given by</p>
-    <equation>$$W_{i} \approx F(x_{i}^{*})\left( {x_{i} - x_{i - 1}} \right) = F(x_{i}^{*})\text{Δ}x.$$</equation>
-    <p>Therefore, the work done over the interval $$\left\lbrack {a,b} \right\rbrack$$ is approximately</p>
-    <equation>$$W = {\sum\limits_{i = 1}^{n}W_{i}} \approx {\sum\limits_{i = 1}^{n}F}(x_{i}^{*})\text{Δ}x.$$</equation>
-    <p>Taking the limit of this expression as $$n\rightarrow\infty$$ gives us the exact value for work:</p>
-    <equation>$$W = \underset{n\rightarrow\infty}{\text{lim}}{\sum\limits_{i = 1}^{n}F}(x_{i}^{*})\text{Δ}x = {\int_{a}^{b}F}(x)dx.$$</equation>
-    <p>Thus, we can define work as follows.</p>
-    <note type="Definition">
-      <p>If a variable force $$F(x)$$ moves an object in a positive direction along the x-axis from point a to point b, then the work done on the object is</p>
-      <equation>$$W = {\int_{a}^{b}F}(x)dx.$$</equation>
-    </note>
-    <p>Note that if F is constant, the integral evaluates to $$F \cdot (b - a) = F \cdot d,$$ which is the formula we stated at the beginning of this section.</p>
-    <p>Now let’s look at the specific example of the work done to compress or elongate a spring. Consider a block attached to a horizontal spring. The block moves back and forth as the spring stretches and compresses. Although in the real world we would have to account for the force of friction between the block and the surface on which it is resting, we ignore friction here and assume the block is resting on a frictionless surface. When the spring is at its natural length (at rest), the system is said to be at equilibrium. In this state, the spring is neither elongated nor compressed, and in this equilibrium position the block does not move until some force is introduced. We orient the system such that $$x = 0$$ corresponds to the equilibrium position (see the following figure).</p>
-    <image alt="This figure has three images. The first is the x-axis. On the left is a vertical block. Attached to the block is a spring that ends at the y-axis and has the label x=0. The image is labeled equilibrium. The second image is the same spring that ends before the y-axis. It has x&lt;0 and is labeled compressed. The third image is the same spring that is beyond the y-axis. It has x&gt;0 and is labeled stretched." number="2.51" caption="A block attached to a horizontal spring at equilibrium, compressed, and elongated." />
-    <p>According to Hooke’s law, the force required to compress or stretch a spring from an equilibrium position is given by $$F(x) = kx,$$ for some constant $$k.$$ The value of $$k$$ depends on the physical characteristics of the spring. The constant $$k$$ is called the spring constant and is always positive. We can use this information to calculate the work done to compress or elongate a spring, as shown in the following example.</p>
-    <example number="2.25">
-      <problem>
-        <title>The Work Required to Stretch or Compress a Spring</title>
-        <p>Suppose it takes a force of $$10$$ N (in the negative direction) to compress a spring $$0.2$$ m from the equilibrium position. How much work is done to stretch the spring $$0.5$$ m from the equilibrium position?</p>
-      </problem>
-      <solution>
-        <p>First find the spring constant, $$k.$$ When $$x = -0.2,$$ we know $$F(x) = -10,$$ so</p>
-        <equation>$$\begin{array}{rll} {F(x)} &amp; = &amp; {kx} \\ {- 10} &amp; = &amp; {k(-0.2)} \\ k &amp; = &amp; 50 \end{array}$$</equation>
-        <p>and $$F(x) = 50x.$$ Then, to calculate work, we integrate the force function, obtaining</p>
-        <equation>$$W = {\int_{a}^{b}F}(x)dx = {\int_{0}^{0.5}5}0x\ dx = \left. {25x^{2}} \right|_{0}^{0.5} = 6.25.$$</equation>
-        <p>The work done to stretch the spring is $$6.25$$ J.</p>
-      </solution>
-    </example>
-    <checkpoint number="2.25">
-      <problem>
-        <p>Suppose it takes a force of $$8$$ lb to stretch a spring $$6$$ in. from the equilibrium position. How much work is done to stretch the spring $$1$$ ft from the equilibrium position?</p>
-      </problem>
-      <solution>
-        <p>$$8$$ ft-lb</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Work Done in Pumping">
-    <p>Consider the work done to pump water (or some other liquid) out of a tank. Pumping problems are a little more complicated than spring problems because many of the calculations depend on the shape and size of the tank. In addition, instead of being concerned about the work done to move a single mass, we are looking at the work done to move a volume of water, and it takes more work to move the water from the bottom of the tank than it does to move the water from the top of the tank.</p>
-    <p>We examine the process in the context of a cylindrical tank, then look at a couple of examples using tanks of different shapes. Assume a cylindrical tank of radius $$4$$ m and height $$10$$ m is filled to a depth of 8 m. How much work does it take to pump all the water over the top edge of the tank?</p>
-    <p>The first thing we need to do is define a frame of reference. We let $$x$$ represent the vertical distance below the top of the tank. That is, we orient the $$x\text{-axis}$$ vertically, with the origin at the top of the tank and the downward direction being positive (see the following figure).</p>
-    <image alt="This figure is a right circular cylinder that is vertical. It represents a tank of water. The radius of the cylinder is 4 m, the height of the cylinder is 10 m. The height of the water inside the cylinder is 8 m. There is also a horizontal line on top of the tank representing the x=0. A line is drawn vertical beside the cylinder with a downward arrow labeled x." number="2.52" caption="How much work is needed to empty a tank partially filled with water?" />
-    <p>Using this coordinate system, the water extends from $$x = 2$$ to $$x = 10.$$ Therefore, we partition the interval $$\left\lbrack {2,\ 10} \right\rbrack$$ and look at the work required to lift each individual “layer” of water. So, for $$i = 0,1,2\text{,…},n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {2,\ 10} \right\rbrack,$$ and for $$i = 1,2\text{,…},n,$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ Figure 2.53 shows a representative layer.</p>
-    <image alt="This figure is a right circular cylinder representing a tank of water. Inside of the cylinder is a layer of water with thickness delta x. The thickness begins at xsub(i-1) and ends at xsubi." number="2.53" caption="A representative layer of water." />
-    <p>In pumping problems, the force required to lift the water to the top of the tank is the force required to overcome gravity, so it is equal to the weight of the water. Given that the weight-density of water is $$9800$$ N/m3, or $$62.4$$ lb/ft3, calculating the volume of each layer gives us the weight. In this case, we have</p>
-    <equation>$$V = \pi{(4)}^{2}\text{Δ}x = 16\pi\text{Δ}x.$$</equation>
-    <p>Then, the force needed to lift each layer is</p>
-    <equation>$$F = 9800 \cdot 16\pi\text{Δ}x = 156,800\pi\text{Δ}x.$$</equation>
-    <p>Note that this step becomes a little more difficult if we have a noncylindrical tank. We look at a noncylindrical tank in the next example.</p>
-    <p>We also need to know the distance the water must be lifted. Based on our choice of coordinate systems, we can use $$x_{i}^{*}$$ as an approximation of the distance the layer must be lifted. Then the work to lift the $$i\text{th}$$ layer of water $$W_{i}$$ is approximately</p>
-    <equation>$$W_{i} \approx 156,800\pi x_{i}^{*}\text{Δ}x.$$</equation>
-    <p>Adding the work for each layer, we see the approximate work to empty the tank is given by</p>
-    <equation>$$W = \sum\limits_{i = 1}^{n}W_{i} \approx \sum\limits_{i = 1}^{n}156,800\pi x_{i}^{*}\text{Δ}x.$$</equation>
-    <p>This is a Riemann sum, so taking the limit as $$n\rightarrow\infty,$$ we get</p>
-    <equation>$$\begin{array}{cl} W &amp; {= \underset{n\rightarrow\infty}{\text{lim}}\sum\limits_{i = 1}^{n}156,800\pi x_{i}^{*}\text{Δ}x} \\ &amp; {= 156,800\pi{\int_{2}^{10}x}dx} \\ &amp; {= 156,800\pi\left. \left\lbrack \frac{x^{2}}{2} \right\rbrack\ \right|_{2}^{10} = 7,526,400\pi \approx 23,644,883.} \end{array}$$</equation>
-    <p>The work required to empty the tank is approximately 23,650,000 J.</p>
-    <p>For pumping problems, the calculations vary depending on the shape of the tank or container. The following problem-solving strategy lays out a step-by-step process for solving pumping problems.</p>
-    <note type="Problem-Solving Strategy">
-      <list type="ol" style="1">
-        <item>Sketch a picture of the tank and select an appropriate frame of reference.</item>
-        <item>Calculate the volume of a representative layer of water.</item>
-        <item>Multiply the volume by the weight-density of water to get the force.</item>
-        <item>Calculate the distance the layer of water must be lifted.</item>
-        <item>Multiply the force and distance to get an estimate of the work needed to lift the layer of water.</item>
-        <item>Sum the work required to lift all the layers. This expression is an estimate of the work required to pump out the desired amount of water, and it is in the form of a Riemann sum.</item>
-        <item>Take the limit as $$n\rightarrow\infty$$ and evaluate the resulting integral to get the exact work required to pump out the desired amount of water.</item>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">2.5 Physical Applications</heading>
+  <heading level="2">Learning Objectives</heading>
+  <list type="unordered">
+    <item>Determine the mass of a one-dimensional object from its linear density function.</item>
+    <item>Determine the mass of a two-dimensional circular object from its radial density function.</item>
+    <item>Calculate the work done by a variable force acting along a line.</item>
+    <item>Calculate the work done in pumping a liquid from one height to another.</item>
+    <item>Find the hydrostatic force against a submerged vertical plate.</item>
+  </list>
+  <paragraph>In this section, we examine some physical applications of integration. Let’s begin with a look at calculating mass from a density function. We then turn our attention to work, and close the section with a study of hydrostatic force.</paragraph>
+  <heading level="2">Mass and Density</heading>
+  <paragraph>We can use integration to develop a formula for calculating mass based on a density function. First we consider a thin rod or wire. Orient the rod so it aligns with the $$x \text{-axis,}$$ with the left end of the rod at $$x = a$$ and the right end of the rod at $$x = b$$ (Figure 2.48). Note that although we depict the rod with some thickness in the figures, for mathematical purposes we assume the rod is thin enough to be treated as a one-dimensional object.</paragraph>
+  <figure number="2.48">
+    <image alt="This figure has the x and y axes. On the x-axis is a cylinder, beginning at x=a and ending at x=b."/>
+    <caption>We can calculate the mass of a thin rod oriented along the $$x \text{-axis}$$ by integrating its density function.</caption>
+  </figure>
+  <paragraph>If the rod has constant density $$\rho,$$ given in terms of mass per unit length, then the mass of the rod is just the product of the density and the length of the rod: $$\left( {b - a} \right)\rho.$$ If the density of the rod is not constant, however, the problem becomes a little more challenging. When the density of the rod varies from point to point, we use a linear density function, $$\rho(x),$$ to denote the density of the rod at any point, $$x.$$ Let $$\rho(x)$$ be an integrable linear density function. Now, for $$i = 0,1,2 \text{,…} ,n$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {a,b} \right\rbrack,$$ and for $$i = 1,2 \text{,…} ,n$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ Figure 2.49 shows a representative segment of the rod.</paragraph>
+  <figure number="2.49">
+    <image alt="This figure has the x and y axes. On the x-axis is a cylinder, beginning at x=a and ending at x=b. The cylinder has been divided into segments. One segment in the middle begins at xsub(i-1) and ends at xsubi."/>
+    <caption>A representative segment of the rod.</caption>
+  </figure>
+  <paragraph>The mass $$m_{i}$$ of the segment of the rod from $$x_{i - 1}$$ to $$x_{i}$$ is approximated by</paragraph>
+  <paragraph math="block">$$m_{i} \approx \rho(x_{i}^{*})\left( {x_{i} - x_{i - 1}} \right) = \rho(x_{i}^{*}) \text{Δ} x.$$</paragraph>
+  <paragraph>Adding the masses of all the segments gives us an approximation for the mass of the entire rod:</paragraph>
+  <paragraph math="block">$$m = {\sum\limits_{i = 1}^{n}m_{i}} \approx {\sum\limits_{i = 1}^{n}\rho}(x_{i}^{*}) \text{Δ} x.$$</paragraph>
+  <paragraph>This is a Riemann sum. Taking the limit as $$n\rightarrow\infty,$$ we get an expression for the exact mass of the rod:</paragraph>
+  <paragraph math="block">$$m = \underset{n\rightarrow\infty}{\lim }\sum\limits_{i = 1}^{n}\rho(x_{i}^{*}) \text{Δ} x = {\int_{a}^{b}\rho}(x)dx.$$</paragraph>
+  <paragraph>We state this result in the following theorem.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="2.7" title="Mass–Density Formula of a One-Dimensional Object">
+    <heading level="4">Mass–Density Formula of a One-Dimensional Object</heading>
+    <paragraph>Given a thin rod oriented along the $$x \text{-axis}$$ over the interval $$\left\lbrack {a,b} \right\rbrack,$$ let $$\rho(x)$$ denote a linear density function giving the density of the rod at a point x in the interval. Then the mass of the rod is given by</paragraph>
+    <paragraph math="block">$$m = {\int_{a}^{b}\rho}(x)dx.$$</paragraph>
+  </note>
+  <paragraph>We apply this theorem in the next example.</paragraph>
+  <example number="2.23" title="Calculating Mass from Linear Density">
+    <problem>
+      <paragraph>Consider a thin rod oriented on the x-axis over the interval $$\left\lbrack {{\pi/2},\pi} \right\rbrack.$$ If the density of the rod is given by $$\rho(x) = \sin x,$$ what is the mass of the rod?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Applying Equation 2.10 directly, we have</paragraph>
+      <paragraph math="block">$$m = {\int_{a}^{b}\rho}(x)dx = \int_{\pi/2}^{\pi}\sin x dx = \left. {-\cos x} \right|_{\pi/2}^{\pi} = 1.$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="2.23">
+    <problem>
+      <paragraph>Consider a thin rod oriented on the x-axis over the interval $$\left\lbrack {1,3} \right\rbrack.$$ If the density of the rod is given by $$\rho(x) = 2x^{2} + 3,$$ what is the mass of the rod?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$70 / 3 70 / 3$$</paragraph>
+    </solution>
+  </example>
+  <paragraph>We now extend this concept to find the mass of a two-dimensional disk of radius $$r.$$ As with the rod we looked at in the one-dimensional case, here we assume the disk is thin enough that, for mathematical purposes, we can treat it as a two-dimensional object. We assume the density is given in terms of mass per unit area (called area density), and further assume the density varies only along the disk’s radius (called radial density). We orient the disk in the $$xy \text{-plane,}$$ with the center at the origin. Then, the density of the disk can be treated as a function of $$x,$$ denoted $$\rho(x).$$ We assume $$\rho(x)$$ is integrable. Because density is a function of $$x,$$ we partition the interval from $$\left\lbrack {0,r} \right\rbrack$$ along the $$x \text{-axis} .$$ For $$i = 0,1,2 \text{,…} ,n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {0,r} \right\rbrack,$$ and for $$i = 1,2 \text{,…} ,n,$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ Now, use the partition to break up the disk into thin (two-dimensional) washers. A disk and a representative washer are depicted in the following figure.</paragraph>
+  <figure number="2.50">
+    <image alt="This figure has two images. The first is labeled “a” and is a circle with radius r. The center of the circle is labeled 0. The circle also has the positive x-axis beginning at 0, extending through the circle. The second figure is labeled “b”. It has two concentric circles with center at 0 and the x-axis extending out from 0. The concentric circles form a washer. The width of the washer is from xsub(i-1) to xsubi and is labeled delta x."/>
+    <caption>(a) A thin disk in the xy-plane. (b) A representative washer.</caption>
+  </figure>
+  <paragraph>We now approximate the density and area of the washer to calculate an approximate mass, $$m_{i}.$$ Note that the area of the washer is given by</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} A_{i} &amp; {= \pi{(x_{i})}^{2} - \pi{(x_{i - 1})}^{2}} \\ &amp; {= \pi\left\lbrack {x_{i}^{2} - x_{i - 1}^{2}} \right\rbrack} \\ &amp; {= \pi\left( {x_{i} + x_{i - 1}} \right)\left( {x_{i} - x_{i - 1}} \right)} \\ &amp; {= \pi(x_{i} + x_{i - 1}) \text{Δ} x.} \end{array}$$</paragraph>
+  <paragraph>You may recall that we had an expression similar to this when we were computing volumes by shells. As we did there, we use $$x_{i}^{*} \approx (x_{i} + x_{i - 1})/2$$ to approximate the average radius of the washer. We obtain</paragraph>
+  <paragraph math="block">$$A_{i} = \pi(x_{i} + x_{i - 1}) \text{Δ} x \approx 2\pi x_{i}^{*} \text{Δ} x.$$</paragraph>
+  <paragraph>Using $$\rho(x_{i}^{*})$$ to approximate the density of the washer, we approximate the mass of the washer by</paragraph>
+  <paragraph math="block">$$m_{i} \approx 2\pi x_{i}^{*}\rho(x_{i}^{*}) \text{Δ} x.$$</paragraph>
+  <paragraph>Adding up the masses of the washers, we see the mass $$m$$ of the entire disk is approximated by</paragraph>
+  <paragraph math="block">$$m = {\sum\limits_{i = 1}^{n}m_{i}} \approx {\sum\limits_{i = 1}^{n}2}\pi x_{i}^{*}\rho(x_{i}^{*}) \text{Δ} x.$$</paragraph>
+  <paragraph>We again recognize this as a Riemann sum, and take the limit as $$n\rightarrow\infty.$$ This gives us</paragraph>
+  <paragraph math="block">$$m = \underset{n\rightarrow\infty}{\lim }\sum\limits_{i = 1}^{n}2\pi x_{i}^{*}\rho(x_{i}^{*}) \text{Δ} x = {\int_{0}^{r}2}\pi x\rho(x)dx.$$</paragraph>
+  <paragraph>We summarize these findings in the following theorem.</paragraph>
+  <note type="theorem_key" source_type="theorem" number="2.8" title="Mass–Density Formula of a Circular Object">
+    <heading level="4">Mass–Density Formula of a Circular Object</heading>
+    <paragraph>Let $$\rho(x)$$ be an integrable function representing the radial density of a disk of radius $$r.$$ Then the mass of the disk is given by</paragraph>
+    <paragraph math="block">$$m = {\int_{0}^{r}2}\pi x\rho(x)dx.$$</paragraph>
+  </note>
+  <example number="2.24" title="Calculating Mass from Radial Density">
+    <problem>
+      <paragraph>Let $$\rho(x) = \sqrt{x}$$ represent the radial density of a disk. Calculate the mass of a disk of radius 4.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Applying the formula, we find</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} m &amp; {= {\int_{0}^{r}2}\pi x\rho(x)dx} \\ &amp; {= {\int_{0}^{4}2}\pi x\sqrt{x}dx = 2\pi{\int_{0}^{4}x^{3/2}}dx} \\ &amp; {= 2\pi\left. {\frac{2}{5}x^{5/2}} \right|_{0}^{4} = \frac{4\pi}{5}\lbrack 32\rbrack = \frac{128\pi}{5}.} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="2.24">
+    <problem>
+      <paragraph>Let $$\rho(x) = 3x + 2$$ represent the radial density of a disk. Calculate the mass of a disk of radius 2.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$24 \pi 24 \pi$$</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Work Done by a Force</heading>
+  <paragraph>We now consider work. In physics, work is related to force, which is often intuitively defined as a push or pull on an object. When a force moves an object, we say the force does work on the object. In other words, work can be thought of as the amount of energy it takes to move an object. According to physics, when we have a constant force, work can be expressed as the product of force and distance.</paragraph>
+  <paragraph>In the English system, the unit of force is the pound and the unit of distance is the foot, so work is given in foot-pounds. In the metric system, kilograms and meters are used. One newton is the force needed to accelerate $$1$$ kilogram of mass at the rate of $$1$$ m/sec2. Thus, the most common unit of work is the newton-meter. This same unit is also called the joule. Both are defined as kilograms times meters squared over seconds squared $$\left( {{ \text{kg} \cdot \text{m} ^{2}}/ \text{s} ^{2}} \right).$$</paragraph>
+  <paragraph>When we have a constant force, things are pretty easy. It is rare, however, for a force to be constant. The work done to compress (or elongate) a spring, for example, varies depending on how far the spring has already been compressed (or stretched). We look at springs in more detail later in this section.</paragraph>
+  <paragraph>Suppose we have a variable force $$F(x)$$ that moves an object in a positive direction along the x-axis from point $$a$$ to point $$b.$$ To calculate the work done, we partition the interval $$\left\lbrack {a,b} \right\rbrack$$ and estimate the work done over each subinterval. So, for $$i = 0,1,2 \text{,…} ,n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {a,b} \right\rbrack,$$ and for $$i = 1,2 \text{,…} ,n,$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ To calculate the work done to move an object from point $$x_{i - 1}$$ to point $$x_{i},$$ we assume the force is roughly constant over the interval, and use $$F(x_{i}^{*})$$ to approximate the force. The work done over the interval $$\left\lbrack {x_{i - 1},x_{i}} \right\rbrack,$$ then, is given by</paragraph>
+  <paragraph math="block">$$W_{i} \approx F(x_{i}^{*})\left( {x_{i} - x_{i - 1}} \right) = F(x_{i}^{*}) \text{Δ} x.$$</paragraph>
+  <paragraph>Therefore, the work done over the interval $$\left\lbrack {a,b} \right\rbrack$$ is approximately</paragraph>
+  <paragraph math="block">$$W = {\sum\limits_{i = 1}^{n}W_{i}} \approx {\sum\limits_{i = 1}^{n}F}(x_{i}^{*}) \text{Δ} x.$$</paragraph>
+  <paragraph>Taking the limit of this expression as $$n\rightarrow\infty$$ gives us the exact value for work:</paragraph>
+  <paragraph math="block">$$W = \underset{n\rightarrow\infty}{\lim }{\sum\limits_{i = 1}^{n}F}(x_{i}^{*}) \text{Δ} x = {\int_{a}^{b}F}(x)dx.$$</paragraph>
+  <paragraph>Thus, we can define work as follows.</paragraph>
+  <note type="definition" source_type="Definition" title="Definition">
+    <paragraph>If a variable force $$F(x)$$ moves an object in a positive direction along the x-axis from point a to point b, then the work done on the object is</paragraph>
+    <paragraph math="block">$$W = {\int_{a}^{b}F}(x)dx.$$</paragraph>
+  </note>
+  <paragraph>Note that if F is constant, the integral evaluates to $$F \cdot (b - a) = F \cdot d,$$ which is the formula we stated at the beginning of this section.</paragraph>
+  <paragraph>Now let’s look at the specific example of the work done to compress or elongate a spring. Consider a block attached to a horizontal spring. The block moves back and forth as the spring stretches and compresses. Although in the real world we would have to account for the force of friction between the block and the surface on which it is resting, we ignore friction here and assume the block is resting on a frictionless surface. When the spring is at its natural length (at rest), the system is said to be at equilibrium. In this state, the spring is neither elongated nor compressed, and in this equilibrium position the block does not move until some force is introduced. We orient the system such that $$x = 0$$ corresponds to the equilibrium position (see the following figure).</paragraph>
+  <figure number="2.51">
+    <image alt="This figure has three images. The first is the x-axis. On the left is a vertical block. Attached to the block is a spring that ends at the y-axis and has the label x=0. The image is labeled equilibrium. The second image is the same spring that ends before the y-axis. It has x&lt;0 and is labeled compressed. The third image is the same spring that is beyond the y-axis. It has x>0 and is labeled stretched."/>
+    <caption>A block attached to a horizontal spring at equilibrium, compressed, and elongated.</caption>
+  </figure>
+  <paragraph>According to Hooke’s law, the force required to compress or stretch a spring from an equilibrium position is given by $$F(x) = kx,$$ for some constant $$k.$$ The value of $$k$$ depends on the physical characteristics of the spring. The constant $$k$$ is called the spring constant and is always positive. We can use this information to calculate the work done to compress or elongate a spring, as shown in the following example.</paragraph>
+  <example number="2.25" title="The Work Required to Stretch or Compress a Spring">
+    <problem>
+      <paragraph>Suppose it takes a force of $$10$$ N (in the negative direction) to compress a spring $$0.2$$ m from the equilibrium position. How much work is done to stretch the spring $$0.5$$ m from the equilibrium position?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First find the spring constant, $$k.$$ When $$x = -0.2,$$ we know $$F(x) = -10,$$ so</paragraph>
+      <paragraph math="block">$$\begin{array}{rll} {F(x)} &amp; = &amp; {kx} \\ {- 10} &amp; = &amp; {k(-0.2)} \\ k &amp; = &amp; 50 \end{array}$$</paragraph>
+      <paragraph>and $$F(x) = 50x.$$ Then, to calculate work, we integrate the force function, obtaining</paragraph>
+      <paragraph math="block">$$W = {\int_{a}^{b}F}(x)dx = {\int_{0}^{0.5}5}0x dx = \left. {25x^{2}} \right|_{0}^{0.5} = 6.25.$$</paragraph>
+      <paragraph>The work done to stretch the spring is $$6.25$$ J.</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="2.25">
+    <problem>
+      <paragraph>Suppose it takes a force of $$8$$ lb to stretch a spring $$6$$ in. from the equilibrium position. How much work is done to stretch the spring $$1$$ ft from the equilibrium position?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$88$$ ft-lb</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Work Done in Pumping</heading>
+  <paragraph>Consider the work done to pump water (or some other liquid) out of a tank. Pumping problems are a little more complicated than spring problems because many of the calculations depend on the shape and size of the tank. In addition, instead of being concerned about the work done to move a single mass, we are looking at the work done to move a volume of water, and it takes more work to move the water from the bottom of the tank than it does to move the water from the top of the tank.</paragraph>
+  <paragraph>We examine the process in the context of a cylindrical tank, then look at a couple of examples using tanks of different shapes. Assume a cylindrical tank of radius $$4$$ m and height $$10$$ m is filled to a depth of 8 m. How much work does it take to pump all the water over the top edge of the tank?</paragraph>
+  <paragraph>The first thing we need to do is define a frame of reference. We let $$x$$ represent the vertical distance below the top of the tank. That is, we orient the $$x \text{-axis}$$ vertically, with the origin at the top of the tank and the downward direction being positive (see the following figure).</paragraph>
+  <figure number="2.52">
+    <image alt="This figure is a right circular cylinder that is vertical. It represents a tank of water. The radius of the cylinder is 4 m, the height of the cylinder is 10 m. The height of the water inside the cylinder is 8 m. There is also a horizontal line on top of the tank representing the x=0. A line is drawn vertical beside the cylinder with a downward arrow labeled x."/>
+    <caption>How much work is needed to empty a tank partially filled with water?</caption>
+  </figure>
+  <paragraph>Using this coordinate system, the water extends from $$x = 2$$ to $$x = 10.$$ Therefore, we partition the interval $$\left\lbrack {2, 10} \right\rbrack$$ and look at the work required to lift each individual “layer” of water. So, for $$i = 0,1,2 \text{,…} ,n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {2, 10} \right\rbrack,$$ and for $$i = 1,2 \text{,…} ,n,$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ Figure 2.53 shows a representative layer.</paragraph>
+  <figure number="2.53">
+    <image alt="This figure is a right circular cylinder representing a tank of water. Inside of the cylinder is a layer of water with thickness delta x. The thickness begins at xsub(i-1) and ends at xsubi."/>
+    <caption>A representative layer of water.</caption>
+  </figure>
+  <paragraph>In pumping problems, the force required to lift the water to the top of the tank is the force required to overcome gravity, so it is equal to the weight of the water. Given that the weight-density of water is $$9800$$ N/m3, or $$62.4$$ lb/ft3, calculating the volume of each layer gives us the weight. In this case, we have</paragraph>
+  <paragraph math="block">$$V = \pi{(4)}^{2} \text{Δ} x = 16\pi \text{Δ} x.$$</paragraph>
+  <paragraph>Then, the force needed to lift each layer is</paragraph>
+  <paragraph math="block">$$F = 9800 \cdot 16\pi \text{Δ} x = 156,800\pi \text{Δ} x.$$</paragraph>
+  <paragraph>Note that this step becomes a little more difficult if we have a noncylindrical tank. We look at a noncylindrical tank in the next example.</paragraph>
+  <paragraph>We also need to know the distance the water must be lifted. Based on our choice of coordinate systems, we can use $$x_{i}^{*}$$ as an approximation of the distance the layer must be lifted. Then the work to lift the $$i \text{th}$$ layer of water $$W_{i}$$ is approximately</paragraph>
+  <paragraph math="block">$$W_{i} \approx 156,800\pi x_{i}^{*} \text{Δ} x.$$</paragraph>
+  <paragraph>Adding the work for each layer, we see the approximate work to empty the tank is given by</paragraph>
+  <paragraph math="block">$$W = \sum\limits_{i = 1}^{n}W_{i} \approx \sum\limits_{i = 1}^{n}156,800\pi x_{i}^{*} \text{Δ} x.$$</paragraph>
+  <paragraph>This is a Riemann sum, so taking the limit as $$n\rightarrow\infty,$$ we get</paragraph>
+  <paragraph math="block">$$\begin{array}{cl} W &amp; {= \underset{n\rightarrow\infty}{\lim }\sum\limits_{i = 1}^{n}156,800\pi x_{i}^{*} \text{Δ} x} \\ &amp; {= 156,800\pi{\int_{2}^{10}x}dx} \\ &amp; {= 156,800\pi\left. \left\lbrack \frac{x^{2}}{2} \right\rbrack \right|_{2}^{10} = 7,526,400\pi \approx 23,644,883.} \end{array}$$</paragraph>
+  <paragraph>The work required to empty the tank is approximately 23,650,000 J.</paragraph>
+  <paragraph>For pumping problems, the calculations vary depending on the shape of the tank or container. The following problem-solving strategy lays out a step-by-step process for solving pumping problems.</paragraph>
+  <note type="procedure" source_type="Problem-Solving Strategy" title="Problem-Solving Strategy">
+    <heading level="4">Solving Pumping Problems</heading>
+    <list type="ordered">
+      <item>Sketch a picture of the tank and select an appropriate frame of reference.</item>
+      <item>Calculate the volume of a representative layer of water.</item>
+      <item>Multiply the volume by the weight-density of water to get the force.</item>
+      <item>Calculate the distance the layer of water must be lifted.</item>
+      <item>Multiply the force and distance to get an estimate of the work needed to lift the layer of water.</item>
+      <item>Sum the work required to lift all the layers. This expression is an estimate of the work required to pump out the desired amount of water, and it is in the form of a Riemann sum.</item>
+      <item>Take the limit as $$n\rightarrow\infty$$ and evaluate the resulting integral to get the exact work required to pump out the desired amount of water.</item>
+    </list>
+  </note>
+  <paragraph>We now apply this problem-solving strategy in an example with a noncylindrical tank.</paragraph>
+  <example number="2.26" title="A Pumping Problem with a Noncylindrical Tank">
+    <problem>
+      <paragraph>Assume a tank in the shape of an inverted cone, with height $$12$$ ft and base radius $$4$$ ft. The tank is full to start with, and water is pumped over the upper edge of the tank until the height of the water remaining in the tank is $$4$$ ft. How much work is required to pump out that amount of water?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The tank is depicted in Figure 2.54. As we did in the example with the cylindrical tank, we orient the $$x \text{-axis}$$ vertically, with the origin at the top of the tank and the downward direction being positive (step 1).</paragraph>
+      <figure number="2.54">
+        <image alt="This figure is an upside-down cone. The cone has an axis through the center. The top of the cone on the axis is labeled x=0."/>
+        <caption>A water tank in the shape of an inverted cone.</caption>
+      </figure>
+      <paragraph>The tank starts out full and ends with $$4$$ ft of water left, so, based on our chosen frame of reference, we need to partition the interval $$\left\lbrack {0,8} \right\rbrack.$$ Then, for $$i = 0,1,2 \text{,…} ,n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {0,8} \right\rbrack,$$ and for $$i = 1,2 \text{,…} ,n,$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ We can approximate the volume of a layer by using a disk, then use similar triangles to find the radius of the disk (see the following figure).</paragraph>
+      <figure number="2.55">
+        <image alt="This figure has two images. The first has the x-axis. Below the axis, on a slant is a line segment extending up to the x-axis. Beside the line segment is a horizontal right circular cylinder. The second image has a triangle. The right triangle mirrors the first image with the hypotenuse the line segment in the first image. The top of the triangle is 4 units. the length of the vertical side is 12 units. The vertical side is also divided into two parts; the first is xsubi, the second is 12-xsubi. It is divided at the level where the first image has the cylinder."/>
+        <caption>Using similar triangles to express the radius of a disk of water.</caption>
+      </figure>
+      <paragraph>From properties of similar triangles, we have</paragraph>
+      <paragraph math="block">$$\begin{array}{cll} \frac{r_{i}}{12 - x_{i}^{*}} &amp; = &amp; {\frac{4}{12} = \frac{1}{3}} \\ {3r_{i}} &amp; = &amp; {12 - x_{i}^{*}} \\ r_{i} &amp; = &amp; \frac{12 - x_{i}^{*}}{3} \\ &amp; = &amp; {4 - \frac{x_{i}^{*}}{3}.} \end{array}$$</paragraph>
+      <paragraph>Then the volume of the disk is</paragraph>
+      <paragraph math="block">$$V_{i} = \pi\left( {4 - \frac{x_{i}^{*}}{3}} \right)^{2} \text{Δ} x \text{(step 2).}$$</paragraph>
+      <paragraph>The weight-density of water is $$62.4$$ lb/ft3, so the force needed to lift each layer is approximately</paragraph>
+      <paragraph math="block">$$F_{i} \approx 62.4\pi\left( {4 - \frac{x_{i}^{*}}{3}} \right)^{2} \text{Δ} x \text{(step 3).}$$</paragraph>
+      <paragraph>Based on the diagram, the distance the water must be lifted is approximately $$x_{i}^{*}$$ feet (step 4), so the approximate work needed to lift the layer is</paragraph>
+      <paragraph math="block">$$W_{i} \approx 62.4\pi x_{i}^{*}\left( {4 - \frac{x_{i}^{*}}{3}} \right)^{2} \text{Δ} x \text{(step 5).}$$</paragraph>
+      <paragraph>Summing the work required to lift all the layers, we get an approximate value of the total work:</paragraph>
+      <paragraph math="block">$$W = \sum\limits_{i = 1}^{n}W_{i} \approx \sum\limits_{i = 1}^{n}62.4\pi x_{i}^{*}\left( {4 - \frac{x_{i}^{*}}{3}} \right)^{2} \text{Δ} x \text{(step 6).}$$</paragraph>
+      <paragraph>Taking the limit as $$n\rightarrow\infty,$$ we obtain</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} W &amp; {= \underset{n\rightarrow\infty}{\lim }\sum\limits_{i = 1}^{n}62.4\pi x_{i}^{*}\left( {4 - \frac{x_{i}^{*}}{3}} \right)^{2} \text{Δ} x} \\ &amp; {= {\int_{0}^{8}{62.4\pi x\left( {4 - \frac{x}{3}} \right)^{2}dx}}} \\ &amp; {= 62.4\pi{\int_{0}^{8}{x\left( {16 - \frac{8x}{3} + \frac{x^{2}}{9}} \right)dx}} = 62.4\pi{\int_{0}^{8}{\left( {16x - \frac{8x^{2}}{3} + \frac{x^{3}}{9}} \right)dx}}} \\ &amp; {= 62.4\pi\left. \left\lbrack {8x^{2} - \frac{8x^{3}}{9} + \frac{x^{4}}{36}} \right\rbrack \right|_{0}^{8} = 10,649.6\pi \approx 33,456.7.} \end{array}$$</paragraph>
+      <paragraph>It takes approximately $$33,450$$ ft-lb of work to empty the tank to the desired level.</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="2.26">
+    <problem>
+      <paragraph>A tank is in the shape of an inverted cone, with height $$10$$ ft and base radius 6 ft. The tank is filled to a depth of 8 ft to start with, and water is pumped over the upper edge of the tank until 3 ft of water remain in the tank. How much work is required to pump out that amount of water?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Approximately $$43,255.243,255.2$$ ft-lb</paragraph>
+    </solution>
+  </example>
+  <heading level="2">Hydrostatic Force and Pressure</heading>
+  <paragraph>In this last section, we look at the force and pressure exerted on an object submerged in a liquid. In the English system, force is measured in pounds. In the metric system, it is measured in newtons. Pressure is force per unit area, so in the English system we have pounds per square foot (or, perhaps more commonly, pounds per square inch, denoted psi). In the metric system we have newtons per square meter, also called pascals.</paragraph>
+  <paragraph>Let’s begin with the simple case of a plate of area $$A$$ submerged horizontally in water at a depth s (Figure 2.56). Then, the force exerted on the plate is simply the weight of the water above it, which is given by $$F = \rho As,$$ where $$\rho$$ is the weight density of water (weight per unit volume). To find the hydrostatic pressure—that is, the pressure exerted by water on a submerged object—we divide the force by the area. So the pressure is $$p = {F/A} = \rho s.$$</paragraph>
+  <figure number="2.56">
+    <image alt="This image has a circular plate submerged in water. The plate is labeled A and the depth of the water is labeled s."/>
+    <caption>A plate submerged horizontally in water.</caption>
+  </figure>
+  <paragraph>By Pascal’s principle, the pressure at a given depth is the same in all directions, so it does not matter if the plate is submerged horizontally or vertically. So, as long as we know the depth, we know the pressure. We can apply Pascal’s principle to find the force exerted on surfaces, such as dams, that are oriented vertically. We cannot apply the formula $$F = \rho As$$ directly, because the depth varies from point to point on a vertically oriented surface. So, as we have done many times before, we form a partition, a Riemann sum, and, ultimately, a definite integral to calculate the force.</paragraph>
+  <paragraph>Suppose a thin plate is submerged in water. We choose our frame of reference such that the x-axis is oriented vertically, with the downward direction being positive, and point $$x = 0$$ corresponding to a logical reference point. Let $$s(x)$$ denote the depth at point x. Note we often let $$x = 0$$ correspond to the surface of the water. In this case, depth at any point is simply given by $$s(x) = x.$$ However, in some cases we may want to select a different reference point for $$x = 0,$$ so we proceed with the development in the more general case. Last, let $$w(x)$$ denote the width of the plate at the point $$x.$$</paragraph>
+  <paragraph>Assume the top edge of the plate is at point $$x = a$$ and the bottom edge of the plate is at point $$x = b.$$ Then, for $$i = 0,1,2 \text{,…} ,n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {a,b} \right\rbrack,$$ and for $$i = 1,2 \text{,…} ,n,$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ The partition divides the plate into several thin, rectangular strips (see the following figure).</paragraph>
+  <figure number="2.57">
+    <image alt="This image is the overhead view of a submerged circular plate. The x-axis is to the side of the plate. The plate’s diameter goes from x=a to x=b. There is a strip in the middle of the plate with thickness of delta x. On the axis this thickness begins at x=xsub(i-1) and ends at x=xsubi. The length of the strip in the plate is labeled w(csubi)."/>
+    <caption>A thin plate submerged vertically in water.</caption>
+  </figure>
+  <paragraph>Let’s now estimate the force on a representative strip. If the strip is thin enough, we can treat it as if it is at a constant depth, $$s(x_{i}^{*}).$$ We then have</paragraph>
+  <paragraph math="block">$$F_{i} = \rho As = \rho\left\lbrack {w(x_{i}^{*}) \text{Δ} x} \right\rbrack s(x_{i}^{*}).$$</paragraph>
+  <paragraph>Adding the forces, we get an estimate for the force on the plate:</paragraph>
+  <paragraph math="block">$$F \approx {\sum\limits_{i = 1}^{n}F_{i}} = \sum\limits_{i = 1}^{n}\rho\left\lbrack {w(x_{i}^{*}) \text{Δ} x} \right\rbrack s(x_{i}^{*}).$$</paragraph>
+  <paragraph>This is a Riemann sum, so taking the limit gives us the exact force. We obtain</paragraph>
+  <paragraph math="block">$$F = \underset{n\rightarrow\infty}{\lim }\sum\limits_{i = 1}^{n}\rho\left\lbrack {w(x_{i}^{*}) \text{Δ} x} \right\rbrack s(x_{i}^{*}) = {\int_{a}^{b}\rho}w(x)s(x)dx.$$</paragraph>
+  <paragraph>Evaluating this integral gives us the force on the plate. We summarize this in the following problem-solving strategy.</paragraph>
+  <note type="procedure" source_type="Problem-Solving Strategy" title="Problem-Solving Strategy">
+    <heading level="4">Finding Hydrostatic Force</heading>
+    <list type="ordered">
+      <item>Sketch a picture and select an appropriate frame of reference. (Note that if we select a frame of reference other than the one used earlier, we may have to adjust Equation 2.13 accordingly.)</item>
+      <item>Determine the depth and width functions, $$s(x)$$ and $$w(x).$$</item>
+      <item>Determine the weight-density of whatever liquid with which you are working. The weight-density of water is $$62.4$$ lb/ft3, or 9800 N/m3.</item>
+      <item>Use the equation to calculate the total force.</item>
+    </list>
+  </note>
+  <example number="2.27" title="Finding Hydrostatic Force">
+    <problem>
+      <paragraph>A water trough 15 ft long has ends shaped like inverted isosceles triangles, with base 8 ft and height 3 ft. Find the force on one end of the trough if the trough is full of water.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Figure 2.58 shows the trough and a more detailed view of one end.</paragraph>
+      <figure number="2.58">
+        <image alt="This figure has two images. The first is a water trough with rectangular sides. The length of the trough is 15 feet, the depth is 3 feet, and the width is 8 feet. The second image is a cross section of the trough. It is a triangle. The top has length of 8 feet and the sides have length 5 feet. The altitude is labeled with 3 feet."/>
+        <caption>(a) A water trough with a triangular cross-section. (b) Dimensions of one end of the water trough.</caption>
+      </figure>
+      <paragraph>Select a frame of reference with the $$x \text{-axis}$$ oriented vertically and the downward direction being positive. Select the top of the trough as the point corresponding to $$x = 0$$ (step 1). The depth function, then, is $$s(x) = x.$$ Using similar triangles, we see that $$w(x) = 8 - \left( {8/3} \right)x$$ (step 2). Now, the weight density of water is $$62.4$$ lb/ft3 (step 3), so applying Equation 2.13, we obtain</paragraph>
+      <paragraph math="block">$$\begin{array}{cl} F &amp; {= {\int_{a}^{b}\rho}w(x)s(x)dx} \\ &amp; {= {\int_{0}^{3}{62.4\left( {8 - \frac{8}{3}x} \right)x dx}} = 62.4{\int_{0}^{3}{\left( {8x - \frac{8}{3}x^{2}} \right)dx}}} \\ &amp; {= 62.4\left. \left\lbrack {4x^{2} - \frac{8}{9}x^{3}} \right\rbrack \right|_{0}^{3} = 748.8.} \end{array}$$</paragraph>
+      <paragraph>The water exerts a force of 748.8 lb on the end of the trough (step 4).</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="2.27">
+    <problem>
+      <paragraph>A water trough 12 m long has ends shaped like inverted isosceles triangles, with base 6 m and height 4 m. Find the force on one end of the trough if the trough is full of water.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$156,800156,800$$ N</paragraph>
+    </solution>
+  </example>
+  <example number="2.28" title="Chapter Opener: Finding Hydrostatic Force">
+    <problem>
+      <paragraph>We now return our attention to the Hoover Dam, mentioned at the beginning of this chapter. The actual dam is arched, rather than flat, but we are going to make some simplifying assumptions to help us with the calculations. Assume the face of the Hoover Dam is shaped like an isosceles trapezoid with lower base $$750$$ ft, upper base $$1250$$ ft, and height $$750$$ ft (see the following figure).</paragraph>
+      <paragraph>When the reservoir is full, Lake Mead’s maximum depth is about 530 ft, and the surface of the lake is about 10 ft below the top of the dam (see the following figure).</paragraph>
+      <figure number="2.59">
+        <image alt="This figure is a trapezoid with the longer side on top. There is a smaller trapezoid inside the first with height labeled 530 feet. It is also 10 feet below the top of the larger trapezoid."/>
+        <caption>A simplified model of the Hoover Dam with assumed dimensions.</caption>
+      </figure>
+      <list type="ordered">
+        <item>Find the force on the face of the dam when the reservoir is full.</item>
+        <item>The southwest United States has been experiencing a drought, and the surface of Lake Mead is about 125 ft below where it would be if the reservoir were full. What is the force on the face of the dam under these circumstances?</item>
       </list>
-    </note>
-    <p>We now apply this problem-solving strategy in an example with a noncylindrical tank.</p>
-    <example number="2.26">
-      <problem>
-        <title>A Pumping Problem with a Noncylindrical Tank</title>
-        <p>Assume a tank in the shape of an inverted cone, with height $$12$$ ft and base radius $$4$$ ft. The tank is full to start with, and water is pumped over the upper edge of the tank until the height of the water remaining in the tank is $$4$$ ft. How much work is required to pump out that amount of water?</p>
-      </problem>
-      <solution>
-        <p>The tank is depicted in Figure 2.54. As we did in the example with the cylindrical tank, we orient the $$x\text{-axis}$$ vertically, with the origin at the top of the tank and the downward direction being positive (step 1).</p>
-        <image alt="This figure is an upside-down cone. The cone has an axis through the center. The top of the cone on the axis is labeled x=0." number="2.54" caption="A water tank in the shape of an inverted cone." />
-        <p>The tank starts out full and ends with $$4$$ ft of water left, so, based on our chosen frame of reference, we need to partition the interval $$\left\lbrack {0,8} \right\rbrack.$$ Then, for $$i = 0,1,2\text{,…},n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {0,8} \right\rbrack,$$ and for $$i = 1,2\text{,…},n,$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ We can approximate the volume of a layer by using a disk, then use similar triangles to find the radius of the disk (see the following figure).</p>
-        <image alt="This figure has two images. The first has the x-axis. Below the axis, on a slant is a line segment extending up to the x-axis. Beside the line segment is a horizontal right circular cylinder. The second image has a triangle. The right triangle mirrors the first image with the hypotenuse the line segment in the first image. The top of the triangle is 4 units. the length of the vertical side is 12 units. The vertical side is also divided into two parts; the first is xsubi, the second is 12-xsubi. It is divided at the level where the first image has the cylinder." number="2.55" caption="Using similar triangles to express the radius of a disk of water." />
-        <p>From properties of similar triangles, we have</p>
-        <equation>$$\begin{array}{cll} \frac{r_{i}}{12 - x_{i}^{*}} &amp; = &amp; {\frac{4}{12} = \frac{1}{3}} \\ {3r_{i}} &amp; = &amp; {12 - x_{i}^{*}} \\ r_{i} &amp; = &amp; \frac{12 - x_{i}^{*}}{3} \\ &amp; = &amp; {4 - \frac{x_{i}^{*}}{3}.} \end{array}$$</equation>
-        <p>Then the volume of the disk is</p>
-        <equation>$$V_{i} = \pi\left( {4 - \frac{x_{i}^{*}}{3}} \right)^{2}\text{Δ}x\ \text{(step 2).}$$</equation>
-        <p>The weight-density of water is $$62.4$$ lb/ft3, so the force needed to lift each layer is approximately</p>
-        <equation>$$F_{i} \approx 62.4\pi\left( {4 - \frac{x_{i}^{*}}{3}} \right)^{2}\text{Δ}x\ \text{(step 3).}$$</equation>
-        <p>Based on the diagram, the distance the water must be lifted is approximately $$x_{i}^{*}$$ feet (step 4), so the approximate work needed to lift the layer is</p>
-        <equation>$$W_{i} \approx 62.4\pi x_{i}^{*}\left( {4 - \frac{x_{i}^{*}}{3}} \right)^{2}\text{Δ}x\ \text{(step 5).}$$</equation>
-        <p>Summing the work required to lift all the layers, we get an approximate value of the total work:</p>
-        <equation>$$W = \sum\limits_{i = 1}^{n}W_{i} \approx \sum\limits_{i = 1}^{n}62.4\pi x_{i}^{*}\left( {4 - \frac{x_{i}^{*}}{3}} \right)^{2}\text{Δ}x\ \text{(step 6).}$$</equation>
-        <p>Taking the limit as $$n\rightarrow\infty,$$ we obtain</p>
-        <equation>$$\begin{array}{cl} W &amp; {= \underset{n\rightarrow\infty}{\text{lim}}\sum\limits_{i = 1}^{n}62.4\pi x_{i}^{*}\left( {4 - \frac{x_{i}^{*}}{3}} \right)^{2}\text{Δ}x} \\ &amp; {= {\int_{0}^{8}{62.4\pi x\left( {4 - \frac{x}{3}} \right)^{2}dx}}} \\ &amp; {= 62.4\pi{\int_{0}^{8}{x\left( {16 - \frac{8x}{3} + \frac{x^{2}}{9}} \right)dx}} = 62.4\pi{\int_{0}^{8}{\left( {16x - \frac{8x^{2}}{3} + \frac{x^{3}}{9}} \right)dx}}} \\ &amp; {= 62.4\pi\left. \left\lbrack {8x^{2} - \frac{8x^{3}}{9} + \frac{x^{4}}{36}} \right\rbrack\ \right|_{0}^{8} = 10,649.6\pi \approx 33,456.7.} \end{array}$$</equation>
-        <p>It takes approximately $$33,450$$ ft-lb of work to empty the tank to the desired level.</p>
-      </solution>
-    </example>
-    <checkpoint number="2.26">
-      <problem>
-        <p>A tank is in the shape of an inverted cone, with height $$10$$ ft and base radius 6 ft. The tank is filled to a depth of 8 ft to start with, and water is pumped over the upper edge of the tank until 3 ft of water remain in the tank. How much work is required to pump out that amount of water?</p>
-      </problem>
-      <solution>
-        <p>Approximately $$43,255.2$$ ft-lb</p>
-      </solution>
-    </checkpoint>
-  </subsection>
-  <subsection title="Hydrostatic Force and Pressure">
-    <p>In this last section, we look at the force and pressure exerted on an object submerged in a liquid. In the English system, force is measured in pounds. In the metric system, it is measured in newtons. Pressure is force per unit area, so in the English system we have pounds per square foot (or, perhaps more commonly, pounds per square inch, denoted psi). In the metric system we have newtons per square meter, also called pascals.</p>
-    <p>Let’s begin with the simple case of a plate of area $$A$$ submerged horizontally in water at a depth s (Figure 2.56). Then, the force exerted on the plate is simply the weight of the water above it, which is given by $$F = \rho As,$$ where $$\rho$$ is the weight density of water (weight per unit volume). To find the hydrostatic pressure—that is, the pressure exerted by water on a submerged object—we divide the force by the area. So the pressure is $$p = {F\text{/}A} = \rho s.$$</p>
-    <image alt="This image has a circular plate submerged in water. The plate is labeled A and the depth of the water is labeled s." number="2.56" caption="A plate submerged horizontally in water." />
-    <p>By Pascal’s principle, the pressure at a given depth is the same in all directions, so it does not matter if the plate is submerged horizontally or vertically. So, as long as we know the depth, we know the pressure. We can apply Pascal’s principle to find the force exerted on surfaces, such as dams, that are oriented vertically. We cannot apply the formula $$F = \rho As$$ directly, because the depth varies from point to point on a vertically oriented surface. So, as we have done many times before, we form a partition, a Riemann sum, and, ultimately, a definite integral to calculate the force.</p>
-    <p>Suppose a thin plate is submerged in water. We choose our frame of reference such that the x-axis is oriented vertically, with the downward direction being positive, and point $$x = 0$$ corresponding to a logical reference point. Let $$s(x)$$ denote the depth at point x. Note we often let $$x = 0$$ correspond to the surface of the water. In this case, depth at any point is simply given by $$s(x) = x.$$ However, in some cases we may want to select a different reference point for $$x = 0,$$ so we proceed with the development in the more general case. Last, let $$w(x)$$ denote the width of the plate at the point $$x.$$</p>
-    <p>Assume the top edge of the plate is at point $$x = a$$ and the bottom edge of the plate is at point $$x = b.$$ Then, for $$i = 0,1,2\text{,…},n,$$ let $$P = \left\{ x_{i} \right\}$$ be a regular partition of the interval $$\left\lbrack {a,b} \right\rbrack,$$ and for $$i = 1,2\text{,…},n,$$ choose an arbitrary point $$x_{i}^{*} \in \left\lbrack {x_{i - 1},x_{i}} \right\rbrack.$$ The partition divides the plate into several thin, rectangular strips (see the following figure).</p>
-    <image alt="This image is the overhead view of a submerged circular plate. The x-axis is to the side of the plate. The plate’s diameter goes from x=a to x=b. There is a strip in the middle of the plate with thickness of delta x. On the axis this thickness begins at x=xsub(i-1) and ends at x=xsubi. The length of the strip in the plate is labeled w(csubi)." number="2.57" caption="A thin plate submerged vertically in water." />
-    <p>Let’s now estimate the force on a representative strip. If the strip is thin enough, we can treat it as if it is at a constant depth, $$s(x_{i}^{*}).$$ We then have</p>
-    <equation>$$F_{i} = \rho As = \rho\left\lbrack {w(x_{i}^{*})\text{Δ}x} \right\rbrack s(x_{i}^{*}).$$</equation>
-    <p>Adding the forces, we get an estimate for the force on the plate:</p>
-    <equation>$$F \approx {\sum\limits_{i = 1}^{n}F_{i}} = \sum\limits_{i = 1}^{n}\rho\left\lbrack {w(x_{i}^{*})\text{Δ}x} \right\rbrack s(x_{i}^{*}).$$</equation>
-    <p>This is a Riemann sum, so taking the limit gives us the exact force. We obtain</p>
-    <equation>$$F = \underset{n\rightarrow\infty}{\text{lim}}\sum\limits_{i = 1}^{n}\rho\left\lbrack {w(x_{i}^{*})\text{Δ}x} \right\rbrack s(x_{i}^{*}) = {\int_{a}^{b}\rho}w(x)s(x)dx.$$</equation>
-    <p>Evaluating this integral gives us the force on the plate. We summarize this in the following problem-solving strategy.</p>
-    <note type="Problem-Solving Strategy">
-      <list type="ol" style="1">
-        <item>Sketch a picture and select an appropriate frame of reference. (Note that if we select a frame of reference other than the one used earlier, we may have to adjust Equation 2.13 accordingly.)</item>
-        <item>Determine the depth and width functions, $$s(x)$$ and $$w(x).$$</item>
-        <item>Determine the weight-density of whatever liquid with which you are working. The weight-density of water is $$62.4$$ lb/ft3, or 9800 N/m3.</item>
-        <item>Use the equation to calculate the total force.</item>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>We begin by establishing a frame of reference. As usual, we choose to orient the $$x \text{-axis}$$ vertically, with the downward direction being positive. This time, however, we are going to let $$x = 0$$ represent the top of the dam, rather than the surface of the water. When the reservoir is full, the surface of the water is $$10$$ ft below the top of the dam, so $$s(x) = x - 10$$ (see the following figure). Figure 2.60 We first choose a frame of reference. To find the width function, we again turn to similar triangles as shown in the figure below. Figure 2.61 We use similar triangles to determine a function for the width of the dam. (a) Assumed dimensions of the dam; (b) highlighting the similar triangles. From the figure, we see that $$w(x) = 750 + 2r.$$ Using properties of similar triangles, we get $$r = 250 - \left( {1/3} \right)x.$$ Thus, $$w(x) = 1250 - \frac{2}{3}x \text{(step 2).}$$ Using a weight-density of $$62.4$$ lb/ft3 (step 3) and applying Equation 2.13, we get $$\begin{array}{cl} F &amp; {= {\int_{a}^{b}\rho}w(x)s(x)dx} \\ &amp; {= {\int_{10}^{540}{62.4\left( {1250 - \frac{2}{3}x} \right)\left( {x - 10} \right)dx}} = 62.4{\int_{10}^{540}{- \frac{2}{3}\left\lbrack {x^{2} - 1885x + 18750} \right\rbrack}}dx} \\ &amp; {= -62.4\left( \frac{2}{3} \right)\left. \left\lbrack {\frac{x^{3}}{3} - \frac{1885x^{2}}{2} + 18750x} \right\rbrack \right|_{10}^{540} \approx 8,832,245,000 \text{lb} = 4,416,122.5 \text{t} .} \end{array}$$ Note the change from pounds to tons $$(2000$$ lb = $$1$$ ton) (step 4).</item>
+        <item>Notice that the drought changes our depth function, $$s(x),$$ and our limits of integration. We have $$s(x) = x - 135.$$ The lower limit of integration is $$135.$$ The upper limit remains $$540.$$ Evaluating the integral, we get</item>
       </list>
-    </note>
-    <example number="2.27">
-      <problem>
-        <title>Finding Hydrostatic Force</title>
-        <p>A water trough 15 ft long has ends shaped like inverted isosceles triangles, with base 8 ft and height 3 ft. Find the force on one end of the trough if the trough is full of water.</p>
-      </problem>
-      <solution>
-        <p>Figure 2.58 shows the trough and a more detailed view of one end.</p>
-        <image alt="This figure has two images. The first is a water trough with rectangular sides. The length of the trough is 15 feet, the depth is 3 feet, and the width is 8 feet. The second image is a cross section of the trough. It is a triangle. The top has length of 8 feet and the sides have length 5 feet. The altitude is labeled with 3 feet." number="2.58" caption="(a) A water trough with a triangular cross-section. (b) Dimensions of one end of the water trough." />
-        <p>Select a frame of reference with the $$x\text{-axis}$$ oriented vertically and the downward direction being positive. Select the top of the trough as the point corresponding to $$x = 0$$ (step 1). The depth function, then, is $$s(x) = x.$$ Using similar triangles, we see that $$w(x) = 8 - \left( {8\text{/}3} \right)x$$ (step 2). Now, the weight density of water is $$62.4$$ lb/ft3 (step 3), so applying Equation 2.13, we obtain</p>
-        <equation>$$\begin{array}{cl} F &amp; {= {\int_{a}^{b}\rho}w(x)s(x)dx} \\ &amp; {= {\int_{0}^{3}{62.4\left( {8 - \frac{8}{3}x} \right)x\ dx}} = 62.4{\int_{0}^{3}{\left( {8x - \frac{8}{3}x^{2}} \right)dx}}} \\ &amp; {= 62.4\left. \left\lbrack {4x^{2} - \frac{8}{9}x^{3}} \right\rbrack\ \right|_{0}^{3} = 748.8.} \end{array}$$</equation>
-        <p>The water exerts a force of 748.8 lb on the end of the trough (step 4).</p>
-      </solution>
-    </example>
-    <checkpoint number="2.27">
-      <problem>
-        <p>A water trough 12 m long has ends shaped like inverted isosceles triangles, with base 6 m and height 4 m. Find the force on one end of the trough if the trough is full of water.</p>
-      </problem>
-      <solution>
-        <p>$$156,800$$ N</p>
-      </solution>
-    </checkpoint>
-    <example number="2.28">
-      <problem>
-        <title>Chapter Opener: Finding Hydrostatic Force</title>
-        <p>We now return our attention to the Hoover Dam, mentioned at the beginning of this chapter. The actual dam is arched, rather than flat, but we are going to make some simplifying assumptions to help us with the calculations. Assume the face of the Hoover Dam is shaped like an isosceles trapezoid with lower base $$750$$ ft, upper base $$1250$$ ft, and height $$750$$ ft (see the following figure).</p>
-        <p>When the reservoir is full, Lake Mead’s maximum depth is about 530 ft, and the surface of the lake is about 10 ft below the top of the dam (see the following figure).</p>
-        <image alt="This figure is a trapezoid with the longer side on top. There is a smaller trapezoid inside the first with height labeled 530 feet. It is also 10 feet below the top of the larger trapezoid." number="2.59" caption="A simplified model of the Hoover Dam with assumed dimensions." />
-        <list type="ol" style="a">
-          <item>Find the force on the face of the dam when the reservoir is full.</item>
-          <item>The southwest United States has been experiencing a drought, and the surface of Lake Mead is about 125 ft below where it would be if the reservoir were full. What is the force on the face of the dam under these circumstances?</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="a">
-          <item>We begin by establishing a frame of reference. As usual, we choose to orient thevertically, with the downward direction being positive. This time, however, we are going to letrepresent the top of the dam, rather than the surface of the water. When the reservoir is full, the surface of the water isft below the top of the dam, so(see the following figure).To find the width function, we again turn to similar triangles as shown in the figure below.From the figure, we see thatUsing properties of similar triangles, we getThus,Using a weight-density oflb/ft(step 3) and applying, we get<equation>$$x\text{-axis}$$</equation>
-            <equation>$$x = 0$$</equation>
-            <equation>$$10$$</equation>
-            <equation>$$s(x) = x - 10$$</equation>
-            <image alt="This figure is a trapezoid with the longer side on top. There is a smaller trapezoid inside the first with height labeled s(x)=x-10. It represents the depth of the water. It is also 10 feet below the top of the larger trapezoid. The top of the larger trapezoid is at x=0." number="2.60" caption="We first choose a frame of reference." />
-            <image alt="This figure has two images. The first is a trapezoid with larger side on the top. The length of the top is divided into 3 measures. The first measure is 250 feet, the second is 750 feet, and the third is 250 feet. The height of the trapezoid is 750 feet. The length of the bottom is 750 feet. Inside of the trapezoid the width is labeled w(x). Inside if one of the triangular sides is the width r. The second image is the same trapezoid. It has the height labeled as 750 feet. Inside the trapezoid it has the height divided into two segments. The first is labeled x, and the second is labeled 750-x. On the side of the trapezoid a triangle has been formed by a vertical line from the bottom side to the top. Inside of the triangle is a horizontal line segment labeled r." number="2.61" caption="We use similar triangles to determine a function for the width of the dam. (a) Assumed dimensions of the dam; (b) highlighting the similar triangles." />
-            <equation>$$w(x) = 750 + 2r.$$</equation>
-            <equation>$$r = 250 - \left( {1\text{/}3} \right)x.$$</equation>
-            <equation>$$w(x) = 1250 - \frac{2}{3}x\ \text{(step 2).}$$</equation>
-            <equation>$$62.4$$</equation>
-            <equation>$$\begin{array}{cl} F &amp; {= {\int_{a}^{b}\rho}w(x)s(x)dx} \\ &amp; {= {\int_{10}^{540}{62.4\left( {1250 - \frac{2}{3}x} \right)\left( {x - 10} \right)dx}} = 62.4{\int_{10}^{540}{- \frac{2}{3}\left\lbrack {x^{2} - 1885x + 18750} \right\rbrack}}dx} \\ &amp; {= -62.4\left( \frac{2}{3} \right)\left. \left\lbrack {\frac{x^{3}}{3} - \frac{1885x^{2}}{2} + 18750x} \right\rbrack\ \right|_{10}^{540} \approx 8,832,245,000\ \text{lb} = 4,416,122.5\ \text{t}\text{.}} \end{array}$$</equation>
-            <p>Note the change from pounds to tons $$(2000$$ lb = $$1$$ ton) (step 4).</p>
-          </item>
-          <item>
-            <p>Notice that the drought changes our depth function, $$s(x),$$ and our limits of integration. We have $$s(x) = x - 135.$$ The lower limit of integration is $$135.$$ The upper limit remains $$540.$$ Evaluating the integral, we get</p>
-          </item>
-        </list>
-        <equation>$$\begin{array}{cl} F &amp; {= {\int_{a}^{b}\rho}w(x)s(x)dx} \\ &amp; {= {\int_{135}^{540}{62.4\left( {1250 - \frac{2}{3}x} \right)\left( {x - 135} \right)dx}}} \\ &amp; {= -62.4\left( \frac{2}{3} \right){\int_{135}^{540}{\left( {x - 1875} \right)\left( {x - 135} \right)dx}} = -62.4\left( \frac{2}{3} \right){\int_{135}^{540}{\left( {x^{2} - 2010x + 253125} \right)dx}}} \\ &amp; {= -62.4\left( \frac{2}{3} \right)\left. \left\lbrack {\frac{x^{3}}{3} - 1005x^{2} + 253125x} \right\rbrack\ \right|_{135}^{540} \approx 5,015,230,000\ \text{lb} = \ 2,507,615\ \text{t}\text{.}} \end{array}$$</equation>
-      </solution>
-    </example>
-    <checkpoint number="2.28">
-      <problem>
-        <p>When the reservoir is at its average level, the surface of the water is about 50 ft below where it would be if the reservoir were full. What is the force on the face of the dam under these circumstances?</p>
-      </problem>
-      <solution>
-        <p>Approximately 7,164,520,000 lb or 3,582,260 t</p>
-      </solution>
-    </checkpoint>
-    <note type="Media">
-      <p>To learn more about Hoover Dam, see this article published by the History Channel.</p>
-    </note>
-  </subsection>
-  <exercises title="Section 2.5 Exercises">
-    <instruction>For the following exercises, find the work done.</instruction>
-    <exercise number="218" has_solution="false">
-      <problem>
-        <p>Find the work done when a constant force $$F = 12$$ lb moves a chair from $$x = 0.9$$ to $$x = 1.1$$ ft.</p>
-      </problem>
-    </exercise>
-    <exercise number="219" has_solution="true">
-      <problem>
-        <p>How much work is done when a person lifts a $$50$$ lb box of comics onto a truck that is $$3$$ ft off the ground?</p>
-      </problem>
-      <solution>
-        <p>$$150$$ ft-lb</p>
-      </solution>
-    </exercise>
-    <exercise number="220" has_solution="false">
-      <problem>
-        <p>What is the work done lifting a $$20$$ kg child from the floor to a height of $$2$$ m? (Note that a mass of$$1$$ kg weighs $$9.8$$ N near the surface of the Earth.)</p>
-      </problem>
-    </exercise>
-    <exercise number="221" has_solution="true">
-      <problem>
-        <p>Find the work done when you push a box along the floor $$2$$ m, when you apply a constant force of $$F = 100\ \text{N}.$$</p>
-      </problem>
-      <solution>
-        <p>$$200\ \text{J}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="222" has_solution="false">
-      <problem>
-        <p>Compute the work done for a force $$F = {12\text{/}x^{2}}$$ N from $$x = 1$$ to $$x = 2$$ m.</p>
-      </problem>
-    </exercise>
-    <exercise number="223" has_solution="true">
-      <problem>
-        <p>What is the work done moving a particle from $$x = 0$$ to $$x = 1$$ m if the force acting on it is $$F = 3x^{2}$$ N?</p>
-      </problem>
-      <solution>
-        <p>$$1$$ J</p>
-      </solution>
-    </exercise>
-    <instruction>For the following exercises, find the mass of the one-dimensional object.</instruction>
-    <exercise number="224" has_solution="false">
-      <problem>
-        <p>A wire that is $$2$$ ft long (starting at $$x = 0)$$ and has a density function of $$\rho(x) = x^{2} + 2x$$ lb/ft</p>
-      </problem>
-    </exercise>
-    <exercise number="225" has_solution="true">
-      <problem>
-        <p>A car antenna that is $$3$$ ft long (starting at $$x = 0)$$ and has a density function of $$\rho(x) = 3x + 2$$ lb/ft</p>
-      </problem>
-      <solution>
-        <p>$$\frac{39}{2}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="226" has_solution="false">
-      <problem>
-        <p>A metal rod that is $$8$$ in. long (starting at $$x = 0)$$ and has a density function of $$\rho(x) = e^{{({1\text{/}2})}x}$$ lb/in.</p>
-      </problem>
-    </exercise>
-    <exercise number="227" has_solution="true">
-      <problem>
-        <p>A pencil that is $$4$$ in. long (starting at $$x = 2)$$ and has a density function of $$\rho(x) = {5\text{/}x}$$ oz/in.</p>
-      </problem>
-      <solution>
-        <p>$$\text{ln}(243)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="228" has_solution="false">
-      <problem>
-        <p>A ruler that is $$12$$ in. long (starting at $$x = 5)$$ and has a density function of $$\rho(x) = \text{ln}(x) + \left( {1\text{/}2} \right)x^{2}$$ oz/in.</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, find the mass of the two-dimensional object that is centered at the origin.</instruction>
-    <exercise number="229" has_solution="true">
-      <problem>
-        <p>An oversized hockey puck of radius $$2$$ in. with density function $$\rho(x) = x^{3} - 2x + 5$$</p>
-      </problem>
-      <solution>
-        <p>$$\frac{332\pi}{15}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="230" has_solution="false">
-      <problem>
-        <p>A frisbee of radius $$6$$ in. with density function $$\rho(x) = e^{\text{−}x}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="231" has_solution="true">
-      <problem>
-        <p>A plate of radius $$10$$ in. with density function $$\rho(x) = 1 + \text{cos}\left( {\pi x} \right)$$</p>
-      </problem>
-      <solution>
-        <p>$$100\pi$$</p>
-      </solution>
-    </exercise>
-    <exercise number="232" has_solution="false">
-      <problem>
-        <p>A jar lid of radius $$3$$ in. with density function $$\rho(x) = \text{ln}(x + 1)$$</p>
-      </problem>
-    </exercise>
-    <exercise number="233" has_solution="true">
-      <problem>
-        <p>A disk of radius $$5$$ cm with density function $$\rho(x) = \sqrt{3x}$$</p>
-      </problem>
-      <solution>
-        <p>$$20\pi\sqrt{15}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="234" has_solution="false">
-      <problem>
-        <p>A $$12$$-in. spring is stretched to $$15$$ in. by a force of $$75$$ lb. What is the spring constant?</p>
-      </problem>
-    </exercise>
-    <exercise number="235" has_solution="true">
-      <problem>
-        <p>A spring has a natural length of $$10$$ cm. It takes $$2$$ J to stretch the spring to $$15$$ cm. How much work would it take to stretch the spring from $$15$$ cm to $$20$$ cm?</p>
-      </problem>
-      <solution>
-        <p>$$6$$ J</p>
-      </solution>
-    </exercise>
-    <exercise number="236" has_solution="false">
-      <problem>
-        <p>A $$1$$-m spring requires $$10$$ J to stretch the spring to $$1.1$$ m. How much work would it take to stretch the spring from $$1$$ m to $$1.2$$ m?</p>
-      </problem>
-    </exercise>
-    <exercise number="237" has_solution="true">
-      <problem>
-        <p>A spring requires $$5$$ J to stretch the spring from $$8$$ cm to $$12$$ cm, and an additional $$4$$ J to stretch the spring from $$12$$ cm to $$14$$ cm. What is the natural length of the spring?</p>
-      </problem>
-      <solution>
-        <p>$$5$$ cm</p>
-      </solution>
-    </exercise>
-    <exercise number="238" has_solution="false">
-      <problem>
-        <p>A shock absorber is compressed 1 in. by a weight of 1 t. What is the spring constant?</p>
-      </problem>
-    </exercise>
-    <exercise number="239" has_solution="true">
-      <problem>
-        <p>A force of $$F = 20x - x^{3}$$ N stretches a nonlinear spring by $$x$$ meters. What work is required to stretch the spring from $$x = 0$$ to $$x = 2$$ m?</p>
-      </problem>
-      <solution>
-        <p>$$36$$ J</p>
-      </solution>
-    </exercise>
-    <exercise number="240" has_solution="false">
-      <problem>
-        <p>Find the work done by winding up a hanging cable of length $$100$$ ft and weight-density $$5$$ lb/ft.</p>
-      </problem>
-    </exercise>
-    <exercise number="241" has_solution="true">
-      <problem>
-        <p>For the cable in the preceding exercise, how much work is done to lift the cable $$50$$ ft?</p>
-      </problem>
-      <solution>
-        <p>$$18,750$$ ft-lb</p>
-      </solution>
-    </exercise>
-    <exercise number="242" has_solution="false">
-      <problem>
-        <p>For the cable in the preceding exercise, how much additional work is done by hanging a $$200$$ lb weight at the end of the cable?</p>
-      </problem>
-    </exercise>
-    <exercise number="243" has_solution="true">
-      <problem>
-        <p>[T] A pyramid of height $$500$$ ft has a square base $$800$$ ft by $$800$$ ft. Find the area $$A$$ at height $$h.$$ If the rock used to build the pyramid weighs approximately $$w = 100\ \text{lb/ft}^{3},$$ how much work did it take to lift all the rock?</p>
-      </problem>
-      <solution>
-        <p>Weight $$= {\frac{32}{3}\ \times \ 10^{9}\ \text{lb}}$$</p>
-        <p>Work $$= {\frac{4}{3}\ \times \ 10^{12}\ \text{ft-lb}}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="244" has_solution="false">
-      <problem>
-        <p>[T] For the pyramid in the preceding exercise, assume there were $$1000$$ workers each working $$10$$ hours a day, $$5$$ days a week, $$50$$ weeks a year. If the workers, on average, lifted 10 100 lb rocks $$2$$ ft/hr, how long did it take to build the pyramid?</p>
-      </problem>
-    </exercise>
-    <exercise number="245" has_solution="true">
-      <problem>
-        <p>[T] The force of gravity on a mass $$m$$ is $$F = \text{−}\left( {\left( {GMm} \right)\text{/}x^{2}} \right)$$ newtons. For a rocket of mass $$m = 1000\ \text{kg},$$ compute the work to lift the rocket from $$x = 6400$$ to $$x = 6500$$ km. State your answers with three significant figures. (Note: $$G = 6.67\ \times \ 10^{-11}\ \text{N m}^{2}\text{/}\text{kg}^{2}$$ and $$M = 6\ \times \ 10^{24}\ \text{kg}\text{.})$$</p>
-      </problem>
-      <solution>
-        <p>$$9.71\ \times \ 10^{8}\ \text{N m}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="246" has_solution="false">
-      <problem>
-        <p>[T] For the rocket in the preceding exercise, find the work to lift the rocket from $$x = 6400$$ to $$x = \infty.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="247" has_solution="true">
-      <problem>
-        <p>[T] A rectangular dam is $$40$$ ft high and $$60$$ ft wide. Assume the weight density of water is 62.5 lbs/ft3. Compute the total force $$F$$ on the dam when</p>
-        <list type="ol" style="a">
-          <item>the surface of the water is at the top of the dam and</item>
-          <item>the surface of the water is halfway down the dam.</item>
-        </list>
-      </problem>
-      <solution>
-        <p>a. $$3,000,000$$ lb, b. $$750,000$$ lbs</p>
-      </solution>
-    </exercise>
-    <exercise number="248" has_solution="false">
-      <problem>
-        <p>[T] Find the work required to pump all the water out of a cylinder that has a circular base of radius $$5$$ ft and height $$200$$ ft. Use the fact that the density of water is $$62$$ lb/ft3.</p>
-      </problem>
-    </exercise>
-    <exercise number="249" has_solution="true">
-      <problem>
-        <p>[T] Find the work required to pump all the water out of the cylinder in the preceding exercise if the cylinder is only half full.</p>
-      </problem>
-      <solution>
-        <p>$$23.25\pi$$ million ft-lb</p>
-      </solution>
-    </exercise>
-    <exercise number="250" has_solution="false">
-      <problem>
-        <p>[T] How much work is required to pump out a swimming pool if the area of the base is $$800$$ ft2, the water is $$4$$ ft deep, and the top is $$1$$ ft above the water level? Assume that the density of water is $$62$$ lb/ft3.</p>
-      </problem>
-    </exercise>
-    <exercise number="251" has_solution="true">
-      <problem>
-        <p>A cylinder of depth $$H$$ and cross-sectional area $$A$$ stands full of water at density $$\rho.$$ Compute the work to pump all the water to the top.</p>
-      </problem>
-      <solution>
-        <p>$$\frac{A\rho H^{2}}{2}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="252" has_solution="false">
-      <problem>
-        <p>For the cylinder in the preceding exercise, compute the work to pump all the water to the top if the cylinder is only half full.</p>
-      </problem>
-    </exercise>
-    <exercise number="253" has_solution="true">
-      <problem>
-        <p>A cone-shaped tank has a cross-sectional area that increases with its depth: $$A = {\left( {\pi r^{2}h^{2}} \right)\text{/}{H^{3}.}}$$ Show that the work to empty it is half the work for a cylinder with the same height and base.</p>
-      </problem>
-      <solution>
-        <p>Answers may vary</p>
-      </solution>
-    </exercise>
-  </exercises>
+      <paragraph math="block">$$\begin{array}{cl} F &amp; {= {\int_{a}^{b}\rho}w(x)s(x)dx} \\ &amp; {= {\int_{135}^{540}{62.4\left( {1250 - \frac{2}{3}x} \right)\left( {x - 135} \right)dx}}} \\ &amp; {= -62.4\left( \frac{2}{3} \right){\int_{135}^{540}{\left( {x - 1875} \right)\left( {x - 135} \right)dx}} = -62.4\left( \frac{2}{3} \right){\int_{135}^{540}{\left( {x^{2} - 2010x + 253125} \right)dx}}} \\ &amp; {= -62.4\left( \frac{2}{3} \right)\left. \left\lbrack {\frac{x^{3}}{3} - 1005x^{2} + 253125x} \right\rbrack \right|_{135}^{540} \approx 5,015,230,000 \text{lb} = 2,507,615 \text{t} .} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <example title="Checkpoint" number="2.28">
+    <problem>
+      <paragraph>When the reservoir is at its average level, the surface of the water is about 50 ft below where it would be if the reservoir were full. What is the force on the face of the dam under these circumstances?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Approximately 7,164,520,000 lb or 3,582,260 t</paragraph>
+    </solution>
+  </example>
+  <note type="sidebar" source_type="Media" title="Media">
+    <paragraph>To learn more about Hoover Dam, see this article published by the History Channel.</paragraph>
+  </note>
 </section>

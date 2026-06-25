@@ -73,7 +73,7 @@ grep -i "tangent\|slope" .agents/skills/tag-learning-objective/resources/book_ma
 - Start with the most specific math operation or concept (e.g., "power rule", "chain rule")
 - If too few results, broaden to the domain (e.g., "derivative", "differentiation")
 - Also search for the concept's application context (e.g., "polynomial", "trigonometric")
-- If a book is already assigned (`context/active_qt.md`), narrow
+- If a book is already assigned (`context/active_qt.toml` + `meta.xml`), narrow
   with `grep -i "concept" ... | grep "\[book-slug\]"` to prioritize that book
 
 ### Step 3 — Reason and rank
@@ -119,6 +119,6 @@ Notes: <any caveats — e.g., "LO 2 and 3 overlap; choose based on which unit
 
 - If grep yields no results for all attempted terms, the concept may not yet have
   an LO in the curriculum. Note this explicitly rather than forcing a poor match.
-- The `context/active_qt.md` file (written by `update.py`) shows
-  which book/chapter/unit the question is currently assigned to — use it to narrow scope.
+- The `context/active_qt.toml` file selects the active question id. Use that id with
+  `questions/qt-{id}/meta.xml` to determine which book/chapter/unit the question is assigned to.
 - Re-run `fetch_book_map.py` if results seem outdated (new LOs added since last run).

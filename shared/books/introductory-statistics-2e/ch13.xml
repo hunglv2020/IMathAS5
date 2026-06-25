@@ -1,0 +1,3124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">Introduction</heading>
+  <figure number="13.1">
+    <image alt="This is a photo of magazine spines. The magazines cover various topics like plants, food, and architecture."/>
+    <caption>One-way ANOVA is used to measure information from several groups. (credit: modification of work “Magazine Stack” by thebittenword.com/ Flickr, CC BY 2.0)</caption>
+  </figure>
+  <note type="rule" source_type="Chapter Objectives" title="Chapter Objectives">
+    <paragraph>By the end of this chapter, the student should be able to:</paragraph>
+    <list type="unordered">
+      <item>Interpret the F probability distribution as the number of groups and the sample size change.</item>
+      <item>Discuss two uses for the F distribution: one-way ANOVA and the test of two variances.</item>
+      <item>Conduct and interpret one-way ANOVA.</item>
+      <item>Conduct and interpret hypothesis tests of two variances.</item>
+    </list>
+  </note>
+  <paragraph>Many statistical applications in psychology, social science, business administration, and the natural sciences involve several groups. For example, an environmentalist is interested in knowing if the average amount of pollution varies in several bodies of water. A sociologist is interested in knowing if the amount of income a person earns varies according to their upbringing. A consumer looking for a new car might compare the average gas mileage of several models.</paragraph>
+  <paragraph>For hypothesis tests comparing averages between more than two groups, statisticians have developed a method called "Analysis of Variance" (abbreviated ANOVA). In this chapter, you will study the simplest form of ANOVA called single factor or one-way ANOVA. You will also study the F distribution, used for one-way ANOVA, and the test of two variances. This is just a very brief overview of one-way ANOVA. You will study this topic in much greater detail in future statistics courses. One-Way ANOVA, as it is presented here, relies heavily on a calculator or computer.</paragraph>
+  <heading level="1">13.1 One-Way ANOVA</heading>
+  <paragraph>The purpose of a one-way ANOVA test is to determine the existence of a statistically significant difference among several group means. The test actually uses variances to help determine if the means are equal or not. In order to perform a one-way ANOVA test, there are five basic assumptions to be fulfilled:</paragraph>
+  <list type="ordered">
+    <item>Each population from which a sample is taken is assumed to be normal.</item>
+    <item>All samples are randomly selected and independent.</item>
+    <item>The populations are assumed to have equal standard deviations (or variances).</item>
+    <item>The factor is a categorical variable.</item>
+    <item>The response is a numerical variable.</item>
+  </list>
+  <heading level="2">The Null and Alternative Hypotheses</heading>
+  <paragraph>The null hypothesis is simply that all the group population means are the same. The alternative hypothesis is that at least one pair of means is different. For example, if there are k groups:</paragraph>
+  <paragraph>H0: μ1 = μ2 = μ3 = ... = μk</paragraph>
+  <paragraph>Ha: At least two of the group means μ1, μ2, μ3, ..., μk are not equal. That is, μi ≠ μj for some i ≠ j.</paragraph>
+  <paragraph>The graphs, a set of box plots representing the distribution of values with the group means indicated by a horizontal line through the box, help in the understanding of the hypothesis test. In the first graph (blue box plots), H0: μ1 = μ2 = μ3 and the three populations have the same distribution if the null hypothesis is true. The variance of the combined data is approximately the same as the variance of each of the populations.</paragraph>
+  <paragraph>If the null hypothesis is false, then the variance of the combined data is larger which is caused by the different means as shown in the second graph (green box plots).</paragraph>
+  <figure number="13.2">
+    <image alt="The first illustration shows three vertical boxplots with equal means. The second illustration shows three vertical boxplots with unequal means."/>
+    <caption>(a) H0 is true. All means are the same; the differences are due to random variation. (b) H0 is not true. The means are not all the same; the differences are too large to be due to random variation.</caption>
+  </figure>
+  <heading level="1">13.2 The F Distribution and the F-Ratio</heading>
+  <paragraph>The distribution used for the hypothesis test is a new one. It is called the F distribution, named after Sir Ronald Fisher, an English statistician. The F statistic is a ratio (a fraction). There are two sets of degrees of freedom; one for the numerator and one for the denominator.</paragraph>
+  <paragraph>For example, if F follows an F distribution and the number of degrees of freedom for the numerator is four, and the number of degrees of freedom for the denominator is ten, then F ~ F4,10.</paragraph>
+  <note type="sidebar" source_type="NOTE" title="NOTE">
+    <paragraph>The F distribution is derived from the Student's t-distribution. The values of the F distribution are squares of the corresponding values of the t-distribution. One-Way ANOVA expands the t-test for comparing more than two groups. The scope of that derivation is beyond the level of this course. It is preferable to use ANOVA when there are more than two groups instead of performing pairwise t-tests because performing multiple tests introduces the likelihood of making a Type 1 error.</paragraph>
+  </note>
+  <paragraph>To calculate the F ratio, two estimates of the variance are made.</paragraph>
+  <list type="ordered">
+    <item>Variance between samples: An estimate of σ2 that is the variance of the sample means multiplied by n (when the sample sizes are the same.). If the samples are different sizes, the variance between samples is weighted to account for the different sample sizes. The variance is also called variation due to treatment or explained variation.</item>
+    <item>Variance within samples: An estimate of σ2 that is the average of the sample variances (also known as a pooled variance). When the sample sizes are different, the variance within samples is weighted. The variance is also called the variation due to error or unexplained variation.</item>
+  </list>
+  <list type="unordered">
+    <item>SSbetween = the sum of squares that represents the variation among the different samples</item>
+    <item>SSwithin = the sum of squares that represents the variation within samples that is due to chance.</item>
+  </list>
+  <paragraph>To find a "sum of squares" means to add together squared quantities that, in some cases, may be weighted. We used sum of squares to calculate the sample variance and the sample standard deviation in Descriptive Statistics.</paragraph>
+  <paragraph>MS means "mean square." MSbetween is the variance between groups, and MSwithin is the variance within groups.</paragraph>
+  <paragraph>Calculation of Sum of Squares and Mean Square</paragraph>
+  <list type="unordered">
+    <item>k = the number of different groups</item>
+    <item>nj = the size of the jth group</item>
+    <item>sj = the sum of the values in the jth group</item>
+    <item>n = total number of all the values combined (total sample size: ∑nj)</item>
+    <item>x = one value: ∑x = ∑sj</item>
+    <item>Sum of squares of all values from every group combined: ∑x2</item>
+    <item>Total sum of squares: $$SS_{ \text{total} } = \sum x^{2}\frac{\left( {\sum x} \right)^{2}}{n}$$</item>
+    <item>Explained variation: sum of squares representing variation among the different samples: SSbetween = $$\sum\left\lbrack \frac{{(s_{j})}^{2}}{n_{j}} \right\rbrack - \frac{{(\sum s_{j})}^{2}}{n}$$</item>
+    <item>Unexplained variation: sum of squares representing variation within samples due to chance: $$SS_{ \text{within} } = SS_{ \text{total} }-SS_{ \text{between} }$$</item>
+    <item>df's for different groups (df's for the numerator): $$df_{ \text{between} }$$ = k – 1</item>
+    <item>Equation for errors within samples (df's for the denominator): dfwithin = n – k</item>
+    <item>Mean square (variance estimate) explained by the different groups: MSbetween = $$\frac{SS_{ \text{between} }}{df_{ \text{between} }}$$</item>
+    <item>Mean square (variance estimate) that is due to chance (unexplained): MSwithin = $$\frac{SS_{ \text{within} }}{df_{ \text{within} }}$$</item>
+  </list>
+  <paragraph>MSbetween and MSwithin can be written as follows:</paragraph>
+  <list type="unordered">
+    <item>$$MS_{ \text{between} } = \frac{SS_{ \text{between} }}{df_{ \text{between} }} = \frac{SS_{ \text{between} }}{k - 1}$$</item>
+    <item>$$MS_{within} = \frac{SS_{within}}{df_{within}} = \frac{SS_{within}}{n - k}$$</item>
+  </list>
+  <paragraph>The one-way ANOVA test depends on the fact that MSbetween can be influenced by population differences among means of the several groups. Since MSwithin compares values of each group to its own group mean, the fact that group means might be different does not affect MSwithin.</paragraph>
+  <paragraph>The null hypothesis says that all groups are samples from populations having the same normal distribution. The alternate hypothesis says that at least two of the sample groups come from populations with different normal distributions. If the null hypothesis is true, MSbetween and MSwithin should both estimate the same value.</paragraph>
+  <note type="sidebar" source_type="NOTE" title="NOTE">
+    <paragraph>The null hypothesis says that all the group population means are equal. The hypothesis of equal means implies that the populations have the same normal distribution, because it is assumed that the populations are normal and that they have equal variances.</paragraph>
+  </note>
+  <paragraph>F-Ratio or F Statistic $$F = \frac{MS_{ \text{between} }}{MS_{ \text{within} }}$$</paragraph>
+  <paragraph>If MSbetween and MSwithin estimate the same value (following the belief that H0 is true), then the F-ratio should be approximately equal to one. Mostly, just sampling errors would contribute to variations away from one. As it turns out, MSbetween consists of the population variance plus a variance produced from the differences between the samples. MSwithin is an estimate of the population variance. Since variances are always positive, if the null hypothesis is false, MSbetween will generally be larger than MSwithin.Then the F-ratio will be larger than one. However, if the population effect is small, it is not unlikely that MSwithin will be larger in a given sample.</paragraph>
+  <paragraph>The foregoing calculations were done with groups of different sizes. If the groups are the same size, the calculations simplify somewhat and the F-ratio can be written as:</paragraph>
+  <paragraph>F-Ratio Formula when the groups are the same size $$F = \frac{n \cdot s_{\overline{x}}{}^{2}}{s^{2}{}_{ \text{pooled} }}$$</paragraph>
+  <list type="unordered">
+    <item>n = the sample size</item>
+    <item>dfnumerator = k – 1</item>
+    <item>dfdenominator = n – k</item>
+    <item>s2 pooled = the mean of the sample variances (pooled variance)</item>
+    <item>$$s_{\overline{x}}{}^{2}$$ = the variance of the sample means</item>
+  </list>
+  <paragraph>Data are typically put into a table for easy viewing. One-Way ANOVA results are often displayed in this manner by computer software.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Source of Variation</cell>
+        <cell header="true">Sum of Squares (SS)</cell>
+        <cell header="true">Degrees of Freedom (df)</cell>
+        <cell header="true">Mean Square (MS)</cell>
+        <cell header="true">F</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>Factor (Between)</cell>
+        <cell>SS(Factor)</cell>
+        <cell>k – 1</cell>
+        <cell>MS(Factor) = SS(Factor)/(k – 1)</cell>
+        <cell>F = MS(Factor)/MS(Error)</cell>
+      </row>
+      <row>
+        <cell>Error (Within)</cell>
+        <cell>SS(Error)</cell>
+        <cell>n – k</cell>
+        <cell>MS(Error) = SS(Error)/(n – k)</cell>
+        <cell/>
+      </row>
+      <row>
+        <cell>Total</cell>
+        <cell>SS(Total)</cell>
+        <cell>n – 1</cell>
+        <cell/>
+        <cell/>
+      </row>
+    </tbody>
+  </table>
+  <example number="13.1" title="Using the TI-83, 83+, 84, 84+ Calculator">
+    <paragraph>Three different diet plans are to be tested for mean weight loss. The entries in the table are the weight losses for the different plans. The one-way ANOVA results are shown in Table 13.2.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Plan 1: n1 = 4</cell>
+          <cell header="true">Plan 2: n2 = 3</cell>
+          <cell header="true">Plan 3: n3 = 3</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>5</cell>
+          <cell>3.5</cell>
+          <cell>8</cell>
+        </row>
+        <row>
+          <cell>4.5</cell>
+          <cell>7</cell>
+          <cell>4</cell>
+        </row>
+        <row>
+          <cell>4</cell>
+          <cell/>
+          <cell>3.5</cell>
+        </row>
+        <row>
+          <cell>3</cell>
+          <cell>4.5</cell>
+          <cell/>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>s1 = 16.5, s2 =15, s3 = 15.5</paragraph>
+    <paragraph>Following are the calculations needed to fill in the one-way ANOVA table. The table is used to conduct a hypothesis test.</paragraph>
+    <paragraph math="block">$$SS(between) = \sum\left\lbrack \frac{{(s_{j})}^{2}}{n_{j}} \right\rbrack - \frac{\left( {\sum s_{j}} \right)^{2}}{n }$$</paragraph>
+    <paragraph math="block">$$= \frac{s_{1}^{2}}{4} + \frac{s_{2}^{2}}{3} + \frac{s_{3}^{2}}{3} - \frac{\left( {s_{1} + s_{2} + s_{3}} \right)^{2}}{10}$$</paragraph>
+    <paragraph>where n1 = 4, n2 = 3, n3 = 3 and n = n1 + n2 + n3 = 10</paragraph>
+    <paragraph math="block">$$= \frac{(16.5)^{2}}{4} + \frac{(15)^{2}}{3} + \frac{(15.5)^{2}}{3} - \frac{\left( {16.5 + 15 + 15.5} \right)^{2}}{10}$$</paragraph>
+    <paragraph math="block">$$SS(between) = 2.2458$$</paragraph>
+    <paragraph math="block">$$S(total) = \sum x^{2} - \frac{\left( {\sum x} \right)^{2}}{n}$$</paragraph>
+    <paragraph math="block">$$= \left( {5^{2} + 4.5^{2} + 4^{2} + 3^{2} + 3.5^{2} + 7^{2} + 4.5^{2} + 8^{2} + 4^{2} + 3.5^{2}} \right)$$</paragraph>
+    <paragraph math="block">$$- \frac{{(5 + 4.5 + 4 + 3 + 3.5 + 7 + 4.5 + 8 + 4 + 3.5)}^{2}}{10}$$</paragraph>
+    <paragraph math="block">$$= 244 - \frac{47^{2}}{10} = 244 - 220.9$$</paragraph>
+    <paragraph math="block">$$SS(total) = 23.1$$</paragraph>
+    <paragraph math="block">$$SS(within) = SS(total) - SS(between)$$</paragraph>
+    <paragraph math="block">$$= 23.1 - 2.2458$$</paragraph>
+    <paragraph math="block">$$SS(within) = 20.8542$$</paragraph>
+    <note type="sidebar" source_type="Using the TI-83, 83+, 84, 84+ Calculator" title="Using the TI-83, 83+, 84, 84+ Calculator">
+      <paragraph>One-Way ANOVA Table: The formulas for SS(Total), SS(Factor) = SS(Between) and SS(Error) = SS(Within) as shown previously. The same information is provided by the TI calculator hypothesis test function ANOVA in STAT TESTS (syntax is ANOVA(L1, L2, L3) where L1, L2, L3 have the data from Plan 1, Plan 2, Plan 3 respectively).</paragraph>
+    </note>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Source of Variation</cell>
+          <cell header="true">Sum of Squares (SS)</cell>
+          <cell header="true">Degrees of Freedom (df)</cell>
+          <cell header="true">Mean Square (MS)</cell>
+          <cell header="true">F</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>Factor (Between)</cell>
+          <cell>SS(Factor) = SS(Between) = 2.2458</cell>
+          <cell>k – 1 = 3 groups – 1 = 2</cell>
+          <cell>MS(Factor) = SS(Factor)/(k – 1) = 2.2458/2 = 1.1229</cell>
+          <cell>F = MS(Factor)/MS(Error) = 1.1229/2.9792 = 0.3769</cell>
+        </row>
+        <row>
+          <cell>Error (Within)</cell>
+          <cell>SS(Error) = SS(Within) = 20.8542</cell>
+          <cell>n – k = 10 total data – 3 groups = 7</cell>
+          <cell>MS(Error) = SS(Error)/(n – k) = 20.8542/7 = 2.9792</cell>
+          <cell/>
+        </row>
+        <row>
+          <cell>Total</cell>
+          <cell>SS(Total) = 2.2458 + 20.8542 = 23.1</cell>
+          <cell>n – 1 = 10 total data – 1 = 9</cell>
+          <cell/>
+          <cell/>
+        </row>
+      </tbody>
+    </table>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.1">
+    <paragraph>As part of an experiment to see how different types of soil cover would affect slicing tomato production, Marist College students grew tomato plants under different soil cover conditions. Groups of three plants each had one of the following treatments</paragraph>
+    <list type="unordered">
+      <item>bare soil</item>
+      <item>a commercial ground cover</item>
+      <item>black plastic</item>
+      <item>straw</item>
+      <item>compost</item>
+    </list>
+    <paragraph>All plants grew under the same conditions and were the same variety. Students recorded the weight (in grams) of tomatoes produced by each of the n = 15 plants:</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Bare: n1 = 3</cell>
+          <cell header="true">Ground Cover: n2 = 3</cell>
+          <cell header="true">Plastic: n3 = 3</cell>
+          <cell header="true">Straw: n4 = 3</cell>
+          <cell header="true">Compost: n5 = 3</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>2,625</cell>
+          <cell>5,348</cell>
+          <cell>6,583</cell>
+          <cell>7,285</cell>
+          <cell>6,277</cell>
+        </row>
+        <row>
+          <cell>2,997</cell>
+          <cell>5,682</cell>
+          <cell>8,560</cell>
+          <cell>6,897</cell>
+          <cell>7,818</cell>
+        </row>
+        <row>
+          <cell>4,915</cell>
+          <cell>5,482</cell>
+          <cell>3,830</cell>
+          <cell>9,230</cell>
+          <cell>8,677</cell>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>Create the one-way ANOVA table.</paragraph>
+  </note>
+  <paragraph>The one-way ANOVA hypothesis test is always right-tailed because larger F-values are way out in the right tail of the F-distribution curve and tend to make us reject H0.</paragraph>
+  <heading level="2">Notation</heading>
+  <paragraph>The notation for the F distribution is F ~ Fdf(num),df(denom)</paragraph>
+  <paragraph>where df(num) = dfbetween and df(denom) = dfwithin</paragraph>
+  <paragraph>The mean for the F distribution is $$\mu = \frac{df(denom)}{df(denom)-2}$$</paragraph>
+  <heading level="1">13.3 Facts About the F Distribution</heading>
+  <paragraph>Here are some facts about the F distribution.</paragraph>
+  <list type="ordered">
+    <item>The curve is not symmetrical but skewed to the right.</item>
+    <item>There is a different curve for each set of dfs.</item>
+    <item>The F statistic is greater than or equal to zero.</item>
+    <item>As the degrees of freedom for the numerator and for the denominator get larger, the curve approximates the normal.</item>
+    <item>Other uses for the F distribution include comparing two variances and two-way Analysis of Variance. Two-Way Analysis is beyond the scope of this chapter.</item>
+  </list>
+  <figure number="13.3">
+    <image alt="This graph has an unmarked Y axis and then an X axis that ranges from 0.00 to 4.00. It has three plot lines. The plot line labelled F subscript 1, 5 starts near the top of the Y axis at the extreme left of the graph and drops quickly to near the bottom at 0.50, at which point is slowly decreases in a curved fashion to the 4.00 mark on the X axis. The plot line labelled F subscript 100, 100 remains at Y = 0 for much of its length, except for a distinct peak between 0.50 and 1.50. The peak is a smooth curve that reaches about half way up the Y axis at its peak. The plot line labeled F subscript 5, 10 increases slightly as it progresses from 0.00 to 0.50, after which it peaks and slowly decreases down the remainder of the X axis. The peak only reaches about one fifth up the height of the Y axis."/>
+  </figure>
+  <example number="13.2" title="Using the TI-83, 83+, 84, 84+ Calculator">
+    <problem>
+      <paragraph>Let’s return to the slicing tomato exercise in Example 13.1. The means of the tomato yields under the five mulching conditions are represented by μ1, μ2, μ3, μ4, μ5. We will conduct a hypothesis test to determine if all means are the same or at least one is different. Using a significance level of 5%, test the null hypothesis that there is no difference in mean yields among the five groups against the alternative hypothesis that at least one mean is different from the rest.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The null and alternative hypotheses are:</paragraph>
+      <paragraph>H0: μ1 = μ2 = μ3 = μ4 = μ5</paragraph>
+      <paragraph>Ha: μi ≠ μj some i ≠ j</paragraph>
+      <paragraph>The one-way ANOVA results are shown in Table 13.5</paragraph>
+      <table>
+        <thead>
+          <row>
+            <cell header="true">Source of Variation</cell>
+            <cell header="true">Sum of Squares (SS)</cell>
+            <cell header="true">Degrees of Freedom (df)</cell>
+            <cell header="true">Mean Square (MS)</cell>
+            <cell header="true">F</cell>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <cell>Factor (Between)</cell>
+            <cell>36,648,561</cell>
+            <cell>5 – 1 = 4</cell>
+            <cell>$$\frac{ \text{36,648,561} }{ \text{4} } \text{= 9,162,140}$$</cell>
+            <cell>$$\frac{ \text{9,162,140} }{ \text{2,044,672} \text{.6} } \text{= 4} \text{.4810}$$</cell>
+          </row>
+          <row>
+            <cell>Error (Within)</cell>
+            <cell>20,446,726</cell>
+            <cell>15 – 5 = 10</cell>
+            <cell>$$\frac{ \text{20,446,726} }{ \text{10} } \text{= 2,044,672} \text{.6}$$</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Total</cell>
+            <cell>57,095,287</cell>
+            <cell>15 – 1 = 14</cell>
+            <cell/>
+            <cell/>
+          </row>
+        </tbody>
+      </table>
+      <paragraph>Distribution for the test: F4,10</paragraph>
+      <paragraph>df(num) = 5 – 1 = 4</paragraph>
+      <paragraph>df(denom) = 15 – 5 = 10</paragraph>
+      <paragraph>Test statistic: F = 4.4810</paragraph>
+      <figure number="13.4">
+        <image alt="This graph shows a nonsymmetrical F distribution curve. The horizontal axis extends from 0 - 5, and the vertical axis ranges from 0 - 0.7. The curve is strongly skewed to the right."/>
+      </figure>
+      <paragraph>Probability Statement: p-value = P(F &gt; 4.481) = 0.0248.</paragraph>
+      <paragraph>Compare α and the p-value: α = 0.05, p-value = 0.0248</paragraph>
+      <paragraph>Make a decision: Since α &gt; p-value, we reject H0.</paragraph>
+      <paragraph>Conclusion: At the 5% significance level, we have reasonably strong evidence that differences in mean yields for slicing tomato plants grown under different mulching conditions are unlikely to be due to chance alone. We may conclude that at least some of mulches led to different mean yields.</paragraph>
+      <note type="sidebar" source_type="Using the TI-83, 83+, 84, 84+ Calculator" title="Using the TI-83, 83+, 84, 84+ Calculator">
+        <paragraph>To find these results on the calculator:</paragraph>
+        <paragraph>Press STAT. Press 1:EDIT. Put the data into the lists L1, L2, L3, L4, L5.</paragraph>
+        <paragraph>Press STAT, and arrow over to TESTS, and arrow down to ANOVA. Press ENTER, and then enter L1, L2, L3, L4, L5). Press ENTER. You will see that the values in the foregoing ANOVA table are easily produced by the calculator, including the test statistic and the p-value of the test.</paragraph>
+        <paragraph>The calculator displays: F = 4.4810 p = 0.0248 (p-value) Factor df = 4 SS = 36648560.9 MS = 9162140.23 Error df = 10 SS = 20446726 MS = 2044672.6</paragraph>
+      </note>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.2">
+    <paragraph>There are multiple variants of the virus that causes COVID-19. The length of hospital stays for patients afflicted with various strains of COVID-19 is shown in Table 13.6.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Delta Strain</cell>
+          <cell header="true">Omicron Strain</cell>
+          <cell header="true">Alpha Strain</cell>
+          <cell header="true">Gamma Strain</cell>
+          <cell header="true">Beta Strain</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>13.9</cell>
+          <cell>11.7</cell>
+          <cell>18.2</cell>
+          <cell>16.9</cell>
+          <cell>9.3</cell>
+        </row>
+        <row>
+          <cell>14.9</cell>
+          <cell>15.1</cell>
+          <cell>14.6</cell>
+          <cell>12.8</cell>
+          <cell>15.8</cell>
+        </row>
+        <row>
+          <cell>16.8</cell>
+          <cell>9.9</cell>
+          <cell>10.1</cell>
+          <cell>11.2</cell>
+          <cell>16.4</cell>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>Test whether the mean length of hospital stay is the same or different for the various strains of COVID-19. Construct the ANOVA table, find the p-value, and state your conclusion. Use a 5% significance level.</paragraph>
+  </note>
+  <example number="13.3" title="MEAN GRADES FOR FOUR SORORITIES">
+    <paragraph>Four sororities took a random sample of sisters regarding their grade means for the past term. The results are shown in Table 13.7.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Sorority 1</cell>
+          <cell header="true">Sorority 2</cell>
+          <cell header="true">Sorority 3</cell>
+          <cell header="true">Sorority 4</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>2.17</cell>
+          <cell>2.63</cell>
+          <cell>2.63</cell>
+          <cell>3.79</cell>
+        </row>
+        <row>
+          <cell>1.85</cell>
+          <cell>1.77</cell>
+          <cell>3.78</cell>
+          <cell>3.45</cell>
+        </row>
+        <row>
+          <cell>2.83</cell>
+          <cell>3.25</cell>
+          <cell>4.00</cell>
+          <cell>3.08</cell>
+        </row>
+        <row>
+          <cell>1.69</cell>
+          <cell>1.86</cell>
+          <cell>2.55</cell>
+          <cell>2.26</cell>
+        </row>
+        <row>
+          <cell>3.33</cell>
+          <cell>2.21</cell>
+          <cell>2.45</cell>
+          <cell>3.18</cell>
+        </row>
+      </tbody>
+    </table>
+    <problem>
+      <paragraph>Using a significance level of 1%, is there a difference in mean grades among the sororities?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let μ1, μ2, μ3, μ4 be the population means of the sororities. Remember that the null hypothesis claims that the sorority groups are from the same normal distribution. The alternate hypothesis says that at least two of the sorority groups come from populations with different normal distributions. Notice that the four sample sizes are each five.</paragraph>
+      <note type="sidebar" source_type="NOTE" title="NOTE">
+        <paragraph>This is an example of a balanced design, because each factor (i.e., sorority) has the same number of observations.</paragraph>
+      </note>
+      <paragraph>H0: μ1 = μ2 = μ3 = μ4</paragraph>
+      <paragraph>Ha: Not all of the means μ1, μ2, μ3, μ4 are equal.</paragraph>
+      <paragraph>Distribution for the test: F3,16</paragraph>
+      <paragraph>where k = 4 groups and n = 20 samples in total</paragraph>
+      <paragraph>df(num)= k – 1 = 4 – 1 = 3</paragraph>
+      <paragraph>df(denom) = n – k = 20 – 4 = 16</paragraph>
+      <paragraph>Calculate the test statistic: F = 2.23</paragraph>
+      <paragraph>Graph:</paragraph>
+      <figure number="13.5">
+        <image alt="This graph shows a nonsymmetrical F distribution curve with values of 0 and 2.23 on the x-axis representing the test statistic of sorority grade averages. The curve is slightly skewed to the right, but is approximately normal. A vertical upward line extends from 2.23 to the curve and the area to the right of this is shaded to represent the p-value."/>
+      </figure>
+      <paragraph>Probability statement: p-value = P(F &gt; 2.23) = 0.1241</paragraph>
+      <paragraph>Compare α and the p-value: α = 0.01 p-value = 0.1241 α &lt; p-value</paragraph>
+      <paragraph>Make a decision: Since α &lt; p-value, you cannot reject H0.</paragraph>
+      <paragraph>Conclusion: There is not sufficient evidence to conclude that there is a difference among the mean grades for the sororities.</paragraph>
+      <note type="sidebar" source_type="Using the TI-83, 83+, 84, 84+ Calculator" title="Using the TI-83, 83+, 84, 84+ Calculator">
+        <paragraph>Put the data into lists L1, L2, L3, and L4. Press STAT and arrow over to TESTS. Arrow down to F:ANOVA. Press ENTER and Enter (L1,L2,L3,L4).</paragraph>
+        <paragraph>The calculator displays the F statistic, the p-value and the values for the one-way ANOVA table: F = 2.2303 p = 0.1241 (p-value) Factor df = 3 SS = 2.88732 MS = 0.96244 Error df = 16 SS = 6.9044 MS = 0.431525</paragraph>
+      </note>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.3">
+    <paragraph>Four sports teams took a random sample of players regarding their GPAs for the last year. The results are shown in Table 13.8.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Basketball</cell>
+          <cell header="true">Baseball</cell>
+          <cell header="true">Hockey</cell>
+          <cell header="true">Lacrosse</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>3.6</cell>
+          <cell>2.1</cell>
+          <cell>4.0</cell>
+          <cell>2.0</cell>
+        </row>
+        <row>
+          <cell>2.9</cell>
+          <cell>2.6</cell>
+          <cell>2.0</cell>
+          <cell>3.6</cell>
+        </row>
+        <row>
+          <cell>2.5</cell>
+          <cell>3.9</cell>
+          <cell>2.6</cell>
+          <cell>3.9</cell>
+        </row>
+        <row>
+          <cell>3.3</cell>
+          <cell>3.1</cell>
+          <cell>3.2</cell>
+          <cell>2.7</cell>
+        </row>
+        <row>
+          <cell>3.8</cell>
+          <cell>3.4</cell>
+          <cell>3.2</cell>
+          <cell>2.5</cell>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>Use a significance level of 5%, and determine if there is a difference in GPA among the teams.</paragraph>
+  </note>
+  <example number="13.4" title="Using the TI-83, 83+, 84, 84+ Calculator">
+    <paragraph>A fourth grade class is studying the environment. One of the assignments is to grow bean plants in different soils. Tommy chose to grow his bean plants in soil found outside his classroom mixed with dryer lint. Tara chose to grow her bean plants in potting soil bought at the local nursery. Nick chose to grow his bean plants in soil from his mother's garden. No chemicals were used on the plants, only water. They were grown inside the classroom next to a large window. Each child grew five plants. At the end of the growing period, each plant was measured, producing the data (in inches) in Table 13.9.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Tommy's Plants</cell>
+          <cell header="true">Tara's Plants</cell>
+          <cell header="true">Nick's Plants</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>24</cell>
+          <cell>25</cell>
+          <cell>23</cell>
+        </row>
+        <row>
+          <cell>21</cell>
+          <cell>31</cell>
+          <cell>27</cell>
+        </row>
+        <row>
+          <cell>23</cell>
+          <cell>23</cell>
+          <cell>22</cell>
+        </row>
+        <row>
+          <cell>30</cell>
+          <cell>20</cell>
+          <cell>30</cell>
+        </row>
+        <row>
+          <cell>23</cell>
+          <cell>28</cell>
+          <cell>20</cell>
+        </row>
+      </tbody>
+    </table>
+    <problem>
+      <paragraph>Does it appear that the three media in which the bean plants were grown produce the same mean height? Test at a 3% level of significance.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>This time, we will perform the calculations that lead to the F' statistic. Notice that each group has the same number of plants, so we will use the formula F' = $$\frac{n \cdot s_{\overline{x}}{}^{2}}{s^{2}{}_{ \text{pooled} }}$$ .</paragraph>
+      <paragraph>First, calculate the sample mean and sample variance of each group.</paragraph>
+      <table>
+        <thead>
+          <row>
+            <cell header="true"/>
+            <cell header="true">Tommy's Plants</cell>
+            <cell header="true">Tara's Plants</cell>
+            <cell header="true">Nick's Plants</cell>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <cell>Sample Mean</cell>
+            <cell>24.2</cell>
+            <cell>25.4</cell>
+            <cell>24.4</cell>
+          </row>
+          <row>
+            <cell>Sample Variance</cell>
+            <cell>11.7</cell>
+            <cell>18.3</cell>
+            <cell>16.3</cell>
+          </row>
+        </tbody>
+      </table>
+      <paragraph>Next, calculate the variance of the three group means (Calculate the variance of 24.2, 25.4, and 24.4). Variance of the group means = 0.413 = $$s_{\overline{x}}{}^{2}$$</paragraph>
+      <paragraph>Then MSbetween = $$ns_{\overline{x}}{}^{2}$$ = (5)(0.413) where n = 5 is the sample size (number of plants each child grew).</paragraph>
+      <paragraph>Calculate the mean of the three sample variances (Calculate the mean of 11.7, 18.3, and 16.3). Mean of the sample variances = 15.433 = s2 pooled</paragraph>
+      <paragraph>Then MSwithin = s2pooled = 15.433.</paragraph>
+      <paragraph>The F statistic (or F ratio) is $$F = \frac{MS_{ \text{between} }}{MS_{ \text{within} }} = \frac{ns_{\overline{x}}{}^{2}}{s^{2}{}_{pooled}} = \frac{(5)(0.413)}{15.433} = 0.134$$</paragraph>
+      <paragraph>The dfs for the numerator = the number of groups – 1 = 3 – 1 = 2.</paragraph>
+      <paragraph>The dfs for the denominator = the total number of samples – the number of groups = 15 – 3 = 12</paragraph>
+      <paragraph>The distribution for the test is F2,12 and the F statistic is F = 0.134</paragraph>
+      <paragraph>The p-value is P(F &gt; 0.134) = 0.8759.</paragraph>
+      <paragraph>Decision: Since α = 0.03 and the p-value = 0.8759, do not reject H0. (Why?)</paragraph>
+      <paragraph>Conclusion: With a 3% level of significance, from the sample data, the evidence is not sufficient to conclude that the mean heights of the bean plants are different.</paragraph>
+      <note type="sidebar" source_type="Using the TI-83, 83+, 84, 84+ Calculator" title="Using the TI-83, 83+, 84, 84+ Calculator">
+        <paragraph>To calculate the p-value:</paragraph>
+        <paragraph>*Press 2nd DISTR</paragraph>
+        <paragraph>*Arrow down to Fcdf(and press ENTER.</paragraph>
+        <paragraph>*Enter 0.134, E99, 2, 12)</paragraph>
+        <paragraph>*Press ENTER</paragraph>
+        <paragraph>The p-value is 0.8759.</paragraph>
+      </note>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.4">
+    <paragraph>Another fourth grader also grew bean plants, but this time in a jelly-like mass. The heights were (in inches) 24, 28, 25, 30, and 32. Do a one-way ANOVA test on the four groups. Are the heights of the bean plants different? Use the same method as shown in Example 13.4.</paragraph>
+  </note>
+  <note type="sidebar" source_type="Collaborative Exercise" title="Collaborative Exercise">
+    <paragraph>From the class, create four groups of the same size as follows: men under 22, men at least 22, women under 22, women at least 22. Have each member of each group record the number of states in the United States they have visited. Run an ANOVA test to determine if the average number of states visited in the four groups are the same. Test at a 1% level of significance. Use one of the solution sheets in Appendix E Solution Sheets.</paragraph>
+  </note>
+  <heading level="1">13.4 Test of Two Variances</heading>
+  <paragraph>Another of the uses of the F distribution is testing two variances. It is often desirable to compare two variances rather than two averages. For instance, college administrators would like two college professors grading exams to have the same variation in their grading. In order for a lid to fit a container, the variation in the lid and the container should be the same. A supermarket might be interested in the variability of check-out times for two checkers.</paragraph>
+  <paragraph>In order to perform a F test of two variances, it is important that the following are true:</paragraph>
+  <list type="ordered">
+    <item>The populations from which the two samples are drawn are normally distributed.</item>
+    <item>The two populations are independent of each other.</item>
+  </list>
+  <paragraph>Unlike most other tests in this book, the F test for equality of two variances is very sensitive to deviations from normality. If the two distributions are not normal, the test can give higher p-values than it should, or lower ones, in ways that are unpredictable. Many texts suggest that students not use this test at all, but in the interest of completeness we include it here.</paragraph>
+  <paragraph>Suppose we sample randomly from two independent normal populations. Let $$\sigma_{1}^{2}$$ and $$\sigma_{2}^{2}$$ be the population variances and $$s_{1}^{2}$$ and $$s_{2}^{2}$$ be the sample variances. Let the sample sizes be n1 and n2. Since we are interested in comparing the two sample variances, we use the F ratio:</paragraph>
+  <paragraph>$$F = \frac{\left\lbrack \frac{{(s_{1})}^{2}}{{(\sigma_{1})}^{2}} \right\rbrack}{\left\lbrack \frac{{(s_{2})}^{2}}{{(\sigma_{2})}^{2}} \right\rbrack}$$</paragraph>
+  <paragraph>F has the distribution F ~ F(n1 – 1, n2 – 1)</paragraph>
+  <paragraph>where n1 – 1 are the degrees of freedom for the numerator and n2 – 1 are the degrees of freedom for the denominator.</paragraph>
+  <paragraph>If the null hypothesis is $$\sigma_{1}^{2} = \sigma_{2}^{2}$$ , then the F Ratio becomes $$F = \frac{\left\lbrack \frac{{(s_{1})}^{2}}{{(\sigma_{1})}^{2}} \right\rbrack}{\left\lbrack \frac{{(s_{2})}^{2}}{{(\sigma_{2})}^{2}} \right\rbrack} = \frac{{(s_{1})}^{2}}{{(s_{2})}^{2}}$$ .</paragraph>
+  <note type="sidebar" source_type="NOTE" title="NOTE">
+    <paragraph>The F ratio could also be $$\frac{{(s_{2})}^{2}}{{(s_{1})}^{2}}$$ . It depends on Ha and on which sample variance is larger.</paragraph>
+  </note>
+  <paragraph>If the two populations have equal variances, then $$s_{1}^{2}$$ and $$s_{2}^{2}$$ are close in value and $$F = \frac{{(s_{1})}^{2}}{{(s_{2})}^{2}}$$ is close to one. But if the two population variances are very different, $$s_{1}^{2}$$ and $$s_{2}^{2}$$ tend to be very different, too. Choosing $$s_{1}^{2}$$ as the larger sample variance causes the ratio $$\frac{{(s_{1})}^{2}}{{(s_{2})}^{2}}$$ to be greater than one. If $$s_{1}^{2}$$ and $$s_{2}^{2}$$ are far apart, then $$F = \frac{{(s_{1})}^{2}}{{(s_{2})}^{2}}$$ is a large number.</paragraph>
+  <paragraph>Therefore, if F is close to one, the evidence favors the null hypothesis (the two population variances are equal). But if F is much larger than one, then the evidence is against the null hypothesis. A test of two variances may be left, right, or two-tailed.</paragraph>
+  <example number="13.5" title="Using the TI-83, 83+, 84, 84+ Calculator">
+    <problem>
+      <paragraph>Two college instructors are interested in whether or not there is any variation in the way they grade math exams. They each grade the same set of 30 exams. The first instructor's grades have a variance of 52.3. The second instructor's grades have a variance of 89.9. Test the claim that the first instructor's variance is smaller. (In most colleges, it is desirable for the variances of exam grades to be nearly the same among instructors.) The level of significance is 10%.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let 1 and 2 be the subscripts that indicate the first and second instructor, respectively.</paragraph>
+      <paragraph>n1 = n2 = 30.</paragraph>
+      <paragraph>H0: $$\sigma_{1}^{2} = \sigma_{2}^{2}$$ and Ha: $$\sigma_{1}^{2} \text{&lt;} \sigma_{2}^{2}$$</paragraph>
+      <paragraph>Calculate the test statistic: By the null hypothesis $$(\sigma_{ \text{1} }^{ \text{2} } \text{=} \sigma_{ \text{2} }^{ \text{2} })$$ , the F statistic is:</paragraph>
+      <paragraph>$$F = \frac{\left\lbrack \frac{{(s_{1})}^{2}}{{(\sigma_{1})}^{2}} \right\rbrack}{\left\lbrack \frac{{(s_{2})}^{2}}{{(\sigma_{2})}^{2}} \right\rbrack} = \frac{{(s_{1})}^{2}}{{(s_{2})}^{2}} = \frac{52.3}{89.9} = 0.5818$$</paragraph>
+      <paragraph>Distribution for the test: F29,29 where n1 – 1 = 29 and n2 – 1 = 29.</paragraph>
+      <paragraph>Graph: This test is left tailed.</paragraph>
+      <paragraph>Draw the graph labeling and shading appropriately.</paragraph>
+      <figure number="13.6">
+        <image alt="This graph shows a nonsymmetrical F distribution curve. The curve is slightly skewed to the right, but is approximately normal. The value 0.5818 is marked on the vertical axis to the right of the curve's peak. A vertical upward line extends from 0.5818 to the curve and the area to the left of this line is shaded to represent the p-value."/>
+      </figure>
+      <paragraph>Probability statement: p-value = P(F &lt; 0.5818) = 0.0753</paragraph>
+      <paragraph>Compare α and the p-value: α = 0.10 α &gt; p-value.</paragraph>
+      <paragraph>Make a decision: Since α &gt; p-value, reject H0.</paragraph>
+      <paragraph>Conclusion: With a 10% level of significance, from the data, there is sufficient evidence to conclude that the variance in grades for the first instructor is smaller.</paragraph>
+      <note type="sidebar" source_type="Using the TI-83, 83+, 84, 84+ Calculator" title="Using the TI-83, 83+, 84, 84+ Calculator">
+        <paragraph>Press STAT and arrow over to TESTS. Arrow down to D:2-SampFTest. Press ENTER. Arrow to Stats and press ENTER. For Sx1, n1, Sx2, and n2, enter $$\sqrt{(52.3)}$$ , 30, $$\sqrt{(89.9)}$$ , and 30. Press ENTER after each. Arrow to σ1: and $$&lt;$$ σ2. Press ENTER. Arrow down to Calculate and press ENTER. F = 0.5818 and p-value = 0.0753. Do the procedure again and try Draw instead of Calculate.</paragraph>
+      </note>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="13.5">
+    <paragraph>The New York Choral Society divides its singers who are men up into four categories from highest voices to lowest: Tenor1, Tenor2, Bass1, Bass2. In the table are heights of the men in the Tenor1 and Bass2 groups. One suspects that taller men will have lower voices, and that the variance of height may go up with the lower voices as well. Do we have good evidence that the variance of the heights of singers in each of these two groups (Tenor1 and Bass2) are different?</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Tenor1</cell>
+          <cell header="true">Bass2</cell>
+          <cell header="true">Tenor 1</cell>
+          <cell header="true">Bass 2</cell>
+          <cell header="true">Tenor 1</cell>
+          <cell header="true">Bass 2</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>69</cell>
+          <cell>72</cell>
+          <cell>67</cell>
+          <cell>72</cell>
+          <cell>68</cell>
+          <cell>67</cell>
+        </row>
+        <row>
+          <cell>72</cell>
+          <cell>75</cell>
+          <cell>70</cell>
+          <cell>74</cell>
+          <cell>67</cell>
+          <cell>70</cell>
+        </row>
+        <row>
+          <cell>71</cell>
+          <cell>67</cell>
+          <cell>65</cell>
+          <cell>70</cell>
+          <cell>64</cell>
+          <cell>70</cell>
+        </row>
+        <row>
+          <cell>66</cell>
+          <cell>75</cell>
+          <cell>72</cell>
+          <cell>66</cell>
+          <cell/>
+          <cell>69</cell>
+        </row>
+        <row>
+          <cell>76</cell>
+          <cell>74</cell>
+          <cell>70</cell>
+          <cell>68</cell>
+          <cell/>
+          <cell>72</cell>
+        </row>
+        <row>
+          <cell>74</cell>
+          <cell>72</cell>
+          <cell>68</cell>
+          <cell>75</cell>
+          <cell/>
+          <cell>71</cell>
+        </row>
+        <row>
+          <cell>71</cell>
+          <cell>72</cell>
+          <cell>64</cell>
+          <cell>68</cell>
+          <cell/>
+          <cell>74</cell>
+        </row>
+        <row>
+          <cell>66</cell>
+          <cell>74</cell>
+          <cell>73</cell>
+          <cell>70</cell>
+          <cell/>
+          <cell>75</cell>
+        </row>
+        <row>
+          <cell>68</cell>
+          <cell>72</cell>
+          <cell>66</cell>
+          <cell>72</cell>
+          <cell/>
+          <cell/>
+        </row>
+      </tbody>
+    </table>
+  </note>
+  <heading level="1">13.5 Lab: One-Way ANOVA</heading>
+  <note type="sidebar" source_type="Stats Lab" title="Stats Lab">
+    <heading level="3">One-Way ANOVA</heading>
+    <paragraph>Class Time:</paragraph>
+    <paragraph>Names:</paragraph>
+    <list type="unordered">
+      <item>The student will conduct a simple one-way ANOVA test involving three variables.</item>
+    </list>
+    <list type="ordered">
+      <item>Record the price per pound of eight fruits, eight vegetables, and eight breads in your local supermarket. Fruits Vegetables Breads Table 13.12</item>
+      <item>Explain how you could try to collect the data randomly.</item>
+    </list>
+    <list type="ordered">
+      <item>State the null hypothesis and the alternative hypothesis.</item>
+      <item>Compute the following: Fruit: $$\overline{x}$$ = ______ $$s_{x}$$ = ______ n = ______ Vegetables: $$\overline{x}$$ = ______ $$s_{x}$$ = ______ n = ______ Bread: $$\overline{x}$$ = ______ $$s_{x}$$ = ______ n = ______</item>
+      <item>Find the following: df(num) = ______ df(denom) = ______</item>
+      <item>State the approximate distribution for the test.</item>
+      <item>Test statistic: F = ______</item>
+      <item>Sketch a graph of this situation. CLEARLY, label and scale the horizontal axis and shade the region(s) corresponding to the p-value.</item>
+      <item>p-value = ______</item>
+      <item>Test at α = 0.05. State your decision and conclusion.</item>
+      <item>Decision: Why did you make this decision? Conclusion (write a complete sentence). Based on the results of your study, is there a need to investigate any of the food groups’ prices? Why or why not?</item>
+    </list>
+  </note>
+  <heading level="1">Key Terms</heading>
+  <list type="unordered">
+    <item>Analysis of Variance: also referred to as ANOVA, is a method of testing whether or not the means of three or more populations are equal. The method is applicable if: all populations of interest are normally distributed. the populations have equal standard deviations. samples (not necessarily of the same size) are randomly and independently selected from each population. The test statistic for analysis of variance is the F-ratio.</item>
+  </list>
+  <list type="unordered">
+    <item>One-Way ANOVA: a method of testing whether or not the means of three or more populations are equal; the method is applicable if: all populations of interest are normally distributed. the populations have equal standard deviations. samples (not necessarily of the same size) are randomly and independently selected from each population. there is one independent variable and one dependent variable. The test statistic for analysis of variance is the F-ratio.</item>
+  </list>
+  <list type="unordered">
+    <item>Variance: mean of the squared deviations from the mean; the square of the standard deviation. For a set of data, a deviation can be represented as x – $$\overline{x}$$ where x is a value of the data and $$\overline{x}$$ is the sample mean. The sample variance is equal to the sum of the squares of the deviations divided by the difference of the sample size and one.</item>
+  </list>
+  <heading level="1">Chapter Review</heading>
+  <heading level="2">Assumptions:</heading>
+  <paragraph>Analysis of variance extends the comparison of two groups to several, each a level of a categorical variable (factor). Samples from each group are independent, and must be randomly selected from normal populations with equal variances. We test the null hypothesis of equal means of the response in every group versus the alternative hypothesis of one or more group means being different from the others. A one-way ANOVA hypothesis test determines if several population means are equal. The distribution for the test is the F distribution with two different degrees of freedom.</paragraph>
+  <list type="ordered">
+    <item>Each population from which a sample is taken is assumed to be normal.</item>
+    <item>All samples are randomly selected and independent.</item>
+    <item>The populations are assumed to have equal standard deviations (or variances).</item>
+  </list>
+  <paragraph>Analysis of variance compares the means of a response variable for several groups. ANOVA compares the variation within each group to the variation of the mean of each group. The ratio of these two is the F statistic from an F distribution with (number of groups – 1) as the numerator degrees of freedom and (number of observations – number of groups) as the denominator degrees of freedom. These statistics are summarized in the ANOVA table.</paragraph>
+  <paragraph>The graph of the F distribution is always positive and skewed right, though the shape can be mounded or exponential depending on the combination of numerator and denominator degrees of freedom. The F statistic is the ratio of a measure of the variation in the group means to a similar measure of the variation within the groups. If the null hypothesis is correct, then the numerator should be small compared to the denominator. A small F statistic will result, and the area under the F curve to the right will be large, representing a large p-value. When the null hypothesis of equal group means is incorrect, then the numerator should be large compared to the denominator, giving a large F statistic and a small area (small p-value) to the right of the statistic under the F curve.</paragraph>
+  <paragraph>When the data have unequal group sizes (unbalanced data), then techniques from 13.2 The F Distribution and the F-Ratio need to be used for hand calculations. In the case of balanced data (the groups are the same size) however, simplified calculations based on group means and variances may be used. In practice, of course, software is usually employed in the analysis. As in any analysis, graphs of various sorts should be used in conjunction with numerical techniques. Always look of your data!</paragraph>
+  <heading level="2">Assumptions:</heading>
+  <paragraph>The F test for the equality of two variances rests heavily on the assumption of normal distributions. The test is unreliable if this assumption is not met. If both distributions are normal, then the ratio of the two sample variances is distributed as an F statistic, with numerator and denominator degrees of freedom that are one less than the samples sizes of the corresponding two groups. A test of two variances hypothesis test determines if two variances are the same. The distribution for the hypothesis test is the F distribution with two different degrees of freedom.</paragraph>
+  <list type="ordered">
+    <item>The populations from which the two samples are drawn are normally distributed.</item>
+    <item>The two populations are independent of each other.</item>
+  </list>
+  <heading level="1">Formula Review</heading>
+  <paragraph>$$SS_{ \text{between} } = \sum^{}\left\lbrack \frac{{(s_{j})}^{2}}{n_{j}} \right\rbrack - \frac{\left( {\sum^{}s_{j}} \right)^{2}}{n }$$</paragraph>
+  <paragraph>$$SS_{ \text{total} } = \sum^{}x^{2} - \frac{\left( {\sum^{}x} \right)^{2}}{n}$$</paragraph>
+  <paragraph>$$SS_{ \text{within} } = SS_{ \text{total} } - SS_{ \text{between} }$$</paragraph>
+  <paragraph>dfbetween = df(num) = k – 1</paragraph>
+  <paragraph>dfwithin = df(denom) = n – k</paragraph>
+  <paragraph>MSbetween = $$\frac{SS_{ \text{between} }}{df_{ \text{between} }}$$</paragraph>
+  <paragraph>MSwithin = $$\frac{SS_{ \text{within} }}{df_{ \text{within} }}$$</paragraph>
+  <paragraph>F = $$\frac{MS_{ \text{between} }}{MS_{ \text{within} }}$$</paragraph>
+  <paragraph>F ratio when the groups are the same size: F = $$\frac{ns_{\overline{x}}{}^{2}}{s^{ \text{2} }{}_{pooled}}$$</paragraph>
+  <paragraph>Mean of the F distribution: µ = $$\frac{df(num)}{df(denom) - 2}$$</paragraph>
+  <paragraph>where:</paragraph>
+  <list type="unordered">
+    <item>k = the number of groups</item>
+    <item>nj = the size of the jth group</item>
+    <item>sj = the sum of the values in the jth group</item>
+    <item>n = the total number of all values (observations) combined</item>
+    <item>x = one value (one observation) from the data</item>
+    <item>$$s_{\overline{x}}{}^{2}$$ = the variance of the sample means</item>
+    <item>$$s^{2}{}_{pooled}$$ = the mean of the sample variances (pooled variance)</item>
+  </list>
+  <paragraph>F has the distribution F ~ F(n1 – 1, n2 – 1)</paragraph>
+  <paragraph>F = $$\frac{\frac{s_{1}^{2}}{\sigma_{1}^{2}}}{\frac{s_{2}^{2}}{\sigma_{2}^{2}}}$$</paragraph>
+  <paragraph>If σ1 = σ2, then F = $$\frac{s_{1}{}^{2}}{s_{2}{}^{2}}$$</paragraph>
+  <heading level="1">Homework</heading>
+  <exercises>
+    <heading level="1">Homework</heading>
+    <exercise number="59" has_solution="false">
+      <problem>
+        <paragraph>Three different traffic routes are tested for mean driving time. The entries in the Table 13.18 are the driving times in minutes on the three different routes.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Route 1</cell>
+              <cell header="true">Route 2</cell>
+              <cell header="true">Route 3</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>30</cell>
+              <cell>27</cell>
+              <cell>16</cell>
+            </row>
+            <row>
+              <cell>32</cell>
+              <cell>29</cell>
+              <cell>41</cell>
+            </row>
+            <row>
+              <cell>27</cell>
+              <cell>28</cell>
+              <cell>22</cell>
+            </row>
+            <row>
+              <cell>35</cell>
+              <cell>36</cell>
+              <cell>31</cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>State SSbetween, SSwithin, and the F statistic.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="60" has_solution="false">
+      <problem>
+        <paragraph>Suppose a group is interested in determining whether teenagers obtain their drivers licenses at approximately the same average age across the country. Suppose that the following data are randomly collected from five teenagers in each region of the country. The numbers represent the age at which teenagers obtained their drivers licenses.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true"/>
+              <cell header="true">Northeast</cell>
+              <cell header="true">South</cell>
+              <cell header="true">West</cell>
+              <cell header="true">Central</cell>
+              <cell header="true">East</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell/>
+              <cell>16.3</cell>
+              <cell>16.9</cell>
+              <cell>16.4</cell>
+              <cell>16.2</cell>
+              <cell>17.1</cell>
+            </row>
+            <row>
+              <cell/>
+              <cell>16.1</cell>
+              <cell>16.5</cell>
+              <cell>16.5</cell>
+              <cell>16.6</cell>
+              <cell>17.2</cell>
+            </row>
+            <row>
+              <cell/>
+              <cell>16.4</cell>
+              <cell>16.4</cell>
+              <cell>16.6</cell>
+              <cell>16.5</cell>
+              <cell>16.6</cell>
+            </row>
+            <row>
+              <cell/>
+              <cell>16.5</cell>
+              <cell>16.2</cell>
+              <cell>16.1</cell>
+              <cell>16.4</cell>
+              <cell>16.8</cell>
+            </row>
+            <row>
+              <cell>$$\overline{x} =$$</cell>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+            </row>
+            <row>
+              <cell>$$s^{2} =$$</cell>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>State the hypotheses.</paragraph>
+        <paragraph>H0: ____________</paragraph>
+        <paragraph>Ha: ____________</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next three exercises. Suppose a group is interested in determining whether teenagers obtain their drivers licenses at approximately the same average age across the country. Suppose that the following data are randomly collected from five teenagers in each region of the country. The numbers represent the age at which teenagers obtained their drivers licenses.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true"/>
+          <cell header="true">Northeast</cell>
+          <cell header="true">South</cell>
+          <cell header="true">West</cell>
+          <cell header="true">Central</cell>
+          <cell header="true">East</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell/>
+          <cell>16.3</cell>
+          <cell>16.9</cell>
+          <cell>16.4</cell>
+          <cell>16.2</cell>
+          <cell>17.1</cell>
+        </row>
+        <row>
+          <cell/>
+          <cell>16.1</cell>
+          <cell>16.5</cell>
+          <cell>16.5</cell>
+          <cell>16.6</cell>
+          <cell>17.2</cell>
+        </row>
+        <row>
+          <cell/>
+          <cell>16.4</cell>
+          <cell>16.4</cell>
+          <cell>16.6</cell>
+          <cell>16.5</cell>
+          <cell>16.6</cell>
+        </row>
+        <row>
+          <cell/>
+          <cell>16.5</cell>
+          <cell>16.2</cell>
+          <cell>16.1</cell>
+          <cell>16.4</cell>
+          <cell>16.8</cell>
+        </row>
+        <row>
+          <cell>$$\overline{x} =$$</cell>
+          <cell/>
+          <cell/>
+          <cell/>
+          <cell/>
+          <cell/>
+        </row>
+        <row>
+          <cell>$$s^{2} =$$</cell>
+          <cell/>
+          <cell/>
+          <cell/>
+          <cell/>
+          <cell/>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>H0: µ1 = µ2 = µ3 = µ4 = µ5</paragraph>
+    <paragraph>Hα: At least any two of the group means µ1, µ2, …, µ5 are not equal.</paragraph>
+    <exercise number="61" has_solution="false">
+      <problem>
+        <paragraph>degrees of freedom – numerator: df(num) = _________</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="62" has_solution="false">
+      <problem>
+        <paragraph>degrees of freedom – denominator: df(denom) = ________</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="63" has_solution="false">
+      <problem>
+        <paragraph>F statistic = ________</paragraph>
+      </problem>
+    </exercise>
+    <note type="rule" source_type="DIRECTIONS" title="DIRECTIONS">
+      <paragraph>Use a solution sheet to conduct the following hypothesis tests. The solution sheet can be found in Appendix E Solution Sheets.</paragraph>
+    </note>
+    <exercise number="64" has_solution="false">
+      <problem>
+        <paragraph>Three students, Linda, Tuan, and Javier, are given five laboratory rats each for a nutritional experiment. Each rat's weight is recorded in grams. Linda feeds her rats Formula A, Tuan feeds his rats Formula B, and Javier feeds his rats Formula C. At the end of a specified time period, each rat is weighed again, and the net gain in grams is recorded. Using a significance level of 10%, test the hypothesis that the three formulas produce the same mean weight gain.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Linda's rats</cell>
+              <cell header="true">Tuan's rats</cell>
+              <cell header="true">Javier's rats</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>43.5</cell>
+              <cell>47.0</cell>
+              <cell>51.2</cell>
+            </row>
+            <row>
+              <cell>39.4</cell>
+              <cell>40.5</cell>
+              <cell>40.9</cell>
+            </row>
+            <row>
+              <cell>41.3</cell>
+              <cell>38.9</cell>
+              <cell>37.9</cell>
+            </row>
+            <row>
+              <cell>46.0</cell>
+              <cell>46.3</cell>
+              <cell>45.0</cell>
+            </row>
+            <row>
+              <cell>38.2</cell>
+              <cell>44.2</cell>
+              <cell>48.6</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="65" has_solution="false">
+      <problem>
+        <paragraph>A grassroots group opposed to a proposed increase in the gas tax claimed that the increase would hurt working-class people the most, since they commute the farthest to work. Suppose that the group randomly surveyed 24 individuals and asked them their daily one-way commuting mileage. The results are in Table 13.22. Using a 5% significance level, test the hypothesis that the three mean commuting mileages are the same.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">working-class</cell>
+              <cell header="true">professional (middle incomes)</cell>
+              <cell header="true">professional (wealthy)</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>17.8</cell>
+              <cell>16.5</cell>
+              <cell>8.5</cell>
+            </row>
+            <row>
+              <cell>26.7</cell>
+              <cell>17.4</cell>
+              <cell>6.3</cell>
+            </row>
+            <row>
+              <cell>49.4</cell>
+              <cell>22.0</cell>
+              <cell>4.6</cell>
+            </row>
+            <row>
+              <cell>9.4</cell>
+              <cell>7.4</cell>
+              <cell>12.6</cell>
+            </row>
+            <row>
+              <cell>65.4</cell>
+              <cell>9.4</cell>
+              <cell>11.0</cell>
+            </row>
+            <row>
+              <cell>47.1</cell>
+              <cell>2.1</cell>
+              <cell>28.6</cell>
+            </row>
+            <row>
+              <cell>19.5</cell>
+              <cell>6.4</cell>
+              <cell>15.4</cell>
+            </row>
+            <row>
+              <cell>51.2</cell>
+              <cell>13.9</cell>
+              <cell>9.3</cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>Use the following information to answer the next two exercises. Table 13.23 lists the number of pages in four different types of magazines.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">home decorating</cell>
+              <cell header="true">news</cell>
+              <cell header="true">health</cell>
+              <cell header="true">computer</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>172</cell>
+              <cell>87</cell>
+              <cell>82</cell>
+              <cell>104</cell>
+            </row>
+            <row>
+              <cell>286</cell>
+              <cell>94</cell>
+              <cell>153</cell>
+              <cell>136</cell>
+            </row>
+            <row>
+              <cell>163</cell>
+              <cell>123</cell>
+              <cell>87</cell>
+              <cell>98</cell>
+            </row>
+            <row>
+              <cell>205</cell>
+              <cell>106</cell>
+              <cell>103</cell>
+              <cell>207</cell>
+            </row>
+            <row>
+              <cell>197</cell>
+              <cell>101</cell>
+              <cell>96</cell>
+              <cell>146</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="66" has_solution="false">
+      <problem>
+        <paragraph>Using a significance level of 5%, test the hypothesis that the four magazine types have the same mean length.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="67" has_solution="false">
+      <problem>
+        <paragraph>Eliminate one magazine type that you now feel has a mean length different from the others. Redo the hypothesis test, testing that the remaining three means are statistically the same. Use a new solution sheet. Based on this test, are the mean lengths for the remaining three magazines statistically the same?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="68" has_solution="false">
+      <problem>
+        <paragraph>A researcher wants to know if the mean times (in minutes) that people watch their favorite news station are the same. Suppose that Table 13.24 shows the results of a study.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">CNN</cell>
+              <cell header="true">FOX</cell>
+              <cell header="true">Local</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>45</cell>
+              <cell>15</cell>
+              <cell>72</cell>
+            </row>
+            <row>
+              <cell>12</cell>
+              <cell>43</cell>
+              <cell>37</cell>
+            </row>
+            <row>
+              <cell>18</cell>
+              <cell>68</cell>
+              <cell>56</cell>
+            </row>
+            <row>
+              <cell>38</cell>
+              <cell>50</cell>
+              <cell>60</cell>
+            </row>
+            <row>
+              <cell>23</cell>
+              <cell>31</cell>
+              <cell>51</cell>
+            </row>
+            <row>
+              <cell>35</cell>
+              <cell>22</cell>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>Assume that all distributions are normal, the four population standard deviations are approximately the same, and the data were collected independently and randomly. Use a level of significance of 0.05.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="69" has_solution="false">
+      <problem>
+        <paragraph>Are the means for the final exams the same for all statistics class delivery types? Table 13.25 shows the scores on final exams from several randomly selected classes that used the different delivery types.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Online</cell>
+              <cell header="true">Hybrid</cell>
+              <cell header="true">Face-to-Face</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>72</cell>
+              <cell>83</cell>
+              <cell>80</cell>
+            </row>
+            <row>
+              <cell>84</cell>
+              <cell>73</cell>
+              <cell>78</cell>
+            </row>
+            <row>
+              <cell>77</cell>
+              <cell>84</cell>
+              <cell>84</cell>
+            </row>
+            <row>
+              <cell>80</cell>
+              <cell>81</cell>
+              <cell>81</cell>
+            </row>
+            <row>
+              <cell>81</cell>
+              <cell/>
+              <cell>86</cell>
+            </row>
+            <row>
+              <cell/>
+              <cell/>
+              <cell>79</cell>
+            </row>
+            <row>
+              <cell/>
+              <cell/>
+              <cell>82</cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>Assume that all distributions are normal, the four population standard deviations are approximately the same, and the data were collected independently and randomly. Use a level of significance of 0.05.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="70" has_solution="false">
+      <problem>
+        <paragraph>Are the mean number of times a month a person eats out the same for White, Black, Hispanic/Latino and Asian people? Suppose that Table 13.26 shows the results of a study.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">White</cell>
+              <cell header="true">Black</cell>
+              <cell header="true">Hispanic/Latino</cell>
+              <cell header="true">Asian</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>6</cell>
+              <cell>4</cell>
+              <cell>7</cell>
+              <cell>8</cell>
+            </row>
+            <row>
+              <cell>8</cell>
+              <cell>1</cell>
+              <cell>3</cell>
+              <cell>3</cell>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell>5</cell>
+              <cell>5</cell>
+              <cell>5</cell>
+            </row>
+            <row>
+              <cell>4</cell>
+              <cell>2</cell>
+              <cell>4</cell>
+              <cell>1</cell>
+            </row>
+            <row>
+              <cell>6</cell>
+              <cell/>
+              <cell>6</cell>
+              <cell>7</cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>Assume that all distributions are normal, the four population standard deviations are approximately the same, and the data were collected independently and randomly. Use a level of significance of 0.05.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="71" has_solution="false">
+      <problem>
+        <paragraph>Are the mean numbers of daily visitors to a ski resort the same for the three types of snow conditions? Suppose that Table 13.27 shows the results of a study.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Powder</cell>
+              <cell header="true">Machine Made</cell>
+              <cell header="true">Hard Packed</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>1,210</cell>
+              <cell>2,107</cell>
+              <cell>2,846</cell>
+            </row>
+            <row>
+              <cell>1,080</cell>
+              <cell>1,149</cell>
+              <cell>1,638</cell>
+            </row>
+            <row>
+              <cell>1,537</cell>
+              <cell>862</cell>
+              <cell>2,019</cell>
+            </row>
+            <row>
+              <cell>941</cell>
+              <cell>1,870</cell>
+              <cell>1,178</cell>
+            </row>
+            <row>
+              <cell/>
+              <cell>1,528</cell>
+              <cell>2,233</cell>
+            </row>
+            <row>
+              <cell/>
+              <cell>1,382</cell>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>Assume that all distributions are normal, the four population standard deviations are approximately the same, and the data were collected independently and randomly. Use a level of significance of 0.05.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="72" has_solution="false">
+      <problem>
+        <paragraph>Sanjay made identical paper airplanes out of three different weights of paper, light, medium and heavy. He made four airplanes from each of the weights, and launched them himself across the room. Here are the distances (in meters) that his planes flew.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Paper Type/Trial</cell>
+              <cell header="true">Trial 1</cell>
+              <cell header="true">Trial 2</cell>
+              <cell header="true">Trial 3</cell>
+              <cell header="true">Trial 4</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Heavy</cell>
+              <cell>5.1 meters</cell>
+              <cell>3.1 meters</cell>
+              <cell>4.7 meters</cell>
+              <cell>5.3 meters</cell>
+            </row>
+            <row>
+              <cell>Medium</cell>
+              <cell>4 meters</cell>
+              <cell>3.5 meters</cell>
+              <cell>4.5 meters</cell>
+              <cell>6.1 meters</cell>
+            </row>
+            <row>
+              <cell>Light</cell>
+              <cell>3.1 meters</cell>
+              <cell>3.3 meters</cell>
+              <cell>2.1 meters</cell>
+              <cell>1.9 meters</cell>
+            </row>
+          </tbody>
+        </table>
+        <figure number="13.7">
+          <image alt="the graph is a scatter plot which represents the data provided. The horizontal axis is labeled 'Distance in Meters,' and extends form 2 to 6. The vertical axis is labeled 'Weight of Paper' and has light, medium, and heavy categories."/>
+        </figure>
+        <list type="ordered">
+          <item>Take a look at the data in the graph. Look at the spread of data for each group (light, medium, heavy). Does it seem reasonable to assume a normal distribution with the same variance for each group? Yes or No.</item>
+          <item>Why is this a balanced design?</item>
+          <item>Calculate the sample mean and sample standard deviation for each group.</item>
+          <item>Does the weight of the paper have an effect on how far the plane will travel? Use a 1% level of significance. Complete the test using the method shown in the bean plant example in Example 13.4. variance of the group means __________ MSbetween= ___________ mean of the three sample variances ___________ MSwithin = _____________ F statistic = ____________ df(num) = __________, df(denom) = ___________ number of groups _______ number of observations _______ p-value = __________ (P(F &gt; _______) = __________) Graph the p-value. decision: _______________________ conclusion: _______________________________________________________________</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="73" has_solution="false">
+      <problem>
+        <paragraph>DDT is a pesticide that has been banned from use in the United States and most other areas of the world. It is quite effective, but persisted in the environment and over time became seen as harmful to higher-level organisms. Famously, egg shells of eagles and other raptors were believed to be thinner and prone to breakage in the nest because of ingestion of DDT in the food chain of the birds.</paragraph>
+        <paragraph>An experiment was conducted on the number of eggs (fecundity) laid by female fruit flies. There are three groups of flies. One group was bred to be resistant to DDT (the RS group). Another was bred to be especially susceptible to DDT (SS). Finally there was a control line of non-selected or typical fruitflies (NS). Here are the data:</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">RS</cell>
+              <cell header="true">SS</cell>
+              <cell header="true">NS</cell>
+              <cell header="true">RS</cell>
+              <cell header="true">SS</cell>
+              <cell header="true">NS</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>12.8</cell>
+              <cell>38.4</cell>
+              <cell>35.4</cell>
+              <cell>22.4</cell>
+              <cell>23.1</cell>
+              <cell>22.6</cell>
+            </row>
+            <row>
+              <cell>21.6</cell>
+              <cell>32.9</cell>
+              <cell>27.4</cell>
+              <cell>27.5</cell>
+              <cell>29.4</cell>
+              <cell>40.4</cell>
+            </row>
+            <row>
+              <cell>14.8</cell>
+              <cell>48.5</cell>
+              <cell>19.3</cell>
+              <cell>20.3</cell>
+              <cell>16</cell>
+              <cell>34.4</cell>
+            </row>
+            <row>
+              <cell>23.1</cell>
+              <cell>20.9</cell>
+              <cell>41.8</cell>
+              <cell>38.7</cell>
+              <cell>20.1</cell>
+              <cell>30.4</cell>
+            </row>
+            <row>
+              <cell>34.6</cell>
+              <cell>11.6</cell>
+              <cell>20.3</cell>
+              <cell>26.4</cell>
+              <cell>23.3</cell>
+              <cell>14.9</cell>
+            </row>
+            <row>
+              <cell>19.7</cell>
+              <cell>22.3</cell>
+              <cell>37.6</cell>
+              <cell>23.7</cell>
+              <cell>22.9</cell>
+              <cell>51.8</cell>
+            </row>
+            <row>
+              <cell>22.6</cell>
+              <cell>30.2</cell>
+              <cell>36.9</cell>
+              <cell>26.1</cell>
+              <cell>22.5</cell>
+              <cell>33.8</cell>
+            </row>
+            <row>
+              <cell>29.6</cell>
+              <cell>33.4</cell>
+              <cell>37.3</cell>
+              <cell>29.5</cell>
+              <cell>15.1</cell>
+              <cell>37.9</cell>
+            </row>
+            <row>
+              <cell>16.4</cell>
+              <cell>26.7</cell>
+              <cell>28.2</cell>
+              <cell>38.6</cell>
+              <cell>31</cell>
+              <cell>29.5</cell>
+            </row>
+            <row>
+              <cell>20.3</cell>
+              <cell>39</cell>
+              <cell>23.4</cell>
+              <cell>44.4</cell>
+              <cell>16.9</cell>
+              <cell>42.4</cell>
+            </row>
+            <row>
+              <cell>29.3</cell>
+              <cell>12.8</cell>
+              <cell>33.7</cell>
+              <cell>23.2</cell>
+              <cell>16.1</cell>
+              <cell>36.6</cell>
+            </row>
+            <row>
+              <cell>14.9</cell>
+              <cell>14.6</cell>
+              <cell>29.2</cell>
+              <cell>23.6</cell>
+              <cell>10.8</cell>
+              <cell>47.4</cell>
+            </row>
+            <row>
+              <cell>27.3</cell>
+              <cell>12.2</cell>
+              <cell>41.7</cell>
+              <cell/>
+              <cell/>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>The values are the average number of eggs laid daily for each of 75 flies (25 in each group) over the first 14 days of their lives. Using a 1% level of significance, are the mean rates of egg selection for the three strains of fruitfly different? If so, in what way? Specifically, the researchers were interested in whether or not the selectively bred strains were different from the nonselected line, and whether the two selected lines were different from each other.</paragraph>
+        <paragraph>Here is a chart of the three groups:</paragraph>
+        <figure number="13.8">
+          <image alt="This graph is a scatterplot which represents the data provided. The horizontal axis is labeled 'Mean eggs laid per day' and extends from 10 - 50. The vertical axis is labeled 'Fruitflies DDT resistant or susceptible, or not selected.' The vertical axis is labeled with the categories NS, RS, SS."/>
+        </figure>
+      </problem>
+    </exercise>
+    <exercise number="74" has_solution="false">
+      <problem>
+        <paragraph>The data shown is the recorded body temperatures of 130 subjects as estimated from available histograms.</paragraph>
+        <paragraph>Traditionally we are taught that the normal human body temperature is 98.6 F. This is not quite correct for everyone. Are the mean temperatures among the four groups different?</paragraph>
+        <paragraph>Calculate 95% confidence intervals for the mean body temperature in each group and comment about the confidence intervals.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">FL</cell>
+              <cell header="true">FH</cell>
+              <cell header="true">ML</cell>
+              <cell header="true">MH</cell>
+              <cell header="true">FL</cell>
+              <cell header="true">FH</cell>
+              <cell header="true">ML</cell>
+              <cell header="true">MH</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>96.4</cell>
+              <cell>96.8</cell>
+              <cell>96.3</cell>
+              <cell>96.9</cell>
+              <cell>98.4</cell>
+              <cell>98.6</cell>
+              <cell>98.1</cell>
+              <cell>98.6</cell>
+            </row>
+            <row>
+              <cell>96.7</cell>
+              <cell>97.7</cell>
+              <cell>96.7</cell>
+              <cell>97</cell>
+              <cell>98.7</cell>
+              <cell>98.6</cell>
+              <cell>98.1</cell>
+              <cell>98.6</cell>
+            </row>
+            <row>
+              <cell>97.2</cell>
+              <cell>97.8</cell>
+              <cell>97.1</cell>
+              <cell>97.1</cell>
+              <cell>98.7</cell>
+              <cell>98.6</cell>
+              <cell>98.2</cell>
+              <cell>98.7</cell>
+            </row>
+            <row>
+              <cell>97.2</cell>
+              <cell>97.9</cell>
+              <cell>97.2</cell>
+              <cell>97.1</cell>
+              <cell>98.7</cell>
+              <cell>98.7</cell>
+              <cell>98.2</cell>
+              <cell>98.8</cell>
+            </row>
+            <row>
+              <cell>97.4</cell>
+              <cell>98</cell>
+              <cell>97.3</cell>
+              <cell>97.4</cell>
+              <cell>98.7</cell>
+              <cell>98.7</cell>
+              <cell>98.2</cell>
+              <cell>98.8</cell>
+            </row>
+            <row>
+              <cell>97.6</cell>
+              <cell>98</cell>
+              <cell>97.4</cell>
+              <cell>97.5</cell>
+              <cell>98.8</cell>
+              <cell>98.8</cell>
+              <cell>98.2</cell>
+              <cell>98.8</cell>
+            </row>
+            <row>
+              <cell>97.7</cell>
+              <cell>98</cell>
+              <cell>97.4</cell>
+              <cell>97.6</cell>
+              <cell>98.8</cell>
+              <cell>98.8</cell>
+              <cell>98.3</cell>
+              <cell>98.9</cell>
+            </row>
+            <row>
+              <cell>97.8</cell>
+              <cell>98</cell>
+              <cell>97.4</cell>
+              <cell>97.7</cell>
+              <cell>98.8</cell>
+              <cell>98.8</cell>
+              <cell>98.4</cell>
+              <cell>99</cell>
+            </row>
+            <row>
+              <cell>97.8</cell>
+              <cell>98.1</cell>
+              <cell>97.5</cell>
+              <cell>97.8</cell>
+              <cell>98.8</cell>
+              <cell>98.9</cell>
+              <cell>98.4</cell>
+              <cell>99</cell>
+            </row>
+            <row>
+              <cell>97.9</cell>
+              <cell>98.3</cell>
+              <cell>97.6</cell>
+              <cell>97.9</cell>
+              <cell>99.2</cell>
+              <cell>99</cell>
+              <cell>98.5</cell>
+              <cell>99</cell>
+            </row>
+            <row>
+              <cell>97.9</cell>
+              <cell>98.3</cell>
+              <cell>97.6</cell>
+              <cell>98</cell>
+              <cell>99.3</cell>
+              <cell>99</cell>
+              <cell>98.5</cell>
+              <cell>99.2</cell>
+            </row>
+            <row>
+              <cell>98</cell>
+              <cell>98.3</cell>
+              <cell>97.8</cell>
+              <cell>98</cell>
+              <cell/>
+              <cell>99.1</cell>
+              <cell>98.6</cell>
+              <cell>99.5</cell>
+            </row>
+            <row>
+              <cell>98.2</cell>
+              <cell>98.4</cell>
+              <cell>97.8</cell>
+              <cell>98</cell>
+              <cell/>
+              <cell>99.1</cell>
+              <cell>98.6</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>98.2</cell>
+              <cell>98.4</cell>
+              <cell>97.8</cell>
+              <cell>98.3</cell>
+              <cell/>
+              <cell>99.2</cell>
+              <cell>98.7</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>98.2</cell>
+              <cell>98.4</cell>
+              <cell>97.9</cell>
+              <cell>98.4</cell>
+              <cell/>
+              <cell>99.4</cell>
+              <cell>99.1</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>98.2</cell>
+              <cell>98.4</cell>
+              <cell>98</cell>
+              <cell>98.4</cell>
+              <cell/>
+              <cell>99.9</cell>
+              <cell>99.3</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>98.2</cell>
+              <cell>98.5</cell>
+              <cell>98</cell>
+              <cell>98.6</cell>
+              <cell/>
+              <cell>100</cell>
+              <cell>99.4</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>98.2</cell>
+              <cell>98.6</cell>
+              <cell>98</cell>
+              <cell>98.6</cell>
+              <cell/>
+              <cell>100.8</cell>
+              <cell/>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="75" has_solution="false">
+      <problem>
+        <paragraph>Three students, Linda, Tuan, and Javier, are given five laboratory rats each for a nutritional experiment. Each rat’s weight is recorded in grams. Linda feeds her rats Formula A, Tuan feeds his rats Formula B, and Javier feeds his rats Formula C. At the end of a specified time period, each rat is weighed again and the net gain in grams is recorded.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Linda's rats</cell>
+              <cell header="true">Tuan's rats</cell>
+              <cell header="true">Javier's rats</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>43.5</cell>
+              <cell>47.0</cell>
+              <cell>51.2</cell>
+            </row>
+            <row>
+              <cell>39.4</cell>
+              <cell>40.5</cell>
+              <cell>40.9</cell>
+            </row>
+            <row>
+              <cell>41.3</cell>
+              <cell>38.9</cell>
+              <cell>37.9</cell>
+            </row>
+            <row>
+              <cell>46.0</cell>
+              <cell>46.3</cell>
+              <cell>45.0</cell>
+            </row>
+            <row>
+              <cell>38.2</cell>
+              <cell>44.2</cell>
+              <cell>48.6</cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>Determine whether or not the variance in weight gain is statistically the same among Javier’s and Linda’s rats. Test at a significance level of 10%.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="76" has_solution="false">
+      <problem>
+        <paragraph>A grassroots group opposed to a proposed increase in the gas tax claimed that the increase would hurt working-class people the most, since they commute the farthest to work. Suppose that the group randomly surveyed 24 individuals and asked them their daily one-way commuting mileage. The results are as follows.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">working-class</cell>
+              <cell header="true">professional (middle incomes)</cell>
+              <cell header="true">professional (wealthy)</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>17.8</cell>
+              <cell>16.5</cell>
+              <cell>8.5</cell>
+            </row>
+            <row>
+              <cell>26.7</cell>
+              <cell>17.4</cell>
+              <cell>6.3</cell>
+            </row>
+            <row>
+              <cell>49.4</cell>
+              <cell>22.0</cell>
+              <cell>4.6</cell>
+            </row>
+            <row>
+              <cell>9.4</cell>
+              <cell>7.4</cell>
+              <cell>12.6</cell>
+            </row>
+            <row>
+              <cell>65.4</cell>
+              <cell>9.4</cell>
+              <cell>11.0</cell>
+            </row>
+            <row>
+              <cell>47.1</cell>
+              <cell>2.1</cell>
+              <cell>28.6</cell>
+            </row>
+            <row>
+              <cell>19.5</cell>
+              <cell>6.4</cell>
+              <cell>15.4</cell>
+            </row>
+            <row>
+              <cell>51.2</cell>
+              <cell>13.9</cell>
+              <cell>9.3</cell>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>Determine whether or not the variance in mileage driven is statistically the same among the working class and professional (middle income) groups. Use a 5% significance level.</paragraph>
+        <paragraph>Use the following information to answer the next two exercises. Table 13.33 lists the number of pages in four different types of magazines.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">home decorating</cell>
+              <cell header="true">news</cell>
+              <cell header="true">health</cell>
+              <cell header="true">computer</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>172</cell>
+              <cell>87</cell>
+              <cell>82</cell>
+              <cell>104</cell>
+            </row>
+            <row>
+              <cell>286</cell>
+              <cell>94</cell>
+              <cell>153</cell>
+              <cell>136</cell>
+            </row>
+            <row>
+              <cell>163</cell>
+              <cell>123</cell>
+              <cell>87</cell>
+              <cell>98</cell>
+            </row>
+            <row>
+              <cell>205</cell>
+              <cell>106</cell>
+              <cell>103</cell>
+              <cell>207</cell>
+            </row>
+            <row>
+              <cell>197</cell>
+              <cell>101</cell>
+              <cell>96</cell>
+              <cell>146</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="77" has_solution="false">
+      <problem>
+        <paragraph>Which two magazine types do you think have the same variance in length?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="78" has_solution="false">
+      <problem>
+        <paragraph>Which two magazine types do you think have different variances in length?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="79" has_solution="false">
+      <problem>
+        <paragraph>Is the variance for the amount of money, in dollars, that shoppers spend on Saturdays at the mall the same as the variance for the amount of money that shoppers spend on Sundays at the mall? Suppose that the Table 13.34 shows the results of a study.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Saturday</cell>
+              <cell header="true">Sunday</cell>
+              <cell header="true">Saturday</cell>
+              <cell header="true">Sunday</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>75</cell>
+              <cell>44</cell>
+              <cell>62</cell>
+              <cell>137</cell>
+            </row>
+            <row>
+              <cell>18</cell>
+              <cell>58</cell>
+              <cell>0</cell>
+              <cell>82</cell>
+            </row>
+            <row>
+              <cell>150</cell>
+              <cell>61</cell>
+              <cell>124</cell>
+              <cell>39</cell>
+            </row>
+            <row>
+              <cell>94</cell>
+              <cell>19</cell>
+              <cell>50</cell>
+              <cell>127</cell>
+            </row>
+            <row>
+              <cell>62</cell>
+              <cell>99</cell>
+              <cell>31</cell>
+              <cell>141</cell>
+            </row>
+            <row>
+              <cell>73</cell>
+              <cell>60</cell>
+              <cell>118</cell>
+              <cell>73</cell>
+            </row>
+            <row>
+              <cell/>
+              <cell>89</cell>
+              <cell/>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="80" has_solution="false">
+      <problem>
+        <paragraph>Are the variances for incomes on the East Coast and the West Coast the same? Suppose that Table 13.35 shows the results of a study. Income is shown in thousands of dollars. Assume that both distributions are normal. Use a level of significance of 0.05.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">East</cell>
+              <cell header="true">West</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>38</cell>
+              <cell>71</cell>
+            </row>
+            <row>
+              <cell>47</cell>
+              <cell>126</cell>
+            </row>
+            <row>
+              <cell>30</cell>
+              <cell>42</cell>
+            </row>
+            <row>
+              <cell>82</cell>
+              <cell>51</cell>
+            </row>
+            <row>
+              <cell>75</cell>
+              <cell>44</cell>
+            </row>
+            <row>
+              <cell>52</cell>
+              <cell>90</cell>
+            </row>
+            <row>
+              <cell>115</cell>
+              <cell>88</cell>
+            </row>
+            <row>
+              <cell>67</cell>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="81" has_solution="false">
+      <problem>
+        <paragraph>Thirty men in college were taught a method of finger tapping. They were randomly assigned to three groups of ten, with each receiving one of three doses of caffeine: 0 mg, 100 mg, 200 mg. This is approximately the amount in no, one, or two cups of coffee. Two hours after ingesting the caffeine, the men had the rate of finger tapping per minute recorded. The experiment was double blind, so neither the recorders nor the students knew which group they were in. Does caffeine affect the rate of tapping, and if so how?</paragraph>
+        <paragraph>Here are the data:</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">0 mg</cell>
+              <cell header="true">100 mg</cell>
+              <cell header="true">200 mg</cell>
+              <cell header="true">0 mg</cell>
+              <cell header="true">100 mg</cell>
+              <cell header="true">200 mg</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>242</cell>
+              <cell>248</cell>
+              <cell>246</cell>
+              <cell>245</cell>
+              <cell>246</cell>
+              <cell>248</cell>
+            </row>
+            <row>
+              <cell>244</cell>
+              <cell>245</cell>
+              <cell>250</cell>
+              <cell>248</cell>
+              <cell>247</cell>
+              <cell>252</cell>
+            </row>
+            <row>
+              <cell>247</cell>
+              <cell>248</cell>
+              <cell>248</cell>
+              <cell>248</cell>
+              <cell>250</cell>
+              <cell>250</cell>
+            </row>
+            <row>
+              <cell>242</cell>
+              <cell>247</cell>
+              <cell>246</cell>
+              <cell>244</cell>
+              <cell>246</cell>
+              <cell>248</cell>
+            </row>
+            <row>
+              <cell>246</cell>
+              <cell>243</cell>
+              <cell>245</cell>
+              <cell>242</cell>
+              <cell>244</cell>
+              <cell>250</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="82" has_solution="false">
+      <problem>
+        <paragraph>King Manuel I, Komnenus ruled the Byzantine Empire from Constantinople (Istanbul) during the years 1145 to 1180 A.D. The empire was very powerful during his reign, but declined significantly afterwards. Coins minted during his era were found in Cyprus, an island in the eastern Mediterranean Sea. Nine coins were from his first coinage, seven from the second, four from the third, and seven from a fourth. These spanned most of his reign. We have data on the silver content of the coins:</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">First Coinage</cell>
+              <cell header="true">Second Coinage</cell>
+              <cell header="true">Third Coinage</cell>
+              <cell header="true">Fourth Coinage</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>5.9</cell>
+              <cell>6.9</cell>
+              <cell>4.9</cell>
+              <cell>5.3</cell>
+            </row>
+            <row>
+              <cell>6.8</cell>
+              <cell>9.0</cell>
+              <cell>5.5</cell>
+              <cell>5.6</cell>
+            </row>
+            <row>
+              <cell>6.4</cell>
+              <cell>6.6</cell>
+              <cell>4.6</cell>
+              <cell>5.5</cell>
+            </row>
+            <row>
+              <cell>7.0</cell>
+              <cell>8.1</cell>
+              <cell>4.5</cell>
+              <cell>5.1</cell>
+            </row>
+            <row>
+              <cell>6.6</cell>
+              <cell>9.3</cell>
+              <cell/>
+              <cell>6.2</cell>
+            </row>
+            <row>
+              <cell>7.7</cell>
+              <cell>9.2</cell>
+              <cell/>
+              <cell>5.8</cell>
+            </row>
+            <row>
+              <cell>7.2</cell>
+              <cell>8.6</cell>
+              <cell/>
+              <cell>5.8</cell>
+            </row>
+            <row>
+              <cell>6.9</cell>
+              <cell/>
+              <cell/>
+              <cell/>
+            </row>
+            <row>
+              <cell>6.2</cell>
+              <cell/>
+              <cell/>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>Did the silver content of the coins change over the course of Manuel’s reign?</paragraph>
+        <paragraph>Here are the means and variances of each coinage. The data are unbalanced.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true"/>
+              <cell header="true">First</cell>
+              <cell header="true">Second</cell>
+              <cell header="true">Third</cell>
+              <cell header="true">Fourth</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Mean</cell>
+              <cell>6.7444</cell>
+              <cell>8.2429</cell>
+              <cell>4.875</cell>
+              <cell>5.6143</cell>
+            </row>
+            <row>
+              <cell>Variance</cell>
+              <cell>0.2953</cell>
+              <cell>1.2095</cell>
+              <cell>0.2025</cell>
+              <cell>0.1314</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="83" has_solution="false">
+      <problem>
+        <paragraph>The American League and the National League of Major League Baseball are each divided into three divisions: East, Central, and West. Many years, fans talk about some divisions being stronger (having better teams) than other divisions. This may have consequences for the postseason. For instance, in a certain year Tampa Bay won 90 games and did not play in the postseason, while Detroit won only 88 and did play in the postseason. This may have been an oddity, but is there good evidence that in this year, the American League divisions were significantly different in overall records? Use the following data to test whether the mean number of wins per team in the three American League divisions were the same or not. Note that the data are not balanced, as two divisions had five teams, while one had only four.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Division</cell>
+              <cell header="true">Team</cell>
+              <cell header="true">Wins</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>East</cell>
+              <cell>NY Yankees</cell>
+              <cell>95</cell>
+            </row>
+            <row>
+              <cell>East</cell>
+              <cell>Baltimore</cell>
+              <cell>93</cell>
+            </row>
+            <row>
+              <cell>East</cell>
+              <cell>Tampa Bay</cell>
+              <cell>90</cell>
+            </row>
+            <row>
+              <cell>East</cell>
+              <cell>Toronto</cell>
+              <cell>73</cell>
+            </row>
+            <row>
+              <cell>East</cell>
+              <cell>Boston</cell>
+              <cell>69</cell>
+            </row>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Division</cell>
+              <cell header="true">Team</cell>
+              <cell header="true">Wins</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Central</cell>
+              <cell>Detroit</cell>
+              <cell>88</cell>
+            </row>
+            <row>
+              <cell>Central</cell>
+              <cell>Chicago Sox</cell>
+              <cell>85</cell>
+            </row>
+            <row>
+              <cell>Central</cell>
+              <cell>Kansas City</cell>
+              <cell>72</cell>
+            </row>
+            <row>
+              <cell>Central</cell>
+              <cell>Cleveland</cell>
+              <cell>68</cell>
+            </row>
+            <row>
+              <cell>Central</cell>
+              <cell>Minnesota</cell>
+              <cell>66</cell>
+            </row>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Division</cell>
+              <cell header="true">Team</cell>
+              <cell header="true">Wins</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>West</cell>
+              <cell>Oakland</cell>
+              <cell>94</cell>
+            </row>
+            <row>
+              <cell>West</cell>
+              <cell>Texas</cell>
+              <cell>93</cell>
+            </row>
+            <row>
+              <cell>West</cell>
+              <cell>LA Angels</cell>
+              <cell>89</cell>
+            </row>
+            <row>
+              <cell>West</cell>
+              <cell>Seattle</cell>
+              <cell>75</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+  </exercises>
+  <heading level="1">Practice</heading>
+  <exercises>
+    <heading level="1">Practice</heading>
+    <paragraph>Use the following information to answer the next five exercises. There are five basic assumptions that must be fulfilled in order to perform a one-way ANOVA test. What are they?</paragraph>
+    <exercise number="1" has_solution="false">
+      <problem>
+        <paragraph>Write one assumption.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <paragraph>Write another assumption.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="false">
+      <problem>
+        <paragraph>Write a third assumption.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <paragraph>Write a fourth assumption.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="5" has_solution="false">
+      <problem>
+        <paragraph>Write the final assumption.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <paragraph>State the null hypothesis for a one-way ANOVA test if there are four groups.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="7" has_solution="false">
+      <problem>
+        <paragraph>State the alternative hypothesis for a one-way ANOVA test if there are three groups.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <paragraph>When do you use an ANOVA test?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next eight exercises. Groups of men from three different areas of the country are to be tested for mean weight. The entries in Table 13.13 are the weights for the different groups.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Group 1</cell>
+          <cell header="true">Group 2</cell>
+          <cell header="true">Group 3</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>216</cell>
+          <cell>202</cell>
+          <cell>170</cell>
+        </row>
+        <row>
+          <cell>198</cell>
+          <cell>213</cell>
+          <cell>165</cell>
+        </row>
+        <row>
+          <cell>240</cell>
+          <cell>284</cell>
+          <cell>182</cell>
+        </row>
+        <row>
+          <cell>187</cell>
+          <cell>228</cell>
+          <cell>197</cell>
+        </row>
+        <row>
+          <cell>176</cell>
+          <cell>210</cell>
+          <cell>201</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="9" has_solution="false">
+      <problem>
+        <paragraph>What is the Sum of Squares Factor?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <paragraph>What is the Sum of Squares Error?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="11" has_solution="false">
+      <problem>
+        <paragraph>What is the df for the numerator?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <paragraph>What is the df for the denominator?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="13" has_solution="false">
+      <problem>
+        <paragraph>What is the Mean Square Factor?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <paragraph>What is the Mean Square Error?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="15" has_solution="false">
+      <problem>
+        <paragraph>What is the F statistic?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next eight exercises. Girls from four different soccer teams are to be tested for mean goals scored per game. The entries in the table are the goals per game for the different teams. The one-way ANOVA results are shown in Table 13.14.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Team 1</cell>
+          <cell header="true">Team 2</cell>
+          <cell header="true">Team 3</cell>
+          <cell header="true">Team 4</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>1</cell>
+          <cell>2</cell>
+          <cell>0</cell>
+          <cell>3</cell>
+        </row>
+        <row>
+          <cell>2</cell>
+          <cell>3</cell>
+          <cell>1</cell>
+          <cell>4</cell>
+        </row>
+        <row>
+          <cell>0</cell>
+          <cell>2</cell>
+          <cell>1</cell>
+          <cell>4</cell>
+        </row>
+        <row>
+          <cell>3</cell>
+          <cell>4</cell>
+          <cell>0</cell>
+          <cell>3</cell>
+        </row>
+        <row>
+          <cell>2</cell>
+          <cell>4</cell>
+          <cell>0</cell>
+          <cell>2</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <paragraph>What is SSbetween?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="17" has_solution="false">
+      <problem>
+        <paragraph>What is the df for the numerator?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <paragraph>What is MSbetween?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="19" has_solution="false">
+      <problem>
+        <paragraph>What is SSwithin?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <paragraph>What is the df for the denominator?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="false">
+      <problem>
+        <paragraph>What is MSwithin?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <paragraph>What is the F statistic?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="23" has_solution="false">
+      <problem>
+        <paragraph>Judging by the F statistic, do you think it is likely or unlikely that you will reject the null hypothesis?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="24" has_solution="false">
+      <problem>
+        <paragraph>An F statistic can have what values?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="25" has_solution="false">
+      <problem>
+        <paragraph>What happens to the curves as the degrees of freedom for the numerator and the denominator get larger?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next seven exercise. Four basketball teams took a random sample of players regarding how high each player can jump (in inches). The results are shown in Table 13.15.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Team 1</cell>
+          <cell header="true">Team 2</cell>
+          <cell header="true">Team 3</cell>
+          <cell header="true">Team 4</cell>
+          <cell header="true">Team 5</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>36</cell>
+          <cell>32</cell>
+          <cell>48</cell>
+          <cell>38</cell>
+          <cell>41</cell>
+        </row>
+        <row>
+          <cell>42</cell>
+          <cell>35</cell>
+          <cell>50</cell>
+          <cell>44</cell>
+          <cell>39</cell>
+        </row>
+        <row>
+          <cell>51</cell>
+          <cell>38</cell>
+          <cell>39</cell>
+          <cell>46</cell>
+          <cell>40</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="26" has_solution="false">
+      <problem>
+        <paragraph>What is the df(num)?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="27" has_solution="false">
+      <problem>
+        <paragraph>What is the df(denom)?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="28" has_solution="false">
+      <problem>
+        <paragraph>What are the Sum of Squares and Mean Squares Factors?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="29" has_solution="false">
+      <problem>
+        <paragraph>What are the Sum of Squares and Mean Squares Errors?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="30" has_solution="false">
+      <problem>
+        <paragraph>What is the F statistic?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="31" has_solution="false">
+      <problem>
+        <paragraph>What is the p-value?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="32" has_solution="false">
+      <problem>
+        <paragraph>At the 5% significance level, is there a difference in the mean jump heights among the teams?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next seven exercises. A video game developer is testing a new game on three different groups. Each group represents a different target market for the game. The developer collects scores from a random sample from each group. The results are shown in Table 13.16</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">Group A</cell>
+          <cell header="true">Group B</cell>
+          <cell header="true">Group C</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>101</cell>
+          <cell>151</cell>
+          <cell>101</cell>
+        </row>
+        <row>
+          <cell>108</cell>
+          <cell>149</cell>
+          <cell>109</cell>
+        </row>
+        <row>
+          <cell>98</cell>
+          <cell>160</cell>
+          <cell>198</cell>
+        </row>
+        <row>
+          <cell>107</cell>
+          <cell>112</cell>
+          <cell>186</cell>
+        </row>
+        <row>
+          <cell>111</cell>
+          <cell>126</cell>
+          <cell>160</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="33" has_solution="false">
+      <problem>
+        <paragraph>What is the df(num)?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="34" has_solution="false">
+      <problem>
+        <paragraph>What is the df(denom)?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="35" has_solution="false">
+      <problem>
+        <paragraph>What are the SSbetween and MSbetween?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="36" has_solution="false">
+      <problem>
+        <paragraph>What are the SSwithin and MSwithin?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="37" has_solution="false">
+      <problem>
+        <paragraph>What is the F Statistic?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="38" has_solution="false">
+      <problem>
+        <paragraph>What is the p-value?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="39" has_solution="false">
+      <problem>
+        <paragraph>At the 10% significance level, are the scores among the different groups different?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next three exercises. Suppose a group is interested in determining whether teenagers obtain their drivers licenses at approximately the same average age across the country. Suppose that the following data are randomly collected from five teenagers in each region of the country. The numbers represent the age at which teenagers obtained their drivers licenses.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true"/>
+          <cell header="true">Northeast</cell>
+          <cell header="true">South</cell>
+          <cell header="true">West</cell>
+          <cell header="true">Central</cell>
+          <cell header="true">East</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell/>
+          <cell>16.3</cell>
+          <cell>16.9</cell>
+          <cell>16.4</cell>
+          <cell>16.2</cell>
+          <cell>17.1</cell>
+        </row>
+        <row>
+          <cell/>
+          <cell>16.1</cell>
+          <cell>16.5</cell>
+          <cell>16.5</cell>
+          <cell>16.6</cell>
+          <cell>17.2</cell>
+        </row>
+        <row>
+          <cell/>
+          <cell>16.4</cell>
+          <cell>16.4</cell>
+          <cell>16.6</cell>
+          <cell>16.5</cell>
+          <cell>16.6</cell>
+        </row>
+        <row>
+          <cell/>
+          <cell>16.5</cell>
+          <cell>16.2</cell>
+          <cell>16.1</cell>
+          <cell>16.4</cell>
+          <cell>16.8</cell>
+        </row>
+        <row>
+          <cell>$$\overline{x} =$$</cell>
+          <cell/>
+          <cell/>
+          <cell/>
+          <cell/>
+          <cell/>
+        </row>
+        <row>
+          <cell>$$s^{2} =$$</cell>
+          <cell/>
+          <cell/>
+          <cell/>
+          <cell/>
+          <cell/>
+        </row>
+      </tbody>
+    </table>
+    <paragraph>Enter the data into your calculator or computer.</paragraph>
+    <exercise number="40" has_solution="false">
+      <problem>
+        <paragraph>p-value = ______</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>State the decisions and conclusions (in complete sentences) for the following preconceived levels of α.</paragraph>
+    <exercise number="41" has_solution="false">
+      <problem>
+        <paragraph>α = 0.05</paragraph>
+        <paragraph>a. Decision: ____________________________</paragraph>
+        <paragraph>b. Conclusion: ____________________________</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="42" has_solution="false">
+      <problem>
+        <paragraph>α = 0.01</paragraph>
+        <paragraph>a. Decision: ____________________________</paragraph>
+        <paragraph>b. Conclusion: ____________________________</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next two exercises. There are two assumptions that must be true in order to perform an F test of two variances.</paragraph>
+    <exercise number="43" has_solution="false">
+      <problem>
+        <paragraph>Name one assumption that must be true.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="44" has_solution="false">
+      <problem>
+        <paragraph>What is the other assumption that must be true?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next five exercises. Two coworkers commute from the same building. They are interested in whether or not there is any variation in the time it takes them to drive to work. They each record their times for 20 commutes. The first worker’s times have a variance of 12.1. The second worker’s times have a variance of 16.9. The first worker thinks that he is more consistent with his commute times. Test the claim at the 10% level. Assume that commute times are normally distributed.</paragraph>
+    <exercise number="45" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="46" has_solution="false">
+      <problem>
+        <paragraph>What is s1 in this problem?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="47" has_solution="false">
+      <problem>
+        <paragraph>What is s2 in this problem?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="48" has_solution="false">
+      <problem>
+        <paragraph>What is n?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="49" has_solution="false">
+      <problem>
+        <paragraph>What is the F statistic?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="50" has_solution="false">
+      <problem>
+        <paragraph>What is the p-value?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="51" has_solution="false">
+      <problem>
+        <paragraph>Is the claim accurate?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next four exercises. Two students are interested in whether or not there is variation in their test scores for math class. There are 15 total math tests they have taken so far. The first student’s grades have a standard deviation of 38.1. The second student’s grades have a standard deviation of 22.5. The second student thinks his scores are more consistent.</paragraph>
+    <exercise number="52" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="53" has_solution="false">
+      <problem>
+        <paragraph>What is the F Statistic?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="54" has_solution="false">
+      <problem>
+        <paragraph>What is the p-value?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="55" has_solution="false">
+      <problem>
+        <paragraph>At the 5% significance level, do we reject the null hypothesis?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next three exercises. Two cyclists are comparing the variances of their overall paces going uphill. Each cyclist records their speeds going up 35 hills. The first cyclist has a variance of 23.8 and the second cyclist has a variance of 32.1. The cyclists want to see if their variances are the same or different. Assume that commute times are normally distributed.</paragraph>
+    <exercise number="56" has_solution="false">
+      <problem>
+        <paragraph>State the null and alternative hypotheses.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="57" has_solution="false">
+      <problem>
+        <paragraph>What is the F Statistic?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="58" has_solution="false">
+      <problem>
+        <paragraph>At the 5% significance level, what can we say about the cyclists’ variances?</paragraph>
+      </problem>
+    </exercise>
+  </exercises>
+  <heading level="1">References</heading>
+  <paragraph>Tomato Data, Marist College School of Science (unpublished student research)</paragraph>
+  <paragraph>Data from a fourth grade classroom in 1994 in a private K – 12 school in San Jose, CA.</paragraph>
+  <paragraph>Hand, D.J., F. Daly, A.D. Lunn, K.J. McConway, and E. Ostrowski. A Handbook of Small Datasets: Data for Fruitfly Fecundity. London: Chapman &amp; Hall, 1994.</paragraph>
+  <paragraph>Hand, D.J., F. Daly, A.D. Lunn, K.J. McConway, and E. Ostrowski. A Handbook of Small Datasets. London: Chapman &amp; Hall, 1994, pg. 50.</paragraph>
+  <paragraph>Hand, D.J., F. Daly, A.D. Lunn, K.J. McConway, and E. Ostrowski. A Handbook of Small Datasets. London: Chapman &amp; Hall, 1994, pg. 118.</paragraph>
+  <paragraph>“MLB Standings – 2012.” Available online at http://espn.go.com/mlb/standings/_/year/2012.</paragraph>
+  <paragraph>Mackowiak, P. A., Wasserman, S. S., and Levine, M. M. (1992), "A Critical Appraisal of 98.6 Degrees F, the Upper Limit of the Normal Body Temperature, and Other Legacies of Carl Reinhold August Wunderlich," Journal of the American Medical Association, 268, 1578-1580.</paragraph>
+  <paragraph>“MLB Vs. Division Standings – 2012.” Available online at http://espn.go.com/mlb/standings/_/year/2012/type/vs-division/order/true.</paragraph>
+  <heading level="1">Solutions</heading>
+  <exercises>
+    <heading level="1">Solutions</heading>
+    <exercise number="1" has_solution="true">
+      <solution>
+        <paragraph>Each population from which a sample is taken is assumed to be normal.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="3" has_solution="true">
+      <solution>
+        <paragraph>The populations are assumed to have equal standard deviations (or variances).</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="5" has_solution="true">
+      <solution>
+        <paragraph>The response is a numerical value.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="7" has_solution="true">
+      <solution>
+        <paragraph>Ha: At least two of the group means μ1, μ2, μ3 are not equal.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="9" has_solution="true">
+      <solution>
+        <paragraph>4,939.2</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="11" has_solution="true">
+      <solution>
+        <paragraph>2</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="13" has_solution="true">
+      <solution>
+        <paragraph>2,469.6</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="15" has_solution="true">
+      <solution>
+        <paragraph>3.7416</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="17" has_solution="true">
+      <solution>
+        <paragraph>3</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="19" has_solution="true">
+      <solution>
+        <paragraph>13.2</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="21" has_solution="true">
+      <solution>
+        <paragraph>0.825</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="23" has_solution="true">
+      <solution>
+        <paragraph>Because a one-way ANOVA test is always right-tailed, a high F statistic corresponds to a low p-value, so it is likely that we will reject the null hypothesis.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="25" has_solution="true">
+      <solution>
+        <paragraph>The curves approximate the normal distribution.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="27" has_solution="true">
+      <solution>
+        <paragraph>ten</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="29" has_solution="true">
+      <solution>
+        <paragraph>SS = 237.33; MS = 23.73</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="31" has_solution="true">
+      <solution>
+        <paragraph>0.1614</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="33" has_solution="true">
+      <solution>
+        <paragraph>two</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="35" has_solution="true">
+      <solution>
+        <paragraph>SS = 5,700.4;</paragraph>
+        <paragraph>MS = 2,850.2</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="37" has_solution="true">
+      <solution>
+        <paragraph>3.6101</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="39" has_solution="true">
+      <solution>
+        <paragraph>Yes, there is enough evidence to show that the scores among the groups are statistically significant at the 10% level.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="43" has_solution="true">
+      <solution>
+        <paragraph>The populations from which the two samples are drawn are normally distributed.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="45" has_solution="true">
+      <solution>
+        <paragraph>H0: σ1 = σ2</paragraph>
+        <paragraph>Ha: σ1 &lt; σ2</paragraph>
+        <paragraph>or</paragraph>
+        <paragraph>H0: $$\sigma_{ \text{1} }^{ \text{2} } \text{=} \sigma_{ \text{2} }^{ \text{2} }$$</paragraph>
+        <paragraph>Ha: $$\sigma_{1}^{2} &lt; \sigma_{2}^{2}$$</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="47" has_solution="true">
+      <solution>
+        <paragraph>4.11</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="49" has_solution="true">
+      <solution>
+        <paragraph>0.7159</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="51" has_solution="true">
+      <solution>
+        <paragraph>No, at the 10% level of significance, we do not reject the null hypothesis and state that the data do not show that the variation in drive times for the first worker is less than the variation in drive times for the second worker.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="53" has_solution="true">
+      <solution>
+        <paragraph>2.8674</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="55" has_solution="true">
+      <solution>
+        <paragraph>Reject the null hypothesis. There is enough evidence to say that the variance of the grades for the first student is higher than the variance in the grades for the second student.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="57" has_solution="true">
+      <solution>
+        <paragraph>0.7414</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="59" has_solution="true">
+      <solution>
+        <paragraph>SSbetween = 26 SSwithin = 441 F = 0.2653</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="62" has_solution="true">
+      <solution>
+        <paragraph>df(denom) = 15</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="64" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>H0: µL = µT = µJ</item>
+          <item>Ha: at least any two of the means are different</item>
+          <item>df(num) = 2; df(denom) = 12</item>
+          <item>F distribution</item>
+          <item>0.67</item>
+          <item>0.5305</item>
+          <item>Answers may vary.</item>
+          <item>Decision: Do not reject null hypothesis; Conclusion: There is insufficient evidence to conclude that the means are different.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="67" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>Ha: µc = µn = µh</item>
+          <item>At least any two of the magazines have different mean lengths.</item>
+          <item>df(num) = 2, df(denom) = 12</item>
+          <item>F distribtuion</item>
+          <item>F = 15.28</item>
+          <item>p-value = 0.0005</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Reject the Null Hypothesis. Reason for decision: p-value &lt; alpha Conclusion: There is sufficient evidence to conclude that the mean lengths of the magazines are different.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="69" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>H0: μo = μh = μf</item>
+          <item>At least two of the means are different.</item>
+          <item>df(n) = 2, df(d) = 13</item>
+          <item>F2,13</item>
+          <item>0.64</item>
+          <item>0.5437</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Do not reject the null hypothesis. Reason for decision: p-value &gt; alpha Conclusion: The mean scores of different class delivery are not different.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="71" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>H0: μp = μm = μh</item>
+          <item>At least any two of the means are different.</item>
+          <item>df(n) = 2, df(d) = 12</item>
+          <item>F2,12</item>
+          <item>3.13</item>
+          <item>0.0807</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Do not reject the null hypothesis. Reason for decision: p-value &gt; alpha Conclusion: There is not sufficient evidence to conclude that the mean numbers of daily visitors are different.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="73" has_solution="true">
+      <solution>
+        <paragraph>The data appear normally distributed from the chart and of similar spread. There do not appear to be any serious outliers, so we may proceed with our ANOVA calculations, to see if we have good evidence of a difference between the three groups.</paragraph>
+        <paragraph>H0: μ1 = μ2 = μ3;</paragraph>
+        <paragraph>Ha: μi ≠ μj some i ≠ j.</paragraph>
+        <paragraph>Define μ1, μ2, μ3, as the population mean number of eggs laid by the three groups of fruit flies.</paragraph>
+        <paragraph>F statistic = 8.6657;</paragraph>
+        <paragraph>p-value = 0.0004</paragraph>
+        <figure number="13.9">
+          <image alt="This graph shows a nonsymmetrical F distribution curve. This curve does not have a peak, but slopes downward from a maximum value at (0, 1.0) and approaches the horiztonal axis at the right edge of the graph."/>
+        </figure>
+        <paragraph>Decision: Since the p-value is less than the level of significance of 0.01, we reject the null hypothesis.</paragraph>
+        <paragraph>Conclusion: We have good evidence that the average number of eggs laid during the first 14 days of life for these three strains of fruitflies are different.</paragraph>
+        <paragraph>Interestingly, if you perform a two sample t-test to compare the RS and NS groups they are significantly different (p = 0.0013). Similarly, SS and NS are significantly different (p = 0.0006). However, the two selected groups, RS and SS are not significantly different (p = 0.5176). Thus we appear to have good evidence that selection either for resistance or for susceptibility involves a reduced rate of egg production (for these specific strains) as compared to flies that were not selected for resistance or susceptibility to DDT. Here, genetic selection has apparently involved a loss of fecundity.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="75" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>$$H_{0} \text{:} \sigma_{1}^{2} = \sigma_{2}^{2}$$</item>
+          <item>$$H_{a}: \sigma_{1}^{2} \neq \sigma_{1}^{2}$$</item>
+          <item>df(num) = 4; df(denom) = 4</item>
+          <item>F4, 4</item>
+          <item>3.00</item>
+          <item>2(0.1563) = 0.3126. Using the TI-83+/84+ function 2-SampFtest, you get the test statistic as 2.9986 and p-value directly as 0.3127. If you input the lists in a different order, you get a test statistic of 0.3335 but the p-value is the same because this is a two-tailed test.</item>
+          <item>Answers may vary.</item>
+          <item>Decision: Do not reject the null hypothesis; Conclusion: There is insufficient evidence to conclude that the variances are different.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="78" has_solution="true">
+      <solution>
+        <paragraph>The answers may vary. Sample answer: Home decorating magazines and news magazines have different variances.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="80" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>H0: = $$\sigma_{1}^{2}$$ = $$\sigma_{2}^{2}$$</item>
+          <item>Ha: $$\sigma_{1}^{2}$$ ≠ $$\sigma_{1}^{2}$$</item>
+          <item>df(n) = 7, df(d) = 6</item>
+          <item>F7,6</item>
+          <item>0.8117</item>
+          <item>0.7825</item>
+          <item>Answers may vary.</item>
+          <item>Alpha: 0.05 Decision: Do not reject the null hypothesis. Reason for decision: p-value &gt; alpha Conclusion: There is not sufficient evidence to conclude that the variances are different.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="82" has_solution="true">
+      <solution>
+        <paragraph>Here is a strip chart of the silver content of the coins:</paragraph>
+        <figure number="13.10">
+          <image alt="This graph is a scatterplot which represents the data provided. The horizontal axis is labeled 'Silver content coins' and extends from 5 - 9. The vertical axis is labeled 'Coinage.' The vertical axis is labeled with the categories First, Second, Third, and Fourth."/>
+        </figure>
+        <paragraph>While there are differences in spread, it is not unreasonable to use ANOVA techniques. Here is the completed ANOVA table:</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Source of Variation</cell>
+              <cell header="true">Sum of Squares (SS)</cell>
+              <cell header="true">Degrees of Freedom (df)</cell>
+              <cell header="true">Mean Square (MS)</cell>
+              <cell header="true">F</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Factor (Between)</cell>
+              <cell>37.748</cell>
+              <cell>4 – 1 = 3</cell>
+              <cell>12.5825</cell>
+              <cell>26.272</cell>
+            </row>
+            <row>
+              <cell>Error (Within)</cell>
+              <cell>11.015</cell>
+              <cell>27 – 4 = 23</cell>
+              <cell>0.4789</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>Total</cell>
+              <cell>48.763</cell>
+              <cell>27 – 1 = 26</cell>
+              <cell/>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>P(F &gt; 26.272) = 0;</paragraph>
+        <paragraph>Reject the null hypothesis for any alpha. There is sufficient evidence to conclude that the mean silver content among the four coinages are different. From the strip chart, it appears that the first and second coinages had higher silver contents than the third and fourth.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="83" has_solution="true">
+      <solution>
+        <paragraph>Here is a stripchart of the number of wins for the 14 teams in the AL for the 2012 season.</paragraph>
+        <figure number="13.11">
+          <image alt="This graph is a scatterplot which represents the data provided. The horizontal axis is labeled 'Number of wins in 2012 Major League Baseball Season' and extends from 65 - 95. The vertical axis is labeled 'American league division.' The vertical axis is labeled with the categories Central, East, West."/>
+        </figure>
+        <paragraph>While the spread seems similar, there may be some question about the normality of the data, given the wide gaps in the middle near the 0.500 mark of 82 games (teams play 162 games each season in MLB). However, one-way ANOVA is robust.</paragraph>
+        <paragraph>Here is the ANOVA table for the data:</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">Source of Variation</cell>
+              <cell header="true">Sum of Squares (SS)</cell>
+              <cell header="true">Degrees of Freedom (df)</cell>
+              <cell header="true">Mean Square (MS)</cell>
+              <cell header="true">F</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>Factor (Between)</cell>
+              <cell>344.16</cell>
+              <cell>3 – 1 = 2</cell>
+              <cell>172.08</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>Error (Within)</cell>
+              <cell>1,219.55</cell>
+              <cell>14 – 3 = 11</cell>
+              <cell>110.87</cell>
+              <cell>1.5521</cell>
+            </row>
+            <row>
+              <cell>Total</cell>
+              <cell>1,563.71</cell>
+              <cell>14 – 1 = 13</cell>
+              <cell/>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+        <paragraph>P(F &gt; 1.5521) = 0.2548 Since the p-value is so large, there is not good evidence against the null hypothesis of equal means. We decline to reject the null hypothesis. Thus, for 2012, there is not any have any good evidence of a significant difference in mean number of wins between the divisions of the American League.</paragraph>
+      </solution>
+    </exercise>
+  </exercises>
+</section>

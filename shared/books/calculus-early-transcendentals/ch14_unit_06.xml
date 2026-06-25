@@ -1,1546 +1,266 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch14" chapter_number="14" section="unit_06" section_number="6">
-  <section number="14.6" title="Directional Derivatives and the Gradient Vector">
-    <content>
-      <paragraph>
-        The weather map in Figure 1 shows a contour map of the temperature function <math display="inline">$$T{({x,y})}$$</math> for the states of California and Nevada at 3:00 pm on a day in October. The level curves, or isothermals, join locations with the same temperature. The partial derivative <math display="inline">$$T_{x}$$</math> at a location such as Reno is the rate of change of temperature with respect to distance if we travel east from Reno; <math display="inline">$$T_{y}$$</math> is the rate of change of temperature if we travel north. But what if we want to know the rate of change of temperature when we travel southeast (toward Las Vegas), or in some other direction? In this section we introduce a type of derivative, called a <em>directional derivative,</em> that enables us to find the rate of change of a function of two or more variables in any direction.
-      </paragraph>
-    </content>
-    <figure number="1">
-      <alt_text>A contour map is drawn on an outline map of the San Francisco Bay Area. The first curve, labeled 60, rises up, goes down and stops a distance above Los Angeles, goes up, then down and then goes up to exit at the top right. A long thin loop lies within the loop 60 and its right side touches Reno. The second curve labeled 70, begins from below San Francisco, goes up, and then down, stops below curve 60 and then goes up to the right to exit on the right. The third curve, labeled 80, runs horizontally above Los Angeles, and then goes up to the left of Las Vegas and exits on the right of the viewing window.</alt_text>
+<section>
+  <heading level="2">14.6. Directional Derivatives and the Gradient Vector</heading>
+  <paragraph>The weather map in Figure 1 shows a contour map of the temperature function $$T{({x,y})}$$ for the states of California and Nevada at 3:00 pm on a day in October. The level curves, or isothermals, join locations with the same temperature. The partial derivative $$T_{x}$$ at a location such as Reno is the rate of change of temperature with respect to distance if we travel east from Reno; $$T_{y}$$ is the rate of change of temperature if we travel north. But what if we want to know the rate of change of temperature when we travel southeast (toward Las Vegas), or in some other direction? In this section we introduce a type of derivative, called a directional derivative, that enables us to find the rate of change of a function of two or more variables in any direction.</paragraph>
+  <figure>
+    <image alt="Details A contour map is drawn on an outline map of the San Francisco Bay Area. The first curve, labeled 60, rises up, goes down and stops a distance above Los Angeles, goes up, then down and then goes up to exit at the top right. A long thin loop lies within the loop 60 and its right side touches Reno. The second curve labeled 70, begins from below San Francisco, goes up, and then down, stops below curve 60 and then goes up to the right to exit on the right. The third curve, labeled 80, runs horizontally above Los Angeles, and then goes up to the left of Las Vegas and exits on the right of the viewing window."/>
+  </figure>
+  <heading level="3">Directional Derivatives</heading>
+  <paragraph>Recall that if $$z = f{({x,y})}$$ , then the partial derivatives $$f_{x}$$ and $$f_{y}$$ are defined as</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {f_{x}(x_{0},y_{0}) = \lim\limits_{h\rightarrow 0}\frac{f(x_{0} + h,y_{0}) - f(x_{0},y_{0})}{h}} \\ {f_{y}(x_{0},y_{0}) = \lim\limits_{h\rightarrow 0}\frac{f(x_{0},y_{0} + h) - f(x_{0},y_{0})}{h}} \end{array}$$</paragraph>
+  <paragraph>and represent the rates of change of $$z$$ in the $$x$$ - and $$y$$ -directions, that is, in the directions of the unit vectors $$\mathbf{i}$$ and $$\mathbf{j}$$ .</paragraph>
+  <paragraph>Suppose that we now wish to find the rate of change of $$z$$ at $$({x_{0},y_{0}})$$ in the direction of an arbitrary unit vector $$\mathbf{u} = {\langle{a,b}\rangle}$$ . (See Figure 2.) To do this we consider the surface $$S$$ with the equation $$z = f{({x,y})}$$ (the graph of $$f$$ ) and we let $$z_{0} = f{({x_{0},y_{0}})}$$ . Then the point $$P{({x_{0},y_{0},z_{0}})}$$ lies on $$S$$ . The vertical plane that passes through $$P$$ in the direction of $$\mathbf{u}$$ intersects $$S$$ in a curve $$C$$ . (See Figure 3.) The slope of the tangent line $$T$$ to $$C$$ at the point $$P$$ is the rate of change of $$z$$ in the direction of $$\mathbf{u}$$ .</paragraph>
+  <figure>
+    <image alt="Details A vector and two line segments are graphed in the first quadrant of the x y coordinate plane. The vector, labeled vector u, begins at a point labeled (x_0, y_0), slopes upward to the right, measuring 1 unit. From the tip of the vector a dashed vertical line segment, labeled b, descends downward. From (x_0, y_0), a dashed horizontal line segment, labeled a, runs rightward to meet b. The line segments meet at right angles to each other."/>
+    <caption>A unit vector $$\mathbf{u} = {\langle{a,b}\rangle}$$</caption>
+  </figure>
+  <figure>
+    <image alt="Details A curved surface, a plane, a curve, four points, a line, a vector, and two line segments are graphed in the x y z coordinate space. The positive x axis slopes down and to the left. The positive y axis slopes slightly down and to the right. The positive z axis runs vertically upward. The curved surface, labeled S, resembles a part of a sphere, almost a quarter of a sphere rising upward from the x y plane. The plane is rectangular with its left side on the y z plane and tilted rightward from the x z plane. It traces a curve C on the outer surface of S. Two points are marked on C. The one on top is labeled P(x_0, y_0, z_0) and the one below is labeled Q(x, y, z). A line labeled T is tangent to the curve C at P and slopes downward to the right and slightly to the back. Two more points are marked in the x y plane, directly below P and Q, and lie on the base of the rectangular plane. They are labeled P prime(x_0, y_0, 0) and Q prime(x, y, 0), respectively. A vector labeled vector u begins from P prime, runs along the base of the rectangular plane and passes through Q prime. The distance between P prime and Q prime is labeled h. Two dashed line segments run parallel to the x and y axes beginning from P prime and Q prime, and are labeled h a and h b, respectively. They meet at right angles."/>
+  </figure>
+  <paragraph>If $$Q{({x,y,z})}$$ is another point on $$C$$ and $$P^{\prime}$$ , $$Q^{\prime}$$ are the projections of $$P$$ , $$Q$$ onto the $$xy$$ -plane, then the vector $$\overset{\rightarrow}{P^{\prime}Q^{\prime}}$$ is parallel to $$\mathbf{u}$$ and so</paragraph>
+  <paragraph math="block">$$\overset{\rightarrow}{P^{\prime}Q^{\prime}} = h\mathbf{u} = {\langle{ha,hb}\rangle}$$</paragraph>
+  <paragraph>for some scalar $$h$$ . Therefore $$x - x_{0} = ha$$ , $$y - y_{0} = hb$$ , so $$x = x_{0} + ha$$ , $$y = y_{0} + hb$$ , and</paragraph>
+  <paragraph math="block">$$\frac{\Delta z}{h} = \frac{z - z_{0}}{h} = \frac{f{({x_{0} + ha,y_{0} + hb})} - f{({x_{0},y_{0}})}}{h}$$</paragraph>
+  <paragraph>If we take the limit as $$\left. h\rightarrow 0 \right.$$ , we obtain the rate of change of $$z$$ (with respect to distance) in the direction of $$\mathbf{u}$$ , which is called the directional derivative of $$f$$ in the direction of $$\mathbf{u}$$ .</paragraph>
+  <note type="definition" source_type="Definition" title="Definition">
+    <heading level="4">Definition</heading>
+    <paragraph>The directional derivative of $$f$$ at $$({x_{0},y_{0}})$$ in the direction of a unit vector $$\mathbf{u} = {\langle{a,b}\rangle}$$ is</paragraph>
+    <paragraph math="block">$$D_{u}f(x_{0},y_{0}) = \lim\limits_{h\rightarrow 0}\frac{f(x_{0} + ha,y_{0} + hb) - f(x_{0},y_{0})}{h}$$</paragraph>
+    <paragraph>if this limit exists.</paragraph>
+  </note>
+  <paragraph>By comparing Definition 2 with Equations 1, we see that if $$\mathbf{u} = \mathbf{i} = {\langle{1,0}\rangle}$$ , then $$D_{\mathbf{i}}f = f_{x}$$ and if $$\mathbf{u} = \mathbf{j} = {\langle{0,1}\rangle}$$ , then $$D_{\mathbf{j}}f = f_{y}$$ . In other words, the partial derivatives of $$f$$ with respect to $$x$$ and $$y$$ are just special cases of the directional derivative.</paragraph>
+  <example number="1">
+    <heading level="4">Example 1</heading>
+    <paragraph>Use the weather map in Figure 1 to estimate the value of the directional derivative of the temperature function at Reno in the southeasterly direction.</paragraph>
+    <paragraph>Solution We start by drawing a line through Reno toward the southeast [in the direction of $$\mathbf{u} = (\mathbf{i} - \mathbf{j}) \slash \sqrt{2}$$ ; see Figure 4].</paragraph>
+    <figure>
+      <image alt="Details A contour map and a line are drawn on an outline map of the San Francisco Bay Area. The first curve, labeled 60, rises up, goes down and stops a distance above Los Angeles, goes up, then down and then goes up to exit at the top right. A long thin loop lies within the loop 60 and its right side touches Reno. The second curve labeled 70, begins from below San Francisco, goes up, and then down, stops below curve 60 and then goes up to the right to exit on the right. The third curve, labeled 80, runs horizontally above Los Angeles, and then goes up to the left of Las Vegas and exits on the right of the viewing window. A point is marked on the top right of the loop labeled 50 and on the curve labeled 60, down and to the right of Reno. A line joins the two points and Reno, which is in between the two, and slopes downward to the right."/>
     </figure>
-  </section>
-  <subsection title="Directional Derivatives">
-    <paragraph>
-      Recall that if <math display="inline">$$z = f{({x,y})}$$</math> , then the partial derivatives <math display="inline">$$f_{x}$$</math> and <math display="inline">$$f_{y}$$</math> are defined as
-    </paragraph>
-    <paragraph>
-      and represent the rates of change of <math display="inline">$$z$$</math> in the <math display="inline">$$x$$</math> - and <math display="inline">$$y$$</math>-directions, that is, in the directions of the unit vectors <math display="inline">$$\mathbf{i}$$</math> and <math display="inline">$$\mathbf{j}$$</math> .
-    </paragraph>
-    <paragraph>
-      Suppose that we now wish to find the rate of change of <math display="inline">$$z$$</math> at <math display="inline">$$({x_{0},y_{0}})$$</math> in the direction of an arbitrary unit vector <math display="inline">$$\mathbf{u} = {\langle{a,b}\rangle}$$</math> . (See Figure 2.) To do this we consider the surface <math display="inline">$$S$$</math> with the equation <math display="inline">$$z = f{({x,y})}$$</math> (the graph of <math display="inline">$$f$$</math> ) and we let <math display="inline">$$z_{0} = f{({x_{0},y_{0}})}$$</math> . Then the point <math display="inline">$$P{({x_{0},y_{0},z_{0}})}$$</math> lies on <math display="inline">$$S$$</math> . The vertical plane that passes through <math display="inline">$$P$$</math> in the direction of <math display="inline">$$\mathbf{u}$$</math> intersects <math display="inline">$$S$$</math> in a curve <math display="inline">$$C$$</math> . (See Figure 3.) The slope of the tangent line <math display="inline">$$T$$</math> to <math display="inline">$$C$$</math> at the point <math display="inline">$$P$$</math> is the rate of change of <math display="inline">$$z$$</math> in the direction of <math display="inline">$$\mathbf{u}$$</math> .
-    </paragraph>
-    <figure number="2" caption="A unit vector u = 〈 a , b 〉">
-      <alt_text>A vector and two line segments are graphed in the first quadrant of the x y coordinate plane. The vector, labeled vector u, begins at a point labeled (x_0, y_0), slopes upward to the right, measuring 1 unit. From the tip of the vector a dashed vertical line segment, labeled b, descends downward. From (x_0, y_0), a dashed horizontal line segment, labeled a, runs rightward to meet b. The line segments meet at right angles to each other.</alt_text>
-    </figure>
-    <figure number="3">
-      <alt_text>A curved surface, a plane, a curve, four points, a line, a vector, and two line segments are graphed in the x y z coordinate space. The positive x axis slopes down and to the left. The positive y axis slopes slightly down and to the right. The positive z axis runs vertically upward. The curved surface, labeled S, resembles a part of a sphere, almost a quarter of a sphere rising upward from the x y plane. The plane is rectangular with its left side on the y z plane and tilted rightward from the x z plane. It traces a curve C on the outer surface of S. Two points are marked on C. The one on top is labeled P(x_0, y_0, z_0) and the one below is labeled Q(x, y, z). A line labeled T is tangent to the curve C at P and slopes downward to the right and slightly to the back. Two more points are marked in the x y plane, directly below P and Q, and lie on the base of the rectangular plane. They are labeled P prime(x_0, y_0, 0) and Q prime(x, y, 0), respectively. A vector labeled vector u begins from P prime, runs along the base of the rectangular plane and passes through Q prime. The distance between P prime and Q prime is labeled h. Two dashed line segments run parallel to the x and y axes beginning from P prime and Q prime, and are labeled h a and h b, respectively. They meet at right angles.</alt_text>
-    </figure>
-    <paragraph>
-      If <math display="inline">$$Q{({x,y,z})}$$</math> is another point on <math display="inline">$$C$$</math> and <math display="inline">$$P^{\prime}$$</math> , <math display="inline">$$Q^{\prime}$$</math> are the projections of <math display="inline">$$P$$</math> , <math display="inline">$$Q$$</math> onto the <math display="inline">$$xy$$</math>-plane, then the vector <math display="inline">$$\overset{\rightarrow}{P^{\prime}Q^{\prime}}$$</math> is parallel to <math display="inline">$$\mathbf{u}$$</math> and so
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\overset{\rightarrow}{P^{\prime}Q^{\prime}} = h\mathbf{u} = {\langle{ha,hb}\rangle}$$</math>
-    </paragraph>
-    <paragraph>
-      for some scalar <math display="inline">$$h$$</math> . Therefore <math display="inline">$$x - x_{0} = ha$$</math> , <math display="inline">$$y - y_{0} = hb$$</math> , so <math display="inline">$$x = x_{0} + ha$$</math> , <math display="inline">$$y = y_{0} + hb$$</math> , and
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\frac{\Delta z}{h} = \frac{z - z_{0}}{h} = \frac{f{({x_{0} + ha,y_{0} + hb})} - f{({x_{0},y_{0}})}}{h}$$</math>
-    </paragraph>
-    <paragraph>
-      If we take the limit as <math display="inline">$$\left. h\rightarrow 0 \right.$$</math> , we obtain the rate of change of <math display="inline">$$z$$</math> (with respect to distance) in the direction of <math display="inline">$$\mathbf{u}$$</math> , which is called the directional derivative of <math display="inline">$$f$$</math> in the direction of <math display="inline">$$\mathbf{u}$$</math> .
-    </paragraph>
-    <note title="Definition">
-      <paragraph>
-        The <strong>directional derivative</strong> of <math display="inline">$$f$$</math> at <math display="inline">$$({x_{0},y_{0}})$$</math> in the direction of a unit vector <math display="inline">$$\mathbf{u} = {\langle{a,b}\rangle}$$</math> is
-      </paragraph>
-      <paragraph>
-        if this limit exists.
-      </paragraph>
-    </note>
-    <paragraph>
-      By comparing Definition 2 with Equations 1, we see that if <math display="inline">$$\mathbf{u} = \mathbf{i} = {\langle{1,0}\rangle}$$</math> , then <math display="inline">$$D_{\mathbf{i}}f = f_{x}$$</math> and if <math display="inline">$$\mathbf{u} = \mathbf{j} = {\langle{0,1}\rangle}$$</math> , then <math display="inline">$$D_{\mathbf{j}}f = f_{y}$$</math> . In other words, the partial derivatives of <math display="inline">$$f$$</math> with respect to <math display="inline">$$x$$</math> and <math display="inline">$$y$$</math> are just special cases of the directional derivative.
-    </paragraph>
-    <example number="1">
-      <problem>
-        <paragraph>
-          Use the weather map in Figure 1 to estimate the value of the directional derivative of the temperature function at Reno in the southeasterly direction.
-        </paragraph>
-        <paragraph>
-          Solution We start by drawing a line through Reno toward the southeast [in the direction of <math display="inline">$$\mathbf{u} = (\mathbf{i} - \mathbf{j}) \slash \sqrt{2}$$</math> ; see Figure 4].
-        </paragraph>
-        <figure number="4">
-          <alt_text>A contour map and a line are drawn on an outline map of the San Francisco Bay Area. The first curve, labeled 60, rises up, goes down and stops a distance above Los Angeles, goes up, then down and then goes up to exit at the top right. A long thin loop lies within the loop 60 and its right side touches Reno. The second curve labeled 70, begins from below San Francisco, goes up, and then down, stops below curve 60 and then goes up to the right to exit on the right. The third curve, labeled 80, runs horizontally above Los Angeles, and then goes up to the left of Las Vegas and exits on the right of the viewing window. A point is marked on the top right of the loop labeled 50 and on the curve labeled 60, down and to the right of Reno. A line joins the two points and Reno, which is in between the two, and slopes downward to the right.</alt_text>
-        </figure>
-        <paragraph>
-          We approximate the directional derivative <math display="inline">$$D_{u}T$$</math> by the average rate of change of the temperature between the points where this line intersects the isothermals <math display="inline">$$T = 50$$</math> and <math display="inline">$$T = 60$$</math> . The temperature at the point southeast of Reno is <math display="inline">$$T = 60^{{^\circ}}F$$</math> and the temperature at the point northwest of Reno is <math display="inline">$$T = 50^{{^\circ}}F$$</math> . The distance between these points looks to be about <math display="inline">$$75$$</math> miles. So the rate of change of the temperature in the southeasterly direction is
-        </paragraph>
-        <paragraph>
-          <math display="block">$$D_{\mathbf{u}}T \approx \frac{60 - 50}{75} = \frac{10}{75} \approx 0.13^{{^\circ}}F \slash {mi}$$</math>
-        </paragraph>
-      </problem>
-    </example>
-    <paragraph>
-      When we compute the directional derivative of a function defined by a formula, we generally use the following theorem.
-    </paragraph>
-    <note title="Theorem">
-      <paragraph>
-        If <math display="inline">$$f$$</math> is a differentiable function of <math display="inline">$$x$$</math> and <math display="inline">$$y$$</math> , then <math display="inline">$$f$$</math> has a directional derivative in the direction of any unit vector <math display="inline">$$\mathbf{u} = {\langle{a,b}\rangle}$$</math> and
-      </paragraph>
-    </note>
-    <note title="Proof">
-      <paragraph>
-        If we define a function <math display="inline">$$g$$</math> of the single variable <math display="inline">$$h$$</math> by
-      </paragraph>
-      <paragraph>
-        then, by the definition of a derivative, we have
-      </paragraph>
-      <paragraph>
-        On the other hand, we can write <math display="inline">$$g{(h)} = f{({x,y})}$$</math> , where <math display="inline">$$x = x_{0} + ha$$</math> , <math display="inline">$$y = y_{0} + hb$$</math> , so Case 1 of the Chain Rule (Theorem 14.5.1) gives
-      </paragraph>
-      <paragraph>
-        If we now put <math display="inline">$$h = 0$$</math> , then <math display="inline">$$x = x_{0}$$</math> , <math display="inline">$$y = y_{0}$$</math> , and
-      </paragraph>
-      <paragraph>
-        Comparing Equations 4 and 5, we see that
-      </paragraph>
-    </note>
-    <paragraph>
-      If the unit vector <math display="inline">$$\mathbf{u}$$</math> makes an angle <math display="inline">$$\theta$$</math> with the positive <math display="inline">$$x$$</math>-axis (as in Figure 5), then we can write <math display="inline">$$\mathbf{u} = {\langle{\cos\theta,\sin\theta}\rangle}$$</math> and the formula in Theorem 3 becomes
-    </paragraph>
-    <figure number="5" caption="A unit vector u = 〈 cos θ , sin θ 〉">
-      <alt_text>A vector and two line segments are graphed in the first quadrant of the x y coordinate plane. From a point labeled (x_0, y_0), a dashed horizontal line segment, labeled cos(theta), runs rightward. The vector, labeled vector u, begins at (x_0, y_0), slopes upward to the right, at an angle theta from the horizontal line segment. From the tip of the vector a dashed vertical line segment, labeled sin(theta), descends downward to meet the horizontal line segment.</alt_text>
-    </figure>
-    <example number="2">
-      <problem>
-        <paragraph>
-          Find the directional derivative <math display="inline">$$D_{u}f{({x,y})}$$</math> if
-        </paragraph>
-        <paragraph>
-          <math display="block">$$f{({x,y})} = x^{3} - 3xy + 4y^{2}$$</math>
-        </paragraph>
-        <paragraph>
-          and <math display="inline">$$\mathbf{u}$$</math> the unit vector in the direction given by angle <math display="inline">$$\theta = \pi \slash 6$$</math> measured from the positive <math display="inline">$$x$$</math>-axis. What is <math display="inline">$$D_{u}f{({1,2})}$$</math> ?
-        </paragraph>
-        <paragraph>
-          Solution Formula 6 gives
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {D_{u}f{({x,y})} = f_{x}{({x,y})}\cos\frac{\pi}{6} + f_{y}{({x,y})}\sin\frac{\pi}{6}} \\
-  {\phantom{D_{u}f{({x,y})}}{= {({3x^{2} - 3y})}\frac{\sqrt{3}}{2} + {({- 3x + 8y})}\frac{1}{2}}} \\
-  {\phantom{D_{u}f{({x,y})}}{= \frac{1}{2}\left\lbrack {3\sqrt{3}x^{2} - 3x + {({8 - 3\sqrt{3}})}y} \right\rbrack}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          Therefore
-        </paragraph>
-        <paragraph>
-          <math display="block">$$D_{\mathbf{u}}f{({1,2})} = \frac{1}{2}\left\lbrack {3\sqrt{3}{(1)}^{2} - 3{(1)} + {({8 - 3\sqrt{3}})}{(2)}} \right\rbrack = \frac{13 - 3\sqrt{3}}{2}$$</math>
-        </paragraph>
-      </problem>
-    </example>
-  </subsection>
-  <subsection title="The Gradient Vector">
-    <paragraph>
-      Notice from Theorem 3 that the directional derivative of a differentiable function can be written as the dot product of two vectors:
-    </paragraph>
-    <paragraph>
-      The first vector in this dot product occurs not only in computing directional derivatives but in many other contexts as well. So we give it a special name (the <em>gradient</em> of <math display="inline">$$f$$</math> ) and a special notation (<strong>grad</strong> <math display="inline">$$f$$</math> or <math display="inline">$$\nabla f$$</math> , which is read “del <math display="inline">$$f$$</math> ”).
-    </paragraph>
-    <note title="Definition">
-      <paragraph>
-        If <math display="inline">$$f$$</math> is a function of two variables <math display="inline">$$x$$</math> and <math display="inline">$$y$$</math> , then the <strong>gradient</strong> of <math display="inline">$$f$$</math> is the vector function <math display="inline">$$\nabla f$$</math> defined by
-      </paragraph>
-    </note>
-    <example number="3">
-      <problem>
-        <paragraph>
-          If <math display="inline">$$f{({x,y})} = \sin x + e^{ xy}$$</math> , then
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\nabla f(x,y) = {\langle{f_{x},f_{y}}\rangle} = {\langle{\cos x + ye^{ xy},xe^{ xy}}\rangle}$$</math>
-        </paragraph>
-        <paragraph>
-          and
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\nabla f{({0,1})} = {\langle{2,0}\rangle}$$</math>
-        </paragraph>
-      </problem>
-    </example>
-    <paragraph>
-      With this notation for the gradient vector, we can rewrite Equation 7 for the directional derivative of a differentiable function as
-    </paragraph>
-    <paragraph>
-      This expresses the directional derivative in the direction of a unit vector <math display="inline">$$\mathbf{u}$$</math> as the scalar projection of the gradient vector onto <math display="inline">$$\mathbf{u}$$</math> .
-    </paragraph>
-    <example number="4">
-      <problem>
-        <paragraph>
-          Find the directional derivative of the function <math display="inline">$$f{({x,y})} = x^{2}y^{3} - 4y$$</math> at the point <math display="inline">$$({2, - 1})$$</math> in the direction of the vector <math display="inline">$$\mathbf{v} = 2\mathbf{i} + 5\mathbf{j}$$</math> .
-        </paragraph>
-        <paragraph>
-          Solution We first compute the gradient vector at <math display="inline">$$({2, - 1})$$</math> :
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{rcl}
-  {\nabla f(x,y)} &amp; = &amp; {2xy^{3}\mathbf{i} + (3x^{2}y^{2} - 4)\mathbf{j}} \\
-  {\nabla f(2, - 1)} &amp; = &amp; {- 4\mathbf{i} + 8\mathbf{j}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          Note that <math display="inline">$$\mathbf{v}$$</math> is not a unit vector, but since <math display="inline">$$\left| \mathbf{v} \right| = \sqrt{29}$$</math> , the unit vector in the direction of <math display="inline">$$\mathbf{v}$$</math> is
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\mathbf{u} = \frac{\mathbf{v}}{\left| \mathbf{v} \right|} = \frac{2}{\sqrt{29}}\mathbf{i} + \frac{5}{\sqrt{29}}\mathbf{j}$$</math>
-        </paragraph>
-        <paragraph>
-          Therefore, by Equation 9, we have
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {{D_{u}f(2, - 1)} = {\nabla f(2, - 1) \cdot \mathbf{u} = ( - 4\mathbf{i} + 8\mathbf{j}) \cdot \left( {\frac{2}{\sqrt{29}}\mathbf{i} + \frac{5}{\sqrt{29}}\mathbf{j}} \right)}} \\
-  {\phantom{D_{u}f(2, - 1)} = {\frac{- 4 \cdot 2 + 8 \cdot 5}{\sqrt{29}} = \frac{32}{\sqrt{29}}}}
-  \end{array}$$</math>
-        </paragraph>
-      </problem>
-    </example>
-  </subsection>
-  <subsection title="Functions of Three Variables">
-    <paragraph>
-      For functions of three variables we can define directional derivatives in a similar manner. Again <math display="inline">$$D_{u}f{({x,y,z})}$$</math> can be interpreted as the rate of change of the function in the direction of a unit vector <math display="inline">$$\mathbf{u}$$</math> .
-    </paragraph>
-    <note title="Definition">
-      <paragraph>
-        The <strong>directional derivative</strong> of <math display="inline">$$f$$</math> at <math display="inline">$$({x_{0},y_{0},z_{0}})$$</math> in the direction of a unit vector <math display="inline">$$\mathbf{u} = {\langle{a,b,c}\rangle}$$</math> is
-      </paragraph>
-      <paragraph>
-        if this limit exists.
-      </paragraph>
-    </note>
-    <paragraph>
-      If we use vector notation, then we can write both definitions (2 and 10) of the directional derivative in the compact form
-    </paragraph>
-    <paragraph>
-      where <math display="inline">$$\mathbf{x}_{0} = {\langle{x_{0},y_{0}}\rangle}$$</math> if <math display="inline">$$n = 2$$</math> and <math display="inline">$$\mathbf{x}_{0} = {\langle{x_{0},y_{0},z_{0}}\rangle}$$</math> if <math display="inline">$$n = 3$$</math> . This is reasonable because the vector equation of the line through <math display="inline">$$\mathbf{x}_{0}$$</math> in the direction of the vector <math display="inline">$$\mathbf{u}$$</math> is given by <math display="inline">$$\mathbf{x} = \mathbf{x}_{0} + t\mathbf{u}$$</math> (Equation 12.5.1) and so <math display="inline">$$f{({\mathbf{x}_{0} + h\mathbf{u}})}$$</math> represents the value of <math display="inline">$$f$$</math> at a point on this line.
-    </paragraph>
-    <paragraph>
-      If <math display="inline">$$f{({x,y,z})}$$</math> is differentiable and <math display="inline">$$\mathbf{u} = {\langle{a,b,c}\rangle}$$</math> , then the same method that was used to prove Theorem 3 can be used to show that
-    </paragraph>
-    <paragraph>
-      For a function <math display="inline">$$f$$</math> of three variables, the <strong>gradient vector</strong>, denoted by <math display="inline">$$\nabla f$$</math> or <strong>grad</strong> <math display="inline">$$f$$</math> , is
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\nabla f{({x,y,z})} = {\langle{f_{x}{({x,y,z})},f_{y}{({x,y,z})},f_{z}{({x,y,z})}}\rangle}$$</math>
-    </paragraph>
-    <paragraph>
-      or, for short,
-    </paragraph>
-    <paragraph>
-      Then, just as with functions of two variables, Formula 12 for the directional derivative can be rewritten as
-    </paragraph>
-    <example number="5">
-      <problem>
-        <paragraph>
-          If <math display="inline">$$f{({x,y,z})} = x\sin yz$$</math> ,
-        </paragraph>
-        <list ordered="true">
-          <item>
-            <paragraph>
-              find the gradient of <math display="inline">$$f$$</math> and
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              find the directional derivative of <math display="inline">$$f$$</math> at <math display="inline">$$({1,3,0})$$</math> in the direction of <math display="inline">$$\mathbf{v} = \mathbf{i} + 2\mathbf{j} - \mathbf{k}$$</math> .
-            </paragraph>
-          </item>
-        </list>
-        <paragraph>
-          Solution
-        </paragraph>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              The gradient of <math display="inline">$$f$$</math> is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {\nabla f{({x,y,z})} = {\langle{f_{x}{({x,y,z})},f_{y}{({x,y,z})},f_{z}{({x,y,z})}}\rangle}} \\
-  {\phantom{\nabla f{({x,y,z})}}{= {\langle{\sin yz,xz\cos yz,xy\cos yz}\rangle}}}
-  \end{array}$$</math>
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              At <math display="inline">$$({1,3,0})$$</math> we have <math display="inline">$$\nabla f{({1,3,0})} = {\langle{0,0,3}\rangle}$$</math> . The unit vector in the direction of <math display="inline">$$\mathbf{v} = \mathbf{i} + 2\mathbf{j} - \mathbf{k}$$</math> is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\mathbf{u} = \frac{1}{\sqrt{6}}\mathbf{i} + \frac{2}{\sqrt{6}}\mathbf{j} - \frac{1}{\sqrt{6}}\mathbf{k}$$</math>
-            </paragraph>
-            <paragraph>
-              Therefore Equation 14 gives
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{l}
-  {D_{\mathbf{u}}f{({1,3,0})} = \nabla f{({1,3,0})} \cdot \mathbf{u}} \\
-  {\phantom{D_{u}f\left( {1,3,0} \right)} = 3\mathbf{k} \cdot \left( {\frac{1}{\sqrt{6}}\mathbf{i} + \frac{2}{\sqrt{6}}\mathbf{j} - \frac{1}{\sqrt{6}}\mathbf{k}} \right)} \\
-  {\phantom{D_{u}f\left( {1,3,0} \right)}{= 3\left( {- \frac{1}{\sqrt{6}}} \right)} = - \sqrt{\frac{3}{2}}}
-  \end{array}$$</math>
-            </paragraph>
-          </item>
-        </list>
-      </problem>
-    </example>
-  </subsection>
-  <subsection title="Maximizing the Directional Derivative">
-    <paragraph>
-      Suppose we have a function <math display="inline">$$f$$</math> of two or three variables and we consider all possible directional derivatives of <math display="inline">$$f$$</math> at a given point. These give the rates of change of <math display="inline">$$f$$</math> in all possible directions. We can then ask the questions: in which of these directions does <math display="inline">$$f$$</math> change fastest and what is the maximum rate of change? The answers are provided by the following theorem.
-    </paragraph>
-    <note title="Theorem">
-      <paragraph>
-        Suppose <math display="inline">$$f$$</math> is a differentiable function of two or three variables. The maximum value of the directional derivative <math display="inline">$$D_{u}f{(\mathbf{x})}$$</math> is <math display="inline">$$\left| {\nabla f{(\mathbf{x})}} \right|$$</math> and it occurs when <math display="inline">$$\mathbf{u}$$</math> has the same direction as the gradient vector <math display="inline">$$\nabla f{(\mathbf{x})}$$</math> .
-      </paragraph>
-    </note>
-    <note title="Proof">
-      <paragraph>
-        From Equation 9 or 14 and using Theorem 12.3.3, we have
-      </paragraph>
-      <paragraph>
-        where <math display="inline">$$\theta$$</math> is the angle between <math display="inline">$$\nabla f$$</math> and <math display="inline">$$\mathbf{u}$$</math> . The maximum value of <math display="inline">$$\cos\theta$$</math> is <math display="inline">$$1$$</math> and this occurs when <math display="inline">$$\theta = 0$$</math> . Therefore the maximum value of <math display="inline">$$D_{u}f$$</math> is <math display="inline">$$\left| {\nabla f} \right|$$</math> and it occurs when <math display="inline">$$\theta = 0$$</math> , that is, when <math display="inline">$$\mathbf{u}$$</math> has the same direction as <math display="inline">$$\nabla f$$</math> .
-      </paragraph>
-    </note>
-    <example number="6">
-      <problem>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              If <math display="inline">$$f{({x,y})} = xe^{ y}$$</math> , find the rate of change of <math display="inline">$$f$$</math> at the point <math display="inline">$$P{({2,0})}$$</math> in the direction from <math display="inline">$$P$$</math> to <math display="inline">$$Q\left( {\frac{1}{2},2} \right)$$</math> .
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              In what direction does <math display="inline">$$f$$</math> have the maximum rate of change? What is this maximum rate of change?
-            </paragraph>
-          </item>
-        </list>
-        <paragraph>
-          Solution
-        </paragraph>
-        <list ordered="false">
-          <item>
-            <paragraph>
-              We first compute the gradient vector:
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\begin{array}{lll}
-  {\nabla f(x,y)} &amp; = &amp; {\langle f_{x},f_{y}\rangle = \langle e^{ y},xe^{ y}\rangle} \\
-  {\nabla f(2,0)} &amp; = &amp; {\langle 1,2\rangle}
-  \end{array}$$</math>
-            </paragraph>
-            <paragraph>
-              The unit vector in the direction of <math display="inline">$$\overset{\rightarrow}{PQ} = \langle - ‍\frac{3}{2},2\rangle$$</math> is <math display="inline">$$\mathbf{u} = {\langle{- ‍\frac{3}{5},\frac{4}{5}}\rangle}$$</math> , so the rate of change of <math display="inline">$$f$$</math> in the direction from <math display="inline">$$P$$</math> to <math display="inline">$$Q$$</math> is
-            </paragraph>
-            <paragraph>
-              <math display="block">$${D_{u}f\left( {2,0} \right) = \nabla f\left( {2,0} \right) \cdot \mathbf{u} = {\langle{1,2}\rangle} \cdot {\langle{- ‍\frac{3}{5},\frac{4}{5}}\rangle}} = 1$$</math>
-            </paragraph>
-          </item>
-          <item>
-            <paragraph>
-              According to Theorem 15, <math display="inline">$$f$$</math> increases fastest in the direction of the gradient vector <math display="inline">$$\nabla f{({2,0})} = {\langle{1,2}\rangle}$$</math> . The maximum rate of change is
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\left| {\nabla f{({2,0})}} \right| = \left| {\langle{1,2}\rangle} \right| = \sqrt{5}$$</math>
-            </paragraph>
-          </item>
-        </list>
-      </problem>
-    </example>
-    <example number="7">
-      <problem>
-        <paragraph>
-          Suppose that the temperature at a point <math display="inline">$$({x,y,z})$$</math> in space is given by <math display="inline">$$T{({x,y,z})} = 80 \slash {({1 + x^{2} + 2y^{2} + 3z^{2}})}$$</math> , where <math display="inline">$$T$$</math> is measured in degrees Celsius and <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , <math display="inline">$$z$$</math> in meters. In which direction does the temperature increase fastest at the point <math display="inline">$$({1,1, - 2})$$</math> ? What is the maximum rate of increase?
-        </paragraph>
-        <paragraph>
-          Solution The gradient of <math display="inline">$$T$$</math> is
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {\nabla T = \frac{\partial T}{\partial x}\mathbf{i} + \frac{\partial T}{\partial y}\mathbf{j} + \frac{\partial T}{\partial z}\mathbf{k}} \\
-  {\phantom{\nabla T}{= - \frac{160x}{{({1 + x^{2} + 2y^{2} + 3z^{2}})}^{2}}\mathbf{i} - \frac{320y}{{({1 + x^{2} + 2y^{2} + 3z^{2}})}^{2}}\mathbf{j} - \frac{480z}{{({1 + x^{2} + 2y^{2} + 3z^{2}})}^{2}}\mathbf{k}}} \\
-  {\phantom{\nabla T}{= \frac{160}{{({1 + x^{2} + 2y^{2} + 3z^{2}})}^{2}}{({- x\mathbf{i} - 2y\mathbf{j} - 3z\mathbf{k}})}}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          At the point <math display="inline">$$({1,1, - 2})$$</math> the gradient vector is
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\nabla T{({1,1, - 2})} = \frac{160}{256}{({- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}})} = \frac{5}{8}{({- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}})}$$</math>
-        </paragraph>
-        <paragraph>
-          By Theorem 15 the temperature increases fastest in the direction of the gradient vector <math display="inline">$$\nabla T{({1,1, - 2})} = \frac{5}{8}{({- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}})}$$</math> or, equivalently, in the direction of <math display="inline">$$- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}$$</math> or the unit vector <math display="inline">$${({- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}})} \slash \sqrt{41}$$</math> . The maximum rate of increase is the length of the gradient vector:
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\left| {\nabla T{({1,1, - 2})}} \right| = \frac{5}{8}\left| {- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}} \right| = \frac{5}{8}\sqrt{41}$$</math>
-        </paragraph>
-        <paragraph>
-          Therefore the maximum rate of increase of temperature is <math display="inline">$$\frac{5}{8}\sqrt{41} \approx 4{}_{}^{} \slash m$$</math> .
-        </paragraph>
-      </problem>
-    </example>
-  </subsection>
-  <subsection title="Tangent Planes to Level Surfaces">
-    <paragraph>
-      Suppose <math display="inline">$$S$$</math> is a surface with equation <math display="inline">$$F{({x,y,z})} = k$$</math> , that is, it is a level surface of a function <math display="inline">$$F$$</math> of three variables, and let <math display="inline">$$P{({x_{0},y_{0},z_{0}})}$$</math> be a point on <math display="inline">$$S$$</math> . Let <math display="inline">$$C$$</math> be any curve that lies on the surface <math display="inline">$$S$$</math> and passes through the point <math display="inline">$$P$$</math> . Recall from Section 13.1 that the curve <math display="inline">$$C$$</math> is described by a continuous vector function <math display="inline">$$\mathbf{r}{(t)} = {\langle{x{(t)},y{(t)},z{(t)}}\rangle}$$</math> . Let <math display="inline">$$t_{0}$$</math> be the parameter value corresponding to <math display="inline">$$P$$</math> ; that is, <math display="inline">$$\mathbf{r}{(t_{0})} = {\langle{x_{0},y_{0},z_{0}}\rangle}$$</math> . Since <math display="inline">$$C$$</math> lies on <math display="inline">$$S$$</math> , any point <math display="inline">$$({x{(t)},y{(t)},z{(t)}})$$</math> must satisfy the equation of <math display="inline">$$S$$</math> , that is,
-    </paragraph>
-    <paragraph>
-      If <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , and <math display="inline">$$z$$</math> are differentiable functions of <math display="inline">$$t$$</math> and <math display="inline">$$F$$</math> is also differentiable, then we can use the Chain Rule to differentiate both sides of Equation 16 as follows:
-    </paragraph>
-    <paragraph>
-      But, since <math display="inline">$$\nabla F = {\langle{F_{x},F_{y},F_{z}}\rangle}$$</math> and <math display="inline">$$r^{\prime}{(t)} = {\langle{x^{\prime}{(t)},y^{\prime}{(t)},z^{\prime}{(t)}}\rangle}$$</math> , Equation 17 can be written in terms of a dot product as
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\nabla F \cdot \mathbf{r}^{\prime}{(t)} = 0$$</math>
-    </paragraph>
-    <paragraph>
-      In particular, when <math display="inline">$$t = t_{0}$$</math> we have <math display="inline">$$r{(t_{0})} = {\langle{x_{0},y_{0},z_{0}}\rangle}$$</math> , so
-    </paragraph>
-    <paragraph>
-      Equation 18 says that <em>the gradient vector</em> <em>at</em> <math display="inline">$$P$$</math> , <math display="inline">$$\nabla F{({x_{0},y_{0},z_{0}})}$$</math> , <em>is</em> <em>perpendicular to the tangent vector</em> <math display="inline">$$\mathbf{r}^{\prime}{(t_{0})}$$</math> <em>to any curve</em> <math display="inline">$$C$$</math> <em>on</em> <math display="inline">$$S$$</math> <em>that passes through</em> <math display="inline">$$P$$</math> . (See Figure 10.) If <math display="inline">$$\nabla F{({x_{0},y_{0},z_{0}})} \neq 0$$</math> , it is therefore natural to define the <strong>tangent plane to the level surface</strong> <math display="inline">$$F{({x,y,z})} = k$$</math> <strong>at</strong> <math display="inline">$$P{({x_{0},y_{0},z_{0}})}$$</math> as the plane that passes through <math display="inline">$$P$$</math> and has normal vector <math display="inline">$$\nabla F{({x_{0},y_{0},z_{0}})}$$</math> . Using the standard equation of a plane (Equation 12.5.7), we can write the equation of this tangent plane as
-    </paragraph>
-    <figure number="10">
-      <alt_text>A curved surface, a curve, a plane, a point, and two vectors are graphed in the x y z coordinate space. The positive x axis slopes down and to the left. The positive y axis slopes slightly down and to the right. The positive z axis runs vertically upward. The curved surface, labeled S, resembles a triangle with curved sides bulging away from the origin and y axis. The triangle has its base curved side on the x y plane. Its bottom left vertex is on the x axis, the bottom right vertex is on the x y plane. The base and the top side going down to meet the x y plane are longer than the left side of the triangle. A curve, labeled C, is drawn on the curved surface such that it begins from the left side, near the top and goes down to the right and front. A point labeled P is marked on the curve near the top. A rectangular plane, labeled tangent plane, is tangent to S and C at P and slopes downward to the right and upward to the back. A vector, labeled vector r prime(t_0) begins from P and slopes downward to the right, lies on the tangent plane and is tangent to the curve. Another vector, labeled Delta F(x_0, y_0, z_0) begins from P, slopes upward to the right and slightly to the back, and is perpendicular to vector r prime(t_0).</alt_text>
-    </figure>
-    <paragraph>
-      The <strong>normal line</strong> to <math display="inline">$$S$$</math> at <math display="inline">$$P$$</math> is the line passing through <math display="inline">$$P$$</math> and perpendicular to the tangent plane. The direction of the normal line is therefore given by the gradient vector <math display="inline">$$\nabla F{({x_{0},y_{0},z_{0}})}$$</math> and so, by Equation 12.5.3, its symmetric equations are
-    </paragraph>
-    <example number="8">
-      <problem>
-        <paragraph>
-          Find the equations of the tangent plane and normal line to the ellipsoid
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\frac{x^{2}}{4} + y^{2} + \frac{z^{2}}{9} = 3$$</math>
-        </paragraph>
-        <paragraph>
-          at the point <math display="inline">$$({- 2,1, - 3})$$</math>
-        </paragraph>
-        <paragraph>
-          Solution The ellipsoid is the level surface (with <math display="inline">$$k = 3$$</math> ) of the function
-        </paragraph>
-        <paragraph>
-          <math display="block">$$F{({x,y,z})} = \frac{x^{2}}{4} + y^{2} + \frac{z^{2}}{9}$$</math>
-        </paragraph>
-        <paragraph>
-          Therefore we have
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{rclrclrcl}
-  {F_{x}{({x,y,z})}} &amp; = &amp; \frac{x}{2} &amp; {\quad{F_{y}{({x,y,z})}}} &amp; = &amp; {2y} &amp; {\quad{F_{z}{({x,y,z})}}} &amp; = &amp; \frac{2z}{9} \\
-  {F_{x}{({- 2,1, - 3})}} &amp; = &amp; {- 1} &amp; {\quad{F_{y}{({- 2,1, - 3})}}} &amp; = &amp; 2 &amp; {\quad{F_{z}{({- 2,1, - 3})}}} &amp; = &amp; {- ‍\frac{2}{3}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          Then Equation 19 gives the equation of the tangent plane at <math display="inline">$$({- 2,1, - 3})$$</math> as
-        </paragraph>
-        <paragraph>
-          <math display="block">$$- 1{({x + 2})} + 2{({y - 1})} - ‍\frac{2}{3}{({z + 3})} = 0$$</math>
-        </paragraph>
-        <paragraph>
-          which simplifies to <math display="inline">$$3x - 6y + 2z + 18 = 0$$</math> .
-        </paragraph>
-        <paragraph>
-          By Equation 20, symmetric equations of the normal line are
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\frac{x + 2}{- 1} = \frac{y - 1}{2} = \frac{z + 3}{- ‍\frac{2}{3}}$$</math>
-        </paragraph>
-      </problem>
-    </example>
-    <paragraph>
-      In the special case in which the equation of a surface <math display="inline">$$S$$</math> is of the form <math display="inline">$$z = f{({x,y})}$$</math> (that is, <math display="inline">$$S$$</math> is the graph of a function <math display="inline">$$f$$</math> of two variables), we can rewrite the equation as
-    </paragraph>
-    <paragraph>
-      <math display="block">$$F{({x,y,z})} = f{({x,y})} - z = 0$$</math>
-    </paragraph>
-    <paragraph>
-      and regard <math display="inline">$$S$$</math> as a level surface (with <math display="inline">$$k = 0$$</math> ) of <math display="inline">$$F$$</math> . Then
-    </paragraph>
-    <paragraph>
-      <math display="block">$$\begin{array}{rcl}
-  {F_{x}(x_{0},y_{0},z_{0})} &amp; = &amp; {f_{x}(x_{0},y_{0})} \\
-  {F_{y}(x_{0},y_{0},z_{0})} &amp; = &amp; {f_{y}(x_{0},y_{0})} \\
-  {F_{z}(x_{0},y_{0},z_{0})} &amp; = &amp; {- 1}
-  \end{array}$$</math>
-    </paragraph>
-    <paragraph>
-      so Equation 19 becomes
-    </paragraph>
-    <paragraph>
-      <math display="block">$$f_{x}{({x_{0},y_{0}})}{({x - x_{0}})} + f_{y}{({x_{0},y_{0}})}{({y - y_{0}})} - {({z - z_{0}})} = 0$$</math>
-    </paragraph>
-    <paragraph>
-      which is equivalent to Equation 14.4.2. Thus our new, more general, definition of a tangent plane is consistent with the definition that was given for the special case of Section 14.4.
-    </paragraph>
-    <example number="9">
-      <problem>
-        <paragraph>
-          Find the tangent plane to the surface <math display="inline">$$z = 2x^{2} + y^{2}$$</math> at the point <math display="inline">$$(1,1,3)$$</math> .
-        </paragraph>
-        <paragraph>
-          Solution The surface <math display="inline">$$z = 2x^{2} + y^{2}$$</math> or, equivalently, <math display="inline">$$2x^{2} + y^{2} - z = 0$$</math> is a level surface (with <math display="inline">$$k = 0$$</math> ) of the function
-        </paragraph>
-        <paragraph>
-          <math display="block">$$F(x,y,z) = 2x^{2} + y^{2} - z$$</math>
-        </paragraph>
-        <paragraph>
-          Then
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{lll}
-  {F_{x}(x,y,z) = 4x} &amp; {\quad F_{y}(x,y,z) = 2y} &amp; {\quad F_{z}(x,y,z) = - 1} \\
-  {F_{x}(1,1,3) = 4} &amp; {\quad F_{y}(1,1,3) = 2} &amp; {\quad F_{z}(1,1,3) = - 1}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          By Equation 19 the equation of the tangent plane at <math display="inline">$$(1,1,3)$$</math> is
-        </paragraph>
-        <paragraph>
-          <math display="block">$$4(x - 1) + 2(y - 1) - (z - 3) = 0$$</math>
-        </paragraph>
-        <paragraph>
-          which simplifies to <math display="inline">$$z = 4x + 2y - 3$$</math>
-        </paragraph>
-        <paragraph>
-          Compare the solution to Example 9 to the one in Example 14.4.1.
-        </paragraph>
-      </problem>
-    </example>
-  </subsection>
-  <subsection title="Significance of the Gradient Vector">
-    <paragraph>
-      We first consider a function <math display="inline">$$f$$</math> of three variables and a point <math display="inline">$$P{({x_{0},y_{0},z_{0}})}$$</math> in its domain. We know from Theorem 15 that the gradient vector <math display="inline">$$\nabla f{({x_{0},y_{0},z_{0}})}$$</math> gives the direction of fastest increase of <math display="inline">$$f$$</math> . We also know that <math display="inline">$$\nabla f{({x_{0},y_{0},z_{0}})}$$</math> is orthogonal to the level surface <math display="inline">$$S$$</math> of <math display="inline">$$f$$</math> through <math display="inline">$$P$$</math> . (Refer to Figure 10.) These two properties are quite compatible intuitively because as we move away from <math display="inline">$$P$$</math> on the level surface <math display="inline">$$S$$</math> , the value of <math display="inline">$$f$$</math> does not change at all. So it seems reasonable that if we move in the perpendicular direction, we get the maximum increase.
-    </paragraph>
-    <paragraph>
-      In like manner we consider a function <math display="inline">$$f$$</math> of two variables and a point <math display="inline">$$P{({x_{0},y_{0}})}$$</math> in its domain. Again the gradient vector <math display="inline">$$\nabla f{({x_{0},y_{0}})}$$</math> gives the direction of fastest increase of <math display="inline">$$f$$</math> . Also, by considerations similar to our discussion of tangent planes, it can be shown that <math display="inline">$$\nabla f{({x_{0},y_{0}})}$$</math> is perpendicular to the level curve <math display="inline">$$f{({x,y})} = k$$</math> that passes through <math display="inline">$$P$$</math> . Again this is intuitively plausible because the values of <math display="inline">$$f$$</math> remain constant as we move along the curve (See Figure 12).
-    </paragraph>
-    <figure number="12">
-      <alt_text>A closed curve, a point, a line, and a vector are graphed in the first quadrant of the x y coordinate plane. The closed curve resembles a horizontal oval shape with narrow ends bent downward and labeled level curve f(x, y) = k.</alt_text>
-    </figure>
-    <paragraph>
-      We now summarize the ways in which the gradient vector is significant.
-    </paragraph>
-    <note title="Properties of the Gradient Vector">
-      <paragraph>
-        Let <math display="inline">$$f$$</math> be a differentiable function of two or three variables and suppose that <math display="inline">$$\nabla f\left( \mathbf{x} \right) \neq 0$$</math> .
-      </paragraph>
-      <list ordered="false">
-        <item>
-          <paragraph>
-            The directional derivative of <math display="inline">$$f$$</math> at <math display="inline">$$\mathbf{x}$$</math> in the direction of a unit vector <math display="inline">$$\mathbf{u}$$</math> is given by <math display="inline">$$D_{u}f\left( \mathbf{x} \right) = \nabla f\left( \mathbf{x} \right) \cdot \mathbf{u}$$</math> .
-          </paragraph>
-        </item>
-        <item>
-          <paragraph>
-            <math display="inline">$$\nabla f\left( \mathbf{x} \right)$$</math> points in the direction of maximum rate of increase of <math display="inline">$$f$$</math> at <math display="inline">$$\mathbf{x}$$</math> , and that maximum rate of change is <math display="inline">$$\left| \nabla f\left( \mathbf{x} \right) \right|$$</math> .
-          </paragraph>
-        </item>
-        <item>
-          <paragraph>
-            <math display="inline">$$\nabla f\left( \mathbf{x} \right)$$</math> is perpendicular to the level curve or level surface of <math display="inline">$$f$$</math> through <math display="inline">$$\mathbf{x}$$</math> .
-          </paragraph>
-        </item>
-      </list>
-    </note>
-    <paragraph>
-      If we consider a topographical map of a hill and let <math display="inline">$$f{({x,y})}$$</math> represent the height above sea level at a point with coordinates <math display="inline">$$({x,y})$$</math> , then a curve of steepest ascent can be drawn as in Figure 13 by making it perpendicular to all of the contour lines. This phenomenon can also be noticed in Figure 14.1.12, where Lonesome Creek follows a curve of steepest descent.
-    </paragraph>
-    <figure number="13">
-      <alt_text>A contour map and a curve are displayed. The map consists of five irregular closed curves that are almost parallel. The outermost and the next two curves are labeled 100, 200, and 300, respectively. The curve, labeled curve of steepest ascent, begins at the bottom left of the outermost curve and passes through all the curves to reach the center of the map while crossing each curve at right angles to it.</alt_text>
-    </figure>
-    <paragraph>
-      Mathematical software can plot sample gradient vectors, where each gradient vector <math display="inline">$$\nabla f{({a,b})}$$</math> is plotted starting at the point <math display="inline">$$({a,b})$$</math> . Figure 14 shows such a plot (called a <em>gradient vector field</em>) for the function <math display="inline">$$f{({x,y})} = x^{2} - y^{2}$$</math> superimposed on a contour map of <math display="inline">$$f$$</math> . As expected, the gradient vectors point “uphill” and are perpendicular to the level curves.
-    </paragraph>
-    <figure number="14">
-      <alt_text>A contour map and a vector field are graphed in the x y coordinate plane. The contour map has two lines and six two part curves. The first line enters from the top left, passes through the origin and exits at the bottom right. The second line enters from the bottom left, crosses the first line as it passes through the origin and exits at the top right. The first set of curves resemble a family of three hyperbolas with the branches opening upward and downward and vertices on the positive and negative y axis, respectively. They are labeled negative 3, negative 6, and negative 9, from the one closest to the origin to the one farthest away. The second set of curves resemble a family of three hyperbolas with the branches opening leftward and rightward and vertices on the negative and positive x axis, respectively. They are labeled 3, 6, and 9, from the one closest to the origin to the one farthest away.</alt_text>
-    </figure>
-  </subsection>
-  <subsection number="14.6" title="Exercises">
-    <exercises>
-      <exercise_group>
-        <problem number="1">
-          <statement>
-            <paragraph>
-              Level curves for barometric pressure (in millibars) are shown for 6:00 am on a day in November. A deep low with pressure <math display="inline">$$972$$</math> mb is moving over northeast Iowa. The distance along the red line from <math display="inline">$$K$$</math> (Kearney, Nebraska) to <math display="inline">$$S$$</math> (Sioux City, Iowa) is <math display="inline">$$300$$</math> km. Estimate the value of the directional derivative of the pressure function at Kearney in the direction of Sioux City. What are the units of the directional derivative?
-            </paragraph>
-            <figure>
-              <alt_text>A contour map has been superimposed on a map of the outline of a few states. The contour map consists of concentric, almost circular loops. The innermost loop is labeled 972 and lies completely within Iowa. The second one is labeled 976 and passes through a point labeled S on the left. The next curves are labeled 980, 984, 988, 992, 996, 1000, 1004, and 1008. Parts of some curves labeled 1012, 1016, 1020, 1024 are visible on the right and some on the left. The curve labeled 1000 touches a point labeled K at the bottom left.</alt_text>
-            </figure>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\approx - 0.08{mb} \slash {km}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="2">
-          <statement>
-            <paragraph>
-              The contour map shows the average maximum temperature for November 2004 (in <math display="inline">$$^{{^\circ}}C$$</math> ). Estimate the value of the directional derivative of this temperature function at Dubbo, New South Wales, in the direction of Sydney. What are the units?
-            </paragraph>
-            <figure>
-              <alt_text>A contour map is drawn over the outline of New South Wales. The first curve labeled 30 enters from the top left, goes down and then up, goes up to the right, above Dubbo, and exits at the top left. The second curve, labeled 27, enters slightly below the Murray River, almost runs along the river, then goes up to the right, bulges toward the coast near Barrington Tops, goes up and exits to the right of 30. A small portion at the top right corner also falls under this curve. Between the exiting curve and the top right corner a small closed curve, labeled 24, is drawn. The third curve, labeled 24, enters below 27, almost runs parallel to it, bulges upward directly below Dubbo, goes down and exits just above Sydney. The next curve is labeled 21, enters at the bottom briefly and exits, enters again, bulges toward Sydney, and exits at the bottom. The last curve labeled 18, enters and exits within the previous curve, almost following the same path, running almost parallel to it.</alt_text>
-            </figure>
-          </statement>
-        </problem>
-        <problem number="3">
-          <statement>
-            <paragraph>
-              The wind-chill index <math display="inline">$$W$$</math> is the perceived temperature when the actual temperature is <math display="inline">$$T$$</math> and the wind speed is <math display="inline">$$v$$</math> , so we can write <math display="inline">$$W = f{({T,\upsilon})}$$</math> The following table of values is an excerpt from Table 1 in Section 14.1. Use the table to estimate the value of <math display="inline">$$D_{u}f{({- 20,30})}$$</math> , where <math display="inline">$$\mathbf{u} = {({\mathbf{i} + \mathbf{j}})} \slash \sqrt{2}$$</math> .
-            </paragraph>
-            <figure>
-            </figure>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\approx 0.778$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          4, 5, 6, and 7 Find the directional derivative of <math display="inline">$$f$$</math> at the given point in the direction indicated by the angle <math display="inline">$$\theta$$</math> .
-        </instructions>
-        <problem number="4">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = \mathit{xy}^{3} - x^{2}$$</math> , <math display="inline">$$({1,2})$$</math> , <math display="inline">$$\theta = \pi \slash 3$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="5">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = y\cos{({xy})}$$</math> , <math display="inline">$$({0,1})$$</math> , <math display="inline">$$\theta = \pi \slash 4$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\sqrt{2} \slash 2$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="6">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = \sqrt{2x + 3y^{}}$$</math> , <math display="inline">$$({3,1})$$</math> , <math display="inline">$$\theta = - \pi \slash 6$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="7">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = \arctan(\mathit{xy})$$</math> , <math display="inline">$$(2, - 3)$$</math> , <math display="inline">$$\theta = 3\pi \slash 4$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$5\sqrt{2}/74$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          8, 9, 10, 11, and 12
-        </instructions>
-        <problem number="8">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = x^{2}e^{y}$$</math> , <math display="inline">$$P{({3,0})}$$</math> , <math display="inline">$$\mathbf{u} = \frac{1}{5}(3\mathbf{i} - 4\mathbf{j})$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="9">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = x \slash y$$</math> , <math display="inline">$$P{({2,1})}$$</math> , <math display="inline">$$\mathbf{u} = \frac{3}{5}\mathbf{i} + \frac{4}{5}\mathbf{j}$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$\nabla f{({x,y})} = {({1 \slash y})}\mathbf{i} - {({x \slash y^{2}})}\mathbf{j}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$\mathbf{i} - 2\mathbf{j}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="c">
-            <statement>
-              <paragraph>
-                <math display="inline">$$- 1$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="10">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = x^{2}\ln y$$</math> , <math display="inline">$$P{({3,1})}$$</math> , <math display="inline">$$\mathbf{u} = - ‍\frac{5}{13}\mathbf{i} + \frac{12}{13}\mathbf{j}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="11">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y,z})} = x^{2}yz - xyz^{3}$$</math> , <math display="inline">$$P{({2, - 1,1})}$$</math> , <math display="inline">$$\mathbf{u} = {\langle{0,\frac{4}{5}, - ‍\frac{3}{5}}\rangle}$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$\langle{2xyz - yz^{3},x^{2}z - xz^{3},x^{2}y - 3xyz^{2}}\rangle$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$\langle{- 3,2,2}\rangle$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="c">
-            <statement>
-              <paragraph>
-                <math display="inline">$$\frac{2}{5}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="12">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y,z})} = y^{2}e^{ xyz}$$</math> , <math display="inline">$$P{({0,1, - 1})}$$</math> , <math display="inline">$$\mathbf{u} = {\langle{\frac{3}{13},\frac{4}{13},\frac{12}{13}}\rangle}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          13, 14, 15, 16, 17, 18, and 19 Find the directional derivative of the function at the given point in the direction of the vector <math display="inline">$$\mathbf{v}$$</math> .
-        </instructions>
-        <problem number="13">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = e^{ x}\sin y$$</math> , <math display="inline">$$({0,\pi \slash 3})$$</math> , <math display="inline">$$\mathbf{v} = {\langle{- 6,8}\rangle}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\frac{4 - 3\sqrt{3}}{10}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="14">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = \frac{x}{x^{2} + y^{2}}$$</math> , <math display="inline">$$({1,2})$$</math> , <math display="inline">$$\mathbf{v} = {\langle{3,5}\rangle}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="15">
-          <statement>
-            <paragraph>
-              <math display="inline">$$g{({s,t})} = s\sqrt{t^{}}$$</math> , <math display="inline">$$({2,4})$$</math> , <math display="inline">$$\mathbf{v} = 2\mathbf{i} - \mathbf{j}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$7 \slash {({2\sqrt{5}})}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="16">
-          <statement>
-            <paragraph>
-              <math display="inline">$$g{({u,v})} = u^{2}e^{- \upsilon}$$</math> , <math display="inline">$$({3,0})$$</math> , <math display="inline">$$\mathbf{v} = 3\mathbf{i} + 4\mathbf{j}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="17">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y,z})} = x^{2}y + y^{2}z$$</math> , <math display="inline">$$({1,2,3})$$</math> , <math display="inline">$$\mathbf{v} = {\langle{2, - 1,2}\rangle}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$1$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="18">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y,z})} = xy^{2}\tan^{- 1}z$$</math> , <math display="inline">$$({2,1,1})$$</math> , <math display="inline">$$\mathbf{v} = {\langle{1,1,1}\rangle}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="19">
-          <statement>
-            <paragraph>
-              <math display="inline">$$h{({r,s,t})} = \ln{({3r + 6s + 9t})}$$</math> , <math display="inline">$$({1,1,1})$$</math> , <math display="inline">$$\mathbf{v} = 4\mathbf{i} + 12\mathbf{j} + 6\mathbf{k}$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\frac{23}{42}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="20">
-          <statement>
-            <paragraph>
-              Use the figure to estimate <math display="inline">$$D_{u}f{({2,2})}$$</math> .
-            </paragraph>
-            <figure>
-              <alt_text>Two vectors are graphed in the x y coordinate plane. The first vector, labeled vector u, begins from (2, 2), is short, and slopes slightly upward to the left. The second vector, labeled grad f(2, 2), is long, slopes downward to the right, crossing the positive x axis.</alt_text>
-            </figure>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          21, 22, 23, 24, and 25 Find the directional derivative of the function at the point <math display="inline">$$P$$</math> in the direction of the point <math display="inline">$$Q$$</math> .
-        </instructions>
-        <problem number="21">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x,y) = x^{2}y^{2} - y^{3}$$</math> , <math display="inline">$$P(1,2)$$</math> , <math display="inline">$$Q( - 3,5)$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- \frac{56}{5}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="22">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x,y) = \frac{x}{y^{2}}$$</math> , <math display="inline">$$P(3, - 1)$$</math> , <math display="inline">$$Q( - 2,11)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="23">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x,y) = \sqrt{xy}$$</math> , <math display="inline">$$P(2,8)$$</math> , <math display="inline">$$Q(5,4)$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\frac{2}{5}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="24">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x,y,z) = xy^{2}z^{3}$$</math> , <math display="inline">$$P(2,1,1)$$</math> , <math display="inline">$$Q(0, - 3,5)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="25">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x,y,z) = xy - xy^{2}z^{2}$$</math> , <math display="inline">$$P(2, - 1,1)$$</math> , <math display="inline">$$Q(5,1,7)$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$- \frac{18}{7}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="26">
-          <statement>
-            <paragraph>
-              The contour map of a function <math display="inline">$$f$$</math> is shown. At points <math display="inline">$$P$$</math> , <math display="inline">$$Q$$</math> and <math display="inline">$$R$$</math> , draw an arrow to indicate the direction of the gradient vector.
-            </paragraph>
-            <figure>
-              <alt_text>A contour map is graphed in the first quadrant of the x y plane. The first curve resembles a semicircle protruding rightward from the y axis, at the top left, and is labeled 10. The second curve labeled 8 enters below 10, goes up, and runs parallel to 10. The third curve labeled 6, has two branches. The left branch enters from the x axis, close to the origin, goes up bulging leftward and then bulges to the right as it runs parallel to the first two curves. The next curve is labeled 4, enters to the right of 6, goes up bulging leftward, almost parallel to 6, passes through a point labeled P, goes up briefly, then goes down, bulges rightward, goes down to the left, and exits at the bottom. A small loop labeled 2 is drawn within the bulging part of 4. The next loop is the right branch of 6 enters from the bottom, runs almost parallel 4, approaches the left branch and exits at the top. The next curve, labeled 8, has two branches. The first branch enters from the button, slopes upward to the right, linearly, passing through a point labeled Q, located above the x axis, slightly down and to the right of P, rises steeply as it exits near the top right corner. The second branch, enters to the left of the first branch, goes down to the right, almost linearly, crosses the first branch above Q, and exits near the bottom right corner. The next curve labeled 10 has two parts. The top branch enters briefly and exits between the two branches of 8 at the top. The bottom branch of 10 enters briefly and exits between the two branches of 8 at the bottom. The last curve, labeled 6, enters at the right, bulges leftward, and passes through a point R as it exits above its entry point, up and to the right of the intersection of the two branches of the curve labeled 8. .</alt_text>
-            </figure>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          27, 28, 29, 30, 31, and 32 Find the maximum rate of change of <math display="inline">$$f$$</math> at the given point and the direction in which it occurs.
-        </instructions>
-        <problem number="27">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(x,y) = 5xy^{2}$$</math> , <math display="inline">$$({3, - 2})$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$20\sqrt{10}$$</math> , <math display="inline">$$\langle{20, - 60}\rangle$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="28">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f(s,t) = \frac{s}{s^{2} + t^{2}}$$</math> , <math display="inline">$$({- 1,1})$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="29">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y})} = \sin{({xy})}$$</math> , <math display="inline">$$({1,0})$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$1,{\langle{0,1}\rangle}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="30">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y,z})} = x\ln{({yz})}$$</math> , <math display="inline">$$\left( {1,2,\frac{1}{2}} \right)$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="31">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({x,y,z})} = x \slash {({y + z})}$$</math> , <math display="inline">$$({8,1,3})$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\frac{3}{4}$$</math> , <math display="inline">$$\langle{1, - 2, - 2}\rangle$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="32">
-          <statement>
-            <paragraph>
-              <math display="inline">$$f{({p,q,r})} = \arctan{({pqr})}$$</math> , <math display="inline">$$({1,2,1})$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="33">
-          <statement>
-            <paragraph>
-              Direction of Most Rapid Decrease
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Show that a differentiable function <math display="inline">$$f$$</math> decreases most rapidly at <math display="inline">$$\mathbf{x}$$</math> in the direction opposite the gradient vector, that is, in the direction of <math display="inline">$$- \nabla f{(\mathbf{x})}$$</math> , and that the maximum rate of decrease is <math display="inline">$$\left| - \nabla f\left. (\mathbf{x}) \right| \right.$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Use the result of part (a) to find the direction in which the function <math display="inline">$$f{({x,y})} = x^{4}y - x^{2}y^{3}$$</math> decreases fastest at the point <math display="inline">$$({2, - 3})$$</math> . What is the rate of decrease?
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\langle{- 12,92}\rangle$$</math> , <math display="inline">$$- 4\sqrt{538}$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="34">
-          <statement>
-            <paragraph>
-              Find the directions in which the directional derivative of <math display="inline">$$f{({x,y})} = x^{2} + xy^{3}$$</math> at the point <math display="inline">$$({2,1})$$</math> has the value <math display="inline">$$2$$</math> .
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="35">
-          <statement>
-            <paragraph>
-              Find all points at which the direction of greatest rate of change of the function <math display="inline">$$f{({x,y})} = x^{2} + y^{2} - 2x - 4y$$</math> is <math display="inline">$$\mathbf{i} + \mathbf{j}$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              All points on the line <math display="inline">$$y = x + 1$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="36">
-          <statement>
-            <paragraph>
-              Near a buoy, the depth of a lake at the point with coordinates <math display="inline">$$({x,y})$$</math> is <math display="inline">$$z = 200 + 0.02x^{2} - 0.001y^{3}$$</math> , where <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , and <math display="inline">$$z$$</math> are measured in meters. A fisherman in a small boat starts at the point <math display="inline">$$({80,60})$$</math> and moves toward the buoy, which is located at <math display="inline">$$({0,0})$$</math> . Is the water under the boat getting deeper or shallower when he departs? Explain.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="37">
-          <statement>
-            <paragraph>
-              The temperature <math display="inline">$$T$$</math> in a metal ball is inversely proportional to the distance from the center of the ball, which we take to be the origin. The temperature at the point <math display="inline">$$({1,2,2})$$</math> is <math display="inline">$$120^{{^\circ}}$$</math> .
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Find the rate of change of <math display="inline">$$T$$</math> at <math display="inline">$$({1,2,2})$$</math> in the direction toward the point <math display="inline">$$({2,1,3})$$</math> .
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$- 40 \slash {({3\sqrt{3}})}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Show that at any point in the ball the direction of greatest increase in temperature is given by a vector that points toward the origin.
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="38">
-          <statement>
-            <paragraph>
-              The temperature at a point <math display="inline">$$({x,y,z})$$</math> is given by
-            </paragraph>
-            <paragraph>
-              <math display="block">$$T{({x,y,z})} = 200e^{- x^{2} - 3y^{2} - 9z^{2}}$$</math>
-            </paragraph>
-            <paragraph>
-              where <math display="inline">$$T$$</math> is measured in <math display="inline">$$^{{^\circ}}C$$</math> and <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , <math display="inline">$$z$$</math> in meters.
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Find the rate of change of temperature at the point <math display="inline">$$P{({2, - 1,2})}$$</math> in the direction toward the point <math display="inline">$$({3, - 3,3})$$</math> .
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  In which direction does the temperature increase fastest at <math display="inline">$$P$$</math> ?
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Find the maximum rate of increase at <math display="inline">$$P$$</math> .
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="39">
-          <statement>
-            <paragraph>
-              Suppose that over a certain region of space the electrical potential <math display="inline">$$V$$</math> is given by <math display="inline">$$V{({x,y,z})} = 5x^{2} - 3xy + xyz$$</math> .
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Find the rate of change of the potential at <math display="inline">$$P{({3,4,5})}$$</math> in the direction of the vector <math display="inline">$$\mathbf{v} = \mathbf{i} + \mathbf{j} - \mathbf{k}$$</math> .
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$32 \slash \sqrt{3}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  In which direction does <math display="inline">$$V$$</math> change most rapidly at <math display="inline">$$P$$</math> ?
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$\langle{38,6,12}\rangle$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  What is the maximum rate of change at <math display="inline">$$P$$</math> ?
-                </paragraph>
-                <paragraph>
-                  <math display="inline">$$2\sqrt{406}$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="40">
-          <statement>
-            <paragraph>
-              Suppose you are climbing a hill whose shape is given by the equation <math display="inline">$$z = 1000 - 0.005x^{2} - 0.01y^{2}$$</math> , where <math display="inline">$$x$$</math> , <math display="inline">$$y$$</math> , and <math display="inline">$$z$$</math> are measured in meters, and you are standing at a point with coordinates <math display="inline">$$({60,40,966})$$</math> . The positive <math display="inline">$$x$$</math>-axis points east and the positive <math display="inline">$$y$$</math>-axis points north.
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  If you walk due south, will you start to ascend or descend? At what rate?
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  If you walk northwest, will you start to ascend or descend? At what rate?
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  In which direction is the slope largest? What is the rate of ascent in that direction? At what angle above the horizontal does the path in that direction begin?
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="41">
-          <statement>
-            <paragraph>
-              Let <math display="inline">$$f$$</math> be a function of two variables that has continuous partial derivatives and consider the points <math display="inline">$$A{({1,3})}$$</math> , <math display="inline">$$B{({3,3})}$$</math> , <math display="inline">$$C{({1,7})}$$</math> , and <math display="inline">$$D{({6,15})}$$</math> . The directional derivative of <math display="inline">$$f$$</math> at <math display="inline">$$A$$</math> in the direction of the vector <math display="inline">$$\overset{\rightarrow}{AB}$$</math> is <math display="inline">$$3$$</math> and the directional derivative at <math display="inline">$$A$$</math> in the direction of <math display="inline">$$\overset{\rightarrow}{AC}$$</math> is <math display="inline">$$26$$</math> . Find the directional derivative of <math display="inline">$$f$$</math> at <math display="inline">$$A$$</math> in the direction of the vector <math display="inline">$$\overset{\rightarrow}{AD}$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\frac{327}{13}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="42">
-          <statement>
-            <paragraph>
-              Shown is a topographic map of Blue River Pine Provincial Park in British Columbia. Draw curves of steepest descent from point <math display="inline">$$A$$</math> (descending to Mud Lake) and from point <math display="inline">$$B$$</math> .
-            </paragraph>
-            <figure>
-              <alt_text>A contour map is superimposed on a map of the Blue River Pine Provincial Park. A river begins from the bottom left corner, goes up to the right tracing a jagged path until Smoke Creek, slightly above the center of the viewing window and steeply upward to exit at the top of the viewing window. A lake labeled Mud Lake lies to the right of the exit point of the river. To the bottom right of the Mud Lake is a region labeled Mud Creek. The curves below the river are parallel and extremely irregular. They enter from the bottom, put forth a finger pointing rightward, go up to the right and put forth two fingers, one pointing downward and the other pointing down and slightly to the right, and then put forth two more fingers pointing downward and exit on the right. There are other curves close by and trace irregular loops and paths. Between the first and second finger, two small concentric loops are drawn. In the small gap between the finger curve and the outer loop, labeled 2000 m,, a point is marked and labeled B. A small loop is drawn between the third and fourth fingers and labeled 2200 m. A point is marked near the inward bulge between the two fingers and labeled A.</alt_text>
-            </figure>
-          </statement>
-        </problem>
-        <problem number="43">
-          <statement>
-            <paragraph>
-              Show that the operation of taking the gradient of a function has the given property. Assume that <math display="inline">$$u$$</math> and <math display="inline">$$\upsilon$$</math> are differentiable functions of <math display="inline">$$x$$</math> and <math display="inline">$$y$$</math> and that <math display="inline">$$a$$</math> , <math display="inline">$$b$$</math> are constants.
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla{({au + b\upsilon})} = a\nabla u + b\nabla\upsilon$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla{({u\upsilon})} = u\nabla\upsilon + \upsilon\nabla u$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla\left( \frac{u}{\upsilon} \right) = \frac{\upsilon\nabla u - u\nabla\upsilon}{\upsilon^{2}}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  <math display="inline">$$\nabla u^{n} = nu^{n - 1}\nabla u$$</math>
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="44">
-          <statement>
-            <paragraph>
-              Sketch the gradient vector <math display="inline">$$\nabla f{({4,6})}$$</math> for the function <math display="inline">$$f$$</math> whose level curves are shown. Explain how you chose the direction and length of this vector.
-            </paragraph>
-            <figure>
-              <alt_text>A contour map is graphed in the first quadrant of the x y coordinate plane. Both the axes are displayed from 0 to 7 in increments of 1. The contour map consists of curves and a line. The line, labeled 0, begins at the origin, slopes upward to the right and exits at the top right corner at approximately (8, 8). Two sets of curves are graphed on either side of the line. Seven curves are drawn to the right of the line. The first curve, labeled 1, begins from (4, 0), goes up to the right, steeply at first and then more gradually, concave down, and exits at approximately (8, 7.5). The second curve, enters from (5, 0), follows the first curve, veers towards as it exits at approximately (8, 7). The third curve labeled 3 follows the same trend, enters at approximately (5.8, 0), follows the second curve and exits at approximately (8, 6.5). The remaining four curves follow the same trend in their path and labels. The seven curves drawn to the left of the line are reflections of those on the right. They are labeled negative 1, negative 2, negative 3, and so on from the nearest to the line to the farthest. A point is marked between the curves negative 2 and negative 3 and labeled (4, 6).</alt_text>
-            </figure>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          45–46 Second Directional DerivativesThe <em>second directional derivative</em> of <math display="inline">$$f{({x,y})}$$</math> is
-        </instructions>
-        <problem number="45">
-          <statement>
-            <paragraph>
-              If <math display="inline">$$f{({x,y})} = x^{3} + 5x^{2}y + y^{3}$$</math> and <math display="inline">$$\mathbf{u} = {\langle{\frac{3}{5},\frac{4}{5}}\rangle}$$</math> , calculate <math display="inline">$$D_{u}^{2}f(2,1)$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\frac{774}{25}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="46">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  If <math display="inline">$$\mathbf{u} = {\langle{a,b}\rangle}$$</math> is a unit vector and <math display="inline">$$f$$</math> has continuous second partial derivatives, show that
-                </paragraph>
-                <paragraph>
-                  <math display="block">$$D_{u}^{2}f = f_{xx}a^{2} + 2f_{xy}ab + f_{yy}b^{2}$$</math>
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Find the second directional derivative of <math display="inline">$$f{({x,y})} = xe^{2y}$$</math> in the direction of <math display="inline">$$\mathbf{v} = {\langle{4,6}\rangle}$$</math> .
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          47, 48, 49, 50, 51, and 52 Find equations of
-        </instructions>
-        <problem number="47">
-          <statement>
-            <paragraph>
-              <math display="inline">$$2{({x - 2})}^{2} + {({y - 1})}^{2} + {({z - 3})}^{2} = 10$$</math> , <math display="inline">$$({3,3,5})$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$x + y + z = 11$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$x - 3 = y - 3 = z - 5$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="48">
-          <statement>
-            <paragraph>
-              <math display="inline">$$x = y^{2} + z^{2} + 1$$</math> , <math display="inline">$$({3,1, - 1})$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="49">
-          <statement>
-            <paragraph>
-              <math display="inline">$$xy^{2}z^{3} = 8$$</math> , <math display="inline">$$({2,2,1})$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$x + 2y + 6z = 12$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$x - 2 = \frac{y - 2}{2} = \frac{z - 1}{6}$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="50">
-          <statement>
-            <paragraph>
-              <math display="inline">$$xy + yz + zx = 5$$</math> , <math display="inline">$$({1,2,1})$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="51">
-          <statement>
-            <paragraph>
-              <math display="inline">$$x + y + z = e^{ xyz}$$</math> , <math display="inline">$$({0,0,1})$$</math>
-            </paragraph>
-          </statement>
-          <part id="a">
-            <statement>
-              <paragraph>
-                <math display="inline">$$x + y + z = 1$$</math>
-              </paragraph>
-            </statement>
-          </part>
-          <part id="b">
-            <statement>
-              <paragraph>
-                <math display="inline">$$x = y = z - 1$$</math>
-              </paragraph>
-            </statement>
-          </part>
-        </problem>
-        <problem number="52">
-          <statement>
-            <paragraph>
-              <math display="inline">$$x^{4} + y^{4} + z^{4} = 3x^{2}y^{2}z^{2}$$</math> , <math display="inline">$$({1,1,1})$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          53–54 Graph the surface, the tangent plane, and the normal line at the given point on the same screen. Choose a viewpoint so that you get a good view of all three objects.
-        </instructions>
-        <problem number="53">
-          <statement>
-            <paragraph>
-              <math display="inline">$$xy + yz + zx = 3$$</math> , <math display="inline">$$({1,1,1})$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-          </answer>
-        </problem>
-        <problem number="54">
-          <statement>
-            <paragraph>
-              <math display="inline">$$xyz = 6$$</math> , <math display="inline">$$({1,2,3})$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="55">
-          <statement>
-            <paragraph>
-              If <math display="inline">$$f{({x,y})} = xy$$</math> , find the gradient vector <math display="inline">$$\nabla f{({3,2})}$$</math> and use it to find the tangent line to the level curve <math display="inline">$$f{({x,y})} = 6$$</math> at the point <math display="inline">$$({3,2})$$</math> . Sketch the level curve, the tangent line, and the gradient vector.
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\langle{2,3}\rangle$$</math> , <math display="inline">$$2x + 3y = 12$$</math>
-            </paragraph>
-            <figure>
-            </figure>
-          </answer>
-        </problem>
-        <problem number="56">
-          <statement>
-            <paragraph>
-              If <math display="inline">$$g{({x,y})} = x^{2} + y^{2} - 4x$$</math> , find the gradient vector <math display="inline">$$\nabla g{({1,2})}$$</math> and use it to find the tangent line to the level curve <math display="inline">$$g{({x,y})} = 1$$</math> at the point <math display="inline">$$({1,2})$$</math> . Sketch the level curve, the tangent line, and the gradient vector.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="57">
-          <statement>
-            <paragraph>
-              Show that the equation of the tangent plane to the ellipsoid <math display="inline">$$x^{2} \slash a^{2} + y^{2} \slash b^{2} + z^{2} \slash c^{ 2} = 1$$</math> at the point <math display="inline">$$({x_{0},y_{0},z_{0}})$$</math> can be written as
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\frac{xx_{0}}{a^{2}} + \frac{yy_{0}}{b^{2}} + \frac{zz_{0}}{c^{ 2}} = 1$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="58">
-          <statement>
-            <paragraph>
-              Find the equation of the tangent plane to the hyperboloid <math display="inline">$$x^{2} \slash a^{2} + y^{2} \slash b^{2} - z^{2} \slash c^{ 2} = 1$$</math> at <math display="inline">$$({x_{0},y_{0},z_{0}})$$</math> and express it in a form similar to the one in Exercise 57.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="59">
-          <statement>
-            <paragraph>
-              Show that the equation of the tangent plane to the elliptic paraboloid <math display="inline">$$z \slash c = x^{2} \slash a^{2} + y^{2} \slash b^{2}$$</math> at the point <math display="inline">$$({x_{0},y_{0},z_{0}})$$</math> can be written as
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\frac{2xx_{0}}{a^{2}} + \frac{2yy_{0}}{b^{2}} = \frac{z + z_{0}}{c}$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="60">
-          <statement>
-            <paragraph>
-              At what point on the ellipsoid <math display="inline">$$x^{2} + y^{2} + 2z^{2} = 1$$</math> is the tangent plane parallel to the plane <math display="inline">$$x + 2y + z = 1$$</math> ?
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="61">
-          <statement>
-            <paragraph>
-              Are there any points on the hyperboloid <math display="inline">$$x^{2} - y^{2} - z^{2} = 1$$</math> where the tangent plane is parallel to the plane <math display="inline">$$z = x + y$$</math> ?
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              No
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="62">
-          <statement>
-            <paragraph>
-              Show that the ellipsoid <math display="inline">$$3x^{2} + 2y^{2} + z^{2} = 9$$</math> and the sphere <math display="inline">$$x^{2} + y^{2} + z^{2} - 8x - 6y - 8z + 24 = 0$$</math> are tangent to each other at the point <math display="inline">$$({1,1,2})$$</math> . (This means that they have a common tangent plane at the point.)
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="63">
-          <statement>
-            <paragraph>
-              Show that every plane that is tangent to the cone <math display="inline">$$x^{2} + y^{2} = z^{2}$$</math> passes through the origin.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="64">
-          <statement>
-            <paragraph>
-              Show that every normal line to the sphere <math display="inline">$$x^{2} + y^{2} + z^{2} = r^{2}$$</math> passes through the center of the sphere.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="65">
-          <statement>
-            <paragraph>
-              Where does the normal line to the paraboloid <math display="inline">$$z = x^{2} + y^{2}$$</math> at the point <math display="inline">$$({1,1,2})$$</math> intersect the paraboloid a second time?
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\left( {- ‍\frac{5}{4}, - ‍\frac{5}{4},\frac{25}{8}} \right)$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="66">
-          <statement>
-            <paragraph>
-              At what points does the normal line through the point <math display="inline">$$({1,2,1})$$</math> on the ellipsoid <math display="inline">$$4x^{2} + y^{2} + 4z^{2} = 12$$</math> intersect the sphere <math display="inline">$$x^{2} + y^{2} + z^{2} = 102$$</math> ?
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="67">
-          <statement>
-            <paragraph>
-              Show that the sum of the <math display="inline">$$x$$</math> -, <math display="inline">$$y$$</math> -, and <math display="inline">$$z$$</math>-intercepts of any tangent plane to the surface <math display="inline">$$\sqrt{x} + \sqrt{y} + \sqrt{z} = \sqrt{c}$$</math> is a constant.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="68">
-          <statement>
-            <paragraph>
-              Show that the pyramids cut off from the first octant by any tangent planes to the surface <math display="inline">$$xyz = 1$$</math> at points in the first octant must all have the same volume.
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="69">
-          <statement>
-            <paragraph>
-              Find parametric equations for the tangent line to the curve of intersection of the paraboloid <math display="inline">$$z = x^{2} + y^{2}$$</math> and the ellipsoid <math display="inline">$$4x^{2} + y^{2} + z^{2} = 9$$</math> at the point <math display="inline">$$({- 1,1,2})$$</math> .
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$x = - 1 - 10t,y = 1 - 16t,z = 2 - 12t$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="70">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  The plane <math display="inline">$$y + z = 3$$</math> intersects the cylinder <math display="inline">$$x^{2} + y^{2} = 5$$</math> in an ellipse. Find parametric equations for the tangent line to this ellipse at the point <math display="inline">$$({1,2,1})$$</math> .
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Graph the cylinder, the plane, and the tangent line on the same screen.
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="71">
-          <statement>
-            <paragraph>
-              Where does the helix <math display="inline">$$\mathbf{r}{(t)} = {\langle{\cos\pi t,\sin\pi t,t}\rangle}$$</math> intersect the paraboloid <math display="inline">$$z = x^{2} + y^{2}$$</math> ? What is the angle of intersection between the helix and the paraboloid? (This is the angle between the tangent vector to the curve and the tangent plane to the paraboloid.)
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$({- 1,0,1})$$</math> ; <math display="inline">$$\approx 7.8^{{^\circ}}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="72">
-          <statement>
-            <paragraph>
-              The helix <math display="inline">$$\mathbf{r}{(t)} = {\langle{\cos{({\pi t \slash 2})},\sin{({\pi t \slash 2})},t}\rangle}$$</math> intersects the sphere <math display="inline">$$x^{2} + y^{2} + z^{2} = 2$$</math> in two points. Find the angle of intersection at each point.
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <instructions>
-          73–74 Orthogonal Surfaces Two surfaces are called <em>orthogonal</em> at a point of intersection if their normal lines are perpendicular at that point.
-        </instructions>
-        <problem number="73">
-          <statement>
-            <paragraph>
-              Show that surfaces with equations <math display="inline">$$F{({x,y,z})} = 0$$</math> and <math display="inline">$$G{({x,y,z})} = 0$$</math> are orthogonal at a point <math display="inline">$$P$$</math> where <math display="inline">$$\nabla F \neq 0$$</math> and <math display="inline">$$\nabla G \neq 0$$</math> if and only if
-            </paragraph>
-            <paragraph>
-              <math display="block">$$F_{x}G_{x} + F_{y}G_{y} + F_{z}G_{z} = 0\qquad{at}P$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="74">
-          <statement>
-            <paragraph>
-              Use Exercise 73 to show that the surfaces <math display="inline">$$z^{2} = x^{2} + y^{2}$$</math> and <math display="inline">$$x^{2} + y^{2} + z^{2} = r^{2}$$</math> are orthogonal at every point of intersection. Can you see why this is true without using calculus?
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-      <exercise_group>
-        <problem number="75">
-          <statement>
-            <paragraph>
-              Suppose that the directional derivatives of <math display="inline">$$f{({x,y})}$$</math> are known at a given point in two nonparallel directions given by unit vectors <math display="inline">$$\mathbf{u}$$</math> and <math display="inline">$$\mathbf{v}$$</math> . Is it possible to find <math display="inline">$$\nabla f$$</math> at this point? If so, how would you do it?
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              If <math display="inline">$$\mathbf{u} = {\langle{a,b}\rangle}$$</math> and <math display="inline">$$\mathbf{v} = {\langle{c,d}\rangle}$$</math> , then <math display="inline">$$af_{x} + bf_{y}$$</math> and <math display="inline">$$cf_{x} + df_{y}$$</math> are known, so we solve linear equations for <math display="inline">$$f_{x}$$</math> and <math display="inline">$$f_{y}$$</math> .
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="76">
-          <statement>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Show that the function <math display="inline">$$f{({x,y})} = \sqrt[3]{xy}$$</math> is continuous and the partial derivatives <math display="inline">$$f_{x}$$</math> and <math display="inline">$$f_{y}$$</math> exist at the origin, but the directional derivatives in all other directions do not exist.
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Graph <math display="inline">$$f$$</math> near the origin and comment on how the graph confirms part (a).
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-        <problem number="77">
-          <statement>
-            <paragraph>
-              Show that if <math display="inline">$$z = f{({x,y})}$$</math> is differentiable at <math display="inline">$$\mathbf{x}_{0} = {\langle{x_{0},y_{0}}\rangle}$$</math> , then
-            </paragraph>
-            <paragraph>
-              <math display="block">$$\underset{\mathbf{x}\rightarrow\mathbf{x}_{0}}{\lim}\frac{f{(\mathbf{x})} - \left\lbrack f{(\mathbf{x}_{0})} + \nabla f{(\mathbf{x}_{0})} \cdot \left. ({\mathbf{x} - \mathbf{x}_{0}}) \right\rbrack \right.}{\left| {\mathbf{x} - \mathbf{x}_{0}} \right|} = 0$$</math>
-            </paragraph>
-            <paragraph>
-              [<em>Hint:</em> Use Definition 14.4.7 directly.]
-            </paragraph>
-          </statement>
-        </problem>
-      </exercise_group>
-    </exercises>
-  </subsection>
-</section_file>
+    <paragraph>We approximate the directional derivative $$D_{u}T$$ by the average rate of change of the temperature between the points where this line intersects the isothermals $$T = 50$$ and $$T = 60$$ . The temperature at the point southeast of Reno is $$T = 60^{{^\circ}}F$$ and the temperature at the point northwest of Reno is $$T = 50^{{^\circ}}F$$ . The distance between these points looks to be about $$75$$ miles. So the rate of change of the temperature in the southeasterly direction is</paragraph>
+    <paragraph math="block">$$D_{\mathbf{u}}T \approx \frac{60 - 50}{75} = \frac{10}{75} \approx 0.13^{{^\circ}}F \slash {mi}$$</paragraph>
+  </example>
+  <paragraph>When we compute the directional derivative of a function defined by a formula, we generally use the following theorem.</paragraph>
+  <note type="theorem" source_type="Theorem" title="Theorem">
+    <heading level="4">Theorem</heading>
+    <paragraph>If $$f$$ is a differentiable function of $$x$$ and $$y$$ , then $$f$$ has a directional derivative in the direction of any unit vector $$\mathbf{u} = {\langle{a,b}\rangle}$$ and</paragraph>
+    <paragraph math="block">$$D_{u}f{({x,y})} = f_{x}{({x,y})}a + f_{y}{({x,y})}b$$</paragraph>
+  </note>
+  <note type="sidebar" source_type="Proof" title="Proof">
+    <heading level="4">Proof</heading>
+    <paragraph>If we define a function $$g$$ of the single variable $$h$$ by</paragraph>
+    <paragraph math="block">$$g{(h)} = f{({x_{0} + ha,y_{0} + hb})}$$</paragraph>
+    <paragraph>then, by the definition of a derivative, we have</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {g^{\prime}(0) = {\lim\limits_{h\rightarrow 0}\frac{g(h) - g(0)}{h} = \lim\limits_{h\rightarrow 0}\frac{f(x_{0} + ha,y_{0} + hb) - f(x_{0},y_{0})}{h}}} \\ {\phantom{g^{\prime}(0)} = D_{u}f(x_{0},y_{0})} \end{array}$$</paragraph>
+    <paragraph>On the other hand, we can write $$g{(h)} = f{({x,y})}$$ , where $$x = x_{0} + ha$$ , $$y = y_{0} + hb$$ , so Case 1 of the Chain Rule (Theorem 14.5.1) gives</paragraph>
+    <paragraph math="block">$$g^{\prime}{(h)} = \frac{\partial f}{\partial x}\frac{dx}{dh} + \frac{\partial f}{\partial y}\frac{dy}{dh} = f_{x}{({x,y})}a + f_{y}{({x,y})}b$$</paragraph>
+    <paragraph>If we now put $$h = 0$$ , then $$x = x_{0}$$ , $$y = y_{0}$$ , and</paragraph>
+    <paragraph math="block">$$g^{\prime}{(0)} = f_{x}{({x_{0},y_{0}})}a + f_{y}{({x_{0},y_{0}})}b$$</paragraph>
+    <paragraph>Comparing Equations 4 and 5, we see that</paragraph>
+    <paragraph math="block">$$D_{u}f{({x_{0},y_{0}})} = f_{x}{({x_{0},y_{0}})}a + f_{y}{({x_{0},y_{0}})}b$$</paragraph>
+  </note>
+  <paragraph>If the unit vector $$\mathbf{u}$$ makes an angle $$\theta$$ with the positive $$x$$ -axis (as in Figure 5), then we can write $$\mathbf{u} = {\langle{\cos\theta,\sin\theta}\rangle}$$ and the formula in Theorem 3 becomes</paragraph>
+  <paragraph math="block">$$D_{u}f{({x,y})} = f_{x}{({x,y})}\cos\theta + f_{y}{({x,y})}\sin\theta$$</paragraph>
+  <figure>
+    <image alt="Details A vector and two line segments are graphed in the first quadrant of the x y coordinate plane. From a point labeled (x_0, y_0), a dashed horizontal line segment, labeled cos(theta), runs rightward. The vector, labeled vector u, begins at (x_0, y_0), slopes upward to the right, at an angle theta from the horizontal line segment. From the tip of the vector a dashed vertical line segment, labeled sin(theta), descends downward to meet the horizontal line segment."/>
+    <caption>A unit vector $$\mathbf{u} = \langle\cos\theta,\sin\theta\rangle$$</caption>
+  </figure>
+  <example number="2">
+    <heading level="4">Example 2</heading>
+    <paragraph>Find the directional derivative $$D_{u}f{({x,y})}$$ if</paragraph>
+    <paragraph math="block">$$f{({x,y})} = x^{3} - 3xy + 4y^{2}$$</paragraph>
+    <paragraph>and $$\mathbf{u}$$ the unit vector in the direction given by angle $$\theta = \pi \slash 6$$ measured from the positive $$x$$ -axis. What is $$D_{u}f{({1,2})}$$ ?</paragraph>
+    <paragraph>Solution Formula 6 gives</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {D_{u}f{({x,y})} = f_{x}{({x,y})}\cos\frac{\pi}{6} + f_{y}{({x,y})}\sin\frac{\pi}{6}} \\ {\phantom{D_{u}f{({x,y})}}{= {({3x^{2} - 3y})}\frac{\sqrt{3}}{2} + {({- 3x + 8y})}\frac{1}{2}}} \\ {\phantom{D_{u}f{({x,y})}}{= \frac{1}{2}\left\lbrack {3\sqrt{3}x^{2} - 3x + {({8 - 3\sqrt{3}})}y} \right\rbrack}} \end{array}$$</paragraph>
+    <paragraph>Therefore</paragraph>
+    <paragraph math="block">$$D_{\mathbf{u}}f{({1,2})} = \frac{1}{2}\left\lbrack {3\sqrt{3}{(1)}^{2} - 3{(1)} + {({8 - 3\sqrt{3}})}{(2)}} \right\rbrack = \frac{13 - 3\sqrt{3}}{2}$$</paragraph>
+  </example>
+  <paragraph>The directional derivative $$D_{u}f{({1,2})}$$ in Example 2 represents the rate of change of $$z$$ in the direction of $$\mathbf{u}$$ . This is the slope of the tangent line to the curve of intersection of the surface $$z = x^{3} - 3xy + 4y^{2}$$ and the vertical plane through $$({1,2,0})$$ in the direction of $$\mathbf{u}$$ shown in Figure 6.</paragraph>
+  <figure>
+    <image alt="Details A curved surface, a point, a plane, a vector, and a line are graphed in the x y z coordinate space. The positive x axis slopes down and to the right. The positive y axis slopes slightly up and to the right. The positive z axis runs vertically upward. The curved surface resembles a rectangle bent concave upward. Its back left corner is at the origin. A point is marked in the first quadrant of the x y plane and labeled (1, 2, 0). From this point, a vector, labeled vector u, slopes downward to the right and front. A line slopes downward to the right and front from the point at an angle pi/6 to vector u. A vertical plane rises upward along the same line as vector u its bottom left corner at (1, 2, 0)."/>
+  </figure>
+  <heading level="3">The Gradient Vector</heading>
+  <paragraph>Notice from Theorem 3 that the directional derivative of a differentiable function can be written as the dot product of two vectors:</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {D_{\mathbf{u}}f{({x,y})} = f_{x}{({x,y})}a + f_{y}{({x,y})}b} \\ {\phantom{D_{\mathbf{u}}f{({x,y})}} = {\langle{f_{x}{({x,y})},f_{y}{({x,y})}}\rangle} \cdot {\langle{a,b}\rangle}} \\ {\phantom{D_{\mathbf{u}}f{({x,y})}} = {\langle{f_{x}{({x,y})},f_{y}{({x,y})}}\rangle} \cdot \mathbf{u}} \end{array}$$</paragraph>
+  <paragraph>The first vector in this dot product occurs not only in computing directional derivatives but in many other contexts as well. So we give it a special name (the gradient of $$f$$ ) and a special notation (grad $$f$$ or $$\nabla f$$ , which is read “del $$f$$ ”).</paragraph>
+  <note type="definition" source_type="Definition" title="Definition">
+    <heading level="4">Definition</heading>
+    <paragraph>If $$f$$ is a function of two variables $$x$$ and $$y$$ , then the gradient of $$f$$ is the vector function $$\nabla f$$ defined by</paragraph>
+    <paragraph math="block">$$\nabla f{({x,y})} = {\langle{f_{x}{({x,y})},f_{y}{({x,y})}}\rangle} = \frac{\partial f}{\partial x}\mathbf{i} + \frac{\partial f}{\partial y}\mathbf{j}$$</paragraph>
+  </note>
+  <example number="3">
+    <heading level="4">Example 3</heading>
+    <paragraph>If $$f{({x,y})} = \sin x + e^{ xy}$$ , then</paragraph>
+    <paragraph math="block">$$\nabla f(x,y) = {\langle{f_{x},f_{y}}\rangle} = {\langle{\cos x + ye^{ xy},xe^{ xy}}\rangle}$$</paragraph>
+    <paragraph>and</paragraph>
+    <paragraph math="block">$$\nabla f{({0,1})} = {\langle{2,0}\rangle}$$</paragraph>
+  </example>
+  <paragraph>With this notation for the gradient vector, we can rewrite Equation 7 for the directional derivative of a differentiable function as</paragraph>
+  <paragraph math="block">$$D_{\mathbf{u}}f{({x,y})} = \nabla f{({x,y})} \cdot \mathbf{u}$$</paragraph>
+  <paragraph>This expresses the directional derivative in the direction of a unit vector $$\mathbf{u}$$ as the scalar projection of the gradient vector onto $$\mathbf{u}$$ .</paragraph>
+  <example number="4">
+    <heading level="4">Example 4</heading>
+    <paragraph>Find the directional derivative of the function $$f{({x,y})} = x^{2}y^{3} - 4y$$ at the point $$({2, - 1})$$ in the direction of the vector $$\mathbf{v} = 2\mathbf{i} + 5\mathbf{j}$$ .</paragraph>
+    <paragraph>Solution We first compute the gradient vector at $$({2, - 1})$$ :</paragraph>
+    <paragraph math="block">$$\begin{array}{rcl} {\nabla f(x,y)} &amp; = &amp; {2xy^{3}\mathbf{i} + (3x^{2}y^{2} - 4)\mathbf{j}} \\ {\nabla f(2, - 1)} &amp; = &amp; {- 4\mathbf{i} + 8\mathbf{j}} \end{array}$$</paragraph>
+    <paragraph>Note that $$\mathbf{v}$$ is not a unit vector, but since $$\left| \mathbf{v} \right| = \sqrt{29}$$ , the unit vector in the direction of $$\mathbf{v}$$ is</paragraph>
+    <paragraph math="block">$$\mathbf{u} = \frac{\mathbf{v}}{\left| \mathbf{v} \right|} = \frac{2}{\sqrt{29}}\mathbf{i} + \frac{5}{\sqrt{29}}\mathbf{j}$$</paragraph>
+    <paragraph>Therefore, by Equation 9, we have</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {{D_{u}f(2, - 1)} = {\nabla f(2, - 1) \cdot \mathbf{u} = ( - 4\mathbf{i} + 8\mathbf{j}) \cdot \left( {\frac{2}{\sqrt{29}}\mathbf{i} + \frac{5}{\sqrt{29}}\mathbf{j}} \right)}} \\ {\phantom{D_{u}f(2, - 1)} = {\frac{- 4 \cdot 2 + 8 \cdot 5}{\sqrt{29}} = \frac{32}{\sqrt{29}}}} \end{array}$$</paragraph>
+  </example>
+  <paragraph>The gradient vector $$\nabla f{({2, - 1})}$$ in Example 4 is shown in Figure 7 with initial point $$({2, - 1})$$ . Also shown is the vector $$\mathbf{v}$$ that gives the direction of the directional derivative. Both of these vectors are superimposed on a contour plot of the graph of $$f$$ .</paragraph>
+  <figure>
+    <image alt="Details A contour map, a point, and two vectors are graphed in the x y coordinate plane. The contour map consists of four sets of six curves. The bulge away from the four corners of the viewing window and toward the origin. The curves nearer to the axes resemble rounded corners of a square. A point is marked in the fourth quadrant and is labeled (2, negative 1). A vector labeled vector v begins from the point, slopes upward to the right and reaches the first curve in the first quadrant. The second vector, labeled Delta f(2, negative 1), also begins from (2, negative 1), slopes steeply upward to the left until it crosses the curve near the y axis."/>
+  </figure>
+  <heading level="3">Functions of Three Variables</heading>
+  <paragraph>For functions of three variables we can define directional derivatives in a similar manner. Again $$D_{u}f{({x,y,z})}$$ can be interpreted as the rate of change of the function in the direction of a unit vector $$\mathbf{u}$$ .</paragraph>
+  <note type="definition" source_type="Definition" title="Definition">
+    <heading level="4">Definition</heading>
+    <paragraph>The directional derivative of $$f$$ at $$({x_{0},y_{0},z_{0}})$$ in the direction of a unit vector $$\mathbf{u} = {\langle{a,b,c}\rangle}$$ is</paragraph>
+    <paragraph math="block">$$D_{\mathbf{u}}f(x_{0},y_{0},z_{0}) = \lim\limits_{h\rightarrow 0}\frac{f(x_{0} + ha,y_{0} + hb,z_{0} + hc) - f(x_{0},y_{0},z_{0})}{h}$$</paragraph>
+    <paragraph>if this limit exists.</paragraph>
+  </note>
+  <paragraph>If we use vector notation, then we can write both definitions (2 and 10) of the directional derivative in the compact form</paragraph>
+  <paragraph math="block">$$D_{\mathbf{u}}f(\mathbf{x}_{0}) = \lim\limits_{h\rightarrow 0}\frac{f(\mathbf{x}_{0} + h\mathbf{u}) - f(\mathbf{x}_{0})}{h}$$</paragraph>
+  <paragraph>where $$\mathbf{x}_{0} = {\langle{x_{0},y_{0}}\rangle}$$ if $$n = 2$$ and $$\mathbf{x}_{0} = {\langle{x_{0},y_{0},z_{0}}\rangle}$$ if $$n = 3$$ . This is reasonable because the vector equation of the line through $$\mathbf{x}_{0}$$ in the direction of the vector $$\mathbf{u}$$ is given by $$\mathbf{x} = \mathbf{x}_{0} + t\mathbf{u}$$ (Equation 12.5.1) and so $$f{({\mathbf{x}_{0} + h\mathbf{u}})}$$ represents the value of $$f$$ at a point on this line.</paragraph>
+  <paragraph>If $$f{({x,y,z})}$$ is differentiable and $$\mathbf{u} = {\langle{a,b,c}\rangle}$$ , then the same method that was used to prove Theorem 3 can be used to show that</paragraph>
+  <paragraph math="block">$$D_{u}f{({x,y,z})} = f_{x}{({x,y,z})}a + f_{y}{({x,y,z})}b + f_{z}{({x,y,z})}c$$</paragraph>
+  <paragraph>For a function $$f$$ of three variables, the gradient vector, denoted by $$\nabla f$$ or grad $$f$$ , is</paragraph>
+  <paragraph math="block">$$\nabla f{({x,y,z})} = {\langle{f_{x}{({x,y,z})},f_{y}{({x,y,z})},f_{z}{({x,y,z})}}\rangle}$$</paragraph>
+  <paragraph>or, for short,</paragraph>
+  <paragraph math="block">$$\nabla f = {\langle{f_{x},f_{y},f_{z}}\rangle} = \frac{\partial f}{\partial x}\mathbf{i} + \frac{\partial f}{\partial y}\mathbf{j} + \frac{\partial f}{\partial z}\mathbf{k}$$</paragraph>
+  <paragraph>Then, just as with functions of two variables, Formula 12 for the directional derivative can be rewritten as</paragraph>
+  <paragraph math="block">$$D_{u}f{({x,y,z})} = \nabla f{({x,y,z})} \cdot \mathbf{u}$$</paragraph>
+  <example number="5">
+    <heading level="4">Example 5</heading>
+    <paragraph>If $$f{({x,y,z})} = x\sin yz$$ ,</paragraph>
+    <list type="ordered">
+      <item>find the gradient of $$f$$ and</item>
+      <item>find the directional derivative of $$f$$ at $$({1,3,0})$$ in the direction of $$\mathbf{v} = \mathbf{i} + 2\mathbf{j} - \mathbf{k}$$ .</item>
+    </list>
+    <paragraph>Solution</paragraph>
+    <list type="unordered">
+      <item>(a) The gradient of $$f$$ is $$\begin{array}{l} {\nabla f{({x,y,z})} = {\langle{f_{x}{({x,y,z})},f_{y}{({x,y,z})},f_{z}{({x,y,z})}}\rangle}} \\ {\phantom{\nabla f{({x,y,z})}}{= {\langle{\sin yz,xz\cos yz,xy\cos yz}\rangle}}} \end{array}$$</item>
+      <item>(b) At $$({1,3,0})$$ we have $$\nabla f{({1,3,0})} = {\langle{0,0,3}\rangle}$$ . The unit vector in the direction of $$\mathbf{v} = \mathbf{i} + 2\mathbf{j} - \mathbf{k}$$ is $$\mathbf{u} = \frac{1}{\sqrt{6}}\mathbf{i} + \frac{2}{\sqrt{6}}\mathbf{j} - \frac{1}{\sqrt{6}}\mathbf{k}$$ Therefore Equation 14 gives $$\begin{array}{l} {D_{\mathbf{u}}f{({1,3,0})} = \nabla f{({1,3,0})} \cdot \mathbf{u}} \\ {\phantom{D_{u}f\left( {1,3,0} \right)} = 3\mathbf{k} \cdot \left( {\frac{1}{\sqrt{6}}\mathbf{i} + \frac{2}{\sqrt{6}}\mathbf{j} - \frac{1}{\sqrt{6}}\mathbf{k}} \right)} \\ {\phantom{D_{u}f\left( {1,3,0} \right)}{= 3\left( {- \frac{1}{\sqrt{6}}} \right)} = - \sqrt{\frac{3}{2}}} \end{array}$$</item>
+    </list>
+  </example>
+  <heading level="3">Maximizing the Directional Derivative</heading>
+  <paragraph>Suppose we have a function $$f$$ of two or three variables and we consider all possible directional derivatives of $$f$$ at a given point. These give the rates of change of $$f$$ in all possible directions. We can then ask the questions: in which of these directions does $$f$$ change fastest and what is the maximum rate of change? The answers are provided by the following theorem.</paragraph>
+  <note type="theorem" source_type="Theorem" title="Theorem">
+    <heading level="4">Theorem</heading>
+    <paragraph>Suppose $$f$$ is a differentiable function of two or three variables. The maximum value of the directional derivative $$D_{u}f{(\mathbf{x})}$$ is $$\left| {\nabla f{(\mathbf{x})}} \right|$$ and it occurs when $$\mathbf{u}$$ has the same direction as the gradient vector $$\nabla f{(\mathbf{x})}$$ .</paragraph>
+  </note>
+  <note type="sidebar" source_type="Proof" title="Proof">
+    <heading level="4">Proof</heading>
+    <paragraph>From Equation 9 or 14 and using Theorem 12.3.3, we have</paragraph>
+    <paragraph math="block">$$D_{u}f = \nabla f \cdot \mathbf{u} = \left| {\nabla f} \right|\left| \mathbf{u} \right|\cos\theta = \left| {\nabla f} \right|\cos\theta$$</paragraph>
+    <paragraph>where $$\theta$$ is the angle between $$\nabla f$$ and $$\mathbf{u}$$ . The maximum value of $$\cos\theta$$ is $$1$$ and this occurs when $$\theta = 0$$ . Therefore the maximum value of $$D_{u}f$$ is $$\left| {\nabla f} \right|$$ and it occurs when $$\theta = 0$$ , that is, when $$\mathbf{u}$$ has the same direction as $$\nabla f$$ .</paragraph>
+  </note>
+  <example number="6">
+    <heading level="4">Example 6</heading>
+    <list type="unordered">
+      <item>(a) If $$f{({x,y})} = xe^{ y}$$ , find the rate of change of $$f$$ at the point $$P{({2,0})}$$ in the direction from $$P$$ to $$Q\left( {\frac{1}{2},2} \right)$$ .</item>
+      <item>(b) In what direction does $$f$$ have the maximum rate of change? What is this maximum rate of change?</item>
+    </list>
+    <paragraph>Solution</paragraph>
+    <list type="unordered">
+      <item>(a) We first compute the gradient vector: $$\begin{array}{lll} {\nabla f(x,y)} &amp; = &amp; {\langle f_{x},f_{y}\rangle = \langle e^{ y},xe^{ y}\rangle} \\ {\nabla f(2,0)} &amp; = &amp; {\langle 1,2\rangle} \end{array}$$ The unit vector in the direction of $$\overset{\rightarrow}{PQ} = \langle - \frac{3}{2},2\rangle$$ is $$\mathbf{u} = {\langle{- \frac{3}{5},\frac{4}{5}}\rangle}$$ , so the rate of change of $$f$$ in the direction from $$P$$ to $$Q$$ is $${D_{u}f\left( {2,0} \right) = \nabla f\left( {2,0} \right) \cdot \mathbf{u} = {\langle{1,2}\rangle} \cdot {\langle{- \frac{3}{5},\frac{4}{5}}\rangle}} = 1$$</item>
+      <item>(b) According to Theorem 15, $$f$$ increases fastest in the direction of the gradient vector $$\nabla f{({2,0})} = {\langle{1,2}\rangle}$$ . The maximum rate of change is $$\left| {\nabla f{({2,0})}} \right| = \left| {\langle{1,2}\rangle} \right| = \sqrt{5}$$</item>
+    </list>
+  </example>
+  <paragraph>At $$({2,0})$$ the function in Example 6 increases fastest in the direction of the gradient vector $$\nabla f{({2,0})} = {\langle{1,2}\rangle}$$ . Notice from Figure 8 that this vector appears to be perpendicular to the level curve through $$({2,0})$$ . Figure 9 shows the graph of $$f$$ and the gradient vector.</paragraph>
+  <figure>
+    <image alt="Details A contour map, a point, and two vectors are graphed in the x y coordinate plane. The x axis is displayed from 0 to 3 and the y axis from 0 to 2, both in increments of 0.5. The contour map consists of a set of almost parallel curves that bulge away from the top right corner and toward the origin. The curves closer to the origin are more curved and the ones near the top right corner resemble parallel lines. The curve nearest to the axes and the origin enters from approximately (0.6, 2), goes down to the right, passes through a point P on the x axis at (2, 0), and exits at the bottom. Two vectors begin from P. The first vector slopes upward to the left, crossing the second curve until Q. The second vector, labeled Delta f(2, 0), slopes upward to the right until the top right corner of the viewing window."/>
+  </figure>
+  <figure>
+    <image alt="Details A curved surface and a vector are graphed in the x y z coordinate space. The axes are along three sides of a rectangular box. The x axis is along the front side of the base and is displayed from 0 to 3, from right to left, in increments of 0.5. The y axis is along the right side of the base and is displayed from 0 to 2, from back to front, in increments of 0.5. The z axis is along the front side of the left face and is displayed from 0 to 20, from bottom to top, in increments of 5. The curved surface rises upward to the right from the x y plane on the base of the rectangular box and tapers to meet the back left corner of the top surface. The bottom left end of the baseline of the curved surface is at the front left corner of the base. The line extends diagonally to approximately (2, 1.5, 0). The vector begins from (2, 0, 0), slopes rightward slightly to the back and meets the back right corner of the base."/>
+  </figure>
+  <example number="7">
+    <heading level="4">Example 7</heading>
+    <paragraph>Suppose that the temperature at a point $$({x,y,z})$$ in space is given by $$T{({x,y,z})} = 80 \slash {({1 + x^{2} + 2y^{2} + 3z^{2}})}$$ , where $$T$$ is measured in degrees Celsius and $$x$$ , $$y$$ , $$z$$ in meters. In which direction does the temperature increase fastest at the point $$({1,1, - 2})$$ ? What is the maximum rate of increase?</paragraph>
+    <paragraph>Solution The gradient of $$T$$ is</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {\nabla T = \frac{\partial T}{\partial x}\mathbf{i} + \frac{\partial T}{\partial y}\mathbf{j} + \frac{\partial T}{\partial z}\mathbf{k}} \\ {\phantom{\nabla T}{= - \frac{160x}{{({1 + x^{2} + 2y^{2} + 3z^{2}})}^{2}}\mathbf{i} - \frac{320y}{{({1 + x^{2} + 2y^{2} + 3z^{2}})}^{2}}\mathbf{j} - \frac{480z}{{({1 + x^{2} + 2y^{2} + 3z^{2}})}^{2}}\mathbf{k}}} \\ {\phantom{\nabla T}{= \frac{160}{{({1 + x^{2} + 2y^{2} + 3z^{2}})}^{2}}{({- x\mathbf{i} - 2y\mathbf{j} - 3z\mathbf{k}})}}} \end{array}$$</paragraph>
+    <paragraph>At the point $$({1,1, - 2})$$ the gradient vector is</paragraph>
+    <paragraph math="block">$$\nabla T{({1,1, - 2})} = \frac{160}{256}{({- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}})} = \frac{5}{8}{({- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}})}$$</paragraph>
+    <paragraph>By Theorem 15 the temperature increases fastest in the direction of the gradient vector $$\nabla T{({1,1, - 2})} = \frac{5}{8}{({- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}})}$$ or, equivalently, in the direction of $$- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}$$ or the unit vector $${({- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}})} \slash \sqrt{41}$$ . The maximum rate of increase is the length of the gradient vector:</paragraph>
+    <paragraph math="block">$$\left| {\nabla T{({1,1, - 2})}} \right| = \frac{5}{8}\left| {- \mathbf{i} - 2\mathbf{j} + 6\mathbf{k}} \right| = \frac{5}{8}\sqrt{41}$$</paragraph>
+    <paragraph>Therefore the maximum rate of increase of temperature is $$\frac{5}{8}\sqrt{41} \approx 4{}_{}^{} \slash m$$ .</paragraph>
+  </example>
+  <heading level="3">Tangent Planes to Level Surfaces</heading>
+  <paragraph>Suppose $$S$$ is a surface with equation $$F{({x,y,z})} = k$$ , that is, it is a level surface of a function $$F$$ of three variables, and let $$P{({x_{0},y_{0},z_{0}})}$$ be a point on $$S$$ . Let $$C$$ be any curve that lies on the surface $$S$$ and passes through the point $$P$$ . Recall from Section 13.1 that the curve $$C$$ is described by a continuous vector function $$\mathbf{r}{(t)} = {\langle{x{(t)},y{(t)},z{(t)}}\rangle}$$ . Let $$t_{0}$$ be the parameter value corresponding to $$P$$ ; that is, $$\mathbf{r}{(t_{0})} = {\langle{x_{0},y_{0},z_{0}}\rangle}$$ . Since $$C$$ lies on $$S$$ , any point $$({x{(t)},y{(t)},z{(t)}})$$ must satisfy the equation of $$S$$ , that is,</paragraph>
+  <paragraph math="block">$$F{({x{(t)},y{(t)},z{(t)}})} = k$$</paragraph>
+  <paragraph>If $$x$$ , $$y$$ , and $$z$$ are differentiable functions of $$t$$ and $$F$$ is also differentiable, then we can use the Chain Rule to differentiate both sides of Equation 16 as follows:</paragraph>
+  <paragraph math="block">$$\frac{\partial F}{\partial x}\frac{dx}{dt} + \frac{\partial F}{\partial y}\frac{dy}{dt} + \frac{\partial F}{\partial z}\frac{dz}{dt} = 0$$</paragraph>
+  <paragraph>But, since $$\nabla F = {\langle{F_{x},F_{y},F_{z}}\rangle}$$ and $$r^{\prime}{(t)} = {\langle{x^{\prime}{(t)},y^{\prime}{(t)},z^{\prime}{(t)}}\rangle}$$ , Equation 17 can be written in terms of a dot product as</paragraph>
+  <paragraph math="block">$$\nabla F \cdot \mathbf{r}^{\prime}{(t)} = 0$$</paragraph>
+  <paragraph>In particular, when $$t = t_{0}$$ we have $$r{(t_{0})} = {\langle{x_{0},y_{0},z_{0}}\rangle}$$ , so</paragraph>
+  <paragraph math="block">$$\nabla F{({x_{0},y_{0},z_{0}})} \cdot \mathbf{r}^{\prime}{(t_{0})} = 0$$</paragraph>
+  <paragraph>Equation 18 says that the gradient vector at $$P$$ , $$\nabla F{({x_{0},y_{0},z_{0}})}$$ , is perpendicular to the tangent vector $$\mathbf{r}^{\prime}{(t_{0})}$$ to any curve $$C$$ on $$S$$ that passes through $$P$$ . (See Figure 10.) If $$\nabla F{({x_{0},y_{0},z_{0}})} \neq 0$$ , it is therefore natural to define the tangent plane to the level surface $$F{({x,y,z})} = k$$ at $$P{({x_{0},y_{0},z_{0}})}$$ as the plane that passes through $$P$$ and has normal vector $$\nabla F{({x_{0},y_{0},z_{0}})}$$ . Using the standard equation of a plane (Equation 12.5.7), we can write the equation of this tangent plane as</paragraph>
+  <figure>
+    <image alt="Details A curved surface, a curve, a plane, a point, and two vectors are graphed in the x y z coordinate space. The positive x axis slopes down and to the left. The positive y axis slopes slightly down and to the right. The positive z axis runs vertically upward. The curved surface, labeled S, resembles a triangle with curved sides bulging away from the origin and y axis. The triangle has its base curved side on the x y plane. Its bottom left vertex is on the x axis, the bottom right vertex is on the x y plane. The base and the top side going down to meet the x y plane are longer than the left side of the triangle. A curve, labeled C, is drawn on the curved surface such that it begins from the left side, near the top and goes down to the right and front. A point labeled P is marked on the curve near the top. A rectangular plane, labeled tangent plane, is tangent to S and C at P and slopes downward to the right and upward to the back. A vector, labeled vector r prime(t_0) begins from P and slopes downward to the right, lies on the tangent plane and is tangent to the curve. Another vector, labeled Delta F(x_0, y_0, z_0) begins from P, slopes upward to the right and slightly to the back, and is perpendicular to vector r prime(t_0)."/>
+  </figure>
+  <paragraph math="block">$$F_{x}{({x_{0},y_{0},z_{0}})}{({x - x_{0}})} + F_{y}{({x_{0},y_{0},z_{0}})}{({y - y_{0}})} + F_{z}{({x_{0},y_{0},z_{0}})}{({z - z_{0}})} = 0$$</paragraph>
+  <paragraph>The normal line to $$S$$ at $$P$$ is the line passing through $$P$$ and perpendicular to the tangent plane. The direction of the normal line is therefore given by the gradient vector $$\nabla F{({x_{0},y_{0},z_{0}})}$$ and so, by Equation 12.5.3, its symmetric equations are</paragraph>
+  <paragraph math="block">$$\frac{x - x_{0}}{F_{x}{({x_{0},y_{0},z_{0}})}} = \frac{y - y_{0}}{F_{y}{({x_{0},y_{0},z_{0}})}} = \frac{z - z_{0}}{F_{z}{({x_{0},y_{0},z_{0}})}}$$</paragraph>
+  <example number="8">
+    <heading level="4">Example 8</heading>
+    <paragraph>Find the equations of the tangent plane and normal line to the ellipsoid</paragraph>
+    <paragraph math="block">$$\frac{x^{2}}{4} + y^{2} + \frac{z^{2}}{9} = 3$$</paragraph>
+    <paragraph>at the point $$({- 2,1, - 3})$$</paragraph>
+    <paragraph>Solution The ellipsoid is the level surface (with $$k = 3$$ ) of the function</paragraph>
+    <paragraph math="block">$$F{({x,y,z})} = \frac{x^{2}}{4} + y^{2} + \frac{z^{2}}{9}$$</paragraph>
+    <paragraph>Therefore we have</paragraph>
+    <paragraph math="block">$$\begin{array}{rclrclrcl} {F_{x}{({x,y,z})}} &amp; = &amp; \frac{x}{2} &amp; { {F_{y}{({x,y,z})}}} &amp; = &amp; {2y} &amp; { {F_{z}{({x,y,z})}}} &amp; = &amp; \frac{2z}{9} \\ {F_{x}{({- 2,1, - 3})}} &amp; = &amp; {- 1} &amp; { {F_{y}{({- 2,1, - 3})}}} &amp; = &amp; 2 &amp; { {F_{z}{({- 2,1, - 3})}}} &amp; = &amp; {- \frac{2}{3}} \end{array}$$</paragraph>
+    <paragraph>Then Equation 19 gives the equation of the tangent plane at $$({- 2,1, - 3})$$ as</paragraph>
+    <paragraph math="block">$$- 1{({x + 2})} + 2{({y - 1})} - \frac{2}{3}{({z + 3})} = 0$$</paragraph>
+    <paragraph>which simplifies to $$3x - 6y + 2z + 18 = 0$$ .</paragraph>
+    <paragraph>By Equation 20, symmetric equations of the normal line are</paragraph>
+    <paragraph math="block">$$\frac{x + 2}{- 1} = \frac{y - 1}{2} = \frac{z + 3}{- \frac{2}{3}}$$</paragraph>
+  </example>
+  <paragraph>Figure 11 shows the ellipsoid, tangent plane, and normal line in Example 8.</paragraph>
+  <figure>
+    <image alt="Details An ellipsoid, a plane, and a line are graphed in the x y z coordinate space. The axes are along three sides of a rectangular box. The x axis is along the front side of the base and is displayed from negative 3 to 3, from right to left, in increments of 1. The y axis is along the left side of the base and is displayed from negative 2 to 2, from back to front, in increments of 1. The z axis is along the back side of the left face and is displayed from negative 6 to 4, from bottom to top, in increments of 2. The ellipsoid has a gridded surface and its vertical length is longer than its horizontal width. Its top end touches the center of the top surface of the box. A rectangular plane slopes upward to the front and very slightly to the right and is tangent to the ellipsoid at a point on its bottom right, where the plane's center touches it. A line slopes downward to the right from the point of tangency and is perpendicular to the plane."/>
+  </figure>
+  <paragraph>In the special case in which the equation of a surface $$S$$ is of the form $$z = f{({x,y})}$$ (that is, $$S$$ is the graph of a function $$f$$ of two variables), we can rewrite the equation as</paragraph>
+  <paragraph math="block">$$F{({x,y,z})} = f{({x,y})} - z = 0$$</paragraph>
+  <paragraph>and regard $$S$$ as a level surface (with $$k = 0$$ ) of $$F$$ . Then</paragraph>
+  <paragraph math="block">$$\begin{array}{rcl} {F_{x}(x_{0},y_{0},z_{0})} &amp; = &amp; {f_{x}(x_{0},y_{0})} \\ {F_{y}(x_{0},y_{0},z_{0})} &amp; = &amp; {f_{y}(x_{0},y_{0})} \\ {F_{z}(x_{0},y_{0},z_{0})} &amp; = &amp; {- 1} \end{array}$$</paragraph>
+  <paragraph>so Equation 19 becomes</paragraph>
+  <paragraph math="block">$$f_{x}{({x_{0},y_{0}})}{({x - x_{0}})} + f_{y}{({x_{0},y_{0}})}{({y - y_{0}})} - {({z - z_{0}})} = 0$$</paragraph>
+  <paragraph>which is equivalent to Equation 14.4.2. Thus our new, more general, definition of a tangent plane is consistent with the definition that was given for the special case of Section 14.4.</paragraph>
+  <example number="9">
+    <heading level="4">Example 9</heading>
+    <paragraph>Find the tangent plane to the surface $$z = 2x^{2} + y^{2}$$ at the point $$(1,1,3)$$ .</paragraph>
+    <paragraph>Solution The surface $$z = 2x^{2} + y^{2}$$ or, equivalently, $$2x^{2} + y^{2} - z = 0$$ is a level surface (with $$k = 0$$ ) of the function</paragraph>
+    <paragraph math="block">$$F(x,y,z) = 2x^{2} + y^{2} - z$$</paragraph>
+    <paragraph>Then</paragraph>
+    <paragraph math="block">$$\begin{array}{lll} {F_{x}(x,y,z) = 4x} &amp; { F_{y}(x,y,z) = 2y} &amp; { F_{z}(x,y,z) = - 1} \\ {F_{x}(1,1,3) = 4} &amp; { F_{y}(1,1,3) = 2} &amp; { F_{z}(1,1,3) = - 1} \end{array}$$</paragraph>
+    <paragraph>By Equation 19 the equation of the tangent plane at $$(1,1,3)$$ is</paragraph>
+    <paragraph math="block">$$4(x - 1) + 2(y - 1) - (z - 3) = 0$$</paragraph>
+    <paragraph>which simplifies to $$z = 4x + 2y - 3$$</paragraph>
+    <paragraph>Compare the solution to Example 9 to the one in Example 14.4.1.</paragraph>
+  </example>
+  <heading level="3">Significance of the Gradient Vector</heading>
+  <paragraph>We first consider a function $$f$$ of three variables and a point $$P{({x_{0},y_{0},z_{0}})}$$ in its domain. We know from Theorem 15 that the gradient vector $$\nabla f{({x_{0},y_{0},z_{0}})}$$ gives the direction of fastest increase of $$f$$ . We also know that $$\nabla f{({x_{0},y_{0},z_{0}})}$$ is orthogonal to the level surface $$S$$ of $$f$$ through $$P$$ . (Refer to Figure 10.) These two properties are quite compatible intuitively because as we move away from $$P$$ on the level surface $$S$$ , the value of $$f$$ does not change at all. So it seems reasonable that if we move in the perpendicular direction, we get the maximum increase.</paragraph>
+  <paragraph>In like manner we consider a function $$f$$ of two variables and a point $$P{({x_{0},y_{0}})}$$ in its domain. Again the gradient vector $$\nabla f{({x_{0},y_{0}})}$$ gives the direction of fastest increase of $$f$$ . Also, by considerations similar to our discussion of tangent planes, it can be shown that $$\nabla f{({x_{0},y_{0}})}$$ is perpendicular to the level curve $$f{({x,y})} = k$$ that passes through $$P$$ . Again this is intuitively plausible because the values of $$f$$ remain constant as we move along the curve (See Figure 12).</paragraph>
+  <figure>
+    <image alt="Details A closed curve, a point, a line, and a vector are graphed in the first quadrant of the x y coordinate plane. The closed curve resembles a horizontal oval shape with narrow ends bent downward and labeled level curve f(x, y) = k."/>
+  </figure>
+  <paragraph>We now summarize the ways in which the gradient vector is significant.</paragraph>
+  <note type="theorem" source_type="Properties of the Gradient Vector" title="Properties of the Gradient Vector">
+    <heading level="4">Properties of the Gradient Vector</heading>
+    <paragraph>Let $$f$$ be a differentiable function of two or three variables and suppose that $$\nabla f\left( \mathbf{x} \right) \neq 0$$ .</paragraph>
+    <list type="unordered">
+      <item>The directional derivative of $$f$$ at $$\mathbf{x}$$ in the direction of a unit vector $$\mathbf{u}$$ is given by $$D_{u}f\left( \mathbf{x} \right) = \nabla f\left( \mathbf{x} \right) \cdot \mathbf{u}$$ .</item>
+      <item>$$\nabla f\left( \mathbf{x} \right)$$ points in the direction of maximum rate of increase of $$f$$ at $$\mathbf{x}$$ , and that maximum rate of change is $$\left| \nabla f\left( \mathbf{x} \right) \right|$$ .</item>
+      <item>$$\nabla f\left( \mathbf{x} \right)$$ is perpendicular to the level curve or level surface of $$f$$ through $$\mathbf{x}$$ .</item>
+    </list>
+  </note>
+  <paragraph>If we consider a topographical map of a hill and let $$f{({x,y})}$$ represent the height above sea level at a point with coordinates $$({x,y})$$ , then a curve of steepest ascent can be drawn as in Figure 13 by making it perpendicular to all of the contour lines. This phenomenon can also be noticed in Figure 14.1.12, where Lonesome Creek follows a curve of steepest descent.</paragraph>
+  <figure>
+    <image alt="Details A contour map and a curve are displayed. The map consists of five irregular closed curves that are almost parallel. The outermost and the next two curves are labeled 100, 200, and 300, respectively. The curve, labeled curve of steepest ascent, begins at the bottom left of the outermost curve and passes through all the curves to reach the center of the map while crossing each curve at right angles to it."/>
+  </figure>
+  <paragraph>Mathematical software can plot sample gradient vectors, where each gradient vector $$\nabla f{({a,b})}$$ is plotted starting at the point $$({a,b})$$ . Figure 14 shows such a plot (called a gradient vector field) for the function $$f{({x,y})} = x^{2} - y^{2}$$ superimposed on a contour map of $$f$$ . As expected, the gradient vectors point “uphill” and are perpendicular to the level curves.</paragraph>
+  <figure>
+    <image alt="Details A contour map and a vector field are graphed in the x y coordinate plane. The contour map has two lines and six two part curves. The first line enters from the top left, passes through the origin and exits at the bottom right. The second line enters from the bottom left, crosses the first line as it passes through the origin and exits at the top right. The first set of curves resemble a family of three hyperbolas with the branches opening upward and downward and vertices on the positive and negative y axis, respectively. They are labeled negative 3, negative 6, and negative 9, from the one closest to the origin to the one farthest away. The second set of curves resemble a family of three hyperbolas with the branches opening leftward and rightward and vertices on the negative and positive x axis, respectively. They are labeled 3, 6, and 9, from the one closest to the origin to the one farthest away."/>
+  </figure>
+</section>

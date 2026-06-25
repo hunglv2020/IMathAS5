@@ -13,6 +13,7 @@ _Read before [MAP] and [CLASSIFY] — these rules supersede default assumptions.
 - Numeric computation logic → **numeric single-answer**: 1 template : 1 source exercise.
   No pool counting — just key-idea match between template and source.
 Do not assume either model. Check control.php structure first.
+Policy alignment: `p-question-grounding`
 **Applies to:** UNDERSTAND, MAP
 
 ---
@@ -35,6 +36,7 @@ Do not assume either model. Check control.php structure first.
   function behind prose, data points, a rate statement, or a small table so the student must
   reconstruct the model.
 - When borderline: consult `.agents/skills/audit-coverage/references/create-dynamic-ques-guide.md`.
+Policy alignment: `p-question-grounding`
 **Applies to:** MAP, CLASSIFY
 
 ---
@@ -78,6 +80,8 @@ Do not classify such inversions as framing or key-idea failures by themselves. S
   models within the same run
 - **Concept-group coverage:** template covers a cluster of related source exercises rather than 1-1 —
   classify as PASS only if all exercises in the group are represented
-- **Legacy unit notes:** `active_qt.md` may still contain compatibility notes from older workflows —
-  do not treat that block as the primary source of exercises or curriculum authority. Source exercises belong in `target_exercises.xml`; textbook knowledge belongs in `books/`.
+- **Deprecated shim caution:** `context/active_qt.md` is now compatibility-only during the TOML migration.
+  Do not treat it as curriculum authority or as a place for structured notes. Source exercises belong in
+  `target_exercises.xml`; textbook knowledge belongs in `books/`; the canonical active pointer is
+  `context/active_qt.toml`.
 **Applies to:** PARSE, MAP

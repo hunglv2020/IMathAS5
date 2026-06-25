@@ -1,10 +1,15 @@
 # Experience Index: coverage-check
 
-_AI-maintained. Read this first; load lessons.md for session details, patterns.md for cross-case rules._
-_Read patterns.md before [MAP] and [CLASSIFY] — those rules supersede default assumptions._
+_AI-maintained. Read `patterns.md` by default; load `lessons.md` only for case-specific detail._
 _After writing a new experience entry, update the relevant bullet below._
 
 ---
+
+## patterns.md (default load)
+- Coverage model: pool-based vs numeric-single — infer from control.php structure
+- Generalization level: key-idea match > method match; canonical-form preservation -> FAIL
+- LMS-gradable adaptation: framing/type mismatch can PASS when assessment intent is preserved by a gradable proxy
+- Watch list: 4 edge cases not yet encountered (pool superset, mixed-type source, concept-group, embedded source)
 
 ## lessons.md (session entries)
 - MAP: $topics array is reliable key-idea signal for pool-based templates (2026-04-18, Case 01)
@@ -23,9 +28,3 @@ _After writing a new experience entry, update the relevant bullet below._
 - CLASSIFY: if the source explicitly requires an intermediate representation, grading only the final representation is PARTIAL unless the intermediate step has its own proxy (2026-05-03, Case 10)
 - CLASSIFY: higher-dimensional consistency-set description can PASS when the template preserves the same existence-of-solutions task through geometric plus algebraic characterization (2026-05-03, Case 11)
 - CLASSIFY: monotone-threshold upper/lower inversion can PASS when monotonicity, equality-at-boundary, and `ln` solve are preserved (2026-05-20, Case 12)
-
-## patterns.md (cross-case rules)
-- Coverage model: pool-based vs numeric-single — infer from control.php structure
-- Generalization level: key-idea match > method match; canonical-form preservation → FAIL
-- LMS-gradable adaptation: framing/type mismatch can PASS when assessment intent is preserved by a gradable proxy
-- Watch list: 4 edge cases not yet encountered (pool superset, mixed-type source, concept-group, embedded source)

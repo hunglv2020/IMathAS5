@@ -1,7 +1,7 @@
 # System Thesis — IMathAS5 Agent Workspace
 
 _Living document. Update via the `update-thesis` skill whenever skills, workflows, or artifacts change._
-_Last updated: 2026-06-07_
+_Last updated: 2026-06-25_
 
 ---
 
@@ -29,8 +29,11 @@ Source exercises (textbook)
 [draft-static-question]  ──►  static_question.txt
         │                      static_question_latex.txt
         ▼
-[draft-static-solution]  ──►  static_solution.txt
-        │                      static_solution_latex.txt
+[build-solution-artifact] ─►  artifacts/solution-runs/{run_id}/solution_latex.txt
+        │                      knowledge_context.json
+        ▼
+[manual static promotion] ─►  static_solution.txt
+                               static_solution_latex.txt
         ▼
 [generate-blueprint]     ──►  blueprint.txt
         │
@@ -43,7 +46,7 @@ Source exercises (textbook)
 
 Xem chi tiết: [workflows-catalog.md](workflows-catalog.md)
 
-### 2.2 Luồng Auditor (Full Audit)
+### 2.2 Luồng Auditor (Direct Audit Skills)
 
 ```
 (optional) Odoo: analyze_source_vi  ──► exercise_analysis.xml
@@ -51,22 +54,13 @@ Xem chi tiết: [workflows-catalog.md](workflows-catalog.md)
                                              ▼ (nếu có)
 IMathAS package (control.php, question.txt, solution.txt)
         │
-        ▼
-[audit-coverage]   ──FAIL──► stop + report
-   (+L5 nếu có exercise_analysis.xml)
-        │
-     PASS/PARTIAL
-        │
-        ▼
-[audit-pedagogical] ──► Fix Tracker
-   (context: exercise_analysis.xml)
-        │
-        ▼
-[audit-accuracy]    ──► Fix Tracker
-        │
-        ▼
-(optional) [audit-text-integrity]
-           [audit-variable-distribution]
+        ├──► [audit-coverage]
+        ├──► [audit-pedagogical]
+        └──► [audit-accuracy]
+               │
+               ▼
+      (optional) [audit-text-integrity]
+                 [audit-variable-distribution]
 ```
 
 Xem chi tiết: [workflows-catalog.md](workflows-catalog.md)
@@ -104,7 +98,7 @@ IMathAS5/
 │           └── *.xml               ← Section files
 │
 ├── context/
-│   └── active_qt.md                ← Con trỏ chỉ qt-id đang active
+│   ├── active_qt.toml              ← Canonical active-question manifest
 │
 └── scripts/                        ← Utility scripts
 ```
@@ -133,17 +127,18 @@ Một số bước yêu cầu human review trước khi Agent tiếp tục — �
 
 ---
 
-## 5. Trạng thái hệ thống (2026-06-05)
+## 5. Trạng thái hệ thống (2026-06-22)
 
 | Thành phần | Trạng thái | Ghi chú |
 |---|---|---|
-| `write-imathas-x` | Stable | Skill chính để code IMathAS; policy đã siết inline-first + boundary-safe injection |
+| `write-imathas-x` | Stable | Skill chính để code IMathAS; policy đã siết inline-first, boundary-safe injection, và interpolation-first cho display assembly ở ZONE 2 |
 | `draft-static-question` | Stable v2.1.0 | |
-| `draft-static-solution` | Stable v3.2.0 | Recall contract now requires sourced recall at any step, same-step default, and literal blank fidelity |
+| `build-solution-artifact` | Stable v1.1.0 | Grounded solution run artifact; active reference-solution path with manual promotion to `static/` after review |
+| `write-author-feedback-from-solution-artifact` | Stable v1.1.0 | Author-facing bilingual feedback from rendered IMathAS explanation + reviewed solution artifact; now supports `artifact-only` / `artifact+audits` evidence modes |
 | `generate-blueprint` | Stable v1.0.0 | |
-| `audit-coverage` | Under review | Đang nghiên cứu refactor — xem `context/research_audit_refactor.md` |
-| `audit-pedagogical` | Under review | Đang nghiên cứu refactor |
-| `audit-accuracy` | Stable | Repo Python chuẩn qua `uv run python`; render lỗi nhưng output usable thì vẫn audit tiếp, verdict vẫn FAIL |
+| `audit-coverage` | Stable | Active-core contract refactored; direct invocation là primary path |
+| `audit-pedagogical` | Stable | Active-core contract refactored; direct invocation là primary path |
+| `audit-accuracy` | Stable | Snapshot-first cho local inspection; render fallback khi cần |
 | `analyze_source_vi` | **Odoo persona** | Render trong Odoo → copy XML → lưu `source/exercise_analysis.xml` — không phải IMathAS5 skill |
 
 ---
@@ -154,7 +149,9 @@ Một số bước yêu cầu human review trước khi Agent tiếp tục — �
 |---|---|
 | [skills-catalog.md](skills-catalog.md) | Chi tiết từng skill: role, trigger, inputs, outputs |
 | [artifacts-catalog.md](artifacts-catalog.md) | Chi tiết từng data artifact: schema, producer, consumers |
-| [workflows-catalog.md](workflows-catalog.md) | Authoring workflow và Full Audit workflow |
+| [workflows-catalog.md](workflows-catalog.md) | Authoring workflow và direct audit execution model |
 | [glossary.md](glossary.md) | Định nghĩa thuật ngữ |
+| [decision-log.md](decision-log.md) | Short architecture decisions and proposed migrations |
 | [audit-skills-refactor.md](audit-skills-refactor.md) | Thiết kế refactor audit-coverage + audit-pedagogical (loại source_brief.xml, thêm L5, analyze_source_vi qua Odoo) |
+| [active-core-mapping.md](active-core-mapping.md) | Mapping proof cho policy/skill/workflow ownership của active core |
 | [context/research_audit_refactor.md](../context/research_audit_refactor.md) | Raw research session notes (nguồn gốc của audit-skills-refactor.md) |

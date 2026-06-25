@@ -10,7 +10,8 @@ Each entry records a non-obvious lesson about control.php authoring that is usef
 - RANDOMIZER: parallel case arrays + shared index > jointrandfrom() for coupled/paired values (2026-04-20)
 - RANDOMIZER: for contiguous integer domains, use `rand(min,max)`; add `where abs(...) != 1` when ±1 causes display/teaching noise (2026-04-26)
 - MACRO_SIGNATURE: use makexxpretty() for polynomial-style display cleanup; expect it to drop coefficient 1 and collapse sign spacing (2026-04-26)
-- MACRO_SIGNATURE: when terms are joined with explicit `+$coef`, makexxpretty() normalizes `+-` correctly, so sign/magnitude helper vars are optional (2026-04-26)
+- MACRO_SIGNATURE: when terms are interpolated with explicit `+$coef`, makexxpretty() normalizes `+-` correctly, so sign/magnitude helper vars are optional (2026-04-26)
+- MACRO_SIGNATURE: for authored ZONE 2 display vars, interpolation-first string assembly is mandatory; do not fall back to dot-concat token stitching (2026-06-25)
 - DOMAIN_CONSTRAINT: numfunc for symbolic matrix needs $showanswer + $requiretimes + tight note wording (2026-04-21) ← cross-ref: qtype.md
 - CALCMATRIX_FORMAT: use ASCIIMath `[(...),(...)]` in `$answer[i]` (not `[[...]]`), and set `$answersize[i]` for grid input (2026-05-01) ← cross-ref: qtype.md, question.md
 - RANDOMIZER_GCD_GUARD: for column-linear-combination prompts, force each source column to include at least one `±1` via `where` to block scalar-factor equivalent inputs (2026-05-01)
@@ -55,7 +56,7 @@ optional args, return type quirks), and any construct that caused silent failure
 
 **Date:** 2026-04-26
 **Context:** Difference-equation authoring where display equations were migrated from manual sign/magnitude stitching to macro-based formatting
-**Lesson:** For equation display strings in ZONE 2, prefer interpolation + `makexxpretty(...)` over manual sign concatenation with `if/else`. Pair `sign()` and `abs()` to build readable intermediate tokens, then let `makexxpretty` normalize expression form; note that it intentionally removes coefficient `1` and often removes spaces around `+/-`, so use it only when that compact style is acceptable.
+**Lesson:** For equation display strings in ZONE 2, use interpolation-first assembly plus `makexxpretty(...)`, and do not use manual dot-concat or branch-heavy sign stitching. If a sampled coefficient is already embedded as `{$b}` inside a string like `"{$a}x^2+{$b}x+{$c}"`, `makexxpretty` can normalize `+-` and coefficient `1` afterward; note that it intentionally removes coefficient `1` and often removes spaces around `+/-`, so use it only when that compact style is acceptable.
 **Applies to:** MACRO_SIGNATURE | TEXTVAR | BANNED_CONSTRUCT
 
 **Date:** 2026-04-26
@@ -65,7 +66,7 @@ optional args, return type quirks), and any construct that caused silent failure
 
 **Date:** 2026-04-26
 **Context:** Difference-equation display formatting decision validated by seed rendering (seed 123)
-**Lesson:** For display equations passed through `makexxpretty(...)`, writing terms as `+$b`, `+$c` is acceptable and cleaner than pre-splitting sign/magnitude. `makexxpretty` correctly collapses `+-` when sampled coefficients are negative, so helper variables like `$bsign/$bmag` are optional unless readability needs them elsewhere.
+**Lesson:** For display equations passed through `makexxpretty(...)`, interpolation like `"{$a}x^2+{$b}x+{$c}"` is the default; do not rebuild the same string with dot-concat. `makexxpretty` correctly collapses `+-` when sampled coefficients are negative, so helper variables like `$bsign/$bmag` are optional unless readability needs them elsewhere.
 **Applies to:** MACRO_SIGNATURE | TEXTVAR
 
 **Date:** 2026-05-01

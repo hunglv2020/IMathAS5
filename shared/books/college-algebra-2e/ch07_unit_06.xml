@@ -1,716 +1,300 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="7.6" title="Solving Systems with Gaussian Elimination">
-  <learning_objectives>
-    <objective number="" />
-    <objective number="" />
-    <objective number="" />
-    <objective number="" />
-  </learning_objectives>
-  <image alt="A close-up portrait of an elderly man, likely Carl Friedrich Gauss, depicted with a dark hat, white sideburns, and a formal white collar against a dark background, showcasing a serious expression." number="1" caption="German mathematician Carl Friedrich Gauss (1777–1855)." />
-  <p>Carl Friedrich Gauss lived during the late 18th century and early 19th century, but he is still considered one of the most prolific mathematicians in history. His contributions to the science of mathematics and physics span fields such as algebra, number theory, analysis, differential geometry, astronomy, and optics, among others. His discoveries regarding matrix theory changed the way mathematicians have worked for the last two centuries.</p>
-  <p>We first encountered Gaussian elimination in Systems of Linear Equations: Two Variables. In this section, we will revisit this technique for solving systems, this time using matrices.</p>
-  <subsection title="Writing the Augmented Matrix of a System of Equations">
-    <p>A matrix can serve as a device for representing and solving a system of equations. To express a system in matrix form, we extract the coefficients of the variables and the constants, and these become the entries of the matrix. We use a vertical line to separate the coefficient entries from the constants, essentially replacing the equal signs. When a system is written in this form, we call it an augmented matrix.</p>
-    <p>For example, consider the following $$2 \times 2$$ system of equations.</p>
-    <equation>$$\begin{array}{l} {3x + 4y = 7} \\ {4x-2y = 5} \end{array}$$</equation>
-    <p>We can write this system as an augmented matrix:</p>
-    <equation>$$\left\lbrack {\begin{array}{rr} 3 &amp; 4 \\ 4 &amp; -2 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 7 \\ 5 \end{array}} \right.} \right\rbrack$$</equation>
-    <p>We can also write a matrix containing just the coefficients. This is called the coefficient matrix.</p>
-    <equation>$$\begin{bmatrix} 3 &amp; 4 \\ 4 &amp; -2 \end{bmatrix}$$</equation>
-    <p>A three-by-three system of equations such as</p>
-    <equation>$$\begin{array}{l} {3x - y - z = 0} \\ {\text{~~~~~~~}x + y = 5} \\ {\text{~~~}2x-3z = 2} \end{array}$$</equation>
-    <p>has a coefficient matrix</p>
-    <equation>$$\left\lbrack \begin{array}{rrr} 3 &amp; -1 &amp; -1 \\ 1 &amp; 1 &amp; 0 \\ 2 &amp; 0 &amp; -3 \end{array} \right\rbrack$$</equation>
-    <p>and is represented by the augmented matrix</p>
-    <equation>$$\left\lbrack {\begin{array}{rrr} 3 &amp; -1 &amp; -1 \\ 1 &amp; 1 &amp; 0 \\ 2 &amp; 0 &amp; -3 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 0 \\ 5 \\ 2 \end{array}} \right.} \right\rbrack$$</equation>
-    <p>Notice that the matrix is written so that the variables line up in their own columns: x-terms go in the first column, y-terms in the second column, and z-terms in the third column. It is very important that each equation is written in standard form $$ax + by + cz = d$$ so that the variables line up. When there is a missing variable term in an equation, the coefficient is 0.</p>
-    <note type="How To">
-      <p>Given a system of equations, write an augmented matrix.</p>
-      <list type="ol" style="1">
-        <item>Write the coefficients of the x-terms as the numbers down the first column.</item>
-        <item>Write the coefficients of the y-terms as the numbers down the second column.</item>
-        <item>If there are z-terms, write the coefficients as the numbers down the third column.</item>
-        <item>Draw a vertical line and write the constants to the right of the line.</item>
-      </list>
-    </note>
-    <example number="1">
-      <problem>
-        <title>Writing the Augmented Matrix for a System of Equations</title>
-        <p>Write the augmented matrix for the given system of equations.</p>
-        <equation>$$\begin{array}{l} {\text{~~}x + 2y - z = 3} \\ {2x - y + 2z = 6} \\ {\ x - 3y + 3z = 4} \end{array}$$</equation>
-      </problem>
-      <solution>
-        <p>The augmented matrix displays the coefficients of the variables, and an additional column for the constants.</p>
-        <equation>$$\left\lbrack {\begin{array}{rrr} 1 &amp; 2 &amp; -1 \\ 2 &amp; -1 &amp; 2 \\ 1 &amp; -3 &amp; 3 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 3 \\ 6 \\ 4 \end{array}} \right.} \right\rbrack$$</equation>
-      </solution>
-    </example>
-    <note type="Try It" number="#1">
-      <p>Write the augmented matrix of the given system of equations.</p>
-      <equation>$$\begin{array}{l} {4x-3y = 11} \\ {3x + 2y = 4} \end{array}$$</equation>
-    </note>
-  </subsection>
-  <subsection title="Writing a System of Equations from an Augmented Matrix">
-    <p>We can use augmented matrices to help us solve systems of equations because they simplify operations when the systems are not encumbered by the variables. However, it is important to understand how to move back and forth between formats in order to make finding solutions smoother and more intuitive. Here, we will use the information in an augmented matrix to write the system of equations in standard form.</p>
-    <example number="2">
-      <problem>
-        <title>Writing a System of Equations from an Augmented Matrix Form</title>
-        <p>Find the system of equations from the augmented matrix.</p>
-        <equation>$$\left\lbrack {\begin{array}{rrr} 1 &amp; -3 &amp; -5 \\ 2 &amp; -5 &amp; -4 \\ -3 &amp; 5 &amp; 4 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} -2 \\ 5 \\ 6 \end{array}} \right.} \right\rbrack$$</equation>
-      </problem>
-      <solution>
-        <p>When the columns represent the variables $$x,$$ $$y,$$ and $$z,$$</p>
-        <equation>$$\left\lbrack {\begin{array}{rrr} 1 &amp; -3 &amp; -5 \\ 2 &amp; -5 &amp; -4 \\ -3 &amp; 5 &amp; 4 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} -2 \\ 5 \\ 6 \end{array}} \right.} \right\rbrack\rightarrow\begin{array}{l} {x - 3y - 5z = - 2} \\ {2x - 5y - 4z = 5} \\ {-3x + 5y + 4z = 6} \end{array}$$</equation>
-      </solution>
-    </example>
-    <note type="Try It" number="#2">
-      <p>Write the system of equations from the augmented matrix.</p>
-      <equation>$$\left\lbrack {\begin{matrix} 1 &amp; -1 &amp; 1 \\ 2 &amp; -1 &amp; 3 \\ 0 &amp; 1 &amp; 1 \end{matrix}\left| \begin{matrix} 5 \\ 1 \\ -9 \end{matrix} \right.} \right\rbrack$$</equation>
-    </note>
-  </subsection>
-  <subsection title="Performing Row Operations on a Matrix">
-    <p>Now that we can write systems of equations in augmented matrix form, we will examine the various row operations that can be performed on a matrix, such as addition, multiplication by a constant, and interchanging rows.</p>
-    <p>Performing row operations on a matrix is the method we use for solving a system of equations. In order to solve the system of equations, we want to convert the matrix to row-echelon form, in which there are ones down the main diagonal from the upper left corner to the lower right corner, and zeros in every position below the main diagonal as shown.</p>
-    <equation>$$\begin{matrix} \text{Row-echelon~form} \\ \begin{bmatrix} 1 &amp; a &amp; b \\ 0 &amp; 1 &amp; d \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \end{matrix}$$</equation>
-    <p>We use row operations corresponding to equation operations to obtain a new matrix that is row-equivalent in a simpler form. Here are the guidelines to obtaining row-echelon form.</p>
-    <list type="ol" style="1">
-      <item>In any nonzero row, the first nonzero number is a 1. It is called a leading 1.</item>
-      <item>Any all-zero rows are placed at the bottom on the matrix.</item>
-      <item>Any leading 1 is below and to the right of a previous leading 1.</item>
-      <item>Any column containing a leading 1 has zeros in all other positions in the column.</item>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">7.6 Solving Systems with Gaussian Elimination</heading>
+  <heading level="2">Learning Objectives</heading>
+  <list type="unordered">
+    <item>Write the augmented matrix of a system of equations.</item>
+    <item>Write the system of equations from an augmented matrix.</item>
+    <item>Perform row operations on a matrix.</item>
+    <item>Solve a system of linear equations using matrices.</item>
+  </list>
+  <figure number="1">
+    <image alt="A close-up portrait of an elderly man, likely Carl Friedrich Gauss, depicted with a dark hat, white sideburns, and a formal white collar against a dark background, showcasing a serious expression."/>
+    <caption>German mathematician Carl Friedrich Gauss (1777–1855).</caption>
+  </figure>
+  <paragraph>Carl Friedrich Gauss lived during the late 18th century and early 19th century, but he is still considered one of the most prolific mathematicians in history. His contributions to the science of mathematics and physics span fields such as algebra, number theory, analysis, differential geometry, astronomy, and optics, among others. His discoveries regarding matrix theory changed the way mathematicians have worked for the last two centuries.</paragraph>
+  <paragraph>We first encountered Gaussian elimination in Systems of Linear Equations: Two Variables. In this section, we will revisit this technique for solving systems, this time using matrices.</paragraph>
+  <heading level="2">Writing the Augmented Matrix of a System of Equations</heading>
+  <paragraph>A matrix can serve as a device for representing and solving a system of equations. To express a system in matrix form, we extract the coefficients of the variables and the constants, and these become the entries of the matrix. We use a vertical line to separate the coefficient entries from the constants, essentially replacing the equal signs. When a system is written in this form, we call it an augmented matrix.</paragraph>
+  <paragraph>For example, consider the following $$2 \times 2$$ system of equations.</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {3x + 4y = 7} \\ {4x-2y = 5} \end{array}$$</paragraph>
+  <paragraph>We can write this system as an augmented matrix:</paragraph>
+  <paragraph math="block">$$\left\lbrack {\begin{array}{rr} 3 &amp; 4 \\ 4 &amp; -2 \end{array} \left| { \begin{array}{r} 7 \\ 5 \end{array}} \right.} \right\rbrack$$</paragraph>
+  <paragraph>We can also write a matrix containing just the coefficients. This is called the coefficient matrix.</paragraph>
+  <paragraph math="block">$$\begin{bmatrix} 3 &amp; 4 \\ 4 &amp; -2 \end{bmatrix}$$</paragraph>
+  <paragraph>A three-by-three system of equations such as</paragraph>
+  <paragraph math="block">$$\begin{array}{l} {3x - y - z = 0} \\ {x + y = 5} \\ {2x-3z = 2} \end{array}$$</paragraph>
+  <paragraph>has a coefficient matrix</paragraph>
+  <paragraph math="block">$$\left\lbrack \begin{array}{rrr} 3 &amp; -1 &amp; -1 \\ 1 &amp; 1 &amp; 0 \\ 2 &amp; 0 &amp; -3 \end{array} \right\rbrack$$</paragraph>
+  <paragraph>and is represented by the augmented matrix</paragraph>
+  <paragraph math="block">$$\left\lbrack {\begin{array}{rrr} 3 &amp; -1 &amp; -1 \\ 1 &amp; 1 &amp; 0 \\ 2 &amp; 0 &amp; -3 \end{array} \left| { \begin{array}{r} 0 \\ 5 \\ 2 \end{array}} \right.} \right\rbrack$$</paragraph>
+  <paragraph>Notice that the matrix is written so that the variables line up in their own columns: x-terms go in the first column, y-terms in the second column, and z-terms in the third column. It is very important that each equation is written in standard form $$ax + by + cz = d$$ so that the variables line up. When there is a missing variable term in an equation, the coefficient is 0.</paragraph>
+  <note type="procedure" source_type="How To" title="How To">
+    <paragraph>Given a system of equations, write an augmented matrix.</paragraph>
+    <list type="ordered">
+      <item>Write the coefficients of the x-terms as the numbers down the first column.</item>
+      <item>Write the coefficients of the y-terms as the numbers down the second column.</item>
+      <item>If there are z-terms, write the coefficients as the numbers down the third column.</item>
+      <item>Draw a vertical line and write the constants to the right of the line.</item>
     </list>
-    <p>To solve a system of equations we can perform the following row operations to convert the coefficient matrix to row-echelon form and do back-substitution to find the solution.</p>
-    <list type="ol" style="1">
-      <item>Interchange rows. (Notation: $$R_{i}\mspace{9mu}\leftrightarrow\mspace{9mu}\mspace{9mu} R_{j}$$ )</item>
-      <item>Multiply a row by a constant. (Notation: $$cR_{i}$$ )</item>
-      <item>Add the product of a row multiplied by a constant to another row. (Notation: $$R_{i} + cR_{j})$$</item>
+  </note>
+  <example number="1" title="Writing the Augmented Matrix for a System of Equations">
+    <problem>
+      <paragraph>Write the augmented matrix for the given system of equations.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {x + 2y - z = 3} \\ {2x - y + 2z = 6} \\ { x - 3y + 3z = 4} \end{array}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The augmented matrix displays the coefficients of the variables, and an additional column for the constants.</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rrr} 1 &amp; 2 &amp; -1 \\ 2 &amp; -1 &amp; 2 \\ 1 &amp; -3 &amp; 3 \end{array} \left| { \begin{array}{r} 3 \\ 6 \\ 4 \end{array}} \right.} \right\rbrack$$</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="#1">
+    <paragraph>Write the augmented matrix of the given system of equations.</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {4x-3y = 11} \\ {3x + 2y = 4} \end{array}$$</paragraph>
+  </note>
+  <heading level="2">Writing a System of Equations from an Augmented Matrix</heading>
+  <paragraph>We can use augmented matrices to help us solve systems of equations because they simplify operations when the systems are not encumbered by the variables. However, it is important to understand how to move back and forth between formats in order to make finding solutions smoother and more intuitive. Here, we will use the information in an augmented matrix to write the system of equations in standard form.</paragraph>
+  <example number="2" title="Writing a System of Equations from an Augmented Matrix Form">
+    <problem>
+      <paragraph>Find the system of equations from the augmented matrix.</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rrr} 1 &amp; -3 &amp; -5 \\ 2 &amp; -5 &amp; -4 \\ -3 &amp; 5 &amp; 4 \end{array} \left| { \begin{array}{r} -2 \\ 5 \\ 6 \end{array}} \right.} \right\rbrack$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>When the columns represent the variables $$x,$$ $$y,$$ and $$z,$$</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rrr} 1 &amp; -3 &amp; -5 \\ 2 &amp; -5 &amp; -4 \\ -3 &amp; 5 &amp; 4 \end{array} \left| { \begin{array}{r} -2 \\ 5 \\ 6 \end{array}} \right.} \right\rbrack\rightarrow\begin{array}{l} {x - 3y - 5z = - 2} \\ {2x - 5y - 4z = 5} \\ {-3x + 5y + 4z = 6} \end{array}$$</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="#2">
+    <paragraph>Write the system of equations from the augmented matrix.</paragraph>
+    <paragraph math="block">$$\left\lbrack {\begin{matrix} 1 &amp; -1 &amp; 1 \\ 2 &amp; -1 &amp; 3 \\ 0 &amp; 1 &amp; 1 \end{matrix}\left| \begin{matrix} 5 \\ 1 \\ -9 \end{matrix} \right.} \right\rbrack$$</paragraph>
+  </note>
+  <heading level="2">Performing Row Operations on a Matrix</heading>
+  <paragraph>Now that we can write systems of equations in augmented matrix form, we will examine the various row operations that can be performed on a matrix, such as addition, multiplication by a constant, and interchanging rows.</paragraph>
+  <paragraph>Performing row operations on a matrix is the method we use for solving a system of equations. In order to solve the system of equations, we want to convert the matrix to row-echelon form, in which there are ones down the main diagonal from the upper left corner to the lower right corner, and zeros in every position below the main diagonal as shown.</paragraph>
+  <paragraph math="block">$$\begin{matrix} \text{Row-echelon form} \\ \begin{bmatrix} 1 &amp; a &amp; b \\ 0 &amp; 1 &amp; d \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \end{matrix}$$</paragraph>
+  <paragraph>We use row operations corresponding to equation operations to obtain a new matrix that is row-equivalent in a simpler form. Here are the guidelines to obtaining row-echelon form.</paragraph>
+  <list type="ordered">
+    <item>In any nonzero row, the first nonzero number is a 1. It is called a leading 1.</item>
+    <item>Any all-zero rows are placed at the bottom on the matrix.</item>
+    <item>Any leading 1 is below and to the right of a previous leading 1.</item>
+    <item>Any column containing a leading 1 has zeros in all other positions in the column.</item>
+  </list>
+  <paragraph>To solve a system of equations we can perform the following row operations to convert the coefficient matrix to row-echelon form and do back-substitution to find the solution.</paragraph>
+  <list type="ordered">
+    <item>Interchange rows. (Notation: $$R_{i}\leftrightarrow R_{j}$$ )</item>
+    <item>Multiply a row by a constant. (Notation: $$cR_{i}$$ )</item>
+    <item>Add the product of a row multiplied by a constant to another row. (Notation: $$R_{i} + cR_{j})$$</item>
+  </list>
+  <paragraph>Each of the row operations corresponds to the operations we have already learned to solve systems of equations in three variables. With these operations, there are some key moves that will quickly achieve the goal of writing a matrix in row-echelon form. To obtain a matrix in row-echelon form for finding solutions, we use Gaussian elimination, a method that uses row operations to obtain a 1 as the first entry so that row 1 can be used to convert the remaining rows.</paragraph>
+  <note type="rule" source_type="Gaussian Elimination" title="Gaussian Elimination">
+    <paragraph>The Gaussian elimination method refers to a strategy used to obtain the row-echelon form of a matrix. The goal is to write matrix $$A$$ with the number 1 as the entry down the main diagonal and have all zeros below.</paragraph>
+    <paragraph math="block">$$A = \left\lbrack \begin{array}{rrr} a_{11} &amp; a_{12} &amp; a_{13} \\ a_{21} &amp; a_{22} &amp; a_{23} \\ a_{31} &amp; a_{32} &amp; a_{33} \end{array} \right\rbrack\overset{ \text{After Gaussian elimination} }{\rightarrow}A = \left\lbrack \begin{array}{rrr} 1 &amp; { b_{12}} &amp; { b_{13}} \\ 0 &amp; { 1} &amp; { b_{23}} \\ 0 &amp; { 0} &amp; { 1} \end{array} \right\rbrack$$</paragraph>
+    <paragraph>The first step of the Gaussian strategy includes obtaining a 1 as the first entry, so that row 1 may be used to alter the rows below.</paragraph>
+  </note>
+  <note type="procedure" source_type="How To" title="How To">
+    <paragraph>Given an augmented matrix, perform row operations to achieve row-echelon form.</paragraph>
+    <list type="ordered">
+      <item>The first equation should have a leading coefficient of 1. Interchange rows or multiply by a constant, if necessary.</item>
+      <item>Use row operations to obtain zeros down the first column below the first entry of 1.</item>
+      <item>Use row operations to obtain a 1 in row 2, column 2.</item>
+      <item>Use row operations to obtain zeros down column 2, below the entry of 1.</item>
+      <item>Use row operations to obtain a 1 in row 3, column 3.</item>
+      <item>Continue this process for all rows until there is a 1 in every entry down the main diagonal and there are only zeros below.</item>
+      <item>If any rows contain all zeros, place them at the bottom.</item>
     </list>
-    <p>Each of the row operations corresponds to the operations we have already learned to solve systems of equations in three variables. With these operations, there are some key moves that will quickly achieve the goal of writing a matrix in row-echelon form. To obtain a matrix in row-echelon form for finding solutions, we use Gaussian elimination, a method that uses row operations to obtain a 1 as the first entry so that row 1 can be used to convert the remaining rows.</p>
-    <note type="Gaussian Elimination">
-      <p>The Gaussian elimination method refers to a strategy used to obtain the row-echelon form of a matrix. The goal is to write matrix $$A$$ with the number 1 as the entry down the main diagonal and have all zeros below.</p>
-      <equation>$$A = \left\lbrack \begin{array}{rrr} a_{11} &amp; a_{12} &amp; a_{13} \\ a_{21} &amp; a_{22} &amp; a_{23} \\ a_{31} &amp; a_{32} &amp; a_{33} \end{array} \right\rbrack\overset{\text{After~Gaussian~elimination}}{\rightarrow}A = \left\lbrack \begin{array}{rrr} 1 &amp; {\mspace{9mu}\mspace{9mu} b_{12}} &amp; {\mspace{9mu}\mspace{9mu} b_{13}} \\ 0 &amp; {\mspace{9mu}\mspace{9mu} 1} &amp; {\mspace{9mu}\mspace{9mu} b_{23}} \\ 0 &amp; {\mspace{9mu}\mspace{9mu} 0} &amp; {\mspace{9mu}\mspace{9mu} 1} \end{array} \right\rbrack$$</equation>
-      <p>The first step of the Gaussian strategy includes obtaining a 1 as the first entry, so that row 1 may be used to alter the rows below.</p>
-    </note>
-    <note type="How To">
-      <p>Given an augmented matrix, perform row operations to achieve row-echelon form.</p>
-      <list type="ol" style="1">
-        <item>The first equation should have a leading coefficient of 1. Interchange rows or multiply by a constant, if necessary.</item>
-        <item>Use row operations to obtain zeros down the first column below the first entry of 1.</item>
-        <item>Use row operations to obtain a 1 in row 2, column 2.</item>
-        <item>Use row operations to obtain zeros down column 2, below the entry of 1.</item>
-        <item>Use row operations to obtain a 1 in row 3, column 3.</item>
-        <item>Continue this process for all rows until there is a 1 in every entry down the main diagonal and there are only zeros below.</item>
-        <item>If any rows contain all zeros, place them at the bottom.</item>
-      </list>
-    </note>
-    <example number="3">
-      <problem>
-        <title>Solving a2×22×2System by Gaussian Elimination</title>
-        <p>Solve the given system by Gaussian elimination.</p>
-        <equation>$$\begin{array}{l} {2x + 3y = 6} \\ {\text{~~~}x - y = \frac{1}{2}} \end{array}$$</equation>
-      </problem>
-      <solution>
-        <p>First, we write this as an augmented matrix.</p>
-        <equation>$$\left\lbrack {\begin{array}{rr} 2 &amp; 3 \\ 1 &amp; -1 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 6 \\ \frac{1}{2} \end{array}} \right.} \right\rbrack$$</equation>
-        <p>We want a 1 in row 1, column 1. This can be accomplished by interchanging row 1 and row 2.</p>
-        <equation>$$R_{1}\leftrightarrow R_{2}\rightarrow\left\lbrack {\begin{array}{rrr} 1 &amp; -1 &amp; \\ 2 &amp; 3 &amp; \end{array}\left| \begin{array}{rr} &amp; \frac{1}{2} \\ &amp; 6 \end{array} \right.} \right\rbrack$$</equation>
-        <p>We now have a 1 as the first entry in row 1, column 1. Now let’s obtain a 0 in row 2, column 1. This can be accomplished by multiplying row 1 by $$-2,$$ and then adding the result to row 2.</p>
-        <equation>$$-2R_{1} + R_{2} = R_{2}\rightarrow\left\lbrack {\begin{array}{rrr} 1 &amp; -1 &amp; \\ 0 &amp; 5 &amp; \end{array}\left| \begin{array}{rr} &amp; \frac{1}{2} \\ &amp; 5 \end{array} \right.} \right\rbrack$$</equation>
-        <p>We only have one more step, to multiply row 2 by $$\frac{1}{5}.$$</p>
-        <equation>$$\frac{1}{5}R_{2} = R_{2}\rightarrow\left\lbrack {\begin{array}{rrr} 1 &amp; -1 &amp; \\ 0 &amp; 1 &amp; \end{array}\left| \begin{matrix} &amp; \frac{1}{2} \\ &amp; 1 \end{matrix} \right.} \right\rbrack$$</equation>
-        <p>Use back-substitution. The second row of the matrix represents $$y = 1.$$ Back-substitute $$y = 1$$ into the first equation.</p>
-        <equation>$$\begin{array}{l} {x - (1) = \frac{1}{2}} \\ {\text{~~~~~~~~}x = \frac{3}{2}} \end{array}$$</equation>
-        <p>The solution is the point $$\left( {\frac{3}{2},1} \right).$$</p>
-      </solution>
-    </example>
-    <note type="Try It" number="#3">
-      <p>Solve the given system by Gaussian elimination.</p>
-      <equation>$$\begin{array}{l} {4x + 3y = 11} \\ {\ x-3y = -1} \end{array}$$</equation>
-    </note>
-    <example number="4">
-      <problem>
-        <title>Using Gaussian Elimination to Solve a System of Equations</title>
-        <p>Use Gaussian elimination to solve the given $$2 \times 2$$
-system of equations.</p>
-        <equation>$$\begin{array}{l} {\ 2x + y = 1} \\ {4x + 2y = 6} \end{array}$$</equation>
-      </problem>
-      <solution>
-        <p>Write the system as an augmented matrix.</p>
-        <equation>$$\left\lbrack {\begin{array}{ll} 2 &amp; 1 \\ 4 &amp; 2 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{l} 1 \\ 6 \end{array}} \right.} \right\rbrack$$</equation>
-        <p>Obtain a 1 in row 1, column 1. This can be accomplished by multiplying the first row by $$\frac{1}{2}.$$</p>
-        <equation>$$\frac{1}{2}R_{1} = R_{1}\rightarrow\left\lbrack {\begin{matrix} 1 &amp; \frac{1}{2} \\ 4 &amp; 2 \end{matrix}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{matrix} \frac{1}{2} \\ 6 \end{matrix}} \right.} \right\rbrack$$</equation>
-        <p>Next, we want a 0 in row 2, column 1. Multiply row 1 by $$-4$$ and add row 1 to row 2.</p>
-        <equation>$$-4R_{1} + R_{2} = R_{2}\rightarrow\left\lbrack {\begin{matrix} 1 &amp; \frac{1}{2} \\ 0 &amp; 0 \end{matrix}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{matrix} \frac{1}{2} \\ 4 \end{matrix}} \right.} \right\rbrack$$</equation>
-        <p>The second row represents the equation $$0 = 4.$$ Therefore, the system is inconsistent and has no solution.</p>
-      </solution>
-    </example>
-    <example number="5">
-      <problem>
-        <title>Solving a Dependent System</title>
-        <p>Solve the system of equations.</p>
-        <equation>$$\begin{array}{l} {3x + 4y = 12} \\ {6x + 8y = 24} \end{array}$$</equation>
-      </problem>
-      <solution>
-        <p>Perform row operations on the augmented matrix to try and achieve row-echelon form.</p>
-        <equation>$$A = \left\lbrack {\left. \begin{array}{llll} 3 &amp; &amp; 4 &amp; \\ 6 &amp; &amp; 8 &amp; \end{array} \right|\begin{array}{ll} &amp; 12 \\ &amp; 24 \end{array}} \right\rbrack$$</equation>
-        <equation>$$\begin{array}{l} \\ \begin{array}{l} {- \frac{1}{2}R_{2} + R_{1} = R_{1}\rightarrow\left\lbrack {\left. \begin{array}{llll} 0 &amp; &amp; 0 &amp; \\ 6 &amp; &amp; 8 &amp; \end{array} \right|\begin{array}{ll} &amp; 0 \\ &amp; 24 \end{array}} \right\rbrack} \\ {R_{1}\leftrightarrow R_{2}\rightarrow\left\lbrack {\left. \begin{array}{llll} 6 &amp; &amp; 8 &amp; \\ 0 &amp; &amp; 0 &amp; \end{array} \right|\begin{array}{ll} &amp; 24 \\ &amp; 0 \end{array}} \right\rbrack} \end{array} \end{array}$$</equation>
-        <p>The matrix ends up with all zeros in the last row: $$0y = 0.$$ Thus, there are an infinite number of solutions and the system is classified as dependent. To find the generic solution, return to one of the original equations and solve for $$y.$$</p>
-        <equation>$$\begin{array}{l} {3x + 4y = 12} \\ {\text{~~~~~~~~}4y = 12-3x} \\ {\text{~~~~~~~~~~}y = 3 - \frac{3}{4}x} \end{array}$$</equation>
-        <p>So the solution to this system is $$\left( {x,3 - \frac{3}{4}x} \right).$$</p>
-      </solution>
-    </example>
-    <example number="6">
-      <problem>
-        <title>Performing Row Operations on a 3×3 Augmented Matrix to Obtain Row-Echelon Form</title>
-        <p>Perform row operations on the given matrix to obtain row-echelon form.</p>
-        <equation>$$\left\lbrack {\begin{array}{rrr} 1 &amp; -3 &amp; 4 \\ 2 &amp; -5 &amp; 6 \\ -3 &amp; 3 &amp; 4 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 3 \\ 6 \\ 6 \end{array}} \right.} \right\rbrack$$</equation>
-      </problem>
-      <solution>
-        <p>The first row already has a 1 in row 1, column 1. The next step is to multiply row 1 by $$-2$$ and add it to row 2. Then replace row 2 with the result.</p>
-        <equation>$$-2R_{1} + R_{2} = R_{2}\rightarrow\left\lbrack {\begin{array}{rrrrrr} 1 &amp; &amp; -3 &amp; &amp; 4 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -2 &amp; \\ -3 &amp; &amp; 3 &amp; &amp; 4 &amp; \end{array}\left| \begin{array}{rr} &amp; 3 \\ &amp; 0 \\ &amp; 6 \end{array} \right.} \right\rbrack$$</equation>
-        <p>Next, obtain a zero in row 3, column 1.</p>
-        <equation>$$3R_{1} + R_{3} = R_{3}\rightarrow\left\lbrack {\begin{array}{rrrrrr} 1 &amp; &amp; -3 &amp; &amp; 4 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -2 &amp; \\ 0 &amp; &amp; -6 &amp; &amp; 16 &amp; \end{array}\left| \begin{array}{rr} &amp; 3 \\ &amp; 0 \\ &amp; 15 \end{array} \right.} \right\rbrack$$</equation>
-        <p>Next, obtain a zero in row 3, column 2.</p>
-        <equation>$$6R_{2} + R_{3} = R_{3}\rightarrow\left\lbrack {\begin{array}{rrrrrr} 1 &amp; &amp; -3 &amp; &amp; 4 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -2 &amp; \\ 0 &amp; &amp; 0 &amp; &amp; 4 &amp; \end{array}\left| \begin{array}{rr} &amp; 3 \\ &amp; 0 \\ &amp; 15 \end{array} \right.} \right\rbrack$$</equation>
-        <p>The last step is to obtain a 1 in row 3, column 3.</p>
-        <equation>$$\frac{1}{4}R_{3} = R_{3}\rightarrow\left\lbrack {\begin{array}{rrr} 1 &amp; -3 &amp; 4 \\ 0 &amp; 1 &amp; -2 \\ 0 &amp; 0 &amp; 1 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 3 \\ 0 \\ \frac{15}{4} \end{array}} \right.} \right\rbrack$$</equation>
-      </solution>
-    </example>
-    <note type="Try It" number="#4">
-      <p>Write the system of equations in row-echelon form.</p>
-      <equation>$$\begin{array}{l} {\ x - 2y + 3z = 9} \\ {- x + 3y = - 4} \\ {2x - 5y + 5z = 17} \end{array}$$</equation>
-    </note>
-  </subsection>
-  <subsection title="Solving a System of Linear Equations Using Matrices">
-    <p>We have seen how to write a system of equations with an augmented matrix, and then how to use row operations and back-substitution to obtain row-echelon form. Now, we will take row-echelon form a step farther to solve a 3 by 3 system of linear equations. The general idea is to eliminate all but one variable using row operations and then back-substitute to solve for the other variables.</p>
-    <example number="7">
-      <problem>
-        <title>Solving a System of Linear Equations Using Matrices</title>
-        <p>Solve the system of linear equations using matrices.</p>
-        <equation>$$\begin{matrix} \begin{array}{l} \\ \\ {x - y + z = 8} \end{array} \\ {2x + 3y - z = -2} \\ {3x - 2y - 9z = 9} \end{matrix}$$</equation>
-      </problem>
-      <solution>
-        <p>First, we write the augmented matrix.</p>
-        <equation>$$\left\lbrack {\begin{array}{rrr} 1 &amp; {- 1} &amp; 1 \\ 2 &amp; 3 &amp; {- 1} \\ 3 &amp; {- 2} &amp; {- 9} \end{array}\mspace{9mu}\text{~~}\left| {\mspace{9mu}\ \begin{array}{r} 8 \\ {- 2} \\ 9 \end{array}} \right.} \right\rbrack$$</equation>
-        <p>Next, we perform row operations to obtain row-echelon form.</p>
-        <equation>$$\begin{array}{rrrrr} {- 2R_{1} + R_{2} = R_{2}\rightarrow\left\lbrack {\begin{array}{rrrrrr} 1 &amp; &amp; {- 1} &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 5 &amp; &amp; {- 3} &amp; \\ 3 &amp; &amp; {- 2} &amp; &amp; {- 9} &amp; \end{array}\left| \begin{array}{rr} &amp; 8 \\ &amp; {- 18} \\ &amp; 9 \end{array} \right.} \right\rbrack} &amp; &amp; &amp; &amp; {- 3R_{1} + R_{3} = R_{3}\rightarrow\left\lbrack {\begin{array}{rrrrrr} 1 &amp; &amp; {- 1} &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 5 &amp; &amp; {- 3} &amp; \\ 0 &amp; &amp; 1 &amp; &amp; {- 12} &amp; \end{array}\left| \begin{array}{rr} &amp; 8 \\ &amp; {- 18} \\ &amp; {- 15} \end{array} \right.} \right\rbrack} \end{array}$$</equation>
-        <p>The easiest way to obtain a 1 in row 2, column 2 is to interchange $$R_{2}$$ and $$R_{3}.$$</p>
-        <equation>$$\text{Interchange}\mspace{9mu} R_{2}\mspace{9mu}\text{and}\mspace{9mu} R_{3}\rightarrow\left\lbrack \begin{array}{rrrrrrr} 1 &amp; &amp; -1 &amp; &amp; 1 &amp; &amp; 8 \\ 0 &amp; &amp; 1 &amp; &amp; -12 &amp; &amp; -15 \\ 0 &amp; &amp; 5 &amp; &amp; -3 &amp; &amp; -18 \end{array} \right\rbrack$$</equation>
-        <p>Then</p>
-        <equation>$$\begin{array}{l} \\ \begin{array}{rrrrr} {-5R_{2} + R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; -1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -12 &amp; \\ 0 &amp; &amp; 0 &amp; &amp; 57 &amp; \end{array} \right|\begin{array}{rr} &amp; 8 \\ &amp; -15 \\ &amp; 57 \end{array}} \right\rbrack} &amp; &amp; &amp; &amp; {- \frac{1}{57}R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; -1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -12 &amp; \\ 0 &amp; &amp; 0 &amp; &amp; 1 &amp; \end{array} \right|\begin{array}{rr} &amp; 8 \\ &amp; -15 \\ &amp; 1 \end{array}} \right\rbrack} \end{array} \end{array}$$</equation>
-        <p>The last matrix represents the equivalent system.</p>
-        <equation>$$\begin{array}{l} {x - y + z = 8} \\ {\text{~~}y - 12z = -15} \\ {\text{~~~~~~~~~~~}z = 1} \end{array}$$</equation>
-        <p>Using back-substitution, we obtain the solution as $$\left( {4,-3,1} \right).$$</p>
-      </solution>
-    </example>
-    <example number="8">
-      <problem>
-        <title>Solving a Dependent System of Linear Equations Using Matrices</title>
-        <p>Solve the following system of linear equations using matrices.</p>
-        <equation>$$\begin{array}{r} {- x-2y + z = -1} \\ {~2x + 3y = 2} \\ {y-2z = 0} \end{array}$$</equation>
-      </problem>
-      <solution>
-        <p>Write the augmented matrix.</p>
-        <equation>$$\left\lbrack {\begin{array}{rrr} -1 &amp; -2 &amp; 1 \\ 2 &amp; 3 &amp; 0 \\ 0 &amp; 1 &amp; -2 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} -1 \\ 2 \\ 0 \end{array}} \right.} \right\rbrack$$</equation>
-        <p>First, multiply row 1 by $$-1$$ to get a 1 in row 1, column 1. Then, perform row operations to obtain row-echelon form.</p>
-        <equation>$$- R_{1}\rightarrow\left\lbrack {\begin{array}{rrr} 1 &amp; 2 &amp; -1 \\ 2 &amp; 3 &amp; 0 \\ 0 &amp; 1 &amp; -2 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 1 \\ 2 \\ 0 \end{array}} \right.} \right\rbrack$$</equation>
-        <equation>$$R_{2}\leftrightarrow R_{3}\rightarrow\left\lbrack {\begin{array}{rrrrr} 1 &amp; &amp; 2 &amp; &amp; {- 1} \\ 0 &amp; &amp; 1 &amp; &amp; {- 2} \\ 2 &amp; &amp; 3 &amp; &amp; 0 \end{array}\mspace{9mu}\ \left| \begin{array}{rr} &amp; 1 \\ &amp; 0 \\ &amp; 2 \end{array} \right.} \right\rbrack$$</equation>
-        <equation>$$-2R_{1} + R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 2 &amp; &amp; -1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -2 &amp; \\ 0 &amp; &amp; -1 &amp; &amp; 2 &amp; \end{array} \right|\begin{array}{rr} &amp; 1 \\ &amp; 0 \\ &amp; 0 \end{array}} \right\rbrack$$</equation>
-        <equation>$$R_{2} + R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 2 &amp; &amp; -1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -2 &amp; \\ 0 &amp; &amp; 0 &amp; &amp; 0 &amp; \end{array} \right|\begin{array}{rr} &amp; 1 \\ &amp; 1 \\ &amp; 0 \end{array}} \right\rbrack$$</equation>
-        <p>The last matrix represents the following system.</p>
-        <equation>$$\begin{array}{l} {x + 2y - z = 1} \\ {\text{~~~~~~}y - 2z = 0} \\ {\text{~~~~~~~~~~~~~}0 = 0} \end{array}$$</equation>
-        <p>We see by the identity $$0 = 0$$ that this is a dependent system with an infinite number of solutions. We then find the generic solution. By solving the second equation for $$y$$ and substituting it into the first equation we can solve for $$z$$ in terms of $$x.$$</p>
-        <equation>$$\begin{array}{l} {x + 2y - z = 1} \\ {\text{~~~~~~~~~~~~~~~~~}y = 2z} \\ \\ {x + 2(2z) - z = 1} \\ {\text{~~~~~~~~~~}x + 3z = 1} \\ {\text{~~~~~~~~~~~~~~~~~}z = \frac{1 - x}{3}} \end{array}$$</equation>
-        <p>Now we substitute the expression for $$z$$ into the second equation to solve for $$y$$ in terms of $$x.$$</p>
-        <equation>$$\begin{array}{l} {y - 2z = 0} \\ {z = \frac{1 - x}{3}} \\ \\ {y - 2\left( \frac{1 - x}{3} \right) = 0} \\ {y = \frac{2 - 2x}{3}} \end{array}$$</equation>
-        <p>The generic solution is $$\left( {x,\frac{2-2x}{3},\frac{1 - x}{3}} \right).$$</p>
-      </solution>
-    </example>
-    <note type="Try It" number="#5">
-      <p>Solve the system using matrices.</p>
-      <equation>$$\begin{matrix} {x + 4y - z = 4} \\ {2x + 5y + 8z = 15} \\ {x + 3y-3z = 1} \end{matrix}$$</equation>
-    </note>
-    <note type="Q&amp;A">
-      <p>Can any system of linear equations be solved by Gaussian elimination?</p>
-      <p>Yes, a system of linear equations of any size can be solved by Gaussian elimination.</p>
-    </note>
-    <note type="How To">
-      <p>Given a system of equations, solve with matrices using a calculator.</p>
-      <list type="ol" style="1">
-        <item>Save the augmented matrix as a matrix variable $$\lbrack A\rbrack,\mspace{9mu}\lbrack B\rbrack,\mspace{9mu}\lbrack C\rbrack\text{,}~\ldots.$$</item>
-        <item>Use the ref( function in the calculator, calling up each matrix variable as needed.</item>
-      </list>
-    </note>
-    <example number="9">
-      <problem>
-        <title>Solving Systems of Equations with Matrices Using a Calculator</title>
-        <p>Solve the system of equations.</p>
-        <equation>$$\begin{array}{r} {~5x + 3y + 9z = -1} \\ {-2x + 3y - z = -2} \\ {- x-4y + 5z = 1} \end{array}$$</equation>
-      </problem>
-      <solution>
-        <p>Write the augmented matrix for the system of equations.</p>
-        <equation>$$\left\lbrack {\begin{array}{rrr} 5 &amp; 3 &amp; 9 \\ -2 &amp; 3 &amp; -1 \\ -1 &amp; -4 &amp; 5 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} -1 \\ -2 \\ -1 \end{array}} \right.} \right\rbrack$$</equation>
-        <p>On the matrix page of the calculator, enter the augmented matrix above as the matrix variable $$\lbrack A\rbrack.$$</p>
-        <equation>$$\lbrack A\rbrack = \left\lbrack \begin{array}{rrrrrrr} 5 &amp; &amp; 3 &amp; &amp; 9 &amp; &amp; -1 \\ -2 &amp; &amp; 3 &amp; &amp; -1 &amp; &amp; -2 \\ -1 &amp; &amp; -4 &amp; &amp; 5 &amp; &amp; 1 \end{array} \right\rbrack$$</equation>
-        <p>Use the ref( function in the calculator, calling up the matrix variable $$\lbrack A\rbrack.$$</p>
-        <equation>$$\text{ref}(\lbrack A\rbrack)$$</equation>
-        <p>Evaluate.</p>
-        <equation>$$\begin{array}{l} \\ {\left\lbrack \begin{array}{rrrr} 1 &amp; {\mspace{9mu}\mspace{9mu}\frac{3}{5}} &amp; {\mspace{9mu}\mspace{9mu}\frac{9}{5}} &amp; {- \frac{1}{5}} \\ 0 &amp; {\mspace{9mu}\mspace{9mu} 1} &amp; {\mspace{9mu}\mspace{9mu}\frac{13}{21}} &amp; {- \frac{4}{7}} \\ 0 &amp; {\mspace{9mu}\mspace{9mu} 0} &amp; {\mspace{9mu}\mspace{9mu} 1} &amp; {- \frac{24}{187}} \end{array} \right\rbrack\rightarrow\begin{array}{l} {x + \frac{3}{5}y + \frac{9}{5}z = - \frac{1}{5}} \\ {y + \frac{13}{21}z = - \frac{4}{7}} \\ {z = - \frac{24}{187}} \end{array}} \end{array}$$</equation>
-        <p>Using back-substitution, the solution is $$\left( {\frac{61}{187}, - \frac{92}{187}, - \frac{24}{187}} \right).$$</p>
-      </solution>
-    </example>
-    <example number="10">
-      <problem>
-        <title>Applying 2 × 2 Matrices to Finance</title>
-        <p>Carolyn invests a total of $12,000 in two municipal bonds, one paying 10.5% interest and the other paying 12% interest. The annual interest earned on the two investments last year was $1,335. How much was invested at each rate?</p>
-      </problem>
-      <solution>
-        <p>We have a system of two equations in two variables. Let $$x =$$ the amount invested at 10.5% interest, and $$y =$$ the amount invested at 12% interest.</p>
-        <equation>$$\begin{array}{l} {\text{~~~~~~~~~~~~~~~}x + y = 12,000} \\ {0.105x + 0.12y = 1,335} \end{array}$$</equation>
-        <p>As a matrix, we have</p>
-        <equation>$$\left\lbrack {\begin{array}{rr} 1 &amp; 1 \\ 0.105 &amp; 0.12 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 12,000 \\ 1,335 \end{array}} \right.} \right\rbrack$$</equation>
-        <p>Multiply row 1 by $$-0.105$$ and add the result to row 2.</p>
-        <equation>$$\left\lbrack {\begin{array}{rr} 1 &amp; 1 \\ 0 &amp; 0.015 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 12,000 \\ 75 \end{array}} \right.} \right\rbrack$$</equation>
-        <p>Then,</p>
-        <equation>$$\begin{array}{l} {0.015y = 75} \\ {\text{~~~~~~~~}y = 5,000} \end{array}$$</equation>
-        <p>So $$12,000-5,000 = 7,000.$$</p>
-        <p>Thus, $5,000 was invested at 12% interest and $7,000 at 10.5% interest.</p>
-      </solution>
-    </example>
-    <example number="11">
-      <problem>
-        <title>Applying 3 × 3 Matrices to Finance</title>
-        <p>Ava invests a total of $10,000 in three accounts, one paying 5% interest, another paying 8% interest, and the third paying 9% interest. The annual interest earned on the three investments last year was $770. The amount invested at 9% was twice the amount invested at 5%. How much was invested at each rate?</p>
-      </problem>
-      <solution>
-        <p>We have a system of three equations in three variables. Let $$x$$ be the amount invested at 5% interest, let $$y$$ be the amount invested at 8% interest, and let $$z$$ be the amount invested at 9% interest. Thus,</p>
-        <equation>$$\begin{array}{l} {\text{~~~~~~~~~~~~~~~~~~~~}x + y + z = 10,000} \\ {0.05x + 0.08y + 0.09z = 770} \\ {\text{~~~~~~~~~~~~~~~~~~~~~~~~}2x - z = 0} \end{array}$$</equation>
-        <p>As a matrix, we have</p>
-        <equation>$$\left\lbrack {\begin{array}{rrr} 1 &amp; 1 &amp; 1 \\ 0.05 &amp; 0.08 &amp; 0.09 \\ 2 &amp; 0 &amp; -1 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} {10,000} \\ 770 \\ 0 \end{array}} \right.} \right\rbrack$$</equation>
-        <p>Now, we perform Gaussian elimination to achieve row-echelon form.</p>
-        <equation>$$\begin{array}{l} \begin{array}{l} \\ {-0.05R_{1} + R_{2} = R_{2}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 0.03 &amp; &amp; 0.04 &amp; \\ 2 &amp; &amp; 0 &amp; &amp; -1 &amp; \end{array} \right|\begin{array}{rr} &amp; 10,000 \\ &amp; 270 \\ &amp; 0 \end{array}} \right\rbrack} \end{array} \\ {-2R_{1} + R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 0.03 &amp; &amp; 0.04 &amp; \\ 0 &amp; &amp; -2 &amp; &amp; -3 &amp; \end{array} \right|\begin{array}{rr} &amp; 10,000 \\ &amp; 270 \\ &amp; -20,000 \end{array}} \right\rbrack} \\ {\frac{1}{0.03}R_{2} = R_{2}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 0 &amp; &amp; 1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; \frac{4}{3} &amp; \\ 0 &amp; &amp; -2 &amp; &amp; -3 &amp; \end{array} \right|\begin{array}{rr} &amp; 10,000 \\ &amp; 9,000 \\ &amp; -20,000 \end{array}} \right\rbrack} \\ {2R_{2} + R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; \frac{4}{3} &amp; \\ 0 &amp; &amp; 0 &amp; &amp; {- \frac{1}{3}} &amp; \end{array} \right|\begin{array}{rr} &amp; 10,000 \\ &amp; 9,000 \\ &amp; -2,000 \end{array}} \right\rbrack} \end{array}$$</equation>
-        <p>The third row tells us $$- \frac{1}{3}z = -2,000;$$ thus $$z = 6,000.$$</p>
-        <p>The second row tells us $$y + \frac{4}{3}z = 9,000.$$ Substituting $$z = 6,000,$$ we get</p>
-        <equation>$$\begin{array}{r} {y + \frac{4}{3}(6,000) = 9,000} \\ {y + 8,000 = 9,000} \\ {y = 1,000} \end{array}$$</equation>
-        <p>The first row tells us $$x + y + z = 10,000.$$ Substituting $$y = 1,000$$ and $$z = 6,000,$$ we get</p>
-        <equation>$$\begin{array}{l} {x + 1,000 + 6,000 = 10,000} \\ {\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}x = 3,000} \end{array}$$</equation>
-        <p>The answer is $3,000 invested at 5% interest, $1,000 invested at 8%, and $6,000 invested at 9% interest.</p>
-      </solution>
-    </example>
-    <note type="Try It" number="#6">
-      <p>A small shoe company took out a loan of $1,500,000 to expand their inventory. Part of the money was borrowed at 7%, part was borrowed at 8%, and part was borrowed at 10%. The amount borrowed at 10% was four times the amount borrowed at 7%, and the annual interest on all three loans was $130,500. Use matrices to find the amount borrowed at each rate.</p>
-    </note>
-    <note type="Media">
-      <p>Access these online resources for additional instruction and practice with solving systems of linear equations using Gaussian elimination.</p>
-      <list type="ul">
-        <item>Solve a System of Two Equations Using an Augmented Matrix</item>
-        <item>Solve a System of Three Equations Using an Augmented Matrix</item>
-        <item>Augmented Matrices on the Calculator</item>
-      </list>
-    </note>
-  </subsection>
-  <exercises title="7.6 Section Exercises">
-    <exercise number="1" has_solution="true">
-      <problem>
-        <p>Can any system of linear equations be written as an augmented matrix? Explain why or why not. Explain how to write that augmented matrix.</p>
-      </problem>
-      <solution>
-        <p>Yes.  For each row, the coefficients of the variables are written across the corresponding row, and a vertical bar is placed; then the constants are placed to the right of the vertical bar.</p>
-      </solution>
-    </exercise>
-    <exercise number="2" has_solution="false">
-      <problem>
-        <p>Can any matrix be written as a system of linear equations? Explain why or why not. Explain how to write that system of equations.</p>
-      </problem>
-    </exercise>
-    <exercise number="3" has_solution="true">
-      <problem>
-        <p>Is there only one correct method of using row operations on a matrix? Try to explain two different row operations possible to solve the augmented matrix $$\left\lbrack {\begin{array}{rr} 9 &amp; 3 \\ 1 &amp; {- 2} \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 0 \\ 6 \end{array}} \right.} \right\rbrack.$$</p>
-      </problem>
-      <solution>
-        <p>No, there are numerous correct methods of using row operations on a matrix. Two possible ways are the following: (1) Interchange rows 1 and 2. Then $$\begin{bmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}$$ (2) $$B^{n} = \left\{ \begin{array}{l} {\left\lbrack \begin{array}{lll} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{array} \right\rbrack,\quad n\mspace{9mu}\text{even,}} \\ {\left\lbrack \begin{array}{lll} 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ 0 &amp; 1 &amp; 0 \end{array} \right\rbrack,\quad n\mspace{9mu}\text{odd}\text{.}} \end{array} \right.$$ Then divide row 1 by 9.</p>
-      </solution>
-    </exercise>
-    <exercise number="4" has_solution="false">
-      <problem>
-        <p>Can a matrix whose entry is 0 on the diagonal be solved? Explain why or why not. What would you do to remedy the situation?</p>
-      </problem>
-    </exercise>
-    <exercise number="5" has_solution="true">
-      <problem>
-        <p>Can a matrix that has 0 entries for an entire row have one solution? Explain why or why not.</p>
-      </problem>
-      <solution>
-        <p>No. A matrix with 0 entries for an entire row would have either zero or infinitely many solutions.</p>
-      </solution>
-    </exercise>
-    <instruction>For the following exercises, write the augmented matrix for the linear system.</instruction>
-    <exercise number="6" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {8x-37y = 8} \\ {2x + 12y = 3} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="7" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {\text{~~}16y = 4} \\ {9x - y = 2} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$R_{2} = R_{2}-9R_{1}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="8" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {3x + 2y + 10z = 3} \\ {-6x + 2y + 5z = 13} \\ {\text{~~~~~~~~~~~~}4x + z = 18} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="9" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} \\ {\ x + 5y + 8z = 19} \\ {12x + 3y = 4} \\ {3x + 4y + 9z = -7} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$R_{2} = R_{1}-9R_{2}.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="10" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {6x + 12y + 16z = 4} \\ {\ 19x-5y + 3z = -9} \\ {\text{~~~~~~~~~~~~}x + 2y = -8} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, write the linear system from the augmented matrix.</instruction>
-    <exercise number="11" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rr} -2 &amp; 5 \\ 6 &amp; -18 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 5 \\ 26 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>$$\left\lbrack {\left. \begin{array}{rrrr} 0 &amp; &amp; 16 &amp; \\ 9 &amp; &amp; -1 &amp; \end{array} \right|\begin{array}{rr} &amp; 4 \\ &amp; 2 \end{array}} \right\rbrack$$</p>
-      </solution>
-    </exercise>
-    <exercise number="12" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rr} 3 &amp; 4 \\ 10 &amp; 17 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 10 \\ 439 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="13" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rrr} 3 &amp; 2 &amp; 0 \\ -1 &amp; -9 &amp; 4 \\ 8 &amp; 5 &amp; 7 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 3 \\ -1 \\ 8 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>$$\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 5 &amp; &amp; 8 &amp; \\ 12 &amp; &amp; 3 &amp; &amp; 0 &amp; \\ 3 &amp; &amp; 4 &amp; &amp; 9 &amp; \end{array} \right|\begin{array}{rr} &amp; 19 \\ &amp; 4 \\ &amp; -7 \end{array}} \right\rbrack$$</p>
-      </solution>
-    </exercise>
-    <exercise number="14" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rrr} 8 &amp; 29 &amp; 1 \\ -1 &amp; 7 &amp; 5 \\ 0 &amp; 0 &amp; 3 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 43 \\ 38 \\ 10 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="15" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rrr} 4 &amp; 5 &amp; -2 \\ 0 &amp; 1 &amp; 58 \\ 8 &amp; 7 &amp; -3 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 12 \\ 2 \\ -5 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>$$\begin{array}{l} {-2x + 5y = 5} \\ {6x-18y = 26} \end{array}$$</p>
-      </solution>
-    </exercise>
-    <instruction>For the following exercises, solve the system by Gaussian elimination.</instruction>
-    <exercise number="16" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rr} 1 &amp; 0 \\ 0 &amp; 0 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 3 \\ 0 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="17" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rr} 1 &amp; 0 \\ 1 &amp; 0 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 1 \\ 2 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>No solutions</p>
-      </solution>
-    </exercise>
-    <exercise number="18" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rr} 1 &amp; 2 \\ 4 &amp; 5 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 3 \\ 6 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="19" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rr} -1 &amp; 2 \\ 4 &amp; -5 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} -3 \\ 6 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>$$\begin{array}{l} {3x + 2y = 3} \\ {- x-9y + 4z = -1} \\ {8x + 5y + 7z = 8} \end{array}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="20" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rr} -2 &amp; 0 \\ 0 &amp; 2 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 1 \\ -1 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="21" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {\ 2x - 3y = - 9} \\ {5x + 4y = 58} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\begin{array}{l} {4x + 5y-2z = 12} \\ {\text{~~~~~~~}y + 58z = 2} \\ {8x + 7y-3z = -5} \end{array}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="22" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {6x + 2y = -4} \\ {3x + 4y = -17} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="23" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {2x + 3y = 12} \\ {\ 4x + y = 14} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$(-1,-2)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="24" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {-4x-3y = -2} \\ {\ 3x-5y = -13} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="25" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {-5x + 8y = 3} \\ {10x + 6y = 5} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {6,7} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="26" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {\ 3x + 4y = 12} \\ {-6x-8y = -24} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="27" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {-60x + 45y = 12} \\ {\ 20x-15y = -4} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {3,2} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="28" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {11x + 10y = 43} \\ {15x + 20y = 65} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="29" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {2x - y = 2} \\ {3x + 2y = 17} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {\frac{1}{5},\frac{1}{2}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="30" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} \begin{array}{l} \\ {-1.06x-2.25y = 5.51} \end{array} \\ {-5.03x-1.08y = 5.40} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="31" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {\frac{3}{4}x - \frac{3}{5}y = 4} \\ {\frac{1}{4}x + \frac{2}{3}y = 1} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {x,\frac{4}{15}(5x + 1)} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="32" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {\frac{1}{4}x - \frac{2}{3}y = -1} \\ {\frac{1}{2}x + \frac{1}{3}y = 3} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="33" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rrr} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 \\ 0 &amp; 0 &amp; 1 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 31 \\ 45 \\ 87 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {3,4} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="34" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rrr} 1 &amp; 0 &amp; 1 \\ 1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 1 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 50 \\ 20 \\ -90 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="35" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rrr} 1 &amp; 2 &amp; 3 \\ 0 &amp; 5 &amp; 6 \\ 0 &amp; 0 &amp; 8 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 4 \\ 7 \\ 9 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {\frac{196}{39}, - \frac{5}{13}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="36" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\begin{array}{rrr} -0.1 &amp; 0.3 &amp; -0.1 \\ -0.4 &amp; 0.2 &amp; 0.1 \\ 0.6 &amp; 0.1 &amp; 0.7 \end{array}\mspace{9mu}\ \left| {\mspace{9mu}\ \begin{array}{r} 0.2 \\ 0.8 \\ -0.8 \end{array}} \right.} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="37" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {-2x + 3y - 2z = 3} \\ {\text{~~~~~}4x + 2y - z = 9} \\ {4x - 8y + 2z = -6} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {31,-42,87} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="38" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {\text{~~~~~}x + y - 4z = -4} \\ {\ 5x - 3y - 2z = 0} \\ {\ 2x + 6y + 7z = 30} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="39" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {\text{~~~~~}2x + 3y + 2z = 1} \\ {\ -4x - 6y - 4z = -2} \\ {10x + 15y + 10z = 5} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {\frac{21}{40},\frac{1}{20},\frac{9}{8}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="40" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {\text{~~~}x + 2y - z = 1} \\ {- x - 2y + 2z = -2} \\ {3x + 6y - 3z = 5} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="41" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {\text{~~~}x + 2y - z = 1} \\ {- x-2y + 2z = -2} \\ {3x + 6y-3z = 3} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {\frac{18}{13},\frac{15}{13}, - \frac{15}{13}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="42" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {x + y = 2} \\ {\text{~~}x + z = 1} \\ {- y - z = -3} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="43" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {x + y + z = 100} \\ {\text{~~~}x + 2z = 125} \\ {- y + 2z = 25} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {x,y,\frac{1}{2}(1-2x-3y)} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="44" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {\frac{1}{4}x - \frac{2}{3}z = - \frac{1}{2}} \\ {\frac{1}{5}x + \frac{1}{3}y = \frac{4}{7}} \\ {\frac{1}{5}y - \frac{1}{3}z = \frac{2}{9}} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="45" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {- \frac{1}{2}x + \frac{1}{2}y + \frac{1}{7}z = - \frac{53}{14}} \\ {\text{~~}\frac{1}{2}x - \frac{1}{2}y + \frac{1}{4}z = 3} \\ {\text{~~~}\frac{1}{4}x + \frac{1}{5}y + \frac{1}{3}z = \frac{23}{15}} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {x, - \frac{x}{2},-1} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="46" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {- \frac{1}{2}x - \frac{1}{3}y + \frac{1}{4}z = - \frac{29}{6}} \\ {\text{~~}\frac{1}{5}x + \frac{1}{6}y - \frac{1}{7}z = \frac{431}{210}} \\ {- \frac{1}{8}x + \frac{1}{9}y + \frac{1}{10}z = - \frac{49}{45}} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, use Gaussian elimination to solve the system.</instruction>
-    <exercise number="47" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {\frac{x-1}{7} + \frac{y-2}{8} + \frac{z-3}{4} = 0} \\ {x + y + z = 6} \\ {\frac{x + 2}{3} + 2y + \frac{z-3}{3} = 5} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {125,-25,0} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="48" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {\frac{x-1}{4} - \frac{y + 1}{4} + 3z = -1} \\ {~\mspace{9mu}\frac{x + 5}{2} + \frac{y + 7}{4} - z = 4} \\ {\text{~~~~~~~~}x + y - \frac{z-2}{2} = 1} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="49" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {\frac{x-3}{4} - \frac{y-1}{3} + 2z = -1} \\ {\frac{x + 5}{2} + \frac{y + 5}{2} + \frac{z + 5}{2} = 8} \\ {x + y + z = 1} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {8,1,-2} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="50" has_solution="false">
-      <problem>
-        <p>$$\begin{array}{l} {\frac{x-3}{10} + \frac{y + 3}{2}-2z = 3} \\ {\frac{x + 5}{4} - \frac{y-1}{8} + z = \frac{3}{2}} \\ {\frac{x-1}{4} + \frac{y + 4}{2} + 3z = \frac{3}{2}} \end{array}$$</p>
-      </problem>
-    </exercise>
-    <exercise number="51" has_solution="true">
-      <problem>
-        <p>$$\begin{array}{l} {\frac{x-3}{4} - \frac{y-1}{3} + 2z = -1} \\ {\frac{x + 5}{2} + \frac{y + 5}{2} + \frac{z + 5}{2} = 7} \\ {x + y + z = 1} \end{array}$$</p>
-      </problem>
-      <solution>
-        <p>No solutions exist.</p>
-      </solution>
-    </exercise>
-    <instruction>For the following exercises, set up the augmented matrix that describes the situation, and solve for the desired solution.</instruction>
-    <exercise number="52" has_solution="false">
-      <problem>
-        <p>Every day, Angeni's cupcake store sells 5,000 cupcakes in chocolate and vanilla flavors. If the chocolate flavor is 3 times as popular as the vanilla flavor, how many of each cupcake does the store sell per day?</p>
-      </problem>
-    </exercise>
-    <exercise number="53" has_solution="true">
-      <problem>
-        <p>At Bakari's competing cupcake store, $4,520 worth of cupcakes are sold daily. The chocolate cupcakes cost $2.25 and the red velvet cupcakes cost $1.75. If the total number of cupcakes sold per day is 2,200, how many of each flavor are sold each day?</p>
-      </problem>
-      <solution>
-        <p>860 red velvet, 1,340 chocolate</p>
-      </solution>
-    </exercise>
-    <exercise number="54" has_solution="false">
-      <problem>
-        <p>You invested $10,000 into two accounts: one that has simple 3% interest, the other with 2.5% interest. If your total interest payment after one year was $283.50, how much was in each account after the year passed?</p>
-      </problem>
-    </exercise>
-    <exercise number="55" has_solution="true">
-      <problem>
-        <p>You invested $2,300 into account 1, and $2,700 into account 2. If the total amount of interest after one year is $254, and account 2 has 1.5 times the interest rate of account 1, what are the interest rates? Assume simple interest rates.</p>
-      </problem>
-      <solution>
-        <p>4% for account 1, 6% for account 2</p>
-      </solution>
-    </exercise>
-    <exercise number="56" has_solution="false">
-      <problem>
-        <p>Bikes’R’Us manufactures bikes, which sell for $250. It costs the manufacturer $180 per bike, plus a startup fee of $3,500. After how many bikes sold will the manufacturer break even?</p>
-      </problem>
-    </exercise>
-    <exercise number="57" has_solution="true">
-      <problem>
-        <p>A major appliance store has agreed to order vacuums from a startup founded by college engineering students. The store would be able to purchase the vacuums for $86 each, with a delivery fee of $9,200, regardless of how many vacuums are sold. If the store needs to start seeing a profit after 230 units are sold, how much should they charge for the vacuums?</p>
-      </problem>
-      <solution>
-        <p>$126</p>
-      </solution>
-    </exercise>
-    <exercise number="58" has_solution="false">
-      <problem>
-        <p>The three most popular ice cream flavors are chocolate, strawberry, and vanilla, comprising 83% of the flavors sold at an ice cream shop. If vanilla sells 1% more than twice strawberry, and chocolate sells 11% more than vanilla, how much of the total ice cream consumption are the vanilla, chocolate, and strawberry flavors?</p>
-      </problem>
-    </exercise>
-    <exercise number="59" has_solution="true">
-      <problem>
-        <p>At an ice cream shop, three flavors are increasing in demand.  Last year, banana, pumpkin, and rocky road ice cream made up 12% of total ice cream sales. This year, the same three ice creams made up 16.9% of ice cream sales. The rocky road sales doubled, the banana sales increased by 50%, and the pumpkin sales increased by 20%. If the rocky road ice cream had one less percent of sales than the banana ice cream, find out the percentage of ice cream sales each individual ice cream made last year.</p>
-      </problem>
-      <solution>
-        <p>Banana was 3%, pumpkin was 7%, and rocky road was 2%</p>
-      </solution>
-    </exercise>
-    <exercise number="60" has_solution="false">
-      <problem>
-        <p>A bag of mixed nuts contains cashews, pistachios, and almonds. There are 1,000 total nuts in the bag, and there are 100 less almonds than pistachios. The cashews weigh 3 g, pistachios weigh 4 g, and almonds weigh 5 g. If the bag weighs 3.7 kg, find out how many of each type of nut is in the bag.</p>
-      </problem>
-    </exercise>
-    <exercise number="61" has_solution="true">
-      <problem>
-        <p>A bag of mixed nuts contains cashews, pistachios, and almonds. Originally there were 900 nuts in the bag. 30% of the almonds, 20% of the cashews, and 10% of the pistachios were eaten, and now there are 770 nuts left in the bag. Originally, there were 100 more cashews than almonds. Figure out how many of each type of nut was in the bag to begin with.</p>
-      </problem>
-      <solution>
-        <p>100 almonds, 200 cashews, 600 pistachios</p>
-      </solution>
-    </exercise>
-  </exercises>
+  </note>
+  <example number="3" title="Solving a 2×2 2×2 System by Gaussian Elimination">
+    <problem>
+      <paragraph>Solve the given system by Gaussian elimination.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {2x + 3y = 6} \\ {x - y = \frac{1}{2}} \end{array}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First, we write this as an augmented matrix.</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rr} 2 &amp; 3 \\ 1 &amp; -1 \end{array} \left| { \begin{array}{r} 6 \\ \frac{1}{2} \end{array}} \right.} \right\rbrack$$</paragraph>
+      <paragraph>We want a 1 in row 1, column 1. This can be accomplished by interchanging row 1 and row 2.</paragraph>
+      <paragraph math="block">$$R_{1}\leftrightarrow R_{2}\rightarrow\left\lbrack {\begin{array}{rrr} 1 &amp; -1 &amp; \\ 2 &amp; 3 &amp; \end{array}\left| \begin{array}{rr} &amp; \frac{1}{2} \\ &amp; 6 \end{array} \right.} \right\rbrack$$</paragraph>
+      <paragraph>We now have a 1 as the first entry in row 1, column 1. Now let’s obtain a 0 in row 2, column 1. This can be accomplished by multiplying row 1 by $$-2,$$ and then adding the result to row 2.</paragraph>
+      <paragraph math="block">$$-2R_{1} + R_{2} = R_{2}\rightarrow\left\lbrack {\begin{array}{rrr} 1 &amp; -1 &amp; \\ 0 &amp; 5 &amp; \end{array}\left| \begin{array}{rr} &amp; \frac{1}{2} \\ &amp; 5 \end{array} \right.} \right\rbrack$$</paragraph>
+      <paragraph>We only have one more step, to multiply row 2 by $$\frac{1}{5}.$$</paragraph>
+      <paragraph math="block">$$\frac{1}{5}R_{2} = R_{2}\rightarrow\left\lbrack {\begin{array}{rrr} 1 &amp; -1 &amp; \\ 0 &amp; 1 &amp; \end{array}\left| \begin{matrix} &amp; \frac{1}{2} \\ &amp; 1 \end{matrix} \right.} \right\rbrack$$</paragraph>
+      <paragraph>Use back-substitution. The second row of the matrix represents $$y = 1.$$ Back-substitute $$y = 1$$ into the first equation.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {x - (1) = \frac{1}{2}} \\ {x = \frac{3}{2}} \end{array}$$</paragraph>
+      <paragraph>The solution is the point $$\left( {\frac{3}{2},1} \right).$$</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="#3">
+    <paragraph>Solve the given system by Gaussian elimination.</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {4x + 3y = 11} \\ { x-3y = -1} \end{array}$$</paragraph>
+  </note>
+  <example number="4" title="Using Gaussian Elimination to Solve a System of Equations">
+    <problem>
+      <paragraph>Use Gaussian elimination to solve the given $$2 \times 2$$ system of equations.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} { 2x + y = 1} \\ {4x + 2y = 6} \end{array}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Write the system as an augmented matrix.</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{ll} 2 &amp; 1 \\ 4 &amp; 2 \end{array} \left| { \begin{array}{l} 1 \\ 6 \end{array}} \right.} \right\rbrack$$</paragraph>
+      <paragraph>Obtain a 1 in row 1, column 1. This can be accomplished by multiplying the first row by $$\frac{1}{2}.$$</paragraph>
+      <paragraph math="block">$$\frac{1}{2}R_{1} = R_{1}\rightarrow\left\lbrack {\begin{matrix} 1 &amp; \frac{1}{2} \\ 4 &amp; 2 \end{matrix} \left| { \begin{matrix} \frac{1}{2} \\ 6 \end{matrix}} \right.} \right\rbrack$$</paragraph>
+      <paragraph>Next, we want a 0 in row 2, column 1. Multiply row 1 by $$-4$$ and add row 1 to row 2.</paragraph>
+      <paragraph math="block">$$-4R_{1} + R_{2} = R_{2}\rightarrow\left\lbrack {\begin{matrix} 1 &amp; \frac{1}{2} \\ 0 &amp; 0 \end{matrix} \left| { \begin{matrix} \frac{1}{2} \\ 4 \end{matrix}} \right.} \right\rbrack$$</paragraph>
+      <paragraph>The second row represents the equation $$0 = 4.$$ Therefore, the system is inconsistent and has no solution.</paragraph>
+    </solution>
+  </example>
+  <example number="5" title="Solving a Dependent System">
+    <problem>
+      <paragraph>Solve the system of equations.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {3x + 4y = 12} \\ {6x + 8y = 24} \end{array}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Perform row operations on the augmented matrix to try and achieve row-echelon form.</paragraph>
+      <paragraph math="block">$$A = \left\lbrack {\left. \begin{array}{llll} 3 &amp; &amp; 4 &amp; \\ 6 &amp; &amp; 8 &amp; \end{array} \right|\begin{array}{ll} &amp; 12 \\ &amp; 24 \end{array}} \right\rbrack$$</paragraph>
+      <paragraph math="block">$$\begin{array}{l} \\ \begin{array}{l} {- \frac{1}{2}R_{2} + R_{1} = R_{1}\rightarrow\left\lbrack {\left. \begin{array}{llll} 0 &amp; &amp; 0 &amp; \\ 6 &amp; &amp; 8 &amp; \end{array} \right|\begin{array}{ll} &amp; 0 \\ &amp; 24 \end{array}} \right\rbrack} \\ {R_{1}\leftrightarrow R_{2}\rightarrow\left\lbrack {\left. \begin{array}{llll} 6 &amp; &amp; 8 &amp; \\ 0 &amp; &amp; 0 &amp; \end{array} \right|\begin{array}{ll} &amp; 24 \\ &amp; 0 \end{array}} \right\rbrack} \end{array} \end{array}$$</paragraph>
+      <paragraph>The matrix ends up with all zeros in the last row: $$0y = 0.$$ Thus, there are an infinite number of solutions and the system is classified as dependent. To find the generic solution, return to one of the original equations and solve for $$y.$$</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {3x + 4y = 12} \\ {4y = 12-3x} \\ {y = 3 - \frac{3}{4}x} \end{array}$$</paragraph>
+      <paragraph>So the solution to this system is $$\left( {x,3 - \frac{3}{4}x} \right).$$</paragraph>
+    </solution>
+  </example>
+  <example number="6" title="Performing Row Operations on a 3×3 Augmented Matrix to Obtain Row-Echelon Form">
+    <problem>
+      <paragraph>Perform row operations on the given matrix to obtain row-echelon form.</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rrr} 1 &amp; -3 &amp; 4 \\ 2 &amp; -5 &amp; 6 \\ -3 &amp; 3 &amp; 4 \end{array} \left| { \begin{array}{r} 3 \\ 6 \\ 6 \end{array}} \right.} \right\rbrack$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The first row already has a 1 in row 1, column 1. The next step is to multiply row 1 by $$-2$$ and add it to row 2. Then replace row 2 with the result.</paragraph>
+      <paragraph math="block">$$-2R_{1} + R_{2} = R_{2}\rightarrow\left\lbrack {\begin{array}{rrrrrr} 1 &amp; &amp; -3 &amp; &amp; 4 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -2 &amp; \\ -3 &amp; &amp; 3 &amp; &amp; 4 &amp; \end{array}\left| \begin{array}{rr} &amp; 3 \\ &amp; 0 \\ &amp; 6 \end{array} \right.} \right\rbrack$$</paragraph>
+      <paragraph>Next, obtain a zero in row 3, column 1.</paragraph>
+      <paragraph math="block">$$3R_{1} + R_{3} = R_{3}\rightarrow\left\lbrack {\begin{array}{rrrrrr} 1 &amp; &amp; -3 &amp; &amp; 4 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -2 &amp; \\ 0 &amp; &amp; -6 &amp; &amp; 16 &amp; \end{array}\left| \begin{array}{rr} &amp; 3 \\ &amp; 0 \\ &amp; 15 \end{array} \right.} \right\rbrack$$</paragraph>
+      <paragraph>Next, obtain a zero in row 3, column 2.</paragraph>
+      <paragraph math="block">$$6R_{2} + R_{3} = R_{3}\rightarrow\left\lbrack {\begin{array}{rrrrrr} 1 &amp; &amp; -3 &amp; &amp; 4 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -2 &amp; \\ 0 &amp; &amp; 0 &amp; &amp; 4 &amp; \end{array}\left| \begin{array}{rr} &amp; 3 \\ &amp; 0 \\ &amp; 15 \end{array} \right.} \right\rbrack$$</paragraph>
+      <paragraph>The last step is to obtain a 1 in row 3, column 3.</paragraph>
+      <paragraph math="block">$$\frac{1}{4}R_{3} = R_{3}\rightarrow\left\lbrack {\begin{array}{rrr} 1 &amp; -3 &amp; 4 \\ 0 &amp; 1 &amp; -2 \\ 0 &amp; 0 &amp; 1 \end{array} \left| { \begin{array}{r} 3 \\ 0 \\ \frac{15}{4} \end{array}} \right.} \right\rbrack$$</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="#4">
+    <paragraph>Write the system of equations in row-echelon form.</paragraph>
+    <paragraph math="block">$$\begin{array}{l} { x - 2y + 3z = 9} \\ {- x + 3y = - 4} \\ {2x - 5y + 5z = 17} \end{array}$$</paragraph>
+  </note>
+  <heading level="2">Solving a System of Linear Equations Using Matrices</heading>
+  <paragraph>We have seen how to write a system of equations with an augmented matrix, and then how to use row operations and back-substitution to obtain row-echelon form. Now, we will take row-echelon form a step farther to solve a 3 by 3 system of linear equations. The general idea is to eliminate all but one variable using row operations and then back-substitute to solve for the other variables.</paragraph>
+  <example number="7" title="Solving a System of Linear Equations Using Matrices">
+    <problem>
+      <paragraph>Solve the system of linear equations using matrices.</paragraph>
+      <paragraph math="block">$$\begin{matrix} \begin{array}{l} \\ \\ {x - y + z = 8} \end{array} \\ {2x + 3y - z = -2} \\ {3x - 2y - 9z = 9} \end{matrix}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>First, we write the augmented matrix.</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rrr} 1 &amp; {- 1} &amp; 1 \\ 2 &amp; 3 &amp; {- 1} \\ 3 &amp; {- 2} &amp; {- 9} \end{array}\left| { \begin{array}{r} 8 \\ {- 2} \\ 9 \end{array}} \right.} \right\rbrack$$</paragraph>
+      <paragraph>Next, we perform row operations to obtain row-echelon form.</paragraph>
+      <paragraph math="block">$$\begin{array}{rrrrr} {- 2R_{1} + R_{2} = R_{2}\rightarrow\left\lbrack {\begin{array}{rrrrrr} 1 &amp; &amp; {- 1} &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 5 &amp; &amp; {- 3} &amp; \\ 3 &amp; &amp; {- 2} &amp; &amp; {- 9} &amp; \end{array}\left| \begin{array}{rr} &amp; 8 \\ &amp; {- 18} \\ &amp; 9 \end{array} \right.} \right\rbrack} &amp; &amp; &amp; &amp; {- 3R_{1} + R_{3} = R_{3}\rightarrow\left\lbrack {\begin{array}{rrrrrr} 1 &amp; &amp; {- 1} &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 5 &amp; &amp; {- 3} &amp; \\ 0 &amp; &amp; 1 &amp; &amp; {- 12} &amp; \end{array}\left| \begin{array}{rr} &amp; 8 \\ &amp; {- 18} \\ &amp; {- 15} \end{array} \right.} \right\rbrack} \end{array}$$</paragraph>
+      <paragraph>The easiest way to obtain a 1 in row 2, column 2 is to interchange $$R_{2}$$ and $$R_{3}.$$</paragraph>
+      <paragraph math="block">$$\text{Interchange} R_{2} \text{and} R_{3}\rightarrow\left\lbrack \begin{array}{rrrrrrr} 1 &amp; &amp; -1 &amp; &amp; 1 &amp; &amp; 8 \\ 0 &amp; &amp; 1 &amp; &amp; -12 &amp; &amp; -15 \\ 0 &amp; &amp; 5 &amp; &amp; -3 &amp; &amp; -18 \end{array} \right\rbrack$$</paragraph>
+      <paragraph>Then</paragraph>
+      <paragraph math="block">$$\begin{array}{l} \\ \begin{array}{rrrrr} {-5R_{2} + R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; -1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -12 &amp; \\ 0 &amp; &amp; 0 &amp; &amp; 57 &amp; \end{array} \right|\begin{array}{rr} &amp; 8 \\ &amp; -15 \\ &amp; 57 \end{array}} \right\rbrack} &amp; &amp; &amp; &amp; {- \frac{1}{57}R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; -1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -12 &amp; \\ 0 &amp; &amp; 0 &amp; &amp; 1 &amp; \end{array} \right|\begin{array}{rr} &amp; 8 \\ &amp; -15 \\ &amp; 1 \end{array}} \right\rbrack} \end{array} \end{array}$$</paragraph>
+      <paragraph>The last matrix represents the equivalent system.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {x - y + z = 8} \\ {y - 12z = -15} \\ {z = 1} \end{array}$$</paragraph>
+      <paragraph>Using back-substitution, we obtain the solution as $$\left( {4,-3,1} \right).$$</paragraph>
+    </solution>
+  </example>
+  <example number="8" title="Solving a Dependent System of Linear Equations Using Matrices">
+    <problem>
+      <paragraph>Solve the following system of linear equations using matrices.</paragraph>
+      <paragraph math="block">$$\begin{array}{r} {- x-2y + z = -1} \\ { 2x + 3y = 2} \\ {y-2z = 0} \end{array}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Write the augmented matrix.</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rrr} -1 &amp; -2 &amp; 1 \\ 2 &amp; 3 &amp; 0 \\ 0 &amp; 1 &amp; -2 \end{array} \left| { \begin{array}{r} -1 \\ 2 \\ 0 \end{array}} \right.} \right\rbrack$$</paragraph>
+      <paragraph>First, multiply row 1 by $$-1$$ to get a 1 in row 1, column 1. Then, perform row operations to obtain row-echelon form.</paragraph>
+      <paragraph math="block">$$- R_{1}\rightarrow\left\lbrack {\begin{array}{rrr} 1 &amp; 2 &amp; -1 \\ 2 &amp; 3 &amp; 0 \\ 0 &amp; 1 &amp; -2 \end{array} \left| { \begin{array}{r} 1 \\ 2 \\ 0 \end{array}} \right.} \right\rbrack$$</paragraph>
+      <paragraph math="block">$$R_{2}\leftrightarrow R_{3}\rightarrow\left\lbrack {\begin{array}{rrrrr} 1 &amp; &amp; 2 &amp; &amp; {- 1} \\ 0 &amp; &amp; 1 &amp; &amp; {- 2} \\ 2 &amp; &amp; 3 &amp; &amp; 0 \end{array} \left| \begin{array}{rr} &amp; 1 \\ &amp; 0 \\ &amp; 2 \end{array} \right.} \right\rbrack$$</paragraph>
+      <paragraph math="block">$$-2R_{1} + R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 2 &amp; &amp; -1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -2 &amp; \\ 0 &amp; &amp; -1 &amp; &amp; 2 &amp; \end{array} \right|\begin{array}{rr} &amp; 1 \\ &amp; 0 \\ &amp; 0 \end{array}} \right\rbrack$$</paragraph>
+      <paragraph math="block">$$R_{2} + R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 2 &amp; &amp; -1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; -2 &amp; \\ 0 &amp; &amp; 0 &amp; &amp; 0 &amp; \end{array} \right|\begin{array}{rr} &amp; 1 \\ &amp; 1 \\ &amp; 0 \end{array}} \right\rbrack$$</paragraph>
+      <paragraph>The last matrix represents the following system.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {x + 2y - z = 1} \\ {y - 2z = 0} \\ {0 = 0} \end{array}$$</paragraph>
+      <paragraph>We see by the identity $$0 = 0$$ that this is a dependent system with an infinite number of solutions. We then find the generic solution. By solving the second equation for $$y$$ and substituting it into the first equation we can solve for $$z$$ in terms of $$x.$$</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {x + 2y - z = 1} \\ {y = 2z} \\ \\ {x + 2(2z) - z = 1} \\ {x + 3z = 1} \\ {z = \frac{1 - x}{3}} \end{array}$$</paragraph>
+      <paragraph>Now we substitute the expression for $$z$$ into the second equation to solve for $$y$$ in terms of $$x.$$</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {y - 2z = 0} \\ {z = \frac{1 - x}{3}} \\ \\ {y - 2\left( \frac{1 - x}{3} \right) = 0} \\ {y = \frac{2 - 2x}{3}} \end{array}$$</paragraph>
+      <paragraph>The generic solution is $$\left( {x,\frac{2-2x}{3},\frac{1 - x}{3}} \right).$$</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="#5">
+    <paragraph>Solve the system using matrices.</paragraph>
+    <paragraph math="block">$$\begin{matrix} {x + 4y - z = 4} \\ {2x + 5y + 8z = 15} \\ {x + 3y-3z = 1} \end{matrix}$$</paragraph>
+  </note>
+  <note type="sidebar" source_type="Q&amp;A" title="Q&amp;A">
+    <paragraph>Can any system of linear equations be solved by Gaussian elimination?</paragraph>
+    <paragraph>Yes, a system of linear equations of any size can be solved by Gaussian elimination.</paragraph>
+  </note>
+  <note type="procedure" source_type="How To" title="How To">
+    <paragraph>Given a system of equations, solve with matrices using a calculator.</paragraph>
+    <list type="ordered">
+      <item>Save the augmented matrix as a matrix variable $$\lbrack A\rbrack,\lbrack B\rbrack,\lbrack C\rbrack, \ldots.$$</item>
+      <item>Use the ref( function in the calculator, calling up each matrix variable as needed.</item>
+    </list>
+  </note>
+  <example number="9" title="Solving Systems of Equations with Matrices Using a Calculator">
+    <problem>
+      <paragraph>Solve the system of equations.</paragraph>
+      <paragraph math="block">$$\begin{array}{r} { 5x + 3y + 9z = -1} \\ {-2x + 3y - z = -2} \\ {- x-4y + 5z = 1} \end{array}$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Write the augmented matrix for the system of equations.</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rrr} 5 &amp; 3 &amp; 9 \\ -2 &amp; 3 &amp; -1 \\ -1 &amp; -4 &amp; 5 \end{array} \left| { \begin{array}{r} -1 \\ -2 \\ -1 \end{array}} \right.} \right\rbrack$$</paragraph>
+      <paragraph>On the matrix page of the calculator, enter the augmented matrix above as the matrix variable $$\lbrack A\rbrack.$$</paragraph>
+      <paragraph math="block">$$\lbrack A\rbrack = \left\lbrack \begin{array}{rrrrrrr} 5 &amp; &amp; 3 &amp; &amp; 9 &amp; &amp; -1 \\ -2 &amp; &amp; 3 &amp; &amp; -1 &amp; &amp; -2 \\ -1 &amp; &amp; -4 &amp; &amp; 5 &amp; &amp; 1 \end{array} \right\rbrack$$</paragraph>
+      <paragraph>Use the ref( function in the calculator, calling up the matrix variable $$\lbrack A\rbrack.$$</paragraph>
+      <paragraph math="block">$$\text{ref} (\lbrack A\rbrack)$$</paragraph>
+      <paragraph>Evaluate.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} \\ {\left\lbrack \begin{array}{rrrr} 1 &amp; {\frac{3}{5}} &amp; {\frac{9}{5}} &amp; {- \frac{1}{5}} \\ 0 &amp; { 1} &amp; {\frac{13}{21}} &amp; {- \frac{4}{7}} \\ 0 &amp; { 0} &amp; { 1} &amp; {- \frac{24}{187}} \end{array} \right\rbrack\rightarrow\begin{array}{l} {x + \frac{3}{5}y + \frac{9}{5}z = - \frac{1}{5}} \\ {y + \frac{13}{21}z = - \frac{4}{7}} \\ {z = - \frac{24}{187}} \end{array}} \end{array}$$</paragraph>
+      <paragraph>Using back-substitution, the solution is $$\left( {\frac{61}{187}, - \frac{92}{187}, - \frac{24}{187}} \right).$$</paragraph>
+    </solution>
+  </example>
+  <example number="10" title="Applying 2 × 2 Matrices to Finance">
+    <problem>
+      <paragraph>Carolyn invests a total of \$12,000 in two municipal bonds, one paying 10.5% interest and the other paying 12% interest. The annual interest earned on the two investments last year was \$1,335. How much was invested at each rate?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>We have a system of two equations in two variables. Let $$x =$$ the amount invested at 10.5% interest, and $$y =$$ the amount invested at 12% interest.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {x + y = 12,000} \\ {0.105x + 0.12y = 1,335} \end{array}$$</paragraph>
+      <paragraph>As a matrix, we have</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rr} 1 &amp; 1 \\ 0.105 &amp; 0.12 \end{array} \left| { \begin{array}{r} 12,000 \\ 1,335 \end{array}} \right.} \right\rbrack$$</paragraph>
+      <paragraph>Multiply row 1 by $$-0.105$$ and add the result to row 2.</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rr} 1 &amp; 1 \\ 0 &amp; 0.015 \end{array} \left| { \begin{array}{r} 12,000 \\ 75 \end{array}} \right.} \right\rbrack$$</paragraph>
+      <paragraph>Then,</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {0.015y = 75} \\ {y = 5,000} \end{array}$$</paragraph>
+      <paragraph>So $$12,000-5,000 = 7,000.$$</paragraph>
+      <paragraph>Thus, \$5,000 was invested at 12% interest and \$7,000 at 10.5% interest.</paragraph>
+    </solution>
+  </example>
+  <example number="11" title="Applying 3 × 3 Matrices to Finance">
+    <problem>
+      <paragraph>Ava invests a total of \$10,000 in three accounts, one paying 5% interest, another paying 8% interest, and the third paying 9% interest. The annual interest earned on the three investments last year was \$770. The amount invested at 9% was twice the amount invested at 5%. How much was invested at each rate?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>We have a system of three equations in three variables. Let $$x$$ be the amount invested at 5% interest, let $$y$$ be the amount invested at 8% interest, and let $$z$$ be the amount invested at 9% interest. Thus,</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {x + y + z = 10,000} \\ {0.05x + 0.08y + 0.09z = 770} \\ {2x - z = 0} \end{array}$$</paragraph>
+      <paragraph>As a matrix, we have</paragraph>
+      <paragraph math="block">$$\left\lbrack {\begin{array}{rrr} 1 &amp; 1 &amp; 1 \\ 0.05 &amp; 0.08 &amp; 0.09 \\ 2 &amp; 0 &amp; -1 \end{array} \left| { \begin{array}{r} {10,000} \\ 770 \\ 0 \end{array}} \right.} \right\rbrack$$</paragraph>
+      <paragraph>Now, we perform Gaussian elimination to achieve row-echelon form.</paragraph>
+      <paragraph math="block">$$\begin{array}{l} \begin{array}{l} \\ {-0.05R_{1} + R_{2} = R_{2}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 0.03 &amp; &amp; 0.04 &amp; \\ 2 &amp; &amp; 0 &amp; &amp; -1 &amp; \end{array} \right|\begin{array}{rr} &amp; 10,000 \\ &amp; 270 \\ &amp; 0 \end{array}} \right\rbrack} \end{array} \\ {-2R_{1} + R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 0.03 &amp; &amp; 0.04 &amp; \\ 0 &amp; &amp; -2 &amp; &amp; -3 &amp; \end{array} \right|\begin{array}{rr} &amp; 10,000 \\ &amp; 270 \\ &amp; -20,000 \end{array}} \right\rbrack} \\ {\frac{1}{0.03}R_{2} = R_{2}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 0 &amp; &amp; 1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; \frac{4}{3} &amp; \\ 0 &amp; &amp; -2 &amp; &amp; -3 &amp; \end{array} \right|\begin{array}{rr} &amp; 10,000 \\ &amp; 9,000 \\ &amp; -20,000 \end{array}} \right\rbrack} \\ {2R_{2} + R_{3} = R_{3}\rightarrow\left\lbrack {\left. \begin{array}{rrrrrr} 1 &amp; &amp; 1 &amp; &amp; 1 &amp; \\ 0 &amp; &amp; 1 &amp; &amp; \frac{4}{3} &amp; \\ 0 &amp; &amp; 0 &amp; &amp; {- \frac{1}{3}} &amp; \end{array} \right|\begin{array}{rr} &amp; 10,000 \\ &amp; 9,000 \\ &amp; -2,000 \end{array}} \right\rbrack} \end{array}$$</paragraph>
+      <paragraph>The third row tells us $$- \frac{1}{3}z = -2,000;$$ thus $$z = 6,000.$$</paragraph>
+      <paragraph>The second row tells us $$y + \frac{4}{3}z = 9,000.$$ Substituting $$z = 6,000,$$ we get</paragraph>
+      <paragraph math="block">$$\begin{array}{r} {y + \frac{4}{3}(6,000) = 9,000} \\ {y + 8,000 = 9,000} \\ {y = 1,000} \end{array}$$</paragraph>
+      <paragraph>The first row tells us $$x + y + z = 10,000.$$ Substituting $$y = 1,000$$ and $$z = 6,000,$$ we get</paragraph>
+      <paragraph math="block">$$\begin{array}{l} {x + 1,000 + 6,000 = 10,000} \\ {x = 3,000} \end{array}$$</paragraph>
+      <paragraph>The answer is \$3,000 invested at 5% interest, \$1,000 invested at 8%, and \$6,000 invested at 9% interest.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="#6">
+    <paragraph>A small shoe company took out a loan of \$1,500,000 to expand their inventory. Part of the money was borrowed at 7%, part was borrowed at 8%, and part was borrowed at 10%. The amount borrowed at 10% was four times the amount borrowed at 7%, and the annual interest on all three loans was \$130,500. Use matrices to find the amount borrowed at each rate.</paragraph>
+  </note>
+  <note type="sidebar" source_type="Media" title="Media">
+    <paragraph>Access these online resources for additional instruction and practice with solving systems of linear equations using Gaussian elimination.</paragraph>
+    <list type="unordered">
+      <item>Solve a System of Two Equations Using an Augmented Matrix</item>
+      <item>Solve a System of Three Equations Using an Augmented Matrix</item>
+      <item>Augmented Matrices on the Calculator</item>
+    </list>
+  </note>
 </section>

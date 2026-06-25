@@ -12,7 +12,7 @@ metadata:
   last_updated: "2026-05-27"
   status: active
   related_skills:
-    - draft-static-solution
+    - build-solution-artifact
     - draft-static-question
     - write-imathas-x
   related_workflows:
@@ -34,7 +34,7 @@ not for human reading (the human-readable part is the chat proposal).
 
 ## When to Use
 
-- After `draft-static-solution` completes (static files are ready, blueprint is empty)
+- After a static solution has been prepared in `static/` (for example from a reviewed artifact run)
 - When `questions/qt-{id}/static/blueprint.txt` is empty or absent and `author-imathas` is next
 - When parameterization strategy needs to change (re-run in FULL mode)
 - When a specific variable or constraint needs adjustment (PATCH mode)
@@ -53,10 +53,10 @@ not for human reading (the human-readable part is the chat proposal).
   2. `questions/qt-{id}/static/static_solution.txt`
 
 > If no usable static file exists: stop and report.
-> Run `draft-static-question` and `draft-static-solution` first.
+> Run `draft-static-question` first, then prepare the matching static solution in `static/`.
 
 **Optional — read if present:**
-- `context/active_qt.md` — used to identify problem type from book context
+- `context/active_qt.toml` — used to identify problem type from book context
 - `questions/qt-{id}/static/source_brief.xml` — used for `method.primary` and `notation_conventions` if present;
   these override CDG-derived decisions for those fields only
 

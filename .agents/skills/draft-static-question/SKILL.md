@@ -12,7 +12,7 @@ metadata:
   last_updated: "2026-06-05"
   status: active
   related_skills:
-    - draft-static-solution
+    - build-solution-artifact
     - write-imathas-x
     - asciimath
     - audit-coverage
@@ -54,7 +54,7 @@ câu hỏi từ imathas
 
 | Intent | Use instead |
 |---|---|
-| Draft or iterate the solution | `draft-static-solution` |
+| Draft or iterate the solution | `build-solution-artifact` or a manually prepared static solution |
 | Fix errors in imathas source code | `write-imathas-x` |
 | Audit question for KP coverage | `audit-coverage` |
 
@@ -328,15 +328,15 @@ Chat after patch:
 - When `questions/qt-{id}/static/static_question.txt` needs to reflect a rendered concrete instance of the
   current `questions/qt-{id}/imathas/` template
 - No authoring constraints apply — this is a render, not an original authoring task
-- Common entry point for the seed-render → draft-solution workflow (see below)
+- Common entry point for the seed-render → reviewed-solution workflow (see below)
 
 ### Seed-Render → Solution Workflow
 
 Mode B is the first step when starting from existing IMathAS code:
 
 1. **Mode B here** → renders seed → writes `questions/qt-{id}/static/static_question.txt`
-2. **draft-static-solution** → reads the rendered question → generates solution
-3. Iterate on solution (user feedback → Patch Mode) until satisfied
+2. **build-solution-artifact** or a manual authoring pass → prepares a matching reviewed solution
+3. Place the approved static solution files in `questions/qt-{id}/static/`
 4. Proceed to **write-imathas-x** or **author-imathas** workflow
 
 ### Prerequisites
@@ -454,7 +454,7 @@ To replace with a properly authored version, run this skill in Mode A from sourc
 → Created: static_question_latex.txt            (note only — Mode B placeholder)
 → Created: static_question_no_answerboxes.txt   (note only — Mode B placeholder)
 
-Next: run draft-static-solution to generate a solution for this rendered question.
+Next: prepare a matching static solution, then continue to blueprint/authoring.
 ```
 
 ---

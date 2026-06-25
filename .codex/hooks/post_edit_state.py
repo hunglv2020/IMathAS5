@@ -21,7 +21,7 @@ if patch_touches_imathas_file(patch, "imathas/control.php") and session_id and t
                 "PostToolUse",
                 additionalContext=(
                     "Control-file edits require validation. If terminology or scope questions arise, "
-                    "read `context/active_qt.md` for the active question, then read "
+                    "read `context/active_qt.toml` for the active question, then read "
                     "`shared/books/{book_slug}/INDEX.md` before opening XML files."
                 ),
             ),

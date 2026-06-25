@@ -1,15 +1,10 @@
 ---
-description: Unified IMathAS authoring and patch rules for control.php, question.txt, solution.txt, and qtype.txt. Always active alongside AGENTS.md.
+description: Thin IMathAS authoring and patch reference. Canonical cross-skill rules now live under `.agents/policies/`.
 ---
 
-# RULES — IMathAS Authoring and Patch Safety
+# RULES — IMathAS Detailed Reference
 
-Supplemental reference used alongside `AGENTS.md`.
-This file is the single rule source for both:
-- how to write IMathAS source code
-- how to patch IMathAS package files safely
-
-In agents, `AGENTS.md` is the always-loaded repository policy layer. Use this file as a detailed reference, not as assumed auto-loaded runtime policy.
+Use this file as detailed companion reference for IMathAS editing. `AGENTS.md` remains the always-loaded repo policy layer. Canonical cross-skill rule ownership now lives in `.agents/policies/`.
 
 ---
 
@@ -21,212 +16,112 @@ These rules apply to files inside `questions/qt-{id}/imathas/`:
 - `solution.txt`
 - `qtype.txt`
 
-If guidance overlaps, use this precedence:
+Precedence:
 1. `AGENTS.md`
-2. `RULES.md`
-3. workflow, skill, and experience docs under `.agents/`
+2. `.agents/policies/`
+3. `RULES.md`
+4. skill, workflow, and experience docs
 
 ---
 
-## Patch Safety
+## Policy Cross-References
 
-### RULE P1 — Minimal Patch (HARD)
+- Patch safety: `.agents/policies/core/p-patch.md`
+- Zone order: `.agents/policies/core/p-zone.md`
+- IMathAS syntax and banned constructs: `.agents/policies/core/p-syntax.md`
+- Text and interpolation rules: `.agents/policies/core/p-text.md`
+- Artifact coupling: `.agents/policies/core/p-coupling.md`
+- Verification discipline: `.agents/policies/core/p-verify.md`
+- Macro lookup discipline: `.agents/policies/core/p-macro.md`
+- Question and answerbox structure: `.agents/policies/authoring/`
+- Snapshot provenance/freshness: `.agents/policies/snapshot/p-snapshot.md`
 
-Only change what the user explicitly asked for. Nothing else.
+---
 
-- If the user asks to fix a formula, fix only that formula.
-- If the user asks to fix a typo, fix only that word.
-- Do not clean up adjacent prose, reformat unrelated lines, or improve nearby content unless explicitly requested.
-- Do not restructure, reorder, or rephrase untouched content.
+## Patch Safety Reference
 
-### RULE P2 — Read Before Patch (HARD)
+### Minimal patch
 
-Read the current file state before patching.
+- Only change what the user asked for.
+- Do not rewrite adjacent prose or code unless the task explicitly requires it.
+- Prefer locate-and-replace over broad file rewrites.
 
-- Before changing any of `control.php`, `question.txt`, or `solution.txt`, inspect the current contents first.
-- Prefer minimal locate-and-replace edits over broad rewrites.
-- For large files, identify the exact line range to change before patching.
+### Read before patch
 
-### RULE P3 — Step Count Is Frozen (HARD)
+- Read current file state before editing `control.php`, `question.txt`, or `solution.txt`.
+- For large files, identify the exact region to change first.
 
-Never add, remove, split, or merge steps in `solution.txt` unless the user explicitly requests it.
+### `solution.txt` stability
 
-Without that explicit trigger, the number of `Step N:` headers must remain identical before and after the patch.
+- Keep step count frozen unless the user explicitly requests structural change.
+- Touched step headers must stay in `Step N: {title}.<br/>` form.
 
-### RULE P4 — Step Header Format (HARD)
+### `question.txt` default
 
-Every touched step header must follow this exact format:
+- In patch operations, treat `question.txt` as read-only unless the task explicitly calls for question text edits.
+
+---
+
+## Authoring Reference
+
+### Zone order
+
+Never mix zones:
 
 ```text
-Step N: {title}.<br/>
-```
-
-Where `{title}` must:
-- start with a base-form verb
-- be 15 words or fewer
-- end with a period before `<br/>`
-
-If a patch does not touch a step header, do not modify it.
-
-### RULE P5 — `question.txt` Is Read-Only by Default (HARD)
-
-In patch operations, `question.txt` is read-only unless the user explicitly requests changes to it.
-
-### RULE P6 — AsciiMath in Backticks (HARD)
-
-All math inside backticks in `question.txt` and `solution.txt` must use valid AsciiMath syntax.
-
-- Do not write LaTeX.
-- Use [`.agents/skills/asciimath/references/asciimath-reference.md`](.agents/skills/asciimath/references/asciimath-reference.md) when unsure.
-- Keep visible line breaks in the surrounding file style, typically `<br/>`.
-
----
-
-## Authoring Rules
-
-### RULE A1 — Zone Order in `control.php` (HARD)
-
-Violations cause silent wrong output or runtime errors. Never mix zones.
-
-```
-ZONE 0   loadlibrary(...) calls — required libraries only
-
-ZONE 1   Randomization  (math only — NO string operations)
-         MathVar: rand, diffrands, randfrom, ...
-         DerivedVar: abs, gcd, ceil, floor, arithmetic
-         where guards, domain constraints
-         for loops  — precompute bound: $k = $n-1 before loop header
-
-ZONE 2   Display Variables  (string output only — no math computation here)
-         § 2A  String Assembly
-               {$var} interpolation ONLY — no formatting macros here
-               $expr = "{$a} x^2 + {$b} x + {$c}"
-         § 2B  String Normalization
-               makexxpretty / makexxprettydisp / makereducedfraction
-               applied to § 2A vars — suffix: _disp or _pretty
-
-ZONE 3   Answer Computation   — derive answer values from ZONE 1 vars
-
+ZONE 0   loadlibrary(...) calls
+ZONE 1   randomization and derived math only
+ZONE 2A  string assembly using {$var}
+ZONE 2B  normalization / formatting macros
+ZONE 3   answer computation
 ZONE 4   $anstypes[i], $answer[i], $questions[i]
-         $answer[i] = raw grading value, NOT a display string
-         array index MUST match [ABi] tags in question.txt
-
-ZONE 5   Grading config
-         $variables[i], $domain[i], $requiretimes[i], $abstolerance[i], $showanswer[i]
+ZONE 5   grading config
 ```
 
-**Common violations:**
-- `makexxpretty` in ZONE 1 → move to ZONE 2§2B
-- Numeric DerivedVar in ZONE 2 → move to ZONE 1
-- `$answer[i]` set to a display string → should be a raw numeric expression
-- Composite display var assigned before its components → always assign after
+Common violations:
+- formatting macro in ZONE 1
+- numeric derived value in ZONE 2
+- display string assigned to `$answer[i]`
+- composite display var assigned before its component vars
 
----
+### Interpolation
 
-### RULE A2 — String Interpolation in ZONE 2 (HARD)
+- Use `{$var}` in ZONE 2 string assembly.
+- Do not use dot concatenation.
+- Do not use bare `$var` in strings.
+- Do not brace numeric literals such as `{-1}` or `{1}`.
+- `$answer[i]` stays raw numeric or symbolic grading value; do not wrap it in string interpolation.
 
-ALL string assembly in ZONE 2§2A MUST use `{$var}` brace syntax.
+### Inline-first text injection
 
-| Form | Status |
-|---|---|
-| `"{$a} x^2 + {$b} x + {$c}"` | **CORRECT** |
-| `"[{-1},{$a},{1}]"` | **BANNED** — constants/literals must not be braced |
-| `"[-1,{$a},1]"` | **CORRECT** |
-| `$a . " x^2 + " . $b` | **BANNED** — dot concatenation |
-| `"$a x^2 + $b"` | **BANNED** — bare `$var` |
+Prefer inline injection in `question.txt` / `solution.txt` for simple one-use expressions.
 
-**Why:** `{$var}` makes variable boundaries explicit and is processed reliably by the IMathAS eval engine. Bare `$var` can be ambiguous (`$abc` vs `$a` + `"bc"`).
-Braces are for variable interpolation only, not numeric constants.
+Create a new display var only when:
+- the expression is reused
+- the expression is structurally fragile inline
+- normalization/formatting macro is required
+- readability would materially suffer without a named display var
 
-**Exception — `$answer[i]` is a raw numeric expression, no braces:**
-```php
-$answer[0] = $y1;         // correct
-$answer[0] = "{$y1}";     // WRONG — breaks numeric grading
-```
+### Boundary-safe injection
 
-**Matrix/vector display strings use `{$var}` normally:**
-```php
-$Cdisp = "[[{$C11},{$C12}],[{$C21},{$C22}]]";
-```
+Inside backticked AsciiMath, default to `{$var}` before inventing a new display var solely to protect token boundaries.
 
----
+### Banned constructs
 
-### RULE A3 — control↔question/solution Coupling (HARD)
+- `<?php`
+- custom `function`
+- `while`, `do...while`, `foreach`
+- C-style `for (...)`
+- `pow($a,$b)` or `$a**$b`
+- `array_merge(...)`
+- `array_rand(...)`
+- dot concatenation in ZONE 2
 
-When writing or patching any of `control.php` / `question.txt` / `solution.txt`:
+Use IMathAS-native alternatives such as `for ($i=0..$k)`, `$a ^ $b`, `randfrom(...)`, `diffrands(...)`, and `{$var}` interpolation.
 
-1. **Read ALL THREE files** before writing any of them.
-2. Every `$var` referenced in `question.txt` or `solution.txt` must exist in `control.php`.
-3. Adding a display var in `control.php` → scan both text files for injection points.
-4. Removing a display var → scan both text files and remove orphaned references.
-5. After any edit: render at least one seed to confirm no orphaned vars or broken display.
+### Macro verification
 
----
-
-### RULE A3.5 — Inline-First Injection Policy (HARD)
-
-Default to **inline injection in `question.txt` and `solution.txt`** for simple expressions that are used once.
-
-Prefer writing expressions directly in text, for example:
-
-```text
-`lim_(n->oo)((n+{$k})/n)/((sqrt(n^2+{$c}))/n)`
-```
-
-Do **not** create a new ZONE 2 display variable unless at least one of these is true:
-
-1. The same expression is reused in multiple places.
-2. The expression is a structured object whose punctuation/layout is fragile inline
-   (for example matrices, vectors, long piecewise-style displays, coordinated option sets).
-3. A formatting/normalization macro is actually needed.
-4. Keeping it inline would make the prose materially harder to read or maintain.
-
-**Anti-pattern:** moving one-off algebra lines such as `$limitstep1disp` into `control.php` when they are only injected once and need no normalization.
-
-**Why:** unnecessary display vars bloat `control.php`, reduce text-integrity against static sources, and obscure whether a value is true logic or just copied presentation.
-
----
-
-### RULE A3.6 — Boundary-Safe Variable Injection in Text Files (HARD)
-
-Inside backticked AsciiMath in `question.txt` and `solution.txt`, default to `{$var}` wrapping for injected variables.
-
-Use `{$var}` especially when the variable touches letters, digits, braces, or adjacent math tokens that could merge visually or lexically.
-
-| Form | Status |
-|---|---|
-| `` `bb{c}_2={$c}bb{c}_1` `` | **CORRECT** |
-| `` `text(Nul)MsubeRR^{$cols}` `` | **CORRECT** |
-| `` `p={$cols}` `` | **CORRECT** |
-| `` `bb{c}_2=$cbb{c}_1` `` | **BANNED** — ambiguous token boundary |
-| `` `text(Nul)MsubeRR^$cols` `` | **BANNED** — ambiguous token boundary |
-| `` `bb{c}_2=($c)bb{c}_1` `` | **AVOID** — use `{$c}` when the goal is only boundary safety |
-
-If a line becomes boundary-safe by switching to `{$var}`, do that before creating a new ZONE 2 display variable.
-
----
-
-### RULE A4 — Banned Constructs (HARD)
-
-| Construct | Alternative |
-|---|---|
-| `<?php` tag | Omit entirely |
-| `function name() {}` | Inline logic in appropriate ZONE |
-| `while` / `do...while` / `foreach` | `{$x = rand(...)} where condition` |
-| `for ($i=0; $i<$n; $i++)` | `for ($i=0..$n-1)` |
-| Inline loop bound expr, e.g. `for ($i=1..$n-1)` | `$k = $n-1; for ($i=1..$k)` |
-| `pow($a,$b)` / `$a**$b` | `$a ^ $b` |
-| `array_merge($a,$b)` | Two separate `showplot` calls + `mergeplots` |
-| `array_rand($arr)` | `randfrom($arr)` |
-| `list($a,$b) = ...` | `$a, $b = ...` |
-| `or` in `where` clause | `\|\|` for OR in `where` guards |
-| Dot concatenation in ZONE 2 | `{$var}` interpolation (see RULE A2) |
-
----
-
-### RULE A5 — Macro Verification (HARD)
-
-Never use a macro without first verifying it exists and checking its signature:
+Before using a macro:
 
 ```bash
 uv run python .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.py <macro1> <macro2>
@@ -234,30 +129,39 @@ uv run python .agents/skills/write-imathas-x/scripts/lookup_macro_with_goldens.p
 ```
 
 Confirm:
-1. The macro **exists** — not guessed or invented
-2. Its exact **signature** and parameter order
-3. Whether **`loadlibrary()`** is required (paste at ZONE 0 if so)
+1. macro exists
+2. signature and parameter order
+3. `loadlibrary()` requirement
 
 ---
 
-## Verification
+## Verification Reference
 
-### Python Runtime Rule
+### Control validation
 
-- Run repo Python commands via `uv run python ...`.
-- Assume the repo-local `.venv` exists and is the runtime used by `uv run python`.
-- Do not use the bare system Python interpreter in normal repo instructions.
-- Use `uv run --with <package> python ...` only for ad-hoc overlays.
-
-### RULE V1 — Validate Non-Trivial `control.php` Snippets (HARD)
-
-Before writing any non-trivial snippet to `control.php`, run:
+Validate non-trivial snippets before writing:
 
 ```bash
 uv run python scripts/test_control.py --control '<snippet>'
 ```
 
-If `errors` is non-empty, fix the snippet and re-validate before writing.
+Then validate the full file:
+
+```bash
+uv run python scripts/test_control.py --control-file questions/qt-{id}/imathas/control.php
+```
+
+### Coupling checks
+
+If `control.php` variables change:
+- scan `question.txt` and `solution.txt` for matching updates
+- render or inspect at least one seed or valid snapshot to confirm no orphaned refs
+
+### Text-sensitive checks
+
+After material text edits, consider:
+- text integrity against static source
+- fixed-seed or snapshot-based inspection
 
 ### RULE V2 — Validate Full `control.php` After Patching (HARD)
 

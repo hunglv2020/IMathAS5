@@ -1,944 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch10" chapter_number="10" unit_code="10.5">
-  <section number="10.5" title="The Fundamental Matrix">
-    <metadata>
-      <source_pages count="6">
-        <page global_index="478" type="content"/>
-        <page global_index="479" type="content"/>
-        <page global_index="480" type="content"/>
-        <page global_index="481" type="content"/>
-        <page global_index="482" type="exercises"/>
-        <page global_index="483" type="exercises"/>
-      </source_pages>
-    </metadata>
-    <content>
-      <heading level="1">10.5 The Fundamental Matrix</heading>
-      <paragraph>The return time for a state in an irreducible Markov chain was defined in Section 10.3 to be the expected number of steps needed for the system to return to its starting state. This section studies the expected number of steps needed for a system to pass from one state to another state, which is called a transit time. Another quantity of interest is the probability that the system visits one state before it visits another. It is perhaps surprising that discussing these issues for irreducible Markov chains begins by working with reducible Markov chains, particularly those with transient states.</paragraph>
-      <heading level="2">The Fundamental Matrix and Transient States</heading>
-      <paragraph>The first goal is to compute the expected number of visits the system makes to a state <math display="inline">$i$</math> given that the system starts in state <math display="inline">$j$</math>, where <math display="inline">$j$</math> is a transient state. Suppose that a Markov chain has at least one transient state. Its transition matrix may be written in canonical form as</paragraph>
-      <figure>
-          <image alt="A matrix is shown as follows: P equals StartMatrix Row 1: R, S. Row 2: O, Q EndMatrix. A vertical line is shown between the first and second columns. A horizontal line is shown between the first and second rows."/>
-        </figure>
-      <paragraph>Since at least one state is transient, <math display="inline">$S$</math> has at least one nonzero entry. In order for <math display="inline">$P$</math> to be a stochastic matrix, at least one of the columns of <math display="inline">$Q$</math> must sum to less than <math display="inline">$1$</math>. The matrix <math display="inline">$Q$</math> is called a <strong>substochastic matrix</strong>. It can be shown that</paragraph>
-      <paragraph>
-        <math display="block">$$\lim\limits_{k\rightarrow\infty}Q^{k} = O$$</math>
-      </paragraph>
-      <paragraph>for any substochastic matrix <math display="inline">$Q$</math>. This fact implies that if the system is started in a transient class, it must eventually make a transition to a recurrent class and never visit any state outside that recurrent class again. The system is thus eventually <strong>absorbed</strong> by some recurrent class.</paragraph>
-      <paragraph>Now let <math display="inline">$j$</math> and <math display="inline">$i$</math> be transient states, and suppose that the Markov chain starts at state <math display="inline">$j$</math>. Let <math display="inline">$v_{ij}$</math> be the number of visits the system makes to state <math display="inline">$i$</math> before the absorption into a recurrent class. The goal is to calculate <math display="inline">$E\lbrack v_{ij}\rbrack$</math>, which is the expected value of <math display="inline">$v_{ij}$</math>. To do so, a special kind of random variable called an <strong>indicator random variable</strong> is useful. An <strong>indicator random variable</strong> <math display="inline">$I$</math> is a random variable that is <math display="inline">$1$</math> if an event happens and is <math display="inline">$0$</math> if the event does not happen. Symbolically,</paragraph>
-      <paragraph>
-        <math display="block">$$I = \left\{ \begin{matrix}
-      0 &amp; \text{if the event does not happen} \\
-      1 &amp; \text{if the event happens}
-      \end{matrix} \right.$$</math>
-      </paragraph>
-      <paragraph>The expected value of an indicator random variable may be easily calculated:</paragraph>
-      <paragraph>
-        <math display="block">$$E\lbrack I\rbrack = 0 \cdot P(I = 0) + 1 \cdot P(I = 1) = P(I = 1) = P\left( \text{event~happens} \right)$$</math>
-      </paragraph>
-      <paragraph>Returning to the discussion of the number of visits to state <math display="inline">$i$</math> starting at state <math display="inline">$j$</math>, let <math display="inline">$I_{k}$</math> be the indicator random variable for the event “the system visits state <math display="inline">$i$</math> at step <math display="inline">$k$</math>.” Then</paragraph>
-      <paragraph>
-        <math display="block">$$v_{ij} = I_{0} + I_{1} + I_{2} + \cdots = \sum\limits_{k = 0}^{\infty}I_{k}$$</math>
-      </paragraph>
-      <paragraph>since a visit to state <math display="inline">$i$</math> at a particular time will cause <math display="inline">$1$</math> to be added to the running total of visits kept in <math display="inline">$v_{ij}$</math>. Using Equation (1), the expected value of <math display="inline">$v_{ij}$</math> is</paragraph>
-      <paragraph>
-        <math display="block">$$E{\lbrack v_{ij}\rbrack} = E\left\lbrack \sum\limits_{k = 0}^{\infty}I_{k} \right\rbrack = \sum\limits_{k = 0}^{\infty}E\left\lbrack I_{k} \right\rbrack = \sum\limits_{k = 0}^{\infty}P\left( I_{k} = 1 \right) = \sum\limits_{k = 0}^{\infty}P\left( \text{visit~to~}i\text{~at~step~}k \right)$$</math>
-      </paragraph>
-      <paragraph>But <math display="inline">$P~\left( \text{visit~to~}i\text{~at~step~}k \right)$</math> is just the <math display="inline">$(i,j)\text{-entry}$</math> in the matrix <math display="inline">$Q^{k}$</math>, so</paragraph>
-      <paragraph>
-        <math display="block">$$E\lbrack v_{ij}\rbrack = \sum\limits_{k = 0}^{\infty}(Q^{k})_{ij}$$</math>
-      </paragraph>
-      <paragraph>Thus the expected number of times that the system visits state <math display="inline">$i$</math> starting at state <math display="inline">$j$</math> is the <math display="inline">$(i,j)\text{-entry}$</math> in the matrix</paragraph>
-      <paragraph>
-        <math display="block">$$I + Q + Q^{2} + Q^{3} + \cdots = \sum\limits_{k = 0}^{\infty}Q^{k}$$</math>
-      </paragraph>
-      <paragraph>Using the argument given in Section 2.6,</paragraph>
-      <paragraph>
-        <math display="block">$$I + Q + Q^{2} + Q^{3} + \cdots = (I - Q)^{- 1}$$</math>
-      </paragraph>
-      <paragraph>The matrix <math display="inline">$(I - Q)^{- 1}$</math> is called the <strong>fundamental matrix</strong> of the Markov chain and is denoted by <math display="inline">$M$</math>. The interpretation of the entries in <math display="inline">$M$</math> is given in the following theorem.</paragraph>
-      <note type="procedure" title="Theorem ﻿6﻿">
-          <heading level="2">Theorem ﻿6﻿</heading>
-              <paragraph>Let <math display="inline">$j$</math> and <math display="inline">$i$</math> be transient states of a Markov chain, and let <math display="inline">$Q$</math> be that portion of the transition matrix that governs movement between transient states.</paragraph>
-          <list ordered="true">
-                  <item>When the chain starts at a transient state j, the (i,j)-entry of M=(I−Q)−1 is the expected number of visits to the transient state i before absorption into a recurrent class.</item>
-                  <item>When the chain starts at a transient state j, the sum of the entries in column j of M=(I−Q)−1 is the expected number of time steps until absorption.</item>
-          </list>
-        </note>
-      <paragraph>An alternative proof of Theorem 6 is given in Appendix 2.</paragraph>
-      <example number="1">
-          <heading level="2">Example 1</heading>
-              <paragraph>Consider an unbiased random walk on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> with absorbing boundaries. If the system starts in state <math display="inline">$3$</math>, find the expected number of visits to state <math display="inline">$2$</math> before absorption. Also find the expected number of steps until absorption starting at states <math display="inline">$2$</math>, <math display="inline">$3$</math>, and <math display="inline">$4$</math>.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>Placing the states in the order <math display="inline">$1$</math>, <math display="inline">$5$</math>, <math display="inline">$2$</math>, <math display="inline">$3$</math>, <math display="inline">$4$</math> produces a transition matrix in canonical form:</paragraph>
-          <figure>
-            <image alt="The figure illustrates three 5 by 5 matrices, one at the upper left, the second at the upper right, and the third at the lower right."/>
-          </figure>
-              <paragraph>The matrix <math display="inline">$Q$</math> and the fundamental matrix <math display="inline">$M = (I - Q)^{- 1}$</math> are</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      \begin{array}{l}
-      {~~~~~~~~~~~\begin{array}{lll}
-      2 &amp; {~~~~3} &amp; {~~~4}
-      \end{array}} \\
-      {Q = \left\lbrack \begin{array}{lll}
-      0 &amp; {1\text{/2}} &amp; 0 \\
-      {1\text{/}2} &amp; 0 &amp; {1\text{/}2} \\
-      0 &amp; {1\text{/}2} &amp; 0
-      \end{array} \right\rbrack\begin{array}{l}
-      {~2} \\
-      {~3} \\
-      {~4}
-      \end{array}}
-      \end{array} &amp; \begin{array}{l}
-       \\
-      \text{and}
-      \end{array} &amp; \begin{array}{l}
-      \begin{array}{lll}
-      {~~~~~~~~~~~~2} &amp; {~~3} &amp; {~~4}
-      \end{array} \\
-      {M = \left\lbrack \begin{array}{lll}
-      {3\text{/2}} &amp; 1 &amp; {1\text{/}2} \\
-      1 &amp; 2 &amp; 1 \\
-      {1\text{/}2} &amp; 1 &amp; {3\text{/}2}
-      \end{array} \right\rbrack\begin{array}{l}
-      {~2} \\
-      {~3} \\
-      {~4}
-      \end{array}}
-      \end{array}
-      \end{matrix}$$</math></paragraph>
-              <paragraph>Starting at state <math display="inline">$3$</math>, the expected number of visits to state <math display="inline">$2$</math> until absorption is the entry of <math display="inline">$M$</math> whose row corresponds to state <math display="inline">$2$</math> and whose column corresponds to state <math display="inline">$3$</math>. This value is <math display="inline">$1$</math>, so the chain will visit state <math display="inline">$2$</math> once on the average before being absorbed. The sum of the column of <math display="inline">$M$</math> corresponding to state <math display="inline">$2$</math> (or state <math display="inline">$4$</math>) is <math display="inline">$3$</math>, so the expected number of steps until absorption is three if starting at state <math display="inline">$2$</math> (or state <math display="inline">$4$</math>). Likewise, the expected number of steps until absorption starting at state <math display="inline">$3$</math> is four.</paragraph>
-        </example>
-      <heading level="2">Transit Times</heading>
-      <paragraph>Consider the problem of calculating the expected number of steps <math display="inline">$t_{ji}$</math> needed to travel from state <math display="inline">$j$</math> to state <math display="inline">$i$</math> in an irreducible Markov chain. If the states <math display="inline">$i$</math> and <math display="inline">$j$</math> are the same state, the value <math display="inline">$t_{jj}$</math> is the expected return time to state <math display="inline">$j$</math> found in Section 10.4. The value <math display="inline">$t_{ji}$</math> will be called the <strong>transit time</strong> (or <strong>mean first passage time</strong>) from state <math display="inline">$j$</math> to state <math display="inline">$i$</math>. Surprisingly, the insight into transient states provided by Theorem 6 is exactly what is needed to calculate <math display="inline">$t_{ji}$</math>.</paragraph>
-      <paragraph>Finding the transit time of a Markov chain from state <math display="inline">$j$</math> to state <math display="inline">$i$</math> begins by changing the transition matrix <math display="inline">$P$</math> for the chain. First reorder the states so that state <math display="inline">$i$</math> comes first. The new matrix has the form</paragraph>
-      <figure>
-          <image alt="A matrix is shown as follows: StartMatrix Row 1: P subscript i i, S. Row 2: X, Q EndMatrix. A vertical line is shown between the first and second columns. A horizontal line is shown between the first and second rows."/>
-        </figure>
-      <paragraph>for some matrices <math display="inline">$S$</math>, <math display="inline">$X$</math>, and <math display="inline">$Q$</math>. Next change the first column of the matrix from <math display="inline">$\begin{bmatrix}
-      p_{ii} \\
-      X
-      \end{bmatrix}$</math> to <math display="inline">$\begin{bmatrix}
-      1 \\
-      O
-      \end{bmatrix}$</math>, where <math display="inline">$O$</math> is a zero vector of appropriate size. In terms of probabilities, it is now impossible to leave state <math display="inline">$i$</math> after entering it. State <math display="inline">$i$</math> is now an absorbing state for the Markov chain, and the transition matrix now has the form</paragraph>
-      <figure>
-          <image alt="A matrix is shown as follows: StartMatrix Row 1: 1, S. Row 2: O, Q EndMatrix. A vertical line is shown between the first and second columns. A horizontal line is shown between the first and second rows."/>
-        </figure>
-      <paragraph>The expected number of steps <math display="inline">$t_{ji}$</math> that it takes to reach state <math display="inline">$i$</math> after starting at state <math display="inline">$j$</math> may be calculated using Theorem 6<strong>(b)</strong>: it will be the sum of the column of <math display="inline">$M$</math> corresponding to state <math display="inline">$j$</math>.</paragraph>
-      <example number="2">
-          <heading level="2">Example 2</heading>
-              <paragraph>Consider an unbiased random walk on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> with reflecting boundaries. Find the expected number of steps <math display="inline">$t_{j\,\,\,4}$</math> required to get to state 4 starting at any state <math display="inline">$j \neq 4$</math> of the chain.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>The transition matrix for this Markov chain is</paragraph>
-              <paragraph><math display="block">$$P = \begin{bmatrix}
-      0 &amp; {1\text{/2}} &amp; 0 &amp; 0 &amp; 0 \\
-      1 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 1 \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}2} &amp; 0
-      \end{bmatrix}$$</math></paragraph>
-              <paragraph>First reorder the states to list state <math display="inline">$4$</math> first, then convert state <math display="inline">$4$</math> to an absorbing state.</paragraph>
-              <paragraph><math display="block">$$\begin{array}{lll}
-      \begin{array}{l}
-      {~~\begin{array}{lllll}
-      1 &amp; {~2} &amp; {~~~~3} &amp; {~~~4} &amp; {~~5}
-      \end{array}} \\
-      {\left\lbrack \begin{array}{lllll}
-      0 &amp; {1\text{/2}} &amp; 0 &amp; 0 &amp; 0 \\
-      1 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 1 \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}2} &amp; 0
-      \end{array} \right\rbrack\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~4} \\
-      {~5}
-      \end{array}}
-      \end{array} &amp; \underset{\text{columns}}{\overset{\text{rearrange}}{\rightarrow}} &amp; \begin{array}{l}
-      \begin{array}{lllll}
-      {~~~4} &amp; {~~1} &amp; {~~2} &amp; {~~3} &amp; {~~5}
-      \end{array} \\
-      {\left\lbrack \begin{array}{lllll}
-      0 &amp; 0 &amp; {1\text{/2}} &amp; 0 &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; {1\text{/}2} &amp; 0 \\
-      {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}2} &amp; 1 \\
-      {1\text{/}2} &amp; 0 &amp; 0 &amp; 0 &amp; 0
-      \end{array} \right\rbrack\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~4} \\
-      {~5}
-      \end{array}}
-      \end{array} \\
-       &amp; \begin{array}{l}
-       \\
-      \underset{\text{rows}}{\overset{\text{rearrange}}{\rightarrow}}
-      \end{array} &amp; \begin{array}{l}
-      {~~~\begin{array}{lllll}
-      4 &amp; {~~1} &amp; {~~2~~} &amp; 3 &amp; {~~5}
-      \end{array}} \\
-      {\left\lbrack \begin{array}{lllll}
-      0 &amp; 0 &amp; 0 &amp; {1\text{/2}} &amp; 1 \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; {1\text{/}2} &amp; 0 \\
-      {1\text{/}2} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      {1\text{/}2} &amp; 0 &amp; 0 &amp; 0 &amp; 0
-      \end{array} \right\rbrack~\begin{array}{l}
-      4 \\
-      1 \\
-      2 \\
-      3 \\
-      5
-      \end{array}}
-      \end{array}
-      \end{array}$$</math></paragraph>
-          <figure>
-            <image alt="The figure illustrates a 5 by 5 matrix to the right of a rightward arrow, which is labeled convert, state 4."/>
-          </figure>
-              <paragraph>The matrix <math display="inline">$Q$</math> and the fundamental matrix <math display="inline">$M = (I - Q)^{- 1}$</math> are</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      \begin{array}{l}
-      \begin{array}{llll}
-      {~~~~~~~~~~1} &amp; {~~2} &amp; {~~3} &amp; {~~5}
-      \end{array} \\
-      {Q = \left\lbrack \begin{array}{llll}
-      0 &amp; {1\text{/2}} &amp; 0 &amp; 0 \\
-      1 &amp; 0 &amp; {1\text{/}2} &amp; 0 \\
-      0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0
-      \end{array} \right\rbrack\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~5}
-      \end{array}}
-      \end{array} &amp; \begin{array}{l}
-       \\
-      \text{and}
-      \end{array} &amp; \begin{array}{l}
-      {~~~~~~~~~~~\begin{array}{llll}
-      1 &amp; 2 &amp; 3 &amp; 5
-      \end{array}} \\
-      {M = \left\lbrack \begin{array}{llll}
-      3 &amp; 2 &amp; 1 &amp; 0 \\
-      4 &amp; 4 &amp; 2 &amp; 0 \\
-      2 &amp; 2 &amp; 2 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 1
-      \end{array} \right\rbrack~\begin{array}{l}
-      1 \\
-      2 \\
-      3 \\
-      5
-      \end{array}}
-      \end{array}
-      \end{matrix}$$</math></paragraph>
-              <paragraph>Summing the columns of <math display="inline">$M$</math> gives <math display="inline">$t_{14} = 9$</math>, <math display="inline">$t_{24} = 8$</math>, <math display="inline">$t_{34} = 5$</math>, and <math display="inline">$t_{54} = 1$</math>.</paragraph>
-        </example>
-      <heading level="2">Absorption Probabilities</heading>
-      <paragraph>Suppose that a Markov chain has more than one recurrent class and at least one transient state <math display="inline">$j$</math>. If the chain starts at state <math display="inline">$j$</math>, then the chain will eventually be absorbed into one of the recurrent classes; the probability that the chain is absorbed into a particular recurrent class is called the <strong>absorption probability</strong> for that recurrent class. The fundamental matrix is used in calculating the absorption probabilities.</paragraph>
-      <paragraph>To calculate the absorption probabilities, begin by changing the transition matrix for the Markov chain. First write all recurrent classes as single states <math display="inline">$i$</math> with <math display="inline">$p_{ii} = 1$</math>; that is, each recurrent class coalesces into an absorbing state. (Exercises 41 and 42 explore the information that the absorption probabilities give for recurrent classes with more than one state.) A canonical form for this altered transition matrix is</paragraph>
-      <figure label="Figure 1" caption="The graph for Example 4">
-          <image alt="A matrix is shown as follows: P equals StartMatrix Row 1: I, S. Row 2: O, Q EndMatrix. A vertical line is shown between the first and second columns. A horizontal line is shown between the first and second rows."/>
-        </figure>
-      <paragraph>where the identity matrix describes the lack of movement between the absorbing states.</paragraph>
-      <paragraph>Let <math display="inline">$j$</math> be a transient state and let <math display="inline">$i$</math> be an absorbing state for the changed Markov chain; to find the probability that the chain starting at <math display="inline">$j$</math> is eventually absorbed by <math display="inline">$i$</math>, consider the <math display="inline">$\left( i.j \right)\text{-entry}$</math> in the matrix <math display="inline">$P^{k}$</math>. This entry is the probability that a system that starts at state <math display="inline">$j$</math> is at state <math display="inline">$i$</math> after <math display="inline">$k$</math> steps. Since <math display="inline">$i$</math> is an absorbing state, in order for the system to be at state <math display="inline">$i$</math>, the system must have been absorbed by state <math display="inline">$i$</math> at some step at or before the <math display="inline">$k^{th}$</math> step. Thus the probability that the system has been absorbed by state <math display="inline">$i$</math> at or before the <math display="inline">$k^{th}$</math> step is just the <math display="inline">$\left( i.j \right)\text{-entry}$</math> in the matrix <math display="inline">$P^{k}$</math>, and the probability that the chain starting at <math display="inline">$j$</math> is eventually absorbed by <math display="inline">$i$</math> is the <math display="inline">$\left( i.j \right)\text{-entry}$</math> in <math display="inline">$\lim\limits_{k\rightarrow\infty}P^{k}$</math>. Computing <math display="inline">$P^{k}$</math> using rules for multiplying partitioned matrices (see Section 2.4) gives</paragraph>
-      <figure>
-          <image alt="The figure illustrates two matrices, P squared and P cubed."/>
-        </figure>
-      <paragraph>and it may be proved by induction (Exercise 43) that</paragraph>
-      <figure>
-          <image alt="A matrix is shown as follows: P superscript k BaseLine equals StartMatrix Row 1: I, S subscript k. Row 2: O, Q superscript k EndMatrix. A vertical line is shown between the first and second columns. A horizontal line is shown between the first and second rows."/>
-        </figure>
-      <paragraph>where</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{matrix}
-      S_{k} &amp; {= S + SQ + SQ^{2} + \cdots + SQ^{k - 1}} \\
-       &amp; {= S\left( I + Q + Q^{2} + \cdots + Q^{k - 1} \right)}
-      \end{matrix}$$</math>
-      </paragraph>
-      <paragraph>Since <math display="inline">$j$</math> is a transient state and <math display="inline">$i$</math> is an absorbing state, only the entries in <math display="inline">$S_{k}$</math> need be considered. The probability that the chain starting at <math display="inline">$j$</math> is eventually absorbed by <math display="inline">$i$</math> may thus be found by investigating the matrix</paragraph>
-      <paragraph>
-        <math display="block">$$\begin{array}{lll}
-      {A = \lim\limits_{k\rightarrow\infty}S_{k}} &amp; = &amp; {\lim\limits_{k\rightarrow\infty}S{\text{(}I + Q + Q^{2} + \cdots + Q^{k - 1}\text{)}}} \\
-       &amp; = &amp; {S{\text{(}I + Q + Q^{2} + \cdots\text{)}} = SM}
-      \end{array}$$</math>
-      </paragraph>
-      <paragraph>where <math display="inline">$M$</math> is the fundamental matrix for the Markov chain with coalesced recurrent classes. The <math display="inline">$\left( i.j \right)\text{-entry}$</math> in <math display="inline">$A$</math> is the probability that the chain starting at <math display="inline">$j$</math> is eventually absorbed by <math display="inline">$i$</math>. The following theorem summarizes these ideas; an alternative proof is given in Appendix 2.</paragraph>
-      <note type="procedure" title="Theorem ﻿7﻿">
-          <heading level="2">Theorem ﻿7﻿</heading>
-              <paragraph>Suppose that the recurrent classes of a Markov chain are all absorbing states. Let <math display="inline">$j$</math> be a transient state and let <math display="inline">$i$</math> be an absorbing state of this chain. Then the probability that the Markov chain starting at state <math display="inline">$j$</math> is eventually absorbed by state <math display="inline">$i$</math> is the <math display="inline">$(i,j)\text{-element}$</math> of the matrix <math display="inline">$A = SM$</math>, where <math display="inline">$M$</math> is the fundamental matrix of the Markov chain and <math display="inline">$S$</math> is that portion of the transition matrix that governs movement from transient states to absorbing states.</paragraph>
-        </note>
-      <example number="3">
-          <heading level="2">Example 3</heading>
-              <paragraph>Consider the unbiased random walk on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> with absorbing boundaries studied in Example 1. Find the probability that the chain is absorbed into state <math display="inline">$1$</math> given that the chain starts at state <math display="inline">$4$</math>.</paragraph>
-          <heading level="3">Solution</heading>
-              <paragraph>Placing the states in the order <math display="inline">$\left\{ 1\text{,~}5\text{,~}2\text{,~}3\text{,~}4 \right\}$</math> gives the canonical form of the transition matrix:</paragraph>
-          <figure>
-            <image alt="The figure illustrates a 5 by 5 matrix, whose columns are labeled 1, 5, 2, 3, 4, from left to right, and rows are labeled 1, 5, 2, 3, 4, from top to bottom."/>
-          </figure>
-              <paragraph>The matrix <math display="inline">$Q$</math> and the fundamental matrix <math display="inline">$M = (I - Q)^{- 1}$</math> are</paragraph>
-              <paragraph><math display="block">$$\begin{matrix}
-      \begin{array}{l}
-      {~~~~~~~~~~~\begin{array}{lll}
-      2 &amp; {~~~~3} &amp; {~~~4}
-      \end{array}} \\
-      {Q = \left\lbrack \begin{array}{lll}
-      0 &amp; {1\text{/2}} &amp; 0 \\
-      {1\text{/}2} &amp; 0 &amp; {1\text{/}2} \\
-      0 &amp; {1\text{/}2} &amp; 0
-      \end{array} \right\rbrack~\begin{array}{l}
-      2 \\
-      3 \\
-      4
-      \end{array}}
-      \end{array} &amp; \begin{array}{l}
-       \\
-      \text{and}
-      \end{array} &amp; \begin{array}{l}
-      {~~~~~~~~~~~~\begin{array}{lll}
-      2 &amp; {~~3} &amp; {~~4}
-      \end{array}} \\
-      {M = \left\lbrack \begin{array}{lll}
-      {3\text{/2}} &amp; 1 &amp; {1\text{/}2} \\
-      1 &amp; 2 &amp; 1 \\
-      {1\text{/}2} &amp; 1 &amp; {3\text{/}2}
-      \end{array} \right\rbrack\begin{array}{l}
-      {~2} \\
-      {~3} \\
-      {~4}
-      \end{array}}
-      \end{array}
-      \end{matrix}$$</math></paragraph>
-              <paragraph>so</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-       \\
-      {A = SM = \left\lbrack \begin{array}{lll}
-      {1\text{/2}} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}2}
-      \end{array} \right\rbrack\left\lbrack \begin{array}{lll}
-      {3\text{/}2} &amp; 1 &amp; {1\text{/}2} \\
-      1 &amp; 2 &amp; 1 \\
-      {1\text{/}2} &amp; 1 &amp; {3\text{/}2}
-      \end{array} \right\rbrack =}
-      \end{array}\begin{array}{l}
-      {~~~\begin{array}{lll}
-      {2~~~~} &amp; 3 &amp; {~~~4}
-      \end{array}} \\
-      {{\left\lbrack \begin{array}{lll}
-      {3\text{/}4} &amp; {1\text{/}2} &amp; {1\text{/}4} \\
-      {1\text{/}4} &amp; {1\text{/}2} &amp; {3\text{/4}}
-      \end{array} \right\rbrack~}\begin{array}{l}
-      1 \\
-      5
-      \end{array}}
-      \end{array}$$</math></paragraph>
-              <paragraph>The columns of <math display="inline">$A$</math> correspond to the transient states <math display="inline">$2$</math>, <math display="inline">$3$</math>, and <math display="inline">$4$</math> in that order, while the rows correspond to the absorbing states <math display="inline">$1$</math> and <math display="inline">$5$</math>. The probability that the chain that started at state <math display="inline">$4$</math> is absorbed at state <math display="inline">$1$</math> is <math display="inline">$1/4$</math>.</paragraph>
-        </example>
-      <paragraph>Absorption probabilities may be used to compute the probability that a system modeled by an irreducible Markov chain visits one state before another.</paragraph>
-      <example number="4">
-          <heading level="2">Example 4</heading>
-              <paragraph>Consider a simple random walk on the graph in <strong>Figure 1</strong>. What is the probability that a walker starting at state <math display="inline">$1$</math> visits state <math display="inline">$4$</math> before visiting state <math display="inline">$7$</math>?</paragraph>
-          <figure>
-            <image alt="A graph with 7 nodes is shown."/>
-          </figure>
-          <heading level="3">Solution</heading>
-              <paragraph>Changing state <math display="inline">$4$</math> and state <math display="inline">$7$</math> to absorbing states and then computing the absorption probabilities starting at state <math display="inline">$1$</math> will answer this question. Begin by reordering the states as <math display="inline">$4$</math>, <math display="inline">$7$</math>, <math display="inline">$1$</math>, <math display="inline">$2$</math>, <math display="inline">$3$</math>, <math display="inline">$5$</math>, <math display="inline">$6$</math> and rewrite states <math display="inline">$4$</math> and <math display="inline">$7$</math> as absorbing states:</paragraph>
-              <paragraph><math display="block">$$\begin{array}{ll}
-       &amp; \begin{array}{l}
-      {~~~\begin{array}{lllllll}
-      1 &amp; {~~~~2} &amp; {~~~3} &amp; {~4} &amp; {~~5} &amp; {~~~6} &amp; {~~7}
-      \end{array}} \\
-      {\left\lbrack \begin{array}{lllllll}
-      0 &amp; {1\text{/3}} &amp; {1\text{/}4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      {1\text{/}2} &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 0 \\
-      {1\text{/}2} &amp; {1\text{/}3} &amp; 0 &amp; 1 &amp; 0 &amp; {1\text{/}3} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; 1 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0
-      \end{array} \right\rbrack\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~4} \\
-      {~5} \\
-      {~6} \\
-      {~7}
-      \end{array}}
-      \end{array} \\
-      \begin{array}{l}
-       \\
-      \underset{\text{columns}}{\overset{\text{rearrange}}{\rightarrow}}
-      \end{array} &amp; \begin{array}{l}
-      \begin{array}{lllllll}
-      {~~4} &amp; 7 &amp; {~1} &amp; {~~~2} &amp; {~~~3} &amp; {~~~~5} &amp; {~~~6}
-      \end{array} \\
-      {\left\lbrack \begin{array}{lllllll}
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}2} &amp; 0 \\
-      1 &amp; 0 &amp; {1\text{/}2} &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; 1 &amp; 0 &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}2} &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3}
-      \end{array} \right\rbrack\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~4} \\
-      {~5} \\
-      {~6} \\
-      {~7}
-      \end{array}}
-      \end{array} \\
-      \begin{array}{l}
-       \\
-      \underset{\text{rows}}{\overset{\text{rearrange}}{\rightarrow}}
-      \end{array} &amp; \begin{array}{l}
-      {~~\begin{array}{lllllll}
-      4 &amp; 7 &amp; {~1} &amp; {~~~2} &amp; {~~~~3} &amp; {~~~5} &amp; {~~~6}
-      \end{array}} \\
-      {\left\lbrack \begin{array}{lllllll}
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/4}} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}2} &amp; 0 \\
-      1 &amp; 0 &amp; {1\text{/}2} &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; 1 &amp; 0 &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}2} &amp; 0
-      \end{array} \right\rbrack\begin{array}{l}
-      {~4} \\
-      {~7} \\
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~5} \\
-      {~6}
-      \end{array}}
-      \end{array} \\
-      \begin{array}{l}
-       \\
-      \underset{\text{states}\text{4}\text{and}\text{7}}{\overset{\text{convert}}{\rightarrow}}
-      \end{array} &amp; \begin{array}{l}
-      {~~\begin{array}{lllllll}
-      4 &amp; 7 &amp; {~1} &amp; {~~~~2} &amp; {~~~3~~} &amp; {~5} &amp; {~~~6}
-      \end{array}~} \\
-      {\left\lbrack \begin{array}{lllllll}
-      1 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/4}} &amp; 0 &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}2} &amp; 0 \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; {1\text{/3}} \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}2} &amp; 0
-      \end{array} \right\rbrack\begin{array}{l}
-      {~4} \\
-      {~7} \\
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~5} \\
-      {~6}
-      \end{array}}
-      \end{array}
-      \end{array}$$</math></paragraph>
-              <paragraph>The resulting transition matrix is <math display="inline">$\begin{bmatrix}
-      I &amp; S \\
-      O &amp; Q
-      \end{bmatrix}$</math>, with</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-      \begin{array}{lllll}
-      {~~~~~~~~~~1} &amp; 2 &amp; {~3} &amp; {~~5~} &amp; 6
-      \end{array} \\
-      {S = \left\lbrack \begin{array}{lllll}
-      0 &amp; 0 &amp; {1\text{/4}} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; {1\text{/}3}
-      \end{array} \right\rbrack\begin{array}{l}
-      4 \\
-      7
-      \end{array}}
-      \end{array}$$</math></paragraph>
-              <paragraph>and</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-      \begin{array}{lllll}
-      {~~~~~~~~~~~1} &amp; {~~~~2~~~} &amp; 3 &amp; {~~~5} &amp; {~~~6}
-      \end{array} \\
-      {Q = \left\lbrack \begin{array}{lllll}
-      0 &amp; {1\text{/3}} &amp; {1\text{/}4} &amp; 0 &amp; 0 \\
-      {1\text{/}2} &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}2} &amp; 0 \\
-      {1\text{/}2} &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; {1\text{/}3} &amp; 0 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}2} &amp; 0
-      \end{array} \right\rbrack\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~5} \\
-      {~6}
-      \end{array}}
-      \end{array}$$</math></paragraph>
-              <paragraph>so</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-      \begin{array}{lllll}
-      {~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~1} &amp; {~~~~~~2} &amp; {~~~~~~~3} &amp; {~~~~~~~5} &amp; {~~~~~~~6}
-      \end{array} \\
-      {M = (I - Q)^{- 1} = \left\lbrack \begin{array}{lllll}
-      {12\text{/5}} &amp; {8\text{/}5} &amp; {6\text{/}5} &amp; {6\text{/}5} &amp; {4\text{/}5} \\
-      {12\text{/}5} &amp; {31\text{/}10} &amp; {17\text{/}10} &amp; {11\text{/}5} &amp; {13\text{/}10} \\
-      {12\text{/}5} &amp; {34\text{/}15} &amp; {38\text{/}15} &amp; {28\text{/}15} &amp; {22\text{/}15} \\
-      {6\text{/5}} &amp; {22\text{/}15} &amp; {14\text{/}15} &amp; {34\text{/}15} &amp; {16\text{/}15} \\
-      {6\text{/}5} &amp; {13\text{/}10} &amp; {11\text{/}10} &amp; {8\text{/}5} &amp; {19\text{/}10}
-      \end{array} \right\rbrack\begin{array}{l}
-      {~1} \\
-      {~2} \\
-      {~3} \\
-      {~5} \\
-      {~6}
-      \end{array}}
-      \end{array}$$</math></paragraph>
-              <paragraph>and</paragraph>
-              <paragraph><math display="block">$$\begin{array}{l}
-      \begin{array}{lllll}
-      {~~~~~~~~~~~~~~~~~~~~~~~~1} &amp; {~~~~~2} &amp; {~~~~~~~3} &amp; {~~~~~~5} &amp; {~~~~~~6}
-      \end{array} \\
-      {A = SM = \left\lbrack \begin{array}{lllll}
-      {3\text{/5}} &amp; {17\text{/}30} &amp; {19\text{/}30} &amp; {7\text{/}5} &amp; {11\text{/}30} \\
-      {2\text{/}5} &amp; {13\text{/}30} &amp; {11\text{/}30} &amp; {8\text{/}15} &amp; {19\text{/}30}
-      \end{array} \right\rbrack\begin{array}{l}
-      4 \\
-      7
-      \end{array}}
-      \end{array}$$</math></paragraph>
-              <paragraph>Since the first column of <math display="inline">$A$</math> corresponds to state <math display="inline">$1$</math> and the rows correspond to states <math display="inline">$4$</math> and <math display="inline">$7$</math>, respectively, the probability of visiting <math display="inline">$4$</math> before visiting <math display="inline">$7$</math> is <math display="inline">$3/5$</math>.</paragraph>
-        </example>
-      <paragraph>A mathematical model that uses Theorems 6 and 7 appears in Section 10.6.</paragraph>
-      <note type="practice" title="Practice Problems">
-          <heading level="2">Practice Problems</heading>
-          <list ordered="true">
-                  <item>Consider a Markov chain on {1, 2, 3, 4} with transition matrixP = 11/20001/61/2001/31/60001/31 If the Markov chain starts at state 2, find the expected number of steps before the chain is absorbed. If the Markov chain starts at state 2, find the probability that the chain is absorbed at state 1.</item>
-                  <item>Consider a Markov chain on {1, 2, 3, 4} with transition matrixP = 2/31/2001/31/61/2001/31/61/2001/31/2 If the Markov chain starts at state 2, find the expected number of steps required to reach state 4. If the Markov chain starts at state 2, find the probability that state 1 is reached before state 4.</item>
-          </list>
-        </note>
-    </content>
-    <exercises title="10.5 Exercises">
-      <heading level="1">10.5 Exercises</heading>
-      <exercise_group start="1">
-                  <instructions>In Exercises 1–3, find the fundamental matrix of the Markov chain with the given transition matrix. Assume that the state space in each case is <math display="inline">$\left\{ 1,2,\ldots,n \right\}$</math>. If reordering of states is necessary, list the order in which the states have been reordered.</instructions>
-            <problem number="1">
-              <statement>
-                          <paragraph><math display="inline">$\begin{bmatrix}
-      1 &amp; 0 &amp; {1\text{/}6} &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; 0 &amp; {1\text{/}3} &amp; {2\text{/}3} \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="2">
-              <statement>
-                          <paragraph><math display="inline">$\begin{bmatrix}
-      1 &amp; 0 &amp; 0 &amp; {1\text{/4}} &amp; {1\text{/}5} \\
-      0 &amp; 1 &amp; 0 &amp; {1\text{/}8} &amp; {1\text{/10}} \\
-      0 &amp; 0 &amp; 1 &amp; {1\text{/}8} &amp; {1\text{/}5} \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}4} &amp; {3\text{/}10} \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}5}
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="3">
-              <statement>
-                          <paragraph><math display="inline">$\begin{bmatrix}
-      {1\text{/5}} &amp; 0 &amp; {1\text{/}10} &amp; 0 &amp; {1\text{/}5} \\
-      {1\text{/}5} &amp; 1 &amp; {1\text{/}5} &amp; 0 &amp; {1\text{/}5} \\
-      {1\text{/}5} &amp; 0 &amp; {1\text{/}5} &amp; 0 &amp; {1\text{/}4} \\
-      {1\text{/}5} &amp; 0 &amp; {1\text{/}4} &amp; 1 &amp; {1\text{/}10} \\
-      {1\text{/}5} &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}4}
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="4">
-                  <instructions>In Exercises 4–6, find the matrix <math display="inline">$A = \lim\limits_{n\rightarrow\infty}S_{n}$</math> for the Markov chain with the given transition matrix. Assume that the state space in each case is <math display="inline">$\left\{ 1,2,\ldots,n \right\}$</math>. If reordering of states is necessary, list the order in which the states have been reordered.</instructions>
-            <problem number="4">
-              <statement>
-                          <paragraph><math display="inline">$\begin{bmatrix}
-      1 &amp; 0 &amp; {1\text{/6}} &amp; 0 \\
-      0 &amp; 1 &amp; 0 &amp; {1\text{/}3} \\
-      0 &amp; 0 &amp; {1\text{/}3} &amp; {2\text{/}3} \\
-      0 &amp; 0 &amp; {1\text{/}2} &amp; 0
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="5">
-              <statement>
-                          <paragraph><math display="inline">$\begin{bmatrix}
-      1 &amp; 0 &amp; 0 &amp; {1\text{/4}} &amp; {1\text{/}5} \\
-      0 &amp; 1 &amp; 0 &amp; {1\text{/}8} &amp; {1\text{/}10} \\
-      0 &amp; 0 &amp; 1 &amp; {1\text{/}8} &amp; {1\text{/}5} \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}4} &amp; {3\text{/}10} \\
-      0 &amp; 0 &amp; 0 &amp; {1\text{/}4} &amp; {1\text{/}5}
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <problem number="6">
-              <statement>
-                          <paragraph><math display="inline">$\begin{bmatrix}
-      {1\text{/5}} &amp; 0 &amp; {1\text{/}10} &amp; 0 &amp; {1\text{/}5} \\
-      {1\text{/}5} &amp; 1 &amp; {1\text{/}5} &amp; 0 &amp; {1\text{/}5} \\
-      {1\text{/}5} &amp; 0 &amp; {1\text{/}5} &amp; 0 &amp; {1\text{/}4} \\
-      {1\text{/}5} &amp; 0 &amp; {1\text{/4}} &amp; 1 &amp; {1\text{/}10} \\
-      {1\text{/}5} &amp; 0 &amp; {1\text{/}4} &amp; 0 &amp; {1\text{/}4}
-      \end{bmatrix}$</math></paragraph>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a square in the form of a sealed envelope with 5 vertices. The square with vertices 1, 2, 3, and 4 and the fold forms the 5th vertex at the center of the square by joining 1 to 5 and 2 to 5."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows a square with vertices 1, 2, 3, and 4. A diagonal is drawn from 1 to 3. A circle is drawn with vertex 3 as the center joining from 2 to 4."/>
-            </figure>
-            <figure>
-              <image alt="A square with vertices 1, 2, 3, and 4 shows a forward flow arrow from 1 to 2, 1 to 3, 1 to 4; which is a diagonal, 2 to 4, 4 to 3, 4 to 2, and 3 to 1."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows two equilateral triangles with one common vertex. Triangle 1 has 1, 2, and 3 as vertices and the 2nd triangle has 3, 4, and 5 as vertices. The directed flows are indicated in the form of arrows."/>
-            </figure>
-            <figure>
-              <image alt="A square is divided into four equal small squares named 1, 2, 4, and 5. A rhombus named 3 is at the center whose vertices meet the sides of the four squares. A direct opening between each small square and between each square to the rhombus within."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows three blocks, 1, 2, and 3, on the top row and two blocks, 4 and 5 on the bottom row. There is a direct opening between each block in the top as well as bottom rows and also between the blocks of the top and bottom rows."/>
-            </figure>
-            <figure>
-              <image alt="A rectangle is divided into 6 blocks 1, 2, and 3 on the top row and 4, 5, and 6 on the bottom row. There is a valve opening from 1 to 4, 5 to 6, and 3 to 6. Also, there is a direct opening between 1 and 2, 2 and 3, 2 and 5, and 4 and 5."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows a square divided into four smaller squares labeled 1, 2, 4, and 5, with a central rhombus labeled 3, whose vertices meet the midpoints of the sides of the four squares."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="7">
-            <problem number="7">
-              <statement>
-                          <paragraph>Suppose that the Markov chain in Exercise 1 starts at state <math display="inline">$3$</math>. How many visits will the chain make to state <math display="inline">$4$</math> on average before absorption?</paragraph>
-              </statement>
-            </problem>
-            <problem number="8">
-              <statement>
-                          <paragraph>Suppose that the Markov chain in Exercise 2 starts at state <math display="inline">$4$</math>. How many steps will the chain take on average before absorption?</paragraph>
-              </statement>
-            </problem>
-            <problem number="9">
-              <statement>
-                          <paragraph>Suppose that the Markov chain in Exercise 3 starts at state <math display="inline">$1$</math>. How many steps will the chain take on average before absorption?</paragraph>
-              </statement>
-            </problem>
-            <problem number="10">
-              <statement>
-                          <paragraph>Suppose that the Markov chain in Exercise 4 starts at state <math display="inline">$3$</math>. What is the probability that the chain is absorbed at state <math display="inline">$1$</math>?</paragraph>
-              </statement>
-            </problem>
-            <problem number="11">
-              <statement>
-                          <paragraph>Suppose that the Markov chain in Exercise 5 starts at state <math display="inline">$4$</math>. Find the probabilities that the chain is absorbed at states <math display="inline">$1$</math>, <math display="inline">$2$</math>, and <math display="inline">$3$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="12">
-              <statement>
-                          <paragraph>Suppose that the Markov chain in Exercise 6 starts at state <math display="inline">$5$</math>. Find the probabilities that the chain is absorbed at states <math display="inline">$2$</math> and <math display="inline">$4$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="13">
-              <statement>
-                          <paragraph>Consider a simple random walk on the following graph.</paragraph>
-                <list ordered="true">
-                              <item>Suppose that the walker begins in state 5. What is the expected number of visits to state 2 before the walker visits state 1?</item>
-                              <item>Suppose again that the walker begins in state 5. What is the expected number of steps until the walker reaches state 1?</item>
-                              <item>Now suppose that the walker starts in state 1. What is the probability that the walker reaches state 5 before reaching state 2?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a square in the form of a sealed envelope with 5 vertices. The square with vertices 1, 2, 3, and 4 and the fold forms the 5th vertex at the center of the square by joining 1 to 5 and 2 to 5."/>
-            </figure>
-            <problem number="14">
-              <statement>
-                          <paragraph>Consider a simple random walk on the following graph.</paragraph>
-                <list ordered="true">
-                              <item>Suppose that the walker begins in state 3. What is the expected number of visits to state 2 before the walker visits state 1?</item>
-                              <item>Suppose again that the walker begins in state 3. What is the expected number of steps until the walker reaches state 1?</item>
-                              <item>Now suppose that the walker starts in state 1. What is the probability that the walker reaches state 3 before reaching state 2?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a square with vertices 1, 2, 3, and 4. A diagonal is drawn from 1 to 3. A circle is drawn with vertex 3 as the center joining from 2 to 4."/>
-            </figure>
-            <problem number="15">
-              <statement>
-                          <paragraph>Consider a simple random walk on the following directed graph. Suppose that the walker starts at state <math display="inline">$1$</math>.</paragraph>
-                <list ordered="true">
-                              <item>How many visits to state 2 does the walker expect to make before visiting state 3?</item>
-                              <item>How many steps does the walker expect to take before visiting state 3?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A square with vertices 1, 2, 3, and 4 shows a forward flow arrow from 1 to 2, 1 to 3, 1 to 4; which is a diagonal, 2 to 4, 4 to 3, 4 to 2, and 3 to 1."/>
-            </figure>
-            <problem number="16">
-              <statement>
-                          <paragraph>Consider a simple random walk on the following directed graph. Suppose that the walker starts at state <math display="inline">$4$</math>.</paragraph>
-                <list ordered="true">
-                              <item>How many visits to state 3 does the walker expect to make before visiting state 2?</item>
-                              <item>How many steps does the walker expect to take before visiting state 2?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows two equilateral triangles with one common vertex. Triangle 1 has 1, 2, and 3 as vertices and the 2nd triangle has 3, 4, and 5 as vertices. The directed flows are indicated in the form of arrows."/>
-            </figure>
-            <problem number="17">
-              <statement>
-                          <paragraph>Consider the mouse in the following maze from Section 10.1, Exercise 17.</paragraph>
-                <list ordered="false">
-                              <item>If the mouse starts in room 2, what is the probability that the mouse visits room 3 before visiting room 4?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A square is divided into four equal small squares named 1, 2, 4, and 5. A rhombus named 3 is at the center whose vertices meet the sides of the four squares. A direct opening between each small square and between each square to the rhombus within."/>
-            </figure>
-            <problem number="18">
-              <statement>
-                          <paragraph>Consider the mouse in the following maze from Section 10.1, <strong>Exercise 18</strong>.</paragraph>
-                <list ordered="false">
-                              <item>If the mouse starts in room 1, what is the probability that the mouse visits room 3 before visiting room 4?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows three blocks, 1, 2, and 3, on the top row and two blocks, 4 and 5 on the bottom row. There is a direct opening between each block in the top as well as bottom rows and also between the blocks of the top and bottom rows."/>
-            </figure>
-            <problem number="19">
-              <statement>
-                          <paragraph>Consider the mouse in the following maze from Section 10.1, Exercise 19.</paragraph>
-                <list ordered="false">
-                              <item>If the mouse starts in room 1, how many steps on average will it take the mouse to get to room 6?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A rectangle is divided into 6 blocks 1, 2, and 3 on the top row and 4, 5, and 6 on the bottom row. There is a valve opening from 1 to 4, 5 to 6, and 3 to 6. Also, there is a direct opening between 1 and 2, 2 and 3, 2 and 5, and 4 and 5."/>
-            </figure>
-            <problem number="20">
-              <statement>
-                          <paragraph>Consider the mouse in the following maze from Section 10.1, Exercise 20.</paragraph>
-                <list ordered="false">
-                              <item>If the mouse starts in room 1, how many steps on average will it take the mouse to get to room 5?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows a square divided into four smaller squares labeled 1, 2, 4, and 5, with a central rhombus labeled 3, whose vertices meet the midpoints of the sides of the four squares."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="21">
-                  <instructions>In Exercises 21–26, mark each statement True or False. Justify each answer.</instructions>
-            <problem number="21">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The <math display="inline">$(i,j)\text{-element}$</math> in the fundamental matrix <math display="inline">$M$</math> is the expected number of visits to the transient state <math display="inline">$j$</math> prior to absorption, starting at the transient state <math display="inline">$i$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="22">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The sum of the column <math display="inline">$j$</math> of the fundamental matrix <math display="inline">$M$</math> is the expected number of time steps until absorption.</paragraph>
-              </statement>
-            </problem>
-            <problem number="23">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The <math display="inline">$(j,i)\text{-element}$</math> in the fundamental matrix gives the expected number of visits to state <math display="inline">$i$</math> prior to absorption, starting at state <math display="inline">$j$</math>.</paragraph>
-              </statement>
-            </problem>
-            <problem number="24">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> Transit times may be computed directly from the entries in the transition matrix.</paragraph>
-              </statement>
-            </problem>
-            <problem number="25">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> The probability that the Markov chain starting at state <math display="inline">$i$</math> is eventually absorbed by state <math display="inline">$j$</math> is the <math display="inline">$(j,i)\text{-element}$</math> of the matrix <math display="inline">$A = SM$</math>, where <math display="inline">$M$</math> is the fundamental matrix of the Markov chain and <math display="inline">$S$</math> is that portion of the transition matrix that governs movement from transient states to absorbing states.</paragraph>
-              </statement>
-            </problem>
-            <problem number="26">
-              <statement>
-                          <paragraph><strong>(T/F)</strong> If <math display="inline">$A$</math> is an <math display="inline">$m \times m$</math> substochastic matrix, then the entries in <math display="inline">$A^{n}$</math> approach <math display="inline">$0$</math> as <math display="inline">$n$</math> increases.</paragraph>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A square with vertices as 1, 2, 3, and 4 shows forward flow arrow from 1 to 2, 1 to 3, 3 to 1, 2 to 4, 4 to 2, 4 to 3 and 1 to 4, which is a diagonal. A line extends from 2 to 5 to the right and a flow is indicated from 2 to 5."/>
-            </figure>
-            <figure>
-              <image alt="A figure shows two equilateral triangles with one common vertex at 3. Triangle 1 has 1, 2 and 3 as vertices and 2nd triangle has 3, 4 and 5 as vertices. The directed flows are indicated in the form of arrows. A line extends from 5 to 6 to the right."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="27">
-            <problem number="27">
-              <statement>
-                          <paragraph>Suppose that the weather in Charlotte is modeled using the Markov chain in Section 10.1, Exercise 27. If it is sunny today, what is the probability that the weather will be cloudy before it is rainy?</paragraph>
-              </statement>
-            </problem>
-            <problem number="28">
-              <statement>
-                          <paragraph>Suppose that the weather in Charlotte is modeled using the Markov chain in Section 10.1, Exercise 28. If it rained yesterday and today, how many days on average will it take before there are two consecutive days with no rain?</paragraph>
-              </statement>
-            </problem>
-            <problem number="29">
-              <statement>
-                          <paragraph>Consider a set of webpages hyperlinked by the given directed graph that was studied in Section 10.2, Exercise 29.</paragraph>
-                <list ordered="false">
-                              <item>If a random surfer starts on page 1, how many mouse clicks on average will the surfer make before becoming stuck at a dangling node?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A square with vertices as 1, 2, 3, and 4 shows forward flow arrow from 1 to 2, 1 to 3, 3 to 1, 2 to 4, 4 to 2, 4 to 3 and 1 to 4, which is a diagonal. A line extends from 2 to 5 to the right and a flow is indicated from 2 to 5."/>
-            </figure>
-            <problem number="30">
-              <statement>
-                          <paragraph>Consider a set of webpages hyperlinked by the given directed graph that was studied in Section 10.2, Exercise 30.</paragraph>
-                <list ordered="false">
-                              <item>If a random surfer starts on page 3, what is the probability that the surfer will eventually become stuck on page 1, which is a dangling node?</item>
-                </list>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="A figure shows two equilateral triangles with one common vertex at 3. Triangle 1 has 1, 2 and 3 as vertices and 2nd triangle has 3, 4 and 5 as vertices. The directed flows are indicated in the form of arrows. A line extends from 5 to 6 to the right."/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="31">
-                  <instructions>Exercises 31–34 concern the Markov chain model for scoring a tennis match described in Section 10.1, Exercise 35. Suppose that players A and B are playing a tennis match, that the probability that player A wins any point is <math display="inline">$p = .6$</math>, and that the game is currently at “deuce.”</instructions>
-            <problem number="31">
-              <statement>
-                          <paragraph>How many more points will the tennis game be expected to last?</paragraph>
-              </statement>
-            </problem>
-            <problem number="32">
-              <statement>
-                          <paragraph>Find the probability that player A wins the game.</paragraph>
-              </statement>
-            </problem>
-            <problem number="33">
-              <statement>
-                          <paragraph>Repeat Exercise 31 if the game is</paragraph>
-                <list ordered="true">
-                              <item>currently at “advantage A.”</item>
-                              <item>currently at “advantage B.”</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="34">
-              <statement>
-                          <paragraph>Repeat Exercise 32 if the game is</paragraph>
-                <list ordered="true">
-                              <item>currently at “advantage A.”</item>
-                              <item>currently at “advantage B.”</item>
-                </list>
-              </statement>
-            </problem>
-          </exercise_group>
-      <exercise_group start="35">
-                  <instructions>Exercises 35–40 concern the two Markov chain models for scoring volleyball games described in Section 10.1, Exercise 36. Suppose that teams A and B are playing a <math display="inline">$\text{15-point}$</math> volleyball game that is tied <math display="inline">$\text{15-15}$</math> with team A serving. Suppose that the probability <math display="inline">$p$</math> that team A wins any rally for which it serves is <math display="inline">$p = .7$</math>, and the probability <math display="inline">$q$</math> that team B wins any rally for which it serves is <math display="inline">$q = .6$</math>.</instructions>
-            <problem number="35">
-              <statement>
-                          <paragraph>Suppose that rally point scoring is being used. How many more rallies will the volleyball game be expected to last?</paragraph>
-              </statement>
-            </problem>
-            <problem number="36">
-              <statement>
-                          <paragraph>Suppose that rally point scoring is being used. Find the probability that team A wins the game.</paragraph>
-              </statement>
-            </problem>
-            <problem number="37">
-              <statement>
-                          <paragraph>Suppose that side out scoring is being used. How many more rallies will the volleyball game be expected to last?</paragraph>
-              </statement>
-            </problem>
-            <problem number="38">
-              <statement>
-                          <paragraph>Suppose that side out scoring is being used. Find the probability that team A wins the game.</paragraph>
-              </statement>
-            </problem>
-            <problem number="39">
-              <statement>
-                          <paragraph>Rally point scoring was introduced to make volleyball matches take less time. Considering the results of Exercises 35 and 37, does using rally point scoring really lead to fewer rallies being played?</paragraph>
-              </statement>
-            </problem>
-            <problem number="40">
-              <statement>
-                          <paragraph>Since <math display="inline">$p = .7$</math> and <math display="inline">$q = .6$</math>, it seems that team A is the dominant team. Does it really matter which scoring system is chosen? Should the manager of each team have a preference?</paragraph>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="P equals StartMatrix Row 1: I, S. Row 2: O, Q EndMatrix, then P superscript k equals StartMatrix Row 1: I, S subscript k. Row 2: O, Q superscript k EndMatrix"/>
-            </figure>
-          </exercise_group>
-      <exercise_group start="41">
-            <problem number="41">
-              <statement>
-                          <paragraph>Consider a Markov chain on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5 \right\}$</math> with transition matrix<math display="block">$$P~ = ~\begin{bmatrix}
-      {1/4} &amp; {1/2} &amp; {1/3} &amp; 0 &amp; {1/4} \\
-      {3/4} &amp; {1/2} &amp; 0 &amp; {1/3} &amp; {1/4} \\
-      0 &amp; 0 &amp; 0 &amp; {1/3} &amp; 0 \\
-      0 &amp; 0 &amp; {1/3} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {1/3} &amp; {1/3} &amp; {1/2}
-      \end{bmatrix}$$</math></paragraph>
-                          <paragraph>Find <math display="inline">$\lim\limits_{n\rightarrow\infty}P^{n}$</math> by the following steps.</paragraph>
-                <list ordered="true">
-                              <item>What are the recurrent and transient classes for this chain?</item>
-                              <item>Find the limiting matrix for each recurrent class.</item>
-                              <item>Determine the long-range probabilities for the Markov chain starting from each transient state.</item>
-                              <item>Use the results of parts (b) and (c) to find limn→∞Pn.</item>
-                              <item>Confirm your answer in part (d) by taking P to a high power.</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="42">
-              <statement>
-                          <paragraph>Consider a Markov chain on <math display="inline">$\left\{ 1\text{,~}2\text{,~}3\text{,~}4\text{,~}5\text{,~}6 \right\}$</math> with transition matrix<math display="block">$$P~ = \,\,\begin{bmatrix}
-      {1/2} &amp; {1/3} &amp; 0 &amp; 0 &amp; {1/2} &amp; 0 \\
-      {2/3} &amp; {1/2} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; {1/4} &amp; {2/3} &amp; 0 &amp; {1/2} \\
-      0 &amp; 0 &amp; {3/4} &amp; {1/3} &amp; 0 &amp; 0 \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; {1/4} &amp; {1/4} \\
-      0 &amp; 0 &amp; 0 &amp; 0 &amp; {1/4} &amp; {1/4}
-      \end{bmatrix}$$</math></paragraph>
-                          <paragraph>Find <math display="inline">$\lim\limits_{n\rightarrow\infty}P^{n}$</math> by the following steps.</paragraph>
-                <list ordered="true">
-                              <item>What are the recurrent and transient classes for this chain?</item>
-                              <item>Find the limiting matrix for each recurrent class.</item>
-                              <item>Find the absorption probabilities from each transient state into each recurrent class.</item>
-                              <item>Use the results of parts (b) and (c) to find limn→∞Pn.</item>
-                              <item>Confirm your answer in part (d) by taking P to a high power.</item>
-                </list>
-              </statement>
-            </problem>
-            <problem number="43">
-              <statement>
-                          <paragraph>Show that if,</paragraph>
-                <list ordered="false">
-                              <item>where</item>
-                </list>
-                <math display="block">$$S_{k~}~ = ~S~ + ~SQ~ + ~SQ^{2}~ + ~\cdots~ + ~SQ^{k - 1}~~~~~~ = ~S\left( {I~ + ~Q~ + ~Q^{2}~ + ~\cdots~ + ~Q^{k - 1}} \right)$$</math>
-              </statement>
-            </problem>
-            <figure>
-              <image alt="P equals StartMatrix Row 1: I, S. Row 2: O, Q EndMatrix, then P superscript k equals StartMatrix Row 1: I, S subscript k. Row 2: O, Q superscript k EndMatrix"/>
-            </figure>
-          </exercise_group>
-    </exercises>
-  </section>
-</section_file>
+<section>
+  <heading level="1">10.5 The Fundamental Matrix</heading>
+  <paragraph>The return time for a state in an irreducible Markov chain was defined in Section 10.3 to be the expected number of steps needed for the system to return to its starting state. This section studies the expected number of steps needed for a system to pass from one state to another state, which is called a transit time. Another quantity of interest is the probability that the system visits one state before it visits another. It is perhaps surprising that discussing these issues for irreducible Markov chains begins by working with reducible Markov chains, particularly those with transient states.</paragraph>
+  <heading level="2">The Fundamental Matrix and Transient States</heading>
+  <paragraph>The first goal is to compute the expected number of visits the system makes to a state $$i$$ given that the system starts in state $$j$$ , where $$j$$ is a transient state. Suppose that a Markov chain has at least one transient state. Its transition matrix may be written in canonical form as</paragraph>
+  <figure>
+    <image alt="A matrix is shown as follows: P equals StartMatrix Row 1: R, S. Row 2: O, Q EndMatrix. A vertical line is shown between the first and second columns. A horizontal line is shown between the first and second rows."/>
+  </figure>
+  <paragraph>Since at least one state is transient, $$S$$ has at least one nonzero entry. In order for $$P$$ to be a stochastic matrix, at least one of the columns of $$Q$$ must sum to less than $$1$$ . The matrix $$Q$$ is called a substochastic matrix. It can be shown that</paragraph>
+  <paragraph>$$\underset{k \rightarrow \infty}{lim} Q^{k} = O$$</paragraph>
+  <paragraph>for any substochastic matrix $$Q$$ . This fact implies that if the system is started in a transient class, it must eventually make a transition to a recurrent class and never visit any state outside that recurrent class again. The system is thus eventually absorbed by some recurrent class.</paragraph>
+  <paragraph>Now let $$j$$ and $$i$$ be transient states, and suppose that the Markov chain starts at state $$j$$ . Let $$v_{ij}$$ be the number of visits the system makes to state $$i$$ before the absorption into a recurrent class. The goal is to calculate $$E\lbrack v_{ij}\rbrack$$ , which is the expected value of $$v_{ij}$$ . To do so, a special kind of random variable called an indicator random variable is useful. An indicator random variable $$I$$ is a random variable that is $$1$$ if an event happens and is $$0$$ if the event does not happen. Symbolically,</paragraph>
+  <paragraph>$$I = \left{\begin{matrix} 0 &amp; \text{if the event does not happen} \\ 1 &amp; \text{if the event happens} \end{matrix}\right$$</paragraph>
+  <paragraph>The expected value of an indicator random variable may be easily calculated:</paragraph>
+  <paragraph>(1)</paragraph>
+  <paragraph>$$E [ I ] = 0 \cdot P \left(\right. I = 0 \left.\right) + 1 \cdot P \left(\right. I = 1 \left.\right) = P \left(\right. I = 1 \left.\right) = P \left(\right. \text{event} \text{happens} \left.\right)$$</paragraph>
+  <paragraph>Returning to the discussion of the number of visits to state $$i$$ starting at state $$j$$ , let $$I_{k}$$ be the indicator random variable for the event “the system visits state $$i$$ at step $$k$$ .” Then</paragraph>
+  <paragraph>$$v_{i j} = I_{0} + I_{1} + I_{2} + \hdots = \sum_{k = 0}^{\infty} I_{k}$$</paragraph>
+  <paragraph>since a visit to state $$i$$ at a particular time will cause $$1$$ to be added to the running total of visits kept in $$v_{ij}$$ . Using Equation (1), the expected value of $$v_{ij}$$ is</paragraph>
+  <paragraph>$$E [ v_{i j} ] = E \left[\right. \sum_{k = 0}^{\infty} I_{k} \left]\right. = \sum_{k = 0}^{\infty} E \left[\right. I_{k} \left]\right. = \sum_{k = 0}^{\infty} P \left(\right. I_{k} = 1 \left.\right) = \sum_{k = 0}^{\infty} P \left(\right. \text{visit} \text{to} i \text{at} \text{step} k \left.\right)$$</paragraph>
+  <paragraph>But $$P \left( \text{visit to} i \text{at step} k \right)$$ is just the $$(i,j) \text{-entry}$$ in the matrix $$Q^{k}$$ , so</paragraph>
+  <paragraph>$$E \left[\right. v_{i j} \left]\right. = \sum_{k = 0}^{\infty} \left(\right. Q^{k} \left.\right)_{i j}$$</paragraph>
+  <paragraph>Thus the expected number of times that the system visits state $$i$$ starting at state $$j$$ is the $$(i,j) \text{-entry}$$ in the matrix</paragraph>
+  <paragraph>$$I + Q + Q^{2} + Q^{3} + \hdots = \sum_{k = 0}^{\infty} Q^{k}$$</paragraph>
+  <paragraph>Using the argument given in Section 2.6,</paragraph>
+  <paragraph>$$I + Q + Q^{2} + Q^{3} + \hdots = \left(\right. I - Q \left.\right)^{- 1}$$</paragraph>
+  <paragraph>The matrix $$(I - Q)^{- 1}$$ is called the fundamental matrix of the Markov chain and is denoted by $$M$$ . The interpretation of the entries in $$M$$ is given in the following theorem.</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem ﻿6﻿">
+    <heading level="2">Theorem ﻿6﻿</heading>
+    <paragraph>Let $$j$$ and $$i$$ be transient states of a Markov chain, and let $$Q$$ be that portion of the transition matrix that governs movement between transient states.</paragraph>
+    <list type="ordered">
+      <item>When the chain starts at a transient state $$j$$ , the $$(i,j) \text{-entry}$$ of $$M = (I - Q)^{- 1}$$ is the expected number of visits to the transient state $$i$$ before absorption into a recurrent class.</item>
+      <item>When the chain starts at a transient state $$j$$ , the sum of the entries in column $$j$$ of $$M = (I - Q)^{- 1}$$ is the expected number of time steps until absorption.</item>
+    </list>
+  </note>
+  <paragraph>An alternative proof of Theorem 6 is given in Appendix 2.</paragraph>
+  <example number="1">
+    <heading level="2">Example 1</heading>
+    <paragraph>Consider an unbiased random walk on $$\left\{ 1 \text{,} 2 \text{,} 3 \text{,} 4 \text{,} 5 \right\}$$ with absorbing boundaries. If the system starts in state $$3$$ , find the expected number of visits to state $$2$$ before absorption. Also find the expected number of steps until absorption starting at states $$2$$ , $$3$$ , and $$4$$ .</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>Placing the states in the order $$1$$ , $$5$$ , $$2$$ , $$3$$ , $$4$$ produces a transition matrix in canonical form:</paragraph>
+    <figure>
+      <image alt="The figure illustrates three 5 by 5 matrices, one at the upper left, the second at the upper right, and the third at the lower right."/>
+    </figure>
+    <paragraph>The matrix $$Q$$ and the fundamental matrix $$M = (I - Q)^{- 1}$$ are</paragraph>
+    <paragraph>$$\begin{matrix} \begin{matrix}2 &amp; 3 &amp; 4\end{matrix} \\ Q = \left[\right. \begin{matrix}0 &amp; 1 / \text{2} &amp; 0 \\ 1 / 2 &amp; 0 &amp; 1 / 2 \\ 0 &amp; 1 / 2 &amp; 0\end{matrix} \left]\right. \begin{matrix} 2 \\ 3 \\ 4\end{matrix}\end{matrix} &amp; \begin{matrix} \\ \text{and} \end{matrix} &amp; \begin{matrix}\begin{matrix} 2 &amp; 3 &amp; 4\end{matrix} \\ M = \left[\right. \begin{matrix}3 / \text{2} &amp; 1 &amp; 1 / 2 \\ 1 &amp; 2 &amp; 1 \\ 1 / 2 &amp; 1 &amp; 3 / 2\end{matrix} \left]\right. \begin{matrix} 2 \\ 3 \\ 4\end{matrix}\end{matrix}$$</paragraph>
+    <paragraph>Starting at state $$3$$ , the expected number of visits to state $$2$$ until absorption is the entry of $$M$$ whose row corresponds to state $$2$$ and whose column corresponds to state $$3$$ . This value is $$1$$ , so the chain will visit state $$2$$ once on the average before being absorbed. The sum of the column of $$M$$ corresponding to state $$2$$ (or state $$4$$ ) is $$3$$ , so the expected number of steps until absorption is three if starting at state $$2$$ (or state $$4$$ ). Likewise, the expected number of steps until absorption starting at state $$3$$ is four.</paragraph>
+  </example>
+  <heading level="2">Transit Times</heading>
+  <paragraph>Consider the problem of calculating the expected number of steps $$t_{ji}$$ needed to travel from state $$j$$ to state $$i$$ in an irreducible Markov chain. If the states $$i$$ and $$j$$ are the same state, the value $$t_{jj}$$ is the expected return time to state $$j$$ found in Section 10.4. The value $$t_{ji}$$ will be called the transit time (or mean first passage time) from state $$j$$ to state $$i$$ . Surprisingly, the insight into transient states provided by Theorem 6 is exactly what is needed to calculate $$t_{ji}$$ .</paragraph>
+  <paragraph>Finding the transit time of a Markov chain from state $$j$$ to state $$i$$ begins by changing the transition matrix $$P$$ for the chain. First reorder the states so that state $$i$$ comes first. The new matrix has the form</paragraph>
+  <figure>
+    <image alt="A matrix is shown as follows: StartMatrix Row 1: P subscript i i, S. Row 2: X, Q EndMatrix. A vertical line is shown between the first and second columns. A horizontal line is shown between the first and second rows."/>
+  </figure>
+  <paragraph>for some matrices $$S$$ , $$X$$ , and $$Q$$ . Next change the first column of the matrix from $$\begin{bmatrix} p_{ii} \\ X \end{bmatrix}$$ to $$\begin{bmatrix} 1 \\ O \end{bmatrix}$$ , where $$O$$ is a zero vector of appropriate size. In terms of probabilities, it is now impossible to leave state $$i$$ after entering it. State $$i$$ is now an absorbing state for the Markov chain, and the transition matrix now has the form</paragraph>
+  <figure>
+    <image alt="A matrix is shown as follows: StartMatrix Row 1: 1, S. Row 2: O, Q EndMatrix. A vertical line is shown between the first and second columns. A horizontal line is shown between the first and second rows."/>
+  </figure>
+  <paragraph>The expected number of steps $$t_{ji}$$ that it takes to reach state $$i$$ after starting at state $$j$$ may be calculated using Theorem 6(b): it will be the sum of the column of $$M$$ corresponding to state $$j$$ .</paragraph>
+  <example number="2">
+    <heading level="2">Example 2</heading>
+    <paragraph>Consider an unbiased random walk on $$\left\{ 1 \text{,} 2 \text{,} 3 \text{,} 4 \text{,} 5 \right\}$$ with reflecting boundaries. Find the expected number of steps $$t_{j4}$$ required to get to state 4 starting at any state $$j \neq 4$$ of the chain.</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>The transition matrix for this Markov chain is</paragraph>
+    <paragraph>$$P = \left[\right. 0 &amp; 1 / \text{2} &amp; 0 &amp; 0 &amp; 0 1 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 0 &amp; 1 / 2 &amp; 0 &amp; 1 / 2 &amp; 0 0 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 1 0 &amp; 0 &amp; 0 &amp; 1 / 2 &amp; 0 \left]\right.$$</paragraph>
+    <paragraph>First reorder the states to list state $$4$$ first, then convert state $$4$$ to an absorbing state.</paragraph>
+    <paragraph>$$\begin{matrix} \begin{matrix}1 &amp; 2 &amp; 3 &amp; 4 &amp; 5\end{matrix} \\ \left[\right. \begin{matrix}0 &amp; 1 / \text{2} &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 0 &amp; 1 / 2 &amp; 0 &amp; 1 / 2 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 2 &amp; 0\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 4 \\ 5\end{matrix}\end{matrix} &amp; \rightarrow_{ \text{columns} }^{ \text{rearrange} } &amp; \begin{matrix}\begin{matrix} 4 &amp; 1 &amp; 2 &amp; 3 &amp; 5\end{matrix} \\ \left[\right. \begin{matrix}0 &amp; 0 &amp; 1 / \text{2} &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 1 / 2 &amp; 0 \\ 1 / 2 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 2 &amp; 1 \\ 1 / 2 &amp; 0 &amp; 0 &amp; 0 &amp; 0\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 4 \\ 5\end{matrix}\end{matrix} &amp; \begin{matrix} \\ \rightarrow_{ \text{rows} }^{ \text{rearrange} }\end{matrix} &amp; \begin{matrix} \begin{matrix}4 &amp; 1 &amp; 2 &amp; 3 &amp; 5\end{matrix} \\ \left[\right. \begin{matrix}0 &amp; 0 &amp; 0 &amp; 1 / \text{2} &amp; 1 \\ 0 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 1 / 2 &amp; 0 \\ 1 / 2 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 1 / 2 &amp; 0 &amp; 0 &amp; 0 &amp; 0\end{matrix} \left]\right. \begin{matrix}4 \\ 1 \\ 2 \\ 3 \\ 5\end{matrix}\end{matrix}$$</paragraph>
+    <figure>
+      <image alt="The figure illustrates a 5 by 5 matrix to the right of a rightward arrow, which is labeled convert, state 4."/>
+    </figure>
+    <paragraph>The matrix $$Q$$ and the fundamental matrix $$M = (I - Q)^{- 1}$$ are</paragraph>
+    <paragraph>$$\begin{matrix}\begin{matrix} 1 &amp; 2 &amp; 3 &amp; 5\end{matrix} \\ Q = \left[\right. \begin{matrix}0 &amp; 1 / \text{2} &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 1 / 2 &amp; 0 \\ 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 5\end{matrix}\end{matrix} &amp; \begin{matrix} \\ \text{and} \end{matrix} &amp; \begin{matrix} \begin{matrix}1 &amp; 2 &amp; 3 &amp; 5\end{matrix} \\ M = \left[\right. \begin{matrix}3 &amp; 2 &amp; 1 &amp; 0 \\ 4 &amp; 4 &amp; 2 &amp; 0 \\ 2 &amp; 2 &amp; 2 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1\end{matrix} \left]\right. \begin{matrix}1 \\ 2 \\ 3 \\ 5\end{matrix}\end{matrix}$$</paragraph>
+    <paragraph>Summing the columns of $$M$$ gives $$t_{14} = 9$$ , $$t_{24} = 8$$ , $$t_{34} = 5$$ , and $$t_{54} = 1$$ .</paragraph>
+  </example>
+  <heading level="2">Absorption Probabilities</heading>
+  <paragraph>Suppose that a Markov chain has more than one recurrent class and at least one transient state $$j$$ . If the chain starts at state $$j$$ , then the chain will eventually be absorbed into one of the recurrent classes; the probability that the chain is absorbed into a particular recurrent class is called the absorption probability for that recurrent class. The fundamental matrix is used in calculating the absorption probabilities.</paragraph>
+  <paragraph>To calculate the absorption probabilities, begin by changing the transition matrix for the Markov chain. First write all recurrent classes as single states $$i$$ with $$p_{ii} = 1$$ ; that is, each recurrent class coalesces into an absorbing state. (Exercises 41 and 42 explore the information that the absorption probabilities give for recurrent classes with more than one state.) A canonical form for this altered transition matrix is</paragraph>
+  <figure>
+    <image alt="A matrix is shown as follows: P equals StartMatrix Row 1: I, S. Row 2: O, Q EndMatrix. A vertical line is shown between the first and second columns. A horizontal line is shown between the first and second rows."/>
+    <caption>Figure 1 The graph for Example 4</caption>
+  </figure>
+  <paragraph>where the identity matrix describes the lack of movement between the absorbing states.</paragraph>
+  <paragraph>Let $$j$$ be a transient state and let $$i$$ be an absorbing state for the changed Markov chain; to find the probability that the chain starting at $$j$$ is eventually absorbed by $$i$$ , consider the $$\left( i.j \right) \text{-entry}$$ in the matrix $$P^{k}$$ . This entry is the probability that a system that starts at state $$j$$ is at state $$i$$ after $$k$$ steps. Since $$i$$ is an absorbing state, in order for the system to be at state $$i$$ , the system must have been absorbed by state $$i$$ at some step at or before the $$k^{th}$$ step. Thus the probability that the system has been absorbed by state $$i$$ at or before the $$k^{th}$$ step is just the $$\left( i.j \right) \text{-entry}$$ in the matrix $$P^{k}$$ , and the probability that the chain starting at $$j$$ is eventually absorbed by $$i$$ is the $$\left( i.j \right) \text{-entry}$$ in $$\lim\limits_{k\rightarrow\infty}P^{k}$$ . Computing $$P^{k}$$ using rules for multiplying partitioned matrices (see Section 2.4) gives</paragraph>
+  <figure>
+    <image alt="The figure illustrates two matrices, P squared and P cubed."/>
+  </figure>
+  <paragraph>and it may be proved by induction (Exercise 43) that</paragraph>
+  <figure>
+    <image alt="A matrix is shown as follows: P superscript k BaseLine equals StartMatrix Row 1: I, S subscript k. Row 2: O, Q superscript k EndMatrix. A vertical line is shown between the first and second columns. A horizontal line is shown between the first and second rows."/>
+  </figure>
+  <paragraph>where</paragraph>
+  <paragraph>$$S_{k} &amp; = S + S Q + S Q^{2} + \hdots + S Q^{k - 1} &amp; = S \left(\right. I + Q + Q^{2} + \hdots + Q^{k - 1} \left.\right)$$</paragraph>
+  <paragraph>Since $$j$$ is a transient state and $$i$$ is an absorbing state, only the entries in $$S_{k}$$ need be considered. The probability that the chain starting at $$j$$ is eventually absorbed by $$i$$ may thus be found by investigating the matrix</paragraph>
+  <paragraph>$$A = \underset{k \rightarrow \infty}{lim} S_{k} &amp; = &amp; \underset{k \rightarrow \infty}{lim} S ( I + Q + Q^{2} + \hdots + Q^{k - 1} ) &amp; = &amp; S ( I + Q + Q^{2} + \hdots ) = S M$$</paragraph>
+  <paragraph>where $$M$$ is the fundamental matrix for the Markov chain with coalesced recurrent classes. The $$\left( i.j \right) \text{-entry}$$ in $$A$$ is the probability that the chain starting at $$j$$ is eventually absorbed by $$i$$ . The following theorem summarizes these ideas; an alternative proof is given in Appendix 2.</paragraph>
+  <note type="procedure" source_type="procedure" title="Theorem ﻿7﻿">
+    <heading level="2">Theorem ﻿7﻿</heading>
+    <paragraph>Suppose that the recurrent classes of a Markov chain are all absorbing states. Let $$j$$ be a transient state and let $$i$$ be an absorbing state of this chain. Then the probability that the Markov chain starting at state $$j$$ is eventually absorbed by state $$i$$ is the $$(i,j) \text{-element}$$ of the matrix $$A = SM$$ , where $$M$$ is the fundamental matrix of the Markov chain and $$S$$ is that portion of the transition matrix that governs movement from transient states to absorbing states.</paragraph>
+  </note>
+  <example number="3">
+    <heading level="2">Example 3</heading>
+    <paragraph>Consider the unbiased random walk on $$\left\{ 1 \text{,} 2 \text{,} 3 \text{,} 4 \text{,} 5 \right\}$$ with absorbing boundaries studied in Example 1. Find the probability that the chain is absorbed into state $$1$$ given that the chain starts at state $$4$$ .</paragraph>
+    <heading level="3">Solution</heading>
+    <paragraph>Placing the states in the order $$\left\{ 1 \text{,} 5 \text{,} 2 \text{,} 3 \text{,} 4 \right\}$$ gives the canonical form of the transition matrix:</paragraph>
+    <figure>
+      <image alt="The figure illustrates a 5 by 5 matrix, whose columns are labeled 1, 5, 2, 3, 4, from left to right, and rows are labeled 1, 5, 2, 3, 4, from top to bottom."/>
+    </figure>
+    <paragraph>The matrix $$Q$$ and the fundamental matrix $$M = (I - Q)^{- 1}$$ are</paragraph>
+    <paragraph>$$\begin{matrix} \begin{matrix}2 &amp; 3 &amp; 4\end{matrix} \\ Q = \left[\right. \begin{matrix}0 &amp; 1 / \text{2} &amp; 0 \\ 1 / 2 &amp; 0 &amp; 1 / 2 \\ 0 &amp; 1 / 2 &amp; 0\end{matrix} \left]\right. \begin{matrix}2 \\ 3 \\ 4\end{matrix}\end{matrix} &amp; \begin{matrix} \\ \text{and} \end{matrix} &amp; \begin{matrix} \begin{matrix}2 &amp; 3 &amp; 4\end{matrix} \\ M = \left[\right. \begin{matrix}3 / \text{2} &amp; 1 &amp; 1 / 2 \\ 1 &amp; 2 &amp; 1 \\ 1 / 2 &amp; 1 &amp; 3 / 2\end{matrix} \left]\right. \begin{matrix} 2 \\ 3 \\ 4\end{matrix}\end{matrix}$$</paragraph>
+    <paragraph>so</paragraph>
+    <paragraph>$$A = S M = \left[\right. \begin{matrix}1 / \text{2} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 2\end{matrix} \left]\right. \left[\right. \begin{matrix}3 / 2 &amp; 1 &amp; 1 / 2 \\ 1 &amp; 2 &amp; 1 \\ 1 / 2 &amp; 1 &amp; 3 / 2\end{matrix} \left]\right. = \begin{matrix}2 &amp; 3 &amp; 4\end{matrix} \left[\right. \begin{matrix}3 / 4 &amp; 1 / 2 &amp; 1 / 4 \\ 1 / 4 &amp; 1 / 2 &amp; 3 / \text{4} \end{matrix} \left]\right. \begin{matrix}1 \\ 5\end{matrix}$$</paragraph>
+    <paragraph>The columns of $$A$$ correspond to the transient states $$2$$ , $$3$$ , and $$4$$ in that order, while the rows correspond to the absorbing states $$1$$ and $$5$$ . The probability that the chain that started at state $$4$$ is absorbed at state $$1$$ is $$1/4$$ .</paragraph>
+  </example>
+  <paragraph>Absorption probabilities may be used to compute the probability that a system modeled by an irreducible Markov chain visits one state before another.</paragraph>
+  <example number="4">
+    <heading level="2">Example 4</heading>
+    <paragraph>Consider a simple random walk on the graph in Figure 1. What is the probability that a walker starting at state $$1$$ visits state $$4$$ before visiting state $$7$$ ?</paragraph>
+    <figure>
+      <image alt="A graph with 7 nodes is shown."/>
+    </figure>
+    <heading level="3">Solution</heading>
+    <paragraph>Changing state $$4$$ and state $$7$$ to absorbing states and then computing the absorption probabilities starting at state $$1$$ will answer this question. Begin by reordering the states as $$4$$ , $$7$$ , $$1$$ , $$2$$ , $$3$$ , $$5$$ , $$6$$ and rewrite states $$4$$ and $$7$$ as absorbing states:</paragraph>
+    <paragraph>$$&amp; \begin{matrix} \begin{matrix}1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7\end{matrix} \\ \left[\right. \begin{matrix}0 &amp; 1 / \text{3} &amp; 1 / 4 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 1 / 2 &amp; 0 &amp; 1 / 4 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 1 / 2 &amp; 1 / 3 &amp; 0 &amp; 1 &amp; 0 &amp; 1 / 3 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 4 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 / 3 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 4 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 0\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 4 \\ 5 \\ 6 \\ 7\end{matrix}\end{matrix} \begin{matrix} \\ \rightarrow_{ \text{columns} }^{ \text{rearrange} }\end{matrix} &amp; \begin{matrix}\begin{matrix} 4 &amp; 7 &amp; 1 &amp; 2 &amp; 3 &amp; 5 &amp; 6\end{matrix} \\ \left[\right. \begin{matrix}0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 1 / 4 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 1 / 4 &amp; 1 / 2 &amp; 0 \\ 1 &amp; 0 &amp; 1 / 2 &amp; 1 / 3 &amp; 0 &amp; 0 &amp; 1 / 3 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 4 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 0 &amp; 0 &amp; 1 / 3 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 / 4 &amp; 1 / 2 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 3\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 4 \\ 5 \\ 6 \\ 7\end{matrix}\end{matrix} \begin{matrix} \\ \rightarrow_{ \text{rows} }^{ \text{rearrange} }\end{matrix} &amp; \begin{matrix} \begin{matrix}4 &amp; 7 &amp; 1 &amp; 2 &amp; 3 &amp; 5 &amp; 6\end{matrix} \\ \left[\right. \begin{matrix}0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / \text{4} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 3 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 1 / 4 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 1 / 4 &amp; 1 / 2 &amp; 0 \\ 1 &amp; 0 &amp; 1 / 2 &amp; 1 / 3 &amp; 0 &amp; 0 &amp; 1 / 3 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 0 &amp; 0 &amp; 1 / 3 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 / 4 &amp; 1 / 2 &amp; 0\end{matrix} \left]\right. \begin{matrix} 4 \\ 7 \\ 1 \\ 2 \\ 3 \\ 5 \\ 6\end{matrix}\end{matrix} \begin{matrix} \\ \rightarrow_{ \text{states} \text{4} \text{and} \text{7} }^{ \text{convert} }\end{matrix} &amp; \begin{matrix} \begin{matrix}4 &amp; 7 &amp; 1 &amp; 2 &amp; 3 &amp; 5 &amp; 6\end{matrix} \\ \left[\right. \begin{matrix}1 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / \text{4} &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 3 \\ 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 1 / 4 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 2 &amp; 0 &amp; 1 / 4 &amp; 1 / 2 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 2 &amp; 1 / 3 &amp; 0 &amp; 0 &amp; 1 / \text{3} \\ 0 &amp; 0 &amp; 0 &amp; 1 / 3 &amp; 0 &amp; 0 &amp; 1 / 3 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 4 &amp; 1 / 2 &amp; 0\end{matrix} \left]\right. \begin{matrix} 4 \\ 7 \\ 1 \\ 2 \\ 3 \\ 5 \\ 6\end{matrix}\end{matrix}$$</paragraph>
+    <paragraph>The resulting transition matrix is $$\begin{bmatrix} I &amp; S \\ O &amp; Q \end{bmatrix}$$ , with</paragraph>
+    <paragraph>$$\begin{matrix} 1 &amp; 2 &amp; 3 &amp; 5 &amp; 6\end{matrix} S = \left[\right. \begin{matrix}0 &amp; 0 &amp; 1 / \text{4} &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 / 3\end{matrix} \left]\right. \begin{matrix}4 \\ 7\end{matrix}$$</paragraph>
+    <paragraph>and</paragraph>
+    <paragraph>$$\begin{matrix} 1 &amp; 2 &amp; 3 &amp; 5 &amp; 6\end{matrix} Q = \left[\right. \begin{matrix}0 &amp; 1 / \text{3} &amp; 1 / 4 &amp; 0 &amp; 0 \\ 1 / 2 &amp; 0 &amp; 1 / 4 &amp; 1 / 2 &amp; 0 \\ 1 / 2 &amp; 1 / 3 &amp; 0 &amp; 0 &amp; 1 / 3 \\ 0 &amp; 1 / 3 &amp; 0 &amp; 0 &amp; 1 / 3 \\ 0 &amp; 0 &amp; 1 / 4 &amp; 1 / 2 &amp; 0\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 5 \\ 6\end{matrix}$$</paragraph>
+    <paragraph>so</paragraph>
+    <paragraph>$$\begin{matrix} 1 &amp; 2 &amp; 3 &amp; 5 &amp; 6\end{matrix} M = \left(\left(\right. I - Q \left.\right)\right)^{- 1} = \left[\right. \begin{matrix}12 / \text{5} &amp; 8 / 5 &amp; 6 / 5 &amp; 6 / 5 &amp; 4 / 5 \\ 12 / 5 &amp; 31 / 10 &amp; 17 / 10 &amp; 11 / 5 &amp; 13 / 10 \\ 12 / 5 &amp; 34 / 15 &amp; 38 / 15 &amp; 28 / 15 &amp; 22 / 15 \\ 6 / \text{5} &amp; 22 / 15 &amp; 14 / 15 &amp; 34 / 15 &amp; 16 / 15 \\ 6 / 5 &amp; 13 / 10 &amp; 11 / 10 &amp; 8 / 5 &amp; 19 / 10\end{matrix} \left]\right. \begin{matrix} 1 \\ 2 \\ 3 \\ 5 \\ 6\end{matrix}$$</paragraph>
+    <paragraph>and</paragraph>
+    <paragraph>$$\begin{matrix} 1 &amp; 2 &amp; 3 &amp; 5 &amp; 6\end{matrix} A = S M = \left[\right. \begin{matrix}3 / \text{5} &amp; 17 / 30 &amp; 19 / 30 &amp; 7 / 5 &amp; 11 / 30 \\ 2 / 5 &amp; 13 / 30 &amp; 11 / 30 &amp; 8 / 15 &amp; 19 / 30\end{matrix} \left]\right. \begin{matrix}4 \\ 7\end{matrix}$$</paragraph>
+    <paragraph>Since the first column of $$A$$ corresponds to state $$1$$ and the rows correspond to states $$4$$ and $$7$$ , respectively, the probability of visiting $$4$$ before visiting $$7$$ is $$3/5$$ .</paragraph>
+  </example>
+  <paragraph>A mathematical model that uses Theorems 6 and 7 appears in Section 10.6.</paragraph>
+  <note type="practice" source_type="practice" title="Practice Problems">
+    <heading level="2">Practice Problems</heading>
+    <list type="ordered">
+      <item>Consider a Markov chain on $$\left\{ 1 \text{,} 2 \text{,} 3 \text{,} 4 \right\}$$ with transition matrix $$P = \begin{bmatrix} 1 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 0 &amp; 1 / 6 &amp; 1 / 2 &amp; 0 \\ 0 &amp; 1 / 3 &amp; 1 / 6 &amp; 0 \\ 0 &amp; 0 &amp; 1 / 3 &amp; 1 \end{bmatrix}$$ If the Markov chain starts at state $$2$$ , find the expected number of steps before the chain is absorbed. If the Markov chain starts at state $$2$$ , find the probability that the chain is absorbed at state $$1$$ .</item>
+      <item>Consider a Markov chain on $$\left\{ 1 \text{,} 2 \text{,} 3 \text{,} 4 \right\}$$ with transition matrix $$P = \begin{bmatrix} 2 / 3 &amp; 1 / 2 &amp; 0 &amp; 0 \\ 1 / 3 &amp; 1 / 6 &amp; 1 / 2 &amp; 0 \\ 0 &amp; 1 / 3 &amp; 1 / 6 &amp; 1 / 2 \\ 0 &amp; 0 &amp; 1 / 3 &amp; 1 / 2 \end{bmatrix}$$ If the Markov chain starts at state $$2$$ , find the expected number of steps required to reach state $$4$$ . If the Markov chain starts at state $$2$$ , find the probability that state $$1$$ is reached before state $$4$$ .</item>
+    </list>
+  </note>
+</section>

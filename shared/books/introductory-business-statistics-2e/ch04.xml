@@ -1,0 +1,2049 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">Introduction</heading>
+  <figure number="4.1">
+    <image alt="This photo shows branch lightening coming from a dark cloud and hitting the ground."/>
+    <caption>You can use probability and discrete random variables to calculate the likelihood of lightning striking the ground five times during a half-hour thunderstorm. (credit: modification of work “CG lightning strike” by Axel Rouvin/ Flickr, CC BY 2.0)</caption>
+  </figure>
+  <paragraph>A student takes a ten-question, true-false quiz. Because the student had such a busy schedule, they could not study and guesses randomly at each answer. What is the probability of the student passing the test with at least a 70%?</paragraph>
+  <paragraph>The manager of an auto dealership might be interested in the color preferences for new car buyers. Suppose on average the dealership sells 20 cars per month. What is the probability that a customer prefers red cars?</paragraph>
+  <paragraph>These two examples illustrate two different types of probability problems involving discrete random variables. Recall that discrete data are data that you can count, that is, the random variable can only take on whole number values. A random variable describes the outcomes of a statistical experiment in words. The values of a random variable can vary with each repetition of an experiment, often called a trial.</paragraph>
+  <heading level="2">Random Variable Notation</heading>
+  <paragraph>The upper case letter X denotes a random variable. Lower case letters like x or y denote the value of a random variable. If X is a random variable, then X is written in words, and x is given as a number.</paragraph>
+  <paragraph>For example, let X = the number of heads you get when you toss three fair coins. The sample space for the toss of three fair coins is TTT; THH; HTH; HHT; HTT; THT; TTH; HHH. Then, x = 0, 1, 2, 3. X is in words and x is a number. Notice that for this example, the x values are countable outcomes. Because you can count the possible values as whole numbers that X can take on and the outcomes are random (the x values 0, 1, 2, 3), X is a discrete random variable.</paragraph>
+  <heading level="2">Probability Density Functions (PDF) for a Random Variable</heading>
+  <paragraph>A probability density function or probability distribution function has two characteristics:</paragraph>
+  <list type="ordered">
+    <item>Each probability is between zero and one, inclusive.</item>
+    <item>The sum of the probabilities is one.</item>
+  </list>
+  <paragraph>A probability density function is a mathematical formula that calculates probabilities for specific types of events, what we have been calling experiments. There is a sort of magic to a probability density function (Pdf) partially because the same formula often describes very different types of events. For example, the binomial Pdf will calculate probabilities for flipping coins, yes/no questions on an exam, opinions of voters in an up or down opinion poll, indeed any binary event. Other probability density functions will provide probabilities for the time until a part will fail, when a customer will arrive at the turnpike booth, the number of telephone calls arriving at a central switchboard, the growth rate of a bacterium, and on and on. There are whole families of probability density functions that are used in a wide variety of applications, including medicine, business and finance, physics and engineering, among others.</paragraph>
+  <paragraph>For our needs here we will concentrate on only a few probability density functions as we develop the tools of inferential statistics.</paragraph>
+  <heading level="2">Counting Formulas and the Combinational Formula</heading>
+  <paragraph>To repeat, the probability of event A , P(A), is simply the number of ways the experiment will result in A, relative to the total number of possible outcomes of the experiment.</paragraph>
+  <paragraph>As an equation this is:</paragraph>
+  <paragraph math="block">$$P(A) = \frac{ \text{number of ways to get A} }{ \text{Total number of possible outcomes} }$$</paragraph>
+  <paragraph>When we looked at the sample space for flipping 3 coins we could easily write the full sample space and thus could easily count the number of events that met our desired result, e.g. x = 1 , where X is the random variable defined as the number of heads.</paragraph>
+  <paragraph>As we have larger numbers of items in the sample space, such as a full deck of 52 cards, the ability to write out the sample space becomes impossible.</paragraph>
+  <paragraph>We see that probabilities are nothing more than counting the events in each group we are interested in and dividing by the number of elements in the universe, or sample space. This is easy enough if we are counting sophomores in a Stat class, but in more complicated cases listing all the possible outcomes may take a life time. There are, for example, 36 possible outcomes from throwing just two six-sided dice where the random variable is the sum of the number of spots on the up-facing sides. If there were four dice then the total number of possible outcomes would become 1,296. There are more than 2.5 MILLION possible 5 card poker hands in a standard deck of 52 cards. Obviously keeping track of all these possibilities and counting them to get at a single probability would be tedious at best.</paragraph>
+  <paragraph>An alternative to listing the complete sample space and counting the number of elements we are interested in, is to skip the step of listing the sample space, and simply figuring out the number of elements in it and doing the appropriate division. If we are after a probability we really do not need to see each and every element in the sample space, we only need to know how many elements are there. Counting formulas were invented to do just this. They tell us the number of unordered subsets of a certain size that can be created from a set of unique elements. By unordered it is meant that, for example, when dealing cards, it does not matter if you got {ace, ace, ace, ace, king} or {king, ace, ace, ace, ace} or {ace, king, ace, ace, ace} and so on. Each of these subsets are the same because they each have 4 aces and one king.</paragraph>
+  <heading level="3">Combinational Formula</heading>
+  <paragraph math="block">$$\begin{pmatrix} n \\ x \end{pmatrix} =_{n}C_{x} = \frac{n!}{x!(n - x)!}$$</paragraph>
+  <paragraph>This is the formula that tells the number of unique unordered subsets of size x that can be created from n unique elements. The formula is read “n combinatorial x”. Sometimes it is read as “n choose x." The exclamation point "!" is called a factorial and tells us to take all the numbers from 1 through the number before the ! and multiply them together thus 4! is 1·2·3·4=24. By definition 0! = 1. The formula is called the Combinatorial Formula. It is also called the Binomial Coefficient, for reasons that will be clear shortly. While this mathematical concept was understood long before 1653, Blaise Pascal is given major credit for his proof that he published in that year. Further, he developed a generalized method of calculating the values for combinatorials known to us as the Pascal Triangle. Pascal was one of the geniuses of an era of extraordinary intellectual advancement which included the work of Galileo, Rene Descartes, Isaac Newton, William Shakespeare and the refinement of the scientific method, the very rationale for the topic of this text.</paragraph>
+  <paragraph>Let’s find the hard way the total number of combinations of the four aces in a deck of cards if we were going to take them two at a time. The sample space would be:</paragraph>
+  <paragraph>S={Spade,Heart),(Spade, Diamond),(Spade,Club), (Diamond,Club),(Heart,Diamond),(Heart,Club)}</paragraph>
+  <paragraph>There are 6 combinations; formally, six unique unordered subsets of size 2 that can be created from 4 unique elements. To use the combinatorial formula we would solve the formula as follows:</paragraph>
+  <paragraph math="block">$$\begin{pmatrix} 4 \\ 2 \end{pmatrix} = \frac{4!}{(4 - 2)!2!} = \frac{4 \cdot 3 \cdot 2 \cdot 1}{2 \cdot 1 \cdot 2 \cdot 1} = 6$$</paragraph>
+  <paragraph>If we wanted to know the number of unique 5 card poker hands that could be created from a 52 card deck we simply compute:</paragraph>
+  <paragraph math="block">$$\begin{pmatrix} 52 \\ 5 \end{pmatrix}$$</paragraph>
+  <paragraph>where 52 is the total number of unique elements from which we are drawing and 5 is the size group we are putting them into.</paragraph>
+  <paragraph>With the combinatorial formula we can count the number of elements in a sample space without having to write each one of them down, truly a lifetime's work for just the number of 5 card hands from a deck of 52 cards. We can now apply this tool to a very important probability density function, the hypergeometric distribution.</paragraph>
+  <paragraph>Remember, a probability density function computes probabilities for us. We simply put the appropriate numbers in the formula and we get the probability of specific events. However, for these formulas to work they must be applied only to cases for which they were designed.</paragraph>
+  <heading level="1">4.1 Hypergeometric Distribution</heading>
+  <paragraph>The simplest probability density function is the hypergeometric. This is the most basic one because it is created by combining our knowledge of probabilities from Venn diagrams, the addition and multiplication rules, and the combinatorial counting formula.</paragraph>
+  <paragraph>To find the number of ways to get 2 aces from the four in the deck we computed:</paragraph>
+  <paragraph math="block">$$\begin{pmatrix} 4 \\ 2 \end{pmatrix} = \frac{4!}{2!(4 - 2)!} = 6$$</paragraph>
+  <paragraph>And if we did not care what else we had in our hand for the other three cards we would compute:</paragraph>
+  <paragraph math="block">$$\begin{pmatrix} 48 \\ 3 \end{pmatrix} = \frac{48!}{3!45!} = 17,296$$</paragraph>
+  <paragraph>Putting this together, we can compute the probability of getting exactly two aces in a 5 card poker hand as:</paragraph>
+  <paragraph math="block">$$\frac{\begin{pmatrix} 4 \\ 2 \end{pmatrix}\begin{pmatrix} 48 \\ 3 \end{pmatrix}}{\begin{pmatrix} 52 \\ 5 \end{pmatrix}} = .0399$$</paragraph>
+  <paragraph>This solution is really just the probability distribution known as the Hypergeometric. The generalized formula is:</paragraph>
+  <paragraph math="block">$$h(x) = \frac{\begin{pmatrix} A \\ x \end{pmatrix}\begin{pmatrix} {N - A} \\ {n - x} \end{pmatrix}}{\begin{pmatrix} N \\ n \end{pmatrix}}$$</paragraph>
+  <paragraph>where x = the number we are interested in coming from the group with A objects.</paragraph>
+  <paragraph>h(x) is the probability of x successes, in n attempts, when A successes (aces in this case) are in a population that contains N elements. The hypergeometric distribution is an example of a discrete probability distribution because there is no possibility of partial success, that is, there can be no poker hands with 2 1/2 aces. Said another way, a discrete random variable has to be a whole, or counting, number only. This probability distribution works in cases where the probability of a success changes with each draw. Another way of saying this is that the events are NOT independent. In using a deck of cards, we are sampling WITHOUT replacement. If we put each card back after it was drawn then the hypergeometric distribution be an inappropriate Pdf.</paragraph>
+  <paragraph>For the hypergeometric to work,</paragraph>
+  <list type="ordered">
+    <item>the population must be dividable into two and only two independent subsets (aces and non-aces in our example). The random variable X = the number of items from the group of interest.</item>
+    <item>the experiment must have changing probabilities of success with each experiment (the fact that cards are not replaced after the draw in our example makes this true in this case). Another way to say this is that you sample without replacement and therefore each pick is not independent.</item>
+    <item>the random variable must be discrete, rather than continuous.</item>
+  </list>
+  <example number="4.1">
+    <problem>
+      <paragraph>A candy dish contains 30 jelly beans and 20 gumdrops. Ten candies are picked at random. What is the probability that 5 of the 10 are gumdrops? The two groups are jelly beans and gumdrops. Since the probability question asks for the probability of picking gumdrops, the group of interest (first group A in the formula) is gumdrops. The size of the group of interest (first group) is 30. The size of the second group is 20. The size of the sample is 10 (jelly beans or gumdrops). Let X = the number of gumdrops in the sample of 10. X takes on the values x = 0, 1, 2, ..., 10. a. What is the probability statement written mathematically? b. What is the hypergeometric probability density function written out to solve this problem? c. What is the answer to the question "What is the probability of drawing 5 gumdrops in 10 picks from the dish?"</paragraph>
+    </problem>
+    <solution>
+      <paragraph>a. $$P(x = 5)$$ b. $$P(x = 5) = \frac{\left( \overset{30}{5} \right)\left( \overset{20}{5} \right)}{\left( \overset{50}{10} \right)}$$ c. $$P(x = 5) = 0.215$$</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.1">
+    <paragraph>A bag contains letter tiles. Forty-four of the tiles are vowels, and 56 are consonants. Seven tiles are picked at random. You want to know the probability that four of the seven tiles are vowels. What is the group of interest, the size of the group of interest, and the size of the sample?</paragraph>
+  </note>
+  <example number="4.2">
+    <problem>
+      <paragraph>TSA officers claim that they randomly select boarding passengers for additional search of carry-on luggage. During the past hour, of the 100 passengers passing through the security point, 5 were silver-haired grandmothers, of which 3 were chosen for additional screening among the 20 total chosen for “enhanced vetting.” Calculate the relevant probability and comment.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Step 1. Determine what the random variable is. Or asked another way, what are we interested in? In this case it is the number of silver-haired grandmothers who were stopped for additional search of carry-on luggage. We also determine that this is a discrete random variable because it is a counting number. Further, we determine that X can take on only the values X = 0, 1, 2, 3, 4, 5.</paragraph>
+      <paragraph>Step 2. What is the experiment? Here passengers are selected we are told randomly for additional baggage search. This would be selection without replacement.</paragraph>
+      <paragraph>Step 3. Can the objects, the passengers here, be divide into at most two categories? Yes, here because we are interested in only the category silver-haired grandmothers and everyone else. These data can be analyzed with the hypergeometric probability density function because it meets all the requirements of that distribution.</paragraph>
+      <paragraph>Step 4. What is the question asked? Unlike Example 4.1 about drawing candies from a bowl, there is no obvious question being asked. The candy bowl problem is mechanical with an obvious question directly stated concerning the probability of drawing 5 gumdrops. In short, an obvious question with no implications. Do we really care about the probability of drawing 5 gumdrops? Here there is an interesting question because the security office made a claim that we may indirectly test using simple probability. The security office claims they randomly select passengers for enhanced vetting. From the data we see immediately that of the 5 silver-haired grandmother passengers, 3 were selected for additional search. This is 60 percent of all silver-haired grandmothers. We can form our own question to determine the probability of selecting 3 of 5 in this category of passengers if we are selecting randomly. Remember that random selection means that each object has an equal probability of being selecting. Our probability question in words is thus “What is the probability of selecting 3 silver-haired grandmothers from a group of 100 passengers if the group included only 5 silver-haired grandmothers?” Formally, what is P(X = 3) using the hypergeometric probability distribution?</paragraph>
+      <paragraph>From the formula: X = 3, A = 5 N = 100 (the total number of passengers from which those will be drawn for enhanced vetting) n= 20 (the number of passengers that will be selected for enhanced vetting)</paragraph>
+      <paragraph math="block">$$P(x) = \frac{\begin{pmatrix} 5 \\ 3 \end{pmatrix}\begin{pmatrix} 95 \\ 17 \end{pmatrix}}{\begin{pmatrix} 100 \\ 20 \end{pmatrix}} = 0.048$$</paragraph>
+      <paragraph>Our conclusion is that the probability of the outcome of 3 of 5 silver-haired grandmothers being randomly selected for additional luggage search is only 0.048. This is only one one-thousandth better than drawing 5 cards from a 52-card deck and getting a pair of aces. In short, an unrealistically small probability. A comment here would be that we can with only just under 5% confidence believe that the passengers are selected on a purely random basis.</paragraph>
+      <paragraph>This example demonstrates the ability to answer questions of some interest and policy implication with the use of the tools of probability analysis.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.2">
+    <paragraph>There are a total of 200 balls in a bag. This includes 25 red balls. 40 balls are selected randomly out of the bag. 8 of them are found to be red. Find the relevant probability.</paragraph>
+  </note>
+  <heading level="1">4.2 Binomial Distribution</heading>
+  <paragraph>A more valuable probability density function with many applications is the binomial distribution. This distribution will compute probabilities for any binomial process. A binomial process, often called a Bernoulli process after the first person to fully develop its properties, is any case where there are only two possible outcomes in any one trial, called successes and failures. It gets its name from the binary number system where all numbers are reduced to either 1's or 0's, which is the basis for computer technology and CD music recordings.</paragraph>
+  <heading level="2">Binomial Formula</heading>
+  <paragraph math="block">$$b(x) = \begin{pmatrix} n \\ x \end{pmatrix}p^{x}q^{n - x}$$</paragraph>
+  <paragraph>where b(x) is the probability of X successes in n trials when the probability of a success in ANY ONE TRIAL is p. And of course q=(1-p) and is the probability of a failure in any one trial.</paragraph>
+  <paragraph>We can see now why the combinatorial formula is also called the binomial coefficient because it reappears here again in the binomial probability function. For the binomial formula to work, the probability of a success in any one trial must be the same from trial to trial, or in other words, the outcomes of each trial must be independent. Flipping a coin is a binomial process because the probability of getting a head in one flip does not depend upon what has happened in PREVIOUS flips. (At this time it should be noted that using p for the parameter of the binomial distribution is a violation of the rule that population parameters are designated with Greek letters. In many textbooks θ (pronounced theta) is used instead of p and this is how it should be.)</paragraph>
+  <paragraph>Just like a set of data, a probability density function has a mean and a standard deviation that describes the data set. For the binomial distribution these are given by the formulas:</paragraph>
+  <paragraph math="block">$$\text{μ} = \text{np}$$</paragraph>
+  <paragraph math="block">$$\sigma = \sqrt{npq}$$</paragraph>
+  <paragraph>Notice that p is the only parameter in these equations. The binomial distribution is thus seen as coming from the one-parameter family of probability distributions. In short, we know all there is to know about the binomial distribution once we know p, the probability of a success in any one trial.</paragraph>
+  <paragraph>In probability theory, under certain circumstances, one probability distribution can be used to approximate another. We say that one is the limiting distribution of the other. If a small number is to be drawn from a large population, even if there is no replacement, we can still use the binomial even thought this is not a binomial process. If there is no replacement it violates the independence rule of the binomial. Nevertheless, we can use the binomial to approximate a probability that is really a hypergeometric distribution if we are drawing fewer than 10 percent of the population, i.e. n is less than 10 percent of N in the formula for the hypergeometric function. The rationale for this argument is that when drawing a small percentage of the population we do not alter the probability of a success from draw to draw in any meaningful way. Imagine drawing from not one deck of 52 cards but from 6 decks of cards. The probability of say drawing an ace does not change the conditional probability of what happens on a second draw in the same way it would if there were only 4 aces rather than the 24 aces now to draw from. This ability to use one probability distribution to estimate others will become very valuable to us later.</paragraph>
+  <paragraph>There are three characteristics of a binomial experiment.</paragraph>
+  <list type="ordered">
+    <item>There are a fixed number of trials. Think of trials as repetitions of an experiment. The letter n denotes the number of trials.</item>
+    <item>The random variable, $$x$$ , number of successes, is discrete.</item>
+    <item>There are only two possible outcomes, called "success" and "failure," for each trial. The letter p denotes the probability of a success on any one trial, and q denotes the probability of a failure on any one trial. p + q = 1.</item>
+    <item>The n trials are independent and are repeated using identical conditions. Think of this as drawing WITH replacement. Because the n trials are independent, the outcome of one trial does not help in predicting the outcome of another trial. Another way of saying this is that for each individual trial, the probability, p, of a success and probability, q, of a failure remain the same. For example, randomly guessing at a true-false statistics question has only two outcomes. If a success is guessing correctly, then a failure is guessing incorrectly. Suppose Joe always guesses correctly on any statistics true-false question with a probability p = 0.6. Then, q = 0.4. This means that for every true-false statistics question Joe answers, his probability of success (p = 0.6) and his probability of failure (q = 0.4) remain the same.</item>
+  </list>
+  <paragraph>The outcomes of a binomial experiment fit a binomial probability distribution. The random variable X = the number of successes obtained in the n independent trials.</paragraph>
+  <paragraph>The mean, μ, and variance, σ2, for the binomial probability distribution are μ = np and σ2 = npq. The standard deviation, σ, is then σ = $$\sqrt{npq}$$ .</paragraph>
+  <paragraph>Any experiment that has characteristics three and four and where n = 1 is called a Bernoulli Trial (named after Jacob Bernoulli who, in the late 1600s, studied them extensively). A binomial experiment takes place when the number of successes is counted in one or more Bernoulli Trials.</paragraph>
+  <example number="4.3">
+    <paragraph>Suppose you play a game that you can only either win or lose. The probability that you win any game is 55%, and the probability that you lose is 45%. Each game you play is independent. If you play the game 20 times, write the function that describes the probability that you win 15 of the 20 times. Here, if you define X as the number of wins, then X takes on the values 0, 1, 2, 3, ..., 20. The probability of a success is p = 0.55. The probability of a failure is q = 0.45. The number of trials is n = 20. The probability question can be stated mathematically as P(x = 15).</paragraph>
+    <paragraph>$$P(x = 15)$$ stated more carefully in English would be stated as “the probability of exactly 15 wins in 20 trials.” $$P(x &lt; 15)$$ would need again a more careful statement because if we desire $$P(x &lt; 15)$$ we need to calculate all the values of x from $$P: \left( x = 0,1,2,\ldots.14 \right)$$ .</paragraph>
+    <paragraph>Similarly we may wish to know the probability “greater than” some number, which requires multiple calculations of the values of x.</paragraph>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.3">
+    <paragraph>A trainer is teaching a rescued dolphin to catch live fish before returning it to the wild. The probability that the dolphin successfully catches a fish is 35%, and the probability that the dolphin does not successfully perform the trick is 65%. Out of 20 attempts, you want to find the probability that the dolphin succeeds 12 times. Find the P(X=12) using the binomial Pdf.</paragraph>
+  </note>
+  <example number="4.4">
+    <problem>
+      <paragraph>A coin has been altered to weight the outcome from 0.5 to 0.25 and is flipped 5 times. Each flip is independent. What is the probability of getting more than 3 heads? Let X = the number of heads in 5 flips of the fair coin. X takes on the values 0, 1, 2, 3, 4, 5. Since the coin is altered to result in p = 0.25, q is 0.75. The number of trials is n = 5. State the probability question mathematically.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>P(x &gt; 10)</paragraph>
+      <paragraph>First develop fully the probability density function and graph the probability density function. With the fully developed probability density function we can simply read the solution to the question $$P(x &gt; 3)$$ heads. $$P(x &gt; 3) = P(x = 4) + P(x = 5) = 0.0146 + 0.0007 = 0.0153$$ . We have added the two individual probabilities because of the addition rule from Probability Topics.</paragraph>
+      <paragraph>Figure 4.2 also allows us to see the link between the probability density function and probability and area. We also see in Figure 4.2 the skew of the binomial distribution when p is not equal to 0.5. In Figure 4.2 the distribution is skewed right as a result of $$\mu = np = 1.25$$ because $$p = 0.25$$ .</paragraph>
+      <figure number="4.2">
+        <image alt="Histogram of probability density function of the given data."/>
+      </figure>
+      <paragraph math="block">$$\begin{matrix} {P\left( {x = x_{0}} \right)} &amp; { = } &amp; {\begin{pmatrix} n \\ x \end{pmatrix}p^{x}\left( {1 - p} \right)^{n - x}} \\ &amp; { = } &amp; {\begin{pmatrix} 5 \\ x_{0} \end{pmatrix} \cdot 25^{x_{0}} \cdot 75^{5 - x_{0}}} \\ &amp; &amp; {{etc}.} \\ \mu &amp; { = } &amp; {{np} = 1.25} \end{matrix}$$</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.4">
+    <paragraph>A fair, six-sided die is rolled ten times. Each roll is independent. You want to find the probability of rolling a one more than three times. State the probability question mathematically.</paragraph>
+  </note>
+  <example number="4.5">
+    <paragraph>Approximately 70% of statistics students do their homework in time for it to be collected and graded. Each student does homework independently. In a statistics class of 50 students, what is the probability that at least 40 will do their homework on time? Students are selected randomly.</paragraph>
+    <problem>
+      <paragraph>a. This is a binomial problem because there is only a success or a __________, there are a fixed number of trials, and the probability of a success is 0.70 for each trial.</paragraph>
+      <paragraph>b. If we are interested in the number of students who do their homework on time, then how do we define X?</paragraph>
+      <paragraph>c. What values does x take on?</paragraph>
+      <paragraph>d. What is a "failure," in words?</paragraph>
+      <paragraph>e. If p + q = 1, then what is q?</paragraph>
+      <paragraph>f. The words "at least" translate as what kind of inequality for the probability question P(x ____ 40).</paragraph>
+    </problem>
+    <solution>
+      <paragraph>a. failure</paragraph>
+      <paragraph>b. X = the number of statistics students who do their homework on time</paragraph>
+      <paragraph>c. 0, 1, 2, …, 50</paragraph>
+      <paragraph>d. Failure is defined as a student who does not complete their homework on time.</paragraph>
+      <paragraph>The probability of a success is p = 0.70. The number of trials is n = 50.</paragraph>
+      <paragraph>e. q = 0.30</paragraph>
+      <paragraph>f. greater than or equal to (≥) The probability question is P(x ≥ 40).</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.5">
+    <list type="ordered">
+      <item>Sixty-five percent of people pass the state driver’s exam on the first try. A group of 50 individuals who have taken the driver’s exam is randomly selected. Give two reasons why this is a binomial problem.</item>
+      <item>During a certain NBA season, a player for the Los Angeles Clippers had the highest field goal completion rate in the league. This player scored with 61.3% of his shots. Suppose you choose a random sample of 80 shots made by this player during the season. Let X = the number of shots that scored points. What is the probability distribution for X? Using the formulas, calculate the (i) mean and (ii) standard deviation of X. Find the probability that this player scored with 60 of these shots. Find the probability that this player scored with more than 50 of these shots.</item>
+    </list>
+  </note>
+  <heading level="1">4.3 Geometric Distribution</heading>
+  <paragraph>There are four main characteristics of a geometric experiment.</paragraph>
+  <list type="ordered">
+    <item>A trial is repeated until a success occurs. Think of this as one or more Bernoulli trials with all failures except the last one, which is a success. In other words, you keep repeating what you are doing until the first success. Then you stop. For example, you throw a dart at a bullseye until you hit the bullseye. The first time you hit the bullseye is a "success," so you stop throwing the dart. It might take six tries until you hit the bullseye. You can think of the trials as failure, failure, failure, failure, failure, success, STOP. In theory, the number of trials could go on forever.</item>
+    <item>The repeated trials are independent of each other.</item>
+    <item>The probability, p, of a success and the probability, q, of a failure is the same for each trial. $$p + q = 1$$ and $$q = 1 - p.$$ For example, the probability of rolling a three when you throw one fair die is $$1/6$$ . This is true no matter how many times you roll the die. Suppose you want to know the probability of getting the first three on the fifth roll. On rolls one through four, you do not get a face with a three. The probability for each of the rolls is $$q = 5/6,$$ the probability of a failure. The probability of getting a first three on the fifth roll is $$(5/6)(5/6)(5/6)(5/6)(1/6) = 0.0804$$</item>
+    <item>The random variable X represents the number of the trial in which the first success occurs. That is, X = the number of independent trials until the first success.</item>
+  </list>
+  <paragraph>The following are additional attributes of the geometric distribution:</paragraph>
+  <list type="ordered">
+    <item>The random variable is discrete. The random variable may be defined in two ways depending upon the analyst’s interest. In the example above for throwing a die, the question was “What is the probability that the first success will be on the fifth throw?” Alternatively, the question could be asked as “What is the probability that it takes four failures before a success?” We will see that each way of asking the question will alter the form of the geometric probability density function slightly and will change the mean and standard deviation of the geometric pdf.</item>
+    <item>Implicit in the random variable is that the probability of a success is constant and therefore so is the probability of a failure. For flipping a coin this is obvious, but in experiments that require skill, such as hitting a baseball or throwing a dart, one might consider that learning during the experiment would alter the probability of a success. The geometric distribution cannot capture “learning” thus the historical probability of success is assumed to be constant.</item>
+    <item>The geometric distribution is “memoryless.” There are very few probability density functions that are what is known as “memoryless,” and the Geometric distribution is the only one with a discrete random variable that is memoryless. As an example, historically Major League Baseball player Jones has a record of hitting the ball for at least an advance to first base with a probability of 0.20. Jones has not had a hit in his last 10 times at bat. What is the probability that Jones will get a hit in his third time at bat? The answer ignores his 10 previous failures. All events prior to the events in current time are irrelevant and thus are considered “memoryless.”</item>
+  </list>
+  <paragraph>Formally: $$P\left( x = n + k \middle| x \geq k + 1 \right) = P(x = n),$$ where k = number of previous failures</paragraph>
+  <paragraph>Jones’s probability of a hit begins anew each time he comes to bat. This feature of the geometric distribution results in a curious result: Drawing parts from a manufacturing process to test for parts that are defective, the geometric distribution begins with a clean slate each time the tests begin with no consideration of previous test results. More on this when we get to the exponential probability density function.</paragraph>
+  <example number="4.6">
+    <paragraph>You play a game of chance that you can either win or lose (there are no other possibilities) until you lose. Your probability of losing is p = 0.57. What is the probability that it takes five games until you lose? Let X = the number of games you play until you lose (includes the losing game). Then X takes on the values 1, 2, 3, ... (could go on indefinitely). The probability question is P(x = 5).</paragraph>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.6">
+    <paragraph>You throw darts at a board until you hit the center area. Your probability of hitting the center area is p = 0.17. You want to find the probability that it takes eight throws until you hit the center. What values does X take on?</paragraph>
+  </note>
+  <example number="4.7">
+    <problem>
+      <paragraph>A safety engineer feels that 35% of all industrial accidents in the plant are caused by failure of employees to follow instructions. They decide to look at the accident reports (selected randomly and replaced in the pile after reading) until they find one that shows an accident caused by failure of employees to follow instructions. On average, how many reports would the safety engineer expect to look at until they find a report showing an accident caused by employee failure to follow instructions? What is the probability that the safety engineer will have to examine at least three reports until they find a report showing an accident caused by employee failure to follow instructions?</paragraph>
+      <paragraph>Let X = the number of accidents the safety engineer must examine until they find a report showing an accident caused by employee failure to follow instructions. X takes on the values 1, 2, 3, .... The first question asks you to find the expected value or the mean. The second question asks you to find P(x ≥ 3). ("At least" translates to a "greater than or equal to" symbol).</paragraph>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>On average, how many reports would the safety engineer expect to review until they find a report showing an accident caused by something other than failure to follow instructions? This question asks you to find the expected value or the mean. This is the average number of failures from something other than following instructions. The formula for the mean of this geometric distribution is: $$\mu = E(x) = \frac{1}{p} \approx 2.8$$ Note that the mean does not need to be a whole number although the random variable is discrete and must be a counting number</item>
+        <item>What is the probability that the safety engineer will have to examine at least three reports until they find a report showing an accident caused by employee failure to follow instructions?This question is answered by first defining the random variable. Let X = the number of accidents the safety engineer must examine until they find a report showing an accident caused by employee failure to follow instructions. X can take on the values 1, 2, 3, 4, … ∞. Unlike the binomial distribution with a fixed number of trials, the geometric distribution may have an infinite number of failed trials before a success occurs.This second question asks you to find $$P(x \geq 3)$$ . ("At least" translates to a "greater than or equal to" symbol.)In a binomial distribution, we saw the solution to questions of “more than” or “less than” would be to calculate each probability individually and add from zero to three. If the probability of interest is “greater than or equal to” (≥) the individual probabilities are added from zero to three and then subtracted from one. $$P\left( {x \geq 3} \right) = 1 - P(x &lt; 3)$$ Because we cannot add the full range of the geometric distribution random variable because it goes through infinity, an alternative solution is developed. An alternative geometric distribution pair of formulas provides solutions for questions asking for probabilities “more than” and “less than.”If the question is:What is the probability it takes MORE THAN n events to get first success? $$P\left( {x &gt; n} \right) = (1 - p)^{n}$$ What is the probability it takes LESS THAN n event for success? $$P\left( {x &lt; n} \right) = {1 - (1 - p)}^{n}$$</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.7">
+    <paragraph>An instructor feels that 15% of students get below a C on their final exam. She decides to look at final exams (selected randomly and replaced in the pile after reading) until she finds one that shows a grade below a C. We want to know the probability that the instructor will have to examine at least ten exams until she finds one with a grade below a C. What is the probability question stated mathematically?</paragraph>
+  </note>
+  <example number="4.8">
+    <paragraph>Suppose that you are looking for a student at your college who lives within five miles of you. You know that 55% of the 25,000 students do live within five miles of you. You randomly contact students from the college until one says they live within five miles of you. What is the probability that you need to contact four people?</paragraph>
+    <paragraph>This is a geometric problem because you may have a number of failures before you have the one success you desire. Also, the probability of a success stays approximately the same each time you ask a student if they live within five miles of you. There is no definite number of trials (number of times you ask a student).</paragraph>
+    <problem>
+      <paragraph>a. Let X = the number of ____________ you must ask ____________ one says yes.</paragraph>
+      <paragraph>b. What values does X take on?</paragraph>
+      <paragraph>c. What are p and q?</paragraph>
+      <paragraph>d. The probability question is P(_______).</paragraph>
+    </problem>
+    <solution>
+      <paragraph>a. Let X = the number of students you must ask until one says yes.</paragraph>
+      <paragraph>b. 1, 2, 3, …, (total number of students)</paragraph>
+      <paragraph>c. p = 0.55; q = 0.45</paragraph>
+      <paragraph>d. P(x = 4)</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.8">
+    <paragraph>You need to find a store that carries a special printer ink. You know that of the stores that carry printer ink, 10% of them carry the special ink. You randomly call each store until one has the ink you need. What are p and q?</paragraph>
+  </note>
+  <heading level="2">Notation for the Geometric: G = Geometric Probability Distribution Function</heading>
+  <paragraph>Read this as "X is a random variable with a geometric distribution." The parameter is p; p = the probability of a success for each trial.</paragraph>
+  <paragraph>CASE I: Random Variable X Is Event of First Success</paragraph>
+  <paragraph>In this case we ask, “What is the probability that we will have some number x of events of interest to us of failures before a success?”</paragraph>
+  <paragraph>The geometric pdf tells us the probability that the first occurrence of success requires x number of failure independent trials, each with probability (1-p). If the probability of success on each trial is p, then the probability that the xth trial (out of x trials) is the first success is:</paragraph>
+  <paragraph math="block">$$P(X = x) = (1 - p)^{x - 1}p$$</paragraph>
+  <paragraph>for $$x = 1, 2, 3, ....$$</paragraph>
+  <paragraph>Like the binomial distribution, the geometric distribution has the parameters of the mean and standard deviation. The expected value of X, the mean for Case I, is $$\mu = \frac{1}{p}$$ . This tells us how many failed trials to expect until we get the first success. This count includes in the count of trials the trial that results in success. The above form of the geometric distribution is used for modeling the number of trials until the first success. The number of trials includes the one that is a success: x = all trials including the one that is a success. This can be seen in the form of the formula. If X = number of trials including the success, then we must multiply the probability of failure, $$(1 - p)$$ , times the number of failures, that is $$x - 1$$ . The standard deviation of Case I of the geometric distribution is:</paragraph>
+  <paragraph math="block">$$\sigma = \sqrt{\left( \frac{1}{p} \right)\left( {\frac{1}{p} - 1} \right)}$$</paragraph>
+  <paragraph>CASE II: Random Variable X Is Number of Failures BEFORE a Success</paragraph>
+  <paragraph>By contrast to Case I, the following form of the geometric distribution used for modeling number of failures until the first success is:</paragraph>
+  <paragraph math="block">$$P\left( {X = x} \right) = \left( {1 - p} \right)^{x}p$$</paragraph>
+  <paragraph>for $$x = 0, 1, 2, 3, ....$$</paragraph>
+  <paragraph>In this case the trial that is the success is not counted as a trial in the formula: x = number of failures. The expected value, the mean, of this distribution is $$\mu = \frac{1 - p}{p}$$ . This tells us how many failures to expect before we have a success. In either case, the sequence of probabilities is a geometric sequence. In Case II the standard deviation parameter is:</paragraph>
+  <paragraph math="block">$$\sigma = \sqrt{\left( \frac{1 - p}{p} \right)}$$</paragraph>
+  <figure number="4.3">
+    <image alt="Bar graph of probability distribution of the given data."/>
+  </figure>
+  <paragraph math="block">$${GEOMETRIC:} P = .02, {Common} {ratio} = r = .98$$</paragraph>
+  <paragraph>The y-axis in Figure 4.3 contains the probability of x, and the x-axis is the random number components tested. For example, at $$x = 1$$ the probability it will be found to be defective is 0.0196. With two components tested, the probability the second component is defective is graphed at a probability of 0.0196 at $$x = 2$$ on the x axis. For the probability that the third component is defective we find $$P\left( {X = 3} \right) = 0.019208$$ . (The first two are the same because of rounding in the computations.)</paragraph>
+  <paragraph>Notice in Figure 4.3 that the probabilities decline by the same step down with each change in the value of x. This increment is called the common ratio. This exists for the geometric probability distribution uniquely. The common ratio, called r, can be calculated by dividing any value by the previous value, e.g., $$\frac{P\left( {x = 5} \right)}{P\left( {x = 4} \right)} = \frac{0.018447}{0.018823} = 0.98$$</paragraph>
+  <paragraph>For this set of data, therefore, the common ratio is 0.98. The common ratio then multiplied by any other probability value will provide the next probability value in the sequence. For example, the probability that the sixth component tested is a failure is 0.018078. Check this using the formula from Case I. Now we have the $$P\left( {x = 6} \right)$$ . Knowing this and the common ratio we can calculate the $$P\left( {x = 7} \right)$$ by simple multiplication: $$P\left( {x = 7} \right) = \left( {0.018078} \right) \times 0.98 = 0.017716,$$ the same value we found earlier by using the geometric probability distribution. This common ratio increment is the same ratio between every number and is called a geometric progression and thus the name for this probability density function. Once the common ratio is calculated, any $$P\left( {x = x_{a}} \right)$$ one desires to know can be easily found.</paragraph>
+  <paragraph>The number of components that you would expect to test until you find the first defective component is the mean, $$\mu = 50$$ for this case of defective components. The formula for the mean of the geometric distribution for the random variable defined as number of failures before first success is $$\mu = \frac{1}{p} = \frac{1}{0.02} = 50$$ .</paragraph>
+  <paragraph>See Example 4.9 for an example where the geometric random variable is defined as number of trials until first success. The expected value of this formula for the geometric distribution will be different from this version of the distribution. Case II also has a variance but is changed from the Case I formula. This formula for the variance is:</paragraph>
+  <paragraph math="block">$$P\left( {X = x} \right) = \left( {1 - p} \right)^{x - 1}p$$</paragraph>
+  <paragraph>for $$x = 1, 2, 3, ....$$</paragraph>
+  <paragraph>The formula for the variance is</paragraph>
+  <paragraph math="block">$$\sigma^{2} = \left( \frac{1}{p} \right)\left( {\frac{1}{p} - 1} \right) = \left( \frac{1}{0.02} \right)\left( {\frac{1}{0.02} - 1} \right) = 2,450$$</paragraph>
+  <paragraph>The standard deviation is</paragraph>
+  <paragraph math="block">$$\sigma = \sqrt{\left( \frac{1}{p} \right)\left( {\frac{1}{p} - 1} \right)} = \sqrt{\left( \frac{1}{0.02} \right)\left( {\frac{1}{0.02} - 1} \right)} = 49.5$$</paragraph>
+  <paragraph>This tells us how many failures to expect before we have a success. In either case, the sequence of probabilities is a geometric sequence.</paragraph>
+  <example number="4.9">
+    <paragraph>Assume that the probability of a defective computer component is 0.02. Components are randomly selected. Find the probability that the first defect is caused by the seventh component tested. How many components do you expect to test until one is found to be defective?</paragraph>
+    <paragraph>Let X = the number of computer components tested until the first defect is found.</paragraph>
+    <paragraph>X takes on the values 1, 2, 3, ... where p = 0.02.</paragraph>
+    <paragraph>Find P(x = 7). Answer: P(x = 7) = (1 - 0.02)7-1 × 0.02 = 0.0177.</paragraph>
+    <paragraph>The probability that the seventh component is the first defect is 0.0177.</paragraph>
+    <paragraph>The graph of X ~ G(0.02) is:</paragraph>
+    <paragraph>The y-axis contains the probability of x, where X = the number of computer components tested. Notice that the probabilities decline by a common increment. This increment is the same ratio between each number and is called a geometric progression and thus the name for this probability density function.</paragraph>
+    <paragraph>See Example 4.10 for an example where the geometric random variable is defined as number of trials until first success. The expected value of this formula for the geometric will be different from this version of the distribution.</paragraph>
+    <paragraph>The formula for the variance is σ2 = $$\left( \frac{1}{p} \right)\left( {\frac{1}{p} - 1} \right)$$ = $$\left( \frac{1}{0.02} \right)\left( {\frac{1}{0.02} - 1} \right)$$ = 2,450</paragraph>
+    <paragraph>The standard deviation is σ = $$\sqrt{\left( \frac{1}{p} \right)\left( {\frac{1}{p} - 1} \right)}$$ = $$\sqrt{\left( \frac{1}{0. \text{02} } \right)\left( {\frac{1}{0. \text{02} } - 1} \right)}$$ = 49.5</paragraph>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.9">
+    <paragraph>The probability of a defective steel rod is 0.01. Steel rods are selected at random. Find the probability that the first defect occurs on the ninth steel rod. Use the TI-83+ or TI-84 calculator to find the answer.</paragraph>
+  </note>
+  <example number="4.10">
+    <problem>
+      <paragraph>The lifetime risk of developing cancer is about one in 67 (1.5%). Let X = the number of people you ask before one says they have cancer. The random variable X in this case includes only the number of trials that were failures and does not count the trial that was a success in finding a person who had the disease. The appropriate formula for this random variable is the second one presented above. Then X is a discrete random variable with a geometric distribution:</paragraph>
+      <list type="ordered">
+        <item>What is the probability that you ask 9 people before one says they have cancer? This is asking, what is the probability that you ask 9 people who say no and the tenth person says yes?</item>
+        <item>What is the probability that you must ask 20 people?</item>
+        <item>Find the (i) mean and (ii) standard deviation of X.</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>$$P\left( {x = 9} \right) = \left( {1 - 0.015} \right)^{9} \times 0.015 = 0.0131$$</item>
+        <item>$$P\left( {x = 20} \right) = \left( {1 - 0.015} \right)^{19} \times 0.015 = 0.0113$$</item>
+        <item>$${Mean} = \mu = \frac{\left( {1 - p} \right)}{p} = \frac{\left( {1 - 0.015} \right)}{0.015} = 65.67$$ $${Standard} {Deviation} = \sigma = \sqrt{\frac{\left( {1 - p} \right)}{p^{2}}} = \sqrt{\frac{\left( {1 - 0.015} \right)}{{0.015}^{2}}} = 66.16$$</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.10">
+    <paragraph>The literacy rate for a nation measures the proportion of people age 15 and over who can read and write. The literacy rate for women in The United Colonies of Independence is 12%. Let X = the number of women you ask until one says that she is literate.</paragraph>
+    <list type="ordered">
+      <item>What is the probability distribution of X?</item>
+      <item>What is the probability that you ask five women before one says she is literate?</item>
+      <item>What is the probability that you must ask ten women?</item>
+    </list>
+  </note>
+  <example number="4.11">
+    <paragraph>A baseball player has a batting average of 0.320. This is the general probability that he gets a hit each time he is at bat.</paragraph>
+    <problem>
+      <paragraph>What is the probability that he gets his first hit in the third trip to bat?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>P (x=3) = (1-0.32)3-1 × .32 = 0.1480</paragraph>
+    </solution>
+    <paragraph>In this case the sequence is failure, failure success.</paragraph>
+    <problem>
+      <paragraph>How many trips to bat do you expect the hitter to need before getting a hit?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>$$\mu = \frac{1}{p} = \frac{1}{0.320} = 3.125 \approx 3$$</paragraph>
+    </solution>
+    <paragraph>This is simply the expected value of successes and therefore the mean of the distribution.</paragraph>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.11">
+    <paragraph>A runner has a probability of 0.426 to come in first in a race.</paragraph>
+    <list type="ordered">
+      <item>What is the probability that they will come in first in the fourth race?</item>
+      <item>How many races do you expect the runner to need before they come in first?</item>
+    </list>
+  </note>
+  <example number="4.12">
+    <problem>
+      <paragraph>There is an 80% chance that a Dalmatian dog has 13 black spots. You go to a dog show and count the spots on Dalmatians. What is the probability that you will review the spots on 3 dogs before you find one that has 13 black spots?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>P(x=3) = (1 - 0.80)3 × 0.80 = 0.0064</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.12">
+    <paragraph>There is a 75% chance that a parrot is green. You go to a pet shop and observe the parrots. What is the probability that you will observe 4 parrots before you find one that is a green parrot?</paragraph>
+  </note>
+  <heading level="1">4.4 Poisson Distribution</heading>
+  <paragraph>Another useful probability distribution is the Poisson distribution, or waiting time distribution. This distribution is used to determine how many checkout clerks are needed to keep the waiting time in line to specified levels, how may telephone lines are needed to keep the system from overloading, and many other practical applications. A modification of the Poisson, the Pascal, invented nearly two centuries ago, is used today by telecommunications companies worldwide for load factors, satellite hookup levels and Internet capacity problems. The distribution gets its name from Simeon Poisson who presented it in 1837 as an extension of the binomial distribution which we will see can be estimated with the Poisson.</paragraph>
+  <paragraph>There are two main characteristics of a Poisson experiment.</paragraph>
+  <list type="ordered">
+    <item>The Poisson probability distribution gives the probability of a number of events occurring in a fixed interval of time or space if these events happen with a known average rate.</item>
+    <item>The events are independently of the time since the last event. For example, a book editor might be interested in the number of words spelled incorrectly in a particular book. It might be that, on the average, there are five words spelled incorrectly in 100 pages. The interval is the 100 pages and it is assumed that there is no relationship between when misspellings occur.</item>
+    <item>The random variable X = the number of occurrences in the interval of interest.</item>
+  </list>
+  <example number="4.13">
+    <problem>
+      <paragraph>A bank expects to receive six bad checks per day, on average. What is the probability of the bank getting fewer than five bad checks on any given day? Of interest is the number of checks the bank receives in one day, so the time interval of interest is one day. Let X = the number of bad checks the bank receives in one day. If the bank expects to receive six bad checks per day then the average is six checks per day. Write a mathematical statement for the probability question.</paragraph>
+    </problem>
+    <solution>
+      <paragraph>P(x &lt; 5)</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.13">
+    <paragraph>An electronics store expects to have ten returns per day on average. The manager wants to know the probability of the store getting fewer than eight returns on any given day. State the probability question mathematically.</paragraph>
+  </note>
+  <example number="4.14">
+    <paragraph>You notice that a news reporter says "uh," on average, two times per broadcast. What is the probability that the news reporter says "uh" more than two times per broadcast.</paragraph>
+    <paragraph>This is a Poisson problem because you are interested in knowing the number of times the news reporter says "uh" during a broadcast.</paragraph>
+    <problem>
+      <paragraph>a. What is the interval of interest?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>a. one broadcast measured in minutes</paragraph>
+    </solution>
+    <problem>
+      <paragraph>b. What is the average number of times the news reporter says "uh" during one broadcast?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>b. 2</paragraph>
+    </solution>
+    <problem>
+      <paragraph>c. Let X = ____________. What values does X take on?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>c. Let X = the number of times the news reporter says "uh" during one broadcast. x = 0, 1, 2, 3, ...</paragraph>
+    </solution>
+    <problem>
+      <paragraph>d. The probability question is P(______).</paragraph>
+    </problem>
+    <solution>
+      <paragraph>d. P(x &gt; 2)</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.14">
+    <paragraph>An emergency room at a particular hospital gets an average of five patients per hour. A doctor wants to know the probability that the ER gets more than five patients per hour. Give the reason why this would be a Poisson distribution.</paragraph>
+  </note>
+  <heading level="2">Notation for the Poisson: P = Poisson Probability Distribution Function</heading>
+  <paragraph>X ~ P(μ)</paragraph>
+  <paragraph>Read this as "X is a random variable with a Poisson distribution." The parameter is μ (or λ); μ (or λ) = the mean for the interval of our interest. The mean is the number of occurrences that occur on average during the interval period.</paragraph>
+  <paragraph>The formula for computing probabilities that are from a Poisson process is:</paragraph>
+  <paragraph math="block">$$P(x) = \frac{\mu^{x}e^{- \mu}}{x!}$$</paragraph>
+  <paragraph>where P(X) is the probability of X successes, μ is the expected number of successes based upon historical data, e is the natural logarithm approximately equal to 2.718, and X is the number of successes per unit, usually per unit of time.</paragraph>
+  <paragraph>Remember your algebra class: $$x^{- n} = \frac{1}{x^{n}}$$ . The Poisson distribution has both a mean, µ , the average number of occurrences per unit of time, and also a standard deviation, $$\sigma = \sqrt{\mu}$$ .</paragraph>
+  <paragraph>In order to use the Poisson distribution, certain assumptions must hold. These are: the probability of a success, μ, is unchanged within the interval, there cannot be simultaneous successes within the interval, and finally, that the probability of a success among intervals is independent, the same assumption of the binomial distribution.</paragraph>
+  <paragraph>In a way, the Poisson distribution can be thought of as a clever way to convert a continuous random variable, usually time, into a discrete random variable by breaking up time into discrete independent intervals. This way of thinking about the Poisson helps us understand why it can be used to estimate the probability for the discrete random variable from the binomial distribution. The Poisson is asking for the probability of a number of successes during a period of time while the binomial is asking for the probability of a certain number of successes for a given number of trials.</paragraph>
+  <example number="4.15">
+    <paragraph>Leah receives about six telephone calls between 8 a.m. and 10 a.m. What is the probability that Leah receives more than one call in the next 15 minutes?</paragraph>
+    <paragraph>Let X = the number of calls Leah receives in 15 minutes. (The interval of interest is 15 minutes or $$\frac{1}{4}$$ hour.)</paragraph>
+    <paragraph>x = 0, 1, 2, 3, ...</paragraph>
+    <paragraph>If Leah receives, on the average, six telephone calls in two hours, and there are eight 15 minute intervals in two hours, then Leah receives</paragraph>
+    <paragraph>$$\left( \frac{1}{8} \right)$$ (6) = 0.75 calls in 15 minutes, on average. So, μ = 0.75 for this problem.</paragraph>
+    <paragraph>Find P(x &gt; 1).</paragraph>
+    <paragraph>The Poisson distribution is discrete, and thus &gt; 1 includes all whole numbers through infinity. The solution is to subtract the probability less than 1 thus $$1 - \left\lbrack {P\left( {x = 0} \right) + P\left( {x = 1} \right)} \right\rbrack$$</paragraph>
+    <paragraph math="block">$$P(x) = \frac{\mu^{x}{ e}^{- \mu}}{x!}$$</paragraph>
+    <paragraph math="block">$$P\left( {x &gt; 1} \right) = 1 - P\left( {x \leq 1} \right)$$</paragraph>
+    <paragraph math="block">$$= 1 - \left\lbrack {P\left( {x = 0} \right) + P\left( {x = 1} \right)} \right\rbrack$$</paragraph>
+    <paragraph math="block">$$= 1 - \left\lbrack {\frac{{0.75}^{0}{ e}^{- 0.75}}{0!} + \frac{{0.75}^{1}{ e}^{- 0.75}}{1!}} \right\rbrack$$</paragraph>
+    <paragraph math="block">$$= 1 - \left\lbrack {\frac{(1)\left( {0.4724} \right)}{1} + \frac{\left( {0.75} \right)\left( {0.4724} \right)}{1}} \right\rbrack$$</paragraph>
+    <paragraph math="block">$$= 1 - \left\lbrack {0.4724 + 0.3543} \right\rbrack = 0.1733$$</paragraph>
+    <figure number="4.4">
+      <image alt="Histogram of probability distribution of the given data."/>
+    </figure>
+    <paragraph>The y-axis in Figure 4.4 contains the probability of x where X = the number of calls in 15 minutes.</paragraph>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.15">
+    <paragraph>A customer service center receives about ten emails every half-hour. What is the probability that the customer service center receives more than four emails in the next six minutes?</paragraph>
+  </note>
+  <example number="4.16">
+    <paragraph>According to Baydin, an email management company, an email user gets, on average, 147 emails per day. Let X = the number of emails an email user receives per day. The discrete random variable X takes on the values x = 0, 1, 2 …. The random variable X has a Poisson distribution: X ~ P(147). The mean is 147 emails.</paragraph>
+    <problem>
+      <list type="ordered">
+        <item>What is the probability that an email user receives exactly 160 emails per day?</item>
+        <item>What is the probability that an email user receives at most 160 emails per day?</item>
+        <item>What is the standard deviation?</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>P(x = 160) = poissonpdf(147, 160) ≈ 0.0180</item>
+        <item>P(x ≤ 160) = poissoncdf(147, 160) ≈ 0.8666</item>
+        <item>Standard Deviation = $$\sigma = \sqrt{\mu} = \sqrt{147} \approx 12.1244$$</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.16">
+    <paragraph>According to a recent poll by the Pew Internet Project, people between the ages of 14 and 17 send an average of 187 text messages each day. Let X = the number of texts that a girl aged 14 to 17 sends per day. The discrete random variable X takes on the values x = 0, 1, 2 …. The random variable X has a Poisson distribution: X ~ P(187). The mean is 187 text messages.</paragraph>
+    <list type="ordered">
+      <item>What is the probability that a person sends exactly 175 texts per day?</item>
+      <item>What is the probability that a person sends at most 150 texts per day?</item>
+      <item>What is the standard deviation?</item>
+    </list>
+  </note>
+  <example number="4.17">
+    <paragraph>Text message users receive or send an average of 41.5 text messages per day.</paragraph>
+    <problem>
+      <list type="ordered">
+        <item>How many text messages does a text message user receive or send per hour?</item>
+        <item>What is the probability that a text message user receives or sends two messages per hour?</item>
+        <item>What is the probability that a text message user receives or sends more than two messages per hour?</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>Let X = the number of texts that a user sends or receives in one hour. The average number of texts received per hour is $$\frac{41.5}{24}$$ ≈ 1.7292.</item>
+        <item>$$P(x = 2) = \frac{\mu^{x}e^{-\mu}}{x!} = \frac{1.729^{2}e^{-1.729}}{2!} = 0.265$$</item>
+        <item>$$P(x &gt; 2) = 1 - P(x \leq 2) = 1 - \left\lbrack \frac{7^{0}e^{-7}}{0!} + \frac{7^{1}e^{-7}}{1!} + \frac{7^{2}e^{-7}}{2!} \right\rbrack = 0.250$$</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.17">
+    <paragraph>Atlanta’s Hartsfield-Jackson International Airport is the busiest airport in the world. On average there are 2,700 arrivals and departures each day.</paragraph>
+    <list type="ordered">
+      <item>How many airplanes arrive and depart the airport per hour?</item>
+      <item>What is the probability that there are exactly 100 arrivals and departures in one hour?</item>
+      <item>What is the probability that there are at most 100 arrivals and departures in one hour?</item>
+    </list>
+  </note>
+  <example number="4.18">
+    <problem>
+      <paragraph>On a specific day in May starting at 4:30 PM, the probability of low seismic activity for the next 48 hours in Alaska was reported as about 1.02%. Use this information for the next 200 days to find the probability that there will be low seismic activity in ten of the next 200 days. Use both the binomial and Poisson distributions to calculate the probabilities. Are they close?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Let X = the number of days with low seismic activity.</paragraph>
+      <paragraph>Using the binomial distribution:</paragraph>
+      <list type="unordered">
+        <item>$$P(x = 10) = \frac{200!}{10!(200 - 10)!} \times .0102^{10} \times .9898^{190} = 0.000039$$</item>
+      </list>
+      <paragraph>Using the Poisson distribution:</paragraph>
+      <list type="unordered">
+        <item>Calculate μ = np = 200(0.0102) ≈ 2.04</item>
+        <item>$$P(x = 10) = \frac{\mu^{x}e^{-\mu}}{x!} = \frac{2.04^{10}e^{-2.04}}{10!} = 0.000045$$</item>
+      </list>
+      <paragraph>We expect the approximation to be good because n is large (greater than 20) and p is small (less than 0.05). The results are close—both probabilities reported are almost 0.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.18">
+    <paragraph>On a specific day in May starting at 4:30 PM, the probability of moderate seismic activity for the next 48 hours in the Kuril Islands off the coast of Japan was reported at about 1.43%. Use this information for the next 100 days to find the probability that there will be low seismic activity in five of the next 100 days. Use both the binomial and Poisson distributions to calculate the probabilities. Are they close?</paragraph>
+  </note>
+  <example number="4.19">
+    <paragraph>The Poisson distribution is often referred to as a “waiting time” distribution. In a sense this is tied to the link between the discrete distribution measuring the number of occurrences and the treatment of the continuous random variable time. The Poisson takes the continuous random variable time and breaks it into a discrete random variable by measuring the discrete number of occurrences. In Example 4.16 we were measuring the number of messages sent, an occurrence, a discrete random variable, per day, a continuous random variable.</paragraph>
+    <paragraph>The Poisson distribution can be used for many other applications. Any continuous random variable that can be broken into discrete measures can use the Poisson distribution to calculate probabilities of the number of a given discrete value of x, the number of occurrences in which we have an interest. We are interested in the number of potholes in a highway to evaluate the quality of the paving job. In this case the pothole is the occurrence and can be counted per square miles of highway. Mile is a continuous random variable, and potholes is the discrete random variable. We may want to know the probability that a particular paving technique results in more than 20 potholes in 10 miles of paving. If that is the case, we may discard that paving technique. Alternatively, our chocolate cookies claim that each cookie has more than 5 chocolate pieces in each cookie. Sampling the cookie dough, we can calculate the probability that the resulting cookies will meet the claim of 5 chocolate pieces per cookie. Perhaps the production of glass for automobile windshields suffers from a flaw known as the “dot.” In the production process, air infrequently becomes lodged in the hot glass and upon cooling leaves a dot that distracts the driver. This would also be a case where use of the Poisson probability distribution would be the appropriate tool. To calculate the probability that the results have fewer than 3 “dots,” the number acceptable to the manufacturing process, the Poisson distribution would be useful.</paragraph>
+    <paragraph>By way of warning, the Poisson is a discrete random variable. We are counting occurrences. It occurred or it did not during the time, the miles of road, or the batch of cookie dough. In this sense the Poisson is like the binomial in that the occurrence is binary, happened or did not. Because of this link to the binomial, we can use the Poisson to estimate a binomial distribution, and this is discussed below.</paragraph>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.19">
+    <paragraph>In a small city, a survey 500 vehicles reveals that there is a 2% chance of an accident occurring in a week. Calculate the probability that at most 2 accidents occur in any given week.</paragraph>
+  </note>
+  <heading level="2">Estimating the Binomial Distribution with the Poisson Distribution</heading>
+  <paragraph>We found before that the binomial distribution provided an approximation for the hypergeometric distribution. Now we find that the Poisson distribution can provide an approximation for the binomial. We say that the binomial distribution approaches the Poisson. The binomial distribution approaches the Poisson distribution is as n gets larger and p is small such that np becomes a constant value. There are several rules of thumb for when one can say they will use a Poisson to estimate a binomial. One suggests that np, the mean of the binomial, should be less than 25. Another author suggests that it should be less than 7. And another, noting that the mean and variance of the Poisson are both the same, suggests that np and npq, the mean and variance of the binomial, should be greater than 5. There is no one broadly accepted rule of thumb for when one can use the Poisson to estimate the binomial.</paragraph>
+  <paragraph>As we move through these probability distributions we are getting to more sophisticated distributions that, in a sense, contain the less sophisticated distributions within them. This proposition has been proven by mathematicians. This gets us to the highest level of sophistication in the next probability distribution which can be used as an approximation to all of those that we have discussed so far. This is the normal distribution.</paragraph>
+  <example number="4.20">
+    <paragraph>A survey of 500 seniors in the Price Business School yields the following information. 75% go straight to work after graduation. 15% go on to work on their MBA. 9% stay to get a minor in another program. 1% go on to get a Master's in Finance.</paragraph>
+    <problem>
+      <paragraph>What is the probability that more than 2 seniors go to graduate school for their Master's in finance?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>This is clearly a binomial probability distribution problem. The choices are binary when we define the results as "Graduate School in Finance" versus "all other options." The random variable is discrete, and the events are, we could assume, independent. Solving as a binomial problem, we have:</paragraph>
+      <paragraph>Binomial Solution</paragraph>
+      <paragraph math="block">$$n \cdot p = 500 \cdot 0.01 = 5 = µ$$</paragraph>
+      <paragraph math="block">$$P(0) = \frac{500!}{0!(500 - 0)!}0.01^{0}(1 - 0.01)^{500^{-^{0}}} = 0.00657$$</paragraph>
+      <paragraph math="block">$$P(1) = \frac{500!}{1!(500 - 1)!}0.01^{1}(1 - 0.01)^{500^{-^{1}}} = 0.03318$$</paragraph>
+      <paragraph math="block">$$P(2) = \frac{500!}{2!(500 - 2)!}0.01^{2}(1 - 0.01)^{500^{-^{2}}} = 0.08363$$</paragraph>
+      <paragraph>Adding all 3 together = 0.12339</paragraph>
+      <paragraph math="block">$$1 - 0.12339 = 0.87661$$</paragraph>
+      <paragraph>Poisson approximation</paragraph>
+      <paragraph math="block">$$n \cdot p = 500 \cdot 0.01 = 5 = \mu$$</paragraph>
+      <paragraph math="block">$$n \cdot p \cdot (1 - p) = 500 \cdot 0.01 \cdot (0.99) \approx 5 = \sigma^{2} = \mu$$</paragraph>
+      <paragraph math="block">$$P(X) = \frac{e^{-np}(np)^{x}}{x!} = \left\{ P(0) = \frac{e^{-5} \cdot 5^{0}}{0!} \right\} + \left\{ P(1) = \frac{e^{-5} \cdot 5^{1}}{1!} \right\} + \left\{ P(2) = \frac{e^{-5} \cdot 5^{2}}{2!} \right\}$$</paragraph>
+      <paragraph math="block">$$0.0067 + 0.0337 + 0.0842 = 0.1247$$</paragraph>
+      <paragraph math="block">$$1 - 0.1247 = 0.8753$$</paragraph>
+      <paragraph>An approximation that is off by 1 one thousandth is certainly an acceptable approximation.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.20">
+    <paragraph>In Example 4.20, what is the probability that less than 4 seniors will go to graduate school for their master’s in finance?</paragraph>
+  </note>
+  <heading level="1">Key Terms</heading>
+  <list type="unordered">
+    <item>Bernoulli Trials: an experiment with the following characteristics: There are only two possible outcomes called “success” and “failure” for each trial. The probability p of a success is the same for any trial (so the probability q = 1 − p of a failure is the same for any trial).</item>
+  </list>
+  <list type="unordered">
+    <item>Binomial Experiment: a statistical experiment that satisfies the following three conditions: There are a fixed number of trials, n. There are only two possible outcomes, called "success" and, "failure," for each trial. The letter p denotes the probability of a success on one trial, and q denotes the probability of a failure on one trial. The n trials are independent and are repeated using identical conditions.</item>
+  </list>
+  <list type="unordered">
+    <item>Binomial Probability Distribution: a discrete random variable (RV) that arises from Bernoulli trials; there are a fixed number, n, of independent trials. “Independent” means that the result of any trial (for example, trial one) does not affect the results of the following trials, and all trials are conducted under the same conditions. Under these circumstances the binomial RV X is defined as the number of successes in n trials. The mean is μ = np and the standard deviation is σ = $$\sqrt{npq}$$ . The probability of exactly x successes in n trials is P(X = x) = $$\left( \begin{array}{l} n \\ x \end{array} \right)$$ pxqn − x.</item>
+  </list>
+  <list type="unordered">
+    <item>Geometric Distribution: a discrete random variable (RV) that arises from the Bernoulli trials; the trials are repeated until the first success. The geometric variable X is defined as the number of trials until the first success. The mean is μ = $$\frac{1}{p}$$ and the standard deviation is σ = $$\sqrt{\frac{1}{p}\left( {\frac{1}{p} - 1} \right)}$$ . The probability of exactly x failures before the first success is given by the formula: P(X = x) = p(1 – p)x – 1 where one wants to know the probability for the number of trials until the first success: the xth trial is the first success. An alternative formulation of the geometric distribution asks the question: what is the probability of x failures until the first success? In this formulation the trial that resulted in the first success is not counted. The formula for this presentation of the geometric is: $$P(X = x) = p(1 - p)^{x}$$ The expected value in this form of the geometric distribution is $$\mu = \frac{1 - p}{p}$$ The easiest way to keep these two forms of the geometric distribution straight is to remember that p is the probability of success and (1−p) is the probability of failure. In the formula the exponents simply count the number of successes and number of failures of the desired outcome of the experiment. Of course the sum of these two numbers must add to the number of trials in the experiment.</item>
+  </list>
+  <list type="unordered">
+    <item>Geometric Experiment: a statistical experiment with the following properties: There are one or more Bernoulli trials with all failures except the last one, which is a success. In theory, the number of trials could go on forever. There must be at least one trial. The probability, p, of a success and the probability, q, of a failure do not change from trial to trial.</item>
+  </list>
+  <list type="unordered">
+    <item>Hypergeometric Experiment: a statistical experiment with the following properties: You take samples from two groups. You are concerned with a group of interest, called the first group. You sample without replacement from the combined groups. Each pick is not independent, since sampling is without replacement.</item>
+  </list>
+  <list type="unordered">
+    <item>Hypergeometric Probability: a discrete random variable (RV) that is characterized by: A fixed number of trials. The probability of success is not the same from trial to trial. We sample from two groups of items when we are interested in only one group. X is defined as the number of successes out of the total number of items chosen.</item>
+  </list>
+  <list type="unordered">
+    <item>Poisson Probability Distribution: a discrete random variable (RV) that counts the number of times a certain event will occur in a specific interval; characteristics of the variable: The probability that the event occurs in a given interval is the same for all intervals. The events occur with a known mean and independently of the time since the last event. The distribution is defined by the mean μ of the event in the interval. The mean is μ = np. The standard deviation is $$\sigma \text{=} \sqrt{\mu}$$ . The probability of having exactly x successes in r trials is $$P(x) = \frac{\mu^{x}e^{- \mu}}{x!}$$ . The Poisson distribution is often used to approximate the binomial distribution, when n is “large” and p is “small” (a general rule is that np should be greater than or equal to 25 and p should be less than or equal to 0.01).</item>
+  </list>
+  <list type="unordered">
+    <item>Probability Distribution Function (PDF): a mathematical description of a discrete random variable (RV), given either in the form of an equation (formula) or in the form of a table listing all the possible outcomes of an experiment and the probability associated with each outcome.</item>
+  </list>
+  <list type="unordered">
+    <item>Random Variable (RV): a characteristic of interest in a population being studied; common notation for variables are upper case Latin letters X, Y, Z,...; common notation for a specific value from the domain (set of all possible values of a variable) are lower case Latin letters x, y, and z. For example, if X is the number of children in a family, then x represents a specific integer 0, 1, 2, 3,.... Variables in statistics differ from variables in intermediate algebra in the two following ways. The domain of the random variable (RV) is not necessarily a numerical set; the domain may be expressed in words; for example, if X = hair color then the domain is {black, blond, gray, green, orange}. We can tell what specific value x the random variable X takes only after performing the experiment.</item>
+  </list>
+  <heading level="1">Chapter Review</heading>
+  <paragraph>The characteristics of a probability distribution or density function (PDF) are as follows:</paragraph>
+  <list type="ordered">
+    <item>Each probability is between zero and one, inclusive (inclusive means to include zero and one).</item>
+    <item>The sum of the probabilities is one.</item>
+  </list>
+  <paragraph>The combinatorial formula can provide the number of unique subsets of size x that can be created from n unique objects to help us calculate probabilities. The combinatorial formula is $$\begin{pmatrix} n \\ x \end{pmatrix} =_{n}C_{x} = \frac{n!}{x!(n - x)!}$$</paragraph>
+  <paragraph>A hypergeometric experiment is a statistical experiment with the following properties:</paragraph>
+  <list type="ordered">
+    <item>You take samples from two groups.</item>
+    <item>You are concerned with a group of interest, called the first group.</item>
+    <item>You sample without replacement from the combined groups.</item>
+    <item>Each pick is not independent, since sampling is without replacement.</item>
+  </list>
+  <paragraph>The outcomes of a hypergeometric experiment fit a hypergeometric probability distribution. The random variable X = the number of items from the group of interest. $$h(x) = \frac{\begin{pmatrix} A \\ x \end{pmatrix}\begin{pmatrix} {N - A} \\ {n - x} \end{pmatrix}}{\begin{pmatrix} N \\ n \end{pmatrix}}$$ .</paragraph>
+  <paragraph>A statistical experiment can be classified as a binomial experiment if the following conditions are met:</paragraph>
+  <list type="ordered">
+    <item>There are a fixed number of trials, n.</item>
+    <item>There are only two possible outcomes, called "success" and, "failure" for each trial. The letter p denotes the probability of a success on one trial and q denotes the probability of a failure on one trial.</item>
+    <item>The n trials are independent and are repeated using identical conditions.</item>
+  </list>
+  <paragraph>The outcomes of a binomial experiment fit a binomial probability distribution. The random variable X = the number of successes obtained in the n independent trials. The mean of X can be calculated using the formula μ = np, and the standard deviation is given by the formula σ = $$\sqrt{npq}$$ .</paragraph>
+  <paragraph>The formula for the Binomial probability density function is</paragraph>
+  <paragraph math="block">$$P(x) = \frac{n!}{x!(n - x)!} \cdot p^{x}q^{(n - x)}$$</paragraph>
+  <paragraph>There are three characteristics of a geometric experiment:</paragraph>
+  <list type="ordered">
+    <item>There are one or more Bernoulli trials with all failures except the last one, which is a success.</item>
+    <item>In theory, the number of trials could go on forever. There must be at least one trial.</item>
+    <item>The probability, p, of a success and the probability, q, of a failure are the same for each trial.</item>
+  </list>
+  <paragraph>In a geometric experiment, define the discrete random variable X as the number of independent trials until the first success. We say that X has a geometric distribution and write X ~ G(p) where p is the probability of success in a single trial.</paragraph>
+  <paragraph>The mean of the geometric distribution X ~ G(p) is μ = $$1/p$$ where x = number of trials until first success for the formula $$P(X = x) = {(1 - p)}^{x - 1}p$$ where the number of trials is up and including the first success.</paragraph>
+  <paragraph>An alternative formulation of the geometric distribution asks the question: what is the probability of x failures until the first success? In this formulation the trial that resulted in the first success is not counted. The formula for this presentation of the geometric is:</paragraph>
+  <paragraph math="block">$$P(X = x) = p(1 - p)^{x}$$</paragraph>
+  <paragraph>The expected value in this form of the geometric distribution is</paragraph>
+  <paragraph math="block">$$\mu = \frac{1 - p}{p}$$</paragraph>
+  <paragraph>The easiest way to keep these two forms of the geometric distribution straight is to remember that p is the probability of success and (1−p) is the probability of failure. In the formula the exponents simply count the number of successes and number of failures of the desired outcome of the experiment. Of course the sum of these two numbers must add to the number of trials in the experiment.</paragraph>
+  <paragraph>A Poisson probability distribution of a discrete random variable gives the probability of a number of events occurring in a fixed interval of time or space, if these events happen at a known average rate and independently of the time since the last event. The Poisson distribution may be used to approximate the binomial, if the probability of success is "small" (less than or equal to 0.01) and the number of trials is "large" (greater than or equal to 25). Other rules of thumb are also suggested by different authors, but all recognize that the Poisson distribution is the limiting distribution of the binomial as n increases and p approaches zero.</paragraph>
+  <paragraph>The formula for computing probabilities that are from a Poisson process is:</paragraph>
+  <paragraph math="block">$$P(x) = \frac{\mu^{x}e^{- \mu}}{x!}$$</paragraph>
+  <paragraph>where P(X) is the probability of successes, μ (pronounced mu) is the expected number of successes, e is the natural logarithm approximately equal to 2.718, and X is the number of successes per unit, usually per unit of time.</paragraph>
+  <heading level="1">Formula Review</heading>
+  <paragraph>$$h(x) = \frac{\begin{pmatrix} A \\ x \end{pmatrix}\begin{pmatrix} {N - A} \\ {n - x} \end{pmatrix}}{\begin{pmatrix} N \\ n \end{pmatrix}}$$</paragraph>
+  <paragraph>X ~ B(n, p) means that the discrete random variable X has a binomial probability distribution with n trials and probability of success p.</paragraph>
+  <paragraph>X = the number of successes in n independent trials</paragraph>
+  <paragraph>n = the number of independent trials</paragraph>
+  <paragraph>X takes on the values x = 0, 1, 2, 3, ..., n</paragraph>
+  <paragraph>p = the probability of a success for any trial</paragraph>
+  <paragraph>q = the probability of a failure for any trial</paragraph>
+  <paragraph>p + q = 1</paragraph>
+  <paragraph>q = 1 – p</paragraph>
+  <paragraph>The mean of X is μ = np. The standard deviation of X is σ = $$\sqrt{npq}$$ .</paragraph>
+  <paragraph math="block">$$P(x) = \frac{n!}{x!(n - x)!} \cdot p^{x}q^{(n - x)}$$</paragraph>
+  <paragraph>where P(X) is the probability of X successes in n trials when the probability of a success in ANY ONE TRIAL is p.</paragraph>
+  <paragraph>$$P(X = x) = p(1 - p)^{x - 1}$$</paragraph>
+  <paragraph>X ~ G(p) means that the discrete random variable X has a geometric probability distribution with probability of success in a single trial p.</paragraph>
+  <paragraph>X = the number of independent trials until the first success</paragraph>
+  <paragraph>X takes on the values x = 1, 2, 3, ...</paragraph>
+  <paragraph>p = the probability of a success for any trial</paragraph>
+  <paragraph>q = the probability of a failure for any trial p + q = 1 q = 1 – p</paragraph>
+  <paragraph>The mean is μ = $$\frac{1}{p}$$ .</paragraph>
+  <paragraph>The standard deviation is σ = $$\sqrt{\frac{1 - p}{p^{2}}}$$ = $$\sqrt{\frac{1}{p}\left( {\frac{1}{p} - 1} \right)}$$ .</paragraph>
+  <paragraph>X ~ P(μ) means that X has a Poisson probability distribution where X = the number of occurrences in the interval of interest.</paragraph>
+  <paragraph>X takes on the values x = 0, 1, 2, 3, ...</paragraph>
+  <paragraph>The mean μ or λ is typically given.</paragraph>
+  <paragraph>The variance is σ2 = μ, and the standard deviation is $$\sigma \text{=} \sqrt{\mu}$$ .</paragraph>
+  <paragraph>The probability of having exactly $$x$$ successes in $$r$$ trials is $$P\left( {X = x} \right) = \left( e^{- \mu} \right)\frac{\mu^{x}}{x!}$$ .</paragraph>
+  <paragraph>When P(μ) is used to approximate a binomial distribution, μ = np where n represents the number of independent trials and p represents the probability of success in a single trial.</paragraph>
+  <paragraph math="block">$$P(x) = \frac{\mu^{x}e^{- \mu}}{x!}$$</paragraph>
+  <heading level="1">Homework</heading>
+  <exercises>
+    <heading level="1">Homework</heading>
+    <exercise number="47" has_solution="false">
+      <problem>
+        <paragraph>A group of Martial Arts students is planning on participating in an upcoming demonstration. Six are students of Tae Kwon Do; seven are students of Shotokan Karate. Suppose that eight students are randomly picked to be in the first demonstration. We are interested in the number of Shotokan Karate students in that first demonstration.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>How many Shotokan Karate students do we expect to be in that first demonstration?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="48" has_solution="false">
+      <problem>
+        <paragraph>In one of its Spring catalogs, L.L. Bean® advertised footwear on 29 of its 192 catalog pages. Suppose we randomly survey 20 pages. We are interested in the number of pages that advertise footwear. Each page may be picked at most once.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>How many pages do you expect to advertise footwear on them?</item>
+          <item>Calculate the standard deviation.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="49" has_solution="false">
+      <problem>
+        <paragraph>Suppose that a technology task force is being formed to study technology awareness among instructors. Assume that ten people will be randomly chosen to be on the committee from a group of 28 volunteers, 20 who are technically proficient and eight who are not. We are interested in the number on the committee who are not technically proficient.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>How many instructors do you expect on the committee who are not technically proficient?</item>
+          <item>Find the probability that at least five on the committee are not technically proficient.</item>
+          <item>Find the probability that at most three on the committee are not technically proficient.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="50" has_solution="false">
+      <problem>
+        <paragraph>Suppose that nine Massachusetts athletes are scheduled to appear at a charity benefit. The nine are randomly chosen from eight volunteers from the Boston Celtics and four volunteers from the New England Patriots. We are interested in the number of Patriots picked.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Are you choosing the nine athletes with or without replacement?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="51" has_solution="false">
+      <problem>
+        <paragraph>A bridge hand is defined as 13 cards selected at random and without replacement from a deck of 52 cards. In a standard deck of cards, there are 13 cards from each suit: hearts, spades, clubs, and diamonds. What is the probability of being dealt a hand that does not contain a heart?</paragraph>
+        <list type="ordered">
+          <item>What is the group of interest?</item>
+          <item>How many are in the group of interest?</item>
+          <item>How many are in the other group?</item>
+          <item>Let X = _________. What values does X take on?</item>
+          <item>The probability question is P(_______).</item>
+          <item>Find the probability in question.</item>
+          <item>Find the (i) mean and (ii) standard deviation of X.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="52" has_solution="false">
+      <problem>
+        <paragraph>According to a recent article the average number of babies born with significant hearing loss (deafness) is approximately two per 1,000 babies in a healthy baby nursery. The number climbs to an average of 30 per 1,000 babies in an intensive care nursery.</paragraph>
+        <paragraph>Suppose that 1,000 babies from healthy baby nurseries were randomly surveyed. Find the probability that exactly two babies were born deaf.</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next four exercises. Recently, a nurse commented that when a patient calls the medical advice line claiming to have the flu, the chance that they truly have the flu (and not just a nasty cold) is only about 4%. Of the next 25 patients calling in claiming to have the flu, we are interested in how many actually have the flu.</paragraph>
+    <exercise number="53" has_solution="false">
+      <problem>
+        <paragraph>Define the random variable and list its possible values.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="54" has_solution="false">
+      <problem>
+        <paragraph>State the distribution of X.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="55" has_solution="false">
+      <problem>
+        <paragraph>Find the probability that at least four of the 25 patients actually have the flu.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="56" has_solution="false">
+      <problem>
+        <paragraph>On average, for every 25 patients calling in, how many do you expect to have the flu?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="57" has_solution="false">
+      <problem>
+        <paragraph>People visiting video game rental stores often rent more than one game at a time. The probability distribution for game rentals per customer at Game Stop is given Table 4.5. There is five-game limit per customer at this store, so nobody ever rents more than five video games.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">x</cell>
+              <cell header="true">P(x)</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>0</cell>
+              <cell>0.03</cell>
+            </row>
+            <row>
+              <cell>1</cell>
+              <cell>0.50</cell>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell>0.24</cell>
+            </row>
+            <row>
+              <cell>3</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>4</cell>
+              <cell>0.07</cell>
+            </row>
+            <row>
+              <cell>5</cell>
+              <cell>0.04</cell>
+            </row>
+          </tbody>
+        </table>
+        <list type="ordered">
+          <item>Describe the random variable X in words.</item>
+          <item>Find the probability that a customer purchases three games.</item>
+          <item>Find the probability that a customer purchases at least four games.</item>
+          <item>Find the probability that a customer purchases at most two games.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="58" has_solution="false">
+      <problem>
+        <paragraph>A school newspaper reporter decides to randomly survey 12 students to see if they will attend Tet (Vietnamese New Year) festivities this year. Based on past years, she knows that 18% of students attend Tet festivities. We are interested in the number of students who will attend the festivities.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>How many of the 12 students do we expect to attend the festivities?</item>
+          <item>Find the probability that at most four students will attend.</item>
+          <item>Find the probability that more than two students will attend.</item>
+        </list>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next two exercises: The probability that the San Jose Sharks will win any given game is 0.3694 based on a 13-year win history of 382 wins out of 1,034 games played (as of a certain date). An upcoming monthly schedule contains 12 games.</paragraph>
+    <exercise number="59" has_solution="false">
+      <problem>
+        <paragraph>The expected number of wins for that upcoming month is:</paragraph>
+        <list type="ordered">
+          <item>1.67</item>
+          <item>12</item>
+          <item>$$\frac{382}{1043}$$</item>
+          <item>4.43</item>
+        </list>
+      </problem>
+    </exercise>
+    <paragraph>Let X = the number of games won in that upcoming month.</paragraph>
+    <exercise number="60" has_solution="false">
+      <problem>
+        <paragraph>What is the probability that the San Jose Sharks win six games in that upcoming month?</paragraph>
+        <list type="ordered">
+          <item>0.1476</item>
+          <item>0.2336</item>
+          <item>0.7664</item>
+          <item>0.8903</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="61" has_solution="false">
+      <problem>
+        <paragraph>What is the probability that the San Jose Sharks win at least five games in that upcoming month</paragraph>
+        <list type="ordered">
+          <item>0.3694</item>
+          <item>0.5266</item>
+          <item>0.4734</item>
+          <item>0.2305</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="62" has_solution="false">
+      <problem>
+        <paragraph>A student takes a ten-question true-false quiz, but did not study and randomly guesses each answer. Find the probability that the student passes the quiz with a grade of at least 70% of the questions correct.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="63" has_solution="false">
+      <problem>
+        <paragraph>A student takes a 32-question multiple-choice exam, but did not study and randomly guesses each answer. Each question has three possible choices for the answer. Find the probability that the student guesses more than 75% of the questions correctly.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="64" has_solution="false">
+      <problem>
+        <paragraph>Six different colored dice are rolled. Of interest is the number of dice that show a one.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>On average, how many dice would you expect to show a one?</item>
+          <item>Find the probability that all six dice show a one.</item>
+          <item>Is it more likely that three or that four dice will show a one? Use numbers to justify your answer numerically.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="65" has_solution="false">
+      <problem>
+        <paragraph>More than 96 percent of the very largest colleges and universities (more than 15,000 total enrollments) have some online offerings. Suppose you randomly pick 13 such institutions. We are interested in the number that offer distance learning courses.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>On average, how many schools would you expect to offer such courses?</item>
+          <item>Find the probability that at most ten offer such courses.</item>
+          <item>Is it more likely that 12 or that 13 will offer such courses? Use numbers to justify your answer numerically and answer in a complete sentence.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="66" has_solution="false">
+      <problem>
+        <paragraph>Suppose that about 85% of graduating students attend their graduation. A group of 22 graduating students is randomly chosen.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>How many are expected to attend their graduation?</item>
+          <item>Find the probability that 17 or 18 attend.</item>
+          <item>Based on numerical values, would you be surprised if all 22 attended graduation? Justify your answer numerically.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="67" has_solution="false">
+      <problem>
+        <paragraph>At The Fencing Center, 60% of the fencers use the foil as their main weapon. We randomly survey 25 fencers at The Fencing Center. We are interested in the number of fencers who do not use the foil as their main weapon.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>How many are expected to not to use the foil as their main weapon?</item>
+          <item>Find the probability that six do not use the foil as their main weapon.</item>
+          <item>Based on numerical values, would you be surprised if all 25 did not use foil as their main weapon? Justify your answer numerically.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="68" has_solution="false">
+      <problem>
+        <paragraph>Approximately 8% of students at a local high school participate in after-school sports all four years of high school. A group of 60 seniors is randomly chosen. Of interest is the number who participated in after-school sports all four years of high school.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>How many seniors are expected to have participated in after-school sports all four years of high school?</item>
+          <item>Based on numerical values, would you be surprised if none of the seniors participated in after-school sports all four years of high school? Justify your answer numerically.</item>
+          <item>Based upon numerical values, is it more likely that four or that five of the seniors participated in after-school sports all four years of high school? Justify your answer numerically.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="69" has_solution="false">
+      <problem>
+        <paragraph>The chance of an IRS audit for a tax return with over \$25,000 in income is about 2% per year. We are interested in the expected number of audits a person with that income has in a 20-year period. Assume each year is independent.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>How many audits are expected in a 20-year period?</item>
+          <item>Find the probability that a person is not audited at all.</item>
+          <item>Find the probability that a person is audited more than twice.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="70" has_solution="false">
+      <problem>
+        <paragraph>It has been estimated that only about 30% of California residents have adequate earthquake supplies. Suppose you randomly survey 11 California residents. We are interested in the number who have adequate earthquake supplies.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>What is the probability that at least eight have adequate earthquake supplies?</item>
+          <item>Is it more likely that none or that all of the residents surveyed will have adequate earthquake supplies? Why?</item>
+          <item>How many residents do you expect will have adequate earthquake supplies?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="71" has_solution="false">
+      <problem>
+        <paragraph>There are two similar games played for Chinese New Year and Vietnamese New Year. In the Chinese version, fair dice with numbers 1, 2, 3, 4, 5, and 6 are used, along with a board with those numbers. In the Vietnamese version, fair dice with pictures of a gourd, fish, rooster, crab, crayfish, and deer are used. The board has those six objects on it, also. We will play with bets being \$1. The player places a bet on a number or object. The “house” rolls three dice. If none of the dice show the number or object that was bet, the house keeps the \$1 bet. If one of the dice shows the number or object bet (and the other two do not show it), the player gets back their \$1 bet, plus \$1 profit. If two of the dice show the number or object bet (and the third die does not show it), the player gets back their \$1 bet, plus \$2 profit. If all three dice show the number or object bet, the player gets back their \$1 bet, plus \$3 profit. Let X = number of matches and Y = profit per game.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>List the values that Y may take on. Then, construct one PDF table that includes both X and Y and their probabilities.</item>
+          <item>Calculate the average expected matches over the long run of playing this game for the player.</item>
+          <item>Calculate the average expected earnings over the long run of playing this game for the player.</item>
+          <item>Determine who has the advantage, the player or the house.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="72" has_solution="false">
+      <problem>
+        <paragraph>Only 9% of the population of Niger had access to the internet. Suppose we randomly sample 150 people in Niger. Let X = the number of people who have access the internet.</paragraph>
+        <list type="ordered">
+          <item>What is the probability distribution for X?</item>
+          <item>Using the formulas, calculate the mean and standard deviation of X.</item>
+          <item>Find the probability that 15 people in the sample have access to the internet.</item>
+          <item>Find the probability that at most ten people in the sample have access to the internet.</item>
+          <item>Find the probability that more than 25 people in the sample have access to the internet.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="73" has_solution="false">
+      <problem>
+        <paragraph>The literacy rate for a nation measures the proportion of people age 15 and over that can read and write. The literacy rate in a certain country is 28.1%. Suppose you choose 15 people in a certain country at random. Let X = the number of people who are literate.</paragraph>
+        <list type="ordered">
+          <item>Sketch a graph of the probability distribution of X.</item>
+          <item>Using the formulas, calculate the (i) mean and (ii) standard deviation of X.</item>
+          <item>Find the probability that more than five people in the sample are literate. Is it is more likely that three people or four people are literate.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="74" has_solution="false">
+      <problem>
+        <paragraph>A consumer looking to buy a used red Miata car will call dealerships until she finds a dealership that carries the car. She estimates the probability that any independent dealership will have the car will be 28%. We are interested in the number of dealerships she must call.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>On average, how many dealerships would we expect her to have to call until she finds one that has the car?</item>
+          <item>Find the probability that she must call at most four dealerships.</item>
+          <item>Find the probability that she must call three or four dealerships.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="75" has_solution="false">
+      <problem>
+        <paragraph>Suppose that the probability that an adult in America will watch the Super Bowl is 40%. Each person is considered independent. We are interested in the number of adults in America we must survey until we find one who will watch the Super Bowl.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>How many adults in America do you expect to survey until you find one who will watch the Super Bowl?</item>
+          <item>Find the probability that you must ask seven people.</item>
+          <item>Find the probability that you must ask three or four people.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="76" has_solution="false">
+      <problem>
+        <paragraph>It has been estimated that only about 30% of California residents have adequate earthquake supplies. Suppose we are interested in the number of California residents we must survey until we find a resident who does not have adequate earthquake supplies.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>What is the probability that we must survey just one or two residents until we find a California resident who does not have adequate earthquake supplies?</item>
+          <item>What is the probability that we must survey at least three California residents until we find a California resident who does not have adequate earthquake supplies?</item>
+          <item>How many California residents do you expect to need to survey until you find a California resident who does not have adequate earthquake supplies?</item>
+          <item>How many California residents do you expect to need to survey until you find a California resident who does have adequate earthquake supplies?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="77" has_solution="false">
+      <problem>
+        <paragraph>In one of its Spring catalogs, L.L. Bean® advertised footwear on 29 of its 192 catalog pages. Suppose we randomly survey 20 pages. We are interested in the number of pages that advertise footwear. Each page may be picked more than once.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _____(_____,_____)</item>
+          <item>How many pages do you expect to advertise footwear on them?</item>
+          <item>Is it probable that all twenty will advertise footwear on them? Why or why not?</item>
+          <item>What is the probability that fewer than ten will advertise footwear on them?</item>
+          <item>Reminder: A page may be picked more than once. We are interested in the number of pages that we must randomly survey until we find one that has footwear advertised on it. Define the random variable X and give its distribution.</item>
+          <item>What is the probability that you only need to survey at most three pages in order to find one that advertises footwear on it?</item>
+          <item>How many pages do you expect to need to survey in order to find one that advertises footwear?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="78" has_solution="false">
+      <problem>
+        <paragraph>Suppose that you are performing the probability experiment of rolling one fair six-sided die. Let F be the event of rolling a four or a five. You are interested in how many times you need to roll the die in order to obtain the first four or five as the outcome.</paragraph>
+        <list type="unordered">
+          <item>p = probability of success (event F occurs)</item>
+          <item>q = probability of failure (event F does not occur)</item>
+        </list>
+        <list type="ordered">
+          <item>Write the description of the random variable X.</item>
+          <item>What are the values that X can take on?</item>
+          <item>Find the values of p and q.</item>
+          <item>Find the probability that the first occurrence of event F (rolling a four or five) is on the second trial.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="79" has_solution="false">
+      <problem>
+        <paragraph>Ellen has music practice three days a week. She practices for all of the three days 85% of the time, two days 8% of the time, one day 4% of the time, and no days 3% of the time. One week is selected at random. What values does X take on?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="80" has_solution="false">
+      <problem>
+        <paragraph>Medical researchers in a certain country have documented that the percentage of people ages 15 to 49 who are infected with a certain respiratory virus is 17.3%. Let X = the number of people you test until you find a person infected with the virus.</paragraph>
+        <list type="ordered">
+          <item>Sketch a graph of the distribution of the discrete random variable X.</item>
+          <item>What is the probability that you must test 30 people to find one with the virus?</item>
+          <item>What is the probability that you must ask ten people?</item>
+          <item>Find the (i) mean and (ii) standard deviation of the distribution of X.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="81" has_solution="false">
+      <problem>
+        <paragraph>According to a recent Pew Research poll, 75% of millennials (people born between 1981 and 1995) have a profile on a social networking site. Let X = the number of millennials you ask until you find a person without a profile on a social networking site.</paragraph>
+        <list type="ordered">
+          <item>Describe the distribution of X.</item>
+          <item>Find the (i) mean and (ii) standard deviation of X.</item>
+          <item>What is the probability that you must ask ten people to find one person without a social networking site?</item>
+          <item>What is the probability that you must ask 20 people to find one person without a social networking site?</item>
+          <item>What is the probability that you must ask at most five people?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="82" has_solution="false">
+      <problem>
+        <paragraph>The switchboard in a Minneapolis law office gets an average of 5.5 incoming phone calls during the noon hour on Mondays. Experience shows that the existing staff can handle up to six calls in an hour. Let X = the number of calls received at noon.</paragraph>
+        <list type="ordered">
+          <item>Find the mean and standard deviation of X.</item>
+          <item>What is the probability that the office receives at most six calls at noon on Monday?</item>
+          <item>Find the probability that the law office receives six calls at noon. What does this mean to the law office staff who get, on average, 5.5 incoming phone calls at noon?</item>
+          <item>What is the probability that the office receives more than eight calls at noon?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="83" has_solution="false">
+      <problem>
+        <paragraph>The maternity ward at Dr. Jose Fabella Memorial Hospital in Manila in the Philippines is one of the busiest in the world with an average of 60 births per day. Let X = the number of births in an hour.</paragraph>
+        <list type="ordered">
+          <item>Find the mean and standard deviation of X.</item>
+          <item>Sketch a graph of the probability distribution of X.</item>
+          <item>What is the probability that the maternity ward will deliver three babies in one hour?</item>
+          <item>What is the probability that the maternity ward will deliver at most three babies in one hour?</item>
+          <item>What is the probability that the maternity ward will deliver more than five babies in one hour?</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="84" has_solution="false">
+      <problem>
+        <paragraph>A manufacturer of Christmas tree light bulbs knows that 3% of its bulbs are defective. Find the probability that a string of 100 lights contains at most four defective bulbs using both the binomial and Poisson distributions.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="85" has_solution="false">
+      <problem>
+        <paragraph>The average number of children a Japanese woman has in her lifetime is 1.37. Suppose that one Japanese woman is randomly chosen.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Find the probability that she has no children.</item>
+          <item>Find the probability that she has fewer children than the Japanese average.</item>
+          <item>Find the probability that she has more children than the Japanese average.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="86" has_solution="false">
+      <problem>
+        <paragraph>The average number of children a Spanish woman has in her lifetime is 1.47. Suppose that one Spanish woman is randomly chosen.</paragraph>
+        <list type="ordered">
+          <item>In words, define the Random Variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Find the probability that she has no children.</item>
+          <item>Find the probability that she has fewer children than the Spanish average.</item>
+          <item>Find the probability that she has more children than the Spanish average .</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="87" has_solution="false">
+      <problem>
+        <paragraph>Fertile, female cats produce an average of three litters per year. Suppose that one fertile, female cat is randomly chosen. In one year, find the probability she produces:</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution of X. X ~ _______</item>
+          <item>Find the probability that she has no litters in one year.</item>
+          <item>Find the probability that she has at least two litters in one year.</item>
+          <item>Find the probability that she has exactly three litters in one year.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="88" has_solution="false">
+      <problem>
+        <paragraph>The chance of having an extra fortune in a fortune cookie is about 3%. Given a bag of 144 fortune cookies, we are interested in the number of cookies with an extra fortune. Two distributions may be used to solve this problem, but only use one distribution to solve the problem.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>How many cookies do we expect to have an extra fortune?</item>
+          <item>Find the probability that none of the cookies have an extra fortune.</item>
+          <item>Find the probability that more than three have an extra fortune.</item>
+          <item>As n increases, what happens involving the probabilities using the two distributions? Explain in complete sentences.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="89" has_solution="false">
+      <problem>
+        <paragraph>For every 200 U.S. kids and teens, the average number who have obsessive compulsive disorder is one. Out of a randomly chosen group of 600 U.S. kids and teens determine the following.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>Give the distribution ofX. X ~ _____(_____,_____)</item>
+          <item>How many are expected to have obsessive compulsive disorder?</item>
+          <item>Find the probability that no one has obsessive compulsive disorder.</item>
+          <item>Find the probability that more than four have obsessive compulsive disorder.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="90" has_solution="false">
+      <problem>
+        <paragraph>The chance of an IRS audit for a tax return with over \$25,000 in income is about 2% per year. Suppose that 100 people with tax returns over \$25,000 are randomly picked. We are interested in the number of people audited in one year. Use a Poisson distribution to answer the following questions.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>How many are expected to be audited?</item>
+          <item>Find the probability that no one was audited.</item>
+          <item>Find the probability that at least three were audited.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="91" has_solution="false">
+      <problem>
+        <paragraph>Approximately 8% of students at a local high school participate in after-school sports all four years of high school. A group of 60 seniors is randomly chosen. Of interest is the number that participated in after-school sports all four years of high school.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>How many seniors are expected to have participated in after-school sports all four years of high school?</item>
+          <item>Based on numerical values, would you be surprised if none of the seniors participated in after-school sports all four years of high school? Justify your answer numerically.</item>
+          <item>Based on numerical values, is it more likely that four or that five of the seniors participated in after-school sports all four years of high school? Justify your answer numerically.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="92" has_solution="false">
+      <problem>
+        <paragraph>On average, Pierre, an amateur chef, drops three pieces of egg shell into every two cake batters he makes. Suppose that you buy one of his cakes.</paragraph>
+        <list type="ordered">
+          <item>In words, define the random variable X.</item>
+          <item>List the values that X may take on.</item>
+          <item>On average, how many pieces of egg shell do you expect to be in the cake?</item>
+          <item>What is the probability that there will not be any pieces of egg shell in the cake?</item>
+          <item>Let’s say that you buy one of Pierre’s cakes each week for six weeks. What is the probability that there will not be any egg shell in any of the cakes?</item>
+          <item>Based upon the average given for Pierre, is it possible for there to be seven pieces of shell in the cake? Why?</item>
+        </list>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next two exercises: The average number of times per week that Mrs. Plum’s cats wake her up at night because they want to play is ten. We are interested in the number of times her cats wake her up each week.</paragraph>
+    <exercise number="93" has_solution="false">
+      <problem>
+        <paragraph>In words, the random variable X = _________________</paragraph>
+        <list type="ordered">
+          <item>the number of times Mrs. Plum’s cats wake her up each week.</item>
+          <item>the number of times Mrs. Plum’s cats wake her up each hour.</item>
+          <item>the number of times Mrs. Plum’s cats wake her up each night.</item>
+          <item>the number of times Mrs. Plum’s cats wake her up.</item>
+        </list>
+      </problem>
+    </exercise>
+    <exercise number="94" has_solution="false">
+      <problem>
+        <paragraph>Find the probability that her cats will wake her up no more than five times next week.</paragraph>
+        <list type="ordered">
+          <item>0.5000</item>
+          <item>0.9329</item>
+          <item>0.0378</item>
+          <item>0.0671</item>
+        </list>
+      </problem>
+    </exercise>
+  </exercises>
+  <heading level="1">Practice</heading>
+  <exercises>
+    <heading level="1">Practice</heading>
+    <paragraph>Use the following information to answer the next five exercises: A company wants to evaluate its attrition rate, in other words, how long new hires stay with the company. Over the years, they have established the following probability distribution.</paragraph>
+    <paragraph>Let X = the number of years a new hire will stay with the company.</paragraph>
+    <paragraph>Let P(x) = the probability that a new hire will stay with the company x years.</paragraph>
+    <exercise number="1" has_solution="false">
+      <problem>
+        <paragraph>Complete Table 4.1 using the data provided.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">x</cell>
+              <cell header="true">P(x)</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>0</cell>
+              <cell>0.12</cell>
+            </row>
+            <row>
+              <cell>1</cell>
+              <cell>0.18</cell>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell>0.30</cell>
+            </row>
+            <row>
+              <cell>3</cell>
+              <cell>0.15</cell>
+            </row>
+            <row>
+              <cell>4</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>5</cell>
+              <cell>0.10</cell>
+            </row>
+            <row>
+              <cell>6</cell>
+              <cell>0.05</cell>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="2" has_solution="false">
+      <problem>
+        <paragraph>P(x = 4) = _______</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="3" has_solution="false">
+      <problem>
+        <paragraph>P(x ≥ 5) = _______</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="4" has_solution="false">
+      <problem>
+        <paragraph>On average, how long would you expect a new hire to stay with the company?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="5" has_solution="false">
+      <problem>
+        <paragraph>What does the column “P(x)” sum to?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next six exercises: A baker is deciding how many batches of muffins to make to sell in his bakery. He wants to make enough to sell every one and no fewer. Through observation, the baker has established a probability distribution.</paragraph>
+    <table>
+      <thead>
+        <row>
+          <cell header="true">x</cell>
+          <cell header="true">P(x)</cell>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <cell>1</cell>
+          <cell>0.15</cell>
+        </row>
+        <row>
+          <cell>2</cell>
+          <cell>0.35</cell>
+        </row>
+        <row>
+          <cell>3</cell>
+          <cell>0.40</cell>
+        </row>
+        <row>
+          <cell>4</cell>
+          <cell>0.10</cell>
+        </row>
+      </tbody>
+    </table>
+    <exercise number="6" has_solution="false">
+      <problem>
+        <paragraph>Define the random variable X.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="7" has_solution="false">
+      <problem>
+        <paragraph>What is the probability the baker will sell more than one batch? P(x &gt; 1) = _______</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="8" has_solution="false">
+      <problem>
+        <paragraph>What is the probability the baker will sell exactly one batch? P(x = 1) = _______</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="9" has_solution="false">
+      <problem>
+        <paragraph>On average, how many batches should the baker make?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next four exercises: Emery has music practice three days a week. They practice for all of the three days 85% of the time, two days 8% of the time, one day 4% of the time, and no days 3% of the time. One week is selected at random.</paragraph>
+    <exercise number="10" has_solution="false">
+      <problem>
+        <paragraph>Define the random variable X.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="11" has_solution="false">
+      <problem>
+        <paragraph>Construct a probability distribution table for the data.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="12" has_solution="false">
+      <problem>
+        <paragraph>We know that for a probability distribution function to be discrete, it must have two characteristics. One is that the sum of the probabilities is one. What is the other characteristic?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next five exercises: Javier volunteers in community events each month. He does not do more than five events in a month. He attends exactly five events 35% of the time, four events 25% of the time, three events 20% of the time, two events 10% of the time, one event 5% of the time, and no events 5% of the time.</paragraph>
+    <exercise number="13" has_solution="false">
+      <problem>
+        <paragraph>Define the random variable X.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="14" has_solution="false">
+      <problem>
+        <paragraph>What values does x take on?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="15" has_solution="false">
+      <problem>
+        <paragraph>Construct a PDF table.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="16" has_solution="false">
+      <problem>
+        <paragraph>Find the probability that Javier volunteers for less than three events each month. P(x &lt; 3) = _______</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="17" has_solution="false">
+      <problem>
+        <paragraph>Find the probability that Javier volunteers for at least one event each month. P(x &gt; 0) = _______</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next five exercises: Suppose that a group of statistics students is divided into two groups: business majors and non-business majors. There are 16 business majors in the group and seven non-business majors in the group. A random sample of nine students is taken. We are interested in the number of business majors in the sample.</paragraph>
+    <exercise number="18" has_solution="false">
+      <problem>
+        <paragraph>In words, define the random variable X.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="19" has_solution="false">
+      <problem>
+        <paragraph>What values does X take on?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next eight exercises: The Higher Education Research Institute at UCLA collected data from 203,967 incoming first-time, full-time first-year students from 270 four-year colleges and universities in the U.S. 71.3% of those students replied that, yes, they believe that same-sex couples should have the right to legal marital status. Suppose that you randomly pick eight first-time, full-time first-year students from the survey. You are interested in the number that believes that same sex-couples should have the right to legal marital status.</paragraph>
+    <exercise number="20" has_solution="false">
+      <problem>
+        <paragraph>In words, define the random variable X.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="21" has_solution="false">
+      <problem>
+        <paragraph>X ~ _____(_____,_____)</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="22" has_solution="false">
+      <problem>
+        <paragraph>What values does the random variable X take on?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="23" has_solution="false">
+      <problem>
+        <paragraph>Construct the probability distribution function (PDF).</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">x</cell>
+              <cell header="true">P(x)</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell/>
+              <cell/>
+            </row>
+            <row>
+              <cell/>
+              <cell/>
+            </row>
+            <row>
+              <cell/>
+              <cell/>
+            </row>
+            <row>
+              <cell/>
+              <cell/>
+            </row>
+            <row>
+              <cell/>
+              <cell/>
+            </row>
+            <row>
+              <cell/>
+              <cell/>
+            </row>
+            <row>
+              <cell/>
+              <cell/>
+            </row>
+            <row>
+              <cell/>
+              <cell/>
+            </row>
+            <row>
+              <cell/>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="24" has_solution="false">
+      <problem>
+        <paragraph>On average (μ), how many would you expect to answer yes?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="25" has_solution="false">
+      <problem>
+        <paragraph>What is the standard deviation (σ)?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="26" has_solution="false">
+      <problem>
+        <paragraph>What is the probability that at most five of the first-year students reply “yes”?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="27" has_solution="false">
+      <problem>
+        <paragraph>What is the probability that at least two of the first-year students reply “yes”?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next six exercises: The Higher Education Research Institute at UCLA collected data from 203,967 incoming first-time, full-time first-year students from 270 four-year colleges and universities in the U.S. 71.3% of those students replied that, yes, they believe that same-sex couples should have the right to legal marital status. Suppose that you randomly select first-year students from the study until you find one who replies “yes.” You are interested in the number of first-year students you must ask.</paragraph>
+    <exercise number="28" has_solution="false">
+      <problem>
+        <paragraph>In words, define the random variable X.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="29" has_solution="false">
+      <problem>
+        <paragraph>X ~ _____(_____,_____)</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="30" has_solution="false">
+      <problem>
+        <paragraph>What values does the random variable X take on?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="31" has_solution="false">
+      <problem>
+        <paragraph>Construct the probability distribution function (PDF). Stop at x = 6.</paragraph>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">x</cell>
+              <cell header="true">P(x)</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>1</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>3</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>4</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>5</cell>
+              <cell/>
+            </row>
+            <row>
+              <cell>6</cell>
+              <cell/>
+            </row>
+          </tbody>
+        </table>
+      </problem>
+    </exercise>
+    <exercise number="32" has_solution="false">
+      <problem>
+        <paragraph>On average (μ), how many first-year students would you expect to have to ask until you found one who replies "yes?"</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="33" has_solution="false">
+      <problem>
+        <paragraph>What is the probability that you will need to ask fewer than three first-year students?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next six exercises: On average, a clothing store gets 120 customers per day.</paragraph>
+    <exercise number="34" has_solution="false">
+      <problem>
+        <paragraph>Assume the event occurs independently in any given day. Define the random variable X.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="35" has_solution="false">
+      <problem>
+        <paragraph>What values does X take on?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="36" has_solution="false">
+      <problem>
+        <paragraph>What is the probability of getting 150 customers in one day?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="37" has_solution="false">
+      <problem>
+        <paragraph>What is the probability of getting 35 customers in the first four hours? Assume the store is open 12 hours each day.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="38" has_solution="false">
+      <problem>
+        <paragraph>What is the probability that the store will have more than 12 customers in the first hour?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="39" has_solution="false">
+      <problem>
+        <paragraph>What is the probability that the store will have fewer than 12 customers in the first two hours?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="40" has_solution="false">
+      <problem>
+        <paragraph>Which type of distribution can the Poisson model be used to approximate? When would you do this?</paragraph>
+      </problem>
+    </exercise>
+    <paragraph>Use the following information to answer the next six exercises: On average, eight teens in the U.S. die from motor vehicle injuries per day. As a result, states across the country are debating raising the driving age.</paragraph>
+    <exercise number="41" has_solution="false">
+      <problem>
+        <paragraph>Assume the event occurs independently in any given day. In words, define the random variable X.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="42" has_solution="false">
+      <problem>
+        <paragraph>X ~ _____(_____,_____)</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="43" has_solution="false">
+      <problem>
+        <paragraph>What values does X take on?</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="44" has_solution="false">
+      <problem>
+        <paragraph>For the given values of the random variable X, fill in the corresponding probabilities.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="45" has_solution="false">
+      <problem>
+        <paragraph>Is it likely that there will be no teens killed from motor vehicle injuries on any given day in the U.S? Justify your answer numerically.</paragraph>
+      </problem>
+    </exercise>
+    <exercise number="46" has_solution="false">
+      <problem>
+        <paragraph>Is it likely that there will be more than 20 teens killed from motor vehicle injuries on any given day in the U.S.? Justify your answer numerically.</paragraph>
+      </problem>
+    </exercise>
+  </exercises>
+  <heading level="1">References</heading>
+  <paragraph>“Access to electricity (% of population),” The World Bank, 2013. Available online at http://data.worldbank.org/indicator/EG.ELC.ACCS.ZS?order=wbapi_data_value_2009%20wbapi_data_value%20wbapi_data_value-first&amp;sort=asc (accessed May 15, 2015).</paragraph>
+  <paragraph>“Distance Education.” Wikipedia. Available online at http://en.wikipedia.org/wiki/Distance_education (accessed May 15, 2013).</paragraph>
+  <paragraph>“NBA Statistics – 2013,” ESPN NBA, 2013. Available online at http://espn.go.com/nba/statistics/_/seasontype/2 (accessed May 15, 2013).</paragraph>
+  <paragraph>Newport, Frank. “Americans Still Enjoy Saving Rather than Spending: Few demographic differences seen in these views other than by income,” GALLUP® Economy, 2013. Available online at http://www.gallup.com/poll/162368/americans-enjoy-saving-rather-spending.aspx (accessed May 15, 2013).</paragraph>
+  <paragraph>Pryor, John H., Linda DeAngelo, Laura Palucki Blake, Sylvia Hurtado, Serge Tran. The American Freshman: National Norms Fall 2011. Los Angeles: Cooperative Institutional Research Program at the Higher Education Research Institute at UCLA, 2011. Also available online at http://heri.ucla.edu/PDFs/pubs/TFS/Norms/Monographs/TheAmericanFreshman2011.pdf (accessed May 15, 2013).</paragraph>
+  <paragraph>“The World FactBook,” Central Intelligence Agency. Available online at https://www.cia.gov/library/publications/the-world-factbook/geos/af.html (accessed May 15, 2013).</paragraph>
+  <paragraph>“What are the key statistics about pancreatic cancer?” American Cancer Society, 2013. Available online at http://www.cancer.org/cancer/pancreaticcancer/detailedguide/pancreatic-cancer-key-statistics (accessed May 15, 2013).</paragraph>
+  <paragraph>“Millennials: A Portrait of Generation Next,” PewResearchCenter. Available online at http://www.pewsocialtrends.org/files/2010/10/millennials-confident-connected-open-to-change.pdf (accessed May 15, 2013).</paragraph>
+  <paragraph>“Millennials: Confident. Connected. Open to Change.” Executive Summary by PewResearch Social &amp; Demographic Trends, 2013. Available online at http://www.pewsocialtrends.org/2010/02/24/millennials-confident-connected-open-to-change/ (accessed May 15, 2013).</paragraph>
+  <paragraph>“Prevalence of HIV, total (% of populations ages 15-49),” The World Bank, 2013. Available online at http://data.worldbank.org/indicator/SH.DYN.AIDS.ZS?order=wbapi_data_value_2011+wbapi_data_value+wbapi_data_value-last&amp;sort=desc (accessed May 15, 2013).</paragraph>
+  <paragraph>Pryor, John H., Linda DeAngelo, Laura Palucki Blake, Sylvia Hurtado, Serge Tran. The American Freshman: National Norms Fall 2011. Los Angeles: Cooperative Institutional Research Program at the Higher Education Research Institute at UCLA, 2011. Also available online at http://heri.ucla.edu/PDFs/pubs/TFS/Norms/Monographs/TheAmericanFreshman2011.pdf (accessed May 15, 2013).</paragraph>
+  <paragraph>“Summary of the National Risk and Vulnerability Assessment 2007/8: A profile of Afghanistan,” The European Union and ICON-Institute. Available online at http://ec.europa.eu/europeaid/where/asia/documents/afgh_brochure_summary_en.pdf (accessed May 15, 2013).</paragraph>
+  <paragraph>“The World FactBook,” Central Intelligence Agency. Available online at https://www.cia.gov/library/publications/the-world-factbook/geos/af.html (accessed May 15, 2013).</paragraph>
+  <paragraph>“UNICEF reports on Female Literacy Centers in Afghanistan established to teach women and girls basic resading [sic] and writing skills,” UNICEF Television. Video available online at http://www.unicefusa.org/assets/video/afghan-female-literacy-centers.html (accessed May 15, 2013).</paragraph>
+  <paragraph>“ATL Fact Sheet,” Department of Aviation at the Hartsfield-Jackson Atlanta International Airport, 2013. Available online at http://www.atl.com/about-atl/atl-factsheet/ (accessed February 6, 2019).</paragraph>
+  <paragraph>Center for Disease Control and Prevention. “Teen Drivers: Fact Sheet,” Injury Prevention &amp; Control: Motor Vehicle Safety, October 2, 2012. Available online at http://www.cdc.gov/Motorvehiclesafety/Teen_Drivers/teendrivers_factsheet.html (accessed May 15, 2013).</paragraph>
+  <paragraph>“Children and Childrearing,” Ministry of Health, Labour, and Welfare. Available online at http://www.mhlw.go.jp/english/policy/children/children-childrearing/index.html (accessed May 15, 2013).</paragraph>
+  <paragraph>“Eating Disorder Statistics,” South Carolina Department of Mental Health, 2006. Available online at http://www.state.sc.us/dmh/anorexia/statistics.htm (accessed May 15, 2013).</paragraph>
+  <paragraph>“Giving Birth in Manila: The maternity ward at the Dr Jose Fabella Memorial Hospital in Manila, the busiest in the Philippines, where there is an average of 60 births a day,” theguardian, 2013. Available online at http://www.theguardian.com/world/gallery/2011/jun/08/philippines-health#/?picture=375471900&amp;index=2 (accessed May 15, 2013).</paragraph>
+  <paragraph>“How Americans Use Text Messaging,” Pew Internet, 2013. Available online at http://pewinternet.org/Reports/2011/Cell-Phone-Texting-2011/Main-Report.aspx (accessed May 15, 2013).</paragraph>
+  <paragraph>Lenhart, Amanda. “Teens, Smartphones &amp; Testing: Texting volume is up while the frequency of voice calling is down. About one in four teens say they own smartphones,” Pew Internet, 2012. Available online at http://www.pewinternet.org/~/media/Files/Reports/2012/PIP_Teens_Smartphones_and_Texting.pdf (accessed May 15, 2013).</paragraph>
+  <paragraph>“One born every minute: the maternity unit where mothers are THREE to a bed,” MailOnline. Available online at http://www.dailymail.co.uk/news/article-2001422/Busiest-maternity-ward-planet-averages-60-babies-day-mothers-bed.html (accessed May 15, 2013).</paragraph>
+  <paragraph>Vanderkam, Laura. “Stop Checking Your Email, Now.” CNNMoney, 2013. Available online at http://management.fortune.cnn.com/2012/10/08/stop-checking-your-email-now/ (accessed May 15, 2013).</paragraph>
+  <paragraph>“World Earthquakes: Live Earthquake News and Highlights,” World Earthquakes, 2012. http://www.world-earthquakes.com/index.php?option=ethq_prediction (accessed May 15, 2013).</paragraph>
+  <heading level="1">Solutions</heading>
+  <exercises>
+    <heading level="1">Solutions</heading>
+    <exercise number="1" has_solution="true">
+      <solution>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">x</cell>
+              <cell header="true">P(x)</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>0</cell>
+              <cell>0.12</cell>
+            </row>
+            <row>
+              <cell>1</cell>
+              <cell>0.18</cell>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell>0.30</cell>
+            </row>
+            <row>
+              <cell>3</cell>
+              <cell>0.15</cell>
+            </row>
+            <row>
+              <cell>4</cell>
+              <cell>0.10</cell>
+            </row>
+            <row>
+              <cell>5</cell>
+              <cell>0.10</cell>
+            </row>
+            <row>
+              <cell>6</cell>
+              <cell>0.05</cell>
+            </row>
+          </tbody>
+        </table>
+      </solution>
+    </exercise>
+    <exercise number="3" has_solution="true">
+      <solution>
+        <paragraph>0.10 + 0.05 = 0.15</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="5" has_solution="true">
+      <solution>
+        <paragraph>1</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="7" has_solution="true">
+      <solution>
+        <paragraph>0.35 + 0.40 + 0.10 = 0.85</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="9" has_solution="true">
+      <solution>
+        <paragraph>1(0.15) + 2(0.35) + 3(0.40) + 4(0.10) = 0.15 + 0.70 + 1.20 + 0.40 = 2.45</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="11" has_solution="true">
+      <solution>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">x</cell>
+              <cell header="true">P(x)</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>0</cell>
+              <cell>0.03</cell>
+            </row>
+            <row>
+              <cell>1</cell>
+              <cell>0.04</cell>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell>0.08</cell>
+            </row>
+            <row>
+              <cell>3</cell>
+              <cell>0.85</cell>
+            </row>
+          </tbody>
+        </table>
+      </solution>
+    </exercise>
+    <exercise number="13" has_solution="true">
+      <solution>
+        <paragraph>Let X = the number of events Javier volunteers for each month.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="15" has_solution="true">
+      <solution>
+        <table>
+          <thead>
+            <row>
+              <cell header="true">x</cell>
+              <cell header="true">P(x)</cell>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <cell>0</cell>
+              <cell>0.05</cell>
+            </row>
+            <row>
+              <cell>1</cell>
+              <cell>0.05</cell>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell>0.10</cell>
+            </row>
+            <row>
+              <cell>3</cell>
+              <cell>0.20</cell>
+            </row>
+            <row>
+              <cell>4</cell>
+              <cell>0.25</cell>
+            </row>
+            <row>
+              <cell>5</cell>
+              <cell>0.35</cell>
+            </row>
+          </tbody>
+        </table>
+      </solution>
+    </exercise>
+    <exercise number="17" has_solution="true">
+      <solution>
+        <paragraph>1 – 0.05 = 0.95</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="18" has_solution="true">
+      <solution>
+        <paragraph>X = the number of business majors in the sample.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="19" has_solution="true">
+      <solution>
+        <paragraph>2, 3, 4, 5, 6, 7, 8, 9</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="20" has_solution="true">
+      <solution>
+        <paragraph>X = the number that reply “yes”</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="22" has_solution="true">
+      <solution>
+        <paragraph>0, 1, 2, 3, 4, 5, 6, 7, 8</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="24" has_solution="true">
+      <solution>
+        <paragraph>5.7</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="26" has_solution="true">
+      <solution>
+        <paragraph>0.4151</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="28" has_solution="true">
+      <solution>
+        <paragraph>X = the number of first-year students selected from the study until one replied "yes" that same-sex couples should have the right to legal marital status.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="30" has_solution="true">
+      <solution>
+        <paragraph>1,2,…</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="32" has_solution="true">
+      <solution>
+        <paragraph>1.4</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="35" has_solution="true">
+      <solution>
+        <paragraph>0, 1, 2, 3, 4, …</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="37" has_solution="true">
+      <solution>
+        <paragraph>0.0485</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="39" has_solution="true">
+      <solution>
+        <paragraph>0.0214</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="41" has_solution="true">
+      <solution>
+        <paragraph>X = the number of U.S. teens who die from motor vehicle injuries per day.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="43" has_solution="true">
+      <solution>
+        <paragraph>0, 1, 2, 3, 4, ...</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="45" has_solution="true">
+      <solution>
+        <paragraph>No</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="48" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of pages that advertise footwear</item>
+          <item>0, 1, 2, 3, ..., 20</item>
+          <item>3.03</item>
+          <item>1.5197</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="50" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of Patriots picked</item>
+          <item>0, 1, 2, 3, 4</item>
+          <item>Without replacement</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="53" has_solution="true">
+      <solution>
+        <paragraph>X = the number of patients calling in claiming to have the flu, who actually have the flu.</paragraph>
+        <paragraph>X = 0, 1, 2, ...25</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="55" has_solution="true">
+      <solution>
+        <paragraph>0.0165</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="57" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of video games a Game Stop customer rents</item>
+          <item>0.12</item>
+          <item>0.11</item>
+          <item>0.77</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="59" has_solution="true">
+      <solution>
+        <paragraph>d. 4.43</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="61" has_solution="true">
+      <solution>
+        <paragraph>c</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="63" has_solution="true">
+      <solution>
+        <list type="unordered">
+          <item>X = number of questions answered correctly</item>
+          <item>X ~ B $$\left( { \text{32,} \frac{ \text{1} }{ \text{3} }} \right)$$</item>
+          <item>We are interested in MORE THAN 75% of 32 questions correct. 75% of 32 is 24. We want to find P(x &gt; 24). The event "more than 24" is the complement of "less than or equal to 24."</item>
+          <item>P(x &gt; 24) = 0</item>
+          <item>The probability of getting more than 75% of the 32 questions correct when randomly guessing is very small and practically zero.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="65" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of college and universities that offer online offerings.</item>
+          <item>0, 1, 2, …, 13</item>
+          <item>X ~ B(13, 0.96)</item>
+          <item>12.48</item>
+          <item>0.0135</item>
+          <item>P(x = 12) = 0.3186 P(x = 13) = 0.5882 More likely to get 13.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="67" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of fencers who do not use the foil as their main weapon</item>
+          <item>0, 1, 2, 3,... 25</item>
+          <item>X ~ B(25,0.40)</item>
+          <item>10</item>
+          <item>0.0442</item>
+          <item>The probability that all 25 not use the foil is almost zero. Therefore, it would be very surprising.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="69" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of audits in a 20-year period</item>
+          <item>0, 1, 2, …, 20</item>
+          <item>X ~ B(20, 0.02)</item>
+          <item>0.4</item>
+          <item>0.6676</item>
+          <item>0.0071</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="71" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of matches</item>
+          <item>0, 1, 2, 3</item>
+          <item>In dollars: −1, 1, 2, 3</item>
+          <item>$$\frac{1}{2}$$</item>
+          <item>The answer is −0.0787. You lose about eight cents, on average, per game.</item>
+          <item>The house has the advantage.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="73" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X ~ B(15, 0.281) Figure 4.5</item>
+          <item>Mean = μ = np = 15(0.281) = 4.215 Standard Deviation = σ = $$\sqrt{npq}$$ = $$\sqrt{15(0.281)(0.719)}$$ = 1.7409</item>
+          <item>P(x &gt; 5)=1 – 0.7754 = 0.2246 P(x = 3) = 0.1927 P(x = 4) = 0.2259 It is more likely that four people are literate that three people are.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="75" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of adults in America who are surveyed until one says they will watch the Super Bowl.</item>
+          <item>X ~ G(0.40)</item>
+          <item>2.5</item>
+          <item>0.0187</item>
+          <item>0.2304</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="77" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of pages that advertise footwear</item>
+          <item>X takes on the values 0, 1, 2, ..., 20</item>
+          <item>X ~ B(20, $$\frac{29}{192}$$ )</item>
+          <item>3.02</item>
+          <item>No</item>
+          <item>0.9997</item>
+          <item>X = the number of pages we must survey until we find one that advertises footwear. X ~ G( $$\frac{29}{192}$$ )</item>
+          <item>0.3881</item>
+          <item>6.6207 pages</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="79" has_solution="true">
+      <solution>
+        <paragraph>0, 1, 2, and 3</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="81" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X ~ G(0.25)</item>
+          <item>Mean = μ = $$\frac{1}{p}$$ = $$\frac{1}{0.25}$$ = 4 Standard Deviation = σ = $$\sqrt{\frac{1 - p}{p^{2}}}$$ = $$\sqrt{\frac{1 - \text{0} \text{.25} }{0.25^{2}}}$$ ≈ 3.4641</item>
+          <item>P(x = 10) = 0.0188</item>
+          <item>P(x = 20) = 0.0011</item>
+          <item>P(x ≤ 5) = 0.7627</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="82" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X ~ P(5.5); μ = 5.5; $$\sigma \text{=} \sqrt{5.5}$$ ≈ 2.3452</item>
+          <item>P(x ≤ 6) ≈ 0.6860</item>
+          <item>There is a 15.7% probability that the law staff will receive more calls than they can handle.</item>
+          <item>P(x &gt; 8) = 1 – P(x ≤ 8) ≈ 1 – 0.8944 = 0.1056</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="84" has_solution="true">
+      <solution>
+        <paragraph>Let X = the number of defective bulbs in a string.</paragraph>
+        <paragraph>Using the Poisson distribution:</paragraph>
+        <list type="unordered">
+          <item>μ = np = 100(0.03) = 3</item>
+          <item>X ~ P(3)</item>
+          <item>P(x ≤ 4) ≈ 0.8153</item>
+        </list>
+        <paragraph>Using the binomial distribution:</paragraph>
+        <list type="unordered">
+          <item>X ~ B(100, 0.03)</item>
+          <item>P(x ≤ 4) = 0.8179</item>
+        </list>
+        <paragraph>The Poisson approximation is very good—the difference between the probabilities is only 0.0026.</paragraph>
+      </solution>
+    </exercise>
+    <exercise number="86" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of children for a Spanish woman</item>
+          <item>0, 1, 2, 3,...</item>
+          <item>0.2299</item>
+          <item>0.5679</item>
+          <item>0.4321</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="88" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of fortune cookies that have an extra fortune</item>
+          <item>0, 1, 2, 3,... 144</item>
+          <item>4.32</item>
+          <item>0.0124 or 0.0133</item>
+          <item>0.6300 or 0.6264</item>
+          <item>As n gets larger, the probabilities get closer together.</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="90" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of people audited in one year</item>
+          <item>0, 1, 2, ..., 100</item>
+          <item>2</item>
+          <item>0.1353</item>
+          <item>0.3233</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="92" has_solution="true">
+      <solution>
+        <list type="ordered">
+          <item>X = the number of shell pieces in one cake</item>
+          <item>0, 1, 2, 3,...</item>
+          <item>1.5</item>
+          <item>0.2231</item>
+          <item>0.0001</item>
+          <item>Yes</item>
+        </list>
+      </solution>
+    </exercise>
+    <exercise number="94" has_solution="true">
+      <solution>
+        <paragraph>d</paragraph>
+      </solution>
+    </exercise>
+  </exercises>
+</section>

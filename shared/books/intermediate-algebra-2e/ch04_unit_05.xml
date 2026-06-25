@@ -1,648 +1,385 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="4.5" title="Solve Systems of Equations Using Matrices">
-  <learning_objectives>
-    <objective number="" />
-    <objective number="" />
-    <objective number="" />
-  </learning_objectives>
-  <note type="Be Prepared" number="4.13">
-    <p>Before you get started, take this readiness quiz.</p>
-    <p>Solve: $$3(x + 2) + 4 = 4(2x - 1) + 9.$$
-If you missed this problem, review Example 2.2.</p>
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">4.5 Solve Systems of Equations Using Matrices</heading>
+  <heading level="2">Learning Objectives</heading>
+  <list type="unordered">
+    <item>Write the augmented matrix for a system of equations</item>
+    <item>Use row operations on a matrix</item>
+    <item>Solve systems of equations using matrices</item>
+  </list>
+  <note type="practice" source_type="Be Prepared" title="Be Prepared" number="4.13">
+    <paragraph>Before you get started, take this readiness quiz.</paragraph>
+    <paragraph>Solve: $$3(x + 2) + 4 = 4(2x - 1) + 9.$$ If you missed this problem, review Example 2.2.</paragraph>
   </note>
-  <note type="Be Prepared" number="4.14">
-    <p>Solve: $$0.25p + 0.25(p + 4) = 5.20.$$
-If you missed this problem, review Example 2.13.</p>
+  <note type="practice" source_type="Be Prepared" title="Be Prepared" number="4.14">
+    <paragraph>Solve: $$0.25p + 0.25(p + 4) = 5.20.$$ If you missed this problem, review Example 2.13.</paragraph>
   </note>
-  <note type="Be Prepared" number="4.15">
-    <p>Evaluate when $$x = -2$$ and $$y = 3\text{:}\ 2x^{2} - xy + 3y^{2}.$$
-If you missed this problem, review Example 1.21.</p>
+  <note type="practice" source_type="Be Prepared" title="Be Prepared" number="4.15">
+    <paragraph>Evaluate when $$x = -2$$ and $$y = 3: 2x^{2} - xy + 3y^{2}.$$ If you missed this problem, review Example 1.21.</paragraph>
   </note>
-  <subsection title="Write the Augmented Matrix for a System of Equations">
-    <p>Solving a system of equations can be a tedious operation where a simple mistake can wreak havoc on finding the solution. An alternative method which uses the basic procedures of elimination but with notation that is simpler is available. The method involves using a matrix. A matrix is a rectangular array of numbers arranged in rows and columns.</p>
-    <note type="Matrix">
-      <p>A matrix is a rectangular array of numbers arranged in rows and columns.</p>
-      <p>A matrix with m rows and n columns has order $$m\ \times \ n.$$ The matrix on the left below has 2 rows and 3 columns and so it has order $$2\ \times \ 3.$$ We say it is a 2 by 3 matrix.</p>
-      <p>Each number in the matrix is called an element or entry in the matrix.</p>
-    </note>
-    <p>We will use a matrix to represent a system of linear equations. We write each equation in standard form and the coefficients of the variables and the constant of each equation becomes a row in the matrix. Each column then would be the coefficients of one of the variables in the system or the constants. A vertical line replaces the equal signs. We call the resulting matrix the augmented matrix for the system of equations.</p>
-    <p>Notice the first column is made up of all the coefficients of x, the second column is the all the coefficients of y, and the third column is all the constants.</p>
-    <example number="4.37">
-      <problem>
-        <p>Write each system of linear equations as an augmented matrix:</p>
-        <p>ⓐ $$\left\{ \begin{array}{l} {5x - 3y = -1} \\ {y = 2x - 2} \end{array} \right.$$ ⓑ $$\left\{ \begin{array}{l} {6x - 5y + 2z = 3} \\ {2x + y - 4z = 5} \\ {3x - 3y + z = -1} \end{array} \right.$$</p>
-      </problem>
-      <solution>
-        <p>ⓐ The second equation is not in standard form. We rewrite the second equation in standard form.</p>
-        <equation>$$\begin{array}{rll} y &amp; = &amp; {2x - 2} \\ {-2x + y} &amp; = &amp; -2 \end{array}$$</equation>
-        <p>We replace the second equation with its standard form. In the augmented matrix, the first equation gives us the first row and the second equation gives us the second row. The vertical line replaces the equal signs.</p>
-        <p>ⓑ All three equations are in standard form. In the augmented matrix the first equation gives us the first row, the second equation gives us the second row, and the third equation gives us the third row. The vertical line replaces the equal signs.</p>
-      </solution>
-    </example>
-    <note type="Try It" number="4.73">
-      <p>Write each system of linear equations as an augmented matrix:</p>
-      <p>ⓐ $$\left\{ \begin{array}{l} {3x + 8y = -3} \\ {2x = -5y - 3} \end{array} \right.$$ ⓑ $$\left\{ \begin{array}{l} {2x - 5y + 3z = 8} \\ {3x - y + 4z = 7} \\ {x + 3y + 2z = -3} \end{array} \right.$$</p>
-    </note>
-    <note type="Try It" number="4.74">
-      <p>Write each system of linear equations as an augmented matrix:</p>
-      <p>ⓐ $$\left\{ \begin{array}{l} {11x = -9y - 5} \\ {7x + 5y = -1} \end{array} \right.$$ ⓑ $$\left\{ \begin{array}{l} {5x - 3y + 2z = -5} \\ {2x - y - z = 4} \\ {3x - 2y + 2z = -7} \end{array} \right.$$</p>
-    </note>
-    <p>It is important as we solve systems of equations using matrices to be able to go back and forth between the system and the matrix. The next example asks us to take the information in the matrix and write the system of equations.</p>
-    <example number="4.38">
-      <problem>
-        <p>Write the system of equations that corresponds to the augmented matrix:</p>
-        <p>$$\left\lbrack \left. \begin{array}{rccrccrcc} 4 &amp; &amp; &amp; -3 &amp; &amp; &amp; 3 &amp; &amp; \\ 1 &amp; &amp; &amp; 2 &amp; &amp; &amp; -1 &amp; &amp; \\ -2 &amp; &amp; &amp; -1 &amp; &amp; &amp; 3 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; -1 \\ &amp; &amp; 2 \\ &amp; &amp; -4 \end{array} \right\rbrack.$$</p>
-      </problem>
-      <solution>
-        <p>We remember that each row corresponds to an equation and that each entry is a coefficient of a variable or the constant. The vertical line replaces the equal sign. Since this matrix is a $$4\ \times \ 3$$, we know it will translate into a system of three equations with three variables.</p>
-      </solution>
-    </example>
-    <note type="Try It" number="4.75">
-      <p>Write the system of equations that corresponds to the augmented matrix: $$\left\lbrack \begin{array}{lccrccrccr} 1 &amp; &amp; &amp; -1 &amp; &amp; &amp; 2 &amp; &amp; &amp; 3 \\ 2 &amp; &amp; &amp; 1 &amp; &amp; &amp; -2 &amp; &amp; &amp; 1 \\ 4 &amp; &amp; &amp; -1 &amp; &amp; &amp; 2 &amp; &amp; &amp; 0 \end{array} \right\rbrack.$$</p>
-    </note>
-    <note type="Try It" number="4.76">
-      <p>Write the system of equations that corresponds to the augmented matrix: $$\left\lbrack \begin{array}{lcclccrccr} 1 &amp; &amp; &amp; 1 &amp; &amp; &amp; 1 &amp; &amp; &amp; 4 \\ 2 &amp; &amp; &amp; 3 &amp; &amp; &amp; -1 &amp; &amp; &amp; 8 \\ 1 &amp; &amp; &amp; 1 &amp; &amp; &amp; -1 &amp; &amp; &amp; 3 \end{array} \right\rbrack.$$</p>
-    </note>
-  </subsection>
-  <subsection title="Use Row Operations on a Matrix">
-    <p>Once a system of equations is in its augmented matrix form, we will perform operations on the rows that will lead us to the solution.</p>
-    <p>To solve by elimination, it doesn’t matter which order we place the equations in the system. Similarly, in the matrix we can interchange the rows.</p>
-    <p>When we solve by elimination, we often multiply one of the equations by a constant. Since each row represents an equation, and we can multiply each side of an equation by a constant, similarly we can multiply each entry in a row by any real number except 0.</p>
-    <p>In elimination, we often add a multiple of one row to another row. In the matrix we can replace a row with its sum with a multiple of another row.</p>
-    <p>These actions are called row operations and will help us use the matrix to solve a system of equations.</p>
-    <note type="Row Operations">
-      <p>In a matrix, the following operations can be performed on any row and the resulting matrix will be equivalent to the original matrix.</p>
-      <list type="ol" style="1">
-        <item>Interchange any two rows.</item>
-        <item>Multiply a row by any real number except 0.</item>
-        <item>Add a nonzero multiple of one row to another row.</item>
-      </list>
-    </note>
-    <p>Performing these operations is easy to do but all the arithmetic can result in a mistake. If we use a system to record the row operation in each step, it is much easier to go back and check our work.</p>
-    <p>We use capital letters with subscripts to represent each row. We then show the operation to the left of the new matrix. To show interchanging a row:</p>
-    <p>To multiply row 2 by $$-3$$:</p>
-    <p>To multiply row 2 by $$-3$$ and add it to row 1:</p>
-    <example number="4.39">
-      <problem>
-        <p>Perform the indicated operations on the augmented matrix:</p>
-        <p>ⓐ Interchange rows 2 and 3.</p>
-        <p>ⓑ Multiply row 2 by 5.</p>
-        <p>ⓒ Multiply row 3 by $$-2$$ and add to row 1.</p>
-        <equation>$$\left\lbrack \left. \begin{array}{lccrccrcc} 6 &amp; &amp; &amp; -5 &amp; &amp; &amp; 2 &amp; &amp; \\ 2 &amp; &amp; &amp; 1 &amp; &amp; &amp; -4 &amp; &amp; \\ 3 &amp; &amp; &amp; -3 &amp; &amp; &amp; 1 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; 3 \\ &amp; &amp; 5 \\ &amp; &amp; -1 \end{array} \right\rbrack$$</equation>
-      </problem>
-      <solution>
-        <p>ⓐ We interchange rows 2 and 3.</p>
-        <p>ⓑ We multiply row 2 by 5.</p>
-        <p>ⓒ We multiply row 3 by $$-2$$ and add to row 1.</p>
-      </solution>
-    </example>
-    <note type="Try It" number="4.77">
-      <p>Perform the indicated operations sequentially on the augmented matrix:</p>
-      <p>ⓐ Interchange rows 1 and 3.</p>
-      <p>ⓑ Multiply row 3 by 3.</p>
-      <p>ⓒ Multiply row 3 by 2 and add to row 2.</p>
-      <p>$$\left\lbrack \left. \begin{array}{rccrccrcc} 5 &amp; &amp; &amp; -2 &amp; &amp; &amp; -2 &amp; &amp; \\ 4 &amp; &amp; &amp; -1 &amp; &amp; &amp; -4 &amp; &amp; \\ -2 &amp; &amp; &amp; 3 &amp; &amp; &amp; 0 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; -2 \\ &amp; &amp; 4 \\ &amp; &amp; -1 \end{array} \right\rbrack$$</p>
-    </note>
-    <note type="Try It" number="4.78">
-      <p>Perform the indicated operations on the augmented matrix:</p>
-      <p>ⓐ Interchange rows 1 and 2,</p>
-      <p>ⓑ Multiply row 1 by 2,</p>
-      <p>ⓒ Multiply row 2 by 3 and add to row 1.</p>
-      <p>$$\left\lbrack \left. \begin{array}{lccrccrcc} 2 &amp; &amp; &amp; -3 &amp; &amp; &amp; -2 &amp; &amp; \\ 4 &amp; &amp; &amp; 1 &amp; &amp; &amp; -3 &amp; &amp; \\ 5 &amp; &amp; &amp; 0 &amp; &amp; &amp; 4 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; -4 \\ &amp; &amp; 2 \\ &amp; &amp; -1 \end{array} \right\rbrack$$</p>
-    </note>
-    <p>Now that we have practiced the row operations, we will look at an augmented matrix and figure out what operation we will use to reach a goal. This is exactly what we did when we did elimination. We decided what number to multiply a row by in order that a variable would be eliminated when we added the rows together.</p>
-    <p>Given this system, what would you do to eliminate x?</p>
-    <p>This next example essentially does the same thing, but to the matrix.</p>
-    <example number="4.40">
-      <problem>
-        <p>Perform the needed row operation that will get the first entry in row 2 to be zero in the augmented matrix: $$\left\lbrack \left. \begin{array}{lccrcc} 1 &amp; &amp; &amp; -1 &amp; &amp; \\ 4 &amp; &amp; &amp; -8 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; 2 \\ &amp; &amp; 0 \end{array} \right\rbrack.$$</p>
-      </problem>
-      <solution>
-        <p>To make the 4 a 0, we could multiply row 1 by $$-4$$ and then add it to row 2.</p>
-      </solution>
-    </example>
-    <note type="Try It" number="4.79">
-      <p>Perform the needed row operation that will get the first entry in row 2 to be zero in the augmented matrix: $$\left\lbrack \left. \begin{array}{lccrcc} 1 &amp; &amp; &amp; -1 &amp; &amp; \\ 3 &amp; &amp; &amp; -6 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; 2 \\ &amp; &amp; 2 \end{array} \right\rbrack.$$</p>
-    </note>
-    <note type="Try It" number="4.80">
-      <p>Perform the needed row operation that will get the first entry in row 2 to be zero in the augmented matrix: $$\left\lbrack \left. \begin{array}{rccrcc} 1 &amp; &amp; &amp; -1 &amp; &amp; \\ -2 &amp; &amp; &amp; -3 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; 3 \\ &amp; &amp; 2 \end{array} \right\rbrack.$$</p>
-    </note>
-  </subsection>
-  <subsection title="Solve Systems of Equations Using Matrices">
-    <p>To solve a system of equations using matrices, we transform the augmented matrix into a matrix in row-echelon form using row operations. For a consistent and independent system of equations, its augmented matrix is in row-echelon form when to the left of the vertical line, each entry on the diagonal is a 1 and all entries below the diagonal are zeros.</p>
-    <note type="Row-Echelon Form">
-      <p>For a consistent and independent system of equations, its augmented matrix is in row-echelon form when to the left of the vertical line, each entry on the diagonal is a 1 and all entries below the diagonal are zeros.</p>
-    </note>
-    <p>Once we get the augmented matrix into row-echelon form, we can write the equivalent system of equations and read the value of at least one variable. We then substitute this value in another equation to continue to solve for the other variables. This process is illustrated in the next example.</p>
-    <example number="4.41">
-      <problem>
-        <p>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {3x + 4y = 5} \\ {x + 2y = 1} \end{array} \right..$$</p>
-      </problem>
-      <solution />
-    </example>
-    <note type="Try It" number="4.81">
-      <p>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {2x + y = 7} \\ {x - 2y = 6} \end{array} \right..$$</p>
-    </note>
-    <note type="Try It" number="4.82">
-      <p>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {2x + y = -4} \\ {x - y = -2} \end{array} \right..$$</p>
-    </note>
-    <p>The steps are summarized here.</p>
-    <note type="How To">
-      <list type="ol" style="1">
-        <item>Step 1. 
-Write the augmented matrix for the system of equations.</item>
-        <item>Step 2. 
-Using row operations get the entry in row 1, column 1 to be 1.</item>
-        <item>Step 3. 
-Using row operations, get zeros in column 1 below the 1.</item>
-        <item>Step 4. 
-Using row operations, get the entry in row 2, column 2 to be 1.</item>
-        <item>Step 5. 
-Continue the process until the matrix is in row-echelon form.</item>
-        <item>Step 6. 
-Write the corresponding system of equations.</item>
-        <item>Step 7. 
-Use substitution to find the remaining variables.</item>
-        <item>Step 8. 
-Write the solution as an ordered pair or triple.</item>
-        <item>Step 9. 
-Check that the solution makes the original equations true.</item>
-      </list>
-    </note>
-    <p>Here is a visual to show the order for getting the 1’s and 0’s in the proper position for row-echelon form.</p>
-    <p>We use the same procedure when the system of equations has three equations.</p>
-    <example number="4.42">
-      <problem>
-        <p>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {3x + 8y + 2z = -5} \\ {2x + 5y - 3z = 0} \\ {x + 2y - 2z = -1} \end{array} \right..$$</p>
-      </problem>
-      <solution>
-        <table>
-          <tbody>
-            <row>
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>Write the augmented matrix for the equations.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Interchange row 1 and 3 to get the entry inrow 1, column 1 to be 1.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Using row operations, get zeros in column 1 below the 1.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>The entry in row 2, column 2 is now 1.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Continue the process until the matrixis in row-echelon form.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>The matrix is now in row-echelon form.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Write the corresponding system of equations.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Use substitution to find the remaining variables.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>Write the solution as an ordered pair or triple.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Check that the solution makes the original equations true.</cell>
-              <cell>We leave the check for you.</cell>
-            </row>
-          </tbody>
-        </table>
-      </solution>
-    </example>
-    <note type="Try It" number="4.83">
-      <p>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {2x - 5y + 3z = 8} \\ {3x - y + 4z = 7} \\ {x + 3y + 2z = -3} \end{array} \right..$$</p>
-    </note>
-    <note type="Try It" number="4.84">
-      <p>Solve the system of equations using a matrix: $$\left\{ \begin{matrix} {-3x + y + z = -4} \\ {\text{−}x + 2y - 2z = 1} \\ {2x - y - z = -1} \end{matrix} \right..$$</p>
-    </note>
-    <p>So far our work with matrices has only been with systems that are consistent and independent, which means they have exactly one solution. Let’s now look at what happens when we use a matrix for a dependent or inconsistent system.</p>
-    <example number="4.43">
-      <problem>
-        <p>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {x + y + 3z = 0} \\ {x + 3y + 5z = 0} \\ {2x + 4z = 1} \end{array}. \right.$$</p>
-      </problem>
-      <solution>
-        <table>
-          <tbody>
-            <row>
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>Write the augmented matrix for the equations.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>The entry in row 1, column 1 is 1.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Using row operations, get zeros in column 1 below the 1.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>Continue the process until the matrix is in row-echelon form.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Multiply row 2 by 2 and add it to row 3.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>At this point, we have all zeros on the left of row 3.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Write the corresponding system of equations.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Since $$0 \neq 1$$ we have a false statement. Just as when we solved a system using other methods, this tells us we have an inconsistent system. There is no solution.</cell>
-            </row>
-          </tbody>
-        </table>
-      </solution>
-    </example>
-    <note type="Try It" number="4.85">
-      <p>Solve the system of equations using a matrix: $$\left\{ \begin{matrix} {x - 2y + 2z = 1} \\ {-2x + y - z = 2} \\ {x - y + z = 5} \end{matrix} \right..$$</p>
-    </note>
-    <note type="Try It" number="4.86">
-      <p>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {3x + 4y - 3z = -2} \\ {2x + 3y - z = -12} \\ {x + y - 2z = 6} \end{array} \right..$$</p>
-    </note>
-    <p>The last system was inconsistent and so had no solutions. The next example is dependent and has infinitely many solutions.</p>
-    <example number="4.44">
-      <problem>
-        <p>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {x - 2y + 3z = 1} \\ {x + y - 3z = 7} \\ {3x - 4y + 5z = 7} \end{array} \right..$$</p>
-      </problem>
-      <solution>
-        <table>
-          <tbody>
-            <row>
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>Write the augmented matrix for the equations.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>The entry in row 1, column 1 is 1.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Using row operations, get zeros in column 1 below the 1.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>Continue the process until the matrix is in row-echelon form.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Multiply row 2 by $$-2$$ and add it to row 3.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>At this point, we have all zeros in the bottom row.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Write the corresponding system of equations.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Since $$0 = 0$$ we have a true statement. Just as when we solved by substitution, this tells us we have a dependent system. There are infinitely many solutions.</cell>
-            </row>
-            <row>
-              <cell>Solve for y in terms of z in the second equation.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Solve the first equation for x in terms of z.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Substitute $$y = 2z + 2.$$</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Simplify.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Simplify.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>Simplify.</cell>
-              <cell />
-            </row>
-            <row>
-              <cell>The system has infinitely many solutions $$\left( \frac{8}{5}, - \frac{42}{5}, - \frac{24}{5} \right)$$</cell>
-            </row>
-          </tbody>
-        </table>
-      </solution>
-    </example>
-    <note type="Try It" number="4.87">
-      <p>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {x + y - z = 0} \\ {2x + 4y - 2z = 6} \\ {3x + 6y - 3z = 9} \end{array} \right..$$</p>
-    </note>
-    <note type="Try It" number="4.88">
-      <p>Solve the system of equations using a matrix: $$\left\{ \begin{matrix} {x - y - z = 1} \\ {\text{−}x + 2y - 3z = -4} \\ {3x - 2y - 7z = 0} \end{matrix} \right..$$</p>
-    </note>
-    <note type="Media">
-      <p>Access this online resource for additional instruction and practice with Gaussian Elimination.</p>
-      <list type="ul">
-        <item>Gaussian Elimination</item>
-      </list>
-    </note>
-  </subsection>
-  <exercises title="Section 4.5 Exercises">
-    <instruction>Write the Augmented Matrix for a System of Equations In the following exercises, write each system of linear equations as an augmented matrix.</instruction>
-    <exercise number="196" has_solution="false">
-      <problem>
-        <p>ⓐ $$\left\{ \begin{array}{l} {3x - y = -1} \\ {2y = 2x + 5} \end{array} \right.$$ⓑ $$\left\{ \begin{array}{l} {4x + 3y = -2} \\ {x - 2y - 3z = 7} \\ {2x - y + 2z = -6} \end{array} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="197" has_solution="true">
-      <problem>
-        <p>ⓐ $$\left\{ \begin{array}{l} {2x + 4y = -5} \\ {3x - 2y = 2} \end{array} \right.$$ⓑ $$\left\{ \begin{array}{l} {3x - 2y - z = -2} \\ {-2x + y = 5} \\ {5x + 4y + z = -1} \end{array} \right.$$</p>
-      </problem>
-      <solution>
-        <p>ⓐ $$\left\lbrack \begin{array}{lccrccr} 2 &amp; &amp; &amp; 4 &amp; &amp; &amp; -5 \\ 3 &amp; &amp; &amp; -2 &amp; &amp; &amp; 2 \end{array} \right\rbrack$$ⓑ $$\left\lbrack \begin{array}{rccrccrccr} 3 &amp; &amp; &amp; -2 &amp; &amp; &amp; -1 &amp; &amp; &amp; -2 \\ -2 &amp; &amp; &amp; 1 &amp; &amp; &amp; 0 &amp; &amp; &amp; 5 \\ 5 &amp; &amp; &amp; 4 &amp; &amp; &amp; 1 &amp; &amp; &amp; -1 \end{array} \right\rbrack$$</p>
-      </solution>
-    </exercise>
-    <exercise number="198" has_solution="false">
-      <problem>
-        <p>ⓐ $$\left\{ \begin{array}{l} {3x - y = -4} \\ {2x = y + 2} \end{array} \right.$$ⓑ $$\left\{ \begin{array}{l} {x - 3y - 4z = -2} \\ {4x + 2y + 2z = 5} \\ {2x - 5y + 7z = -8} \end{array} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="199" has_solution="true">
-      <problem>
-        <p>ⓐ $$\left\{ \begin{array}{l} {2x - 5y = -3} \\ {4x = 3y - 1} \end{array} \right.$$ⓑ $$\left\{ \begin{matrix} {4x + 3y - 2z = -3} \\ {-2x + y - 3z = 4} \\ {\text{−}x - 4y + 5z = -2} \end{matrix} \right.$$</p>
-      </problem>
-      <solution>
-        <p>ⓐ $$\left\lbrack \begin{array}{lccrccr} 2 &amp; &amp; &amp; -5 &amp; &amp; &amp; -3 \\ 4 &amp; &amp; &amp; -3 &amp; &amp; &amp; -1 \end{array} \right\rbrack$$ⓑ $$\left\lbrack \begin{array}{cccrccrccr} 4 &amp; &amp; &amp; 3 &amp; &amp; &amp; -2 &amp; &amp; &amp; -3 \\ -2 &amp; &amp; &amp; 1 &amp; &amp; &amp; -3 &amp; &amp; &amp; 4 \\ -1 &amp; &amp; &amp; -4 &amp; &amp; &amp; 5 &amp; &amp; &amp; -2 \end{array} \right\rbrack$$</p>
-      </solution>
-    </exercise>
-    <instruction>Write the system of equations that corresponds to the augmented matrix.</instruction>
-    <exercise number="200" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\left. \begin{array}{lccr} 2 &amp; &amp; &amp; -1 \\ 1 &amp; &amp; &amp; -3 \end{array}\mspace{9mu} \right|\mspace{9mu}} \right.\left. \begin{array}{r} 4 \\ 2 \end{array} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="201" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack {\left. \begin{array}{lccr} 2 &amp; &amp; &amp; -4 \\ 3 &amp; &amp; &amp; -3 \end{array}\mspace{9mu} \right|\mspace{9mu}} \right.\left. \begin{array}{r} -2 \\ -1 \end{array} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>$$\left\{ \begin{array}{l} {2x - 4y = -2} \\ {3x - 3y = -1} \end{array} \right.$$</p>
-      </solution>
-    </exercise>
-    <exercise number="202" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\left. \begin{array}{lccrccr} 1 &amp; &amp; &amp; 0 &amp; &amp; &amp; -3 \\ 1 &amp; &amp; &amp; -2 &amp; &amp; &amp; 0 \\ 0 &amp; &amp; &amp; -1 &amp; &amp; &amp; 2 \end{array}\mspace{9mu} \right|\mspace{9mu}} \right.\left. \begin{array}{r} -1 \\ -2 \\ 3 \end{array} \right\rbrack$$</p>
-      </problem>
-    </exercise>
-    <exercise number="203" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack {\left. \begin{array}{lccrccr} 2 &amp; &amp; &amp; -2 &amp; &amp; &amp; 0 \\ 0 &amp; &amp; &amp; 2 &amp; &amp; &amp; -1 \\ 3 &amp; &amp; &amp; 0 &amp; &amp; &amp; -1 \end{array}\mspace{9mu} \right|\mspace{9mu}} \right.\left. \begin{array}{r} -1 \\ 2 \\ -2 \end{array} \right\rbrack$$</p>
-      </problem>
-      <solution>
-        <p>$$\left\{ \begin{array}{l} {2x - 2y = -1} \\ {2y - z = 2} \\ {3x - z = -2} \end{array} \right.$$</p>
-      </solution>
-    </exercise>
-    <instruction>Use Row Operations on a Matrix In the following exercises, perform the indicated operations on the augmented matrices.</instruction>
-    <exercise number="204" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\left. \begin{array}{lccr} 6 &amp; &amp; &amp; -4 \\ 3 &amp; &amp; &amp; -2 \end{array}\mspace{9mu} \right|\mspace{9mu}} \right.\left. \begin{array}{r} 3 \\ 1 \end{array} \right\rbrack$$</p>
-        <p>ⓐ Interchange rows 1 and 2</p>
-        <p>ⓑ Multiply row 2 by 3</p>
-        <p>ⓒ Multiply row 2 by $$-2$$ and add row 1 to it.</p>
-      </problem>
-    </exercise>
-    <exercise number="205" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack \left. \begin{array}{lccr} 4 &amp; &amp; &amp; -6 \\ 3 &amp; &amp; &amp; 2 \end{array}\mspace{9mu} \right| \right.\mspace{9mu}\left. \begin{array}{r} -3 \\ 1 \end{array} \right\rbrack$$</p>
-        <p>ⓐ Interchange rows 1 and 2</p>
-        <p>ⓑ Multiply row 1 by 4</p>
-        <p>ⓒ Multiply row 2 by 3 and add row 1 to it.</p>
-      </problem>
-      <solution>
-        <p>ⓐ $$\left\lbrack \begin{array}{lccrccr} 3 &amp; &amp; &amp; 2 &amp; &amp; &amp; 1 \\ 4 &amp; &amp; &amp; -6 &amp; &amp; &amp; -3 \end{array} \right\rbrack$$ⓑ $$\left\lbrack \begin{array}{lccrccr} 12 &amp; &amp; &amp; 8 &amp; &amp; &amp; 4 \\ 4 &amp; &amp; &amp; -6 &amp; &amp; &amp; -3 \end{array} \right\rbrack$$ⓒ $$\left\lbrack \begin{array}{lccrccr} 12 &amp; &amp; &amp; 8 &amp; &amp; &amp; 4 \\ 24 &amp; &amp; &amp; -10 &amp; &amp; &amp; -5 \end{array} \right\rbrack$$</p>
-      </solution>
-    </exercise>
-    <exercise number="206" has_solution="false">
-      <problem>
-        <p>$$\left\lbrack {\left. \begin{array}{lccrccr} 4 &amp; &amp; &amp; -12 &amp; &amp; &amp; -8 \\ 4 &amp; &amp; &amp; -2 &amp; &amp; &amp; -3 \\ -6 &amp; &amp; &amp; 2 &amp; &amp; &amp; -1 \end{array}\mspace{9mu} \right|\mspace{9mu}} \right.\left. \begin{array}{r} 16 \\ -1 \\ -1 \end{array} \right\rbrack$$</p>
-        <p>ⓐ Interchange rows 2 and 3</p>
-        <p>ⓑ Multiply row 1 by 4</p>
-        <p>ⓒ Multiply row 2 by $$-2$$ and add to row 3.</p>
-      </problem>
-    </exercise>
-    <exercise number="207" has_solution="true">
-      <problem>
-        <p>$$\left\lbrack {\left. \begin{array}{lccrccr} 6 &amp; &amp; &amp; -5 &amp; &amp; &amp; 2 \\ 2 &amp; &amp; &amp; 1 &amp; &amp; &amp; -4 \\ 3 &amp; &amp; &amp; -3 &amp; &amp; &amp; 1 \end{array}\mspace{9mu} \right|\mspace{9mu}} \right.\left. \begin{array}{r} 3 \\ 5 \\ -1 \end{array} \right\rbrack$$</p>
-        <p>ⓐ Interchange rows 2 and 3</p>
-        <p>ⓑ Multiply row 2 by 5</p>
-        <p>ⓒ Multiply row 3 by $$-2$$ and add to row 1.</p>
-      </problem>
-      <solution>
-        <p>ⓐ $$\begin{bmatrix} 6 &amp; {- 5} &amp; 2 &amp; 3 \\ 3 &amp; {- 3} &amp; 1 &amp; {- 1} \\ 2 &amp; 1 &amp; {- 4} &amp; 5 \end{bmatrix}$$ⓑ $$\begin{bmatrix} 6 &amp; {- 5} &amp; 2 &amp; 3 \\ 15 &amp; {- 15} &amp; 5 &amp; {- 5} \\ 2 &amp; 1 &amp; {- 4} &amp; 5 \end{bmatrix}$$ⓒ $$\begin{bmatrix} 2 &amp; {- 7} &amp; 10 &amp; {- 7} \\ 15 &amp; {- 15} &amp; 5 &amp; {- 5} \\ 2 &amp; 1 &amp; {- 4} &amp; 5 \end{bmatrix}$$</p>
-      </solution>
-    </exercise>
-    <exercise number="208" has_solution="false">
-      <problem>
-        <p>Perform the needed row operation that will get the first entry in row 2 to be zero in the augmented matrix: $$\left\lbrack {\left. \begin{array}{rccr} 1 &amp; &amp; &amp; 2 \\ -3 &amp; &amp; &amp; -4 \end{array}\mspace{9mu} \right|\mspace{9mu}} \right.\left. \begin{array}{r} 5 \\ -1 \end{array} \right\rbrack.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="209" has_solution="true">
-      <problem>
-        <p>Perform the needed row operations that will get the first entry in both row 2 and row 3 to be zero in the augmented matrix: $$\left\lbrack {\left. \begin{array}{lccrccr} 1 &amp; &amp; &amp; -2 &amp; &amp; &amp; 3 \\ 3 &amp; &amp; &amp; -1 &amp; &amp; &amp; -2 \\ 2 &amp; &amp; &amp; -3 &amp; &amp; &amp; -4 \end{array}\mspace{9mu} \right|\mspace{9mu}} \right.\left. \begin{array}{r} -4 \\ 5 \\ -1 \end{array} \right\rbrack.$$</p>
-      </problem>
-      <solution>
-        <p>$$\left\lbrack \begin{array}{lccrccrccr} 1 &amp; &amp; &amp; -2 &amp; &amp; &amp; 3 &amp; &amp; &amp; -4 \\ 0 &amp; &amp; &amp; 5 &amp; &amp; &amp; -11 &amp; &amp; &amp; 17 \\ 0 &amp; &amp; &amp; 1 &amp; &amp; &amp; -10 &amp; &amp; &amp; 7 \end{array} \right\rbrack$$</p>
-      </solution>
-    </exercise>
-    <instruction>Solve Systems of Equations Using Matrices In the following exercises, solve each system of equations using a matrix.</instruction>
-    <exercise number="210" has_solution="false">
-      <problem>
-        <p>$$\left\{ \begin{array}{l} {2x + y = 2} \\ {x - y = -2} \end{array} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="211" has_solution="true">
-      <problem>
-        <p>$$\left\{ \begin{array}{l} {3x + y = 2} \\ {x - y = 2} \end{array} \right.$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {1,-1} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="212" has_solution="false">
-      <problem>
-        <p>$$\left\{ \begin{matrix} {\text{−}x + 2y = -2} \\ {x + y = -4} \end{matrix} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="213" has_solution="true">
-      <problem>
-        <p>$$\left\{ \begin{matrix} {-2x + 3y = 3} \\ {x + 3y = 12} \end{matrix} \right.$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {3,3} \right)$$</p>
-      </solution>
-    </exercise>
-    <instruction>In the following exercises, solve each system of equations using a matrix.</instruction>
-    <exercise number="214" has_solution="false">
-      <problem>
-        <p>$$\left\{ \begin{matrix} {2x - 3y + z = 19} \\ {-3x + y - 2z = -15} \\ {x + y + z = 0} \end{matrix} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="215" has_solution="true">
-      <problem>
-        <p>$$\left\{ \begin{matrix} {2x - y + 3z = -3} \\ {\text{−}x + 2y - z = 10} \\ {x + y + z = 5} \end{matrix} \right.$$</p>
-      </problem>
-      <solution>
-        <p>$$(-2,5,2)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="216" has_solution="false">
-      <problem>
-        <p>$$\left\{ \begin{array}{l} {2x - 6y + z = 3} \\ {3x + 2y - 3z = 2} \\ {2x + 3y - 2z = 3} \end{array} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="217" has_solution="true">
-      <problem>
-        <p>$$\left\{ \begin{array}{l} {4x - 3y + z = 7} \\ {2x - 5y - 4z = 3} \\ {3x - 2y - 2z = -7} \end{array} \right.$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {-3,-5,4} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="218" has_solution="false">
-      <problem>
-        <p>$$\left\{ \begin{array}{l} {x + 2z = 0} \\ {4y + 3z = -2} \\ {2x - 5y = 3} \end{array} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="219" has_solution="true">
-      <problem>
-        <p>$$\left\{ \begin{array}{l} {2x + 5y = 4} \\ {3y - z = 3} \\ {4x + 3z = -3} \end{array} \right.$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {-3,2,3} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="220" has_solution="false">
-      <problem>
-        <p>$$\left\{ \begin{array}{l} {2y + 3z = -1} \\ {5x + 3y = -6} \\ {7x + z = 1} \end{array} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="221" has_solution="true">
-      <problem>
-        <p>$$\left\{ \begin{array}{l} {3x - z = -3} \\ {5y + 2z = -6} \\ {4x + 3y = -8} \end{array} \right.$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {-2,0,-3} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="222" has_solution="false">
-      <problem>
-        <p>$$\left\{ \begin{array}{l} {2x + 3y + z = 12} \\ {x + y + z = 9} \\ {3x + 4y + 2z = 20} \end{array} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="223" has_solution="true">
-      <problem>
-        <p>$$\left\{ \begin{matrix} {x + 2y + 6z = 5} \\ {\text{−}x + y - 2z = 3} \\ {x - 4y - 2z = 1} \end{matrix} \right.$$</p>
-      </problem>
-      <solution>
-        <p>no solution</p>
-      </solution>
-    </exercise>
-    <exercise number="224" has_solution="false">
-      <problem>
-        <p>$$\left\{ \begin{array}{l} {x + 2y - 3z = -1} \\ {x - 3y + z = 1} \\ {2x - y - 2z = 2} \end{array} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="225" has_solution="true">
-      <problem>
-        <p>$$\left\{ \begin{matrix} {4x - 3y + 2z = 0} \\ {-2x + 3y - 7z = 1} \\ {2x - 2y + 3z = 6} \end{matrix} \right.$$</p>
-      </problem>
-      <solution>
-        <p>no solution</p>
-      </solution>
-    </exercise>
-    <exercise number="226" has_solution="false">
-      <problem>
-        <p>$$\left\{ \begin{matrix} {x - y + 2z = -4} \\ {2x + y + 3z = 2} \\ {-3x + 3y - 6z = 12} \end{matrix} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="227" has_solution="true">
-      <problem>
-        <p>$$\left\{ \begin{matrix} {\text{−}x - 3y + 2z = 14} \\ {\text{−}x + 2y - 3z = -4} \\ {3x + y - 2z = 6} \end{matrix} \right.$$</p>
-      </problem>
-      <solution>
-        <p>$$\left( {\frac{8}{5}, - \frac{42}{5}, - \frac{24}{5}} \right)$$</p>
-      </solution>
-    </exercise>
-    <exercise number="228" has_solution="false">
-      <problem>
-        <p>$$\left\{ \begin{matrix} {x + y - 3z = -1} \\ {y - z = 0} \\ {\text{−}x + 2y = 1} \end{matrix} \right.$$</p>
-      </problem>
-    </exercise>
-    <exercise number="229" has_solution="true">
-      <problem>
-        <p>$$\left\{ \begin{matrix} {x + 2y + z = 4} \\ {x + y - 2z = 3} \\ {-2x - 3y + z = -7} \end{matrix} \right.$$</p>
-      </problem>
-      <solution>
-        <p>infinitely many solutions $$\left( {x,y,z} \right)$$ where $$x = 5z + 2;y = -3z + 1;z$$ is any real number</p>
-      </solution>
-    </exercise>
-    <exercise number="230" has_solution="false">
-      <problem>
-        <p>Solve the system of equations $$\left\{ \begin{array}{l} {x + y = 10} \\ {x - y = 6} \end{array} \right.$$ ⓐ by graphing and ⓑ by substitution. ⓒ Which method do you prefer? Why?</p>
-      </problem>
-    </exercise>
-    <exercise number="231" has_solution="true">
-      <problem>
-        <p>Solve the system of equations $$\left\{ \begin{array}{l} {3x + y = 12} \\ {x = y - 8} \end{array} \right.$$ by substitution and explain all your steps in words.</p>
-      </problem>
-      <solution>
-        <p>Answers will vary.</p>
-      </solution>
-    </exercise>
-  </exercises>
+  <heading level="2">Write the Augmented Matrix for a System of Equations</heading>
+  <paragraph>Solving a system of equations can be a tedious operation where a simple mistake can wreak havoc on finding the solution. An alternative method which uses the basic procedures of elimination but with notation that is simpler is available. The method involves using a matrix. A matrix is a rectangular array of numbers arranged in rows and columns.</paragraph>
+  <note type="rule" source_type="Matrix" title="Matrix">
+    <paragraph>A matrix is a rectangular array of numbers arranged in rows and columns.</paragraph>
+    <paragraph>A matrix with m rows and n columns has order $$m \times n.$$ The matrix on the left below has 2 rows and 3 columns and so it has order $$2 \times 3.$$ We say it is a 2 by 3 matrix.</paragraph>
+    <paragraph>Each number in the matrix is called an element or entry in the matrix.</paragraph>
+  </note>
+  <paragraph>We will use a matrix to represent a system of linear equations. We write each equation in standard form and the coefficients of the variables and the constant of each equation becomes a row in the matrix. Each column then would be the coefficients of one of the variables in the system or the constants. A vertical line replaces the equal signs. We call the resulting matrix the augmented matrix for the system of equations.</paragraph>
+  <paragraph>Notice the first column is made up of all the coefficients of x, the second column is the all the coefficients of y, and the third column is all the constants.</paragraph>
+  <example number="4.37">
+    <problem>
+      <paragraph>Write each system of linear equations as an augmented matrix:</paragraph>
+      <paragraph>ⓐ $$\left\{ \begin{array}{l} {5x - 3y = -1} \\ {y = 2x - 2} \end{array} \right.$$ ⓑ $$\left\{ \begin{array}{l} {6x - 5y + 2z = 3} \\ {2x + y - 4z = 5} \\ {3x - 3y + z = -1} \end{array} \right.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>ⓐ The second equation is not in standard form. We rewrite the second equation in standard form.</paragraph>
+      <paragraph math="block">$$\begin{array}{rll} y &amp; = &amp; {2x - 2} \\ {-2x + y} &amp; = &amp; -2 \end{array}$$</paragraph>
+      <paragraph>We replace the second equation with its standard form. In the augmented matrix, the first equation gives us the first row and the second equation gives us the second row. The vertical line replaces the equal signs.</paragraph>
+      <paragraph>ⓑ All three equations are in standard form. In the augmented matrix the first equation gives us the first row, the second equation gives us the second row, and the third equation gives us the third row. The vertical line replaces the equal signs.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.73">
+    <paragraph>Write each system of linear equations as an augmented matrix:</paragraph>
+    <paragraph>ⓐ $$\left\{ \begin{array}{l} {3x + 8y = -3} \\ {2x = -5y - 3} \end{array} \right.$$ ⓑ $$\left\{ \begin{array}{l} {2x - 5y + 3z = 8} \\ {3x - y + 4z = 7} \\ {x + 3y + 2z = -3} \end{array} \right.$$</paragraph>
+  </note>
+  <note type="practice" source_type="Try It" title="Try It" number="4.74">
+    <paragraph>Write each system of linear equations as an augmented matrix:</paragraph>
+    <paragraph>ⓐ $$\left\{ \begin{array}{l} {11x = -9y - 5} \\ {7x + 5y = -1} \end{array} \right.$$ ⓑ $$\left\{ \begin{array}{l} {5x - 3y + 2z = -5} \\ {2x - y - z = 4} \\ {3x - 2y + 2z = -7} \end{array} \right.$$</paragraph>
+  </note>
+  <paragraph>It is important as we solve systems of equations using matrices to be able to go back and forth between the system and the matrix. The next example asks us to take the information in the matrix and write the system of equations.</paragraph>
+  <example number="4.38">
+    <problem>
+      <paragraph>Write the system of equations that corresponds to the augmented matrix:</paragraph>
+      <paragraph>$$\left\lbrack \left. \begin{array}{rccrccrcc} 4 &amp; &amp; &amp; -3 &amp; &amp; &amp; 3 &amp; &amp; \\ 1 &amp; &amp; &amp; 2 &amp; &amp; &amp; -1 &amp; &amp; \\ -2 &amp; &amp; &amp; -1 &amp; &amp; &amp; 3 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; -1 \\ &amp; &amp; 2 \\ &amp; &amp; -4 \end{array} \right\rbrack.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>We remember that each row corresponds to an equation and that each entry is a coefficient of a variable or the constant. The vertical line replaces the equal sign. Since this matrix is a $$4 \times 3$$ , we know it will translate into a system of three equations with three variables.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.75">
+    <paragraph>Write the system of equations that corresponds to the augmented matrix: $$\left\lbrack \begin{array}{lccrccrccr} 1 &amp; &amp; &amp; -1 &amp; &amp; &amp; 2 &amp; &amp; &amp; 3 \\ 2 &amp; &amp; &amp; 1 &amp; &amp; &amp; -2 &amp; &amp; &amp; 1 \\ 4 &amp; &amp; &amp; -1 &amp; &amp; &amp; 2 &amp; &amp; &amp; 0 \end{array} \right\rbrack.$$</paragraph>
+  </note>
+  <note type="practice" source_type="Try It" title="Try It" number="4.76">
+    <paragraph>Write the system of equations that corresponds to the augmented matrix: $$\left\lbrack \begin{array}{lcclccrccr} 1 &amp; &amp; &amp; 1 &amp; &amp; &amp; 1 &amp; &amp; &amp; 4 \\ 2 &amp; &amp; &amp; 3 &amp; &amp; &amp; -1 &amp; &amp; &amp; 8 \\ 1 &amp; &amp; &amp; 1 &amp; &amp; &amp; -1 &amp; &amp; &amp; 3 \end{array} \right\rbrack.$$</paragraph>
+  </note>
+  <heading level="2">Use Row Operations on a Matrix</heading>
+  <paragraph>Once a system of equations is in its augmented matrix form, we will perform operations on the rows that will lead us to the solution.</paragraph>
+  <paragraph>To solve by elimination, it doesn’t matter which order we place the equations in the system. Similarly, in the matrix we can interchange the rows.</paragraph>
+  <paragraph>When we solve by elimination, we often multiply one of the equations by a constant. Since each row represents an equation, and we can multiply each side of an equation by a constant, similarly we can multiply each entry in a row by any real number except 0.</paragraph>
+  <paragraph>In elimination, we often add a multiple of one row to another row. In the matrix we can replace a row with its sum with a multiple of another row.</paragraph>
+  <paragraph>These actions are called row operations and will help us use the matrix to solve a system of equations.</paragraph>
+  <note type="rule" source_type="Row Operations" title="Row Operations">
+    <paragraph>In a matrix, the following operations can be performed on any row and the resulting matrix will be equivalent to the original matrix.</paragraph>
+    <list type="ordered">
+      <item>Interchange any two rows.</item>
+      <item>Multiply a row by any real number except 0.</item>
+      <item>Add a nonzero multiple of one row to another row.</item>
+    </list>
+  </note>
+  <paragraph>Performing these operations is easy to do but all the arithmetic can result in a mistake. If we use a system to record the row operation in each step, it is much easier to go back and check our work.</paragraph>
+  <paragraph>We use capital letters with subscripts to represent each row. We then show the operation to the left of the new matrix. To show interchanging a row:</paragraph>
+  <paragraph>To multiply row 2 by $$-3$$ :</paragraph>
+  <paragraph>To multiply row 2 by $$-3$$ and add it to row 1:</paragraph>
+  <example number="4.39">
+    <problem>
+      <paragraph>Perform the indicated operations on the augmented matrix:</paragraph>
+      <paragraph>ⓐ Interchange rows 2 and 3.</paragraph>
+      <paragraph>ⓑ Multiply row 2 by 5.</paragraph>
+      <paragraph>ⓒ Multiply row 3 by $$-2$$ and add to row 1.</paragraph>
+      <paragraph math="block">$$\left\lbrack \left. \begin{array}{lccrccrcc} 6 &amp; &amp; &amp; -5 &amp; &amp; &amp; 2 &amp; &amp; \\ 2 &amp; &amp; &amp; 1 &amp; &amp; &amp; -4 &amp; &amp; \\ 3 &amp; &amp; &amp; -3 &amp; &amp; &amp; 1 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; 3 \\ &amp; &amp; 5 \\ &amp; &amp; -1 \end{array} \right\rbrack$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>ⓐ We interchange rows 2 and 3.</paragraph>
+      <paragraph>ⓑ We multiply row 2 by 5.</paragraph>
+      <paragraph>ⓒ We multiply row 3 by $$-2$$ and add to row 1.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.77">
+    <paragraph>Perform the indicated operations sequentially on the augmented matrix:</paragraph>
+    <paragraph>ⓐ Interchange rows 1 and 3.</paragraph>
+    <paragraph>ⓑ Multiply row 3 by 3.</paragraph>
+    <paragraph>ⓒ Multiply row 3 by 2 and add to row 2.</paragraph>
+    <paragraph>$$\left\lbrack \left. \begin{array}{rccrccrcc} 5 &amp; &amp; &amp; -2 &amp; &amp; &amp; -2 &amp; &amp; \\ 4 &amp; &amp; &amp; -1 &amp; &amp; &amp; -4 &amp; &amp; \\ -2 &amp; &amp; &amp; 3 &amp; &amp; &amp; 0 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; -2 \\ &amp; &amp; 4 \\ &amp; &amp; -1 \end{array} \right\rbrack$$</paragraph>
+  </note>
+  <note type="practice" source_type="Try It" title="Try It" number="4.78">
+    <paragraph>Perform the indicated operations on the augmented matrix:</paragraph>
+    <paragraph>ⓐ Interchange rows 1 and 2,</paragraph>
+    <paragraph>ⓑ Multiply row 1 by 2,</paragraph>
+    <paragraph>ⓒ Multiply row 2 by 3 and add to row 1.</paragraph>
+    <paragraph>$$\left\lbrack \left. \begin{array}{lccrccrcc} 2 &amp; &amp; &amp; -3 &amp; &amp; &amp; -2 &amp; &amp; \\ 4 &amp; &amp; &amp; 1 &amp; &amp; &amp; -3 &amp; &amp; \\ 5 &amp; &amp; &amp; 0 &amp; &amp; &amp; 4 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; -4 \\ &amp; &amp; 2 \\ &amp; &amp; -1 \end{array} \right\rbrack$$</paragraph>
+  </note>
+  <paragraph>Now that we have practiced the row operations, we will look at an augmented matrix and figure out what operation we will use to reach a goal. This is exactly what we did when we did elimination. We decided what number to multiply a row by in order that a variable would be eliminated when we added the rows together.</paragraph>
+  <paragraph>Given this system, what would you do to eliminate x?</paragraph>
+  <paragraph>This next example essentially does the same thing, but to the matrix.</paragraph>
+  <example number="4.40">
+    <problem>
+      <paragraph>Perform the needed row operation that will get the first entry in row 2 to be zero in the augmented matrix: $$\left\lbrack \left. \begin{array}{lccrcc} 1 &amp; &amp; &amp; -1 &amp; &amp; \\ 4 &amp; &amp; &amp; -8 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; 2 \\ &amp; &amp; 0 \end{array} \right\rbrack.$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>To make the 4 a 0, we could multiply row 1 by $$-4$$ and then add it to row 2.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.79">
+    <paragraph>Perform the needed row operation that will get the first entry in row 2 to be zero in the augmented matrix: $$\left\lbrack \left. \begin{array}{lccrcc} 1 &amp; &amp; &amp; -1 &amp; &amp; \\ 3 &amp; &amp; &amp; -6 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; 2 \\ &amp; &amp; 2 \end{array} \right\rbrack.$$</paragraph>
+  </note>
+  <note type="practice" source_type="Try It" title="Try It" number="4.80">
+    <paragraph>Perform the needed row operation that will get the first entry in row 2 to be zero in the augmented matrix: $$\left\lbrack \left. \begin{array}{rccrcc} 1 &amp; &amp; &amp; -1 &amp; &amp; \\ -2 &amp; &amp; &amp; -3 &amp; &amp; \end{array} \right| \right.\left. \begin{array}{ccr} &amp; &amp; 3 \\ &amp; &amp; 2 \end{array} \right\rbrack.$$</paragraph>
+  </note>
+  <heading level="2">Solve Systems of Equations Using Matrices</heading>
+  <paragraph>To solve a system of equations using matrices, we transform the augmented matrix into a matrix in row-echelon form using row operations. For a consistent and independent system of equations, its augmented matrix is in row-echelon form when to the left of the vertical line, each entry on the diagonal is a 1 and all entries below the diagonal are zeros.</paragraph>
+  <note type="rule" source_type="Row-Echelon Form" title="Row-Echelon Form">
+    <paragraph>For a consistent and independent system of equations, its augmented matrix is in row-echelon form when to the left of the vertical line, each entry on the diagonal is a 1 and all entries below the diagonal are zeros.</paragraph>
+  </note>
+  <paragraph>Once we get the augmented matrix into row-echelon form, we can write the equivalent system of equations and read the value of at least one variable. We then substitute this value in another equation to continue to solve for the other variables. This process is illustrated in the next example.</paragraph>
+  <example number="4.41" title="How to Solve a System of Equations Using a Matrix">
+    <problem>
+      <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {3x + 4y = 5} \\ {x + 2y = 1} \end{array} \right..$$</paragraph>
+    </problem>
+    <solution>
+      <paragraph>Solution</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.81">
+    <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {2x + y = 7} \\ {x - 2y = 6} \end{array} \right..$$</paragraph>
+  </note>
+  <note type="practice" source_type="Try It" title="Try It" number="4.82">
+    <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {2x + y = -4} \\ {x - y = -2} \end{array} \right..$$</paragraph>
+  </note>
+  <paragraph>The steps are summarized here.</paragraph>
+  <note type="procedure" source_type="How To" title="How To">
+    <heading level="4">Solve a system of equations using matrices.</heading>
+    <list type="ordered">
+      <item>Step 1. Write the augmented matrix for the system of equations.</item>
+      <item>Step 2. Using row operations get the entry in row 1, column 1 to be 1.</item>
+      <item>Step 3. Using row operations, get zeros in column 1 below the 1.</item>
+      <item>Step 4. Using row operations, get the entry in row 2, column 2 to be 1.</item>
+      <item>Step 5. Continue the process until the matrix is in row-echelon form.</item>
+      <item>Step 6. Write the corresponding system of equations.</item>
+      <item>Step 7. Use substitution to find the remaining variables.</item>
+      <item>Step 8. Write the solution as an ordered pair or triple.</item>
+      <item>Step 9. Check that the solution makes the original equations true.</item>
+    </list>
+  </note>
+  <paragraph>Here is a visual to show the order for getting the 1’s and 0’s in the proper position for row-echelon form.</paragraph>
+  <paragraph>We use the same procedure when the system of equations has three equations.</paragraph>
+  <example number="4.42">
+    <problem>
+      <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {3x + 8y + 2z = -5} \\ {2x + 5y - 3z = 0} \\ {x + 2y - 2z = -1} \end{array} \right..$$</paragraph>
+    </problem>
+    <solution>
+      <table>
+        <tbody>
+          <row>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>Write the augmented matrix for the equations.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Interchange row 1 and 3 to get the entry inrow 1, column 1 to be 1.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Using row operations, get zeros in column 1 below the 1.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>The entry in row 2, column 2 is now 1.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Continue the process until the matrixis in row-echelon form.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>The matrix is now in row-echelon form.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Write the corresponding system of equations.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Use substitution to find the remaining variables.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>Write the solution as an ordered pair or triple.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Check that the solution makes the original equations true.</cell>
+            <cell>We leave the check for you.</cell>
+          </row>
+        </tbody>
+      </table>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.83">
+    <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {2x - 5y + 3z = 8} \\ {3x - y + 4z = 7} \\ {x + 3y + 2z = -3} \end{array} \right..$$</paragraph>
+  </note>
+  <note type="practice" source_type="Try It" title="Try It" number="4.84">
+    <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{matrix} {-3x + y + z = -4} \\ {-x + 2y - 2z = 1} \\ {2x - y - z = -1} \end{matrix} \right..$$</paragraph>
+  </note>
+  <paragraph>So far our work with matrices has only been with systems that are consistent and independent, which means they have exactly one solution. Let’s now look at what happens when we use a matrix for a dependent or inconsistent system.</paragraph>
+  <example number="4.43">
+    <problem>
+      <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {x + y + 3z = 0} \\ {x + 3y + 5z = 0} \\ {2x + 4z = 1} \end{array}. \right.$$</paragraph>
+    </problem>
+    <solution>
+      <table>
+        <tbody>
+          <row>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>Write the augmented matrix for the equations.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>The entry in row 1, column 1 is 1.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Using row operations, get zeros in column 1 below the 1.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>Continue the process until the matrix is in row-echelon form.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Multiply row 2 by 2 and add it to row 3.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>At this point, we have all zeros on the left of row 3.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Write the corresponding system of equations.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Since $$0 \neq 1$$ we have a false statement. Just as when we solved a system using other methods, this tells us we have an inconsistent system. There is no solution.</cell>
+          </row>
+        </tbody>
+      </table>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.85">
+    <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{matrix} {x - 2y + 2z = 1} \\ {-2x + y - z = 2} \\ {x - y + z = 5} \end{matrix} \right..$$</paragraph>
+  </note>
+  <note type="practice" source_type="Try It" title="Try It" number="4.86">
+    <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {3x + 4y - 3z = -2} \\ {2x + 3y - z = -12} \\ {x + y - 2z = 6} \end{array} \right..$$</paragraph>
+  </note>
+  <paragraph>The last system was inconsistent and so had no solutions. The next example is dependent and has infinitely many solutions.</paragraph>
+  <example number="4.44">
+    <problem>
+      <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {x - 2y + 3z = 1} \\ {x + y - 3z = 7} \\ {3x - 4y + 5z = 7} \end{array} \right..$$</paragraph>
+    </problem>
+    <solution>
+      <table>
+        <tbody>
+          <row>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>Write the augmented matrix for the equations.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>The entry in row 1, column 1 is 1.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Using row operations, get zeros in column 1 below the 1.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>Continue the process until the matrix is in row-echelon form.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Multiply row 2 by $$-2$$ and add it to row 3.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>At this point, we have all zeros in the bottom row.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Write the corresponding system of equations.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Since $$0 = 0$$ we have a true statement. Just as when we solved by substitution, this tells us we have a dependent system. There are infinitely many solutions.</cell>
+          </row>
+          <row>
+            <cell>Solve for y in terms of z in the second equation.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Solve the first equation for x in terms of z.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Substitute $$y = 2z + 2.$$</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Simplify.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Simplify.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>Simplify.</cell>
+            <cell/>
+          </row>
+          <row>
+            <cell>The system has infinitely many solutions $$\left( \frac{8}{5}, - \frac{42}{5}, - \frac{24}{5} \right)$$</cell>
+          </row>
+        </tbody>
+      </table>
+    </solution>
+  </example>
+  <note type="practice" source_type="Try It" title="Try It" number="4.87">
+    <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{array}{l} {x + y - z = 0} \\ {2x + 4y - 2z = 6} \\ {3x + 6y - 3z = 9} \end{array} \right..$$</paragraph>
+  </note>
+  <note type="practice" source_type="Try It" title="Try It" number="4.88">
+    <paragraph>Solve the system of equations using a matrix: $$\left\{ \begin{matrix} {x - y - z = 1} \\ {-x + 2y - 3z = -4} \\ {3x - 2y - 7z = 0} \end{matrix} \right..$$</paragraph>
+  </note>
+  <note type="sidebar" source_type="Media" title="Media">
+    <paragraph>Access this online resource for additional instruction and practice with Gaussian Elimination.</paragraph>
+    <list type="unordered">
+      <item>Gaussian Elimination</item>
+    </list>
+  </note>
 </section>

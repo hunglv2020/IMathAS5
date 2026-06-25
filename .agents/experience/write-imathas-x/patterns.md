@@ -42,6 +42,18 @@ _Candidate for promotion to `topics/cases/` when generalized enough to lose sess
 
 ---
 
+## Interpolation-First Display Vars
+**Promoted from:** control.md + question.md + solution.md (2026-06-25, coordinate-geometry render patch)
+**Pattern:**
+1. When a reusable display string is justified in `control.php` ZONE 2, build it with interpolation, not manual dot-concat token assembly.
+2. Prefer forms like `"P({$x}, {$y})"` or `"sqrt(({$a}-{$b})^2)"` over `"P(" . $x . ", " . $y . ")"` or `"sqrt((" . $a . "-" . $b . ")^2)"`.
+3. Apply formatting macros such as `makexxpretty()`, `makereducedfraction()`, or `writepoly()` after the interpolated expression is formed when cleanup is needed.
+4. Treat manual concat as a doctrine violation for authored display assembly, not as an acceptable intermediate style.
+**Applies to:** ZONE_ORDER | VARIABLE_INJECTION | MACRO_SIGNATURE
+**Skill promotion status:** Candidate → cross-cutting ZONE 2 default
+
+---
+
 ## numfunc for Symbolic Matrix Answers
 **Promoted from:** control.md + qtype.md (2026-04-21, Leontief symbolic matrix)
 **Pattern:** When `numfunc` is used for matrix-style symbolic answers:

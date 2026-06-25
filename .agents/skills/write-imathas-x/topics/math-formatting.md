@@ -26,8 +26,8 @@ If you strictly define `$a = "\`x^2 + 1\`";` (Notice the backticks are *inside* 
 
 ## 2. Fixing "Ugly" Math with Prettifiers
 
-When you dynamically concatenate math strings from variables, they often end up correct but typographically ugly.
-**Example:** `$b = "1 x^2 + -3";`
+When you build math strings from dynamic variables, they can be structurally valid but typographically ugly unless you use interpolation-first assembly and cleanup macros.
+**Example:** `$b = "1x^2+-3";`
 
 If you put `` `$b` `` in the question text, it renders exactly as $1 x^2 + -3$. This is bad!
 To fix this, IMathAS provides two essential formatting macros (no `loadlibrary` needed, they are Core functions):
@@ -60,12 +60,12 @@ $b_disp = makexxprettydisp($b); // Returns "`x^2 - 3`" (Includes backticks insid
 ## 3. DECISION TREE: When to use what?
 
 **Are you building a math expression from dynamic variables?**
-(e.g., `$expr = "$a x^2 + $b x + $c";`)
+(e.g., `$expr = "{$a}x^2+{$b}x+{$c}";`)
 
 *   **Approach A (Recommended for standard displays):**
     Use `makexxpretty` in `control.php`, and wrap with backticks inside `question.txt`:
     ```php
-    $expr = "$a x^2 + $b";
+    $expr = "{$a}x^2+{$b}";
     $v_expr = makexxpretty($expr);
     ```
     ```html
@@ -76,7 +76,7 @@ $b_disp = makexxprettydisp($b); // Returns "`x^2 - 3`" (Includes backticks insid
 *   **Approach B (Useful for standalone variables or answer choices):**
     Use `makexxprettydisp` in `control.php`, and DO NOT wrap in `question.txt`:
     ```php
-    $v_expr_disp = makexxprettydisp("$a x^2 + $b");
+    $v_expr_disp = makexxprettydisp("{$a}x^2+{$b}");
     ```
     ```html
     Solve $v_expr_disp = 0 for x. 
@@ -86,7 +86,7 @@ $b_disp = makexxprettydisp($b); // Returns "`x^2 - 3`" (Includes backticks insid
 
 ## 4. Advanced Numeric and Fractional Formatters (Core Macros)
 
-Beyond `makexxpretty`, you must format numbers, fractions, and complex values using these specific functions to avoid manual string manipulation or logic flaws:
+Beyond `makexxpretty`, you must format numbers, fractions, and complex values using these specific functions to avoid manual token assembly or logic flaws:
 
 ### 🛠️ `makereducedfraction($num, $den, [dblslash], [varinnum])`
 **Crucial for exact fraction display.** Reduces the fraction and handles signs perfectly.
@@ -132,10 +132,10 @@ If you find yourself writing `if-else` blocks or ternary operators (`? :`) to:
 | ❌ Anti-Pattern | ✅ Solution |
 |---|---|
 | Using `$v = makexxprettydisp("1x");` in control, then writing `` `$v` `` in `question.txt` | The double backticks will break the rendering. Either use `makexxpretty` + backticks, or `makexxprettydisp` + no backticks. |
-| `$eq = $m . "x + " . $b;` directly to frontend | Causes ugly output (e.g., $1x + -3$). ALWAYS pass concatenated string equations through `makexxpretty($eq)` before sending to ZONE 2 display variables. |
+| `$eq = $m . "x + " . $b;` directly to frontend | Doctrine violation. Build the authored string with interpolation first, e.g. `$eq = "{$m}x+{$b}";`, then pass it through `makexxpretty($eq)` before sending to ZONE 2 display variables. |
 | `$frac = "$num / $den";` manually crafted | NEVER manually craft fractions. Use `makereducedfraction($num, $den)` so it handles GCD reduction, negative denominators (e.g., `3/-2` -> `-3/2`), and `x` coefficients perfectly. |
 | `$v = "\`x^2\`";` just to pass static math | For completely static math, just write `` `x^2` `` directly in `question.txt`! Only use control variables for dynamic content that needs formatting. |
-| Using `writepoly` output but still using `makexxpretty` | `writepoly` automatically prettifies polynomials. Do not double-process unless concatenating it with something else! |
+| Using `writepoly` output but still using `makexxpretty` | `writepoly` automatically prettifies polynomials. Do not double-process unless you are wrapping that already-formed display string inside a larger interpolated display expression. |
 | Writing `if ($den == 1) { $ans = "$num pi"; } else { $ans = "$num/$den pi"; }` | **BANNED.** Use `makereducedfraction($num, $den, "", "pi")`. |
 | Using `makexpretty()` | Notice the spelling. It is `makexxpretty` (two x's). |
 | Using `*` for multiplication in display strings | **BANNED.** Use a space for implicit multiplication (e.g., `$a x`) or parentheses for factors (e.g., `(x-1)(x+1)`). Never use `*` inside `makexxpretty` or `makexxprettydisp`. |

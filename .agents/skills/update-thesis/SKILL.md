@@ -128,13 +128,13 @@ User: "refactor audit-coverage để bỏ dependency vào source_brief.xml"
 → update-thesis kích hoạt:
   1. Đọc thesis/ để hiểu current state
   2. Conflict check:
-     - audit-coverage hiện consume source_brief.xml (optional) — OK, không phá vỡ
-     - full-audit workflow hiện list source_brief.xml là prereq — CẦN UPDATE workflow
+     - audit-coverage không còn consume source_brief.xml trong active path — cần xác nhận docs không mô tả cũ
+     - workflows/thesis docs có thể vẫn mô tả audit path cũ — CẦN UPDATE direct audit docs
   3. Thực hiện refactor SKILL.md
   4. Update thesis:
      - skills-catalog.md: sửa "Inputs sau refactor" của audit-coverage
      - artifacts-catalog.md: sửa source_brief.xml "Consumers" (remove audit-coverage)
-     - workflows-catalog.md: sửa full-audit Prerequisites
+     - workflows-catalog.md: xác nhận direct audit execution model
      - README.md: cập nhật status của audit-coverage
 ```
 
@@ -150,7 +150,7 @@ User: "tạo skill analyze-source"
   4. Update thesis:
      - skills-catalog.md: đổi status từ "Proposed" → "Active", thêm details
      - artifacts-catalog.md: đổi exercise_analysis.xml từ "Proposed" → thực
-     - workflows-catalog.md: thêm analyze-source vào pre-full-audit step
+     - workflows-catalog.md: thêm analyze-source vào optional deep-context step
      - README.md: cập nhật System Status table
 ```
 

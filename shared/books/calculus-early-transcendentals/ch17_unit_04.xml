@@ -1,400 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section_file chapter="ch17" chapter_number="17" section="unit_04" section_number="4">
-  <section number="17.4" title="Series Solutions">
-    <content>
-      <paragraph>
-        Many differential equations can’t be solved explicitly in terms of finite combinations of simple familiar functions. This is true even for a simple-looking equation like
-      </paragraph>
-      <paragraph>
-        But it is important to be able to solve equations such as Equation 1 because they arise from physical problems and, in particular, in connection with the Schrödinger equation in quantum mechanics. In such a case we use the method of power series; that is, we look for a solution of the form
-      </paragraph>
-      <paragraph>
-        <math display="block">$$y = f(x) = \sum\limits_{n = 0}^{\infty}c_{n}x^{n} = c_{0} + c_{1}x + c_{2}x^{2} + c_{3}x^{3} + \cdot \cdot \cdot$$</math>
-      </paragraph>
-      <paragraph>
-        The method is to substitute this expression into the differential equation and determine the values of the coefficients <math display="inline">$$c_{0},c_{1},c_{2},\ldots$$</math> . This technique resembles the method of undetermined coefficients discussed in Section 17.2.
-      </paragraph>
-      <paragraph>
-        Before using power series to solve Equation 1, we illustrate the method on the simpler equation <math display="inline">$$y^{''} + y = 0$$</math> in Example 1. It’s true that we already know how to solve this equation by the techniques of Section 17.1, but it’s easier to understand the power series method when it is applied to this simpler equation.
-      </paragraph>
-    </content>
-    <example number="1">
-      <problem>
-        <paragraph>
-          Use power series to solve the equation <math display="inline">$$y^{''} + y = 0$$</math> .
-        </paragraph>
-        <paragraph>
-          Solution We assume there is a solution of the form
-        </paragraph>
-        <paragraph>
-          <math display="block">$$y = c_{0} + c_{1}x + c_{2}x^{2} + c_{3}x^{3} + \cdot \cdot \cdot = \sum\limits_{n = 0}^{\infty}c_{n}x^{n}$$</math>
-        </paragraph>
-        <paragraph>
-          We can differentiate power series term by term, so
-        </paragraph>
-        <paragraph>
-          <math display="block">$$y^{\prime} = c_{1} + 2c_{2}x + 3c_{3}x^{2} + \cdot \cdot \cdot = \sum\limits_{n = 1}^{\infty}nc_{n}x^{n - 1}$$</math>
-        </paragraph>
-        <paragraph>
-          <math display="block">$$y^{''} = 2c_{2} + 2 \cdot 3c_{3}x + \cdot \cdot \cdot = \sum\limits_{n = 2}^{\infty}n\left( {n - 1} \right)c_{n}x^{n - 2}$$</math>
-        </paragraph>
-        <paragraph>
-          In order to compare the expressions for <math display="inline">$$y$$</math> and <math display="inline">$$y^{''}$$</math> more easily, we rewrite <math display="inline">$$y^{''}$$</math> as follows:
-        </paragraph>
-        <paragraph>
-          <math display="block">$$y^{''} = \sum\limits_{n = 0}^{\infty}\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2}x^{n}$$</math>
-        </paragraph>
-        <paragraph>
-          Substituting the expressions in Equations 2 and 4 into the differential equation, we obtain
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\sum\limits_{n = 0}^{\infty}\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2}x^{n} + \sum\limits_{n = 0}^{\infty}c_{n}x^{n} = 0$$</math>
-        </paragraph>
-        <paragraph>
-          or
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\sum\limits_{n = 0}^{\infty}\left\lbrack {\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2} + c_{n}} \right\rbrack x^{n} = 0$$</math>
-        </paragraph>
-        <paragraph>
-          If two power series are equal, then the corresponding coefficients must be equal. Therefore the coefficients of <math display="inline">$$x^{n}$$</math> in Equation 5 must be <math display="inline">$$0$$</math> :
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2} + c_{n} = 0$$</math>
-        </paragraph>
-        <paragraph>
-          <math display="block">$${c_{n + 2} = - \frac{c_{n}}{\left( {n + 1} \right)\left( {n + 2} \right)}}\qquad{n = 0,1,2,3,\ldots}$$</math>
-        </paragraph>
-        <paragraph>
-          Equation 6 is called a <em>recursion relation</em>. If <math display="inline">$$c_{0}$$</math> and <math display="inline">$$c_{1}$$</math> are known, this equation allows us to determine the remaining coefficients recursively by putting <math display="inline">$$n = 0,1,2,3,\ldots$$</math> in succession.
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {{Put}n = 0:\qquad c_{2} = - \frac{c_{0}}{1 \cdot 2}} \\
-  {{Put}n = 1:\qquad c_{3} = - \frac{c_{1}}{2 \cdot 3}} \\
-  {{Put}n = 2:\qquad c_{4} = - \frac{c_{2}}{3 \cdot 4} = \frac{c_{0}}{1 \cdot 2 \cdot 3 \cdot 4} = \frac{c_{0}}{4!}} \\
-  {{Put}n = 3:\qquad c_{5} = - \frac{c_{3}}{4 \cdot 5} = \frac{c_{1}}{2 \cdot 3 \cdot 4 \cdot 5} = \frac{c_{1}}{5!}} \\
-  {{Put}n = 4:\qquad c_{6} = - \frac{c_{4}}{5 \cdot 6} = - \frac{c_{0}}{4!5 \cdot 6} = - \frac{c_{0}}{6!}} \\
-  {{Put}n = 5:\qquad c_{7} = - \frac{c_{5}}{6 \cdot 7} = - \frac{c_{1}}{5!6 \cdot 7} = - \frac{c_{1}}{7!}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          By now we see the pattern:
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {{For}{the}{even}{coefficients},c_{2n} = \left( {- 1} \right)^{n}\frac{c_{0}}{\left( {2n} \right)!}} \\
-  {{For}{the}{odd}{coefficients},c_{2n + 1} = \left( {- 1} \right)^{n}\frac{c_{1}}{\left( {2n + 1} \right)!}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          Putting these values back into Equation 2, we write the solution as
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {y = c_{0} + c_{1}x + c_{2}x^{2} + c_{3}x^{3} + c_{4}x^{4} + c_{5}x^{5} + \cdot \cdot \cdot} \\
-  {\phantom{y} = c_{0}\left( {1 - \frac{x^{2}}{2!} + \frac{x^{4}}{4!} - \frac{x^{6}}{6!} + \cdot \cdot \cdot + \left( {- 1} \right)^{n}\frac{x^{2n}}{\left( {2n} \right)!} + \cdot \cdot \cdot} \right) + c_{1}\left( {x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!} - \frac{x^{7}}{7!} + \cdot \cdot \cdot + \left( {- 1} \right)^{n}\frac{x^{2n + 1}}{\left( {2n + 1} \right)!} + \cdot \cdot \cdot} \right)} \\
-  {\phantom{y} = c_{0}\sum\limits_{n = 0}^{\infty}\left( {- 1} \right)^{n}\frac{x^{2n}}{\left( {2n} \right)!} + c_{1}\sum\limits_{n = 0}^{\infty}\left( {- 1} \right)^{n}\frac{x^{2n + 1}}{\left( {2n + 1} \right)!}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          Notice that there are two arbitrary constants, <math display="inline">$$c_{0}$$</math> and <math display="inline">$$c_{1}$$</math> .
-        </paragraph>
-      </problem>
-    </example>
-    <content>
-      <paragraph>
-        Note 1 We recognize the series obtained in Example 1 as being the Maclaurin series for <math display="inline">$$\cos x$$</math> and <math display="inline">$$\sin x$$</math> . (See Equations 11.10.16 and 11.10.15.) Therefore we could write the solution as
-      </paragraph>
-      <paragraph>
-        <math display="block">$$y(x) = c_{0}\cos x + c_{1}\sin x$$</math>
-      </paragraph>
-      <paragraph>
-        But we are not usually able to express power series solutions of differential equations in terms of known functions.
-      </paragraph>
-    </content>
-    <example number="2">
-      <problem>
-        <paragraph>
-          Solve <math display="inline">$$y^{''} - 2xy^{\prime} + y = 0$$</math> .
-        </paragraph>
-        <paragraph>
-          Solution We assume there is a solution of the form
-        </paragraph>
-        <paragraph>
-          <math display="block">$$y = \sum\limits_{n = 0}^{\infty}c_{n}x^{n}$$</math>
-        </paragraph>
-        <paragraph>
-          Then
-        </paragraph>
-        <paragraph>
-          <math display="block">$$y^{\prime} = \sum\limits_{n = 1}^{\infty}nc_{n}x^{n - 1}$$</math>
-        </paragraph>
-        <paragraph>
-          and
-        </paragraph>
-        <paragraph>
-          <math display="block">$$y^{''} = \sum\limits_{n = 2}^{\infty}n\left( {n - 1} \right)c_{n}x^{n - 2} = \sum\limits_{n = 0}^{\infty}\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2}x^{n}$$</math>
-        </paragraph>
-        <paragraph>
-          as in Example 1. Substituting in the differential equation, we get
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{rll}
-  {\sum\limits_{n = 0}^{\infty}\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2}x^{n} - 2x\sum\limits_{n = 1}^{\infty}nc_{n}x^{n - 1} + \sum\limits_{n = 0}^{\infty}c_{n}x^{n}} &amp; = &amp; 0 \\
-  {\sum\limits_{n = 0}^{\infty}\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2}x^{n} - \sum\limits_{n = 1}^{\infty}2nc_{n}x^{n} + \sum\limits_{n = 0}^{\infty}c_{n}x^{n}} &amp; = &amp; 0 \\
-  {\sum\limits_{n = 0}^{\infty}\left\lbrack {({n + 2})\left( {n + 1} \right)c_{n + 2} - \left( {2n - 1} \right)c_{n}} \right\rbrack x^{n}} &amp; = &amp; 0
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\sum\limits_{n = 1}^{\infty}2nc_{n}x^{n} = \sum\limits_{n = 0}^{\infty}2c_{n}x^{n}$$</math>
-        </paragraph>
-        <paragraph>
-          This equation is true if the coefficients of <math display="inline">$$x^{n}$$</math> are <math display="inline">$$0$$</math> :
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2} - \left( {2n - 1} \right)c_{n} = 0$$</math>
-        </paragraph>
-        <paragraph>
-          <math display="block">$${c_{n + 2} = \frac{2n - 1}{\left( {n + 1} \right)\left( {n + 2} \right)}c_{n}}\qquad{n = 0,1,2,3,\ldots}$$</math>
-        </paragraph>
-        <paragraph>
-          We solve this recursion relation by putting <math display="inline">$$n = 0,1,2,3,\ldots$$</math> successively in Equation 7:
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {{Put}n = 0:\qquad c_{2} = \frac{- 1}{1 \cdot 2}c_{0}} \\
-  {{Put}n = 1:\qquad c_{3} = \frac{1}{2 \cdot 3}c_{1}} \\
-  {{Put}n = 2:\qquad c_{4} = \frac{3}{3 \cdot 4}c_{2} = - \frac{3}{1 \cdot 2 \cdot 3 \cdot 4}c_{0} = - \frac{3}{4!}c_{0}} \\
-  {{Put}n = 3:\qquad c_{5} = \frac{5}{4 \cdot 5}c_{3} = \frac{1 \cdot 5}{2 \cdot 3 \cdot 4 \cdot 5}c_{1} = \frac{1 \cdot 5}{5!}c_{1}} \\
-  {{Put}n = 4:\qquad c_{6} = \frac{7}{5 \cdot 6}c_{4} = - \frac{3 \cdot 7}{4!5 \cdot 6}c_{0} = - \frac{3 \cdot 7}{6!}c_{0}} \\
-  {{Put}n = 5:\qquad c_{7} = \frac{9}{6 \cdot 7}c_{5} = \frac{1 \cdot 5 \cdot 9}{5!6 \cdot 7}c_{1} = \frac{1 \cdot 5 \cdot 9}{7!}c_{1}} \\
-  {{Put}n = 6:\qquad c_{8} = \frac{11}{7 \cdot 8}c_{6} = - \frac{3 \cdot 7 \cdot 11}{8!}c_{0}} \\
-  {{Put}n = 7:\qquad c_{9} = \frac{13}{8 \cdot 9}c_{7} = \frac{1 \cdot 5 \cdot 9 \cdot 13}{9!}c_{1}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          In general, the even coefficients are given by
-        </paragraph>
-        <paragraph>
-          <math display="block">$$c_{2n} = - \frac{3 \cdot 7 \cdot 11 \cdot \cdots \cdot \left( {4n - 5} \right)}{\left( {2n} \right)!}c_{0}$$</math>
-        </paragraph>
-        <paragraph>
-          and the odd coefficients are given by
-        </paragraph>
-        <paragraph>
-          <math display="block">$$c_{2n + 1} = \frac{1 \cdot 5 \cdot 9 \cdot \cdots \cdot \left( {4n - 3} \right)}{\left( {2n + 1} \right)!}c_{1}$$</math>
-        </paragraph>
-        <paragraph>
-          The solution is
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {y = c_{0} + c_{1}x + c_{2}x^{2} + c_{3}x^{3} + c_{4}x^{4} + \cdot \cdot \cdot} \\
-  {\phantom{y}{= c_{0}\left( {1 - \frac{1}{2!}x^{2} - \frac{3}{4!}x^{4} - \frac{3 \cdot 7}{6!}x^{6} - \frac{3 \cdot 7 \cdot 11}{8!}x^{8} - \cdot \cdot \cdot} \right)}{+ c_{1}\left( {x + \frac{1}{3!}x^{3} + \frac{1 \cdot 5}{5!}x^{5} + \frac{1 \cdot 5 \cdot 9}{7!}x^{7} + \frac{1 \cdot 5 \cdot 9 \cdot 13}{9!}x^{9} + \cdot \cdot \cdot} \right)}}
-  \end{array}$$</math>
-        </paragraph>
-        <paragraph>
-          or
-        </paragraph>
-        <paragraph>
-          <math display="block">$$\begin{array}{l}
-  {y = c_{0}\left( {1 - \frac{1}{2!}x^{2} - \sum\limits_{n = 2}^{\infty}\frac{3 \cdot 7 \cdot \cdots \cdot \left( {4n - 5} \right)}{\left( {2n} \right)!}x^{2n}} \right)} \\
-  {\qquad{+ c_{1}\left( {x + \sum\limits_{n = 1}^{\infty}\frac{1 \cdot 5 \cdot 9 \cdot \cdots \cdot \left( {4n - 3} \right)}{\left( {2n + 1} \right)!}x^{2n + 1}} \right)}}
-  \end{array}$$</math>
-        </paragraph>
-      </problem>
-    </example>
-    <content>
-      <paragraph>
-        Note 2 In Example 2 we had to <em>assume</em> that the differential equation had a series solution. But now we could verify directly that the function given by Equation 8 is indeed a solution.
-      </paragraph>
-      <paragraph>
-        Note 3 Unlike the situation of Example 1, the power series that arise in the solution of Example 2 do not define elementary functions. The functions
-      </paragraph>
-      <paragraph>
-        <math display="block">$$y_{1}(x) = 1 - \frac{1}{2!}x^{2} - \sum\limits_{n = 2}^{\infty}\frac{3 \cdot 7 \cdot \cdots \cdot \left( {4n - 5} \right)}{\left( {2n} \right)!}x^{2n}$$</math>
-      </paragraph>
-      <paragraph>
-        and
-      </paragraph>
-      <paragraph>
-        <math display="block">$$y_{2}(x) = {x + \underset{n = 1}{\overset{\infty}{\sum^{}}}\frac{1 \cdot 5 \cdot 9 \cdot \cdots \cdot (4n - 3)}{(2n + 1)!}x^{2n + 1}}$$</math>
-      </paragraph>
-      <paragraph>
-        are perfectly good functions but they can’t be expressed in terms of familiar functions. We can use these power series expressions for <math display="inline">$$y_{1}$$</math> and <math display="inline">$$y_{2}$$</math> to compute approximate values of the functions and even to graph them. Figure 1 shows the first few partial sums <math display="inline">$$T_{0},T_{2},T_{4},\ldots$$</math> (Taylor polynomials) for <math display="inline">$$y_{1}(x)$$</math> , and we see how they converge to <math display="inline">$$y_{1}$$</math> . In this way we can graph both <math display="inline">$$y_{1}$$</math> and <math display="inline">$$y_{2}$$</math> as in Figure 2.
-      </paragraph>
-    </content>
-    <figure number="1">
-      <alt_text>The Image consists of a visual representation of a graph. Five curves and a line are graphed on the coordinate plane. The line is labeled as T_0. The line starts from the bottom left, and goes parallel to the horizontal axis, with intersects the vertical axis, and ends at the bottom right viewing window of the first quadrant. The curves are labeled as T_10. Two curves start from the top left viewing window of the third quadrant, and then it goes up to the right with increasing steepness, and intersect the negative horizontal axis, and then they enter in the second quadrant. Then the curves again go up to the right with touches the line and intersect the positive vertical axis, at the point (0, 1), and then it enters in the first quadrant. Then again the curves go down to the right with decreasing steepness, intersect the positive horizontal axis, and ends at the top right viewing window of the fourth quadrant. Three curves start from the bottom left viewing window of the third quadrant, and then the curves go up to the right with increasing steepness and intersect the negative horizontal axis, and then it enters in the second quadrant. Then the curves again go up to the right with touches the line, and intersects the positive vertical axis, at the point (0, 1), and then they enter in the first quadrant. Then again the curves go down to the right with decreasing steepness, intersect the positive horizontal axis, and ends at the bottom right viewing window of the fourth quadrant.</alt_text>
-    </figure>
-    <figure number="2">
-      <alt_text>The Image consists of a visual representation of a graph. Two curves are graphed on the coordinate plane. The first curve is labeled as y _1. It starts from the bottom left viewing window of the third quadrant, and then the curve goes up to the right with increasing steepness and intersects the negative horizontal axis, and then it enters in the second quadrant. Then the curve again goes up to the right passes through just above the origin, and then it enters in the first quadrant. Then the curve again goes down to the right with decreasing steepness and intersects the positive horizontal axis, and then it enters in the fourth quadrant. Then the curve again goes down to the bottom right with decreasing steepness and ends at the bottom right viewing window of the fourth quadrant. The second curve is labeled as y_2. The curve starts from the bottom left viewing window of the third quadrant, and then the curve goes up to the right with increasing steepness, passes through the origin, and then it enters in the first quadrant. Then the curve goes up to the right with increasing steepness and ends at the top right viewing window of the first quadrant.</alt_text>
-    </figure>
-    <content>
-      <paragraph>
-        Note 4 If we were asked to solve the initial-value problem
-      </paragraph>
-      <paragraph>
-        <math display="block">$${y^{''} - 2xy^{\prime} + y = 0}\qquad{y(0) = 0}\qquad{y^{\prime}(0) = 1}$$</math>
-      </paragraph>
-      <paragraph>
-        we would observe from Theorem 11.10.5 that
-      </paragraph>
-      <paragraph>
-        <math display="block">$${c_{0} = y(0) = 0}\qquad{c_{1} = y^{\prime}(0) = 1}$$</math>
-      </paragraph>
-      <paragraph>
-        This would simplify the calculations in Example 2, since all of the even coefficients would be <math display="inline">$$0$$</math> . The solution to the initial-value problem is
-      </paragraph>
-      <paragraph>
-        <math display="block">$$y(x) = x + \sum\limits_{n = 1}^{\infty}\frac{1 \cdot 5 \cdot 9 \cdot \cdots \cdot \left( {4n - 3} \right)}{\left( {2n + 1} \right)!}x^{2n + 1}$$</math>
-      </paragraph>
-    </content>
-  </section>
-  <subsection number="17.4" title="Exercises">
-    <exercises>
-      <exercise_group>
-        <instructions>
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10 and 11 Use power series to solve the differential equation.
-        </instructions>
-        <problem number="1">
-          <statement>
-            <paragraph>
-              <math display="inline">$$y^{\prime} - y = 0$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$c_{0}\underset{n = 0}{\overset{\infty}{\sum}}\frac{x^{n}}{n!} = c_{0}e^{ x}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="2">
-          <statement>
-            <paragraph>
-              <math display="inline">$$y^{\prime} = xy$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="3">
-          <statement>
-            <paragraph>
-              <math display="inline">$$y^{\prime} = x^{2}y$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$c_{0}\underset{n = 0}{\overset{\infty}{\sum}}\frac{x^{3n}}{3^{n}n!} = c_{0}e^{x^{3} \slash 3}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="4">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\left( {x - 3} \right)y^{\prime} + 2y = 0$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="5">
-          <statement>
-            <paragraph>
-              <math display="inline">$$y^{''} + xy^{\prime} + y = 0$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$c_{0}\underset{n = 0}{\overset{\infty}{\sum}}\frac{\left( {- 1} \right)^{n}}{2^{n}n!}x^{2n} + c_{1}\underset{n = 0}{\overset{\infty}{\sum}}\frac{\left( {- 2} \right)^{n}n!}{\left( {2n + 1} \right)!}x^{2n + 1}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="6">
-          <statement>
-            <paragraph>
-              <math display="inline">$$y^{''} = y$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="7">
-          <statement>
-            <paragraph>
-              <math display="inline">$$\left( {x - 1} \right)y^{''} + y^{\prime} = 0$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$c_{0} + c_{1}\underset{n = 1}{\overset{\infty}{\sum}}\frac{x^{n}}{n} = c_{0} - c_{1}\ln\left( {1 - x} \right)$$</math> for <math display="inline">$$|x| &lt; 1$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="8">
-          <statement>
-            <paragraph>
-              <math display="inline">$$y^{''} = xy$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="9">
-          <statement>
-            <paragraph>
-              <math display="inline">$$y^{''} - xy^{\prime} - y = 0$$</math> , <math display="inline">$$y(0) = 1$$</math> , <math display="inline">$$y^{\prime}(0) = 0$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$\underset{n = 0}{\overset{\infty}{\sum}}\frac{x^{2n}}{2^{n}n!} = e^{x^{2} \slash 2}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-        <problem number="10">
-          <statement>
-            <paragraph>
-              <math display="inline">$$y^{''} + x^{2}y = 0$$</math> , <math display="inline">$$y(0) = 1$$</math> , <math display="inline">$$y^{\prime}(0) = 0$$</math>
-            </paragraph>
-          </statement>
-        </problem>
-        <problem number="11">
-          <statement>
-            <paragraph>
-              <math display="inline">$$y^{''} + x^{2}y^{\prime} + xy = 0$$</math> , <math display="inline">$$y(0) = 0$$</math> , <math display="inline">$$y^{\prime}(0) = 1$$</math>
-            </paragraph>
-          </statement>
-          <answer>
-            <paragraph>
-              <math display="inline">$$x + \underset{n = 1}{\overset{\infty}{\sum}}\frac{\left( {- 1} \right)^{n}2^{2}5^{2} \cdot \cdots \cdot \left( {3n - 1} \right)^{2}}{\left( {3n + 1} \right)!}x^{3n + 1}$$</math>
-            </paragraph>
-          </answer>
-        </problem>
-      </exercise_group>
-    </exercises>
-    <exercises>
-      <exercise_group>
-        <problem number="12">
-          <statement>
-            <paragraph>
-              The solution of the initial-value problem
-            </paragraph>
-            <paragraph>
-              <math display="block">$${x^{2}y^{''} + xy^{\prime} + x^{2}y = 0}{\qquad{y(0)} = 1}\qquad{{y^{\prime}(0)} = 0}$$</math>
-            </paragraph>
-            <paragraph>
-              is called a Bessel function of order <math display="inline">$$0$$</math> .
-            </paragraph>
-            <list ordered="true">
-              <item>
-                <paragraph>
-                  Solve the initial-value problem to find a power series expansion for the Bessel function.
-                </paragraph>
-              </item>
-              <item>
-                <paragraph>
-                  Graph several Taylor polynomials until you reach one that looks like a good approximation to the Bessel function on the interval <math display="inline">$$\left\lbrack {- 5,5} \right\rbrack$$</math> .
-                </paragraph>
-              </item>
-            </list>
-          </statement>
-        </problem>
-      </exercise_group>
-    </exercises>
-  </subsection>
-</section_file>
+<section>
+  <heading level="2">17.4. Series Solutions</heading>
+  <paragraph>Many differential equations can’t be solved explicitly in terms of finite combinations of simple familiar functions. This is true even for a simple-looking equation like</paragraph>
+  <paragraph math="block">$$y^{''} - 2xy^{\prime} + y = 0$$</paragraph>
+  <paragraph>But it is important to be able to solve equations such as Equation 1 because they arise from physical problems and, in particular, in connection with the Schrödinger equation in quantum mechanics. In such a case we use the method of power series; that is, we look for a solution of the form</paragraph>
+  <paragraph math="block">$$y = f(x) = \sum\limits_{n = 0}^{\infty}c_{n}x^{n} = c_{0} + c_{1}x + c_{2}x^{2} + c_{3}x^{3} + \cdot \cdot \cdot$$</paragraph>
+  <paragraph>The method is to substitute this expression into the differential equation and determine the values of the coefficients $$c_{0},c_{1},c_{2},\ldots$$ . This technique resembles the method of undetermined coefficients discussed in Section 17.2.</paragraph>
+  <paragraph>Before using power series to solve Equation 1, we illustrate the method on the simpler equation $$y^{''} + y = 0$$ in Example 1. It’s true that we already know how to solve this equation by the techniques of Section 17.1, but it’s easier to understand the power series method when it is applied to this simpler equation.</paragraph>
+  <example number="1">
+    <heading level="3">Example 1</heading>
+    <paragraph>Use power series to solve the equation $$y^{''} + y = 0$$ .</paragraph>
+    <paragraph>Solution We assume there is a solution of the form</paragraph>
+    <paragraph math="block">$$y = c_{0} + c_{1}x + c_{2}x^{2} + c_{3}x^{3} + \cdot \cdot \cdot = \sum\limits_{n = 0}^{\infty}c_{n}x^{n}$$</paragraph>
+    <paragraph>We can differentiate power series term by term, so</paragraph>
+    <paragraph math="block">$$y^{\prime} = c_{1} + 2c_{2}x + 3c_{3}x^{2} + \cdot \cdot \cdot = \sum\limits_{n = 1}^{\infty}nc_{n}x^{n - 1}$$</paragraph>
+    <paragraph math="block">$$y^{''} = 2c_{2} + 2 \cdot 3c_{3}x + \cdot \cdot \cdot = \sum\limits_{n = 2}^{\infty}n\left( {n - 1} \right)c_{n}x^{n - 2}$$</paragraph>
+    <paragraph>In order to compare the expressions for $$y$$ and $$y^{''}$$ more easily, we rewrite $$y^{''}$$ as follows:</paragraph>
+    <paragraph math="block">$$y^{''} = \sum\limits_{n = 0}^{\infty}\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2}x^{n}$$</paragraph>
+    <note type="sidebar" source_type="Note" title="Note">
+      <heading level="4">Note</heading>
+      <paragraph>By writing out the first few terms of (4), you can see that it is the same as (3). To obtain (4), we replaced $$n$$ by $$n + 2$$ and began the summation at $$0$$ instead of $$2$$ .</paragraph>
+    </note>
+    <paragraph>Substituting the expressions in Equations 2 and 4 into the differential equation, we obtain</paragraph>
+    <paragraph math="block">$$\sum\limits_{n = 0}^{\infty}\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2}x^{n} + \sum\limits_{n = 0}^{\infty}c_{n}x^{n} = 0$$</paragraph>
+    <paragraph>or</paragraph>
+    <paragraph math="block">$$\sum\limits_{n = 0}^{\infty}\left\lbrack {\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2} + c_{n}} \right\rbrack x^{n} = 0$$</paragraph>
+    <paragraph>If two power series are equal, then the corresponding coefficients must be equal. Therefore the coefficients of $$x^{n}$$ in Equation 5 must be $$0$$ :</paragraph>
+    <paragraph math="block">$$\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2} + c_{n} = 0$$</paragraph>
+    <paragraph math="block">$${c_{n + 2} = - \frac{c_{n}}{\left( {n + 1} \right)\left( {n + 2} \right)}} {n = 0,1,2,3,\ldots}$$</paragraph>
+    <paragraph>Equation 6 is called a recursion relation. If $$c_{0}$$ and $$c_{1}$$ are known, this equation allows us to determine the remaining coefficients recursively by putting $$n = 0,1,2,3,\ldots$$ in succession.</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {{Put}n = 0: c_{2} = - \frac{c_{0}}{1 \cdot 2}} \\ {{Put}n = 1: c_{3} = - \frac{c_{1}}{2 \cdot 3}} \\ {{Put}n = 2: c_{4} = - \frac{c_{2}}{3 \cdot 4} = \frac{c_{0}}{1 \cdot 2 \cdot 3 \cdot 4} = \frac{c_{0}}{4!}} \\ {{Put}n = 3: c_{5} = - \frac{c_{3}}{4 \cdot 5} = \frac{c_{1}}{2 \cdot 3 \cdot 4 \cdot 5} = \frac{c_{1}}{5!}} \\ {{Put}n = 4: c_{6} = - \frac{c_{4}}{5 \cdot 6} = - \frac{c_{0}}{4!5 \cdot 6} = - \frac{c_{0}}{6!}} \\ {{Put}n = 5: c_{7} = - \frac{c_{5}}{6 \cdot 7} = - \frac{c_{1}}{5!6 \cdot 7} = - \frac{c_{1}}{7!}} \end{array}$$</paragraph>
+    <paragraph>By now we see the pattern:</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {{For}{the}{even}{coefficients},c_{2n} = \left( {- 1} \right)^{n}\frac{c_{0}}{\left( {2n} \right)!}} \\ {{For}{the}{odd}{coefficients},c_{2n + 1} = \left( {- 1} \right)^{n}\frac{c_{1}}{\left( {2n + 1} \right)!}} \end{array}$$</paragraph>
+    <paragraph>Putting these values back into Equation 2, we write the solution as</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {y = c_{0} + c_{1}x + c_{2}x^{2} + c_{3}x^{3} + c_{4}x^{4} + c_{5}x^{5} + \cdot \cdot \cdot} \\ {\phantom{y} = c_{0}\left( {1 - \frac{x^{2}}{2!} + \frac{x^{4}}{4!} - \frac{x^{6}}{6!} + \cdot \cdot \cdot + \left( {- 1} \right)^{n}\frac{x^{2n}}{\left( {2n} \right)!} + \cdot \cdot \cdot} \right) + c_{1}\left( {x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!} - \frac{x^{7}}{7!} + \cdot \cdot \cdot + \left( {- 1} \right)^{n}\frac{x^{2n + 1}}{\left( {2n + 1} \right)!} + \cdot \cdot \cdot} \right)} \\ {\phantom{y} = c_{0}\sum\limits_{n = 0}^{\infty}\left( {- 1} \right)^{n}\frac{x^{2n}}{\left( {2n} \right)!} + c_{1}\sum\limits_{n = 0}^{\infty}\left( {- 1} \right)^{n}\frac{x^{2n + 1}}{\left( {2n + 1} \right)!}} \end{array}$$</paragraph>
+    <paragraph>Notice that there are two arbitrary constants, $$c_{0}$$ and $$c_{1}$$ .</paragraph>
+  </example>
+  <paragraph>Note 1 We recognize the series obtained in Example 1 as being the Maclaurin series for $$\cos x$$ and $$\sin x$$ . (See Equations 11.10.16 and 11.10.15.) Therefore we could write the solution as</paragraph>
+  <paragraph math="block">$$y(x) = c_{0}\cos x + c_{1}\sin x$$</paragraph>
+  <paragraph>But we are not usually able to express power series solutions of differential equations in terms of known functions.</paragraph>
+  <example number="2">
+    <heading level="3">Example 2</heading>
+    <paragraph>Solve $$y^{''} - 2xy^{\prime} + y = 0$$ .</paragraph>
+    <paragraph>Solution We assume there is a solution of the form</paragraph>
+    <paragraph math="block">$$y = \sum\limits_{n = 0}^{\infty}c_{n}x^{n}$$</paragraph>
+    <paragraph>Then</paragraph>
+    <paragraph math="block">$$y^{\prime} = \sum\limits_{n = 1}^{\infty}nc_{n}x^{n - 1}$$</paragraph>
+    <paragraph>and</paragraph>
+    <paragraph math="block">$$y^{''} = \sum\limits_{n = 2}^{\infty}n\left( {n - 1} \right)c_{n}x^{n - 2} = \sum\limits_{n = 0}^{\infty}\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2}x^{n}$$</paragraph>
+    <paragraph>as in Example 1. Substituting in the differential equation, we get</paragraph>
+    <paragraph math="block">$$\begin{array}{rll} {\sum\limits_{n = 0}^{\infty}\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2}x^{n} - 2x\sum\limits_{n = 1}^{\infty}nc_{n}x^{n - 1} + \sum\limits_{n = 0}^{\infty}c_{n}x^{n}} &amp; = &amp; 0 \\ {\sum\limits_{n = 0}^{\infty}\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2}x^{n} - \sum\limits_{n = 1}^{\infty}2nc_{n}x^{n} + \sum\limits_{n = 0}^{\infty}c_{n}x^{n}} &amp; = &amp; 0 \\ {\sum\limits_{n = 0}^{\infty}\left\lbrack {({n + 2})\left( {n + 1} \right)c_{n + 2} - \left( {2n - 1} \right)c_{n}} \right\rbrack x^{n}} &amp; = &amp; 0 \end{array}$$</paragraph>
+    <paragraph math="block">$$\sum\limits_{n = 1}^{\infty}2nc_{n}x^{n} = \sum\limits_{n = 0}^{\infty}2c_{n}x^{n}$$</paragraph>
+    <paragraph>This equation is true if the coefficients of $$x^{n}$$ are $$0$$ :</paragraph>
+    <paragraph math="block">$$\left( {n + 2} \right)\left( {n + 1} \right)c_{n + 2} - \left( {2n - 1} \right)c_{n} = 0$$</paragraph>
+    <paragraph math="block">$${c_{n + 2} = \frac{2n - 1}{\left( {n + 1} \right)\left( {n + 2} \right)}c_{n}} {n = 0,1,2,3,\ldots}$$</paragraph>
+    <paragraph>We solve this recursion relation by putting $$n = 0,1,2,3,\ldots$$ successively in Equation 7:</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {{Put}n = 0: c_{2} = \frac{- 1}{1 \cdot 2}c_{0}} \\ {{Put}n = 1: c_{3} = \frac{1}{2 \cdot 3}c_{1}} \\ {{Put}n = 2: c_{4} = \frac{3}{3 \cdot 4}c_{2} = - \frac{3}{1 \cdot 2 \cdot 3 \cdot 4}c_{0} = - \frac{3}{4!}c_{0}} \\ {{Put}n = 3: c_{5} = \frac{5}{4 \cdot 5}c_{3} = \frac{1 \cdot 5}{2 \cdot 3 \cdot 4 \cdot 5}c_{1} = \frac{1 \cdot 5}{5!}c_{1}} \\ {{Put}n = 4: c_{6} = \frac{7}{5 \cdot 6}c_{4} = - \frac{3 \cdot 7}{4!5 \cdot 6}c_{0} = - \frac{3 \cdot 7}{6!}c_{0}} \\ {{Put}n = 5: c_{7} = \frac{9}{6 \cdot 7}c_{5} = \frac{1 \cdot 5 \cdot 9}{5!6 \cdot 7}c_{1} = \frac{1 \cdot 5 \cdot 9}{7!}c_{1}} \\ {{Put}n = 6: c_{8} = \frac{11}{7 \cdot 8}c_{6} = - \frac{3 \cdot 7 \cdot 11}{8!}c_{0}} \\ {{Put}n = 7: c_{9} = \frac{13}{8 \cdot 9}c_{7} = \frac{1 \cdot 5 \cdot 9 \cdot 13}{9!}c_{1}} \end{array}$$</paragraph>
+    <paragraph>In general, the even coefficients are given by</paragraph>
+    <paragraph math="block">$$c_{2n} = - \frac{3 \cdot 7 \cdot 11 \cdot \cdots \cdot \left( {4n - 5} \right)}{\left( {2n} \right)!}c_{0}$$</paragraph>
+    <paragraph>and the odd coefficients are given by</paragraph>
+    <paragraph math="block">$$c_{2n + 1} = \frac{1 \cdot 5 \cdot 9 \cdot \cdots \cdot \left( {4n - 3} \right)}{\left( {2n + 1} \right)!}c_{1}$$</paragraph>
+    <paragraph>The solution is</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {y = c_{0} + c_{1}x + c_{2}x^{2} + c_{3}x^{3} + c_{4}x^{4} + \cdot \cdot \cdot} \\ {\phantom{y}{= c_{0}\left( {1 - \frac{1}{2!}x^{2} - \frac{3}{4!}x^{4} - \frac{3 \cdot 7}{6!}x^{6} - \frac{3 \cdot 7 \cdot 11}{8!}x^{8} - \cdot \cdot \cdot} \right)}{+ c_{1}\left( {x + \frac{1}{3!}x^{3} + \frac{1 \cdot 5}{5!}x^{5} + \frac{1 \cdot 5 \cdot 9}{7!}x^{7} + \frac{1 \cdot 5 \cdot 9 \cdot 13}{9!}x^{9} + \cdot \cdot \cdot} \right)}} \end{array}$$</paragraph>
+    <paragraph>or</paragraph>
+    <paragraph math="block">$$\begin{array}{l} {y = c_{0}\left( {1 - \frac{1}{2!}x^{2} - \sum\limits_{n = 2}^{\infty}\frac{3 \cdot 7 \cdot \cdots \cdot \left( {4n - 5} \right)}{\left( {2n} \right)!}x^{2n}} \right)} \\ { {+ c_{1}\left( {x + \sum\limits_{n = 1}^{\infty}\frac{1 \cdot 5 \cdot 9 \cdot \cdots \cdot \left( {4n - 3} \right)}{\left( {2n + 1} \right)!}x^{2n + 1}} \right)}} \end{array}$$</paragraph>
+  </example>
+  <paragraph>Note 2 In Example 2 we had to assume that the differential equation had a series solution. But now we could verify directly that the function given by Equation 8 is indeed a solution.</paragraph>
+  <paragraph>Note 3 Unlike the situation of Example 1, the power series that arise in the solution of Example 2 do not define elementary functions. The functions</paragraph>
+  <paragraph math="block">$$y_{1}(x) = 1 - \frac{1}{2!}x^{2} - \sum\limits_{n = 2}^{\infty}\frac{3 \cdot 7 \cdot \cdots \cdot \left( {4n - 5} \right)}{\left( {2n} \right)!}x^{2n}$$</paragraph>
+  <paragraph>and</paragraph>
+  <paragraph math="block">$$y_{2}(x) = {x + \underset{n = 1}{\overset{\infty}{\sum^{}}}\frac{1 \cdot 5 \cdot 9 \cdot \cdots \cdot (4n - 3)}{(2n + 1)!}x^{2n + 1}}$$</paragraph>
+  <paragraph>are perfectly good functions but they can’t be expressed in terms of familiar functions. We can use these power series expressions for $$y_{1}$$ and $$y_{2}$$ to compute approximate values of the functions and even to graph them. Figure 1 shows the first few partial sums $$T_{0},T_{2},T_{4},\ldots$$ (Taylor polynomials) for $$y_{1}(x)$$ , and we see how they converge to $$y_{1}$$ . In this way we can graph both $$y_{1}$$ and $$y_{2}$$ as in Figure 2.</paragraph>
+  <figure>
+    <image alt="Details The Image consists of a visual representation of a graph. Five curves and a line are graphed on the coordinate plane. The line is labeled as T_0. The line starts from the bottom left, and goes parallel to the horizontal axis, with intersects the vertical axis, and ends at the bottom right viewing window of the first quadrant. The curves are labeled as T_10. Two curves start from the top left viewing window of the third quadrant, and then it goes up to the right with increasing steepness, and intersect the negative horizontal axis, and then they enter in the second quadrant. Then the curves again go up to the right with touches the line and intersect the positive vertical axis, at the point (0, 1), and then it enters in the first quadrant. Then again the curves go down to the right with decreasing steepness, intersect the positive horizontal axis, and ends at the top right viewing window of the fourth quadrant. Three curves start from the bottom left viewing window of the third quadrant, and then the curves go up to the right with increasing steepness and intersect the negative horizontal axis, and then it enters in the second quadrant. Then the curves again go up to the right with touches the line, and intersects the positive vertical axis, at the point (0, 1), and then they enter in the first quadrant. Then again the curves go down to the right with decreasing steepness, intersect the positive horizontal axis, and ends at the bottom right viewing window of the fourth quadrant."/>
+  </figure>
+  <figure>
+    <image alt="Details The Image consists of a visual representation of a graph. Two curves are graphed on the coordinate plane. The first curve is labeled as y _1. It starts from the bottom left viewing window of the third quadrant, and then the curve goes up to the right with increasing steepness and intersects the negative horizontal axis, and then it enters in the second quadrant. Then the curve again goes up to the right passes through just above the origin, and then it enters in the first quadrant. Then the curve again goes down to the right with decreasing steepness and intersects the positive horizontal axis, and then it enters in the fourth quadrant. Then the curve again goes down to the bottom right with decreasing steepness and ends at the bottom right viewing window of the fourth quadrant. The second curve is labeled as y_2. The curve starts from the bottom left viewing window of the third quadrant, and then the curve goes up to the right with increasing steepness, passes through the origin, and then it enters in the first quadrant. Then the curve goes up to the right with increasing steepness and ends at the top right viewing window of the first quadrant."/>
+  </figure>
+  <paragraph>Note 4 If we were asked to solve the initial-value problem</paragraph>
+  <paragraph math="block">$${y^{''} - 2xy^{\prime} + y = 0} {y(0) = 0} {y^{\prime}(0) = 1}$$</paragraph>
+  <paragraph>we would observe from Theorem 11.10.5 that</paragraph>
+  <paragraph math="block">$${c_{0} = y(0) = 0} {c_{1} = y^{\prime}(0) = 1}$$</paragraph>
+  <paragraph>This would simplify the calculations in Example 2, since all of the even coefficients would be $$0$$ . The solution to the initial-value problem is</paragraph>
+  <paragraph math="block">$$y(x) = x + \sum\limits_{n = 1}^{\infty}\frac{1 \cdot 5 \cdot 9 \cdot \cdots \cdot \left( {4n - 3} \right)}{\left( {2n + 1} \right)!}x^{2n + 1}$$</paragraph>
+</section>

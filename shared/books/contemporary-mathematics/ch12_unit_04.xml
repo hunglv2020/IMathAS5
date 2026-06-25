@@ -1,706 +1,425 @@
-<?xml version='1.0' encoding='utf-8'?>
-<section number="12.4" title="Navigating Graphs">
-  <image alt="People walking through a maze of hedges." number="12.68" caption="Visitors navigate a garden maze. (credit: “Longleat Maze” by Niki Odolphie/Wikimedia, CC BY 2.0)" />
-  <subsection title="Learning Objectives">
-    <p>After completing this section, you should be able to:</p>
-    <list type="ol" style="1">
-      <item>Describe and identify walks, trails, paths, and circuits.</item>
-      <item>Solve application problems using walks, trails, paths, and circuits.</item>
-      <item>Identify the chromatic number of a graph.</item>
-      <item>Describe the Four-Color Problem.</item>
-      <item>Solve applications using graph colorings.</item>
-    </list>
-  </subsection>
-  <subsection title="Walks">
-    <p>Suppose Figure 12.69 is a maze you want to solve. You want to get from the start to the end.</p>
-    <image alt="A maze with its start and end labeled." number="12.69" caption="Your Maze" />
-    <p>You can approach this task any way you want. The only rule is that you can’t climb over the wall. To put this in the context of graph theory, let’s imagine that at every intersection and every turn, there is a vertex. The edges that join the vertices must stay within the walls. The graph within the maze would look like Figure 12.70.</p>
-    <image alt="A maze with its start and end labeled. Vertices are marked at each corner of the maze. A path connects all the vertices of the maze." number="12.70" caption="The Graph in Your Maze" />
-    <p>One approach to solving a maze is to just start walking. It is not the most efficient approach. You might cross through the same intersection twice. You might backtrack a bit. It’s okay. We are just out for a walk. It might look something like the black sequence of vertices and edges in Figure 12.71.</p>
-    <image alt="A maze with its start and end labeled. Vertices are marked at each corner of the maze. A path connects all the vertices of the maze. The path from start to end is highlighted." number="12.71" caption="The Walk Through the Graph in Your Maze" />
-    <p>This type of sequence of adjacent vertices and edges is actually called a walk (or directed walk) in graph theory too!</p>
-    <p>A walk can be identified by naming the sequence of its vertices (or by naming the sequence of its edges if those are labeled). Let’s take the graph out of the context of the maze and give each vertex a name and each edge of the walk a direction as in Figure 12.72.</p>
-    <image alt="A graph with 19 vertices and 19 edges. The vertices are a, l, e, h, m, p, r, q, s, o, n, i, j, k, g, c, d, f, and b. The edges connect l a, a b, b f, e f, e h, h m, r s, p q, c d c j, g k, i j, j k, i n, n o, o q, and k s. The following path is highlighted p, q, o, n, i, j, k, s, and r. p is labeled start and q is labeled end. The edges from j to c and c to d are connected via double-headed arrows." number="12.72" caption="The Graph without Your Maze" />
-    <p>The name of this walk from p to r is p → q → o → n → i → j → c → d → c → j → k → s → r. When a particular edge on our graph was traveled in both directions, it had arrows in both directions and the letters of vertices that were visited more than once had to be repeated in the name of the walk.</p>
-    <note type="Checkpoint">
-      <p>Not every list of vertices or list of edges makes a path. The order must take into account the way in which the edges and vertices are connected. The list must be a sequence, which means they are in order. No edges or vertices can be skipped and you cannot go off the graph.</p>
-    </note>
-    <image alt="Two graphs are labeled graph X and graph Y. Graph X has six vertices: a, b, c, d, e, and f. The vertices a, b, and e are connected by three edges and it resembles a triangle. The vertices, c, d, and f are connected by three edges and it resembles a triangle. These two triangles overlap and the point where they overlap has no vertex. The edges from b to d and d to f are highlighted. Graph Y is the same as that of graph X. The point where they overlap has a vertex, g." number="12.73" caption="A Walk or Not a Walk?" />
-    <p>The highlighted edges Graph Y in Figure 12.73 represent a walk between f and b. The highlighted edges in Graph X do not represent a walk between f and b, because there is a turn at a point that is not a vertex. This is like climbing over a wall when you are walking through a maze. Another way of saying this is that b → d → f is not a walk, because there is no edge between b and d.</p>
-    <note type="Checkpoint">
-      <p>A point on a graph where two edges cross is not a vertex.</p>
-    </note>
-    <example number="12.19">
-      <problem>
-        <p>Figure 12.74 shows the floor plan of a house. Use the floor plan to answer each question.</p>
-        <image alt="A floor plan of a house includes the master bedroom, bedroom, kitchen, living room, hallway, garage, and restroom." number="12.74" caption="Floor Plan of a House" />
-        <list type="ol" style="1">
-          <item>Draw a graph to represent the floor plan in which each vertex represents a different room (or hallway) and edges represent doorways between rooms.</item>
-          <item>Name a walk through the house that begins in the living room, ends in the garage and visits each room (or hallway) at least once.</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>
-            <p>Step 1: We will need a vertex for each room and it is convenient to label them according to the names of the rooms. Visualize the scenario in your head as shown in Figure 12.75. You don’t have to write this step on your paper.</p>
-            <image alt="A floor plan of a house includes the master bedroom, bedroom, kitchen, living room, hallway, garage, and restroom. The following vertices are assigned to rooms: master bedroom, M; bedroom, B; kitchen, K; living room, L; hallway, H; garage, G; and restroom, R. Edges from H lead to M, B, L, and G. Edges from L lead to K and R." number="12.75" caption="Assigning Vertices to Rooms" />
-            <p>Step 2: Draw a graph to represent the scenario. Start with the vertices. Then connect those vertices that share a doorway in the floorplan as shown in Figure 12.76.</p>
-            <image alt="A graph of the floor plan. The graph has seven vertices: M, B, K, H, L, G, and R. Edges from H lead to M, B, and G. Edges from L lead to K and R. An edge connects H with L." number="12.76" caption="Graph of the Floor plan" />
-          </item>
-          <item>
-            <p>Step 1: Draw a path that begins at vertex L, representing the living room, and ending at vertex G, representing the garage making sure to visit every room at least once. There are many ways this can be done. You may want to number the edges to keep track of their order. One example is shown in Figure 12.77.</p>
-            <image alt="A graph of the floor plan. The graph has seven vertices: M, B, K, H, L, G, and R. Edge 1: L to R. Edge 2: R to L. Edge 3: L to K. Edge 4: K to L. Edge 5: L to H. Edge 6: H to B. Edge 7: B to H. Edge 8: H to M. Edge 9: M to H. Edge 10: H to G." number="12.77" caption="Draw the Path from L to G" />
-            <p>Step 2: Name the path that you followed by listing the vertices in the order you visited them.</p>
-            <p>L → R → L → K → L → H → B → H → M → H → G</p>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="12.19">
-      <p>Recall from the Graph Basics section that a graph in which there are multiple edges between the same pair of vertices is called a multigraph. The figure shows a map of the four bridges that link Staten Island to Brooklyn and New Jersey and a multigraph representing the map. In the multigraph, the edges are labeled instead of the vertices. The edges represent the bridges, G (Goethals Bridge), B (Bayonne Bridge), C (Outerbridge Crossing), and V (Verrazzano-Narrows Bridge). The vertices represent New Jersey, Staten Island, and Brooklyn.
-
-
-
-Map and Multigraph of Staten Island Bridges
-
-
-A walk can be named by a sequence of edges instead of a sequence of vertices. Determine which of the following sequences of edges is a walk.</p>
-      <list type="ol" style="a">
-        <item />
-        <item />
-        <item />
-        <item />
+<?xml version="1.0" encoding="UTF-8"?>
+<section>
+  <heading level="1">12.4 Navigating Graphs</heading>
+  <figure number="12.68">
+    <image alt="People walking through a maze of hedges."/>
+    <caption>Visitors navigate a garden maze. (credit: “Longleat Maze” by Niki Odolphie/Wikimedia, CC BY 2.0)</caption>
+  </figure>
+  <heading level="2">Learning Objectives</heading>
+  <paragraph>After completing this section, you should be able to:</paragraph>
+  <list type="ordered">
+    <item>Describe and identify walks, trails, paths, and circuits.</item>
+    <item>Solve application problems using walks, trails, paths, and circuits.</item>
+    <item>Identify the chromatic number of a graph.</item>
+    <item>Describe the Four-Color Problem.</item>
+    <item>Solve applications using graph colorings.</item>
+  </list>
+  <paragraph>Now that we know the basic parts of graphs and we can distinguish one graph from another, it is time to really put our graphs to work for us. Many applications of graph theory involve navigating through a graph very much like you would navigate through a maze. Imagine that you are at the entrance to a maze. Your goal is to get from one point to another as efficiently as possible. Maybe there are treasures hidden along the way that make straying from the shortest path worthwhile, or maybe you just need to get to the end fast. Either way, you definitely want to avoid any wrong turns that would cause unnecessary backtracking. Luckily, graph theory is here to help!</paragraph>
+  <heading level="2">Walks</heading>
+  <paragraph>Suppose Figure 12.69 is a maze you want to solve. You want to get from the start to the end.</paragraph>
+  <figure number="12.69">
+    <image alt="A maze with its start and end labeled."/>
+    <caption>Your Maze</caption>
+  </figure>
+  <paragraph>You can approach this task any way you want. The only rule is that you can’t climb over the wall. To put this in the context of graph theory, let’s imagine that at every intersection and every turn, there is a vertex. The edges that join the vertices must stay within the walls. The graph within the maze would look like Figure 12.70.</paragraph>
+  <figure number="12.70">
+    <image alt="A maze with its start and end labeled. Vertices are marked at each corner of the maze. A path connects all the vertices of the maze."/>
+    <caption>The Graph in Your Maze</caption>
+  </figure>
+  <paragraph>One approach to solving a maze is to just start walking. It is not the most efficient approach. You might cross through the same intersection twice. You might backtrack a bit. It’s okay. We are just out for a walk. It might look something like the black sequence of vertices and edges in Figure 12.71.</paragraph>
+  <figure number="12.71">
+    <image alt="A maze with its start and end labeled. Vertices are marked at each corner of the maze. A path connects all the vertices of the maze. The path from start to end is highlighted."/>
+    <caption>The Walk Through the Graph in Your Maze</caption>
+  </figure>
+  <paragraph>This type of sequence of adjacent vertices and edges is actually called a walk (or directed walk) in graph theory too!</paragraph>
+  <paragraph>A walk can be identified by naming the sequence of its vertices (or by naming the sequence of its edges if those are labeled). Let’s take the graph out of the context of the maze and give each vertex a name and each edge of the walk a direction as in Figure 12.72.</paragraph>
+  <figure number="12.72">
+    <image alt="A graph with 19 vertices and 19 edges. The vertices are a, l, e, h, m, p, r, q, s, o, n, i, j, k, g, c, d, f, and b. The edges connect l a, a b, b f, e f, e h, h m, r s, p q, c d c j, g k, i j, j k, i n, n o, o q, and k s. The following path is highlighted p, q, o, n, i, j, k, s, and r. p is labeled start and q is labeled end. The edges from j to c and c to d are connected via double-headed arrows."/>
+    <caption>The Graph without Your Maze</caption>
+  </figure>
+  <paragraph>The name of this walk from p to r is p → q → o → n → i → j → c → d → c → j → k → s → r. When a particular edge on our graph was traveled in both directions, it had arrows in both directions and the letters of vertices that were visited more than once had to be repeated in the name of the walk.</paragraph>
+  <note type="practice" source_type="Checkpoint" title="Checkpoint">
+    <paragraph>Not every list of vertices or list of edges makes a path. The order must take into account the way in which the edges and vertices are connected. The list must be a sequence, which means they are in order. No edges or vertices can be skipped and you cannot go off the graph.</paragraph>
+  </note>
+  <figure number="12.73">
+    <image alt="Two graphs are labeled graph X and graph Y. Graph X has six vertices: a, b, c, d, e, and f. The vertices a, b, and e are connected by three edges and it resembles a triangle. The vertices, c, d, and f are connected by three edges and it resembles a triangle. These two triangles overlap and the point where they overlap has no vertex. The edges from b to d and d to f are highlighted. Graph Y is the same as that of graph X. The point where they overlap has a vertex, g."/>
+    <caption>A Walk or Not a Walk?</caption>
+  </figure>
+  <paragraph>The highlighted edges Graph Y in Figure 12.73 represent a walk between f and b. The highlighted edges in Graph X do not represent a walk between f and b, because there is a turn at a point that is not a vertex. This is like climbing over a wall when you are walking through a maze. Another way of saying this is that b → d → f is not a walk, because there is no edge between b and d.</paragraph>
+  <note type="practice" source_type="Checkpoint" title="Checkpoint">
+    <paragraph>A point on a graph where two edges cross is not a vertex.</paragraph>
+  </note>
+  <example number="12.19" title="Naming a Walk Through A House">
+    <problem>
+      <paragraph>Figure 12.74 shows the floor plan of a house. Use the floor plan to answer each question.</paragraph>
+      <figure number="12.74">
+        <image alt="A floor plan of a house includes the master bedroom, bedroom, kitchen, living room, hallway, garage, and restroom."/>
+        <caption>Floor Plan of a House</caption>
+      </figure>
+      <list type="ordered">
+        <item>Draw a graph to represent the floor plan in which each vertex represents a different room (or hallway) and edges represent doorways between rooms.</item>
+        <item>Name a walk through the house that begins in the living room, ends in the garage and visits each room (or hallway) at least once.</item>
       </list>
-    </note>
-  </subsection>
-  <subsection title="Paths and Trails">
-    <p>A walk is the most basic way of navigating a graph because it has no restrictions except staying on the graph. When there are restrictions on which vertices or edges we can visit, we will call the walk by a different name. For example, if we want to find a walk that avoids travelling the same edge twice, we will say we want to find a trail (or directed trail). If we want to find a walk that avoids visiting the same vertex twice, we will say, we want to find a path (or directed path).</p>
-    <p>Walks, trails, and paths are all related.</p>
-    <list type="ol" style="1">
-      <item>All paths are trails, but trails that visit the same vertex twice are not paths.</item>
-      <item>All trails are walks, but walks in which an edge is visited twice would not be trails.</item>
-    </list>
-    <p>We can visualize the relationship as in Figure 12.78.</p>
-    <image alt="Three concentric ovals represent paths, trails, and walks. The first (inner) oval labeled paths reads, no repeated edges or vertices. The second oval labeled trails reads, no repeated edges. The third oval is labeled walks." number="12.78" caption="Walks, Trails, and Paths" />
-    <p>Let’s practice identifying walks, trails, and paths using the graphs in Figure 12.79.</p>
-    <image alt="Two graphs are labeled graph A and graph K. Graph A has five vertices: b, c, d, e, and f. The edges connect b c, c f, b d, b e, d e, and e f. Graph K has five vertices: m, n, o, p, and q. The edges connect m n, n o, n q, q o, o p, n p, and m p." number="12.79" caption="Graphs A and K" />
-    <example number="12.20">
-      <problem>
-        <p>Consider each sequence of vertices from Graph A in Figure 12.79. Determine if it is only a walk, both a walk and a path, both a walk and a trail, all three, or none of these.</p>
-        <list type="ol" style="1">
-          <item>b → c → d → e → f</item>
-          <item>c → b → d → b → e</item>
-          <item>c → f → e → d → b → c</item>
-          <item>b → e → f → c → b → d</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>First, check to see if the sequence of vertices is a walk by making sure that the vertices are consecutive. As you can see in, there is no edge between vertexand vertex.<image alt="Graph A has five vertices: b, c, d, e, and f. The edges connect b c, c f, b d, b e, d e, and e f. A sequence of arrows flows from b to c, c to d, d to e, and e to f." number="12.80" caption="no-selfclose" />
-            <p>This means that the sequence is not a walk. If it is not a walk, then it can’t be a path and it cannot be a trail, so, it is none of these.</p>
-          </item>
-          <item>First, check to see if the sequence is a walk. As you can see in, the vertices are consecutive.<image alt="Graph A has five vertices: b, c, d, e, and f. The edges connect b c, c f, b d, b e, d e, and e f. An arrow labeled 1 flows from c to b. An arrow labeled 2 flows from b to d. An arrow labeled 3 flows from d to e. An arrow labeled 4 flows from b to e." number="12.81" caption="no-selfclose" />
-            <p>This means that the sequence is a walk. Since the vertex b is visited twice, this walk is not a path. Since edge $$\mathit{bd}$$ is traveled twice, this walk is not a trail. So, the sequence is only a walk.</p>
-          </item>
-          <item>First, check to see if the sequence is a walk. We can see inthat the vertices are consecutive, which means it is a walk.<image alt="Graph A has five vertices: b, c, d, e, and f. The edges connect b c, c f, b d, b e, d e, and e f. An arrow labeled 1 flows from c to f. An arrow labeled 2 flows from f to e. An arrow labeled 3 flows from e to d. An arrow labeled 4 flows from d to b. An arrow labeled 5 flows from b to c." number="12.82" caption="no-selfclose" />
-            <p>Next, check to see if any vertex is visited twice. Remember, we do not consider beginning and ending at the same vertex to be visiting a vertex twice. So, no vertex was visited twice. This means we have a walk that is also a path. Next check to see if any edge was visited twice; none were. So, the sequence is a walk, a path, and a trail.</p>
-          </item>
-          <item>First, check to see if the sequence is a walk. We can see inthat the vertices are consecutive, which means it is a walk.<image alt="Graph A has five vertices: b, c, d, e, and f. The edges connect b c, c f, b d, b e, d e, and e f. An arrow labeled 1 flows from b to e. An arrow labeled 2 flows from e to f. An arrow labeled 3 flows from f to c. An arrow labeled 4 flows from c to b. An arrow labeled 5 flows from b to d." number="12.83" caption="no-selfclose" />
-            <p>Next check to see if any vertex is visited twice. Since vertex b is visited twice, this is not a path. Finally, check to see if any edges are traveled twice. Since no edges are traveled twice, this is a trail. So, the sequence of vertices is a walk and a trail.</p>
-          </item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="12.20">
-      <p>n → q → o → p</p>
-      <p>p → n → q → o → n → m</p>
-      <p>m → n → o → p → q</p>
-    </note>
-    <note type="Video">
-      <p>Walks, Trails, and Paths in Graph Theory</p>
-    </note>
-  </subsection>
-  <subsection title="Circuits">
-    <p>In many applications of graph theory, such as creating efficient delivery routes, beginning and ending at the same location is a requirement. When a walk, path, or trail end at the same location or vertex they began, we call it closed. Otherwise, we call it open (does not begin and end at the same location or vertex). Some examples of closed walks, closed trails, and closed paths are given in in the following table.</p>
-    <table summary=" " number="Table 12.4" caption="Closed Walks, Trails, and Paths">
-      <thead>
-        <row>
-          <cell>DESCRIPTION</cell>
-          <cell>EXAMPLE</cell>
-          <cell>CHARACTERISTICS</cell>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <cell>A closed walk is a walk that begins and ends at the same vertex.</cell>
-          <cell>d → f → b → c → f → d</cell>
-          <cell>Alternating sequence of vertices and edges
-Begins and ends at the same vertex</cell>
-        </row>
-        <row>
-          <cell>A closed trail is a trail that begins and ends at the same vertex. It is commonly called a circuit.</cell>
-          <cell>d → f → b → c → f → e → d</cell>
-          <cell>No repeated edges
-Begins and ends at the same vertex</cell>
-        </row>
-        <row>
-          <cell>A closed path is a path that begins and ends at the same vertex. It is also referred to as a directed cycle because it travels through a cyclic subgraph.</cell>
-          <cell>d → f → b → c → d</cell>
-          <cell>No repeated edges or vertices
-Begins and ends at the same vertex</cell>
-        </row>
-      </tbody>
-    </table>
-    <p>Since walks, trails, and paths are all related, closed walks, circuits, and directed cycles are related too.</p>
-    <list type="ol" style="1">
-      <item>All circuits are closed walks, but closed walks that visit the same edge twice are not circuits.</item>
-      <item>All directed cycles are circuits, but circuits in which a vertex is visited twice are not directed cycles.</item>
-    </list>
-    <p>We can visualize the relationship as in Figure 12.84.</p>
-    <image alt="Three concentric ovals represent directed cycles, circuits, and closed walks. The first (inner) oval labeled directed cycles (closed paths) reads, no repeated edges or vertices. The second oval labeled circuits (closed talks) reads, no repeated edges. The third oval is labeled closed walks." number="12.84" caption="Closed Walks, Circuits, and Directed Cycles" />
-    <p>The same circuit can be named using any of its vertices as a starting point. For example, the circuit d → f → b → c → d can also be referred to in the following ways.</p>
-    <p>a → b → c → d → a is the same as</p>
-    <equation>$$\left\{ \begin{array}{l} \left. b\rightarrow c\rightarrow d\rightarrow a\rightarrow b \right. \\ \left. c\rightarrow d\rightarrow a\rightarrow b\rightarrow c \right. \\ \left. d\rightarrow a\rightarrow b\rightarrow c\rightarrow d \right. \end{array} \right.$$</equation>
-    <p>Let’s practice working with closed walks, circuits (closed trails), and directed cycles (closed paths). In the graph in Figure 12.85, the vertices are major central and south Florida airports. The edges are direct flights between them.</p>
-    <image alt="A graph represents the direct flights between Central and South Florida airports. The graph has six vertices: T P A, M C O, P B I, F L L, M I A, and E Y W. Edges from T P A lead to E Y W, M I A, F L L, and P B I. Edges from M C O lead to E Y W, M I A, and F L L. An edge from E Y W leads to F L L." number="12.85" caption="Major Central and South Florida Airports" />
-    <example number="12.21">
-      <problem>
-        <p>Suppose that you need to travel by air from Miami (MIA) to Orlando (MCO) and you were restricted to flights represented on the graph. For the trip to Orlando, you decide to purchase tickets with a layover in Key West (EYW) as shown in Figure 12.86, but you still have to decide on the return trip. Determine if your roundtrip itinerary is a closed walk, a circuit, and/or a directed cycle, based on the return trip described in each part.</p>
-        <image alt="A graph represents the direct flights between Central and South Florida airports. The graph has six vertices: T P A, M C O, P B I, F L L, M I A, and E Y W. Edges from T P A lead to E Y W, M I A, F L L, and P B I. Edges from M C O lead to E Y W, M I A, and F L L. An edge from E Y W leads to F L L. An arrow from M I A points to E Y W. An arrow from E Y W points to M C O." number="12.86" caption="MIA to EYW to MCO" />
-        <list type="ol" style="1">
-          <item>You returned to Miami (MIA) by reversing your route.</item>
-          <item>Your direct flight back left Orlando (MCO) but was diverted to Fort Lauderdale (FLL)! From there you flew to Tampa (TPA) before returning to Miami (MIA).</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>The whole trip was MIA → EYW → MCO → EYW → MIA. This is a closed walk, because it is a walk that begins and ends at the same vertex. It is not a circuit, because it repeats edges. If it is not a circuit, then it cannot be a directed cycle.</item>
-          <item>The whole trip was MIA → EYW → MCO → FLL → TPA → MIA. This is a closed walk, because it is a walk that begins and ends at the same vertex. It is a circuit because no edges were repeated. It is also a directed cycle because no vertices were repeated either. So, it is all three!</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Your Turn" number="12.21">
-      <p>Why is it impossible to find an itinerary that is a circuit?</p>
-      <p>How is this related to the degree of the vertex PBI?</p>
-    </note>
-    <note type="Video">
-      <p>Closed Walks, Closed Trails (Circuits), and Closed Paths (Directed Cycles) in Graph Theory</p>
-    </note>
-  </subsection>
-  <subsection title="Graph Colorings">
-    <p>In this section so far, we have looked at how to navigate graphs by proceeding from one vertex to another in a sequence that does not skip any vertices, but in some applications we may want to skip vertices. Remember the camp Olympics at Camp Woebegone in Comparing Graphs? You were planning a camp Olympics with four events. The campers signed up for the events. You drew a graph to help you visualize which events have campers in common. The vertices of Graph E in Figure 12.87 represent the events and adjacent vertices indicate that there are campers who are participating in both.</p>
-    <image alt="A graph with four vertices: a, b, c, and d. The edges connect a b, b d, d c, and c a." number="12.87" caption="Graphs of Camp Olympics" />
-    <p>In this case, we do NOT want events represented by two adjacent vertices to occur in the same timeslot, because that would prevent the campers who wanted to participate in both from doing so. We can use the graph in Figure 12.87 to count the timeslots we need so there are no conflicts. Let’s assign each timeslot a different color. We could categorize events that happen at 1 pm as Red; 2 pm, Purple; 3 pm, Blue; and 4 pm, Green. Then assign different colors to any pair of adjacent vertices to ensure that the events they represent do not end up in the same timeslot. Figure 12.88 shows several of the ways to do this while obeying the rule that no pair of adjacent vertices can be the same color.</p>
-    <image alt="Three graphs are labeled graph 1, graph 2, and graph 3. Graph 1 has four vertices: a, b, c, and d in blue, green, purple, and red, respectively. Graph 2 has four vertices: a, b, c, and d in blue, purple, purple, and red, respectively. Graph 3 has four vertices: a, b, c, and d in red, purple, purple, and red, respectively. In each graph, the edges connect a b, b d, d c, and c a." number="12.88" caption="Graph Colorings" />
-    <p>In Figure 12.88, the graphs with vertices colored so that no adjacent vertices are the same color are called graph colorings. Notice that Graph 3 has the fewest colors, which means it shows us how to have the fewest number of timeslots. The events marked in red, a and d, can be held at the same time because they are not adjacent and do not have conflicts. Also, the events marked in purple, b and c, can be held at the same time. We would not need green or blue timeslots at all!</p>
-    <p>A graph that uses $$n$$ colors is called an $$\mathbf{n}$$-coloring. The smallest number of colors needed to color a particular graph is called its chromatic number.</p>
-    <p>Graph colorings can be used in many applications like the scheduling scenario at camp Woebegone. Let's look at how they work in more detail. Figure 12.89 shows two different colorings of a particular graph. Coloring A is called a four-coloring, because it uses four colors, red (R), green (G), blue (B), and purple (P). Coloring B is called a three-coloring because it uses three. The colors allow us to visually subdivide the graphs into groups. The only rule is that adjacent vertices are different colors so that they are in different groups.</p>
-    <image alt="Two graphs are labeled coloring A and coloring B In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: B, G, and R. Row 2: G, R, and P. Row 3: P, B, and G. The outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect G R, R B, G R, and R P. Diagonal lines connect B R, R G, G B, and G P. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: B, G, and R. Row 2: G, R, and B. Row 3: R, B, and G. The outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect G R, R B, G R, and R B. Diagonal lines connect B R, R G, G B, and G B." number="12.89" caption="Two Colorings of the Same Graph" />
-    <p>It turns out that a three-coloring is the best we can do with the graph in Figure 12.89. No matter how many different patterns you try with only two colors, you will never find one in which the adjacent vertices are always different colors. In other words, the graph has a chromatic number of three. For large graphs, computer assistance is usually required to find the chromatic numbers. There is no formula for finding the chromatic number of a graph, but there are some facts that are helpful in Table 12.5.</p>
-    <table summary=" " number="Table 12.5" caption="Facts about Graph Colorings">
-      <thead>
-        <row>
-          <cell>Fact</cell>
-          <cell>Example</cell>
-        </row>
-      </thead>
-      <tbody>
-        <row>
-          <cell>Recall that planar graphs are untangled; that is, they can be drawn on a flat surface so that no two edges are crossing. If a graph is planar, it can be colored with four colors or possibly fewer.</cell>
-          <cell />
-        </row>
-        <row>
-          <cell>Each vertex in a complete graph is adjacent to every other vertex forcing us to color them all different colors.The chromatic number of a complete graph is the same as the number of vertices.</cell>
-          <cell />
-        </row>
-        <row>
-          <cell>If a graph has a clique, a complete subgraph, then each vertex in the clique must have a different color and the vertices outside the clique may or may not have even more colors. The chromatic number of a graph is at least the number of vertices in its biggest clique.</cell>
-          <cell />
-        </row>
-      </tbody>
-    </table>
-  </subsection>
-  <subsection title="Creating Colorings to Solve Problems">
-    <p>Let’s see how these facts can help us color the graph in Figure 12.90.</p>
-    <list type="ul">
-      <item>Since the graph is planar, the chromatic number is no more than four.</item>
-      <item>The graph is not complete, but it has complete subgraphs of three vertices. In other words, it has triangles like the one shown with blue vertices in Figure 12.90. This means that the chromatic number is at least three.</item>
-    </list>
-    <image alt="A graph has nine vertices arranged in 3 rows and 3 columns. The outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. The vertices at the top-left, left-center, and center are highlighted in grey." number="12.90" caption="A Graph with Triangles" />
-    <p>We know we can color this graph in three or four colors. It is usually best to start by coloring the vertex of highest degree as shown in Figure 12.91. In this case, we used red (R). The color is not important.</p>
-    <image alt="Two graphs are labeled degrees of vertices and degree 6 vertex colored first. In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, 4, and 2. Row 2: 4, 6, and 4. Row 3: 2, 4, and 3. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, 4, and 2. Row 3: 4, R, and 4. Row 3: 2, 4, and 3. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. An arrow from the first graph points to the second graph." number="12.91" caption="Color Highest Degree Vertex First" />
-    <p>We want to color as many of the vertices the same color as possible; so, we look at all the vertices that are not adjacent to the red vertex and begin to color them, red starting with the one among them of highest degree. Since the only vertices that are not adjacent are both degree 2, choose either one and color it red as shown in Figure 12.92.</p>
-    <image alt="Two graphs. In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, 4, and 2. Row 3: 4, R, and 4. Row 3: 2, 4, and 3. 2 in the top-right and bottom-left vertices are outlined. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, 4, and R. Row 2: 4, R, and 4. Row 3: 2, 4, and 3. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. An arrow from the first graph points to the second graph." number="12.92" caption="Color More Red from Highest to Lowest Degree" />
-    <p>Now, there is only one vertex left that is not adjacent to a red; so, color it red. Of the remaining vertices, the highest degree is four; so, color one of the vertices of degree four in a different color. These two steps are shown in Figure 12.93.</p>
-    <image alt="Two graphs. In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, 4, and R. Row 3: 4, R, and 4. Row 3: R, 4, and 3. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 2: 4, R, and 4. Row 3: R, 4, and 3. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. An arrow from the first graph points to the second graph." number="12.93" caption="Complete the Reds and Start Another Color" />
-    <p>Repeat the same procedure. There are three remaining vertices that are not adjacent to a blue. Color as many blue as possible, with priority going to vertices of higher degree as shown in Figure 12.94.</p>
-    <image alt="Three graphs. In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 3: 4, R, and 4. Row 3: R, 4, and 3. 4 in the left-center and bottom-center vertices are outlined. 3 in the bottom-right vertex is outlined. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 2: B, R, and 4. Row 3: R, 4, and 3. 3 in the bottom-right vertex is outlined. In the third graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 2: B, R, and 4. Row 3: R, 4, and B. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. An arrow from the first graph points to the second graph. An arrow from the second graph points to the third graph." number="12.94" caption="Repeat Procedure for Color Blue" />
-    <p>All the remaining vertices are adjacent to blue. So, it is time to repeat the procedure with another color as shown in Figure 12.95.</p>
-    <image alt="Three graphs. In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 3: B, R, and P. Row 3: R, 4, and B. 3 in the top-left vertex is outlined. 4 in the bottom-center is outlined. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 2: B, R, and P. Row 3: R, P, and B. 3 in the top-left vertex is outlined. In the third graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: P, B, and R. Row 2: B, R, and P. Row 3: R, P, and B. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. An arrow from the first graph points to the second graph. An arrow from the second graph points to the third graph." number="12.95" caption="Repeat Procedure for Color Purple" />
-    <p>All the vertices are now colored with a three-coloring so we know the chromatic number is at most three, but we knew the chromatic number was at least three because the graph has a triangle. So, we are now certain it is exactly three.</p>
-    <note type="Video">
-      <p>Coloring Graphs Part 1: Coloring and Identifying Chromatic Number</p>
-    </note>
-    <p>Suppose the vertices of the graph in Figure 12.96 represented the nine events in the Camp Woebegone Olympics, and edges join any events that have campers in common, but nonadjacent vertices do not.</p>
-    <image alt="A graph has nine vertices. The vertices are arranged in 3 rows and 3 columns. Row 1: P, B, and R. Row 2: B, R, and P. Row 3: R, P, and B. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines." number="12.96" caption="Coloring for Nine Event Camp Woebegone Olympics" />
-    <p>Any vertices of the same color are nonadjacent; so, they have no conflicts. Since this graph is a three-coloring, all nine events could be scheduled in just three timeslots!</p>
-    <example number="12.22">
-      <problem>
-        <p>In Example 12.17, we discussed a high school, which holds end-of-course exams in (E3) English 3, (E4) English 4, (M) Advanced Math, (C) Calculus, (W) World History, (U) U.S. History, (B) Biology, and (P) Physics. We were given a list of courses that had no students in common. We used that information to find the graph in Figure 12.63, which shows edges between exams with students in common. Use the graph we found in Example 12.17 to answer each question.</p>
-        <image alt="A graph has eight vertices. The vertices are P, B, U, W, C, M, E 4, and E 3. Edges from P lead to E 3, B, U, W, and C. Edges from B lead to U, W, C, M, and E 4. Edges from U lead to E 3, M, and C. Edges from W lead to E 4, M, and C. An edge from C leads to E 3. An edge from M leads to E 3." number="12.97" caption="Graph of Exams with Students in Common" />
-        <list type="ol" style="1">
-          <item>The graph contains a clique of size 4 formed by the vertices P, E3, C, and U. What does this tell you about the chromatic number?</item>
-          <item>The graph is not planar, meaning that you cannot untangle it. What does this tell you about the chromatic number?</item>
-          <item>Create a coloring by coloring vertex of highest degree first, coloring as many other vertices as possible each color from highest to lowest degree, then repeating this process for the remaining vertices.</item>
-          <item>Do you know what the minimum number of timeslots is? If so, what is it and how do you know? If not, what are the possibilities?</item>
-        </list>
-      </problem>
-      <solution>
-        <list type="ol" style="1">
-          <item>We would need four different colors just for the clique with four vertices; so, the chromatic number is at least four.</item>
-          <item>It is possible for the chromatic number to be greater than four.</item>
-          <item>The process is shown in.<table summary=" " number="Table 12.6" caption="Coloring the Graph">
-              <tbody>
-                <row>
-                  <cell />
-                  <cell />
-                  <cell />
-                </row>
-                <row>
-                  <cell>This is the original graph. Vertex B has highest degree.</cell>
-                  <cell>Color vertex B. Vertex E3 is the only remaining vertex that is NOT adjacent to B.</cell>
-                  <cell>Color vertex E3 the same color. Vertices P, U, W, and C are the remaining vertices with highest degree. Pick one to color.</cell>
-                </row>
-                <row>
-                  <cell />
-                  <cell />
-                  <cell />
-                </row>
-                <row>
-                  <cell>Color vertex P a new color. Vertices E4 and M are NOT adjacent to P, and M has higher degree.</cell>
-                  <cell>Color vertex M the same color. Vertex E4 is the only remaining vertex NOT adjacent to P or M.</cell>
-                  <cell>Color vertex E4 the same color. Vertices U, W, and C are the remaining vertices with highest degree. Pick one to color.</cell>
-                </row>
-                <row>
-                  <cell />
-                  <cell />
-                  <cell />
-                </row>
-                <row>
-                  <cell>Color U a new color. Vertex W is the only remaining vertex NOT adjacent to U.</cell>
-                  <cell>Color vertex W the same color. Vertex C is the only remaining vertex that has NOT been colored.</cell>
-                  <cell>Color vertex C a new color. The coloring is final. We used four colors.</cell>
-                </row>
-              </tbody>
-            </table>
-            <p>The last graph in Table 12.6 is the final coloring.</p>
-          </item>
-          <item>Yes, the minimum number of times slots is the chromatic number. We knew the chromatic number had to be at least four because there was a clique with four vertices. Now we have found a four-coloring of the graph which tells us that the chromatic number is at most four. So, we know four must be the chromatic number.</item>
-        </list>
-      </solution>
-    </example>
-    <note type="Checkpoint">
-      <p>The procedure used in Example 22 to color the graph is not guaranteed to result in a graph that has the minimum number of colors possible, but it is usually results in a coloring that is close to the chromatic number.</p>
-    </note>
-    <note type="Your Turn" number="12.22">
-      <image alt="Three graphs. Graph 1 has 2 vertices in red, 2 vertices in blue, 1 vertex in purple, and 2 vertices in green. Edges from the first red vertex lead to two blue vertices, one green vertex, and one purple vertex. An edge from the second blue vertex leads to the purple vertex. Edges from the purple vertex lead to the second red and second green vertices. Graph 2 has 1 vertex in red, 3 vertices in blue, 2 vertices in green, and 1 vertex in purple. Edges from the red vertex lead to the green vertices, one blue vertex, and one purple vertex. The two green vertices are connected by an edge. The first blue connects with the purple via an edge. The purple connects with the other two blue vertices via edges. The second and third blue vertices are connected by an edge. Graph 3 has 1 red vertex, 2 orange vertexes, 1 green vertex, 2 blue vertices, and 1 purple vertex. Edges from the red vertex lead to orange, green, purple, and blue vertices. The first orange vertex connects with the green. The first blue connects with the first purple. This purple connects with the second orange and second blue vertices via edges. The second orange and the second blue are connected via an edge." caption="Possible Colorings of the Same Graph" />
-      <p>Is the graph planar? What does your answer tell you about the chromatic number?</p>
-      <p>What is the lowest possible chromatic number of this graph based on the size of any cliques?</p>
-      <p>What are the possible chromatic numbers?</p>
-      <p>Which graph or graphs meet the definition of a valid graph coloring?</p>
-      <p>Draw an $$n$$-coloring for the graph where $$n$$ is the answer to Exercise 2.</p>
-    </note>
-  </subsection>
-  <subsection title="The Four Color Problem">
-    <image alt="Two figures. The first figure shows a rectangle divided into several small blocks. The second figure is the same as that of the first figure with the addition that the blocks are shaded in 4 different colors." number="12.98" caption="Using only four colors, no two adjacent regions have the same color." />
-    <p>The idea of coloring graphs to solve problems was inspired by one of the most famous problems in mathematics, the “four color problem.” The idea was that, no matter how complicated a map might be, only four colors were needed to color the map so that no two regions that shared a boundary would be the same color. For many years, everyone suspected this to be true, because no one could create a map that needed more than four colors, but they couldn’t prove it was true in general. Finally, graphs were used to solve the problem!</p>
-    <note type="Video">
-      <p>The Four Color Map Theorem – Numberphile</p>
-    </note>
-    <p>We saw how maps can be represented as graphs in Graph Basics. Figure 12.99 from Example 12.4 shows a map of the midwestern region of the United States.</p>
-    <image alt="A partial map of the USA with midwestern states. The Midwestern states are North Dakota, South Dakota, Nebraska, Kansas, Minnesota, Iowa, Missouri, Wisconsin, Illinois, Indiana, Michigan, and Ohio." number="12.99" caption="Map of Midwestern States" />
-    <p>Figure 12.100 shows how this map can be associated with a graph in which each vertex represents a state and each edge indicates the states that share a common boundary. Figure 12.101 shows the final graph.</p>
-    <image alt="A partial map of the USA with midwestern states. The Midwestern states are North Dakota (N D), South Dakota (S D), Nebraska (N E), Kansas (K S), Minnesota (M N), Iowa (I A), Missouri (M O), Wisconsin (W I), Illinois (I L), Indiana (I N), Michigan (M I), and Ohio (O H). Edges from N D connect with S D and M N. Edges from S D connect with N E, I A, and M N. Edges from M N connect with I A and W I. Edges from N E connect with K S, M O, and I A. Edges from I A connect with M O and I L. Edges from W I connect with I A and I L. An edge from K S connects with M O. An edge from M O connects with I L. An edge from I L connects with I N. Edges from I N connect with M I and O H. An edge from M I connects with O H." number="12.100" caption="Edge Assigned to Each Pair of Midwestern States with Common Border" />
-    <image alt="A graph represents common boundaries between midwestern states. The vertices are North Dakota (N D), South Dakota (S D), Nebraska (N E), Kansas (K S), Minnesota (M N), Iowa (I A), Missouri (M O), Wisconsin (W I), Illinois (I L), Indiana (I N), Michigan (M I), and Ohio (O H). Edges from M N connect with I A and W I. Edges from N E connect with K S, M O, and I A. Edges from I A connect with M O and I L. Edges from W I connect with I A and I L. An edge from K S connects with M O. An edge from M O connects with I L. An edge from I L connects with I N. Edges from I N connect with M I and O H. An edge from M I connects with O H." number="12.101" caption="Final Graph Representing Common Boundaries between Midwestern States" />
-    <p>Notice that the graph representing the common boundaries between midwestern states is planar, meaning that it can be drawn on a flat surface without edges crossing. As we have seen, any planar graph has a chromatic number of four or less. This very well-known fact is called the Four-Color Theorem, or Four-Color Map Theorem.</p>
-    <note type="Video">
-      <p>Coloring Graphs Part 2: Coloring Maps and the Four Color Problem</p>
-    </note>
-    <note type="People in Mathematics">
-      <p>In the 19th century, Francis Guthrie was coloring a map of British counties and noticed that he could color so that no two adjacent counties were the same color using only four colors. This seemed to be the case for other maps as well, but he could not figure out why. He shared this with his brother, Frederick, who subsequently took the problem to his professor, August De Morgan, one of the most famous mathematicians of all time. De Morgan never was able to solve the problem, but he shared it with his colleagues. The problem continued to intrigue and perplex mathematicians for over a hundred years, inspiring discoveries in several areas of mathematics. It was finally proven by Kenneth Appel and Wolfgang Haken from the University of Illinois in 1976 using a combination of computer-aided calculations and graph theory. This was the first time in history that a mathematical theorem was proven using a computer! (Jesus Najera, “The Four-Color Theorem,” Cantor’s Paradise, a Medium publication, October 22, 2019)</p>
-    </note>
-    <example number="12.23">
-      <problem>
-        <p>Find a coloring of the graph in Figure 12.99, which uses four colors or fewer. Use the resulting coloring as a guide to recolor the map in Figure 12.99. How many colors did you use? Does this support the conclusion of the Four-Color Theorem? If so, how?</p>
-      </problem>
-      <solution>
-        <p>The steps to color the graph are shown in Table 12.7.</p>
-        <table summary=" " number="Table 12.7" caption="Steps to Color Graph of Midwestern States">
-          <tbody>
-            <row>
-              <cell />
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>Step 1: Graph with degrees of vertices labeled.
-Vertex IA has highest degree.</cell>
-              <cell>Step 2: Color vertex IA any color.
-Vertices ND, KS, MI, OH, and IN are NOT adjacent to IA.
-MI and IN have highest degree, 3.</cell>
-              <cell>Step 3: Color either MI or IN the same color as IA.
-Vertex ND and KS are the only remaining vertices not adjacent to a red vertex.
-They both have degree 2.</cell>
-            </row>
-            <row>
-              <cell />
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>Step 4: Since KS and ND are not adjacent to each other, we can save a step and color both red. The highest degree of remaining vertices is four.</cell>
-              <cell>Step 5: Choose one of the vertices of degree 4, SD, to color with a new color, blue. The vertices WI, IL, MO, IN,and OH are NOT adjacent to blue.
-WI, IL, and MO have the highest degree.</cell>
-              <cell>Step 6: Choose one of WI, IL, or MO to color.
-We color WI blue.
-MO, IN and OH are NOT adjacent to blue.
-MO has the highest degree of these.</cell>
-            </row>
-            <row>
-              <cell />
-              <cell />
-              <cell />
-            </row>
-            <row>
-              <cell>Step 7: Color MO blue. All remaining vertices are adjacent to blue.
-Choose a new color. Four vertices remain, MN, NE, IL, and OH. MN, NE, and IL have the highest degree.</cell>
-              <cell>Step 8: Since MN, IL, and NE are not adjacent, save steps and color all three the new color, purple.
-Vertex OH is the only remaining vertex that has NOT been colored.</cell>
-              <cell>Step 9: Since vertex OH is not adjacent to purple, color it purple.
-This is the final graph.
-We used three colors.</cell>
-            </row>
-          </tbody>
-        </table>
-        <p>The final graph in Table 12.7 shows how we would color the map. In Figure 12.102 we have colored the map to correspond to the colors on the graph.</p>
-        <image alt="A partial map of the USA with midwestern states. The Midwestern states are North Dakota, South Dakota, Nebraska, Kansas, Minnesota, Iowa, Missouri, Wisconsin, Illinois, Indiana, Michigan, and Ohio. North Dakota, Kansas, Iowa, and Michigan are in red. South Dakota, Missouri, Wisconsin, and Indiana are in blue. Nebraska, Minnesota, Illinois, and Ohio are in purple." number="12.102" caption="Midwestern States in Three Colors" />
-        <p>We used three colors to color the graph. This supports the Four-Color Theorem, because the graph is planar and its chromatic number is less than four.</p>
-      </solution>
-    </example>
-    <note type="Your Turn" number="12.23">
-      <p>The first figure shows a map of the Island of Oahu in the State of Hawaii divided into regions, and the second figure shows a graph of the map. What is the chromatic number? Find a graph coloring that reflects the chromatic number of the graph.
-
-
-
-Map of Oahu
-
-
-
-
-
-Graph Representing Common Boundaries between Regions of Oahu</p>
-    </note>
-    <note type="Who Knew?">
-      <p>Have you ever heard of a möbius strip? It is a flat object with only one side. This might sound theoretical, but you can make one for yourself. Take a narrow strip of paper, make a half twist in it, and tape the ends together. To prove to yourself that it has only one side, pick a point anywhere on the paper and start drawing a line. You can draw the line continuously without lifting your pen from the paper and eventually, you will get back to the point at which you started. Since you never had to flip over the paper, you have just proved it has one side!</p>
-      <p>Now, you might be wondering what this has to do with Graph Theory. It turns out that a map drawn on a möbius strip cannot necessarily be drawn using four colors. This doesn’t contradict the Four-Color Theorem, which only applies to graphs that are planar. A möbius strip does not live on a “plane,” or flat surface, which means the maps are not always planar like those drawn on a flat piece of paper. In the case of a möbius strip, it is the Six-Color Map Theorem! Figure 12.103 is an example of a möbius strip with a map that requires five colors.</p>
-      <image alt="A Mobius strip is shaded in five different colors." number="12.103" caption="A Five-Coloring on a Möbius Strip" />
-    </note>
-    <note type="Video">
-      <p>Neil deGrasse Tyson Explains the Möbius Strip</p>
-    </note>
-  </subsection>
-  <subsection title="Check Your Understanding">
-    <p>A trail is a path.</p>
-    <p>A trail is a walk.</p>
-    <p>A walk is a path.</p>
-    <p>A circuit is a trail.</p>
-    <p>A directed cycle is a path.</p>
-    <p>A circuit is a directed cycle.</p>
-    <p>A directed cycle is a circuit.</p>
-    <p>If a graph has an $$n$$-coloring, then its chromatic number is $$n$$.</p>
-    <p>If the chromatic number of a graph is $$n$$, then it has an $$n$$-coloring.</p>
-    <p>If a graph is planar, then it has a chromatic number of at most four.</p>
-    <p>A walk that ____________ is a trail.</p>
-    <p>A trail that ____________ is a circuit.</p>
-    <p>A circuit that ___________ is a directed cycle.</p>
-    <p>A closed walk that ____________ is a circuit.</p>
-    <p>A complete graph with $$n$$ vertices has a chromatic number of_____.</p>
-    <p>A graph with a clique with $$n$$-vertices has a chromatic number of _________ $$n$$.</p>
-  </subsection>
-  <exercises title="Section 12.4 Exercises">
-    <instruction>For the following exercises, identify each sequence of vertices from the figure as a walk, trail, and/or path. Select all that apply.</instruction>
-    <exercise number="1" has_solution="false">
-      <problem>
-        <p>A → B → F → G → K → J → F → B</p>
-      </problem>
-    </exercise>
-    <exercise number="2" has_solution="false">
-      <problem>
-        <p>G → K → O → N → J → K → L</p>
-      </problem>
-    </exercise>
-    <exercise number="3" has_solution="false">
-      <problem>
-        <p>F → J → K → G → B → A</p>
-      </problem>
-    </exercise>
-    <exercise number="4" has_solution="false">
-      <problem>
-        <p>I → J → K → L → K → J → N</p>
-      </problem>
-    </exercise>
-    <exercise number="5" has_solution="false">
-      <problem>
-        <p>M → N → O → K → L → H</p>
-      </problem>
-    </exercise>
-    <exercise number="6" has_solution="false">
-      <problem>
-        <p>A → F → K → P</p>
-      </problem>
-    </exercise>
-    <exercise number="7" has_solution="false">
-      <problem>
-        <p>N → J → F → B → C → G → F → E</p>
-      </problem>
-    </exercise>
-    <exercise number="8" has_solution="false">
-      <problem>
-        <p>E → F → J → I → E</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, identify each sequence of vertices from Figure 12.134 as a closed walk, circuit (closed trail), and/or directed cycle (closed path). Select all that apply.</instruction>
-    <exercise number="9" has_solution="false">
-      <problem>
-        <p>A → B → F → G → K → J → F → B → A</p>
-      </problem>
-    </exercise>
-    <exercise number="10" has_solution="false">
-      <problem>
-        <p>G → K → O → N → J → K → L</p>
-      </problem>
-    </exercise>
-    <exercise number="11" has_solution="false">
-      <problem>
-        <p>F → J → N → O → K → J → I → E → F</p>
-      </problem>
-    </exercise>
-    <exercise number="12" has_solution="false">
-      <problem>
-        <p>I → J → K → G → F → E → I</p>
-      </problem>
-    </exercise>
-    <exercise number="13" has_solution="false">
-      <problem>
-        <p>M → N → O → K → J → I → M</p>
-      </problem>
-    </exercise>
-    <exercise number="14" has_solution="false">
-      <problem>
-        <p>N → J → F → B → C → G → F → J → N</p>
-      </problem>
-    </exercise>
-    <exercise number="15" has_solution="false">
-      <problem>
-        <p>A → B → G → F → E → A</p>
-      </problem>
-    </exercise>
-    <exercise number="16" has_solution="false">
-      <problem>
-        <p>E → F → G → K → J → F → B → A → E</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, use the graphs shown. Identify the graph or graphs with the given characteristics.</instruction>
-    <exercise number="17" has_solution="false">
-      <problem>
-        <p>The colors do not follow the definition of a graph coloring.</p>
-      </problem>
-    </exercise>
-    <exercise number="18" has_solution="false">
-      <problem>
-        <p>The graph is a two-coloring.</p>
-      </problem>
-    </exercise>
-    <exercise number="19" has_solution="false">
-      <problem>
-        <p>The graph is a three-coloring.</p>
-      </problem>
-    </exercise>
-    <exercise number="20" has_solution="false">
-      <problem>
-        <p>The graph is a four-coloring.</p>
-      </problem>
-    </exercise>
-    <exercise number="21" has_solution="false">
-      <problem>
-        <p>The graph is planar.</p>
-      </problem>
-    </exercise>
-    <exercise number="22" has_solution="false">
-      <problem>
-        <p>The graph has a chromatic number of two.</p>
-      </problem>
-    </exercise>
-    <exercise number="23" has_solution="false">
-      <problem>
-        <p>Fewer colors could be used to color the graph.</p>
-      </problem>
-    </exercise>
-    <exercise number="24" has_solution="false">
-      <problem>
-        <p>The chromatic number is more than four.</p>
-      </problem>
-    </exercise>
-    <exercise number="25" has_solution="false">
-      <problem>
-        <p>The Four-Color Theorem applies to the graph.</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, complete the sequence of vertices from the graph to create the indicated kind of closed walk.</instruction>
-    <exercise number="26" has_solution="false">
-      <problem>
-        <p>Closed path: a → b → □ → □ → □ → a</p>
-      </problem>
-    </exercise>
-    <exercise number="27" has_solution="false">
-      <problem>
-        <p>Closed path that visits edge ed twice: e → d → □ → □ → □ → e</p>
-      </problem>
-    </exercise>
-    <exercise number="28" has_solution="false">
-      <problem>
-        <p>Directed cycle: e → a → □ → □ → □ → e</p>
-      </problem>
-    </exercise>
-    <exercise number="29" has_solution="false">
-      <problem>
-        <p>Directed cycle: b → d → □ → □ → □ → b</p>
-      </problem>
-    </exercise>
-    <exercise number="30" has_solution="false">
-      <problem>
-        <p>Circuit that visits vertex d twice: b → c → d → □ → □ → □ → b</p>
-      </problem>
-    </exercise>
-    <exercise number="31" has_solution="false">
-      <problem>
-        <p>Circuit that visits vertex f twice: g → h → f → □ → □ → □ → g</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, use the graphs shown.</instruction>
-    <exercise number="32" has_solution="false">
-      <problem>
-        <p>Find the chromatic number $$n$$ for graph 1 and give an $$n$$-coloring.</p>
-      </problem>
-    </exercise>
-    <exercise number="33" has_solution="false">
-      <problem>
-        <p>Find the chromatic number $$n$$ for graph 2 and give an $$n$$-coloring.</p>
-      </problem>
-    </exercise>
-    <exercise number="34" has_solution="false">
-      <problem>
-        <p>Find the chromatic number $$n$$ for graph 3 and give an $$n$$-coloring.</p>
-      </problem>
-    </exercise>
-    <exercise number="35" has_solution="false">
-      <problem>
-        <p>Find the chromatic number $$n$$ for graph 4 and give an $$n$$-coloring.</p>
-      </problem>
-    </exercise>
-    <instruction>For the following exercises, indicate the smallest and largest possible chromatic number of the graph described.</instruction>
-    <exercise number="36" has_solution="false">
-      <problem>
-        <p>The graph has 15 vertices and contains a clique with 9 vertices.</p>
-      </problem>
-    </exercise>
-    <exercise number="37" has_solution="false">
-      <problem>
-        <p>A planar graph with 100 vertices and a clique with 3 vertices.</p>
-      </problem>
-    </exercise>
-    <exercise number="38" has_solution="false">
-      <problem>
-        <p>A planar graph with more than 2 vertices and no cliques.</p>
-      </problem>
-    </exercise>
-    <exercise number="39" has_solution="false">
-      <problem>
-        <p>A complete graph with 2,123 vertices.</p>
-      </problem>
-    </exercise>
-    <exercise number="40" has_solution="false">
-      <problem>
-        <p>In chess, a knight can move in any direction, but it must move two spaces then turn and move one more space. The 8 possible moves a knight can make from a space in the center of a five-by-five grid are shown in the first figure. A knight’s tour is a sequence of moves by a knight on a chessboard (of any size) such that the knight visits every square exactly once. If the knight’s tour brings the knight back to its starting position on the board, it is called a closed knight’s tour. Otherwise, it is called an open knight’s tour. Determine if the closed knight’s tour in the second figure is most accurately described as a closed walk, a circuit, or a directed cycle. Explain your reasoning.</p>
-      </problem>
-    </exercise>
-    <exercise number="41" has_solution="false">
-      <problem>
-        <p>An open knight’s tour on a five-by-five board is shown in the figure. Is it most accurately described as a walk, a trail, or a path?</p>
-      </problem>
-    </exercise>
-    <exercise number="42" has_solution="false">
-      <problem>
-        <p>A knight’s tour is not possible on a four-by-four board like the one shown in the figure. Find an open tour of the board in which the knight is permitted to travel through a given space more than once to achieve the goal of visiting every space. Is your tour most accurately described as a walk, trail, or path? Explain why.</p>
-      </problem>
-    </exercise>
-    <instruction>The neighborhood of Pines West has three cul-de-sacs that meet at an intersection as shown in the figure. A postal delivery person starts at the intersection and visits each house in a cul-de-sac once, returns to the intersection, visits each house in the next cul-de-sac, and so on, returning to the intersection when finished.</instruction>
-    <exercise number="43" has_solution="false">
-      <problem>
-        <p>Describe how the route can be represented as a graph. If there is no backtracking, in other words, the person never reverses direction, is the route followed by the postal delivery person best described as a walk, trail, path, closed walk, circuit, or directed cycle? Explain your reasoning.</p>
-      </problem>
-    </exercise>
-    <exercise number="44" has_solution="false">
-      <problem>
-        <p>Draw the graph for the route described in the neighborhood. Find its chromatic number. Find a map coloring that shows the chromatic number.</p>
-      </problem>
-    </exercise>
-    <exercise number="45" has_solution="false">
-      <problem>
-        <p>When radio towers are within range of each other, they must use different frequencies. In the graph, the vertices represent the towsers, and the edges indicate the towers are in range of each other. Use graph colorings to determine the number of frequencies needed to avoid two towers in the same range being assigned the same frequency. Give an example of a coloring to support your conclusion.</p>
-      </problem>
-    </exercise>
-    <exercise number="46" has_solution="false">
-      <problem>
-        <p>A Sudoku puzzle consists of a nine-by-nine grid which is subdivided into nine three-by-three smaller grids. Given an incomplete grid, the goal is to complete it in such a way that each row contains the numbers 1 through 9, each column contains the numbers 1 through 9, and each three by three grid contains the numbers 1 through 9 as shown in the figure. If a graph were drawn with a vertex to represent each entry in the grid, what should the edges represent so that a nine-coloring of the graph would be a solution to the puzzle?</p>
-      </problem>
-    </exercise>
-    <instruction>At a wedding reception, the bride and groom would like their family and friends to get to know each other better. They have decided that if two people know each other, they will not seat them at the same table. The following is a list of guests and who they know. Guests A, B, C, and D all know each other; guests E, F, G, and H all know each other; guests I, J, and K all know each other; guests P, Q and R all know each other, guests L, M, and O all know each other. Additionally, I knows D and I knows G, J knows M, K knows P, N knows L, and N knows O.</instruction>
-    <exercise number="47" has_solution="false">
-      <problem>
-        <p>Draw a graph to show the relationships.</p>
-      </problem>
-    </exercise>
-    <exercise number="48" has_solution="false">
-      <problem>
-        <p>Determine the minimum number of tables needed to seat the guests so that they will sit with people they don’t know.</p>
-      </problem>
-    </exercise>
-    <exercise number="49" has_solution="false">
-      <problem>
-        <p>Give a coloring to support your conclusion.</p>
-      </problem>
-    </exercise>
-    <instruction>The map of the states of Imaginaria is given. Use the figure to answer the following exercises.</instruction>
-    <exercise number="50" has_solution="false">
-      <problem>
-        <p>Draw a graph to represent the map.</p>
-      </problem>
-    </exercise>
-    <exercise number="51" has_solution="false">
-      <problem>
-        <p>Determine the chromatic number of the graph you found.</p>
-      </problem>
-    </exercise>
-    <exercise number="52" has_solution="false">
-      <problem>
-        <p>Give a graph coloring that supports your answer in the previous question.</p>
-      </problem>
-    </exercise>
-    <exercise number="53" has_solution="false">
-      <problem>
-        <p>Color the provided map to correspond with the coloring you found in the previous question.</p>
-      </problem>
-    </exercise>
-  </exercises>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>Step 1: We will need a vertex for each room and it is convenient to label them according to the names of the rooms. Visualize the scenario in your head as shown in Figure 12.75. You don’t have to write this step on your paper. Figure 12.75 Assigning Vertices to Rooms Step 2: Draw a graph to represent the scenario. Start with the vertices. Then connect those vertices that share a doorway in the floorplan as shown in Figure 12.76. Figure 12.76 Graph of the Floor plan</item>
+        <item>Step 1: Draw a path that begins at vertex L, representing the living room, and ending at vertex G, representing the garage making sure to visit every room at least once. There are many ways this can be done. You may want to number the edges to keep track of their order. One example is shown in Figure 12.77. Figure 12.77 Draw the Path from L to G Step 2: Name the path that you followed by listing the vertices in the order you visited them. L → R → L → K → L → H → B → H → M → H → G</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.19">
+    <paragraph>Recall from the Graph Basics section that a graph in which there are multiple edges between the same pair of vertices is called a multigraph. The figure shows a map of the four bridges that link Staten Island to Brooklyn and New Jersey and a multigraph representing the map. In the multigraph, the edges are labeled instead of the vertices. The edges represent the bridges, G (Goethals Bridge), B (Bayonne Bridge), C (Outerbridge Crossing), and V (Verrazzano-Narrows Bridge). The vertices represent New Jersey, Staten Island, and Brooklyn. Map and Multigraph of Staten Island Bridges A walk can be named by a sequence of edges instead of a sequence of vertices. Determine which of the following sequences of edges is a walk.</paragraph>
+  </note>
+  <heading level="2">Paths and Trails</heading>
+  <paragraph>A walk is the most basic way of navigating a graph because it has no restrictions except staying on the graph. When there are restrictions on which vertices or edges we can visit, we will call the walk by a different name. For example, if we want to find a walk that avoids travelling the same edge twice, we will say we want to find a trail (or directed trail). If we want to find a walk that avoids visiting the same vertex twice, we will say, we want to find a path (or directed path).</paragraph>
+  <paragraph>Walks, trails, and paths are all related.</paragraph>
+  <list type="ordered">
+    <item>All paths are trails, but trails that visit the same vertex twice are not paths.</item>
+    <item>All trails are walks, but walks in which an edge is visited twice would not be trails.</item>
+  </list>
+  <paragraph>We can visualize the relationship as in Figure 12.78.</paragraph>
+  <figure number="12.78">
+    <image alt="Three concentric ovals represent paths, trails, and walks. The first (inner) oval labeled paths reads, no repeated edges or vertices. The second oval labeled trails reads, no repeated edges. The third oval is labeled walks."/>
+    <caption>Walks, Trails, and Paths</caption>
+  </figure>
+  <paragraph>Let’s practice identifying walks, trails, and paths using the graphs in Figure 12.79.</paragraph>
+  <figure number="12.79">
+    <image alt="Two graphs are labeled graph A and graph K. Graph A has five vertices: b, c, d, e, and f. The edges connect b c, c f, b d, b e, d e, and e f. Graph K has five vertices: m, n, o, p, and q. The edges connect m n, n o, n q, q o, o p, n p, and m p."/>
+    <caption>Graphs A and K</caption>
+  </figure>
+  <example number="12.20" title="Identifying Walks, Paths, and Trails">
+    <problem>
+      <paragraph>Consider each sequence of vertices from Graph A in Figure 12.79. Determine if it is only a walk, both a walk and a path, both a walk and a trail, all three, or none of these.</paragraph>
+      <list type="ordered">
+        <item>b → c → d → e → f</item>
+        <item>c → b → d → b → e</item>
+        <item>c → f → e → d → b → c</item>
+        <item>b → e → f → c → b → d</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>First, check to see if the sequence of vertices is a walk by making sure that the vertices are consecutive. As you can see in Figure 12.80, there is no edge between vertex c and vertex d. Figure 12.80 This means that the sequence is not a walk. If it is not a walk, then it can’t be a path and it cannot be a trail, so, it is none of these.</item>
+        <item>First, check to see if the sequence is a walk. As you can see in Figure 12.81, the vertices are consecutive. Figure 12.81 This means that the sequence is a walk. Since the vertex b is visited twice, this walk is not a path. Since edge $$\mathit{bd}$$ is traveled twice, this walk is not a trail. So, the sequence is only a walk.</item>
+        <item>First, check to see if the sequence is a walk. We can see in Figure 12.82 that the vertices are consecutive, which means it is a walk. Figure 12.82 Next, check to see if any vertex is visited twice. Remember, we do not consider beginning and ending at the same vertex to be visiting a vertex twice. So, no vertex was visited twice. This means we have a walk that is also a path. Next check to see if any edge was visited twice; none were. So, the sequence is a walk, a path, and a trail.</item>
+        <item>First, check to see if the sequence is a walk. We can see in Figure 12.83 that the vertices are consecutive, which means it is a walk. Figure 12.83 Next check to see if any vertex is visited twice. Since vertex b is visited twice, this is not a path. Finally, check to see if any edges are traveled twice. Since no edges are traveled twice, this is a trail. So, the sequence of vertices is a walk and a trail.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.20">
+    <paragraph>Consider each sequence of vertices from Graph K in Figure 12.79. Determine if it is only a walk, both a walk and a path, both a walk and a trail, all three, or none of these.</paragraph>
+    <paragraph>n → q → o → p</paragraph>
+    <paragraph>p → n → q → o → n → m</paragraph>
+    <paragraph>m → n → o → p → q</paragraph>
+  </note>
+  <note type="sidebar" source_type="Video" title="Video">
+    <paragraph>Walks, Trails, and Paths in Graph Theory</paragraph>
+  </note>
+  <heading level="2">Circuits</heading>
+  <paragraph>In many applications of graph theory, such as creating efficient delivery routes, beginning and ending at the same location is a requirement. When a walk, path, or trail end at the same location or vertex they began, we call it closed. Otherwise, we call it open (does not begin and end at the same location or vertex). Some examples of closed walks, closed trails, and closed paths are given in in the following table.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">DESCRIPTION</cell>
+        <cell header="true">EXAMPLE</cell>
+        <cell header="true">CHARACTERISTICS</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>A closed walk is a walk that begins and ends at the same vertex.</cell>
+        <cell>d → f → b → c → f → d</cell>
+        <cell>Alternating sequence of vertices and edges Begins and ends at the same vertex</cell>
+      </row>
+      <row>
+        <cell>A closed trail is a trail that begins and ends at the same vertex. It is commonly called a circuit.</cell>
+        <cell>d → f → b → c → f → e → d</cell>
+        <cell>No repeated edges Begins and ends at the same vertex</cell>
+      </row>
+      <row>
+        <cell>A closed path is a path that begins and ends at the same vertex. It is also referred to as a directed cycle because it travels through a cyclic subgraph.</cell>
+        <cell>d → f → b → c → d</cell>
+        <cell>No repeated edges or vertices Begins and ends at the same vertex</cell>
+      </row>
+    </tbody>
+  </table>
+  <paragraph>Since walks, trails, and paths are all related, closed walks, circuits, and directed cycles are related too.</paragraph>
+  <list type="ordered">
+    <item>All circuits are closed walks, but closed walks that visit the same edge twice are not circuits.</item>
+    <item>All directed cycles are circuits, but circuits in which a vertex is visited twice are not directed cycles.</item>
+  </list>
+  <paragraph>We can visualize the relationship as in Figure 12.84.</paragraph>
+  <figure number="12.84">
+    <image alt="Three concentric ovals represent directed cycles, circuits, and closed walks. The first (inner) oval labeled directed cycles (closed paths) reads, no repeated edges or vertices. The second oval labeled circuits (closed talks) reads, no repeated edges. The third oval is labeled closed walks."/>
+    <caption>Closed Walks, Circuits, and Directed Cycles</caption>
+  </figure>
+  <paragraph>The same circuit can be named using any of its vertices as a starting point. For example, the circuit d → f → b → c → d can also be referred to in the following ways.</paragraph>
+  <paragraph>a → b → c → d → a is the same as</paragraph>
+  <paragraph math="block">$$\left\{ \begin{array}{l} \left. b\rightarrow c\rightarrow d\rightarrow a\rightarrow b \right. \\ \left. c\rightarrow d\rightarrow a\rightarrow b\rightarrow c \right. \\ \left. d\rightarrow a\rightarrow b\rightarrow c\rightarrow d \right. \end{array} \right.$$</paragraph>
+  <paragraph>Let’s practice working with closed walks, circuits (closed trails), and directed cycles (closed paths). In the graph in Figure 12.85, the vertices are major central and south Florida airports. The edges are direct flights between them.</paragraph>
+  <figure number="12.85">
+    <image alt="A graph represents the direct flights between Central and South Florida airports. The graph has six vertices: T P A, M C O, P B I, F L L, M I A, and E Y W. Edges from T P A lead to E Y W, M I A, F L L, and P B I. Edges from M C O lead to E Y W, M I A, and F L L. An edge from E Y W leads to F L L."/>
+    <caption>Major Central and South Florida Airports</caption>
+  </figure>
+  <example number="12.21" title="Determining a Closed Walk, Circuit, or Directed Cycle">
+    <problem>
+      <paragraph>Suppose that you need to travel by air from Miami (MIA) to Orlando (MCO) and you were restricted to flights represented on the graph. For the trip to Orlando, you decide to purchase tickets with a layover in Key West (EYW) as shown in Figure 12.86, but you still have to decide on the return trip. Determine if your roundtrip itinerary is a closed walk, a circuit, and/or a directed cycle, based on the return trip described in each part.</paragraph>
+      <figure number="12.86">
+        <image alt="A graph represents the direct flights between Central and South Florida airports. The graph has six vertices: T P A, M C O, P B I, F L L, M I A, and E Y W. Edges from T P A lead to E Y W, M I A, F L L, and P B I. Edges from M C O lead to E Y W, M I A, and F L L. An edge from E Y W leads to F L L. An arrow from M I A points to E Y W. An arrow from E Y W points to M C O."/>
+        <caption>MIA to EYW to MCO</caption>
+      </figure>
+      <list type="ordered">
+        <item>You returned to Miami (MIA) by reversing your route.</item>
+        <item>Your direct flight back left Orlando (MCO) but was diverted to Fort Lauderdale (FLL)! From there you flew to Tampa (TPA) before returning to Miami (MIA).</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>The whole trip was MIA → EYW → MCO → EYW → MIA. This is a closed walk, because it is a walk that begins and ends at the same vertex. It is not a circuit, because it repeats edges. If it is not a circuit, then it cannot be a directed cycle.</item>
+        <item>The whole trip was MIA → EYW → MCO → FLL → TPA → MIA. This is a closed walk, because it is a walk that begins and ends at the same vertex. It is a circuit because no edges were repeated. It is also a directed cycle because no vertices were repeated either. So, it is all three!</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.21">
+    <paragraph>Suppose that you want to travel from Palm Beach (PBI) to any other city listed in Figure 12.86 and then return to Palm Beach.</paragraph>
+    <paragraph>Why is it impossible to find an itinerary that is a circuit?</paragraph>
+    <paragraph>How is this related to the degree of the vertex PBI?</paragraph>
+  </note>
+  <note type="sidebar" source_type="Video" title="Video">
+    <paragraph>Closed Walks, Closed Trails (Circuits), and Closed Paths (Directed Cycles) in Graph Theory</paragraph>
+  </note>
+  <heading level="2">Graph Colorings</heading>
+  <paragraph>In this section so far, we have looked at how to navigate graphs by proceeding from one vertex to another in a sequence that does not skip any vertices, but in some applications we may want to skip vertices. Remember the camp Olympics at Camp Woebegone in Comparing Graphs? You were planning a camp Olympics with four events. The campers signed up for the events. You drew a graph to help you visualize which events have campers in common. The vertices of Graph E in Figure 12.87 represent the events and adjacent vertices indicate that there are campers who are participating in both.</paragraph>
+  <figure number="12.87">
+    <image alt="A graph with four vertices: a, b, c, and d. The edges connect a b, b d, d c, and c a."/>
+    <caption>Graphs of Camp Olympics</caption>
+  </figure>
+  <paragraph>In this case, we do NOT want events represented by two adjacent vertices to occur in the same timeslot, because that would prevent the campers who wanted to participate in both from doing so. We can use the graph in Figure 12.87 to count the timeslots we need so there are no conflicts. Let’s assign each timeslot a different color. We could categorize events that happen at 1 pm as Red; 2 pm, Purple; 3 pm, Blue; and 4 pm, Green. Then assign different colors to any pair of adjacent vertices to ensure that the events they represent do not end up in the same timeslot. Figure 12.88 shows several of the ways to do this while obeying the rule that no pair of adjacent vertices can be the same color.</paragraph>
+  <figure number="12.88">
+    <image alt="Three graphs are labeled graph 1, graph 2, and graph 3. Graph 1 has four vertices: a, b, c, and d in blue, green, purple, and red, respectively. Graph 2 has four vertices: a, b, c, and d in blue, purple, purple, and red, respectively. Graph 3 has four vertices: a, b, c, and d in red, purple, purple, and red, respectively. In each graph, the edges connect a b, b d, d c, and c a."/>
+    <caption>Graph Colorings</caption>
+  </figure>
+  <paragraph>In Figure 12.88, the graphs with vertices colored so that no adjacent vertices are the same color are called graph colorings. Notice that Graph 3 has the fewest colors, which means it shows us how to have the fewest number of timeslots. The events marked in red, a and d, can be held at the same time because they are not adjacent and do not have conflicts. Also, the events marked in purple, b and c, can be held at the same time. We would not need green or blue timeslots at all!</paragraph>
+  <paragraph>A graph that uses $$n$$ colors is called an $$\mathbf{n}$$ -coloring. The smallest number of colors needed to color a particular graph is called its chromatic number.</paragraph>
+  <paragraph>Graph colorings can be used in many applications like the scheduling scenario at camp Woebegone. Let's look at how they work in more detail. Figure 12.89 shows two different colorings of a particular graph. Coloring A is called a four-coloring, because it uses four colors, red (R), green (G), blue (B), and purple (P). Coloring B is called a three-coloring because it uses three. The colors allow us to visually subdivide the graphs into groups. The only rule is that adjacent vertices are different colors so that they are in different groups.</paragraph>
+  <figure number="12.89">
+    <image alt="Two graphs are labeled coloring A and coloring B In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: B, G, and R. Row 2: G, R, and P. Row 3: P, B, and G. The outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect G R, R B, G R, and R P. Diagonal lines connect B R, R G, G B, and G P. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: B, G, and R. Row 2: G, R, and B. Row 3: R, B, and G. The outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect G R, R B, G R, and R B. Diagonal lines connect B R, R G, G B, and G B."/>
+    <caption>Two Colorings of the Same Graph</caption>
+  </figure>
+  <paragraph>It turns out that a three-coloring is the best we can do with the graph in Figure 12.89. No matter how many different patterns you try with only two colors, you will never find one in which the adjacent vertices are always different colors. In other words, the graph has a chromatic number of three. For large graphs, computer assistance is usually required to find the chromatic numbers. There is no formula for finding the chromatic number of a graph, but there are some facts that are helpful in Table 12.5.</paragraph>
+  <table>
+    <thead>
+      <row>
+        <cell header="true">Fact</cell>
+        <cell header="true">Example</cell>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <cell>Recall that planar graphs are untangled; that is, they can be drawn on a flat surface so that no two edges are crossing. If a graph is planar, it can be colored with four colors or possibly fewer.</cell>
+        <cell/>
+      </row>
+      <row>
+        <cell>Each vertex in a complete graph is adjacent to every other vertex forcing us to color them all different colors.The chromatic number of a complete graph is the same as the number of vertices.</cell>
+        <cell/>
+      </row>
+      <row>
+        <cell>If a graph has a clique, a complete subgraph, then each vertex in the clique must have a different color and the vertices outside the clique may or may not have even more colors. The chromatic number of a graph is at least the number of vertices in its biggest clique.</cell>
+        <cell/>
+      </row>
+    </tbody>
+  </table>
+  <heading level="2">Creating Colorings to Solve Problems</heading>
+  <paragraph>Let’s see how these facts can help us color the graph in Figure 12.90.</paragraph>
+  <list type="unordered">
+    <item>Since the graph is planar, the chromatic number is no more than four.</item>
+    <item>The graph is not complete, but it has complete subgraphs of three vertices. In other words, it has triangles like the one shown with blue vertices in Figure 12.90. This means that the chromatic number is at least three.</item>
+  </list>
+  <figure number="12.90">
+    <image alt="A graph has nine vertices arranged in 3 rows and 3 columns. The outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. The vertices at the top-left, left-center, and center are highlighted in grey."/>
+    <caption>A Graph with Triangles</caption>
+  </figure>
+  <paragraph>We know we can color this graph in three or four colors. It is usually best to start by coloring the vertex of highest degree as shown in Figure 12.91. In this case, we used red (R). The color is not important.</paragraph>
+  <figure number="12.91">
+    <image alt="Two graphs are labeled degrees of vertices and degree 6 vertex colored first. In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, 4, and 2. Row 2: 4, 6, and 4. Row 3: 2, 4, and 3. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, 4, and 2. Row 3: 4, R, and 4. Row 3: 2, 4, and 3. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. An arrow from the first graph points to the second graph."/>
+    <caption>Color Highest Degree Vertex First</caption>
+  </figure>
+  <paragraph>We want to color as many of the vertices the same color as possible; so, we look at all the vertices that are not adjacent to the red vertex and begin to color them, red starting with the one among them of highest degree. Since the only vertices that are not adjacent are both degree 2, choose either one and color it red as shown in Figure 12.92.</paragraph>
+  <figure number="12.92">
+    <image alt="Two graphs. In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, 4, and 2. Row 3: 4, R, and 4. Row 3: 2, 4, and 3. 2 in the top-right and bottom-left vertices are outlined. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, 4, and R. Row 2: 4, R, and 4. Row 3: 2, 4, and 3. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. An arrow from the first graph points to the second graph."/>
+    <caption>Color More Red from Highest to Lowest Degree</caption>
+  </figure>
+  <paragraph>Now, there is only one vertex left that is not adjacent to a red; so, color it red. Of the remaining vertices, the highest degree is four; so, color one of the vertices of degree four in a different color. These two steps are shown in Figure 12.93.</paragraph>
+  <figure number="12.93">
+    <image alt="Two graphs. In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, 4, and R. Row 3: 4, R, and 4. Row 3: R, 4, and 3. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 2: 4, R, and 4. Row 3: R, 4, and 3. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. An arrow from the first graph points to the second graph."/>
+    <caption>Complete the Reds and Start Another Color</caption>
+  </figure>
+  <paragraph>Repeat the same procedure. There are three remaining vertices that are not adjacent to a blue. Color as many blue as possible, with priority going to vertices of higher degree as shown in Figure 12.94.</paragraph>
+  <figure number="12.94">
+    <image alt="Three graphs. In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 3: 4, R, and 4. Row 3: R, 4, and 3. 4 in the left-center and bottom-center vertices are outlined. 3 in the bottom-right vertex is outlined. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 2: B, R, and 4. Row 3: R, 4, and 3. 3 in the bottom-right vertex is outlined. In the third graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 2: B, R, and 4. Row 3: R, 4, and B. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. An arrow from the first graph points to the second graph. An arrow from the second graph points to the third graph."/>
+    <caption>Repeat Procedure for Color Blue</caption>
+  </figure>
+  <paragraph>All the remaining vertices are adjacent to blue. So, it is time to repeat the procedure with another color as shown in Figure 12.95.</paragraph>
+  <figure number="12.95">
+    <image alt="Three graphs. In the first graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 3: B, R, and P. Row 3: R, 4, and B. 3 in the top-left vertex is outlined. 4 in the bottom-center is outlined. In the second graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: 3, B, and R. Row 2: B, R, and P. Row 3: R, P, and B. 3 in the top-left vertex is outlined. In the third graph, nine vertices are present. The vertices are arranged in 3 rows and 3 columns. Row 1: P, B, and R. Row 2: B, R, and P. Row 3: R, P, and B. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines. An arrow from the first graph points to the second graph. An arrow from the second graph points to the third graph."/>
+    <caption>Repeat Procedure for Color Purple</caption>
+  </figure>
+  <paragraph>All the vertices are now colored with a three-coloring so we know the chromatic number is at most three, but we knew the chromatic number was at least three because the graph has a triangle. So, we are now certain it is exactly three.</paragraph>
+  <note type="sidebar" source_type="Video" title="Video">
+    <paragraph>Coloring Graphs Part 1: Coloring and Identifying Chromatic Number</paragraph>
+  </note>
+  <paragraph>Suppose the vertices of the graph in Figure 12.96 represented the nine events in the Camp Woebegone Olympics, and edges join any events that have campers in common, but nonadjacent vertices do not.</paragraph>
+  <figure number="12.96">
+    <image alt="A graph has nine vertices. The vertices are arranged in 3 rows and 3 columns. Row 1: P, B, and R. Row 2: B, R, and P. Row 3: R, P, and B. In each graph, the outer vertices are connected to form a square. A vertical line and a horizontal line at the center connect the vertices along the lines. Diagonal lines from top-left to bottom-right connect the vertices along the lines."/>
+    <caption>Coloring for Nine Event Camp Woebegone Olympics</caption>
+  </figure>
+  <paragraph>Any vertices of the same color are nonadjacent; so, they have no conflicts. Since this graph is a three-coloring, all nine events could be scheduled in just three timeslots!</paragraph>
+  <example number="12.22" title="Understanding Chromatic Numbers">
+    <problem>
+      <paragraph>In Example 12.17, we discussed a high school, which holds end-of-course exams in (E3) English 3, (E4) English 4, (M) Advanced Math, (C) Calculus, (W) World History, (U) U.S. History, (B) Biology, and (P) Physics. We were given a list of courses that had no students in common. We used that information to find the graph in Figure 12.63, which shows edges between exams with students in common. Use the graph we found in Example 12.17 to answer each question.</paragraph>
+      <figure number="12.97">
+        <image alt="A graph has eight vertices. The vertices are P, B, U, W, C, M, E 4, and E 3. Edges from P lead to E 3, B, U, W, and C. Edges from B lead to U, W, C, M, and E 4. Edges from U lead to E 3, M, and C. Edges from W lead to E 4, M, and C. An edge from C leads to E 3. An edge from M leads to E 3."/>
+        <caption>Graph of Exams with Students in Common</caption>
+      </figure>
+      <list type="ordered">
+        <item>The graph contains a clique of size 4 formed by the vertices P, E3, C, and U. What does this tell you about the chromatic number?</item>
+        <item>The graph is not planar, meaning that you cannot untangle it. What does this tell you about the chromatic number?</item>
+        <item>Create a coloring by coloring vertex of highest degree first, coloring as many other vertices as possible each color from highest to lowest degree, then repeating this process for the remaining vertices.</item>
+        <item>Do you know what the minimum number of timeslots is? If so, what is it and how do you know? If not, what are the possibilities?</item>
+      </list>
+    </problem>
+    <solution>
+      <list type="ordered">
+        <item>We would need four different colors just for the clique with four vertices; so, the chromatic number is at least four.</item>
+        <item>It is possible for the chromatic number to be greater than four.</item>
+        <item>The process is shown in Table 12.6. This is the original graph. Vertex B has highest degree. Color vertex B. Vertex E3 is the only remaining vertex that is NOT adjacent to B. Color vertex E3 the same color. Vertices P, U, W, and C are the remaining vertices with highest degree. Pick one to color. Color vertex P a new color. Vertices E4 and M are NOT adjacent to P, and M has higher degree. Color vertex M the same color. Vertex E4 is the only remaining vertex NOT adjacent to P or M. Color vertex E4 the same color. Vertices U, W, and C are the remaining vertices with highest degree. Pick one to color. Color U a new color. Vertex W is the only remaining vertex NOT adjacent to U. Color vertex W the same color. Vertex C is the only remaining vertex that has NOT been colored. Color vertex C a new color. The coloring is final. We used four colors. Table 12.6 Coloring the Graph The last graph in Table 12.6 is the final coloring.</item>
+        <item>Yes, the minimum number of times slots is the chromatic number. We knew the chromatic number had to be at least four because there was a clique with four vertices. Now we have found a four-coloring of the graph which tells us that the chromatic number is at most four. So, we know four must be the chromatic number.</item>
+      </list>
+    </solution>
+  </example>
+  <note type="practice" source_type="Checkpoint" title="Checkpoint">
+    <paragraph>The procedure used in Example 22 to color the graph is not guaranteed to result in a graph that has the minimum number of colors possible, but it is usually results in a coloring that is close to the chromatic number.</paragraph>
+  </note>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.22">
+    <paragraph>The given figure shows the same graph colored in several ways. The largest clique of the graph has three vertices. Use this information to answer each question. Possible Colorings of the Same Graph</paragraph>
+    <paragraph>Is the graph planar? What does your answer tell you about the chromatic number?</paragraph>
+    <paragraph>What is the lowest possible chromatic number of this graph based on the size of any cliques?</paragraph>
+    <paragraph>What are the possible chromatic numbers?</paragraph>
+    <paragraph>Which graph or graphs meet the definition of a valid graph coloring?</paragraph>
+    <paragraph>Draw an $$n$$ -coloring for the graph where $$n$$ is the answer to Exercise 2.</paragraph>
+  </note>
+  <heading level="2">The Four Color Problem</heading>
+  <figure number="12.98">
+    <image alt="Two figures. The first figure shows a rectangle divided into several small blocks. The second figure is the same as that of the first figure with the addition that the blocks are shaded in 4 different colors."/>
+    <caption>Using only four colors, no two adjacent regions have the same color.</caption>
+  </figure>
+  <paragraph>The idea of coloring graphs to solve problems was inspired by one of the most famous problems in mathematics, the “four color problem.” The idea was that, no matter how complicated a map might be, only four colors were needed to color the map so that no two regions that shared a boundary would be the same color. For many years, everyone suspected this to be true, because no one could create a map that needed more than four colors, but they couldn’t prove it was true in general. Finally, graphs were used to solve the problem!</paragraph>
+  <note type="sidebar" source_type="Video" title="Video">
+    <paragraph>The Four Color Map Theorem – Numberphile</paragraph>
+  </note>
+  <paragraph>We saw how maps can be represented as graphs in Graph Basics. Figure 12.99 from Example 12.4 shows a map of the midwestern region of the United States.</paragraph>
+  <figure number="12.99">
+    <image alt="A partial map of the USA with midwestern states. The Midwestern states are North Dakota, South Dakota, Nebraska, Kansas, Minnesota, Iowa, Missouri, Wisconsin, Illinois, Indiana, Michigan, and Ohio."/>
+    <caption>Map of Midwestern States</caption>
+  </figure>
+  <paragraph>Figure 12.100 shows how this map can be associated with a graph in which each vertex represents a state and each edge indicates the states that share a common boundary. Figure 12.101 shows the final graph.</paragraph>
+  <figure number="12.100">
+    <image alt="A partial map of the USA with midwestern states. The Midwestern states are North Dakota (N D), South Dakota (S D), Nebraska (N E), Kansas (K S), Minnesota (M N), Iowa (I A), Missouri (M O), Wisconsin (W I), Illinois (I L), Indiana (I N), Michigan (M I), and Ohio (O H). Edges from N D connect with S D and M N. Edges from S D connect with N E, I A, and M N. Edges from M N connect with I A and W I. Edges from N E connect with K S, M O, and I A. Edges from I A connect with M O and I L. Edges from W I connect with I A and I L. An edge from K S connects with M O. An edge from M O connects with I L. An edge from I L connects with I N. Edges from I N connect with M I and O H. An edge from M I connects with O H."/>
+    <caption>Edge Assigned to Each Pair of Midwestern States with Common Border</caption>
+  </figure>
+  <figure number="12.101">
+    <image alt="A graph represents common boundaries between midwestern states. The vertices are North Dakota (N D), South Dakota (S D), Nebraska (N E), Kansas (K S), Minnesota (M N), Iowa (I A), Missouri (M O), Wisconsin (W I), Illinois (I L), Indiana (I N), Michigan (M I), and Ohio (O H). Edges from M N connect with I A and W I. Edges from N E connect with K S, M O, and I A. Edges from I A connect with M O and I L. Edges from W I connect with I A and I L. An edge from K S connects with M O. An edge from M O connects with I L. An edge from I L connects with I N. Edges from I N connect with M I and O H. An edge from M I connects with O H."/>
+    <caption>Final Graph Representing Common Boundaries between Midwestern States</caption>
+  </figure>
+  <paragraph>Notice that the graph representing the common boundaries between midwestern states is planar, meaning that it can be drawn on a flat surface without edges crossing. As we have seen, any planar graph has a chromatic number of four or less. This very well-known fact is called the Four-Color Theorem, or Four-Color Map Theorem.</paragraph>
+  <note type="sidebar" source_type="Video" title="Video">
+    <paragraph>Coloring Graphs Part 2: Coloring Maps and the Four Color Problem</paragraph>
+  </note>
+  <note type="sidebar" source_type="People in Mathematics" title="People in Mathematics">
+    <heading level="4">Four-Color Theorem</heading>
+    <paragraph>In the 19th century, Francis Guthrie was coloring a map of British counties and noticed that he could color so that no two adjacent counties were the same color using only four colors. This seemed to be the case for other maps as well, but he could not figure out why. He shared this with his brother, Frederick, who subsequently took the problem to his professor, August De Morgan, one of the most famous mathematicians of all time. De Morgan never was able to solve the problem, but he shared it with his colleagues. The problem continued to intrigue and perplex mathematicians for over a hundred years, inspiring discoveries in several areas of mathematics. It was finally proven by Kenneth Appel and Wolfgang Haken from the University of Illinois in 1976 using a combination of computer-aided calculations and graph theory. This was the first time in history that a mathematical theorem was proven using a computer! (Jesus Najera, “The Four-Color Theorem,” Cantor’s Paradise, a Medium publication, October 22, 2019)</paragraph>
+  </note>
+  <example number="12.23" title="Using Four Colors or Fewer to Color a Graph">
+    <problem>
+      <paragraph>Find a coloring of the graph in Figure 12.99, which uses four colors or fewer. Use the resulting coloring as a guide to recolor the map in Figure 12.99. How many colors did you use? Does this support the conclusion of the Four-Color Theorem? If so, how?</paragraph>
+    </problem>
+    <solution>
+      <paragraph>The steps to color the graph are shown in Table 12.7.</paragraph>
+      <table>
+        <tbody>
+          <row>
+            <cell/>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>Step 1: Graph with degrees of vertices labeled. Vertex IA has highest degree.</cell>
+            <cell>Step 2: Color vertex IA any color. Vertices ND, KS, MI, OH, and IN are NOT adjacent to IA. MI and IN have highest degree, 3.</cell>
+            <cell>Step 3: Color either MI or IN the same color as IA. Vertex ND and KS are the only remaining vertices not adjacent to a red vertex. They both have degree 2.</cell>
+          </row>
+          <row>
+            <cell/>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>Step 4: Since KS and ND are not adjacent to each other, we can save a step and color both red. The highest degree of remaining vertices is four.</cell>
+            <cell>Step 5: Choose one of the vertices of degree 4, SD, to color with a new color, blue. The vertices WI, IL, MO, IN,and OH are NOT adjacent to blue. WI, IL, and MO have the highest degree.</cell>
+            <cell>Step 6: Choose one of WI, IL, or MO to color. We color WI blue. MO, IN and OH are NOT adjacent to blue. MO has the highest degree of these.</cell>
+          </row>
+          <row>
+            <cell/>
+            <cell/>
+            <cell/>
+          </row>
+          <row>
+            <cell>Step 7: Color MO blue. All remaining vertices are adjacent to blue. Choose a new color. Four vertices remain, MN, NE, IL, and OH. MN, NE, and IL have the highest degree.</cell>
+            <cell>Step 8: Since MN, IL, and NE are not adjacent, save steps and color all three the new color, purple. Vertex OH is the only remaining vertex that has NOT been colored.</cell>
+            <cell>Step 9: Since vertex OH is not adjacent to purple, color it purple. This is the final graph. We used three colors.</cell>
+          </row>
+        </tbody>
+      </table>
+      <paragraph>The final graph in Table 12.7 shows how we would color the map. In Figure 12.102 we have colored the map to correspond to the colors on the graph.</paragraph>
+      <figure number="12.102">
+        <image alt="A partial map of the USA with midwestern states. The Midwestern states are North Dakota, South Dakota, Nebraska, Kansas, Minnesota, Iowa, Missouri, Wisconsin, Illinois, Indiana, Michigan, and Ohio. North Dakota, Kansas, Iowa, and Michigan are in red. South Dakota, Missouri, Wisconsin, and Indiana are in blue. Nebraska, Minnesota, Illinois, and Ohio are in purple."/>
+        <caption>Midwestern States in Three Colors</caption>
+      </figure>
+      <paragraph>We used three colors to color the graph. This supports the Four-Color Theorem, because the graph is planar and its chromatic number is less than four.</paragraph>
+    </solution>
+  </example>
+  <note type="practice" source_type="Your Turn" title="Your Turn" number="12.23">
+    <paragraph>The first figure shows a map of the Island of Oahu in the State of Hawaii divided into regions, and the second figure shows a graph of the map. What is the chromatic number? Find a graph coloring that reflects the chromatic number of the graph. Map of Oahu Graph Representing Common Boundaries between Regions of Oahu</paragraph>
+  </note>
+  <note type="sidebar" source_type="Who Knew?" title="Who Knew?">
+    <heading level="4">Coloring A Möbius Strip</heading>
+    <paragraph>Have you ever heard of a möbius strip? It is a flat object with only one side. This might sound theoretical, but you can make one for yourself. Take a narrow strip of paper, make a half twist in it, and tape the ends together. To prove to yourself that it has only one side, pick a point anywhere on the paper and start drawing a line. You can draw the line continuously without lifting your pen from the paper and eventually, you will get back to the point at which you started. Since you never had to flip over the paper, you have just proved it has one side!</paragraph>
+    <paragraph>Now, you might be wondering what this has to do with Graph Theory. It turns out that a map drawn on a möbius strip cannot necessarily be drawn using four colors. This doesn’t contradict the Four-Color Theorem, which only applies to graphs that are planar. A möbius strip does not live on a “plane,” or flat surface, which means the maps are not always planar like those drawn on a flat piece of paper. In the case of a möbius strip, it is the Six-Color Map Theorem! Figure 12.103 is an example of a möbius strip with a map that requires five colors.</paragraph>
+    <figure number="12.103">
+      <image alt="A Mobius strip is shaded in five different colors."/>
+      <caption>A Five-Coloring on a Möbius Strip</caption>
+    </figure>
+  </note>
+  <note type="sidebar" source_type="Video" title="Video">
+    <paragraph>Neil deGrasse Tyson Explains the Möbius Strip</paragraph>
+  </note>
+  <heading level="2">Check Your Understanding</heading>
+  <paragraph>For the following exercises, determine whether each statement is always true or sometimes true.</paragraph>
+  <paragraph>A trail is a path.</paragraph>
+  <paragraph>A trail is a walk.</paragraph>
+  <paragraph>A walk is a path.</paragraph>
+  <paragraph>A circuit is a trail.</paragraph>
+  <paragraph>A directed cycle is a path.</paragraph>
+  <paragraph>A circuit is a directed cycle.</paragraph>
+  <paragraph>A directed cycle is a circuit.</paragraph>
+  <paragraph>If a graph has an $$n$$ -coloring, then its chromatic number is $$n$$ .</paragraph>
+  <paragraph>If the chromatic number of a graph is $$n$$ , then it has an $$n$$ -coloring.</paragraph>
+  <paragraph>If a graph is planar, then it has a chromatic number of at most four.</paragraph>
+  <paragraph>For the following exercise, fill in the blanks to make the statement true.</paragraph>
+  <paragraph>A walk that ____________ is a trail.</paragraph>
+  <paragraph>A trail that ____________ is a circuit.</paragraph>
+  <paragraph>A circuit that ___________ is a directed cycle.</paragraph>
+  <paragraph>A closed walk that ____________ is a circuit.</paragraph>
+  <paragraph>A complete graph with $$n$$ vertices has a chromatic number of_____.</paragraph>
+  <paragraph>A graph with a clique with $$n$$ -vertices has a chromatic number of _________ $$n$$ .</paragraph>
 </section>

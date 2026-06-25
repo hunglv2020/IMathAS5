@@ -1,9 +1,14 @@
 # Experience Index: accuracy-check
 
-_AI-maintained. Read this first; load lessons.md only if entries seem relevant to the current run._
+_AI-maintained. Read `patterns.md` by default; load `lessons.md` only for case-specific detail._
 _After writing a new experience entry, update the relevant bullet below._
 
 ---
+
+## patterns.md (default load)
+- Snapshot First for Local Inspection: when a relevant non-stale snapshot exists, inspect that concrete instance before broader rendering.
+- Deterministic Before Reasoning: if a claim is tool-checkable, route it to SymPy or render facts before narrative reasoning.
+- Render Error Split: usable render output may still support mathematical checking, but render errors keep overall verdict at FAIL.
 
 ## lessons.md
 - VERIFY: use $C from variable_values.arrays for matrix CAS — do not reconstruct from $Cvals/$Cdisp (2026-04-21)
