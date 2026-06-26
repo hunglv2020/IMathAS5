@@ -29,12 +29,17 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 sys.path.insert(0, str(PROJECT_ROOT / ".agents" / "skills" / "asciimath" / "scripts"))
-from retrieval import KnowledgeIndex  # noqa: E402
+from retrieval import KnowledgeIndex, tokenize  # noqa: E402
 
 DEFAULT_MODEL = "deepseek-r1:32b"
 DEFAULT_HOST = "http://localhost:11434"
 DEFAULT_QT_ID = "qt-225333"
-DEFAULT_RUN_ID = "20260623T072845Z"
+DEFAULT_RUN_ID = None
+DEFAULT_PROMPT_STYLE = "artifact-contract"
+DEFAULT_MAX_ATOMS = 6
+DEFAULT_MAX_BRIDGE_ATOMS = 4
+
+ALLOWED_ATOM_TYPES = {"definition", "theorem", "procedure", "rule", "formula"}
 
 
 # ---------------------------------------------------------------------------
@@ -101,6 +106,24 @@ def load_reference(qt_id: str, run_id: str) -> tuple[str | None, dict]:
     return sol, kc
 
 
+def resolve_reference_run_id(qt_id: str, requested_run_id: str | None) -> str | None:
+    runs_dir = PROJECT_ROOT / "questions" / qt_id / "artifacts" / "solution-runs"
+    if not runs_dir.exists():
+        return None
+
+    if requested_run_id:
+        candidate = runs_dir / requested_run_id / "solution_latex.txt"
+        if candidate.exists():
+            return requested_run_id
+
+    available = sorted(
+        [p.name for p in runs_dir.iterdir() if p.is_dir() and (p / "solution_latex.txt").exists()]
+    )
+    if not available:
+        return None
+    return available[-1]
+
+
 # ---------------------------------------------------------------------------
 # Phase 2: Build prompt
 # ---------------------------------------------------------------------------
@@ -111,31 +134,457 @@ def clean_body_xml(body_xml: str) -> str:
     return text
 
 
-SYSTEM_PROMPT = """\
-You are a mathematics solution author. Write a complete step-by-step solution.
+LEGACY_SYSTEM_PROMPT = """\
+You are a mathematics solution author writing for a student who may have forgotten \
+prerequisite material. Write a complete, self-contained step-by-step solution.
 
-RULES:
-- Mathematical correctness is the top priority. Show all algebraic steps — do not skip terms.
-- One concept per step. Start each step with "Step N:" followed by a short description.
-- No preambles, summaries, or meta-commentary. Only the solution.\
+STRUCTURE RULES:
+- Each step has a plain-text header: "Step N: <strong verb phrase>" (e.g., "Step 1: Compute the derivative using the Product Rule").
+- One concept per step. Do not combine unrelated ideas in one step.
+- Each step: first write one assertion sentence explaining WHY this step is needed or what rule/theorem applies, then show the mathematical computation (WHAT).
+- No preambles, no summaries, no meta-commentary. Only the solution steps and a final answer.
+
+PREREQUISITE RECALL RULES (CRITICAL):
+- Assume the student does NOT remember formulas, rules, or theorems from prior chapters. \
+Every rule, theorem, formula, or named technique you use MUST be explicitly recalled \
+by concept name with its mathematical statement BEFORE applying it.
+- For example: before using the Product Rule, write "Recall the Product Rule: if h(x) = f(x)g(x), then h'(x) = f'(x)g(x) + f(x)g'(x)." Then apply it.
+- Before using Integration by Parts, write "Recall the Integration by Parts formula: \
+\\int u \\, dv = uv - \\int v \\, du." Then set up u, dv, du, v.
+- Before evaluating an improper integral, write its limit definition: \
+"By definition, \\int_a^{\\infty} f(x) dx = \\lim_{b \\to \\infty} \\int_a^b f(x) dx." \
+Then work with the limit throughout.
+- Do NOT skip the recall step. Do NOT write "By Theorem 5" or "By Definition 2" — \
+these opaque references mean nothing to a student who has forgotten the material.
+- Do NOT write "Recall from Section 4.4" or cite by section/theorem number. \
+State the actual content of the rule.
+
+MATHEMATICAL RIGOR RULES:
+- Improper integrals: ALWAYS express as a limit first, then evaluate. \
+Write \\lim_{b \\to \\infty} \\int_a^b f(x) dx, carry the limit through all steps, \
+and evaluate the limit explicitly at the end. Never skip the limit notation.
+- Show every algebraic step — do not skip terms or combine multiple operations silently.
+- When differentiating a product, explicitly state the Product Rule and show each \
+term: f'(x)g(x) + f(x)g'(x).
+- When using L'Hôpital's Rule or other limit techniques, state the rule and verify \
+its conditions are met.
+
+PROSE RULES:
+- No decorative prose, no filler phrases ("We can observe", "It can be seen", "This leads us to").
+- No bullet points or numbered sub-lists within steps.
+- The assertion sentence should name the operation, property, or theorem being applied.
+- End with "Final answer: <result>" or "Answer to (a): ..." matching the question's part structure.\
 """
 
 
-def build_user_prompt(
+ARTIFACT_CONTRACT_SYSTEM_PROMPT = """\
+You are a deterministic mathematics solution writer for benchmark evaluation.
+
+Your job is to produce a correct student-facing solution by following a fixed contract.
+Do not be creative, chatty, or stylistically decorative. Be explicit, ordered, and complete.
+
+SOLUTION PROTOCOL
+
+Use the following phases for planning only. Do NOT print phase headings such as
+"Phase A" or "Phase B" in the final solution. The final visible output must contain
+only Step lines and the final answer line.
+
+Phase A: Problem Contract
+- Identify what the problem asks you to compute, prove, classify, or decide.
+- Identify the exact answer object required by the question.
+- Identify any named method, test, formula, or structure suggested by the question or context.
+
+Phase B: Required Recall
+- Recall only the facts needed to justify the upcoming work.
+- For each recalled fact, write its mathematical content, not just its name.
+- Do not cite by theorem number, section number, or opaque label.
+- If no special fact is needed, move directly to execution without inventing extra recall.
+
+Phase C: Execution
+- Solve in ordered steps.
+- Each step must use this format:
+  Step N: <action>
+  Reason: <why this step is valid>
+  Work:
+  <mathematics and necessary sentences>
+- Show enough algebra, calculus, logic, or symbolic transformation to make the conclusion checkable.
+- Do not jump from a formula to a conclusion without the required intermediate work.
+- Do not discard terms, conditions, endpoints, domains, or cases until they are explicitly evaluated or justified.
+- If a named method is used, state its usable form before applying it.
+- If the problem requires cases, bounds, endpoints, sign analysis, convergence conditions, or domain checks, perform them explicitly when they matter.
+
+Phase D: Final Conclusion
+- State the final result in the form requested by the problem.
+- Give an exact value when the problem asks for one and the context supports it.
+- If the problem also asks for a classification or decision, tie it back to the target from Phase A.
+- End with a line beginning with "Final answer:".
+
+GLOBAL RULES
+- No preamble, no summary before the actual work, and no meta-commentary about the process.
+- No bullet lists inside the solution body.
+- No filler phrases such as "we can observe" or "it can be seen".
+- Prefer short declarative sentences.
+- Preserve mathematical correctness over elegance.
+- Do not force extra steps that are irrelevant to the actual question.
+"""
+
+
+COMPACT_CONTRACT_SYSTEM_PROMPT = """\
+You are a deterministic mathematics solution writer.
+
+Write a correct student-facing solution using this contract:
+
+Phase A: Problem Contract
+- State the target and required answer object.
+- Mention any named method, test, formula, or structure suggested by the problem.
+
+Use these phases for planning only. Do NOT print phase headings in the final output.
+The visible solution must contain only Step lines and the final answer line.
+
+Phase B: Required Recall
+- Recall only the facts needed for the solution.
+- State each recalled fact in mathematical content form.
+- Never cite only by theorem number or section number.
+
+Phase C: Execution
+- Solve in ordered steps.
+- Every step must contain:
+  Step N: <action>
+  Reason: <why valid>
+  Work:
+  <mathematics>
+- Do not skip essential algebra, calculus, logic, endpoints, domain checks, or case checks.
+- Do not invoke a named method before stating its usable form.
+- Do not discard terms or conditions before they are justified.
+
+Phase D: Final Conclusion
+- State the final result in the form requested by the problem.
+- End with "Final answer:".
+
+No filler, no meta-commentary, no decorative prose, no bullet lists inside the solution.
+"""
+
+
+def get_system_prompt(prompt_style: str) -> str:
+    if prompt_style == "legacy":
+        return LEGACY_SYSTEM_PROMPT
+    if prompt_style == "compact-contract":
+        return COMPACT_CONTRACT_SYSTEM_PROMPT
+    return ARTIFACT_CONTRACT_SYSTEM_PROMPT
+
+
+def build_signal_queries(question: str, meta: dict, ea: dict, problem_signals: dict) -> list[str]:
+    queries: list[str] = []
+    queries.extend(problem_signals.get("named_methods", []))
+    queries.extend(problem_signals.get("obligations", []))
+    queries.extend(problem_signals.get("question_tasks", []))
+    if ea.get("core_technique"):
+        queries.append(ea["core_technique"])
+    queries.extend(ea.get("must_preserve", []))
+    if meta.get("learning_objective_title"):
+        queries.append(meta["learning_objective_title"])
+    if ea.get("question_type"):
+        queries.append(ea["question_type"])
+    queries.append(question)
+    return dedupe_keep_order([q.strip() for q in queries if q and q.strip()])
+
+
+def split_signal_phrases(text: str) -> list[str]:
+    if not text:
+        return []
+    pieces = re.split(
+        r";|\.\s+|,\s+combined with\s+|,\s+followed by\s+|,\s+and\s+| and then | while ",
+        text,
+        flags=re.IGNORECASE,
+    )
+    cleaned: list[str] = []
+    for piece in pieces:
+        piece = re.sub(r"\s+", " ", piece).strip(" -,:")
+        if piece and len(piece) >= 8:
+            cleaned.append(piece)
+    return cleaned
+
+
+def dedupe_keep_order(items: list[str]) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for item in items:
+        key = item.strip().lower()
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        out.append(item.strip())
+    return out
+
+
+def normalize_named_signal(text: str) -> str:
+    text = re.sub(r"^(use|apply|by)\s+", "", text.strip(), flags=re.IGNORECASE)
+    text = re.sub(r"^(the)\s+", "", text, flags=re.IGNORECASE)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def extract_problem_signals(question: str, meta: dict, ea: dict) -> dict:
+    combined = "\n".join(filter(None, [
+        question,
+        meta.get("learning_objective_title", ""),
+        ea.get("core_technique", ""),
+    ]))
+
+    named_methods = re.findall(
+        r"\b([A-Z][A-Za-z' -]{0,60}(?:Test|Rule|Formula|Method|Theorem))\b",
+        combined,
+    )
+    if meta.get("learning_objective_title"):
+        named_methods.append(meta["learning_objective_title"])
+    named_methods = dedupe_keep_order([normalize_named_signal(item) for item in named_methods])
+
+    question_lines = [
+        re.sub(r"\s+", " ", line).strip()
+        for line in question.splitlines()
+        if line.strip() and "[ANSWERBOX" not in line and not line.strip().startswith("[Note:")
+    ]
+
+    obligations: list[str] = []
+    signal_text = combined.lower()
+    if re.search(r"(\\int|`int_|improper integral)", question, re.IGNORECASE) and re.search(
+        r"(\\infty|\^oo|infinity|oo)", question, re.IGNORECASE
+    ):
+        obligations.append("Rewrite the improper integral as a limit before evaluating it.")
+    if re.search(r"(\\sum|`sum_|series)", question, re.IGNORECASE) and re.search(
+        r"(convergence|divergence|converges|diverges)", question, re.IGNORECASE
+    ):
+        obligations.append("Tie the final integral result back to the convergence conclusion for the series.")
+    if "exact" in signal_text:
+        obligations.append("Keep the final value exact rather than numerical.")
+        obligations.append("The final answer must include the exact computed value, not only the convergence verdict.")
+    if re.search(r"\bdecreasing\b|\bmonotonic\b", signal_text):
+        obligations.append("If decrease is required for the method, justify it explicitly instead of assuming it.")
+
+    technique_hints = []
+    for source in (
+        ea.get("core_technique", ""),
+        *ea.get("discovery_mechanism", []),
+        *ea.get("must_preserve", []),
+    ):
+        technique_hints.extend(split_signal_phrases(source))
+
+    return {
+        "question_tasks": question_lines[:4],
+        "named_methods": named_methods[:6],
+        "obligations": dedupe_keep_order(obligations)[:6],
+        "technique_hints": dedupe_keep_order(technique_hints)[:8],
+    }
+
+
+def build_bridge_queries(question: str, meta: dict, ea: dict, problem_signals: dict) -> list[str]:
+    queries: list[str] = []
+    if meta.get("learning_objective_title"):
+        queries.append(meta["learning_objective_title"])
+    if ea.get("core_technique"):
+        queries.append(ea["core_technique"])
+    queries.append(question)
+    queries.extend(problem_signals.get("named_methods", []))
+    queries.extend(problem_signals.get("technique_hints", []))
+    queries.extend(problem_signals.get("obligations", []))
+    return dedupe_keep_order([q.strip() for q in queries if q and q.strip()])
+
+
+def score_atom(atom: dict, signal_queries: list[str]) -> float:
+    haystack = " ".join([
+        atom.get("title", ""),
+        atom.get("unit_title", ""),
+        atom.get("snippet", ""),
+        " ".join(atom.get("concept_tags", [])),
+        clean_body_xml(atom.get("body_xml", ""))[:600],
+    ]).lower()
+    score = 0.0
+    for idx, query in enumerate(signal_queries):
+        query_tokens = tokenize(query)
+        if not query_tokens:
+            continue
+        weight = 1.0 / (idx + 1)
+        overlap = sum(1 for token in query_tokens if token in haystack)
+        if overlap:
+            score += weight * overlap
+        query_text = query.lower()
+        if query_text and query_text in haystack:
+            score += 2.0 * weight
+        title = atom.get("title", "").lower()
+        if any(token in title for token in query_tokens):
+            score += 1.5 * weight
+    body_len = len(clean_body_xml(atom.get("body_xml", "")))
+    if body_len:
+        score += min(body_len / 1000.0, 0.5)
+    return score
+
+
+def score_atom_title_alignment(atom: dict, problem_signals: dict, meta: dict) -> float:
+    title = atom.get("title", "").lower()
+    score = 0.0
+
+    for method in problem_signals.get("named_methods", []):
+        method_l = method.lower()
+        if method_l and method_l in title:
+            score += 8.0
+
+    lo = meta.get("learning_objective_title", "").lower()
+    if lo and lo in title:
+        score += 6.0
+
+    for task in problem_signals.get("question_tasks", []):
+        task_l = task.lower()
+        if "integral test" in task_l and "integral test" in title:
+            score += 5.0
+        if "improper integral" in task_l and "improper integral" in title:
+            score += 4.0
+    return score
+
+
+def select_unit_atoms(
+    unit_digest: list[dict],
+    signal_queries: list[str],
+    problem_signals: dict,
+    meta: dict,
+    *,
+    max_atoms: int,
+    full_unit_context: bool,
+) -> list[dict]:
+    candidates = [a for a in unit_digest if a.get("atom_type") in ALLOWED_ATOM_TYPES]
+    if full_unit_context:
+        return candidates
+
+    exact_matches: list[tuple[float, dict]] = []
+    for atom in candidates:
+        align = score_atom_title_alignment(atom, problem_signals, meta)
+        if align > 0:
+            exact_matches.append((align + score_atom(atom, signal_queries), atom))
+    exact_matches.sort(key=lambda item: (-item[0], item[1].get("title", "")))
+    locked = [atom for _, atom in exact_matches]
+
+    scored: list[tuple[float, dict]] = []
+    for atom in candidates:
+        if atom in locked:
+            continue
+        score = score_atom(atom, signal_queries) + score_atom_title_alignment(atom, problem_signals, meta)
+        if score > 0:
+            scored.append((score, atom))
+    scored.sort(key=lambda item: (-item[0], item[1].get("title", "")))
+
+    if locked:
+        filler_budget = 0
+        selected = locked[:max_atoms] + [atom for _, atom in scored[:filler_budget]]
+        selected = selected[:max_atoms]
+    else:
+        selected = [atom for _, atom in scored[:max_atoms]]
+    if not selected:
+        selected = candidates[:max_atoms]
+    return selected
+
+
+def derive_bridge_atoms(
+    idx: KnowledgeIndex,
+    knowledge_context: dict,
+    bridge_queries: list[str],
+    unit_code: str,
+    *,
+    max_bridge_atoms: int,
+    full_unit_context: bool,
+) -> list[dict]:
+    bridge_map: dict[str, dict] = {}
+
+    def register_bridge(
+        atom: dict,
+        reason: str,
+        source_section: str | None = None,
+        score_bonus: float = 0.0,
+        ref_order: int | None = None,
+    ) -> None:
+        atom_id = atom.get("atom_id")
+        if not atom_id:
+            return
+        score = score_atom(atom, bridge_queries) + score_bonus
+        existing = bridge_map.get(atom_id)
+        candidate = {
+            "atom_id": atom_id,
+            "concept_name": atom.get("title", atom_id),
+            "source_section": source_section or atom.get("unit_code", ""),
+            "reason": reason,
+            "body_xml": atom.get("body_xml", ""),
+            "_score": score,
+            "_source_priority": 1 if score_bonus > 0 else 0,
+            "_ref_order": ref_order if ref_order is not None else 10**6,
+        }
+        if (
+            existing is None
+            or candidate["_source_priority"] > existing["_source_priority"]
+            or (
+                candidate["_source_priority"] == existing["_source_priority"]
+                and (
+                    candidate["_ref_order"] < existing["_ref_order"]
+                    or (
+                        candidate["_ref_order"] == existing["_ref_order"]
+                        and candidate["_score"] > existing["_score"]
+                    )
+                )
+            )
+        ):
+            bridge_map[atom_id] = candidate
+
+    for ref_order, bridge in enumerate(knowledge_context.get("bridges", [])):
+        atom = idx.get_atom(bridge["atom_id"])
+        if atom:
+            register_bridge(
+                atom,
+                bridge.get("reason", "Previously identified prerequisite."),
+                bridge.get("source_section"),
+                score_bonus=10.0,
+                ref_order=ref_order,
+            )
+
+    if not full_unit_context:
+        for query in bridge_queries:
+            results = idx.search_concept(query, unit_code, top_k=max_bridge_atoms * 2)
+            for atom in results:
+                if atom.get("atom_type") not in ALLOWED_ATOM_TYPES:
+                    continue
+                register_bridge(atom, f"Retrieved for signal: {query}")
+
+    ranked = sorted(
+        bridge_map.values(),
+        key=lambda item: (
+            -item["_source_priority"],
+            item["_ref_order"],
+            -item["_score"],
+            item["concept_name"],
+        ),
+    )
+    for item in ranked:
+        item.pop("_score", None)
+        item.pop("_source_priority", None)
+        item.pop("_ref_order", None)
+    if full_unit_context:
+        return ranked
+    return ranked[:max_bridge_atoms]
+
+
+def build_legacy_user_prompt(
     question: str,
     meta: dict,
     ea: dict,
-    unit_digest: list[dict],
+    selected_atoms: list[dict],
     bridge_atoms: list[dict],
-) -> str:
+) -> tuple[str, dict]:
     parts: list[str] = []
+    curriculum_lines = [
+        f"Book: {meta['book_title']}",
+        f"Chapter: {meta['chapter_title']}",
+        f"Unit: {meta['unit_title']}",
+    ]
+    if meta.get("learning_objective_title"):
+        curriculum_lines.append(f"Learning Objective: {meta['learning_objective_title']}")
 
     parts.append("## Curriculum Context")
-    parts.append(f"Book: {meta['book_title']}")
-    parts.append(f"Chapter: {meta['chapter_title']}")
-    parts.append(f"Unit: {meta['unit_title']}")
-    if meta.get("learning_objective_title"):
-        parts.append(f"Learning Objective: {meta['learning_objective_title']}")
+    parts.extend(curriculum_lines)
     parts.append("")
 
     parts.append("## Question")
@@ -159,16 +608,18 @@ def build_user_prompt(
         parts.append("")
 
     parts.append(f"## Available Knowledge Atoms (Current Unit: {meta['unit_title']})")
-    for atom in unit_digest:
-        if atom["atom_type"] in ("theorem", "procedure", "rule"):
-            parts.append(f"### {atom['title']}")
-            parts.append(clean_body_xml(atom["body_xml"]))
-            parts.append("")
+    for atom in selected_atoms:
+        parts.append(f"### {atom['title']}")
+        parts.append(clean_body_xml(atom["body_xml"]))
+        parts.append("")
 
     if bridge_atoms:
-        parts.append("## Prior-Unit Prerequisites")
-        parts.append("These concepts come from earlier chapters. The student may have forgotten them.")
-        parts.append("Re-explain each one briefly (2-4 sentences) when you use it in the solution.")
+        parts.append("## Prior-Unit Prerequisites (student may have forgotten these)")
+        parts.append(
+            "IMPORTANT: The student likely does NOT remember these concepts. "
+            "You MUST re-state each rule/formula with its full mathematical statement "
+            "before applying it. Do not just name it — write out the formula."
+        )
         parts.append("")
         for ba in bridge_atoms:
             parts.append(f"### {ba['concept_name']} (from unit {ba['source_section']})")
@@ -177,9 +628,161 @@ def build_user_prompt(
             parts.append("")
 
     parts.append("## Task")
-    parts.append("Write the complete step-by-step solution.")
+    parts.append(
+        "Write the complete step-by-step solution following ALL the rules in the system prompt. "
+        "Remember:"
+    )
+    parts.append(
+        "1. Recall every rule/theorem/formula by name AND its mathematical statement before using it."
+    )
+    parts.append(
+        "2. For improper integrals, start with the limit definition and carry the limit through."
+    )
+    parts.append(
+        "3. Show all algebraic steps. Do not skip any terms."
+    )
+    parts.append(
+        "4. Each step: WHY sentence first (naming the rule), then the computation."
+    )
 
-    return "\n".join(parts)
+    prompt = "\n".join(parts)
+    return prompt, {
+        "curriculum_context_chars": len("\n".join(curriculum_lines)),
+        "question_chars": len(question),
+        "problem_signals_chars": 0,
+        "knowledge_context_chars": max(len(prompt) - len(question), 0),
+        "output_contract_chars": len(
+            " ".join([
+                "Write the complete step-by-step solution following ALL the rules in the system prompt.",
+                "1. Recall every rule/theorem/formula by name AND its mathematical statement before using it.",
+                "2. For improper integrals, start with the limit definition and carry the limit through.",
+                "3. Show all algebraic steps. Do not skip any terms.",
+                "4. Each step: WHY sentence first (naming the rule), then the computation.",
+            ])
+        ),
+    }
+
+
+def build_contract_user_prompt(
+    question: str,
+    meta: dict,
+    ea: dict,
+    selected_atoms: list[dict],
+    bridge_atoms: list[dict],
+    problem_signals: dict,
+    prompt_style: str,
+) -> tuple[str, dict]:
+    sections: list[tuple[str, str]] = []
+
+    curriculum_lines = [
+        f"Book: {meta['book_title']}",
+        f"Chapter: {meta['chapter_title']}",
+        f"Unit: {meta['unit_title']}",
+    ]
+    if meta.get("learning_objective_title"):
+        curriculum_lines.append(f"Learning Objective: {meta['learning_objective_title']}")
+    sections.append(("Question", question))
+    sections.append(("Curriculum Context", "\n".join(curriculum_lines)))
+
+    problem_lines: list[str] = []
+    if ea.get("core_technique"):
+        problem_lines.append(f"Core technique: {ea['core_technique']}")
+    if ea.get("question_type"):
+        problem_lines.append(f"Question type: {ea['question_type']}")
+    if ea.get("must_preserve"):
+        problem_lines.append("Must preserve:")
+        for item in ea["must_preserve"]:
+            problem_lines.append(f"- {item}")
+    if problem_signals.get("question_tasks"):
+        problem_lines.append("Explicit tasks from the question:")
+        for item in problem_signals["question_tasks"]:
+            problem_lines.append(f"- {item}")
+    if problem_signals.get("named_methods"):
+        problem_lines.append("Named methods or structures:")
+        for item in problem_signals["named_methods"]:
+            problem_lines.append(f"- {item}")
+    if problem_signals.get("obligations"):
+        problem_lines.append("Non-negotiable obligations implied by the prompt:")
+        for item in problem_signals["obligations"]:
+            problem_lines.append(f"- {item}")
+    if problem_signals.get("technique_hints"):
+        problem_lines.append("Technique hints from exercise analysis:")
+        for item in problem_signals["technique_hints"][:4]:
+            problem_lines.append(f"- {item}")
+    sections.append(("Problem Signals", "\n".join(problem_lines) if problem_lines else "No extra signals available."))
+
+    knowledge_lines: list[str] = []
+    if selected_atoms:
+        knowledge_lines.append("Current-unit atoms:")
+        for atom in selected_atoms:
+            knowledge_lines.append(f"- [{atom['atom_type']}] {atom['title']}: {clean_body_xml(atom['body_xml'])}")
+    if bridge_atoms:
+        if knowledge_lines:
+            knowledge_lines.append("")
+        knowledge_lines.append("Prior-unit support atoms:")
+        for atom in bridge_atoms:
+            knowledge_lines.append(
+                f"- {atom['concept_name']} ({atom['source_section']}): {clean_body_xml(atom['body_xml'])} "
+                f"Use signal: {atom['reason']}"
+            )
+    if not knowledge_lines:
+        knowledge_lines.append("No additional atom context supplied.")
+    sections.append(("Knowledge Context", "\n".join(knowledge_lines)))
+
+    if prompt_style == "compact-contract":
+        output_lines = [
+            "Follow the system contract exactly.",
+            "Use Phase A, Phase B, Phase C, and Phase D in order.",
+            "In Phase C, each step must contain Step N, Reason, and Work.",
+            "End with Final answer: ...",
+        ]
+    else:
+        output_lines = [
+            "Use the four-phase protocol internally, but do not print any phase headings.",
+            "The visible solution must be only Step N / Reason / Work blocks.",
+            "End with Final answer: ...",
+            "If the problem asks for both a computed value and a convergence verdict, include both in the final answer line.",
+        ]
+    sections.append(("Output Contract", "\n".join(output_lines)))
+
+    prompt_parts: list[str] = []
+    section_sizes: dict[str, int] = {}
+    key_map = {
+        "Question": "question_chars",
+        "Curriculum Context": "curriculum_context_chars",
+        "Problem Signals": "problem_signals_chars",
+        "Knowledge Context": "knowledge_context_chars",
+        "Output Contract": "output_contract_chars",
+    }
+    for title, body in sections:
+        prompt_parts.append(f"## {title}")
+        prompt_parts.append(body)
+        prompt_parts.append("")
+        section_sizes[key_map[title]] = len(body)
+
+    return "\n".join(prompt_parts).strip(), section_sizes
+
+
+def build_user_prompt(
+    question: str,
+    meta: dict,
+    ea: dict,
+    selected_atoms: list[dict],
+    bridge_atoms: list[dict],
+    problem_signals: dict,
+    prompt_style: str,
+) -> tuple[str, dict]:
+    if prompt_style == "legacy":
+        return build_legacy_user_prompt(question, meta, ea, selected_atoms, bridge_atoms)
+    return build_contract_user_prompt(
+        question,
+        meta,
+        ea,
+        selected_atoms,
+        bridge_atoms,
+        problem_signals,
+        prompt_style,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -216,7 +819,7 @@ def preflight_check(host: str, model: str) -> dict | None:
 def call_ollama(
     model: str, host: str, system: str, user: str,
     *, think: bool = True, temperature: float | None = None,
-    num_ctx: int = 8192,
+    num_ctx: int = 32768,
 ) -> dict:
     url = f"{host}/api/chat"
     options: dict = {"num_ctx": num_ctx}
@@ -478,6 +1081,13 @@ def normalize_unicode_math(text: str) -> str:
 def normalize_step_headers(text: str) -> str:
     # "**Step 1: ...**" or "**Step 1:** ..." → "Step 1: ..."
     text = re.sub(r"\*\*(Step \d+:.*?)\*\*", r"\1", text)
+    # Remove leaked planning-phase headings from contract-style prompts
+    text = re.sub(
+        r"^\s*[*#]*\s*Phase\s+[A-D](?::|\b).*?$",
+        "",
+        text,
+        flags=re.MULTILINE | re.IGNORECASE,
+    )
     # "### Step 1: ..." or "## Step 1: ..." → "Step 1: ..."
     text = re.sub(r"^#{1,4}\s+(Step \d+:)", r"\1", text, flags=re.MULTILINE)
     # "1. ..." or "1) ..." at paragraph start → "Step 1: ..."
@@ -521,6 +1131,8 @@ def extract_boxed_answer(text: str) -> str:
 def collapse_whitespace(text: str) -> str:
     # Strip trailing whitespace per line
     text = re.sub(r"[ \t]+$", "", text, flags=re.MULTILINE)
+    # Remove empty lines immediately around stripped phase headings
+    text = re.sub(r"\n{3,}", "\n\n", text)
     # Collapse 3+ blank lines to 2
     text = re.sub(r"\n{4,}", "\n\n\n", text)
     return text.strip() + "\n"
@@ -576,6 +1188,16 @@ def check_required_elements(solution: str) -> list[dict]:
     step_count = len(re.findall(r"^Step \d+:", solution, re.MULTILINE))
     checks.append({"element": "step_structure", "found": step_count >= 2,
                     "detail": f"{step_count} steps"})
+
+    has_recall = bool(re.search(r"(?i)\bRecall\b", solution))
+    checks.append({"element": "prerequisite_recall", "found": has_recall,
+                    "detail": "solution recalls prior knowledge"})
+
+    has_limit = bool(re.search(r"\\lim|\\to\s*\\infty|\\rightarrow\s*\\infty", solution))
+    has_improper = bool(re.search(r"\\int.*\\infty|\\infty.*\\int", solution))
+    if has_improper:
+        checks.append({"element": "improper_integral_limit", "found": has_limit,
+                        "detail": "improper integral uses limit definition"})
 
     return checks
 
@@ -643,6 +1265,7 @@ def build_report(
     tokens: dict,
     comparison: dict | None,
     thinking_preview: str,
+    prompt_meta: dict,
 ) -> str:
     lines: list[str] = []
     lines.append("# Local LLM Benchmark Report")
@@ -650,11 +1273,29 @@ def build_report(
     lines.append("## Summary")
     lines.append(f"- Model: `{model}`")
     lines.append(f"- Date: {datetime.now(timezone.utc).isoformat()}")
+    lines.append(f"- Prompt style: `{prompt_meta.get('prompt_style', 'unknown')}`")
     lines.append(f"- Wall time: {timing.get('wall_time_seconds', '?')}s")
     lines.append(f"- Prompt tokens: {tokens.get('prompt_tokens', '?')}")
     lines.append(f"- Completion tokens: {tokens.get('completion_tokens', '?')}")
     lines.append(f"- Thinking tokens: {tokens.get('thinking_tokens', '?')}")
     lines.append(f"- Speed: {tokens.get('tokens_per_second', '?')} tok/s")
+    lines.append("")
+
+    lines.append("## Prompt Context")
+    lines.append(f"- Selected current-unit atoms: {prompt_meta.get('selected_atom_count', 0)}")
+    lines.append(f"- Selected bridge atoms: {prompt_meta.get('selected_bridge_atom_count', 0)}")
+    lines.append(f"- Full unit context: {'YES' if prompt_meta.get('full_unit_context') else 'NO'}")
+    named_methods = prompt_meta.get("named_methods", [])
+    lines.append(f"- Named methods/signals: {', '.join(named_methods) if named_methods else 'none'}")
+    lines.append("### Prompt section sizes")
+    for key, label in (
+        ("question_chars", "Question"),
+        ("curriculum_context_chars", "Curriculum Context"),
+        ("problem_signals_chars", "Problem Signals"),
+        ("knowledge_context_chars", "Knowledge Context"),
+        ("output_contract_chars", "Output Contract"),
+    ):
+        lines.append(f"- {label}: {prompt_meta.get('prompt_section_sizes', {}).get(key, 0)} chars")
     lines.append("")
 
     if comparison:
@@ -744,6 +1385,7 @@ def save_results(
     ollama_result: dict,
     system_prompt: str,
     user_prompt: str,
+    prompt_meta: dict,
     *,
     save_raw: bool = False,
     save_asciimath: bool = False,
@@ -771,6 +1413,7 @@ def save_results(
         tokens=ollama_result.get("tokens", {}),
         comparison=comparison,
         thinking_preview=thinking,
+        prompt_meta=prompt_meta,
     )
     (output_dir / "benchmark_report.md").write_text(report)
 
@@ -784,6 +1427,13 @@ def save_results(
             "system_prompt_chars": len(system_prompt),
             "user_prompt_chars": len(user_prompt),
         },
+        "prompt_style": prompt_meta.get("prompt_style"),
+        "selected_atom_count": prompt_meta.get("selected_atom_count"),
+        "selected_bridge_atom_count": prompt_meta.get("selected_bridge_atom_count"),
+        "full_unit_context": prompt_meta.get("full_unit_context"),
+        "named_methods": prompt_meta.get("named_methods", []),
+        "problem_obligations": prompt_meta.get("problem_obligations", []),
+        "prompt_section_sizes": prompt_meta.get("prompt_section_sizes", {}),
     }
     if comparison:
         metrics["comparison"] = comparison["summary"]
@@ -811,15 +1461,27 @@ def main():
     parser.add_argument("--host", default=DEFAULT_HOST)
     parser.add_argument("--qt-id", default=DEFAULT_QT_ID)
     parser.add_argument("--run-id", default=DEFAULT_RUN_ID,
-                        help="Reference solution run ID to compare against (optional)")
+                        help="Reference solution run ID to compare against; defaults to latest available run")
+    parser.add_argument(
+        "--prompt-style",
+        default=DEFAULT_PROMPT_STYLE,
+        choices=("legacy", "artifact-contract", "compact-contract"),
+        help="Prompt architecture to use for the benchmark",
+    )
     parser.add_argument("--dry-run", action="store_true",
                         help="Build and print prompt without calling Ollama")
     parser.add_argument("--no-think", action="store_true",
                         help="Disable model thinking/reasoning mode (default: on)")
     parser.add_argument("--temperature", type=float, default=None,
                         help="Sampling temperature (lower = more deterministic, e.g. 0.3)")
-    parser.add_argument("--num-ctx", type=int, default=8192,
-                        help="Context window size (default: 8192)")
+    parser.add_argument("--num-ctx", type=int, default=16384,
+                        help="Context window size (default: 16384)")
+    parser.add_argument("--max-atoms", type=int, default=DEFAULT_MAX_ATOMS,
+                        help="Maximum number of current-unit atoms to include")
+    parser.add_argument("--max-bridge-atoms", type=int, default=DEFAULT_MAX_BRIDGE_ATOMS,
+                        help="Maximum number of prior-unit support atoms to include")
+    parser.add_argument("--full-unit-context", action="store_true",
+                        help="Include all eligible current-unit atoms instead of curated retrieval")
     parser.add_argument("--save-raw", action="store_true",
                         help="Save raw model output before post-processing")
     parser.add_argument("--asciimath", action="store_true",
@@ -831,7 +1493,8 @@ def main():
     log(f"Model  : {args.model}")
     log(f"Host   : {args.host}")
     log(f"QT     : {args.qt_id}")
-    log(f"Run ID : {args.run_id}")
+    log(f"Run ID : {args.run_id or 'auto-latest'}")
+    log(f"Prompt : {args.prompt_style}")
     think = not args.no_think
     log(f"Think  : {'ON' if think else 'OFF'}")
     if args.temperature is not None:
@@ -851,34 +1514,71 @@ def main():
     ea = load_exercise_analysis(args.qt_id)
     unit_digest = idx.get_unit_digest(unit_code)
     log(f"  Unit atoms: {len(unit_digest)}")
+    problem_signals = extract_problem_signals(question, meta, ea)
+    signal_queries = build_signal_queries(question, meta, ea, problem_signals)
+    bridge_queries = build_bridge_queries(question, meta, ea, problem_signals)
 
-    ref_solution, knowledge_context = load_reference(args.qt_id, args.run_id)
+    resolved_run_id = resolve_reference_run_id(args.qt_id, args.run_id)
+    ref_solution, knowledge_context = (
+        load_reference(args.qt_id, resolved_run_id) if resolved_run_id else (None, {})
+    )
     if ref_solution:
+        log(f"  Reference run: {resolved_run_id}")
         log(f"  Reference solution: {len(ref_solution)} chars, {count_steps(ref_solution)} steps")
     else:
         log("  Reference solution: not found (comparison will be skipped)")
 
-    bridge_atoms: list[dict] = []
-    for bridge in knowledge_context.get("bridges", []):
-        atom = idx.get_atom(bridge["atom_id"])
-        if atom:
-            bridge_atoms.append({
-                "atom_id": bridge["atom_id"],
-                "concept_name": bridge["concept_name"],
-                "source_section": bridge["source_section"],
-                "reason": bridge["reason"],
-                "body_xml": atom["body_xml"],
-            })
-    log(f"  Bridge atoms: {len(bridge_atoms)}")
+    selected_atoms = select_unit_atoms(
+        unit_digest,
+        signal_queries,
+        problem_signals,
+        meta,
+        max_atoms=max(args.max_atoms, 0),
+        full_unit_context=args.full_unit_context,
+    )
+    bridge_atoms = derive_bridge_atoms(
+        idx,
+        knowledge_context,
+        bridge_queries,
+        unit_code,
+        max_bridge_atoms=max(args.max_bridge_atoms, 0),
+        full_unit_context=args.full_unit_context,
+    )
+    log(f"  Selected current-unit atoms: {len(selected_atoms)}")
+    log(f"  Selected bridge atoms: {len(bridge_atoms)}")
+    if problem_signals.get("named_methods"):
+        log(f"  Named methods/signals: {', '.join(problem_signals['named_methods'])}")
 
     # --- Phase 2: BUILD PROMPT ---
     log("Building prompt...")
-    system_prompt = SYSTEM_PROMPT
-    user_prompt = build_user_prompt(question, meta, ea, unit_digest, bridge_atoms)
+    system_prompt = get_system_prompt(args.prompt_style)
+    user_prompt, prompt_section_sizes = build_user_prompt(
+        question,
+        meta,
+        ea,
+        selected_atoms,
+        bridge_atoms,
+        problem_signals,
+        args.prompt_style,
+    )
+    prompt_meta = {
+        "prompt_style": args.prompt_style,
+        "selected_atom_count": len(selected_atoms),
+        "selected_bridge_atom_count": len(bridge_atoms),
+        "full_unit_context": args.full_unit_context,
+        "named_methods": problem_signals.get("named_methods", []),
+        "problem_obligations": problem_signals.get("obligations", []),
+        "prompt_section_sizes": prompt_section_sizes,
+    }
     log(f"  System prompt: {len(system_prompt)} chars")
     log(f"  User prompt:   {len(user_prompt)} chars")
 
     if args.dry_run:
+        print("=" * 60)
+        print("PROMPT METADATA")
+        print("=" * 60)
+        print(json.dumps(prompt_meta, indent=2, ensure_ascii=False))
+        print()
         print("=" * 60)
         print("SYSTEM PROMPT")
         print("=" * 60)
@@ -968,6 +1668,7 @@ def main():
         ollama_result=result,
         system_prompt=system_prompt,
         user_prompt=user_prompt,
+        prompt_meta=prompt_meta,
         save_raw=args.save_raw,
         save_asciimath=args.asciimath,
     )
